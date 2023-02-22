@@ -1,0 +1,34 @@
+$black: black;
+$back: white;
+
+@mixin flex {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexCol {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@mixin flexColCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@mixin transition {
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+}
