@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
+import './i18next'
 import View from './view/View'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

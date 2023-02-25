@@ -3,7 +3,7 @@ import './Rent.scss'
 
 const Rent = () => {
     return (
-        <div>Rent</div>
+        <div><h1>Rent</h1></div>
     )
 }
 

@@ -29,14 +29,14 @@ const View = () => {
             <HelmetAsync />
             <Suspense fallback={<Loading />}>
                 <Routes>
-                    <Route exact path="/" component={<Home />} />
-                    <Route exact path="/for-rent" component={<Rent />} />
-                    <Route path="/for-rent/:id" component={<SubRent />} />
-                    <Route exact path="/for-sale" component={<Sale />} />
-                    <Route path="/for-sale/:id" component={<SubSale />} />
-                    <Route path="/our-services" component={<Services />} />
-                    <Route path="/contact-us" component={<Contact />} />
-                    <Route path="/admin" component={<Admin />} />
+                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="/for-rent" element={<Rent />} />
+                    <Route path="/for-rent/:id" element={<SubRent />} />
+                    <Route exact path="/for-sale" element={<Sale />} />
+                    <Route path="/for-sale/:id" element={<SubSale />} />
+                    <Route path="/our-services" element={<Services />} />
+                    <Route path="/contact-us" element={<Contact />} />
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>
