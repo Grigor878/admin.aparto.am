@@ -3,7 +3,11 @@ import './Sale.scss'
 
 const Sale = () => {
     return (
-        <div><h1>Sale</h1></div>
+        <section>
+            <div className="container">
+                <h1>Sale</h1>
+            </div>
+        </section>
     )
 }
 

@@ -3,8 +3,11 @@ import './Contact.scss'
 
 const Contact = () => {
     return (
-        <div><h1>Contact</h1></div>
-    )
+        <section>
+            <div className="container">
+                <h1>Contact</h1>
+            </div>
+        </section>)
 }
 
 export default Contact

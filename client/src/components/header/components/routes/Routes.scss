@@ -1,0 +1,21 @@
+@import "../../../../variables";
+
+.list {
+  @include flex;
+  gap: 40px;
+
+  &__navlink {
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: $text;
+  }
+
+  .active {
+    @include transition;
+    color: $blueSub;
+    border-bottom: 1px solid $blueSub;
+  }
+}

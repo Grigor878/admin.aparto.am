@@ -1,25 +1,32 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
-import Language from '../language/Language'
+import { Link, NavLink } from 'react-router-dom'
+import Routes from './components/routes/Routes'
+import Size from './components/size/Size'
+import Exchange from './components/exchange/Exchange'
+import Language from './components/language/Language'
+import './Header.scss'
 
 const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <header>
-      <nav>
-        <NavLink to='/'>Logo</NavLink>
-        <ul>
-          <li>
-            <NavLink to="/for-rent">{t('header_rent')}</NavLink>
-            <NavLink to="/for-sale">{t('header_sale')}</NavLink>
-            <NavLink to="/contact-us">{t('header_contact')}</NavLink>
-          </li>
-        </ul>
+    <header className='header'>
+      <div className="container">
+        <nav className='header__nav'>
+          <div className='header__left'>
+            <Link to='/'><h1>Logo</h1></Link>
+            <Routes />
+          </div>
 
-        <Language />
-      </nav>
+          <div className='header__right'>
+            <NavLink to='/contact-us' className="header__contact">{t("header_contact")}</NavLink>
+            <Size/>
+            <Exchange />
+            <Language />
+          </div>
+        </nav>
+      </div>
     </header>
   )
 }
