@@ -3,7 +3,6 @@ import { FaDollarSign } from 'react-icons/fa'
 import { headerExchange } from './data'
 import './Exchange.scss'
 
-
 const Exchange = () => {
     const exRef = useRef()
     const [openEx, setOpenEx] = useState(false)

@@ -33,5 +33,9 @@
     background: $bgSub;
     border: 1px solid #d7daf7;
     border-radius: 5px;
+
+    li {
+      cursor: pointer;
+    }
   }
 }
