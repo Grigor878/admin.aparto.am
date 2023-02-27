@@ -23,7 +23,6 @@ $border: #d7daf7;
 
 @mixin flexCol {
   display: flex;
-  align-items: center;
   flex-direction: column;
 }
 

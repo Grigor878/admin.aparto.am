@@ -1,9 +1,9 @@
 @import "../../../../variables";
 
-.footer__nav {
+.footer__smm {
   &-list {
     @include flexCol;
-    gap: 26px;
+    gap: 12px;
   }
 
   h4 {
@@ -13,10 +13,10 @@
     font-size: 16px;
     line-height: 18px;
     color: $text;
-    padding-bottom: 27px;
+    padding-bottom: 25px;
   }
 
-  &-link {
+  a {
     font-family: "Archivo";
     font-style: normal;
     font-weight: 400;

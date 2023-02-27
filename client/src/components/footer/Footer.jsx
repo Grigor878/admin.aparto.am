@@ -14,7 +14,7 @@ const Footer = () => {
           <Nav title="For Customers" data={customerData} />
           <Nav title="For Owners" data={ownersData} />
           <Nav title="Other Sources" data={sourcesData} />
-          <Smm title="" data={contactData} />
+          <Smm title="Contact" data={contactData} />
         </div>
       </div>
     </footer >

@@ -1,14 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import './Nav.scss'
 
 const Nav = ({ title, data }) => {
     return (
         <nav className="footer__nav">
             <h4>{title}</h4>
-            <ul>
+            <ul className='footer__nav-list'>
                 {data.map(({ id, name, path }) => (
                     <li key={id}>
-                        <NavLink to={path}>{name}</NavLink>
+                        <NavLink
+                            className="footer__nav-link"
+                            to={path}
+                        >{name}</NavLink>
                     </li>
                 ))}
             </ul>
