@@ -1,0 +1,16 @@
+@import "../../variables";
+
+footer {
+  background: $bg;
+}
+
+.footer {
+  h1 {
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 35px;
+    color: $text;
+  }
+}
