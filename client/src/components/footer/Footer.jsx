@@ -11,8 +11,8 @@ const Footer = () => {
       <div className="container">
         <div className='footer'>
           <Link to='/'><h1>Logo</h1></Link>
-          <Nav title="For Customers" data={customerData} />
-          <Nav title="For Owners" data={ownersData} />
+          <Nav title="For Customers" data={customerData} use="Privacy Policy"/>
+          <Nav title="For Owners" data={ownersData} use="Terms of Use"/>
           <Nav title="Other Sources" data={sourcesData} />
           <Smm title="Contact" data={contactData} />
         </div>

@@ -1,8 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import './Nav.scss'
 
-const Nav = ({ title, data }) => {
+const Nav = ({ title, data, use }) => {
     return (
         <nav className="footer__nav">
             <h4>{title}</h4>
@@ -16,6 +16,10 @@ const Nav = ({ title, data }) => {
                     </li>
                 ))}
             </ul>
+            <Link
+                className='footer__nav-sublink'
+                to={`/${use}`}
+            >{use}</Link>
         </nav>
     )
 }

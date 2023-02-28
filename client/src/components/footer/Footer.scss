@@ -7,11 +7,10 @@ footer {
 
 .footer {
   display: flex;
+  align-items: baseline;
   gap: 131px;
 
   h1 {
-    font-family: "Archivo";
-    font-style: normal;
     font-weight: 600;
     font-size: 32px;
     line-height: 35px;
