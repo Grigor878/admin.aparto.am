@@ -30,6 +30,7 @@ const Exchange = () => {
         }
     }, [openEx])
 
+    // console.log(selectedEx);
 
     return (
         <div className='exchange' ref={exRef}>

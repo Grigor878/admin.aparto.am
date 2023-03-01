@@ -11,11 +11,11 @@ const Language = () => {
     const [openLng, setOpenLng] = useState(false)
     const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "gb")
 
-    const handleOpenLang = () => {
+    const handleOpenLng = () => {
         setOpenLng(!openLng);
     }
 
-    const handleChangeLang = (code) => {
+    const handleChangeLng = (code) => {
         setOpenLng(false)
         i18n.changeLanguage(code)
         code === "en" ? setSelectedLng("gb") : setSelectedLng(code)
@@ -36,11 +36,13 @@ const Language = () => {
         }
     }, [openLng])
 
+    // console.log(selectedLng);
+
     return (
         <div className="language" ref={lngRef}>
             <div
                 className="language__choose"
-                onClick={handleOpenLang}
+                onClick={handleOpenLng}
             >
                 <Flag code={selectedLng} width="18" height="14" />
             </div>
@@ -49,7 +51,7 @@ const Language = () => {
                 {languageData.map(({ code, country_code }) => (
                     <li key={code}>
                         <Flag
-                            onClick={() => handleChangeLang(code)}
+                            onClick={() => handleChangeLng(code)}
                             code={country_code}
                             width="18"
                             height="14"

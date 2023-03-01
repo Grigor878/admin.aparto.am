@@ -6,17 +6,30 @@ import "./Size.scss"
 const Size = () => {
     const sizeRef = useRef()
     const [openSize, setOpenSize] = useState(false)
-    const [selectedLng, setSelectedLng] = useState( <p className='size__unit'>m<sup>2</sup></p>)
+    const [selectedSize, setSelectedSize] = useState(<p className='size__unit'>m<sup>2</sup></p>)
 
     const handleOpenSize = () => {
         setOpenSize(!openSize);
     }
 
-    const handleChangeLang = (name) => {
+    const handleChangeSize = (name) => {
         setOpenSize(false)
-        setSelectedLng(name)
+        setSelectedSize(name)
         // cookies.set("sizeUnit", name)
     };
+
+    // const handleChangeSize = useCallback((name) => {
+    //     setOpenSize(false)
+    //     setSelectedSize(name)
+    //     // cookies.set("sizeUnit", name)
+    // }, [])
+
+    // error er talis
+    // const handleChangeSize = useMemo((name) => {
+    //     setOpenSize(false)
+    //     setSelectedSize(name)
+    //     // cookies.set("sizeUnit", name)
+    // }, [])
 
     useEffect(() => {
         const checkIfClickedOutside = (e) => {
@@ -31,6 +44,7 @@ const Size = () => {
         }
     }, [openSize])
 
+    // console.log(selectedSize);
 
     return (
         <div className='size' ref={sizeRef}>
@@ -38,14 +52,14 @@ const Size = () => {
                 className="size__choose"
                 onClick={handleOpenSize}
             >
-                {selectedLng}
+                {selectedSize}
             </div>
 
             <ul className={!openSize ? "size__dropdown" : "size__dropdown-active"}>
                 {sizeData.map(({ id, name }) => (
                     <li
                         key={id}
-                        onClick={() => handleChangeLang(name)}
+                        onClick={() => handleChangeSize(name)}
                     >{name}
                     </li>
                 ))}
