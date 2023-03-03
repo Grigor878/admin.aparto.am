@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => 'api'], function ($router) {
-    Route::get('/eng', [HomeController::class, 'getEng']);
+    Route::get('/en', [HomeController::class, 'getEng']);
     Route::get('/ru', [HomeController::class, 'getRu']);
-    Route::get('/arm', [HomeController::class, 'getArm']);
+    Route::get('/am', [HomeController::class, 'getArm']);
 });
