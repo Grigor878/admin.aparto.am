@@ -1,9 +1,17 @@
 import React from 'react'
+import YandexMap from '../../components/yandexMap/YandexMap'
 import './Sale.scss'
 
 const Sale = () => {
     return (
-        <div><h1>Sale</h1></div>
+        <section>
+            <div className="container">
+                <h1>Sale</h1>
+
+                <h4>Map Test</h4>
+                <YandexMap />
+            </div>
+        </section>
     )
 }
 

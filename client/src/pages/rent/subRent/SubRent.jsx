@@ -3,8 +3,11 @@ import './SubRent.scss'
 
 const SubRent = () => {
   return (
-    <div>SubRent</div>
-  )
+    <section>
+      <div className="container">
+        <h1>Sub Rent</h1>
+      </div>
+    </section>)
 }
 
 export default SubRent
