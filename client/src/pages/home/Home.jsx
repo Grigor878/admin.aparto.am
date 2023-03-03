@@ -24,7 +24,8 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </section>)
+        </section>
+    )
 }
 
 export default Home
