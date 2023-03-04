@@ -7,7 +7,8 @@ const Rent = () => {
             <div className="container">
                 <h1>Rent</h1>
             </div>
-        </section>)
+        </section>
+    )
 }
 
 export default Rent

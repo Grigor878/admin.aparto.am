@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
-import Routes from './components/routes/Routes'
+import Paths from './components/paths/Paths'
 import Size from './components/size/Size'
 import Exchange from './components/exchange/Exchange'
 import Language from './components/language/Language'
@@ -16,7 +16,7 @@ const Header = () => {
         <nav className='header__nav'>
           <div className='header__left'>
             <Link to='/'><h1>Logo</h1></Link>
-            <Routes />
+            <Paths />
           </div>
 
           <div className='header__right'>

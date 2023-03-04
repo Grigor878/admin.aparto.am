@@ -2,9 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { headerRoutes } from './data'
-import './Routes.scss'
+import './Paths.scss'
 
-const Routes = () => {
+const Paths = () => {
     const { t } = useTranslation()
 
     return (
@@ -25,4 +25,4 @@ const Routes = () => {
     )
 }
 
-export default Routes
+export default Paths

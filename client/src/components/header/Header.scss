@@ -4,6 +4,10 @@
   background: $bg;
   padding: 27px 0;
 
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   &__nav {
     @include flex;
     justify-content: space-between;
