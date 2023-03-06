@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
-import Loading from '../../components/loading/Loading'
-import Sidebar from '../components/sidebar/Sidebar'
-import AutoScroll from '../../helpers/autoScroll'
+import Loading from '../../../components/loading/Loading'
+import AutoScroll from '../../../helpers/autoScroll'
+import Sidebar from '../sidebar/Sidebar'
 
 const LayoutDash = () => {
     return (
