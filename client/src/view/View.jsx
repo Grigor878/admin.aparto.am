@@ -1,10 +1,10 @@
 import React, { useEffect, lazy } from "react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
-// import LayoutDash from "../admin/layout/LayoutDash"
-import PriviteRoutes from "../utils/PriviteRoutes"
+// import PriviteRoutes from "../utils/PriviteRoutes"
+import LayoutDash from "../admin/components/layout/LayoutDash"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -25,6 +25,8 @@ const View = () => {
         AOS.init();
     }, [])
 
+    let auth = { 'token': false }
+
     return (
         <Router>
             <Routes>
@@ -43,7 +45,10 @@ const View = () => {
                     <Route index element={<Login />} />
                 </Route>
 
-                <Route path="/dashboard" element={<PriviteRoutes />}>
+                <Route
+                    path="/dashboard"
+                    element={auth.token ? <LayoutDash /> : <Navigate to="/login" />}
+                >
                     <Route index element={<Dashboard />} />
                     <Route path="/dashboard/properties" element={<Properties />} />
                     <Route path="/dashboard/form-structure" element={<Structure />} />
