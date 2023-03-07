@@ -14,6 +14,11 @@
   @include transition;
 }
 
+input,
+button {
+  cursor: pointer;
+}
+
 html,
 body {
   width: 100%;
@@ -45,4 +50,14 @@ body {
     width: 151px;
     height: 151px;
   }
+}
+
+// Dashboard all pages
+.dashboard__layout {
+  display: flex;
+}
+
+article {
+  background: $bg;
+  width: 100%;
 }

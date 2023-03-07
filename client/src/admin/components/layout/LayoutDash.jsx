@@ -6,13 +6,13 @@ import Sidebar from '../sidebar/Sidebar'
 
 const LayoutDash = () => {
     return (
-        <>
+        <div className='dashboard__layout'>
             <Sidebar />
             <AutoScroll />
             <Suspense fallback={<Loading />}>
                 <Outlet />
             </Suspense >
-        </>
+        </div>
     )
 }
 
