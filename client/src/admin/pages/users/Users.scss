@@ -1,1 +1,14 @@
 @import "../../../variables";
+
+.users {
+  padding: 40px 20px;
+
+  &__table {
+    margin-top: 14px;
+
+    &-role {
+      @include flex;
+      gap: 7px;
+    }
+  }
+}

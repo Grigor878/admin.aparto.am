@@ -21,8 +21,8 @@ export const dashboardRoutes = [
   },
   {
     id: "4",
-    name: "Website",
-    path: "website",
+    name: "Web Configs",
+    path: "web-configs",
     img: website,
   },
 ];

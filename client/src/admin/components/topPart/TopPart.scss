@@ -1,0 +1,13 @@
+@import "../../../variables";
+
+.topPart {
+  @include flex;
+  justify-content: space-between;
+
+  p {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    color: $text;
+  }
+}

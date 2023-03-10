@@ -11,13 +11,15 @@ const Sale = lazy(() => import('../pages/sale/Sale'))
 const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
 const Services = lazy(() => import('../pages/services/Services'))
 const Contact = lazy(() => import('../pages/contact/Contact'))
-const Login = lazy(() => import('./login/Login'))
+const Login = lazy(() => import('../admin/pages/login/Login'))
 const NotFound = lazy(() => import('../pages/404/NotFound'))
+const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
-const SubProperties = lazy(() => import('../admin/pages/properties/subProperties/SubProperties'))
+const AddProperties = lazy(() => import('../admin/pages/properties/addProperties/AddProperties'))
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
-const Website = lazy(() => import('../admin/pages/website/Website'))
+const AddUsers = lazy(() => import('../admin/pages/users/addUsers/AddUsers'))
+const Configs = lazy(() => import('../admin/pages/configs/Configs'))
 
 const View = () => {
     useEffect(() => {
@@ -48,11 +50,13 @@ const View = () => {
                     path="/dashboard"
                     element={auth.token ? <LayoutDash /> : <Navigate to="/login" />}
                 >
-                    <Route index path="properties" element={<Properties />} />
-                    <Route path="properties/:id" element={<SubProperties />} />
+                    <Route index element={<Profile />} />
+                    <Route path="properties" element={<Properties />} />
+                    <Route path="properties/:id" element={<AddProperties />} />
                     <Route path="form-structure" element={<Structure />} />
                     <Route path="users" element={<Users />} />
-                    <Route path="website" element={<Website />} />
+                    <Route path="users/:id" element={<AddUsers />} />
+                    <Route path="web-configs" element={<Configs />} />
                 </Route>
             </Routes>
         </Router>

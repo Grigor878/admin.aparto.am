@@ -1,7 +1,7 @@
 import React from 'react'
-import './Website.scss'
+import './Configs.scss'
 
-const Website = () => {
+const Configs = () => {
     return (
         <article className='website'>
             <h1>Website</h1>
@@ -10,4 +10,4 @@ const Website = () => {
     )
 }
 
-export default Website
+export default Configs
