@@ -26,7 +26,7 @@ const View = () => {
         AOS.init();
     }, [])
 
-    let auth = { 'token': true }
+    let auth = { 'token': false }
 
     return (
         <Router>
