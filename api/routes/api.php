@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 Route::group(['middleware' => 'api'], function ($router) {
-    Route::get('/en', [HomeController::class, 'getEng']);
-    Route::get('/ru', [HomeController::class, 'getRu']);
-    Route::get('/am', [HomeController::class, 'getArm']);
+    Route::get('/signin', [AuthController::class, 'login']);
+   
 });
