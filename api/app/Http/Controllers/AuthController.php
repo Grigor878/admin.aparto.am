@@ -1,12 +1,21 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\User;
+use App\Models\Employe;
+use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
-
+    protected function respondWithToken($token)
+	{
+		return response()->json([
+			'access_token' => $token,
+			'token_type' => 'bearer',
+			'expires_in' => auth('api')->factory()->getTTL() * 60 * 60 * 7,
+		]);
+	}
     /**
      * Register a new user
      */
@@ -36,7 +45,51 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        dd(1212);
+        // $employe = new Employe;
+        // $employe->type = 1;
+        // $employe->name = "Gev";
+        // $employe->surname = "test";
+        // $employe->email = "gev@mail.ru";
+        // $employe->phone = 374999999;
+        // $employe->password = Hash::make(123456);
+        // $employe->save();
+
+       $data = $request->all();
+
+       $validate = Validator::make($data, [
+           'email' => 'required|email',
+           'password' => 'required|min:6',
+       ]);
+
+       if ($validate->fails()) {
+           return response(['error' => $validate->errors()], 422);
+       }
+       $mailUser = $data['email'];
+       $passwordUser = $data['password'];
+       $employe = Employe::where('email', $mailUser)->first();
+       if($employe) {
+           if (Hash::check($passwordUser, $employe['password'])) {
+            \Log::info($validate->validated());
+               if (!$token = auth()->attempt($validate->validated())) {
+                   \Log::info(auth()->user());
+                   return response()->json(['error' => 'Unauthorized'], 401);
+               }
+               \Log::info(auth()->user());
+               return $this->respondWithToken($token);
+
+           }
+           else {
+               return response(['error' => ['both' => 'Incorrect Email or Password']], 422);
+           }
+       }
+
+
+       return response(['error' => ['both' => 'Incorrect Email or Password']], 422);
+
+
+
+
+
         $credentials = ['email' => $request->username, 'password' => $request->password];
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
