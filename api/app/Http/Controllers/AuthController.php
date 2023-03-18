@@ -76,19 +76,13 @@ class AuthController extends Controller
                }
                \Log::info(auth()->user());
                return $this->respondWithToken($token);
-
            }
            else {
                return response(['error' => ['both' => 'Incorrect Email or Password']], 422);
            }
        }
 
-
        return response(['error' => ['both' => 'Incorrect Email or Password']], 422);
-
-
-
-
 
         $credentials = ['email' => $request->username, 'password' => $request->password];
         if ($token = $this->guard()->attempt($credentials)) {
