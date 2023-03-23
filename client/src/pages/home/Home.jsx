@@ -2,7 +2,6 @@ import React from 'react'
 import './Home.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { testSelector, testIncr, testDecr } from '../../store/slices/testSlices'
-import TestApp from './test1/TestApp'
 
 const Home = () => {
 
@@ -23,8 +22,6 @@ const Home = () => {
                         <button onClick={() => dispatch(testDecr())}>Decr</button>
                     </div>
                 </div>
-
-                <TestApp />
             </div>
         </section>
     )
