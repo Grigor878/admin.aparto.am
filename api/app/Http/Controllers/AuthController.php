@@ -47,9 +47,9 @@ class AuthController extends Controller
     {
         // $employe = new Employe;
         // $employe->type = 1;
-        // $employe->name = "Gev";
+        // $employe->name = "Grig";
         // $employe->surname = "test";
-        // $employe->email = "gev@mail.ru";
+        // $employe->email = "grigsgog@gmail.com";
         // $employe->phone = 374999999;
         // $employe->password = Hash::make(123456);
         // $employe->save();

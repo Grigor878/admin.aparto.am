@@ -27,7 +27,7 @@ const View = () => {
         AOS.init();
     }, [])
 
-    let auth = { 'token': false }
+    const auth = localStorage.getItem('auth')
 
     return (
         <Router>
@@ -47,12 +47,12 @@ const View = () => {
                 </Route>
 
                 <Route path="/login">
-                    <Route index element={<Login />} />
+                    <Route index element={auth ? <Navigate to="/dashboard" /> : <Login />} />
                 </Route>
 
                 <Route
                     path="/dashboard"
-                    element={auth.token ? <LayoutDash /> : <Navigate to="/login" />}
+                    element={auth ? <LayoutDash /> : <Navigate to="/login" />}
                 >
                     <Route index element={<Profile />} />
                     <Route path="properties" element={<Properties />} />
