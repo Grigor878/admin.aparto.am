@@ -69,7 +69,6 @@ class AuthController extends Controller
        $employe = Employe::where('email', $mailUser)->first();
        if($employe) {
            if (Hash::check($passwordUser, $employe['password'])) {
-            \Log::info($validate->validated());
                if (!$token = auth()->attempt($validate->validated())) {
                    \Log::info(auth()->user());
                    return response()->json(['error' => 'Unauthorized'], 401);
