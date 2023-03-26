@@ -17,3 +17,28 @@ const LayoutDash = () => {
 }
 
 export default LayoutDash
+
+// import React, { useEffect, useState } from "react";
+// import { Navigate } from "react-router-dom";
+
+// const LayoutDash = () => {
+//     const [authenticated, setauthenticated] = useState(null);
+//     useEffect(() => {
+//         const loggedInUser = localStorage.getItem("auth");
+//         if (loggedInUser) {
+//             setauthenticated(loggedInUser);
+//         }
+//     }, []);
+
+//     if (!authenticated) {
+//         return <Navigate replace to="/login" />;
+//     } else {
+//         return (
+//             <div>
+//                 <p>Welcome to your Dashboard</p>
+//             </div>
+//         );
+//     }
+// };
+
+// export default LayoutDash;
