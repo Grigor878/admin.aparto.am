@@ -1,14 +1,16 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../store/slices/authSlice'
 import './Profile.scss'
 
 const Profile = () => {
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const hanldeLogOut = () => {
         localStorage.removeItem('auth')
-        navigate('/login')
-        window.location.reload(false)
+        localStorage.removeItem('token')
+        dispatch(logout())
+        // traquma dash ic login zerov greluc heto logout - 99% auth ica
     }
 
     return (

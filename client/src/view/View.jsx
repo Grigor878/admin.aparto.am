@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import YandexMap from "../components/yandexMap/YandexMap"
+import { useSelector } from "react-redux"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -28,6 +29,7 @@ const View = () => {
     }, [])
 
     const auth = localStorage.getItem('auth')
+    const { isLoggedIn } = useSelector((state) => state.auth)
 
     return (
         <Router>
@@ -40,19 +42,18 @@ const View = () => {
                     <Route path="for-sale/:id" element={<SubSale />} />
                     <Route path="our-services" element={<Services />} />
                     <Route path="contact-us" element={<Contact />} />
+                    <Route path="*" element={<NotFound />} />
 
                     <Route path="yandex" element={<YandexMap />} />
-
-                    <Route path="*" element={<NotFound />} />
                 </Route>
 
                 <Route path="/login">
-                    <Route index element={auth ? <Navigate to="/dashboard" /> : <Login />} />
+                    <Route index element={auth || isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
                 </Route>
 
                 <Route
                     path="/dashboard"
-                    element={auth ? <LayoutDash /> : <Navigate to="/login" />}
+                    element={auth || isLoggedIn ? <LayoutDash /> : <Navigate to="/login" />}
                 >
                     <Route index element={<Profile />} />
                     <Route path="properties" element={<Properties />} />

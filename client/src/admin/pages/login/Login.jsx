@@ -1,31 +1,24 @@
 import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import axios from "axios"
-import { API_BASE_URL } from '../../../config'
-
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from 'react-router-dom';
+import { login } from '../../../store/slices/authSlice'
 
 const Login = () => {
-    const navigate = useNavigate()
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleApi = () => {
-        // console.log({ email, password })
-        axios.post(API_BASE_URL + "/api/signin", {
-            email: email,
-            password: password
-        })
-            .then(res => {
-                // console.log(res.data, 88)
-                localStorage.setItem('auth', true)
-                localStorage.setItem('authUser', res.data.access_token)
-                navigate('/dashboard')
-                window.location.reload(false)
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+    const dispatch = useDispatch()
+    const { isLoggedIn, token } = useSelector((state) => state.auth)
+
+    const handleApi = (e) => {
+        e.preventDefault()
+        setEmail('')
+        setPassword('')
+        dispatch(login({ email, password }))
+    }
+
+    if (isLoggedIn && token) {
+        return <Navigate to="/dashboard" replace />;
     }
 
     return (
