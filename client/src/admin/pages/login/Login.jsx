@@ -1,32 +1,27 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from 'react-router-dom';
+import React from 'react'
+import { useDispatch } from "react-redux";
 import { login } from '../../../store/slices/authSlice'
 
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
     const dispatch = useDispatch()
-    const { isLoggedIn, token } = useSelector((state) => state.auth)
 
-    const handleApi = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
-        setEmail('')
-        setPassword('')
+        let email = e.target.email.value;
+        let password = e.target.password.value;
         dispatch(login({ email, password }))
-    }
-
-    if (isLoggedIn && token) {
-        return <Navigate to="/dashboard" replace />;
+        e.target.email.value = ""
+        e.target.password.value = ""
     }
 
     return (
         <div>
             <h1>Login page</h1>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button onClick={handleApi}>Log-In</button>
+            <form onSubmit={handleLogin}>
+                <input type="email" placeholder="Email" id="email" />
+                <input type="password" placeholder="Password" id="password" />
+                <button type="submit">Log-In</button>
+            </form>
         </div>
     )
 }

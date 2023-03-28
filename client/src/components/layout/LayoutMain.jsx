@@ -1,9 +1,9 @@
 import React, { Suspense } from "react"
 import { Outlet } from 'react-router-dom'
-import Loading from "../loading/Loading"
 import Header from '../header/Header'
 import AutoScroll from '../../helpers/autoScroll'
 import HelmetAsync from '../helmetAsync/HelmetAsync'
+import Loading from "../loading/Loading"
 import Footer from '../footer/Footer'
 
 const LayoutMain = () => {

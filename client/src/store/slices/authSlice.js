@@ -39,11 +39,11 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.loading = false;
         state.token = action.payload.access_token;
-        window.localStorage.setItem(
+        localStorage.setItem("auth", true);
+        localStorage.setItem(
           "token",
           JSON.stringify(action.payload.access_token)
         );
-        window.localStorage.setItem("auth", true);
       });
   },
 });

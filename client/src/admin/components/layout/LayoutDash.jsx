@@ -1,14 +1,16 @@
 import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
-import Loading from '../../../components/loading/Loading'
-import AutoScroll from '../../../helpers/autoScroll'
 import Sidebar from '../sidebar/Sidebar'
+import AutoScroll from '../../../helpers/autoScroll'
+import HelmetAdmin from '../../../components/helmetAsync/HelmetAdmin'
+import Loading from '../../../components/loading/Loading'
 
 const LayoutDash = () => {
     return (
         <div className='dashboard__layout'>
             <Sidebar />
             <AutoScroll />
+            <HelmetAdmin/>
             <Suspense fallback={<Loading />}>
                 <Outlet />
             </Suspense >
