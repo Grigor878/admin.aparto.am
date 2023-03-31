@@ -1,4 +1,10 @@
-import { properties, structure, users, website } from "../../../../svgs/svgs";
+import {
+  properties,
+  structure,
+  users,
+  website,
+  crm,
+} from "../../../../svgs/svgs";
 
 export const dashboardRoutes = [
   {
@@ -24,5 +30,11 @@ export const dashboardRoutes = [
     name: "Web Configs",
     path: "web-configs",
     img: website,
+  },
+  {
+    id: "5",
+    name: "CRM",
+    path: "crm",
+    img: crm,
   },
 ];

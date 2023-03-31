@@ -60,4 +60,14 @@ body {
 article {
   background: $bg;
   width: 100%;
+
+  h3 {
+    // bolor ejeri titlenery u voj miayn
+    font-family: "Noto Sans Armenian";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #0f1013;
+  }
 }

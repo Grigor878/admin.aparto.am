@@ -8,7 +8,7 @@ import View from './view/View'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Provider store={store}>
-      <View />
-    </Provider>
+  <Provider store={store}>
+    <View />
+  </Provider>
 );

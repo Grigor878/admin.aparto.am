@@ -2,7 +2,7 @@ import React from 'react'
 import { add } from '../../svgs/svgs'
 import './StyleBtn.scss'
 
-const Add = ({ onClick, text }) => {
+export const BtnAdd = ({ onClick, text }) => {
     return (
         <button onClick={onClick} className='btn__add'>
             {add.icon}
@@ -10,5 +10,3 @@ const Add = ({ onClick, text }) => {
         </button>
     )
 }
-
-export default Add

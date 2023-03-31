@@ -4,7 +4,6 @@ import 'aos/dist/aos.css'
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
-import YandexMap from "../components/yandexMap/YandexMap"
 import { useSelector } from "react-redux"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
@@ -22,6 +21,7 @@ const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
 const AddUsers = lazy(() => import('../admin/pages/users/addUsers/AddUsers'))
 const Configs = lazy(() => import('../admin/pages/configs/Configs'))
+const Crm = lazy(() => import('../admin/pages/crm/Crm'))
 
 const View = () => {
     useEffect(() => {
@@ -43,8 +43,6 @@ const View = () => {
                     <Route path="our-services" element={<Services />} />
                     <Route path="contact-us" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
-
-                    <Route path="yandex" element={<YandexMap />} />
                 </Route>
 
                 <Route path="/login">
@@ -62,6 +60,7 @@ const View = () => {
                     <Route path="users" element={<Users />} />
                     <Route path="users/:id" element={<AddUsers />} />
                     <Route path="web-configs" element={<Configs />} />
+                    <Route path="crm" element={<Crm />} />
                 </Route>
             </Routes>
         </Router>

@@ -2,9 +2,7 @@
 // import { YMaps, Map, SearchControl, Placemark } from "react-yandex-maps";
 
 // const YandexMap = () => {
-//     // const apikey = 'c6f73ad1-401a-4923-93c8-37a304669c9d'
-
-//     const [center, setCenter] = useState([55.753215, 37.622504])
+//     const [center, setCenter] = useState([40.1953005, 44.5642199])
 //     const [zoom, setZoom] = useState(10)
 //     const [placemarkCoordinates, setPlacemarkCoordinates] = useState(null)
 
@@ -18,8 +16,7 @@
 //     };
 
 //     return (
-//         // <YMaps query={{ apikey: 'c6f73ad1-401a-4923-93c8-37a304669c9d' }}>
-//         <YMaps query={{ apikey: 'c6f73ad1-401a-4923-93c8-37a304669c9d' }}>
+//         <YMaps query={{ apikey: "8ffb1ed9-37fa-4567-8d01-82d384e36a7c" }}>
 //             <div style={{ height: '400px' }}>
 //                 <Map
 //                     defaultState={{ center, zoom }}
@@ -31,19 +28,21 @@
 //                         onResultSelect={(e) => handleSearchResult(e.originalEvent.target._items)}
 //                     />
 //                     {placemarkCoordinates && <Placemark geometry={placemarkCoordinates} />}
-//                     {/* <Placemark geometry={[40.2000281, 44.5611624]} /> */}
+//                     {/* <Placemark geometry={[40.1953005, 44.5642199]} /> */}
 //                 </Map >
 //             </div>
 //         </YMaps >
 //     )
 // }
-
 // export default YandexMap
 
 // https://codesandbox.io/s/yandex-map-search-organization-dutdr?file=/src/YmapsComponent.tsx:283-321
 
+// vor im danninery dnem mejy
+// https://codesandbox.io/s/confident-matsumoto-nj0dr
+
 import React, { Component } from "react";
-import { YMaps, Map, ZoomControl } from "react-yandex-maps";
+import { YMaps, Map, ZoomControl, Placemark } from "react-yandex-maps";
 
 export default class YandexMap extends Component {
     map = React.createRef();
@@ -51,13 +50,18 @@ export default class YandexMap extends Component {
 
     render() {
         return (
-            <YMaps enterprise query={{
-                apikey: "c6f73ad1-401a-4923-93c8-37a304669c9d",
-                ns: 'use-load-option',
-                load: 'package.full'
+            <YMaps query={{
+                apikey: "8ffb1ed9-37fa-4567-8d01-82d384e36a7c",
+                // ns: 'use-load-option',
+                // load: 'package.full'
+
+                // ns: 'ymaps',
+                // load: ['package.full', 'overlay.Polygon'].join(','),
+                // apikey: "8ffb1ed9-37fa-4567-8d01-82d384e36a7c",
+                // coordorder: 'longlat',
             }}>
                 <Map
-                    state={{ center: [55.76, 37.64], zoom: 10 }}
+                    state={{ center: [40.1953005, 44.5642199], zoom: 13 }}
                     instanceRef={this.map}
                     onLoad={(ymapsInstance) => {
                         this.ymaps.current = ymapsInstance;
@@ -70,6 +74,7 @@ export default class YandexMap extends Component {
                     <ZoomControl
                         options={{ float: "none", position: { top: 100, right: 10 } }}
                     />
+                    <Placemark geometry={[40.1953005, 44.5642199]} />
                 </Map>
             </YMaps>
         );

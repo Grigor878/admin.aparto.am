@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { userIcon, shevron } from '../../../../svgs/svgs'
 import './User.scss'
 
 const User = () => {
     return (
-        <div className='user'>
+        <Link to='/dashboard' className='user'>
             <div className='user__info'>
                 {userIcon.icon}
                 <div className='user__info-text'>
@@ -12,8 +13,8 @@ const User = () => {
                     <span>Admin</span>
                 </div>
             </div>
-            <button>{shevron.icon}</button>
-        </div>
+            {shevron.icon}
+        </Link>
     )
 }
 

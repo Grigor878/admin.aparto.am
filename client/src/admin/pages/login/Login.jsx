@@ -15,14 +15,14 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h1>Login page</h1>
-            <form onSubmit={handleLogin}>
-                <input type="email" placeholder="Email" id="email" />
-                <input type="password" placeholder="Password" id="password" />
+        <article className='login'>
+            <h3>Login page</h3>
+            <form onSubmit={handleLogin} autoComplete="off">
+                <input type="email" placeholder="Email" id="email" autoComplete="new-password" />
+                <input type="password" placeholder="Password" id="password" autoComplete="new-password" />
                 <button type="submit">Log-In</button>
             </form>
-        </div>
+        </article>
     )
 }
 
