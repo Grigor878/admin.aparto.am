@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { admin, agent, moderator } from "../../svgs/svgs";
 
 export const userTableData = [
@@ -7,6 +8,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{agent.icon} Agent</p>,
+    edit: <Link to="edit">Edit</Link>,
   },
   {
     id: 2,
@@ -14,6 +16,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{agent.icon} Agent</p>,
+    edit: <Link to="edit">Edit</Link>,
   },
   {
     id: 3,
@@ -21,6 +24,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{moderator.icon} Moderator</p>,
+    edit: <Link to="edit">Edit</Link>,
   },
   {
     id: 4,
@@ -28,6 +32,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{moderator.icon} Moderator</p>,
+    edit: <Link to="edit">Edit</Link>,
   },
   {
     id: 5,
@@ -35,6 +40,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{admin.icon} Admin</p>,
+    edit: <Link to="edit">Edit</Link>,
   },
 ];
 
@@ -57,6 +63,11 @@ export const userTableColumns = [
   {
     name: "Role",
     selector: (row) => row.role,
+    // sortable: true,
+  },
+  {
+    name: "",
+    selector: (row) => row.edit,
     // sortable: true,
   },
 ];

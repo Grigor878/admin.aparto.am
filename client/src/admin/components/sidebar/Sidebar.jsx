@@ -7,7 +7,7 @@ import './Sidebar.scss'
 const Sidebar = () => {
   return (
     <div className='sidebar'>
-      <Link to="">
+      <Link to="/dashboard">
         <h1>Logo</h1>
       </Link>
 
