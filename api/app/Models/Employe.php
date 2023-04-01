@@ -14,12 +14,11 @@ class Employe extends Authenticatable implements JWTSubject
 
     protected $collection = 'employes';
     protected $fillable = [
-        'name',
-        'surname',
-        'type',
+        'full_name',
         'email',
-        'password',
+        'role',
         'phone',
+        'password',
     ];
 
     public function getJWTIdentifier()

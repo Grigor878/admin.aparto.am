@@ -34,7 +34,7 @@ class AuthController extends Controller
             ], 422);
         }
         $user = new User();
-        $user->name = $request->name;
+        $user->full_name = $request->full_name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
@@ -45,14 +45,20 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // $json = [
+        //     "am" => 'Գևորգ Բաղդասարյան',
+        //     "ru" => 'Геворг Багдасарян',
+        //     "gb" => 'Gevorg Baghdasaryan',
+        // ];
         // $employe = new Employe;
-        // $employe->type = 1;
-        // $employe->name = "Grig";
-        // $employe->surname = "test";
-        // $employe->email = "grigsgog@gmail.com";
+        // $employe->role = 1;
+        // $employe->full_name = json_encode($json);
+        // $employe->email = "gev@gmail.com";
         // $employe->phone = 374999999;
         // $employe->password = Hash::make(123456);
         // $employe->save();
+        // $me = Employe::where('id', 1)->first();
+        // return $me->full_name;
 
        $data = $request->all();
 

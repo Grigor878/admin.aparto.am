@@ -1422,11 +1422,7 @@
             "description": "Yet another clock abstraction",
             "support": {
                 "issues": "https://github.com/lcobucci/clock/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/lcobucci/clock/tree/2.2.0"
-=======
                 "source": "https://github.com/lcobucci/clock/tree/2.3.0"
->>>>>>> 14319a4ba2392e09ff288b4bbf16513728d0b425
             },
             "funding": [
                 {
@@ -1438,11 +1434,7 @@
                     "type": "patreon"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2022-04-19T19:34:17+00:00"
-=======
             "time": "2022-12-19T14:38:11+00:00"
->>>>>>> 14319a4ba2392e09ff288b4bbf16513728d0b425
         },
         {
             "name": "lcobucci/jwt",
