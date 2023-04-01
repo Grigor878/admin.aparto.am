@@ -1,10 +1,10 @@
 import React from 'react'
-import './StyleInput.scss'
+import './Inputs.scss'
 
-export const InputPassword = ({ id }) => {
+export const EditPassword = ({ label, id }) => {
     return (
-        <label className='dash__label-password'>
-            {id} Password
+        <label className='dash__label'>
+            {label} Password
             <input
                 id={id}
                 type="password"

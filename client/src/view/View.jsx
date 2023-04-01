@@ -20,6 +20,7 @@ const AddProperties = lazy(() => import('../admin/pages/properties/addProperties
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
 const AddUsers = lazy(() => import('../admin/pages/users/addUsers/AddUsers'))
+const EditUsers = lazy(() => import('../admin/pages/users/editUsers/EditUsers'))
 const Configs = lazy(() => import('../admin/pages/configs/Configs'))
 const Crm = lazy(() => import('../admin/pages/crm/Crm'))
 
@@ -58,7 +59,8 @@ const View = () => {
                     <Route path="properties/:id" element={<AddProperties />} />
                     <Route path="form-structure" element={<Structure />} />
                     <Route path="users" element={<Users />} />
-                    <Route path="users/:id" element={<AddUsers />} />
+                    <Route path="users/add" element={<AddUsers />} />
+                    <Route path="users/edit" element={<EditUsers />} />
                     <Route path="web-configs" element={<Configs />} />
                     <Route path="crm" element={<Crm />} />
                 </Route>

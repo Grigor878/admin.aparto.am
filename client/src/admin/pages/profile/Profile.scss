@@ -24,7 +24,7 @@
   }
 
   &__data {
-    @include flex;
+    display: flex;
     gap: 20px;
     padding: 41px 0 109px 0;
     border-bottom: 1px solid $textBtn;

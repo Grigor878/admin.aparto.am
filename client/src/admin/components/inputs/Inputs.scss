@@ -9,18 +9,6 @@
   font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;
-  color: $textBtn;
-}
-
-.dash__label-password {
-  @include flexCol;
-  gap: 4px;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 16px;
-  text-transform: uppercase;
   color: $textSub;
 }
 
@@ -37,6 +25,38 @@
   padding: 9px 90px 9px 16px;
   width: fit-content;
 }
+
 .dash__input::placeholder {
+  color: #cfd1da;
+}
+
+//
+.disabled__label {
+  @include flexCol;
+  gap: 4px;
+  font-family: "Noto Sans Armenian";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: $textBtn;
+}
+
+.disabled__input {
+  background: $bg;
+  color: #cfd1da;
+  font-family: "Noto Sans Armenian";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  border: 1.5px solid #cfd1da;
+  border-radius: 8px;
+  padding: 9px 90px 9px 16px;
+  width: fit-content;
+}
+
+.disabled__input::placeholder {
   color: #cfd1da;
 }

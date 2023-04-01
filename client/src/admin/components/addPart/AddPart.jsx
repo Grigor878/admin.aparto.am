@@ -6,7 +6,7 @@ import { BtnDiscard } from '../buttons/BtnDiscard'
 import { BtnCustom } from '../buttons/BtnCustom'
 import './AddPart.scss'
 
-const AddPart = () => {
+const AddPart = ({ type }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
@@ -14,23 +14,44 @@ const AddPart = () => {
 
   return (
     <div className='addpart'>
-      <div className='addpart-navigate'>
+      <div className='addpart__navigate'>
         <button onClick={() => navigate(-1)}>
           {back.icon}
           <span>Back to All {capitalize(newPath)}</span>
         </button>
-        <h3>Add a New {newPath === "users"
-          ? capitalize(newPath).slice(0, -1)
-          : capitalize(newPath).slice(0, -3) + "y"}
-        </h3>
+
+        {type === "add"
+          ? <h3>Add a New {newPath === "users"
+            ? capitalize(newPath).slice(0, -1)
+            : capitalize(newPath).slice(0, -3) + "y"}
+          </h3>
+          : <h3>Edit {newPath === "users"
+            ? capitalize(newPath).slice(0, -1)
+            : capitalize(newPath).slice(0, -3) + "y"}
+          </h3>
+        }
       </div>
 
-      <div className='addpart-btns'>
-        <BtnDiscard text="Discard" />
-        <BtnCustom text={`Add This ${newPath === "users"
-          ? capitalize(newPath).slice(0, -1)
-          : capitalize(newPath).slice(0, -3) + "y"}`} />
-      </div>
+      {type === "add"
+        ? <div className='addpart__btns'>
+          <BtnDiscard text="Discard" />
+          <BtnCustom
+            text={`Add This ${newPath === "users"
+              ? capitalize(newPath).slice(0, -1)
+              : capitalize(newPath).slice(0, -3) + "y"}`}
+          />
+        </div>
+        : <div className='addpart__btns'>
+          <button className='addpart__btns-deactivate'>Deactivate</button>
+          <BtnDiscard text="Discard" />
+          <BtnCustom
+            text={`Save ${newPath === "users"
+              ? capitalize(newPath).slice(0, -1)
+              : capitalize(newPath).slice(0, -3) + "y"}`}
+          />
+        </div>
+      }
+
     </div>
   )
 }

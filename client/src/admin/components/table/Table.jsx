@@ -1,5 +1,5 @@
 import React from 'react'
-import DataTable from 'react-data-table-component';
+import DataTable from 'react-data-table-component'
 
 const Table = ({ Data, Columns }) => {
   const data = Data
