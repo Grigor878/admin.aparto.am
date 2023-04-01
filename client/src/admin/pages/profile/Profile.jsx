@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import { logout } from '../../../store/slices/authSlice'
 import { logOut } from '../../svgs/svgs'
 import userImg from '../../../assets/imgs/user.webp'
-import { DisabledText } from '../../components/inputs/DisabledText'
-import { EditPassword } from '../../components/inputs/EditPassword'
+import { DisabledInput } from '../../components/inputs/DisabledInput'
 import { BtnCustom } from '../../components/buttons/BtnCustom'
+import { AddInput } from '../../components/inputs/AddInput'
 import './Profile.scss'
 
 const Profile = () => {
@@ -17,7 +17,7 @@ const Profile = () => {
         localStorage.removeItem('auth')
         localStorage.removeItem('token')
         dispatch(logout())
-        window.location.reload(false)
+        // window.location.reload(false)
     }
 
     const handlePassword = (e) => {
@@ -26,7 +26,7 @@ const Profile = () => {
         let newPassword = e.target.userNewPassword.value
         let retryPassword = e.target.userRetryPassword.value
 
-        if (oldPassword.length === 0 || newPassword.length === 0 || retryPassword.length === 0) {
+        if (!oldPassword.length || !newPassword.length || !retryPassword.length) {
             setRetryError('Complete all fields!')
         } else if (oldPassword === newPassword && oldPassword === retryPassword) {
             setRetryError('There is no changes!')
@@ -59,12 +59,24 @@ const Profile = () => {
                 </div>
                 <div className='profile__data-form'>
                     <div className='profile__data-form-parts'>
-                        <DisabledText name="Name" value="Grig" />
-                        <DisabledText name="Role" value="Admin" />
+                        <DisabledInput
+                            name='Name'
+                            value='Grig'
+                        />
+                        <DisabledInput
+                            name='Role'
+                            value='Admin'
+                        />
                     </div>
                     <div className='profile__data-form-parts'>
-                        <DisabledText name="Phone" value="+37493898282" />
-                        <DisabledText name="Email" value="grigsgog@gmail.com" />
+                        <DisabledInput
+                            name='Phone'
+                            value='+37493898282'
+                        />
+                        <DisabledInput
+                            name='Email'
+                            value='grigsgog@gmail.com'
+                        />
                     </div>
                 </div>
             </div>
@@ -72,10 +84,25 @@ const Profile = () => {
             <div className='profile__bottom'>
                 {retryError ? <h3 style={{ color: 'red' }}>{retryError}</h3> : <h3>Change Password</h3>}
                 <form onSubmit={handlePassword} autoComplete="off" className='profile__bottom-form'>
-                    <EditPassword id="userOldPassword" label="old" />
+                    <AddInput
+                        id='userOldPassword'
+                        type='password'
+                        placeholder='Password'
+                        name='old'
+                    />
                     <div className='profile__bottom-form-parts'>
-                        <EditPassword id="userNewPassword" label="new" />
-                        <EditPassword id="userRetryPassword" label="retry" />
+                        <AddInput
+                            id='userNewPassword'
+                            type='password'
+                            placeholder='Password'
+                            name='new'
+                        />
+                        <AddInput
+                            id='userRetryPassword'
+                            type='password'
+                            placeholder='Password'
+                            name='retry'
+                        />
                     </div>
                     <BtnCustom text="Change Password" />
                 </form>

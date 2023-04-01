@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('am')->nullable();
             $table->text('ru')->nullable();
-            $table->text('gb')->nullable();
+            $table->text('en')->nullable();
             $table->timestamps();
         });
     }

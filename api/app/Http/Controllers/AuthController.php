@@ -46,14 +46,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // $json = [
-        //     "am" => 'Գևորգ Բաղդասարյան',
-        //     "ru" => 'Геворг Багдасарян',
-        //     "gb" => 'Gevorg Baghdasaryan',
+        //     "am" => 'Գրիգոր Սաֆարյան',
+        //     "ru" => 'Григор Сафарян',
+        //     "en" => 'Grigor Safaryan',
         // ];
         // $employe = new Employe;
         // $employe->role = 1;
         // $employe->full_name = json_encode($json);
-        // $employe->email = "gev@gmail.com";
+        // $employe->email = "grigsgog@gmail.com";
         // $employe->phone = 374999999;
         // $employe->password = Hash::make(123456);
         // $employe->save();

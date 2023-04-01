@@ -10,5 +10,14 @@
       @include flex;
       gap: 7px;
     }
+
+    &-link {
+      font-family: "Noto Sans Armenian";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      color: #4a46f1;
+    }
   }
 }

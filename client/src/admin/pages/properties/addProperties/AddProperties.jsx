@@ -6,7 +6,7 @@ const AddProperties = () => {
 
     return (
         <article className='addproperties'>
-            <AddPart />
+            <AddPart type="addProperties" />
         </article>
     )
 }

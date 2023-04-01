@@ -17,6 +17,7 @@ const NotFound = lazy(() => import('../pages/404/NotFound'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
 const AddProperties = lazy(() => import('../admin/pages/properties/addProperties/AddProperties'))
+const EditProperties = lazy(() => import('../admin/pages/properties/editProperties/EditProperties'))
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
 const AddUsers = lazy(() => import('../admin/pages/users/addUsers/AddUsers'))
@@ -56,13 +57,15 @@ const View = () => {
                 >
                     <Route index element={<Profile />} />
                     <Route path="properties" element={<Properties />} />
-                    <Route path="properties/:id" element={<AddProperties />} />
+                    <Route path="properties/add" element={<AddProperties />} />
+                    <Route path="properties/edit" element={<EditProperties />} />
                     <Route path="form-structure" element={<Structure />} />
                     <Route path="users" element={<Users />} />
                     <Route path="users/add" element={<AddUsers />} />
                     <Route path="users/edit" element={<EditUsers />} />
                     <Route path="web-configs" element={<Configs />} />
                     <Route path="crm" element={<Crm />} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>
         </Router>

@@ -20,38 +20,29 @@ const AddPart = ({ type }) => {
           <span>Back to All {capitalize(newPath)}</span>
         </button>
 
-        {type === "add"
-          ? <h3>Add a New {newPath === "users"
-            ? capitalize(newPath).slice(0, -1)
-            : capitalize(newPath).slice(0, -3) + "y"}
+        {type === "addUsers" || type === "addProperties"
+          ? <h3>Add a New {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
           </h3>
-          : <h3>Edit {newPath === "users"
-            ? capitalize(newPath).slice(0, -1)
-            : capitalize(newPath).slice(0, -3) + "y"}
+          : <h3>Edit {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
           </h3>
         }
       </div>
 
-      {type === "add"
+      {type === "addUsers" || type === "addProperties"
         ? <div className='addpart__btns'>
           <BtnDiscard text="Discard" />
           <BtnCustom
-            text={`Add This ${newPath === "users"
-              ? capitalize(newPath).slice(0, -1)
-              : capitalize(newPath).slice(0, -3) + "y"}`}
+            text={`Add This ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
           />
         </div>
         : <div className='addpart__btns'>
           <button className='addpart__btns-deactivate'>Deactivate</button>
           <BtnDiscard text="Discard" />
           <BtnCustom
-            text={`Save ${newPath === "users"
-              ? capitalize(newPath).slice(0, -1)
-              : capitalize(newPath).slice(0, -3) + "y"}`}
+            text={`Save ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
           />
         </div>
       }
-
     </div>
   )
 }
