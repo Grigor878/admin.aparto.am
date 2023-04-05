@@ -48,19 +48,24 @@ class AuthController extends Controller
         // $json = [
         //     "am" => 'Գևորգ Բաղդասարյան',
         //     "ru" => 'Геворг Багдасарян',
-        //     "gb" => 'Gevorg Baghdasaryan',
+        //     "en" => 'Gevorg Baghdasaryan',
+        // ];
+
+        // $jsonPh = [
+        //     'tel1' => '+37494411555',
+        //     'tel2' => '+37494411666',
+        //     'telegram' => '+37494411666',
+        //     'whatsapp' => '+37494411666',
+        //     'viber' => '+37494411888',
         // ];
         // $employe = new Employe;
         // $employe->role = 1;
         // $employe->full_name = json_encode($json);
-        // $employe->email = "gev@gmail.com";
-        // $employe->phone = 374999999;
+        // $employe->email = "gevtwo@gmail.com";
+        // $employe->phone = json_encode($jsonPh);
         // $employe->password = Hash::make(123456);
         // $employe->save();
-        // $me = Employe::where('id', 1)->first();
-        // return $me->full_name;
-
-       $data = $request->all();
+        $data = $request->all();
 
        $validate = Validator::make($data, [
            'email' => 'required|email',
@@ -128,6 +133,17 @@ class AuthController extends Controller
                 ->header('Authorization', $token);
         }
         return response()->json(['error' => 'refresh_token_error'], 401);
+    }
+
+    
+    public function testlanguage(Request $requst) {
+        $user = Employe::find(2);
+        $data = $user;
+        $data->full_name = json_decode($user->full_name);
+        $data->phone = json_decode($user->phone);
+        
+        return response()->json($data);
+        dd(auth()->user());
     }
     /**
      * Return auth guard

@@ -13,6 +13,6 @@ class GlobalForm extends Model
     protected $fillable = [
         'am',
         'ru',
-        'gb'
+        'en'
     ];
 }

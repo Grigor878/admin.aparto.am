@@ -42,7 +42,7 @@ const authSlice = createSlice({
         localStorage.setItem("auth", true);
         localStorage.setItem(
           "token",
-          JSON.stringify(action.payload.access_token)
+          action.payload.access_token
         );
       });
   },
