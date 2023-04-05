@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { BtnCustom } from '../../../components/buttons/BtnCustom'
-import AddInput from '../../../components/inputs/AddInput'
+import {AddInput} from '../../../components/inputs/AddInput'
 import { isValidEmail } from '../../../../helpers/utils'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import './AddUsers.scss'
@@ -11,19 +11,19 @@ const AddUsers = () => {
 
     const handleUserInfo = (e) => {
         e.preventDefault()
-        let userName = e.target.userName?.value
-        let userNameRu = e.target.userNameRu?.value
-        let userNameEng = e.target.userNameEng?.value
-        let userTel1 = e.target.userTel1?.value
-        let userTel2 = e.target.userTel2?.value
-        let userViber = e.target.userViber?.value
-        let userWhatsApp = e.target.userWhatsApp?.value
-        let userTelegram = e.target.userTelegram?.value
-        let userMail = e.target.userMail?.value
+        let userName = e.target.userName.value
+        let userNameRu = e.target.userNameRu.value
+        let userNameEng = e.target.userNameEng.value
+        let userTel1 = e.target.userTel1.value
+        let userTel2 = e.target.userTel2.value
+        let userViber = e.target.userViber.value
+        let userWhatsApp = e.target.userWhatsApp.value
+        let userTelegram = e.target.userTelegram.value
+        let userMail = e.target.userMail.value
 
         isValidEmail(userMail)
 
-        if (!userName?.length || !userNameRu?.length || !userNameEng?.length || !userTel1?.length || !userMail?.length) {
+        if (!userName.length || !userNameRu.length || !userNameEng.length || !userTel1.length || !userMail.length) {
             setMailError('Complete required fields!')
         } else if (!isValidEmail(userMail)) {
             setMailError('Email is invalid!')
@@ -50,7 +50,7 @@ const AddUsers = () => {
 
     return (
         <article className='addusers'>
-            <AddPart type="add" />
+            <AddPart type="addUsers" />
 
             {mailError ? <h3 style={{ color: 'red' }}>{mailError}</h3> : null}
 

@@ -8,7 +8,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{agent.icon} Agent</p>,
-    edit: <Link to="edit">Edit</Link>,
+    edit: <Link to="edit" className="users__table-link">Edit</Link>,
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{agent.icon} Agent</p>,
-    edit: <Link to="edit">Edit</Link>,
+    edit: <Link to="edit" className="users__table-link">Edit</Link>,
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-    edit: <Link to="edit">Edit</Link>,
+    edit: <Link to="edit" className="users__table-link">Edit</Link>,
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-    edit: <Link to="edit">Edit</Link>,
+    edit: <Link to="edit" className="users__table-link">Edit</Link>,
   },
   {
     id: 5,
@@ -40,7 +40,7 @@ export const userTableData = [
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
     role: <p className="users__table-role">{admin.icon} Admin</p>,
-    edit: <Link to="edit">Edit</Link>,
+    edit: <Link to="edit" className="users__table-link">Edit</Link>,
   },
 ];
 

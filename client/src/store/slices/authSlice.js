@@ -40,10 +40,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.token = action.payload.access_token;
         localStorage.setItem("auth", true);
-        localStorage.setItem(
-          "token",
-          action.payload.access_token
-        );
+        localStorage.setItem("token", action.payload.access_token);
       });
   },
 });
