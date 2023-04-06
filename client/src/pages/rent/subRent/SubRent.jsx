@@ -7,7 +7,8 @@ const SubRent = () => {
       <div className="container">
         <h1>Sub Rent</h1>
       </div>
-    </section>)
+    </section>
+  )
 }
 
 export default SubRent

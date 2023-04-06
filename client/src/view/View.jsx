@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
+import YandexMap from "../components/yandexMap/YandexMap"//
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -20,8 +21,8 @@ const AddProperties = lazy(() => import('../admin/pages/properties/addProperties
 const EditProperties = lazy(() => import('../admin/pages/properties/editProperties/EditProperties'))
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
-const AddUsers = lazy(() => import('../admin/pages/users/addUsers/AddUsers'))
-const EditUsers = lazy(() => import('../admin/pages/users/editUsers/EditUsers'))
+const AddUsers = lazy(() => import('../admin/pages/users/pages/AddUsers'))
+const EditUsers = lazy(() => import('../admin/pages/users/pages/EditUsers'))
 const Configs = lazy(() => import('../admin/pages/configs/Configs'))
 const Crm = lazy(() => import('../admin/pages/crm/Crm'))
 
@@ -44,6 +45,7 @@ const View = () => {
                     <Route path="for-sale/:id" element={<SubSale />} />
                     <Route path="our-services" element={<Services />} />
                     <Route path="contact-us" element={<Contact />} />
+                    <Route path="yandex" element={<YandexMap />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
 

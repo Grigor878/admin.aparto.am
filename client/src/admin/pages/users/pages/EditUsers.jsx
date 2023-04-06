@@ -1,11 +1,14 @@
 import React from 'react'
 import AddPart from '../../../components/addPart/AddPart'
-import './EditUsers.scss'
+import './Styles.scss'
 
 const EditUsers = () => {
     return (
-        <article className='editusers'>
+        <article className='subUsers'>
             <AddPart type="Edit" />
+            <div className="subUsers__container">
+
+            </div>
         </article>
     )
 }

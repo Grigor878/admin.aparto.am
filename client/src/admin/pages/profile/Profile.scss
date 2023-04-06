@@ -35,11 +35,10 @@
       cursor: pointer;
 
       img {
-        //esi index.scss um dnel global
+        border-radius: 100%;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 100%;
       }
     }
 

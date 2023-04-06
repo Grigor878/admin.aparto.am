@@ -1,0 +1,29 @@
+@import "../../../../variables";
+
+.subUsers {
+  &__container {
+    padding: 25px 70px 0 20px;
+    @include flexCol;
+    gap: 30px;
+  }
+
+  &__choose {
+    width: 130px;
+    height: 130px;
+    cursor: pointer;
+
+    img {
+      border-radius: 100%;
+    }
+  }
+
+  &__form {
+    @include flexCol;
+    gap: 24px;
+
+    &-parts {
+      @include flex;
+      gap: 30px;
+    }
+  }
+}

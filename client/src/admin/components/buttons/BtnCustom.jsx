@@ -1,9 +1,10 @@
 import React from 'react'
 import './StyleBtn.scss'
 
-export const BtnCustom = ({ onClick, text }) => {
+//submiti pahy dzel
+export const BtnCustom = ({ onClick, text, form }) => {
     return (
-        <button onClick={onClick} className='btn__add-this'>{text}</button>
+        <button type="submit" form={form} onClick={onClick} className='btn__add-this'>{text}</button>
     )
 }
 

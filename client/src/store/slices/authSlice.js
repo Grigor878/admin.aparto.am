@@ -3,7 +3,6 @@ import axios from "axios";
 import { API_BASE_URL } from "../../admin/apis/config";
 
 const initialState = {
-  //   role: "",
   isLoggedIn: false,
   loading: false,
   token: null,
