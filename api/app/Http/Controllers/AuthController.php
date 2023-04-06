@@ -45,28 +45,29 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // $json = [
-        //     "am" => 'Գևորգ Բաղդասարյան',
-        //     "ru" => 'Геворг Багдасарян',
-        //     "en" => 'Gevorg Baghdasaryan',
-        // ];
+//         $json = [
+//             "am" => 'Գևորգ ',
+//             "ru" => 'Геворг ',
+//             "en" => 'Gevorg ',
+//         ];
 
-        // $jsonPh = [
-        //     'tel1' => '+37494411555',
-        //     'tel2' => '+37494411666',
-        //     'telegram' => '+37494411666',
-        //     'whatsapp' => '+37494411666',
-        //     'viber' => '+37494411888',
-        // ];
-        // $employe = new Employe;
-        // $employe->role = 1;
-        // $employe->full_name = json_encode($json);
-        // $employe->email = "gevtwo@gmail.com";
-        // $employe->phone = json_encode($jsonPh);
-        // $employe->password = Hash::make(123456);
-        // $employe->save();
-        $data = $request->all();
-
+//         $jsonPh = [
+//             'tel1' => '+37494411555',
+//             'tel2' => '+37494411666',
+//             'telegram' => '+37494411666',
+//             'whatsapp' => '+37494411666',
+//             'viber' => '+37494411888',
+//         ];
+//         $employe = new Employe;
+//         $employe->role = 'admin';
+//         $employe->full_name = json_encode($json);
+//         $employe->email = "gevss@gmail.com";
+//         $employe->phone = json_encode($jsonPh);
+//         $employe->password = Hash::make(123456);
+//         $employe->save();
+//         $data = $request->all();
+// dd(222);
+      $data = $request->all();
        $validate = Validator::make($data, [
            'email' => 'required|email',
            'password' => 'required|min:6',

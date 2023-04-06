@@ -24,5 +24,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
     Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
     Route::get('/getUsers', [UserController::class, 'getUsers']);
+    Route::post('/editUser', [UserController::class, 'editUser']);
+    Route::post('/addUser', [UserController::class, 'addUser']);
     Route::post('/testlanguage', [AuthController::class, 'testlanguage']);
 });
