@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import choose from '../../../../assets/imgs/chooseAvatar.png'
 import './Styles.scss'
+// import baseApi from '../../../../apis/baseApi'
 
 const AddUsers = () => {
     const [info, setInfo] = useState({})
+    // const [user, setUser] = useState()
+    // const [loading, setLoading] = useState(false)
     //taza state ov modifikacnel es info-n
 
     const handleChange = (e) => {
@@ -21,6 +24,23 @@ const AddUsers = () => {
         e.preventDefault()
         console.log(info)
     }
+
+    // esi redux anel
+    // const addUsers = async () => {
+    //     try {
+    //         const { data } = await baseApi.post(`/api/getUsers`)
+    //         setUser(data)
+    //     } catch (error) {
+    //         console.log(`Error: ${error.message}`)
+    //     } finally {
+    //         setLoading(true)
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     addUsers()
+    // }, [])
+
     //sarqel global erku ejeri hamar
     return (
         <article className='subUsers'>

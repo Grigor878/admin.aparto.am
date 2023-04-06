@@ -64,7 +64,7 @@ const View = () => {
                     <Route path="form-structure" element={<Structure />} />
                     <Route path="users" element={<Users />} />
                     <Route path="users/add" element={<AddUsers />} />
-                    <Route path="users/edit" element={<EditUsers />} />
+                    <Route path="users/edit/:id" element={<EditUsers />} />
                     <Route path="web-configs" element={<Configs />} />
                     <Route path="crm" element={<Crm />} />
                     <Route path="*" element={<NotFound />} />

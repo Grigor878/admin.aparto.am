@@ -11,8 +11,9 @@ const Table = ({ Data, Columns }) => {
       data={data}
       fixedHeader
       defaultSortFieldId={1}
-      // pagination
-      // progressPending={<Loading />}
+      // data-tag="allowRowEvents"
+    // pagination
+    // progressPending={<Loading />}
     />
   )
 }

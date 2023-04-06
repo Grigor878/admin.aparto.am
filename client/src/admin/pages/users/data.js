@@ -7,40 +7,35 @@ export const userTableData = [
     name: "Vagharshak Aharonyan",
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
-    role: <p className="users__table-role">{agent.icon} Agent</p>,
-    edit: <Link to="edit" className="users__table-link">Edit</Link>,
+    // role: <p className="users__table-role">{agent.icon} Agent</p>,
   },
   {
     id: 2,
     name: "Vagharshak Aharonyan",
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
-    role: <p className="users__table-role">{agent.icon} Agent</p>,
-    edit: <Link to="edit" className="users__table-link">Edit</Link>,
+    // role: <p className="users__table-role">{agent.icon} Agent</p>,
   },
   {
     id: 3,
     name: "Vagharshak Aharonyan",
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
-    role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-    edit: <Link to="edit" className="users__table-link">Edit</Link>,
+    // role: <p className="users__table-role">{moderator.icon} Moderator</p>,
   },
   {
     id: 4,
     name: "Vagharshak Aharonyan",
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
-    role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-    edit: <Link to="edit" className="users__table-link">Edit</Link>,
+    // role: <p className="users__table-role">{moderator.icon} Moderator</p>,
   },
   {
     id: 5,
     name: "Vagharshak Aharonyan",
     email: "vagharshak@aparto.am",
     phone: "098 111 111",
-    role: <p className="users__table-role">{admin.icon} Admin</p>,
-    edit: <Link to="edit" className="users__table-link">Edit</Link>,
+    // role: <p className="users__table-role">{admin.icon} Admin</p>,
   },
 ];
 
@@ -58,16 +53,24 @@ export const userTableColumns = [
   {
     name: "Phone Number",
     selector: (row) => row.phone,
-    // sortable: true,
   },
   {
     name: "Role",
-    selector: (row) => row.role,
-    // sortable: true,
+    cell: () => {
+      return <p className="users__table-role">{admin.icon} Admin</p>;
+    },
   },
   {
     name: "",
-    selector: (row) => row.edit,
-    // sortable: true,
+    key: "action",
+    text: "Action",
+    //{`edit${row.id}`}
+    cell: (row) => {
+      return (
+        <Link to={`edit/${row.id}`} className="users__table-link">
+          Edit
+        </Link>
+      );
+    },
   },
 ];
