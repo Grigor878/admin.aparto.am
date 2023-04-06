@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/authSlice";
+import getUsersSlice from "./slices/getUsersSlice";
 
 // vor refreshic chjnjvi state-y
 // https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/
@@ -13,6 +14,7 @@ import authSlice from "./slices/authSlice";
 const store = configureStore({
   reducer: {
     auth: authSlice,
+    user: getUsersSlice,
   },
 });
 
