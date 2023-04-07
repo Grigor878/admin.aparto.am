@@ -1,21 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/authSlice";
 import getUsersSlice from "./slices/getUsersSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+import thunk from "redux-thunk";
 
-// vor refreshic chjnjvi state-y
-// https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["auth"],
+  // storageSession,
+};
 
-// const rootReducer = combineReducers({
-//   auth: authSlice,
-//   // myus: myusSlice
-// })
-//  reducer: rootReducer grel store um
-
-const store = configureStore({
-  reducer: {
-    auth: authSlice,
-    user: getUsersSlice,
-  },
+const rootReducer = combineReducers({
+  auth: authSlice,
+  user: getUsersSlice,
 });
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk],
+});
+
+export const persistor = persistStore(store);
 export default store;

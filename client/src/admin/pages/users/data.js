@@ -1,48 +1,11 @@
 import { Link } from "react-router-dom";
 import { admin, agent, moderator } from "../../svgs/svgs";
-
-export const userTableData = [
-  {
-    id: 1,
-    name: "Vagharshak Aharonyan",
-    email: "vagharshak@aparto.am",
-    phone: "098 111 111",
-    // role: <p className="users__table-role">{agent.icon} Agent</p>,
-  },
-  {
-    id: 2,
-    name: "Vagharshak Aharonyan",
-    email: "vagharshak@aparto.am",
-    phone: "098 111 111",
-    // role: <p className="users__table-role">{agent.icon} Agent</p>,
-  },
-  {
-    id: 3,
-    name: "Vagharshak Aharonyan",
-    email: "vagharshak@aparto.am",
-    phone: "098 111 111",
-    // role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-  },
-  {
-    id: 4,
-    name: "Vagharshak Aharonyan",
-    email: "vagharshak@aparto.am",
-    phone: "098 111 111",
-    // role: <p className="users__table-role">{moderator.icon} Moderator</p>,
-  },
-  {
-    id: 5,
-    name: "Vagharshak Aharonyan",
-    email: "vagharshak@aparto.am",
-    phone: "098 111 111",
-    // role: <p className="users__table-role">{admin.icon} Admin</p>,
-  },
-];
+import { capitalize } from "../../../helpers/formatters";
 
 export const userTableColumns = [
   {
     name: "Name",
-    selector: (row) => row.name,
+    selector: (row) => row.full_name.en,
     sortable: true,
   },
   {
@@ -52,19 +15,27 @@ export const userTableColumns = [
   },
   {
     name: "Phone Number",
-    selector: (row) => row.phone,
+    selector: (row) => row.phone.tel1,
   },
   {
     name: "Role",
-    cell: () => {
-      return <p className="users__table-role">{admin.icon} Admin</p>;
+    cell: (row) => {
+      return (
+        <p className="users__table-role">
+          {row.role === "admin"
+            ? admin.icon
+            : row.role === "agent"
+            ? agent.icon
+            : moderator.icon}
+          {capitalize(row.role)}
+        </p>
+      );
     },
   },
   {
     name: "",
     key: "action",
     text: "Action",
-    //{`edit${row.id}`}
     cell: (row) => {
       return (
         <Link to={`edit/${row.id}`} className="users__table-link">

@@ -4,7 +4,7 @@ import baseApi from "../../apis/baseApi";
 const initialState = {
   loading: false,
   users: [],
-  error: "",
+  // error: "",
 };
 
 export const getUsers = createAsyncThunk("user", async () => {
@@ -12,7 +12,7 @@ export const getUsers = createAsyncThunk("user", async () => {
     const { data } = await baseApi.get("/api/getUsers");
     return data;
   } catch (err) {
-    console.log(`Error: ${err.message}`);
+    console.log(`Get Users Error: ${err.message}`);
   }
 });
 
@@ -28,12 +28,12 @@ const userSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.users = action.payload;
-        state.error = "";
+        // state.error = "";
       })
-      .addCase(getUsers.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+      // .addCase(getUsers.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.error.message;
+      // });
   },
 });
 

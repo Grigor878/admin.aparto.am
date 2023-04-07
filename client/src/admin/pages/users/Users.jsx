@@ -23,16 +23,19 @@ const Users = () => {
     dispatch(getUsers())
   }, [dispatch])
 
+  const allUsers = users.users
+  console.log(allUsers)//
+
   return (
     <article className='users'>
-      <TopPart data={userTableData} />
+      <TopPart data={allUsers} />
 
       <div className="users__table">
         {users.loading && <p>Loading...</p>}
         {!users.loading && users.error ? <p>Error:{users.error}</p> : null}
         {!users.loading && users.users.length
           ? <Table
-            Data={userTableData}
+            Data={allUsers}
             Columns={userTableColumns}
           />
           : null}

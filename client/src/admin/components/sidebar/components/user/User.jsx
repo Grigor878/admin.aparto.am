@@ -5,7 +5,7 @@ import './User.scss'
 
 const User = () => {
     return (
-        <Link to='/dashboard' className='user'>
+        <Link to='/dashboard/profile' className='user'>
             <div className='user__info'>
                 {userIcon.icon}
                 <div className='user__info-text'>

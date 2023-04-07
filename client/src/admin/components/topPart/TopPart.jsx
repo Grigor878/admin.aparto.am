@@ -4,15 +4,18 @@ import { capitalize } from '../../../helpers/formatters'
 import { BtnAdd } from '../buttons/BtnAdd'
 import './TopPart.scss'
 
-const TopPart = ({data}) => {
+const TopPart = ({ data }) => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
-    
+
     let newPath = pathname.split('/')[2]
 
     return (
         <div className='topPart'>
-            <h3>{data?.length} {capitalize(newPath)}</h3>
+            <h3>
+                {data?.length === 1 ? data?.length + ' ' + capitalize(newPath.slice(0, -1)) : data?.length === 0 ? 'No Users' : data?.length + ' ' + capitalize(newPath)}
+            </h3>
+
             <BtnAdd
                 text={newPath === "users"
                     ? capitalize(newPath).slice(0, -1)

@@ -15,7 +15,7 @@ export const login = createAsyncThunk("auth", async ({ email, password }) => {
     });
     return res.data;
   } catch (err) {
-    console.log(err.message);
+    console.log(`Auth Error: ${err.message}`);
   }
 });
 
@@ -37,8 +37,6 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.loading = false;
         state.token = action.payload.access_token;
-        localStorage.setItem("auth", true);
-        localStorage.setItem("token", action.payload.access_token);
       });
   },
 });
