@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
+import baseApi from '../../../../apis/baseApi'
 // import choose from '../../../../assets/imgs/chooseAvatar.png'
 import './Styles.scss'
-import baseApi from '../../../../apis/baseApi'
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
@@ -29,6 +29,7 @@ const AddUsers = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         let userInfo = {
             full_name: {
                 am: info.user_name_am,
@@ -49,10 +50,11 @@ const AddUsers = () => {
         const formData = new FormData()
         formData.append('file', avatar)
         formData.append('fileName', avatar.name)
+        formData.append('userInfo', userInfo)
         // formData.append('userInfo', final)
-        const result = { formData, userInfo }
-        console.log(result);
-        baseApi.post('/api/addUser', result)
+        // const result = { formData, userInfo }
+        
+        baseApi.post('/api/addUser', formData)
             .then((response) => {
                 console.log(response.data);
             });
@@ -68,7 +70,6 @@ const AddUsers = () => {
                     <AddInput
                         id='user_avatar'
                         type='file'
-                        // placeholder='Enter user name'
                         name='Avatar'
                         onChange={handleAvatar} />
                 </div>
@@ -155,52 +156,3 @@ const AddUsers = () => {
 }
 
 export default AddUsers
-
-
-
-
-
-// import { isValidEmail } from '../../../../helpers/utils'
-
-// const [mailError, setMailError] = useState(null)
-
-// const handleUserInfo = (e) => {
-//     e.preventDefault()
-//     let userName = e.target.userName.value
-//     let userNameRu = e.target.userNameRu.value
-//     let userNameEng = e.target.userNameEng.value
-//     let userTel1 = e.target.userTel1.value
-//     let userTel2 = e.target.userTel2.value
-//     let userViber = e.target.userViber.value
-//     let userWhatsApp = e.target.userWhatsApp.value
-//     let userTelegram = e.target.userTelegram.value
-//     let userMail = e.target.userMail.value
-
-//     isValidEmail(userMail)
-
-//     if (!userName.length || !userNameRu.length || !userNameEng.length || !userTel1.length || !userMail.length) {
-//         setMailError('Complete required fields!')
-//     } else if (!isValidEmail(userMail)) {
-//         setMailError('Email is invalid!')
-//     } else {
-//         setMailError(null)
-//         console.log(`Names-AM-${userName} RU-${userNameRu} GB-${userNameEng}`)
-//         console.log(`Phone 1-${userTel1}`)
-//         console.log(`Phone 2-${userTel2}`)
-//         console.log(`Viber-${userViber}`)
-//         console.log(`WhatsApp-${userWhatsApp}`)
-//         console.log(`Telegram-${userTelegram}`)
-//         console.log(`Email-${userMail}`)
-//         e.target.userName.value = ""
-//         e.target.userNameRu.value = ""
-//         e.target.userNameEng.value = ""
-//         e.target.userTel1.value = ""
-//         e.target.userTel2.value = ""
-//         e.target.userViber.value = ""
-//         e.target.userWhatsApp.value = ""
-//         e.target.userTelegram.value = ""
-//         e.target.userMail.value = ""
-//     }
-// }
-
-// {/* {mailError ? <h3 style={{ color: 'red' }}>{mailError}</h3> : null} */ }

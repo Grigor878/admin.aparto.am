@@ -1,7 +1,7 @@
 //https://react-select.com/home nayel package-y
 import React from 'react'
 
-export const SelectRole = ({ role, setRole, handleSelct }) => {
+export const SelectRole = ({ handleSelct }) => {
     return (
         <label className='dash__label'>
             Role
