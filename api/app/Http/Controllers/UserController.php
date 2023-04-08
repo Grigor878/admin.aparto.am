@@ -34,6 +34,12 @@ class UserController extends Controller
          return response()->json($data);
      }
 
+     public function getGlobalUser() {
+        $globalUser = auth()->user();
+        $globalUser->full_name = json_decode($globalUser['full_name'], true);
+        $globalUser->phone = json_decode($globalUser['phone'], true);
+        return response()->json($globalUser);
+     }
 
      public function addUser (Request $request) {
         $data = $request->all();
