@@ -12,6 +12,16 @@ export function success(text) {
   });
 }
 
+export function error(text) {
+  Swal.fire({
+    icon: "error",
+    title: `<h6>${text}</h6>`,
+    showConfirmButton: false,
+    timer: 1500,
+    customClass: "swal",
+  });
+}
+
 export function goodJob() {
   Swal.fire("Good job!", "Message has been sent!", "success");
 }

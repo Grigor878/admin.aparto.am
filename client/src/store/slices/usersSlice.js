@@ -16,6 +16,12 @@ export const getUsers = createAsyncThunk("user", async () => {
   }
 });
 
+// export const addUser = createAsyncThunk("userAdd", async ({ formData }) => {
+//   // await baseApi.post("/api/addUser",  formData );
+//   const res = await baseApi.post("/api/addUser", { formData });
+//   return res.data;
+// });
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -29,11 +35,11 @@ const userSlice = createSlice({
         state.loading = false;
         state.users = action.payload;
         // state.error = "";
-      })
-      // .addCase(getUsers.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.error.message;
-      // });
+      });
+    // .addCase(getUsers.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
   },
 });
 

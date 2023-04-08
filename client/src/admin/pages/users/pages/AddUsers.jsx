@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
+// import { useDispatch } from 'react-redux'
+// import { addUser } from '../../../../store/slices/usersSlice'
 import baseApi from '../../../../apis/baseApi'
 // import choose from '../../../../assets/imgs/chooseAvatar.png'
 import './Styles.scss'
@@ -11,12 +13,10 @@ const AddUsers = () => {
     const [role, setRole] = useState('')
     const [info, setInfo] = useState({})
 
+    // const dispatch = useDispatch()
+
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
-    }
-
-    const handleSelct = (e) => {
-        setRole(e.target.value)
     }
 
     const handleChange = (e) => {
@@ -44,20 +44,19 @@ const AddUsers = () => {
                 whatsapp: info.user_whatsapp,
                 telegram: info.user_telegram,
             },
-            role: role,
+            role: info.user_role,
         };
 
         const formData = new FormData()
         formData.append('file', avatar)
         formData.append('fileName', avatar.name)
         formData.append('userInfo', JSON.stringify(userInfo))
-        // formData.append('userInfo', final)
-        // const result = { formData, userInfo }
-        
+
         baseApi.post('/api/addUser', formData)
             .then((response) => {
                 console.log(response.data);
             });
+        // dispatch(addUser({ formData }))
     }
 
     //sarqel global erku ejeri hamar
@@ -77,7 +76,7 @@ const AddUsers = () => {
                     <SelectRole
                         role={role}
                         setRole={setRole}
-                        handleSelct={handleSelct}
+                        onChange={handleChange}
                     />
                     <div className='subUsers__form-parts'>
                         <AddInput
