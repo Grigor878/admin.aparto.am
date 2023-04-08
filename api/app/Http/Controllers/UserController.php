@@ -20,12 +20,23 @@ class UserController extends Controller
     public function editUser (Request $request) {
         $data = $request->all();
         dd($data);
-         return response()->json($users);
+         return response()->json($data);
      }
+
+     public function changePassword (Request $request) {
+        $data = $request->all();
+        dd($data);
+        $userId = auth()->user()->id;
+
+        dd($data);
+         return response()->json($data);
+     }
+
+     
 
      public function addUser (Request $request) {
         $data = $request->all();
         dd($data);
-         return response()->json($users);
+         return response()->json($data);
      }
 }
