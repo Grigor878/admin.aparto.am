@@ -50,7 +50,7 @@ const AddUsers = () => {
         const formData = new FormData()
         formData.append('file', avatar)
         formData.append('fileName', avatar.name)
-        formData.append('userInfo', userInfo)
+        formData.append('userInfo', JSON.stringify(userInfo))
         // formData.append('userInfo', final)
         // const result = { formData, userInfo }
         

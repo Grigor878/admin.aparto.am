@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Employe;
 
 class UserController extends Controller
@@ -32,11 +34,26 @@ class UserController extends Controller
          return response()->json($data);
      }
 
-     
 
      public function addUser (Request $request) {
         $data = $request->all();
-        dd($data);
-         return response()->json($data);
+        $fileName = null;
+        $password =  Str::random(10);
+        $userInfo = json_decode($data['userInfo']);
+        if($request->file) {
+            $fileName = time().'.'.$request->file->extension();
+            $request->file->move(public_path('images'), $fileName);
+        }
+        $user = new Employe();
+        $user->full_name = json_encode($userInfo->full_name);
+        $user->phone = json_encode($userInfo->phone);
+        $user->email = $userInfo->email;
+        $user->role = $userInfo->role;
+        $user->photo = $fileName;
+        $user->password = Hash::make($password);
+        $user->save();
+        return response()->json(['status' => 'success', 'password' => $password], 200);
+
+      
      }
 }
