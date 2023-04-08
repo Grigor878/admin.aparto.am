@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../store/slices/getUsersSlice'
 import TopPart from '../../components/topPart/TopPart'
 import Table from '../../components/table/Table'
-import { userTableData, userTableColumns } from './data'
+import { Loader } from '../../../components/loading/Loader'
+import { userTableColumns } from './data'
 import './Users.scss'
 
 // USERS
@@ -31,7 +32,7 @@ const Users = () => {
       <TopPart data={allUsers} />
 
       <div className="users__table">
-        {users.loading && <p>Loading...</p>}
+        {users.loading && <Loader />}
         {!users.loading && users.error ? <p>Error:{users.error}</p> : null}
         {!users.loading && users.users.length
           ? <Table

@@ -1,12 +1,10 @@
 import React from 'react'
-import Loader from '../../assets/imgs/loader.gif'
+import loading from '../../assets/imgs/loading.gif'
 
-const Loading = () => {
+export const Loading = () => {
     return (
-        <div className="loader">
-            <img src={Loader} alt="Loading..." />
+        <div className="loading">
+            <img src={loading} alt="Loading..." />
         </div>
     )
 }
-
-export default Loading

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react"
-import Loading from "../components/loading/Loading"
+import {Loading} from "../components/loading/Loading"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"

@@ -1,11 +1,11 @@
 //https://react-select.com/home nayel package-y
 import React from 'react'
 
-export const SelectRole = () => {
+export const SelectRole = ({ role, setRole, handleSelct }) => {
     return (
         <label className='dash__label'>
             Role
-            <select name="role" id="role" className='dash__input' >
+            <select name="role" id="role" className='dash__input' onChange={handleSelct} >
                 <option value="" >Role</option>
                 <option value="admin">Admin</option>
                 <option value="moderator">Moderator</option>

@@ -41,17 +41,37 @@ body {
   }
 }
 
+.loading {
+  z-index: 99;
+  @include flexCenter;
+  margin: 0 auto;
+
+  // img {
+  //   width: 222px;
+  //   height: 222px;
+  // }
+
+  @media screen and (max-width: 768px) {
+    width: 131px;
+    height: 131px;
+  }
+}
+
 .loader {
   z-index: 99;
   @include flexCenter;
   margin: 0 auto;
 
+  img {
+    width: 77px;
+    height: 77px;
+  }
+
   @media screen and (max-width: 768px) {
-    width: 151px;
-    height: 151px;
+    width: 55px;
+    height: 55px;
   }
 }
-
 // Dashboard all pages
 .dashboard__layout {
   display: flex;

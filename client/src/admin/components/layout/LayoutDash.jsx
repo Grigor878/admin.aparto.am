@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Sidebar from '../sidebar/Sidebar'
 import AutoScroll from '../../../helpers/autoScroll'
 import HelmetAdmin from '../../../components/helmetAsync/HelmetAdmin'
-import Loading from '../../../components/loading/Loading'
+import {Loading} from '../../../components/loading/Loading'
 
 const LayoutDash = () => {
     let location = useLocation()

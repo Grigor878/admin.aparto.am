@@ -4,6 +4,7 @@ import { login } from '../../../../../store/slices/authSlice'
 import { LoginMail } from '../inputs/LoginMail'
 import { LoginPassword } from '../inputs/LoginPassword'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
+import { success } from '../../../../../components/swal/swal'
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
@@ -15,6 +16,7 @@ export const LoginForm = () => {
         dispatch(login({ email, password }))
         e.target.loginEmail.value = ""
         e.target.loginPassword.value = ""
+        success('You are logged in')
     }
 
     return (

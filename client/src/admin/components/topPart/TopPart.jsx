@@ -13,7 +13,7 @@ const TopPart = ({ data }) => {
     return (
         <div className='topPart'>
             <h3>
-                {data?.length === 1 ? data?.length + ' ' + capitalize(newPath.slice(0, -1)) : data?.length === 0 ? 'No Users' : data?.length + ' ' + capitalize(newPath)}
+                {data?.length === 1 ? data?.length + ' ' + capitalize(newPath.slice(0, -1)) : data?.length === 0 ? 'No Data' : data?.length + ' ' + capitalize(newPath)}
             </h3>
 
             <BtnAdd
