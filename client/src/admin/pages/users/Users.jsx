@@ -1,20 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUsers } from '../../../store/slices/getUsersSlice'
+import { getUsers } from '../../../store/slices/usersSlice'
 import TopPart from '../../components/topPart/TopPart'
 import Table from '../../components/table/Table'
 import { Loader } from '../../../components/loading/Loader'
 import { userTableColumns } from './data'
 import './Users.scss'
-
-// USERS
-// id: null,
-// //   role: "",
-// //   status: "approved",
-// //   img: {},
-// full_name: {},
-// email: "",
-// phone: {},
 
 const Users = () => {
   const users = useSelector((state => state.user))
