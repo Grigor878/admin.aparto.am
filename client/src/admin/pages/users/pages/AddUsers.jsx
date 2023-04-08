@@ -72,7 +72,7 @@ const AddUsers = () => {
                         name='Avatar'
                         onChange={handleAvatar} />
                 </div>
-                <form id="myForm" onSubmit={handleSubmit} className='subUsers__form'>
+                <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
                     <SelectRole
                         role={role}
                         setRole={setRole}
