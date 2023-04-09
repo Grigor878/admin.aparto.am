@@ -5,16 +5,18 @@ import { EditInput } from '../../../components/inputs/EditInput'
 import choose from '../../../../assets/imgs/chooseAvatar.png'
 import baseApi from '../../../../apis/baseApi'
 import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { splitAfter } from '../../../../helpers/formatters'
 import './Styles.scss'
+import { API_BASE_URL } from '../../../../apis/config'
 
 const EditUsers = () => {
     const users = useSelector((state => state.user))
-    const location = useLocation()
-    let path = location.pathname.slice(location.pathname.lastIndexOf("/"), location.pathname.length);
-    const userId = Number(splitAfter(path))
+    // const location = useLocation()
+    const params = useParams()
+    const userId = Number(params.id)
     const currentUser = users.users.find(item => item.id === userId)
+    // console.log(currentUser)
     // const [edit, setEdit] = useState(currentUser)
     const [avatar, setAvatar] = useState()
     const [role, setRole] = useState('')
@@ -99,12 +101,13 @@ const EditUsers = () => {
             <AddPart type="editUser" />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
-                    <img src={choose} alt="User" />
-                    <EditInput
+                    <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                    {/* <EditInput
                         id='user_avatar'
                         type='file'
                         name='Avatar'
-                        onChange={handleAvatar} />
+                        onChange={handleAvatar}
+                    /> */}
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
                     <SelectRole

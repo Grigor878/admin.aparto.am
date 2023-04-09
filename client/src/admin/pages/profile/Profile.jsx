@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../store/slices/authSlice'
 import { logOut } from '../../svgs/svgs'
@@ -7,6 +7,8 @@ import { DisabledInput } from '../../components/inputs/DisabledInput'
 import { BtnCustom } from '../../components/buttons/BtnCustom'
 import { AddInput } from '../../components/inputs/AddInput'
 import './Profile.scss'
+import baseApi from '../../../apis/baseApi'
+import { GetAxiosConfig } from '../../../apis/config'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -14,12 +16,10 @@ const Profile = () => {
     const [retryError, setRetryError] = useState(null)
 
     const hanldeLogOut = () => {
-        localStorage.removeItem('auth')
-        localStorage.removeItem('token')
+        // localStorage.removeItem('persist:root')
         dispatch(logout())
-        // window.location.reload(false)
     }
-
+   
     const handlePassword = (e) => {
         e.preventDefault()
         let oldPassword = e.target.userOldPassword.value
