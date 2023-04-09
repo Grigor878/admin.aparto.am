@@ -10,62 +10,89 @@ import { splitAfter } from '../../../../helpers/formatters'
 import './Styles.scss'
 
 const EditUsers = () => {
-    const [avatar, setAvatar] = useState()
-    const [role, setRole] = useState('')
-    const [info, setInfo] = useState({})
-
     const users = useSelector((state => state.user))
     const location = useLocation()
     let path = location.pathname.slice(location.pathname.lastIndexOf("/"), location.pathname.length);
     const userId = Number(splitAfter(path))
-
     const currentUser = users.users.find(item => item.id === userId)
-    console.log(currentUser)//
+    // const [edit, setEdit] = useState(currentUser)
+    const [avatar, setAvatar] = useState()
+    const [role, setRole] = useState('')
+    const [am, setAm] = useState(currentUser.full_name.am)
+    const [ru, setRu] = useState(currentUser.full_name.ru)
+    const [en, setEn] = useState(currentUser.full_name.en)
+    const [email, setEmail] = useState(currentUser.email)
+    const [tel1, setTel1] = useState(currentUser.phone.tel1)
+    const [tel2, setTel2] = useState(currentUser.phone.tel2)
+    const [viber, setViber] = useState(currentUser.phone.viber)
+    const [whatsapp, setWhatsapp] = useState(currentUser.phone.whatsapp)
+    const [telegram, setTelegram] = useState(currentUser.phone.telegram)
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
     }
-
-    const handleChange = (e) => {
-        let { id, value } = e.target
-
-        setInfo((prev) => {
-            return { ...prev, [id]: value }
-        })
+    const handleRole = (e) => {
+        setRole(e.target.value)
+    }
+    const handleAm = (e) => {
+        setAm(e.target.value)
+    }
+    const handleRu = (e) => {
+        setRu(e.target.value)
+    }
+    const handleEn = (e) => {
+        setEn(e.target.value)
+    }
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    const handleTel1 = (e) => {
+        setTel1(e.target.value)
+    }
+    const handleTel2 = (e) => {
+        setTel2(e.target.value)
+    }
+    const handleViber = (e) => {
+        setViber(e.target.value)
+    }
+    const handleWhatsapp = (e) => {
+        setWhatsapp(e.target.value)
+    }
+    const handleTelegram = (e) => {
+        setTelegram(e.target.value)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        const formData = new FormData()
+        // formData.append('file', avatar)
+        // formData.append('fileName', avatar.name)
+        // formData.append('userEditedInfo', JSON.stringify(userInfo))
 
         let userInfo = {
             full_name: {
-                am: info.user_name_am,
-                ru: info.user_name_ru,
-                en: info.user_name_en,
+                am: am,
+                ru: ru,
+                en: en,
             },
-            email: info.user_mail,
+            email: email,
             phone: {
-                tel1: info.user_tel1,
-                tel2: info.user_tel2,
-                viber: info.user_viber,
-                whatsapp: info.user_whatsapp,
-                telegram: info.user_telegram,
+                tel1: tel1,
+                tel2: tel2,
+                viber: viber,
+                whatsapp: whatsapp,
+                telegram: telegram,
             },
-            role: info.user_role,
-        };
+            role: role,
+        }
+        console.log("test", userInfo)
 
-        console.log(userInfo)//
 
-        const formData = new FormData()
-        formData.append('file', avatar)
-        formData.append('fileName', avatar.name)
-        formData.append('userInfo', JSON.stringify(userInfo))
-
-        baseApi.post('/api/editUser', formData)
-            .then((response) => {
-                console.log(response.data);
-            });
-    }
+        // baseApi.post('/api/editUser', formData)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //     })
+    };
 
     return (
         <article className='subUsers'>
@@ -73,98 +100,97 @@ const EditUsers = () => {
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
                     <img src={choose} alt="User" />
-                    {/* <EditInput
+                    <EditInput
                         id='user_avatar'
                         type='file'
                         name='Avatar'
-                        onChange={handleAvatar} /> */}
+                        onChange={handleAvatar} />
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
                     <SelectRole
                         role={role}
                         setRole={setRole}
-                        onChange={handleChange}
-                        value={currentUser.role}
+                        onChange={handleRole}
+                        value={role}
                     />
                     <div className='subUsers__form-parts'>
                         <EditInput
-                            id='user_name_am'
+                            id='User_name_am'
                             type='text'
                             placeholder='Enter user name'
                             name='Name'
-                            onChange={handleChange}
-                            value={currentUser.full_name.am}
+                            onChange={handleAm}
+                            value={am}
                         />
                         <EditInput
-                            id='user_name_ru'
+                            id='User_name_ru'
                             type='text'
                             placeholder='Enter user name'
                             name='Name RUS'
-                            onChange={handleChange}
-                            value={currentUser.full_name.ru}
+                            onChange={handleRu}
+                            value={ru}
                         />
                         <EditInput
-                            id='user_name_en'
+                            id='User_name_en'
                             type='text'
                             placeholder='Enter user name'
                             name='Name ENG'
-                            onChange={handleChange}
-                            value={currentUser.full_name.en}
+                            onChange={handleEn}
+                            value={en}
                         />
                     </div>
                     <div className='subUsers__form-parts'>
                         <EditInput
-                            id='user_mail'
+                            id='User_mail'
                             type='email'
                             placeholder='Enter user email'
                             name='Email'
-                            onChange={handleChange}
-                            value={currentUser.email}
+                            onChange={handleEmail}
+                            value={email}
                         />
                         <EditInput
-                            id='user_tel1'
+                            id='User_tel1'
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 1'
-                            onChange={handleChange}
-                            value={currentUser.phone.tel1}
+                            onChange={handleTel1}
+                            value={tel1}
                         />
                         <EditInput
-                            id='user_tel2'
+                            id='User_tel2'
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 2'
-                            onChange={handleChange}
-                            value={currentUser.phone.tel2}
+                            onChange={handleTel2}
+                            value={tel2}
                         />
                     </div>
                     <div className='subUsers__form-parts'>
                         <EditInput
-                            id='user_viber'
+                            id='User_viber'
                             type='tel'
                             placeholder='Enter user phone'
                             name='Viber'
-                            onChange={handleChange}
-                            value={currentUser.phone.viber}
+                            onChange={handleViber}
+                            value={viber}
                         />
                         <EditInput
-                            id='user_whatsapp'
+                            id='User_whatsapp'
                             type='tel'
                             placeholder='Enter user phone'
                             name='WhatsApp'
-                            onChange={handleChange}
-                            value={currentUser.phone.whatsapp}
+                            onChange={handleWhatsapp}
+                            value={whatsapp}
                         />
                         <EditInput
-                            id='user_telegram'
+                            id='User_telegram'
                             type='tel'
                             placeholder='Enter user phone'
                             name='Telegram'
-                            onChange={handleChange}
-                            value={currentUser.phone.telegram}
+                            onChange={handleTelegram}
+                            value={telegram}
                         />
                     </div>
-                    {/* <BtnCustom type="submit" text="Add This User" /> */}
                 </form>
             </div>
         </article>

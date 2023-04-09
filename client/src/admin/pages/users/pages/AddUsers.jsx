@@ -147,7 +147,6 @@ const AddUsers = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    {/* <BtnCustom type="submit" text="Add This User" /> */}
                 </form>
             </div>
         </article>

@@ -22,7 +22,7 @@ export const EditInput = ({ id, type, placeholder, name, onChange, value }) => {
                         : null}
                 required={type === 'tel' ? false : true}
                 onChange={onChange}
-                defaultValue={value}
+                value={value}
             />
         </label>
     )
