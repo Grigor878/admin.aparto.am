@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
-import { GetAxiosConfig } from "../../apis/config";
+import { getAxiosConfig } from "../../apis/config";
 import axios from "axios";
 
 const initialState = {
@@ -21,7 +21,7 @@ export const getUserGlobal = createAsyncThunk("userGlobal", async () => {
     const { data } = await baseApi.post(
       "/api/getGlobalUser",
       null,
-      GetAxiosConfig()
+      getAxiosConfig()
     );
     console.log(77788);
     return data;
