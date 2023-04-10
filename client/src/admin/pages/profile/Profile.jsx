@@ -8,10 +8,15 @@ import { BtnCustom } from '../../components/buttons/BtnCustom'
 import { AddInput } from '../../components/inputs/AddInput'
 import './Profile.scss'
 import baseApi from '../../../apis/baseApi'
-import { GetAxiosConfig } from '../../../apis/config'
+import { getAxiosConfig } from '../../../apis/config'
 
 const Profile = () => {
     const dispatch = useDispatch()
+
+    // let obj = {
+    //     old:"",
+    //     new:""
+    // }
 
     const [retryError, setRetryError] = useState(null)
 
@@ -19,7 +24,7 @@ const Profile = () => {
         // localStorage.removeItem('persist:root')
         dispatch(logout())
     }
-   
+
     const handlePassword = (e) => {
         e.preventDefault()
         let oldPassword = e.target.userOldPassword.value
@@ -32,9 +37,15 @@ const Profile = () => {
             setRetryError('There is no changes!')
         } else if (newPassword === retryPassword) {
             setRetryError(null)
-            console.log(`Old-${oldPassword}`)
-            console.log(`New-${newPassword}`)
-            console.log(`New Retry-${retryPassword}`)
+
+            baseApi.post('/changePassword', { oldPassword, newPassword }, getAxiosConfig())
+                .then(
+                    response => {
+                        console.log(response.data, 88);
+                    })
+            // console.log(`Old-${oldPassword}`)
+            // console.log(`New-${newPassword}`)
+            // console.log(`New Retry-${retryPassword}`)
             e.target.userOldPassword.value = ""
             e.target.userNewPassword.value = ""
             e.target.userRetryPassword.value = ""

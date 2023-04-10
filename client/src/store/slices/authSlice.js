@@ -15,17 +15,6 @@ export const login = createAsyncThunk("auth", async ({ email, password }) => {
     password,
   });
   return res.data;
-  // try {
-  //   const res = await baseApi.post("/api/signin", {
-  //     email,
-  //     password,
-  //   });
-  //   success("You are logged in");
-  //   return res.data;
-  // } catch (err) {
-  //   console.log(`Log-In Error: ${err.message}`);
-  //   error(`Auth Error: ${err.message}`);
-  // }
 });
 
 const authSlice = createSlice({
@@ -46,6 +35,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.loading = false;
         state.token = action.payload.access_token;
+        localStorage.setItem("token", action.payload.access_token);
         success("You are logged in");
       })
       .addCase(login.rejected, (state, action) => {
