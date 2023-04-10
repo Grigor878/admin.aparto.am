@@ -16,7 +16,6 @@ const Users = () => {
   }, [dispatch])
 
   const allUsers = users.users
-  // console.log(allUsers)
 
   return (
     <article className='users'>

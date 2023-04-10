@@ -27,6 +27,9 @@ const Crm = lazy(() => import('../admin/pages/crm/Crm'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
+    const tokenStorage = localStorage.getItem("token")
+    console.log('tokenRedux', token)
+    console.log('tokenStorage', tokenStorage)
 
     return (
         <Router>
