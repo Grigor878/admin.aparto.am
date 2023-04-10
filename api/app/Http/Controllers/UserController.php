@@ -41,6 +41,10 @@ class UserController extends Controller
         return response()->json($globalUser);
      }
 
+     public function changeStatus(Request $request) {
+        dd(1111);
+     }
+
      public function addUser (Request $request) {
         $data = $request->all();
         $fileName = null;
