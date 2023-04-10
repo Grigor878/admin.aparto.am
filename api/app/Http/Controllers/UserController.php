@@ -26,12 +26,20 @@ class UserController extends Controller
      }
 
      public function changePassword (Request $request) {
-        $data = $request->all();
-        dd($data);
-        $userId = auth()->user()->id;
-
-        dd($data);
-         return response()->json($data);
+        try {
+            $data = $request->all();
+            $employeId = auth()->user()->id;
+            $employe = Employe::findOrFail($employeId);
+            if (Hash::check($data['oldPassword'], $employe['password'])) { 
+                $employe->update(['password' => Hash::make($data['newPassword'])]);
+                return response()->json(['message' => "Password changed succesfully"]);
+            }
+           
+            return response()->json(['message' => "Passwords do not match"]);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong.'], 500);
+        }
      }
 
      public function getGlobalUser() {
@@ -42,7 +50,9 @@ class UserController extends Controller
      }
 
      public function changeStatus(Request $request) {
-        dd(1111);
+         $data = $request->all();
+         dd($data);
+        return response()->json($data);
      }
 
      public function addUser (Request $request) {
