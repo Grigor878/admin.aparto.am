@@ -3,6 +3,7 @@ import AddPart from '../../../components/addPart/AddPart'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 // import { useDispatch } from 'react-redux'
+import { addUser } from '../../../../store/slices/usersSlice'
 // import { addUser } from '../../../../store/slices/usersSlice'
 import baseApi from '../../../../apis/baseApi'
 // import choose from '../../../../assets/imgs/chooseAvatar.png'
@@ -54,12 +55,11 @@ const AddUsers = () => {
 
         baseApi.post('/api/addUser', formData)
             .then((response) => {
-                console.log(response.data);
-            });
+                console.log(response.data)
+            })
         // dispatch(addUser({ formData }))
     }
 
-    //sarqel global erku ejeri hamar
     return (
         <article className='subUsers'>
             <AddPart type="addUsers" />

@@ -5,31 +5,26 @@ import Sidebar from '../sidebar/Sidebar'
 import AutoScroll from '../../../helpers/autoScroll'
 import HelmetAdmin from '../../../components/helmetAsync/HelmetAdmin'
 import { Loading } from '../../../components/loading/Loading'
+import { useDispatch } from 'react-redux'
+import { getUserGlobal } from '../../../store/slices/userGlobalSlice'
+import { getUsers } from '../../../store/slices/usersSlice'
 // import baseApi from '../../../apis/baseApi'
 // import { GetAxiosConfig } from '../../../apis/config'
 
 const LayoutDash = () => {
     let location = useLocation()
-    // const [globalInfo, setGlobalInfo] = useState()
 
-    // const fetchUserGlobal = async () => {
-    //     try {
-    //         const { data } = await baseApi.post('/api/getGlobalUser', null, GetAxiosConfig());
-    //         console.log(data);
-    //         setGlobalInfo(data);
-    //     } catch (error) {
-    //         console.log(`Error: ${error.message}`);
-    //     }
-    // };
+    const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     fetchUserGlobal()
-    // }, [])
-    // console.log(globalInfo)
+    useEffect(() => {
+        dispatch(getUserGlobal())
+        dispatch(getUsers())
+    }, [dispatch])
 
     if (location.pathname === '/dashboard') {
         return <Navigate replace to='/dashboard/properties' />
     }
+
 
     return (
         <div className='dashboard__layout'>

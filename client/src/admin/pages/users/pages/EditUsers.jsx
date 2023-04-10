@@ -2,33 +2,32 @@ import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
+import userImg from '../../../../assets/imgs/user.webp'
 import choose from '../../../../assets/imgs/chooseAvatar.png'
 import baseApi from '../../../../apis/baseApi'
 import { useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
-import { splitAfter } from '../../../../helpers/formatters'
-import './Styles.scss'
+import { useParams } from 'react-router-dom'
 import { API_BASE_URL } from '../../../../apis/config'
+import './Styles.scss'
 
 const EditUsers = () => {
-    const users = useSelector((state => state.user))
-    // const location = useLocation()
     const params = useParams()
     const userId = Number(params.id)
-    const currentUser = users.users.find(item => item.id === userId)
-    // console.log(currentUser)
-    // const [edit, setEdit] = useState(currentUser)
+
+    const users = useSelector((state => state.user.users))
+    const currentUser = users.find(item => item.id === userId)
+
     const [avatar, setAvatar] = useState()
     const [role, setRole] = useState('')
-    const [am, setAm] = useState(currentUser.full_name.am)
-    const [ru, setRu] = useState(currentUser.full_name.ru)
-    const [en, setEn] = useState(currentUser.full_name.en)
-    const [email, setEmail] = useState(currentUser.email)
-    const [tel1, setTel1] = useState(currentUser.phone.tel1)
-    const [tel2, setTel2] = useState(currentUser.phone.tel2)
-    const [viber, setViber] = useState(currentUser.phone.viber)
-    const [whatsapp, setWhatsapp] = useState(currentUser.phone.whatsapp)
-    const [telegram, setTelegram] = useState(currentUser.phone.telegram)
+    const [am, setAm] = useState(currentUser?.full_name?.am)
+    const [ru, setRu] = useState(currentUser?.full_name?.ru)
+    const [en, setEn] = useState(currentUser?.full_name?.en)
+    const [email, setEmail] = useState(currentUser?.email)
+    const [tel1, setTel1] = useState(currentUser?.phone?.tel1)
+    const [tel2, setTel2] = useState(currentUser?.phone?.tel2)
+    const [viber, setViber] = useState(currentUser?.phone?.viber)
+    const [whatsapp, setWhatsapp] = useState(currentUser?.phone?.whatsapp)
+    const [telegram, setTelegram] = useState(currentUser?.phone?.telegram)
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
@@ -101,7 +100,10 @@ const EditUsers = () => {
             <AddPart type="editUser" />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
-                    <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                    {currentUser?.photo === null
+                        ? <img src={userImg} alt="User" />
+                        : <img src={API_BASE_URL + '/images/' + currentUser?.photo} alt="User" />
+                    }
                     {/* <EditInput
                         id='user_avatar'
                         type='file'

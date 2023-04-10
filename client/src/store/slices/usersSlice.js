@@ -17,9 +17,7 @@ export const getUsers = createAsyncThunk("user", async () => {
 });
 
 // export const addUser = createAsyncThunk("userAdd", async ({ formData }) => {
-//   // await baseApi.post("/api/addUser",  formData );
-//   const res = await baseApi.post("/api/addUser", { formData });
-//   return res.data;
+//   await baseApi.post("/api/addUser", formData);
 // });
 
 const userSlice = createSlice({
