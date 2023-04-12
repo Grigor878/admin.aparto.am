@@ -9,14 +9,14 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "user", "userGlobal"],
+  whitelist: ["auth", "users", "userGlobal"],
   // storageSession,
 };
 
 const rootReducer = combineReducers({
   auth: authSlice,
   userGlobal: userGlobalSlice,
-  user: usersSlice,
+  users: usersSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

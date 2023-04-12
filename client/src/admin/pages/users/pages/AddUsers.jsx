@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
-// import { useDispatch } from 'react-redux'
-import { addUser } from '../../../../store/slices/usersSlice'
-// import { addUser } from '../../../../store/slices/usersSlice'
 import baseApi from '../../../../apis/baseApi'
 // import choose from '../../../../assets/imgs/chooseAvatar.png'
+import { error, goodJob } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const AddUsers = () => {
@@ -14,7 +13,7 @@ const AddUsers = () => {
     const [role, setRole] = useState('')
     const [info, setInfo] = useState({})
 
-    // const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
@@ -54,11 +53,14 @@ const AddUsers = () => {
         formData.append('userInfo', JSON.stringify(userInfo))
 
         baseApi.post('/api/addUser', formData)
-            .then((response) => {
-                console.log(response.data)
+            .then(res => {
+                goodJob(`Password is - ${res.data.password}`)
+                navigate(-1)
             })
-        // dispatch(addUser({ formData }))
+            .catch(err => error(err.message))
+
     }
+
 
     return (
         <article className='subUsers'>

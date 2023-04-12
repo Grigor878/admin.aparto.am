@@ -3,6 +3,7 @@ import { BtnCustom } from '../../../../components/buttons/BtnCustom'
 import { AddInput } from '../../../../components/inputs/AddInput'
 import baseApi from '../../../../../apis/baseApi'
 import { getAxiosConfig } from '../../../../../apis/config'
+import { error, success } from '../../../../../components/swal/swal'
 
 export const Password = () => {
     const [retryError, setRetryError] = useState(null)
@@ -21,11 +22,8 @@ export const Password = () => {
             setRetryError(null)
 
             baseApi.post('/api/changePassword', { oldPassword, newPassword }, getAxiosConfig())
-                .then(response => {
-                    console.log(response.data);
-                }).catch(err => {
-                    console.log(err.message);
-                })
+                .then(res => success(res.data.message))
+                .catch(err => error(err.message))
 
             e.target.userOldPassword.value = ""
             e.target.userNewPassword.value = ""

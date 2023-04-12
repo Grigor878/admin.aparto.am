@@ -7,7 +7,7 @@ const initialState = {
   // error: "",
 };
 
-export const getUsers = createAsyncThunk("user", async () => {
+export const getUsers = createAsyncThunk("users", async () => {
   try {
     const { data } = await baseApi.get("/api/getUsers");
     return data;
@@ -21,7 +21,7 @@ export const getUsers = createAsyncThunk("user", async () => {
 // });
 
 const userSlice = createSlice({
-  name: "user",
+  name: "users",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

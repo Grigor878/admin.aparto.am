@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getUserGlobal } from '../../../store/slices/userGlobalSlice'
-import { getUsers } from '../../../store/slices/usersSlice'
 import { Navigate, useLocation } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../sidebar/Sidebar'
@@ -16,7 +15,6 @@ const LayoutDash = () => {
 
     useEffect(() => {
         dispatch(getUserGlobal())
-        dispatch(getUsers())
     }, [dispatch])
 
     if (location.pathname === '/dashboard') {

@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import {  useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
 import userImg from '../../../../assets/imgs/user.webp'
-// import choose from '../../../../assets/imgs/chooseAvatar.png'
 import baseApi from '../../../../apis/baseApi'
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { API_BASE_URL } from '../../../../apis/config'
+// import choose from '../../../../assets/imgs/chooseAvatar.png'
+import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const EditUsers = () => {
+    const navigate = useNavigate()
     const params = useParams()
     const userId = Number(params.id)
 
-    const users = useSelector((state => state.user.users))
+    const users = useSelector((state => state.users.users))
     const currentUser = users.find(item => item.id === userId)
 
     const [avatar, setAvatar] = useState()
@@ -95,21 +97,28 @@ const EditUsers = () => {
         //     })
     };
 
-
     const changeStatus = () => {
         let statusChangeInfo = {
             id: userId,
-            status: "deactivated"
+            status: currentUser.status === "approved" ? "deactivated" : "approved"
         }
-        
+
         baseApi.post('/api/changeStatus', statusChangeInfo)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err.message))
+            .then(res => {
+                success(res.data.message)
+                navigate(-1)
+            })
+            .catch(err => error(err.message))
+
     }
 
     return (
         <article className='subUsers'>
-            <AddPart type="editUser" onClick={changeStatus} />
+            <AddPart
+                type="editUser"
+                changeStatus={changeStatus}
+                currentUser={currentUser}
+            />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
                     {currentUser.photo === null

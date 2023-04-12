@@ -22,8 +22,8 @@ export function error(text) {
   });
 }
 
-export function goodJob() {
-  Swal.fire("Good job!", "Message has been sent!", "success");
+export function goodJob(text) {
+  Swal.fire("Good job!", text, "success");
 }
 
 export function oops() {
