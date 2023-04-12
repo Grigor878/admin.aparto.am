@@ -6,7 +6,7 @@ import { BtnDiscard } from '../buttons/BtnDiscard'
 import { BtnCustom } from '../buttons/BtnCustom'
 import './AddPart.scss'
 
-const AddPart = ({ type }) => {
+const AddPart = ({ type, onClick }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
@@ -37,7 +37,7 @@ const AddPart = ({ type }) => {
           />
         </div>
         : <div className='addpart__btns'>
-          <button className='addpart__btns-deactivate'>Deactivate</button>
+          <button className='addpart__btns-deactivate' onClick={onClick}>Deactivate</button>
           <BtnDiscard text="Discard" />
           <BtnCustom
             form="editUserForm"

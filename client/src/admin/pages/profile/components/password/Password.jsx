@@ -21,10 +21,11 @@ export const Password = () => {
             setRetryError(null)
 
             baseApi.post('/api/changePassword', { oldPassword, newPassword }, getAxiosConfig())
-                .then(
-                    response => {
-                        console.log(response.data, 88);
-                    })
+                .then(response => {
+                    console.log(response.data);
+                }).catch(err => {
+                    console.log(err.message);
+                })
 
             e.target.userOldPassword.value = ""
             e.target.userNewPassword.value = ""

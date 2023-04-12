@@ -3,7 +3,7 @@ import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
 import userImg from '../../../../assets/imgs/user.webp'
-import choose from '../../../../assets/imgs/chooseAvatar.png'
+// import choose from '../../../../assets/imgs/chooseAvatar.png'
 import baseApi from '../../../../apis/baseApi'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -95,9 +95,21 @@ const EditUsers = () => {
         //     })
     };
 
+
+    const changeStatus = () => {
+        let statusChangeInfo = {
+            id: userId,
+            status: "deactivated"
+        }
+        
+        baseApi.post('/api/changeStatus', statusChangeInfo)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.message))
+    }
+
     return (
         <article className='subUsers'>
-            <AddPart type="editUser" />
+            <AddPart type="editUser" onClick={changeStatus} />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
                     {currentUser.photo === null
