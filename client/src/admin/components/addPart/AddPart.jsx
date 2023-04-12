@@ -32,7 +32,6 @@ const AddPart = ({ type }) => {
         ? <div className='addpart__btns'>
           <BtnDiscard text="Discard" />
           <BtnCustom
-            // esi menak sra hamar anel form-y
             form="addUserForm"
             text={`Add This ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
           />

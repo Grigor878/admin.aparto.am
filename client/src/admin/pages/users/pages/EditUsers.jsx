@@ -19,15 +19,15 @@ const EditUsers = () => {
 
     const [avatar, setAvatar] = useState()
     const [role, setRole] = useState('')
-    const [am, setAm] = useState(currentUser?.full_name?.am)
-    const [ru, setRu] = useState(currentUser?.full_name?.ru)
-    const [en, setEn] = useState(currentUser?.full_name?.en)
-    const [email, setEmail] = useState(currentUser?.email)
-    const [tel1, setTel1] = useState(currentUser?.phone?.tel1)
-    const [tel2, setTel2] = useState(currentUser?.phone?.tel2)
-    const [viber, setViber] = useState(currentUser?.phone?.viber)
-    const [whatsapp, setWhatsapp] = useState(currentUser?.phone?.whatsapp)
-    const [telegram, setTelegram] = useState(currentUser?.phone?.telegram)
+    const [am, setAm] = useState(currentUser.full_name.am)
+    const [ru, setRu] = useState(currentUser.full_name.ru)
+    const [en, setEn] = useState(currentUser.full_name.en)
+    const [email, setEmail] = useState(currentUser.email)
+    const [tel1, setTel1] = useState(currentUser.phone.tel1)
+    const [tel2, setTel2] = useState(currentUser.phone.tel2)
+    const [viber, setViber] = useState(currentUser.phone.viber)
+    const [whatsapp, setWhatsapp] = useState(currentUser.phone.whatsapp)
+    const [telegram, setTelegram] = useState(currentUser.phone.telegram)
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
@@ -86,7 +86,7 @@ const EditUsers = () => {
             },
             role: role,
         }
-        console.log("test", userInfo)
+        // console.log("test", userInfo)
 
 
         // baseApi.post('/api/editUser', formData)
@@ -100,9 +100,9 @@ const EditUsers = () => {
             <AddPart type="editUser" />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
-                    {currentUser?.photo === null
+                    {currentUser.photo === null
                         ? <img src={userImg} alt="User" />
-                        : <img src={API_BASE_URL + '/images/' + currentUser?.photo} alt="User" />
+                        : <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
                     }
                     {/* <EditInput
                         id='user_avatar'

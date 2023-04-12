@@ -8,9 +8,7 @@ import { DisabledInput } from '../../../../components/inputs/DisabledInput'
 
 export const Personal = () => {
     const dispatch = useDispatch()
-    const userGlobal = useSelector((state => state.userGlobal))
-    const userInfo = userGlobal.userGlobal
-    console.log(userInfo)
+    const userInfo = useSelector((state => state.userGlobal.userGlobal))
 
     const hanldeLogOut = () => {
         dispatch(logout())
@@ -30,28 +28,28 @@ export const Personal = () => {
                 <div className='profile__data-userImg'>
                     {userInfo?.photo === null
                         ? <img src={userImg} alt="User" />
-                        : <img src={API_BASE_URL + '/images/' + userInfo?.photo} alt="User" />
+                        : <img src={API_BASE_URL + '/images/' + userInfo.photo} alt="User" />
                     }
                 </div>
                 <div className='profile__data-form'>
                     <div className='profile__data-form-parts'>
                         <DisabledInput
                             name='Name'
-                            value={userInfo?.full_name?.en}
+                            value={userInfo.full_name.en}
                         />
                         <DisabledInput
                             name='Role'
-                            value={userInfo?.role}
+                            value={userInfo.role}
                         />
                     </div>
                     <div className='profile__data-form-parts'>
                         <DisabledInput
                             name='Phone'
-                            value={userInfo?.phone?.tel1}
+                            value={userInfo.phone.tel1}
                         />
                         <DisabledInput
                             name='Email'
-                            value={userInfo?.email}
+                            value={userInfo.email}
                         />
                     </div>
                 </div>

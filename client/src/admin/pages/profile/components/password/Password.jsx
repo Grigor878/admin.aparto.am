@@ -5,7 +5,6 @@ import baseApi from '../../../../../apis/baseApi'
 import { getAxiosConfig } from '../../../../../apis/config'
 
 export const Password = () => {
-
     const [retryError, setRetryError] = useState(null)
 
     const handlePassword = (e) => {

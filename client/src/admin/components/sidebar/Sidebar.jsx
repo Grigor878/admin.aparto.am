@@ -10,7 +10,7 @@ const Sidebar = () => {
 
       <nav className='sidebar__nav'>
         <Paths />
-        <User />
+        <User/>
       </nav>
     </div>
   )

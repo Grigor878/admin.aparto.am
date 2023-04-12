@@ -27,6 +27,7 @@ const Crm = lazy(() => import('../admin/pages/crm/Crm'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
+    const { role } = useSelector((state => state.userGlobal.userGlobal))
 
     return (
         <Router>
@@ -58,8 +59,8 @@ const View = () => {
                         <Route path="profile" element={<Profile />} />
                         <Route path="form-structure" element={<Structure />} />
                         <Route path="users" element={<Users />} />
-                        <Route path="users/add" element={<AddUsers />} />
-                        <Route path="users/edit/:id" element={<EditUsers />} />
+                        <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
+                        <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="web-configs" element={<Configs />} />
                         <Route path="crm" element={<Crm />} />
                         <Route path="*" element={<NotFound />} />

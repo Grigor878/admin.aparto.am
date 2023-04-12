@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux'
 import TopPart from '../../components/topPart/TopPart'
 import Table from '../../components/table/Table'
 import { Loader } from '../../../components/loading/Loader'
-import { userTableColumns } from './data'
+import { userAdminColumns, userCustomColumns } from './data'
 import './Users.scss'
 
 const Users = () => {
+  const { role } = useSelector((state => state.userGlobal.userGlobal))
   const users = useSelector((state => state.user))
   const allUsers = users.users
 
@@ -20,7 +21,7 @@ const Users = () => {
         {!users.loading && users.users.length
           ? <Table
             Data={allUsers}
-            Columns={userTableColumns}
+            Columns={role === "admin" ? userAdminColumns : userCustomColumns}
           />
           : null}
       </div>
