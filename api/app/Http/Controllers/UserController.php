@@ -50,30 +50,39 @@ class UserController extends Controller
      }
 
      public function changeStatus(Request $request) {
-         $data = $request->all();
-         dd($data);
-        return response()->json($data);
+        try {
+            $data = $request->all();
+            $employe = Employe::where('id', $data['id'])->update(['status' => $data['status']]);
+
+            return response()->json(['message' => "Status changed"]);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong.'], 500);
+        }
      }
 
      public function addUser (Request $request) {
-        $data = $request->all();
-        $fileName = null;
-        $password =  Str::random(10);
-        $userInfo = json_decode($data['userInfo']);
-        if($request->file) {
-            $fileName = time().'.'.$request->file->extension();
-            $request->file->move(public_path('images'), $fileName);
+        try {
+            $data = $request->all();
+            $fileName = null;
+            $password =  Str::random(10);
+            $userInfo = json_decode($data['userInfo']);
+            if($request->file) {
+                $fileName = time().'.'.$request->file->extension();
+                $request->file->move(public_path('images'), $fileName);
+            }
+            $user = new Employe();
+            $user->full_name = json_encode($userInfo->full_name);
+            $user->phone = json_encode($userInfo->phone);
+            $user->email = $userInfo->email;
+            $user->role = $userInfo->role;
+            $user->photo = $fileName;
+            $user->password = Hash::make($password);
+            $user->save();
+            return response()->json(['status' => 'success', 'password' => $password], 200);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong.'], 500);
         }
-        $user = new Employe();
-        $user->full_name = json_encode($userInfo->full_name);
-        $user->phone = json_encode($userInfo->phone);
-        $user->email = $userInfo->email;
-        $user->role = $userInfo->role;
-        $user->photo = $fileName;
-        $user->password = Hash::make($password);
-        $user->save();
-        return response()->json(['status' => 'success', 'password' => $password], 200);
-
-      
      }
 }
