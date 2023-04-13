@@ -15,6 +15,7 @@ export const AddInput = ({ id, type, placeholder, name, onChange }) => {
                 className="dash__input"
                 minLength={type === 'text'
                     ? "3"
+                        ? type === "password" : "6"
                     : null}
                 pattern={type === 'tel'
                     ? "[\\+]374(4[134]|55|77|88|9[134689])\\d{6}"

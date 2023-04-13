@@ -5,6 +5,7 @@ import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import YandexMap from "../components/yandexMap/YandexMap"
+import MapDragable from "../components/map/MapDragable"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))

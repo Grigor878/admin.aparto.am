@@ -136,7 +136,7 @@ const geolocationOptions = {
 const initialState = {
     title: "",
     center: [40.177200, 44.503490],
-    zoom: 14,
+    zoom: 17,
 };
 
 const YandexMap = () => {

@@ -6,7 +6,7 @@ export const SelectRole = ({ onChange, value }) => {
         <label className='dash__label'>
             Role
             <select value={value} name="role" id="user_role" className='dash__input' onChange={onChange} >
-                <option value="" >Role</option>
+                <option disabled value="" >Role</option>
                 <option value="admin">Admin</option>
                 <option value="moderator">Moderator</option>
                 <option value="agent">Agent</option>
