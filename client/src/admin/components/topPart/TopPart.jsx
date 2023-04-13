@@ -7,8 +7,8 @@ import './TopPart.scss'
 
 const TopPart = ({ data }) => {
     const { role } = useSelector((state => state.userGlobal.userGlobal))
-    const navigate = useNavigate()
     const { pathname } = useLocation()
+    const navigate = useNavigate()
 
     let newPath = pathname.split('/')[2]
 

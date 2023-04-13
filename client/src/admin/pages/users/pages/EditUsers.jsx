@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
@@ -16,7 +16,8 @@ const EditUsers = () => {
     const params = useParams()
     const userId = Number(params.id)
 
-    const users = useSelector((state => state.users.users))
+    const { users } = useSelector((state => state.users))
+    
     const currentUser = users.find(item => item.id === userId)
 
     const [avatar, setAvatar] = useState()

@@ -12,23 +12,23 @@ const Users = () => {
 
   useEffect(() => {
     dispatch(getUsers())
-    console.log('getUsers dispatched in Users page');
   }, [dispatch])
 
   const { role } = useSelector((state => state.userGlobal.userGlobal))
-  const users = useSelector((state => state.users))
-  const allUsers = users.users
+  const { users, loading, error } = useSelector((state => state.users))
+
+  const approvedUsers = users.filter(item => item.status === 'approved')
 
   return (
     <article className='users'>
-      <TopPart data={allUsers} />
+      <TopPart data={role === "admin" ? users : approvedUsers} />
 
       <div className="users__table">
-        {users.loading && <Loader />}
-        {!users.loading && users.error ? <p>Error:{users.error}</p> : null}
-        {!users.loading && users.users.length
+        {loading && <Loader />}
+        {!loading && error ? <p>Error:{error}</p> : null}
+        {!loading && users.length
           ? <Table
-            Data={allUsers}
+            Data={role === "admin" ? users : approvedUsers}
             Columns={role === "admin" ? userAdminColumns : userCustomColumns}
           />
           : null}
