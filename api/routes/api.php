@@ -19,15 +19,22 @@ use App\Http\Controllers\GeneralFormController;
 */
 
 Route::group(['middleware' => 'api'], function ($router) {
+    //Authentication routes
     Route::post('/signin', [AuthController::class, 'login']);
-    Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
-    Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
-    Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
+    Route::post('/testlanguage', [AuthController::class, 'testlanguage']);
+
+    //User/Employe routes
     Route::get('/getUsers', [UserController::class, 'getUsers']);
     Route::post('/editUser', [UserController::class, 'editUser']);
+    Route::get('/getEditUser/{id}', [UserController::class, 'getEditUser']);
     Route::post('/addUser', [UserController::class, 'addUser']);
     Route::post('/changePassword', [UserController::class, 'changePassword']);
     Route::post('/getGlobalUser', [UserController::class, 'getGlobalUser']);
     Route::post('/changeStatus', [UserController::class, 'changeStatus']);
-    Route::post('/testlanguage', [AuthController::class, 'testlanguage']);
+
+    //General form routes
+    Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
+    Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
+    Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
+    
 });

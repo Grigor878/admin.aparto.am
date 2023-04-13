@@ -49,6 +49,16 @@ class UserController extends Controller
         return response()->json($globalUser);
      }
 
+     public function getEditUser($id) {
+        try {
+            $user = Employe::find($id);
+            return response()->json(['user' => $user]);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong.'], 500);
+        }
+     }
+
      public function changeStatus(Request $request) {
         try {
             $data = $request->all();
