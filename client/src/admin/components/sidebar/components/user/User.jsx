@@ -9,9 +9,6 @@ import './User.scss'
 const User = () => {
     const userInfo = useSelector((state => state.userGlobal.userGlobal))
 
-    let [first, last] = userInfo.full_name.en.split(' ')
-    const lastIndex = last[0]
-
     return (
         <Link to='/dashboard/profile' className='user'>
             <div className='user__info'>
@@ -19,15 +16,22 @@ const User = () => {
                     ? userIcon.icon
                     : <img src={API_BASE_URL + '/images/' + userInfo.photo} alt="User" />
                 }
-
                 <div className='user__info-text'>
-                    <p>{first + " " + lastIndex + "."}</p>
-                    <span>{capitalize(userInfo.role)}</span>
+                    <p>{
+                        userInfo.full_name?.en.split(' ')[0]
+                        + " " +
+                        userInfo.full_name?.en.split(' ')[1][0]
+                        + "."
+                    }</p>
+                    <span>{
+                        userInfo.role !== undefined
+                            ? capitalize(userInfo.role)
+                            : undefined
+                    }</span>
                 </div>
             </div>
             {shevron.icon}
         </Link>
     )
 }
-
 export default User

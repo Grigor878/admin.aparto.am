@@ -7,14 +7,12 @@ export const EditInput = ({ id, type, placeholder, name, onChange, value }) => {
                 ? name + ' (+374)' : type === 'password'
                     ? name + ' password' : name}
             <input
-                id={id}
+                // id={id}
                 type={type}
                 placeholder={placeholder}
                 name={name}
                 className="dash__input"
-                minLength={type === 'text'
-                    ? "3"
-                    : null}
+                minLength={type === 'text' ? "3" : null}
                 pattern={type === 'tel'
                     ? "[\\+]374(4[134]|55|77|88|9[134689])\\d{6}"
                     : type === 'email'

@@ -4,8 +4,6 @@
 *:before,
 *:after {
   margin: 0;
-  font-family: "Archivo";
-  font-style: normal;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
@@ -25,6 +23,8 @@ html,
 body {
   width: 100%;
   height: 100%;
+  font-family: "Archivo";
+  font-style: normal;
 }
 
 .container {
@@ -75,6 +75,8 @@ body {
 // Dashboard all pages
 .dashboard__layout {
   display: flex;
+  // font-family: "Noto Sans Armenian";
+  // font-style: normal;
 }
 
 article {

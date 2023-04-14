@@ -26,6 +26,12 @@
     &-parts {
       @include flex;
       gap: 30px;
+
+      &-else {
+        @include flexCol;
+        // align-items: end;
+        gap: 24px;
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
+import { DisabledInput } from '../../../components/inputs/DisabledInput'
 import userImg from '../../../../assets/imgs/user.webp'
 import baseApi from '../../../../apis/baseApi'
 import { API_BASE_URL } from '../../../../apis/config'
@@ -17,7 +18,7 @@ const EditUsers = () => {
     const userId = Number(params.id)
 
     const { users } = useSelector((state => state.users))
-    
+
     const currentUser = users.find(item => item.id === userId)
 
     const [avatar, setAvatar] = useState()
@@ -25,12 +26,11 @@ const EditUsers = () => {
     const [am, setAm] = useState(currentUser.full_name.am)
     const [ru, setRu] = useState(currentUser.full_name.ru)
     const [en, setEn] = useState(currentUser.full_name.en)
-    const [email, setEmail] = useState(currentUser.email)
+    const email = currentUser.email
     const [tel1, setTel1] = useState(currentUser.phone.tel1)
+    const [messenger, setMessenger] = useState(currentUser.phone.viber)
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
-    const [viber, setViber] = useState(currentUser.phone.viber)
-    const [whatsapp, setWhatsapp] = useState(currentUser.phone.whatsapp)
-    const [telegram, setTelegram] = useState(currentUser.phone.telegram)
+
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
@@ -47,24 +47,16 @@ const EditUsers = () => {
     const handleEn = (e) => {
         setEn(e.target.value)
     }
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    }
     const handleTel1 = (e) => {
         setTel1(e.target.value)
     }
     const handleTel2 = (e) => {
         setTel2(e.target.value)
     }
-    const handleViber = (e) => {
-        setViber(e.target.value)
+    const handleMessenger = (e) => {
+        setMessenger(e.target.value)
     }
-    const handleWhatsapp = (e) => {
-        setWhatsapp(e.target.value)
-    }
-    const handleTelegram = (e) => {
-        setTelegram(e.target.value)
-    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -83,9 +75,9 @@ const EditUsers = () => {
             phone: {
                 tel1: tel1,
                 tel2: tel2,
-                viber: viber,
-                whatsapp: whatsapp,
-                telegram: telegram,
+                // viber: viber,
+                // whatsapp: whatsapp,
+                // telegram: telegram,
             },
             role: role,
         }
@@ -134,15 +126,8 @@ const EditUsers = () => {
                     /> */}
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
-                    <SelectRole
-                        role={role}
-                        setRole={setRole}
-                        onChange={handleRole}
-                        value={role}
-                    />
                     <div className='subUsers__form-parts'>
                         <EditInput
-                            id='User_name_am'
                             type='text'
                             placeholder='Enter user name'
                             name='Name'
@@ -150,7 +135,6 @@ const EditUsers = () => {
                             value={am}
                         />
                         <EditInput
-                            id='User_name_ru'
                             type='text'
                             placeholder='Enter user name'
                             name='Name RUS'
@@ -158,7 +142,6 @@ const EditUsers = () => {
                             value={ru}
                         />
                         <EditInput
-                            id='User_name_en'
                             type='text'
                             placeholder='Enter user name'
                             name='Name ENG'
@@ -167,55 +150,38 @@ const EditUsers = () => {
                         />
                     </div>
                     <div className='subUsers__form-parts'>
-                        <EditInput
-                            id='User_mail'
-                            type='email'
-                            placeholder='Enter user email'
+                        <DisabledInput
                             name='Email'
-                            onChange={handleEmail}
                             value={email}
                         />
+                        <SelectRole
+                            role={role}
+                            setRole={setRole}
+                            onChange={handleRole}
+                            value={role}
+                        />
                         <EditInput
-                            id='User_tel1'
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 1'
                             onChange={handleTel1}
                             value={tel1}
                         />
+                    </div>
+                    <div className='subUsers__form-parts-else'>
                         <EditInput
-                            id='User_tel2'
+                            type='tel'
+                            placeholder='Enter user phone'
+                            name='viber/ whatsapp / telegram'
+                            onChange={handleMessenger}
+                            value={messenger}
+                        />
+                        <EditInput
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 2'
                             onChange={handleTel2}
                             value={tel2}
-                        />
-                    </div>
-                    <div className='subUsers__form-parts'>
-                        <EditInput
-                            id='User_viber'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Viber'
-                            onChange={handleViber}
-                            value={viber}
-                        />
-                        <EditInput
-                            id='User_whatsapp'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='WhatsApp'
-                            onChange={handleWhatsapp}
-                            value={whatsapp}
-                        />
-                        <EditInput
-                            id='User_telegram'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Telegram'
-                            onChange={handleTelegram}
-                            value={telegram}
                         />
                     </div>
                 </form>

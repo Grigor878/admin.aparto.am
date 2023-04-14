@@ -13,17 +13,16 @@ export const AddInput = ({ id, type, placeholder, name, onChange }) => {
                 placeholder={placeholder}
                 name={name}
                 className="dash__input"
-                minLength={type === 'text'
-                    ? "3"
-                        ? type === "password" : "6"
-                    : null}
+                minLength={type === 'text' ? "3" : null}
                 pattern={type === 'tel'
                     ? "[\\+]374(4[134]|55|77|88|9[134689])\\d{6}"
                     : type === 'email'
                         ? "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
-                        : null}
+                        : type === "password" ? ".{6,}"
+                            : null}
                 required={type === 'tel' ? false : true}
                 onChange={onChange}
+                title={type === "password" ? "Password min length is 6!" : null}
             />
         </label>
     )

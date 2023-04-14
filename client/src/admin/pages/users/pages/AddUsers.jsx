@@ -66,20 +66,15 @@ const AddUsers = () => {
         <article className='subUsers'>
             <AddPart type="addUsers" />
             <div className='subUsers__container'>
-                <div className='subUsers__choose'>
-                    {/* <img src={choose} alt="User" /> */}
-                    <AddInput
-                        id='user_avatar'
-                        type='file'
-                        name='Avatar'
-                        onChange={handleAvatar} />
-                </div>
+                {/* <div className='subUsers__choose'> */}
+                {/* <img src={choose} alt="User" /> */}
+                <AddInput
+                    id='user_avatar'
+                    type='file'
+                    name='Avatar'
+                    onChange={handleAvatar} />
+                {/* </div> */}
                 <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
-                    <SelectRole
-                        role={role}
-                        setRole={setRole}
-                        onChange={handleChange}
-                    />
                     <div className='subUsers__form-parts'>
                         <AddInput
                             id='user_name_am'
@@ -111,7 +106,12 @@ const AddUsers = () => {
                             name='Email'
                             onChange={handleChange}
                         />
-                        <AddInput
+                        <SelectRole
+                            role={role}
+                            setRole={setRole}
+                            onChange={handleChange}
+                        />
+                        {/* <AddInput
                             id='user_tel1'
                             type='tel'
                             placeholder='Enter user phone'
@@ -124,9 +124,9 @@ const AddUsers = () => {
                             placeholder='Enter user phone'
                             name='Phone 2'
                             onChange={handleChange}
-                        />
+                        /> */}
                     </div>
-                    <div className='subUsers__form-parts'>
+                    {/* <div className='subUsers__form-parts'>
                         <AddInput
                             id='user_viber'
                             type='tel'
@@ -148,7 +148,7 @@ const AddUsers = () => {
                             name='Telegram'
                             onChange={handleChange}
                         />
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </article>

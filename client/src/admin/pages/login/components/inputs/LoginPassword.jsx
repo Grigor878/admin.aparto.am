@@ -1,5 +1,4 @@
 import React from 'react'
-import './Styles.scss'
 
 export const LoginPassword = ({ id }) => {
     return (
