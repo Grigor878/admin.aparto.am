@@ -24,12 +24,18 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 16px;
-        color: $textBtn;
+        // color: $textBtn;
         padding: 12px 101px 12px 40px;
         background: $bgSub;
         border: 1px solid $inputBorder;
         border-radius: 6px;
         width: 472px;
+
+        &::placeholder,
+        :-ms-input-placeholde,
+        ::-ms-input-placeholder {
+          color: $textBtn;
+        }
       }
     }
 
@@ -47,24 +53,12 @@
 
     &-advancedClose,
     &-advancedOpen {
-      background: $inputBorder;
+      background: $advancedBack;
       border-radius: 10px;
       padding: 16px;
       @include flex;
       justify-content: space-between;
       gap: 8px;
-    }
-
-    &-dropdown {
-      width: 200px;
-      background: $bgSub;
-      border: 1px solid $inputBorder;
-      border-radius: 8px;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 16px;
-      color: $textBtn;
-      padding: 12px 16px;
     }
   }
 }

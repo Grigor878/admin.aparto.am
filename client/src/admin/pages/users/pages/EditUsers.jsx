@@ -21,45 +21,18 @@ const EditUsers = () => {
 
     const currentUser = users.find(item => item.id === userId)
 
-    const [avatar, setAvatar] = useState()
+    const email = currentUser.email
+    // const [avatar, setAvatar] = useState()
     const [role, setRole] = useState('')
     const [am, setAm] = useState(currentUser.full_name.am)
     const [ru, setRu] = useState(currentUser.full_name.ru)
     const [en, setEn] = useState(currentUser.full_name.en)
-    const email = currentUser.email
     const [tel1, setTel1] = useState(currentUser.phone.tel1)
-    const [messenger, setMessenger] = useState(currentUser.phone.viber)
+    const [messengers, setMessengers] = useState(currentUser.phone.viber)
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
 
-
-    const handleAvatar = (e) => {
-        setAvatar(e.target.files[0])
-    }
-    const handleRole = (e) => {
-        setRole(e.target.value)
-    }
-    const handleAm = (e) => {
-        setAm(e.target.value)
-    }
-    const handleRu = (e) => {
-        setRu(e.target.value)
-    }
-    const handleEn = (e) => {
-        setEn(e.target.value)
-    }
-    const handleTel1 = (e) => {
-        setTel1(e.target.value)
-    }
-    const handleTel2 = (e) => {
-        setTel2(e.target.value)
-    }
-    const handleMessenger = (e) => {
-        setMessenger(e.target.value)
-    }
-
-
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const formData = new FormData()
         // formData.append('file', avatar)
         // formData.append('fileName', avatar.name)
@@ -71,13 +44,10 @@ const EditUsers = () => {
                 ru: ru,
                 en: en,
             },
-            email: email,
             phone: {
                 tel1: tel1,
                 tel2: tel2,
-                // viber: viber,
-                // whatsapp: whatsapp,
-                // telegram: telegram,
+                messengers: messengers,
             },
             role: role,
         }
@@ -122,7 +92,7 @@ const EditUsers = () => {
                         id='user_avatar'
                         type='file'
                         name='Avatar'
-                        onChange={handleAvatar}
+                        onChange={(e) => setAvatar(e.target.files[0])}
                     /> */}
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
@@ -131,21 +101,21 @@ const EditUsers = () => {
                             type='text'
                             placeholder='Enter user name'
                             name='Name'
-                            onChange={handleAm}
+                            onChange={(e) => setAm(e.target.value)}
                             value={am}
                         />
                         <EditInput
                             type='text'
                             placeholder='Enter user name'
                             name='Name RUS'
-                            onChange={handleRu}
+                            onChange={(e) => setRu(e.target.value)}
                             value={ru}
                         />
                         <EditInput
                             type='text'
                             placeholder='Enter user name'
                             name='Name ENG'
-                            onChange={handleEn}
+                            onChange={(e) => setEn(e.target.value)}
                             value={en}
                         />
                     </div>
@@ -157,14 +127,14 @@ const EditUsers = () => {
                         <SelectRole
                             role={role}
                             setRole={setRole}
-                            onChange={handleRole}
+                            onChange={(e) => setRole(e.target.value)}
                             value={role}
                         />
                         <EditInput
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 1'
-                            onChange={handleTel1}
+                            onChange={(e) => setTel1(e.target.value)}
                             value={tel1}
                         />
                     </div>
@@ -173,14 +143,14 @@ const EditUsers = () => {
                             type='tel'
                             placeholder='Enter user phone'
                             name='viber/ whatsapp / telegram'
-                            onChange={handleMessenger}
-                            value={messenger}
+                            onChange={(e) => setMessengers(e.target.value)}
+                            value={messengers}
                         />
                         <EditInput
                             type='tel'
                             placeholder='Enter user phone'
                             name='Phone 2'
-                            onChange={handleTel2}
+                            onChange={(e) => setTel2(e.target.value)}
                             value={tel2}
                         />
                     </div>

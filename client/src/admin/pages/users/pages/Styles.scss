@@ -19,6 +19,22 @@
     }
   }
 
+  &__uploaded {
+    // @include flexCol;
+    position: relative;
+    width: 130px;
+    height: 130px;
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 3px;
+      font-size: 20px;
+      border-radius: 100%;
+      padding: 7px 8px 5px 8px;
+    }
+  }
+
   &__form {
     @include flexCol;
     gap: 24px;

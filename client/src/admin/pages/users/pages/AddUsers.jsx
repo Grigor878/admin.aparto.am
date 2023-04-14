@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
+import { ImgUpload } from '../../../components/inputs/ImgUpload'
+import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import baseApi from '../../../../apis/baseApi'
-// import choose from '../../../../assets/imgs/chooseAvatar.png'
 import { error, goodJob } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
+    const [avatarUrl, setAvatarUrl] = useState([])
     const [role, setRole] = useState('')
     const [info, setInfo] = useState({})
 
@@ -17,6 +19,13 @@ const AddUsers = () => {
 
     const handleAvatar = (e) => {
         setAvatar(e.target.files[0])
+
+        let selectedAvatar = e.target.files
+        let selectedArray = Array.from(selectedAvatar)
+
+        setAvatarUrl(selectedArray.map((file) => {
+            return URL.createObjectURL(file)
+        }))
     }
 
     const handleChange = (e) => {
@@ -37,13 +46,6 @@ const AddUsers = () => {
                 en: info.user_name_en,
             },
             email: info.user_mail,
-            phone: {
-                tel1: info.user_tel1,
-                tel2: info.user_tel2,
-                viber: info.user_viber,
-                whatsapp: info.user_whatsapp,
-                telegram: info.user_telegram,
-            },
             role: info.user_role,
         };
 
@@ -61,19 +63,25 @@ const AddUsers = () => {
 
     }
 
-
     return (
         <article className='subUsers'>
             <AddPart type="addUsers" />
             <div className='subUsers__container'>
-                {/* <div className='subUsers__choose'> */}
-                {/* <img src={choose} alt="User" /> */}
-                <AddInput
-                    id='user_avatar'
-                    type='file'
-                    name='Avatar'
-                    onChange={handleAvatar} />
-                {/* </div> */}
+                <div className='subUsers__choose'>
+                    {avatarUrl.length === 0
+                        ? <ImgUpload onChange={handleAvatar} />
+                        : avatarUrl.map((img, index) => {
+                            return (
+                                <div key={index} className='subUsers__uploaded'>
+                                    <img src={img} alt="Uploaded Avatar" />
+                                    <button
+                                        onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
+                                    ><RiDeleteBin5Fill /></button>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
                 <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
                     <div className='subUsers__form-parts'>
                         <AddInput
@@ -111,44 +119,7 @@ const AddUsers = () => {
                             setRole={setRole}
                             onChange={handleChange}
                         />
-                        {/* <AddInput
-                            id='user_tel1'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Phone 1'
-                            onChange={handleChange}
-                        />
-                        <AddInput
-                            id='user_tel2'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Phone 2'
-                            onChange={handleChange}
-                        /> */}
                     </div>
-                    {/* <div className='subUsers__form-parts'>
-                        <AddInput
-                            id='user_viber'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Viber'
-                            onChange={handleChange}
-                        />
-                        <AddInput
-                            id='user_whatsapp'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='WhatsApp'
-                            onChange={handleChange}
-                        />
-                        <AddInput
-                            id='user_telegram'
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Telegram'
-                            onChange={handleChange}
-                        />
-                    </div> */}
                 </form>
             </div>
         </article>

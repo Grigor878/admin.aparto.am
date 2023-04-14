@@ -26,7 +26,7 @@ const User = () => {
                     <span>{
                         userInfo.role !== undefined
                             ? capitalize(userInfo.role)
-                            : undefined
+                            : <></>
                     }</span>
                 </div>
             </div>

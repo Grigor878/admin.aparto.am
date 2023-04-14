@@ -4,14 +4,15 @@ $bgSub: #ffffff;
 $text: #0f1013;
 $textSub: #323338;
 $textSmall: #61636b;
-$textBtn: #9DA0A9;
+$textBtn: #9da0a9;
 $blue: #4a46f1;
 $blueSub: #2a26ad;
 $green: #2eaa50;
 $greenSub: #e5f8ea;
 $border: #d7daf7;
-$inputBorder: #e7e9f0;
-$red: #BB3434;
+$inputBorder: #cfd1da;
+$advancedBack: #e7e9f0; 
+$red: #bb3434;
 
 @mixin flex {
   display: flex;

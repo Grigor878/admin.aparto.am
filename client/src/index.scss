@@ -72,6 +72,11 @@ body {
     height: 55px;
   }
 }
+
+img {
+  object-fit: cover;
+}
+
 // Dashboard all pages
 .dashboard__layout {
   display: flex;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Search } from '../inputs/Search'
 import { BtnAdvanced } from '../inputs/BtnAdvanced'
-import { CustomDrop } from '../../../../components/dropdowns/CustomDrop'
+import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
 import { SaleRent, EstateType, Community, Rooms } from './data'
 
 export const SearchBox = () => {
@@ -12,61 +12,38 @@ export const SearchBox = () => {
     const [community, setCommunity] = useState('')
     const [rooms, setRooms] = useState('')
 
-    const handleSearch = (e) => {
-        setSeach(e.target.value)
-    }
-    const handleAdvanced = () => {
-        active ? setActive(false) : setActive(true)
-    }
-
-    const handleSaleRent = (e) => {
-        setSaleRent(e.target.value)
-    }
-
-    const handleEstateType = (e) => {
-        setEstateType(e.target.value)
-    }
-
-    const handleCommunity = (e) => {
-        setCommunity(e.target.value)
-    }
-
-    const handleRooms = (e) => {
-        setRooms(e.target.value)
-    }
-
     return (
         <div className="properties__searchbox">
             <div className="properties__searchbox-top">
                 <Search
                     value={search}
-                    onChange={handleSearch}
+                    onChange={(e) => setSeach(e.target.value)}
                 />
                 <BtnAdvanced
-                    onClick={handleAdvanced}
+                    onClick={() => active ? setActive(false) : setActive(true)}
                     status={active}
                 />
             </div>
 
             <div className={active ? "properties__searchbox-advancedClose" : "properties__searchbox-advancedOpen"}>
-                <CustomDrop
+                <Drowpdown
                     value={saleRent}
-                    onChange={handleSaleRent}
+                    onChange={(e) => setSaleRent(e.target.value)}
                     data={SaleRent}
                 />
-                <CustomDrop
+                <Drowpdown
                     value={estateType}
-                    onChange={handleEstateType}
+                    onChange={(e) => setEstateType(e.target.value)}
                     data={EstateType}
                 />
-                <CustomDrop
+                <Drowpdown
                     value={community}
-                    onChange={handleCommunity}
+                    onChange={(e) => setCommunity(e.target.value)}
                     data={Community}
                 />
-                <CustomDrop
+                <Drowpdown
                     value={rooms}
-                    onChange={handleRooms}
+                    onChange={(e) => setRooms(e.target.value)}
                     data={Rooms}
                 />
             </div>
