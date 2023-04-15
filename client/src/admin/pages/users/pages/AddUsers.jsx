@@ -8,6 +8,7 @@ import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import './Styles.scss'
+import { addUserInputs } from '../data';
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
@@ -83,37 +84,19 @@ const AddUsers = () => {
                     }
                 </div>
                 <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
-                    <div className='subUsers__form-parts'>
-                        <AddInput
-                            id='user_name_am'
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name'
-                            onChange={handleChange}
-                        />
-                        <AddInput
-                            id='user_name_ru'
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name RUS'
-                            onChange={handleChange}
-                        />
-                        <AddInput
-                            id='user_name_en'
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name ENG'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className='subUsers__form-parts'>
-                        <AddInput
-                            id='user_mail'
-                            type='email'
-                            placeholder='Enter user email'
-                            name='Email'
-                            onChange={handleChange}
-                        />
+                    <div className="subUsers__form-parts">
+                        {addUserInputs.map(({ id, type, placeholder, name }) => {
+                            return (
+                                <AddInput
+                                    key={id}
+                                    id={id}
+                                    type={type}
+                                    placeholder={placeholder}
+                                    name={name}
+                                    onChange={handleChange}
+                                />
+                            )
+                        })}
                         <SelectRole
                             role={role}
                             setRole={setRole}
@@ -127,3 +110,41 @@ const AddUsers = () => {
 }
 
 export default AddUsers
+
+//  <div className='subUsers__form-parts'>
+//                         <AddInput
+//                             id='user_name_am'
+//                             type='text'
+//                             placeholder='Enter user name'
+//                             name='Name'
+//                             onChange={handleChange}
+//                         />
+//                         <AddInput
+//                             id='user_name_ru'
+//                             type='text'
+//                             placeholder='Enter user name'
+//                             name='Name RUS'
+//                             onChange={handleChange}
+//                         />
+//                         <AddInput
+//                             id='user_name_en'
+//                             type='text'
+//                             placeholder='Enter user name'
+//                             name='Name ENG'
+//                             onChange={handleChange}
+//                         />
+//                     </div>
+//                     <div className='subUsers__form-parts'>
+//                         <AddInput
+//                             id='user_mail'
+//                             type='email'
+//                             placeholder='Enter user email'
+//                             name='Email'
+//                             onChange={handleChange}
+//                         />
+//                         <SelectRole
+//                             role={role}
+//                             setRole={setRole}
+//                             onChange={handleChange}
+//                         />
+//                     </div>

@@ -31,7 +31,7 @@ export const userCustomColumns = [
         </p>
       );
     },
-  }
+  },
 ];
 
 export const userAdminColumns = [
@@ -79,5 +79,32 @@ export const userAdminColumns = [
         </Link>
       );
     },
+  },
+];
+
+export const addUserInputs = [
+  {
+    id: "user_name_am",
+    type: "text",
+    placeholder: "Enter user name",
+    name: "Name",
+  },
+  {
+    id: "user_name_ru",
+    type: "text",
+    placeholder: "Enter user name",
+    name: "Name RUS",
+  },
+  {
+    id: "user_name_en",
+    type: "text",
+    placeholder: "Enter user name",
+    name: "Name ENG",
+  },
+  {
+    id: "user_mail",
+    type: "email",
+    placeholder: "Enter user email",
+    name: "Email",
   },
 ];
