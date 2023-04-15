@@ -34,7 +34,7 @@ const EditUsers = () => {
     const [messengers, setMessengers] = useState(currentUser.phone.messengers)
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
 
-    const handleAvatar = (e) => {
+    const addAvatar = (e) => {
         setAvatar(e.target.files[0])
 
         let selectedAvatar = e.target.files
@@ -43,6 +43,11 @@ const EditUsers = () => {
         setAvatarUrl(selectedArray.map((file) => {
             return URL.createObjectURL(file)
         }))
+    }
+
+    const removeAvatar = () => {
+        setAvatar()
+        setAvatarUrl([])
     }
 
     const handleSubmit = (e) => {
@@ -101,44 +106,27 @@ const EditUsers = () => {
             />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
-                    {/* {avatar
-                        ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
-                        : <ImgUpload onChange={(e) => setAvatar(e.target.files[0])} />
-
-                    } */}
-                    {/* {currentUser.photo === null
-                        ? <img src={userImg} alt="User" />
-                        : <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
-                    } */}
-                    {/* {avatarUrl.length === 0
-                        ? <ImgUpload onChange={handleAvatar} />
-                            ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
-                            : <img src={userImg} alt="User" />
+                    {avatar && avatarUrl.length === 0
+                        ? <div className='subUsers__uploaded'>
+                            <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                            <button
+                                onClick={() => setAvatar()}
+                            ><RiDeleteBin5Fill /></button>
+                        </div>
+                        : null
+                    }
+                    {!avatarUrl.length === 0 || !avatar
+                        ? <ImgUpload onChange={addAvatar} />
                         : avatarUrl.map((img, index) => {
                             return (
                                 <div key={index} className='subUsers__uploaded'>
                                     <img src={img} alt="Uploaded Avatar" />
                                     <button
-                                        onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
+                                        onClick={removeAvatar}
                                     ><RiDeleteBin5Fill /></button>
                                 </div>
                             )
                         })
-                    } */}
-                    {avatar
-                        ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
-                        : <ImgUpload onChange={handleAvatar} />
-                            // ? !avatar && avatarUrl.length !== 0
-                            // : avatarUrl.map((img, index) => {
-                            //     return (
-                            //         <div key={index} className='subUsers__uploaded'>
-                            //             <img src={img} alt="Uploaded Avatar" />
-                            //             <button
-                            //                 onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
-                            //             ><RiDeleteBin5Fill /></button>
-                            //         </div>
-                            //     )
-                            // })
                     }
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
