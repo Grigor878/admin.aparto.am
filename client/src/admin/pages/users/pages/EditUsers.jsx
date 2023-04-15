@@ -6,11 +6,13 @@ import { SelectRole } from '../../../components/dropdowns/SelectRole'
 import { EditInput } from '../../../components/inputs/EditInput'
 import { DisabledInput } from '../../../components/inputs/DisabledInput'
 import userImg from '../../../../assets/imgs/user.webp'
+import { RiDeleteBin5Fill } from 'react-icons/ri';
 import baseApi from '../../../../apis/baseApi'
 import { API_BASE_URL } from '../../../../apis/config'
 // import choose from '../../../../assets/imgs/chooseAvatar.png'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
+import { ImgUpload } from '../../../components/inputs/ImgUpload'
 
 const EditUsers = () => {
     const navigate = useNavigate()
@@ -22,23 +24,32 @@ const EditUsers = () => {
     const currentUser = users.find(item => item.id === userId)
 
     const email = currentUser.email
-    // const [avatar, setAvatar] = useState()
+    const [avatar, setAvatar] = useState(currentUser.photo)
+    const [avatarUrl, setAvatarUrl] = useState([])
     const [role, setRole] = useState('')
     const [am, setAm] = useState(currentUser.full_name.am)
     const [ru, setRu] = useState(currentUser.full_name.ru)
     const [en, setEn] = useState(currentUser.full_name.en)
     const [tel1, setTel1] = useState(currentUser.phone.tel1)
-    const [messengers, setMessengers] = useState(currentUser.phone.viber)
+    const [messengers, setMessengers] = useState(currentUser.phone.messengers)
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
+
+    const handleAvatar = (e) => {
+        setAvatar(e.target.files[0])
+
+        let selectedAvatar = e.target.files
+        let selectedArray = Array.from(selectedAvatar)
+
+        setAvatarUrl(selectedArray.map((file) => {
+            return URL.createObjectURL(file)
+        }))
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const formData = new FormData()
-        // formData.append('file', avatar)
-        // formData.append('fileName', avatar.name)
-        // formData.append('userEditedInfo', JSON.stringify(userInfo))
 
         let userInfo = {
+            id: userId,
             full_name: {
                 am: am,
                 ru: ru,
@@ -51,13 +62,19 @@ const EditUsers = () => {
             },
             role: role,
         }
-        // console.log("test", userInfo)
+        console.log("test", userInfo)
 
+        const formData = new FormData()
+        formData.append('file', avatar ? avatar : null)
+        formData.append('fileName', avatar?.name)
+        formData.append('userEditedInfo', JSON.stringify(userInfo))
 
-        // baseApi.post('/api/editUser', formData)
-        //     .then((response) => {
-        //         console.log(response.data);
-        //     })
+        console.log("test2", formData)
+
+        baseApi.post('/api/editUser', formData)
+            .then((response) => {
+                console.log(response.data);
+            })
     };
 
     const changeStatus = () => {
@@ -84,16 +101,45 @@ const EditUsers = () => {
             />
             <div className="subUsers__container">
                 <div className='subUsers__choose'>
-                    {currentUser.photo === null
+                    {/* {avatar
+                        ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                        : <ImgUpload onChange={(e) => setAvatar(e.target.files[0])} />
+
+                    } */}
+                    {/* {currentUser.photo === null
                         ? <img src={userImg} alt="User" />
                         : <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                    } */}
+                    {/* {avatarUrl.length === 0
+                        ? <ImgUpload onChange={handleAvatar} />
+                            ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                            : <img src={userImg} alt="User" />
+                        : avatarUrl.map((img, index) => {
+                            return (
+                                <div key={index} className='subUsers__uploaded'>
+                                    <img src={img} alt="Uploaded Avatar" />
+                                    <button
+                                        onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
+                                    ><RiDeleteBin5Fill /></button>
+                                </div>
+                            )
+                        })
+                    } */}
+                    {avatar
+                        ? <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                        : <ImgUpload onChange={handleAvatar} />
+                            // ? !avatar && avatarUrl.length !== 0
+                            // : avatarUrl.map((img, index) => {
+                            //     return (
+                            //         <div key={index} className='subUsers__uploaded'>
+                            //             <img src={img} alt="Uploaded Avatar" />
+                            //             <button
+                            //                 onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
+                            //             ><RiDeleteBin5Fill /></button>
+                            //         </div>
+                            //     )
+                            // })
                     }
-                    {/* <EditInput
-                        id='user_avatar'
-                        type='file'
-                        name='Avatar'
-                        onChange={(e) => setAvatar(e.target.files[0])}
-                    /> */}
                 </div>
                 <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
                     <div className='subUsers__form-parts'>

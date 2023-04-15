@@ -83,7 +83,7 @@ class UserController extends Controller
             }
             $user = new Employe();
             $user->full_name = json_encode($userInfo->full_name);
-            $user->phone = json_encode($userInfo->phone);
+            // $user->phone = json_encode($userInfo->phone);
             $user->email = $userInfo->email;
             $user->role = $userInfo->role;
             $user->photo = $fileName;
