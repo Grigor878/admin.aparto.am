@@ -26,7 +26,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     //User/Employe routes
     Route::get('/getUsers', [UserController::class, 'getUsers']);
     Route::post('/editUser', [UserController::class, 'editUser']);
-    Route::get('/getEditUser/{id}', [UserController::class, 'getEditUser']);
     Route::post('/addUser', [UserController::class, 'addUser']);
     Route::post('/changePassword', [UserController::class, 'changePassword']);
     Route::post('/getGlobalUser', [UserController::class, 'getGlobalUser']);

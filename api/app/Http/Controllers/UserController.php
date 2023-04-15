@@ -20,9 +20,35 @@ class UserController extends Controller
     }
 
     public function editUser (Request $request) {
-        $data = $request->all();
-        dd($data);
-         return response()->json($data);
+
+        try {
+            $data = $request->all();
+            $fileName = null;
+            
+            $userInfo = json_decode($data['userEditedInfo']);
+            $userId = $userInfo->id;
+            $user = Employe::find($userId);
+
+            if($request->file) {
+                $fileName = time().'.'.$request->file->extension();
+                $request->file->move(public_path('images'), $fileName);
+                // $image_path = "/images/filename.ext";  
+                // if(File::exists($image_path)) {
+                //     File::delete($image_path);
+                // }
+            }
+
+            $user->full_name = json_encode($userInfo->full_name);
+            $user->phone = json_encode($userInfo->phone);
+            $user->role = $userInfo->role?$userInfo->role:$user->role;
+            $user->photo = $fileName?$fileName:$user->photo;
+            $user->save();
+            return response()->json(['status' => 'User successfuly edited', "user" => $user], 200);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'Something went wrong.'], 500);
+        }
+    
      }
 
      public function changePassword (Request $request) {
@@ -47,16 +73,6 @@ class UserController extends Controller
         $globalUser->full_name = json_decode($globalUser['full_name'], true);
         $globalUser->phone = json_decode($globalUser['phone'], true);
         return response()->json($globalUser);
-     }
-
-     public function getEditUser($id) {
-        try {
-            $user = Employe::find($id);
-            return response()->json(['user' => $user]);
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['message' => 'Something went wrong.'], 500);
-        }
      }
 
      public function changeStatus(Request $request) {
