@@ -24,6 +24,7 @@ const EditUsers = () => {
     const email = currentUser.email
     const [avatar, setAvatar] = useState(currentUser.photo)
     const [uploaded, setUploaded] = useState([])
+    const [statusPhoto, setStatusPhoto] = useState(currentUser.photo)
     const [avatarUrl, setAvatarUrl] = useState([])
     const [role, setRole] = useState('')
     const [am, setAm] = useState(currentUser.full_name.am)
@@ -32,10 +33,10 @@ const EditUsers = () => {
     const [tel1, setTel1] = useState(currentUser.phone.tel1)
     const [messengers, setMessengers] = useState(currentUser.phone.messengers)
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
-
     const addAvatar = (e) => {
         setAvatar(e.target.files[0]) // jnjel
         setUploaded(e.target.files[0])
+        setStatusPhoto('changed')
 
         let selectedAvatar = e.target.files
         let selectedArray = Array.from(selectedAvatar)
@@ -49,6 +50,7 @@ const EditUsers = () => {
         setAvatar()
         setAvatarUrl([])
         setUploaded([])
+        setStatusPhoto('removed')
     }
 
     const changeStatus = () => {
@@ -90,6 +92,7 @@ const EditUsers = () => {
         const formData = new FormData()
         formData.append('file', uploaded)
         formData.append('fileName', uploaded?.name)
+        formData.append('avatarChangeStatus', statusPhoto)
         formData.append('userEditedInfo', JSON.stringify(userInfo))
 
         console.log("test2", formData)//
@@ -117,7 +120,7 @@ const EditUsers = () => {
                             <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
                             <button
                                 onClick={removeAvatar} //() => setAvatar()
-                            ><RiDeleteBin5Fill /></button>
+                                ><RiDeleteBin5Fill /></button>
                         </div>
                         : null
                     }

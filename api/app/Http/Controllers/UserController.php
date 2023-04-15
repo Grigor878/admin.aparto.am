@@ -27,8 +27,10 @@ class UserController extends Controller
             
             $userInfo = json_decode($data['userEditedInfo']);
             $userId = $userInfo->id;
+            $avatarStatus = $request->avatarChangeStatus;
             $user = Employe::find($userId);
-            if($request->file) {
+
+            if($request->file && $avatarStatus == 'changed') {
                 $fileName = time().'.'.$request->file->extension();
                 $request->file->move(public_path('images'), $fileName);
                 // $image_path = "/images/filename.ext";  
@@ -36,11 +38,15 @@ class UserController extends Controller
                 //     File::delete($image_path);
                 // }
             }
+            if($avatarStatus=='removed'){
+                $user->photo = "";
+            }elseif ($avatarStatus=='changed') {
+                $user->photo = $fileName;
+            }
 
             $user->full_name = json_encode($userInfo->full_name);
             $user->phone = json_encode($userInfo->phone);
             $user->role = $userInfo->role?$userInfo->role:$user->role;
-            $user->photo = $fileName?$fileName:"";
             $user->save();
             return response()->json(['status' => 'User successfuly edited', "user" => $user], 200);
         } catch (\Exception $e) {
