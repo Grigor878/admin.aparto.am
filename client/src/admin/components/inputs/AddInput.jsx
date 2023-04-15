@@ -22,7 +22,7 @@ export const AddInput = ({ id, type, placeholder, name, onChange }) => {
                             : null}
                 required={type === 'tel' ? false : true}
                 onChange={onChange}
-                title={type === "password" ? "Password min length is 6!" : null}
+                title={type === "password" ? "Password min length is 6." : null}
             />
         </label>
     )

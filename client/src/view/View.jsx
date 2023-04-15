@@ -5,7 +5,6 @@ import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import YandexMap from "../components/yandexMap/YandexMap"
-import MapDragable from "../components/map/MapDragable"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -63,7 +62,7 @@ const View = () => {
                         <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="web-configs" element={<Configs />} />
-                        <Route path="crm" element={<Crm />} />
+                        {role === "admin" ? <Route path="crm" element={<Crm />} /> : null}
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>

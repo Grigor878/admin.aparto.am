@@ -3,16 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../../../components/dropdowns/SelectRole'
+import { ImgUpload } from '../../../components/inputs/ImgUpload'
 import { EditInput } from '../../../components/inputs/EditInput'
 import { DisabledInput } from '../../../components/inputs/DisabledInput'
-import userImg from '../../../../assets/imgs/user.webp'
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import baseApi from '../../../../apis/baseApi'
 import { API_BASE_URL } from '../../../../apis/config'
-// import choose from '../../../../assets/imgs/chooseAvatar.png'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
-import { ImgUpload } from '../../../components/inputs/ImgUpload'
 
 const EditUsers = () => {
     const navigate = useNavigate()
@@ -25,6 +23,7 @@ const EditUsers = () => {
 
     const email = currentUser.email
     const [avatar, setAvatar] = useState(currentUser.photo)
+    const [uploaded, setUploaded] = useState([])
     const [avatarUrl, setAvatarUrl] = useState([])
     const [role, setRole] = useState('')
     const [am, setAm] = useState(currentUser.full_name.am)
@@ -35,7 +34,8 @@ const EditUsers = () => {
     const [tel2, setTel2] = useState(currentUser.phone.tel2)
 
     const addAvatar = (e) => {
-        setAvatar(e.target.files[0])
+        setAvatar(e.target.files[0]) // jnjel
+        setUploaded(e.target.files[0])
 
         let selectedAvatar = e.target.files
         let selectedArray = Array.from(selectedAvatar)
@@ -48,6 +48,22 @@ const EditUsers = () => {
     const removeAvatar = () => {
         setAvatar()
         setAvatarUrl([])
+        setUploaded([])
+    }
+
+    const changeStatus = () => {
+        let statusChangeInfo = {
+            id: userId,
+            status: currentUser.status === "approved" ? "deactivated" : "approved"
+        }
+
+        baseApi.post('/api/changeStatus', statusChangeInfo)
+            .then(res => {
+                success(res.data.message)
+                navigate(-1)
+            })
+            .catch(err => error(err.message))
+
     }
 
     const handleSubmit = (e) => {
@@ -66,36 +82,26 @@ const EditUsers = () => {
                 messengers: messengers,
             },
             role: role,
+            // avatarMessage: !uploaded && !avatar ? "no avatar" : null
+            // photo: avatar ? undefined : uploaded
         }
-        console.log("test", userInfo)
+        console.log("test", userInfo)//
 
         const formData = new FormData()
-        formData.append('file', avatar ? avatar : null)
-        formData.append('fileName', avatar?.name)
+        formData.append('file', uploaded)
+        formData.append('fileName', uploaded?.name)
         formData.append('userEditedInfo', JSON.stringify(userInfo))
 
-        console.log("test2", formData)
+        console.log("test2", formData)//
 
         baseApi.post('/api/editUser', formData)
-            .then((response) => {
-                console.log(response.data);
+            .then((res) => {
+                success(res.data.status)
+                navigate(-1)
             })
     };
 
-    const changeStatus = () => {
-        let statusChangeInfo = {
-            id: userId,
-            status: currentUser.status === "approved" ? "deactivated" : "approved"
-        }
 
-        baseApi.post('/api/changeStatus', statusChangeInfo)
-            .then(res => {
-                success(res.data.message)
-                navigate(-1)
-            })
-            .catch(err => error(err.message))
-
-    }
 
     return (
         <article className='subUsers'>
@@ -110,7 +116,7 @@ const EditUsers = () => {
                         ? <div className='subUsers__uploaded'>
                             <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
                             <button
-                                onClick={() => setAvatar()}
+                                onClick={removeAvatar} //() => setAvatar()
                             ><RiDeleteBin5Fill /></button>
                         </div>
                         : null
