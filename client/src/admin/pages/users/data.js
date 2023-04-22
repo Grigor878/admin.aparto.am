@@ -47,7 +47,7 @@ export const userAdminColumns = [
   },
   {
     name: "Phone Number",
-    selector: (row) => row.phone.tel1,
+    selector: (row) => row.phone?.tel1,
   },
   {
     name: "Role",

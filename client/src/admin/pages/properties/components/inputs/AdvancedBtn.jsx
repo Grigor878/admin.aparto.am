@@ -1,9 +1,9 @@
 import React from 'react'
 import { down, up } from '../../../../svgs/svgs'
 
-export const BtnAdvanced = ({ onClick, status }) => {
+export const AdvancedBtn = ({ onClick, status }) => {
     return (
-        <button onClick={onClick} className="properties__searchbox-advanced">
+        <button onClick={onClick} className="properties__searchbox-advancedBtn">
             Advanced Filters {status ? down.icon : up.icon}
         </button>
     )

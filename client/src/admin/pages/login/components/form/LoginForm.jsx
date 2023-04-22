@@ -4,6 +4,7 @@ import { login } from '../../../../../store/slices/authSlice'
 import { LoginMail } from '../inputs/LoginMail'
 import { LoginPassword } from '../inputs/LoginPassword'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
+import '../../../../components/inputs/Inputs.scss'
 
 export const LoginForm = () => {
     const dispatch = useDispatch()

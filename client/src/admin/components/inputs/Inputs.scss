@@ -3,8 +3,6 @@
 .dash__label {
   @include flexCol;
   gap: 4px;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
@@ -15,14 +13,12 @@
 .dash__input {
   background: $bg;
   color: $text;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   border: 1.5px solid $inputBorder;
   border-radius: 8px;
-  padding: 9px 90px 9px 16px;
+  padding: 9px 0 9px 16px;
   width: 350px;
 
   &::placeholder,
@@ -36,14 +32,12 @@
 .dash__input-selectrole {
   background: $bg;
   color: $text;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   border: 1.5px solid $inputBorder;
   border-radius: 8px;
-  padding: 9px 90px 9px 16px;
+  padding: 9px 0 9px 16px;
   width: 350px;
   // indicatior
   appearance: none;
@@ -76,8 +70,6 @@
 .disabled__label {
   @include flexCol;
   gap: 4px;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
@@ -88,14 +80,12 @@
 .disabled__input {
   background: $bg;
   color: $inputBorder;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   border: 1.5px solid $inputBorder;
   border-radius: 8px;
-  padding: 9px 90px 9px 16px;
+  padding: 9px 0 9px 16px;
   width: 350px;
 
   &::placeholder,

@@ -1,15 +1,18 @@
 import React from 'react'
+import '../inputs/Inputs.scss'
 
-export const Drowpdown = ({ value, onChange, data }) => {
+export const Drowpdown = ({ id, value, onChange, data }) => {
     return (
-        <select value={value} onChange={onChange} className="dash__input-dropdown">
+        <select id={id} value={value} onChange={onChange} className="dash__input-dropdown">
             {data.map((el) => {
                 return (
                     <option
-                        key={el.name}
+                    // sra het id data um avelacnel
+                        // disabled={el.id === 1 ? "disabled" : null}
+                        key={el.name} //el.id
                         value={el.value}
-                    // disabled={el.value === "" ? true : false}
-                    >{el.name}
+                    >{el.name} 
+                    {/* el.value */}
                     </option>
                 )
             })}

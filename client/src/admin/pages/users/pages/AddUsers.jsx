@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { ImgUpload } from '../../../components/inputs/ImgUpload'
-import { RiDeleteBin5Fill } from 'react-icons/ri';
+import { RiDeleteBin5Fill } from 'react-icons/ri'
 import { AddInput } from '../../../components/inputs/AddInput'
-import { SelectRole } from '../../../components/dropdowns/SelectRole'
+import { SelectRole } from '../components/SelectRole'
 import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import './Styles.scss'
@@ -13,7 +13,7 @@ import { addUserInputs } from '../data';
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
     const [avatarUrl, setAvatarUrl] = useState([])
-    const [role, setRole] = useState('')
+    // const [role, setRole] = useState('')
     const [info, setInfo] = useState({})
 
     const navigate = useNavigate()
@@ -77,7 +77,8 @@ const AddUsers = () => {
                                     <img src={img} alt="Uploaded Avatar" />
                                     <button
                                         onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
-                                    ><RiDeleteBin5Fill /></button>
+                                    ><RiDeleteBin5Fill />
+                                    </button>
                                 </div>
                             )
                         })
@@ -98,8 +99,8 @@ const AddUsers = () => {
                             )
                         })}
                         <SelectRole
-                            role={role}
-                            setRole={setRole}
+                            // role={role}
+                            // setRole={setRole}
                             onChange={handleChange}
                         />
                     </div>

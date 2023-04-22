@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Loader } from '../../../../../components/loading/Loader'
 import { Link } from 'react-router-dom'
 import { userIcon, shevron } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config'
@@ -7,31 +8,34 @@ import { capitalize } from '../../../../../helpers/formatters'
 import './User.scss'
 
 const User = () => {
-    const userInfo = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal, loading } = useSelector((state => state.userGlobal))
 
     return (
-        <Link to='/dashboard/profile' className='user'>
-            <div className='user__info'>
-                {userInfo.photo === null
-                    ? userIcon.icon
-                    : <img src={API_BASE_URL + '/images/' + userInfo.photo} alt="User" />
-                }
-                <div className='user__info-text'>
-                    <p>{
-                        userInfo.full_name?.en.split(' ')[0]
-                        + " " +
-                        userInfo.full_name?.en.split(' ')[1][0]
-                        + "."
-                    }</p>
-                    <span>{
-                        userInfo.role !== undefined
-                            ? capitalize(userInfo.role)
-                            : <></>
-                    }</span>
+        loading
+            ? <Loader />
+            : <Link to='/dashboard/profile' className='user'>
+                <div className='user__info'>
+                    {userGlobal.photo === null
+                        ? userIcon.icon
+                        : <img src={API_BASE_URL + '/images/' + userGlobal.photo} alt="User" />
+                    }
+                    <div className='user__info-text'>
+                        <p>{
+                            userGlobal.full_name?.en.split(' ')[0]
+                            + " " +
+                            userGlobal.full_name?.en.split(' ')[1][0]
+                            + "."
+                        }</p>
+                        <span>{
+                            userGlobal.role !== undefined
+                                ? capitalize(userGlobal.role)
+                                : <></>
+                        }</span>
+                    </div>
                 </div>
-            </div>
-            {shevron.icon}
-        </Link>
+                {shevron.icon}
+            </Link >
+
     )
 }
 export default User
