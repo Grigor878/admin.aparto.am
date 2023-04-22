@@ -58,10 +58,10 @@ export const dashboardRoutes = [
     path: "users",
     img: users,
   },
-  {
-    id: "4",
-    name: "Web Configs",
-    path: "web-configs",
-    img: website,
-  }
+  // {
+  //   id: "4",
+  //   name: "Web Configs",
+  //   path: "web-configs",
+  //   img: website,
+  // }
 ];

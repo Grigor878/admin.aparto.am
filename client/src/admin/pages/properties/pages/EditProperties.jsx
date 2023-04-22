@@ -1,6 +1,6 @@
 import React from 'react'
 import AddPart from '../../../components/addPart/AddPart'
-import './EditProperties.scss'
+import './Styles.scss'
 
 const EditProperties = () => {
     return (

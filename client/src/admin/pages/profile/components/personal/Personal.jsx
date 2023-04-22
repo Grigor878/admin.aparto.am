@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Loader } from '../../../../../components/loading/Loader'
 import { logout } from '../../../../../store/slices/authSlice'
 import { logOut } from '../../../../svgs/svgs'
 import userImg from '../../../../../assets/imgs/user.webp'
@@ -35,7 +36,7 @@ export const Personal = () => {
                     <div className='profile__data-form-parts'>
                         <DisabledInput
                             name='Name'
-                            value={full_name.en}
+                            value={full_name?.en}
                         />
                         <DisabledInput
                             name='Role'
@@ -45,7 +46,7 @@ export const Personal = () => {
                     <div className='profile__data-form-parts'>
                         <DisabledInput
                             name='Phone'
-                            value={phone.tel1}
+                            value={phone?.tel1}
                         />
                         <DisabledInput
                             name='Email'

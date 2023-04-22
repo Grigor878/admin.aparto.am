@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
-import YandexMap from "../components/yandexMap/YandexMap"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -16,8 +15,8 @@ const Login = lazy(() => import('../admin/pages/login/Login'))
 const NotFound = lazy(() => import('../pages/404/NotFound'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
-const AddProperties = lazy(() => import('../admin/pages/properties/addProperties/AddProperties'))
-const EditProperties = lazy(() => import('../admin/pages/properties/editProperties/EditProperties'))
+const AddProperties = lazy(() => import('../admin/pages/properties/pages/AddProperties'))
+const EditProperties = lazy(() => import('../admin/pages/properties/pages/EditProperties'))
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
 const Users = lazy(() => import('../admin/pages/users/Users'))
 const AddUsers = lazy(() => import('../admin/pages/users/pages/AddUsers'))
@@ -41,7 +40,7 @@ const View = () => {
                         <Route path="for-sale/:id" element={<SubSale />} />
                         <Route path="our-services" element={<Services />} />
                         <Route path="contact-us" element={<Contact />} />
-                        <Route path="yandex" element={<YandexMap />} />
+                        {/* <Route path="yandex" element={<YandexMap />} /> // for test */}
                         <Route path="*" element={<NotFound />} />
                     </Route>
 
@@ -61,8 +60,12 @@ const View = () => {
                         <Route path="users" element={<Users />} />
                         <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
-                        <Route path="web-configs" element={<Configs />} />
-                        {role === "admin" ? <Route path="crm" element={<Crm />} /> : null}
+                        {role === "admin"
+                            ? <>
+                                <Route path="web-configs" element={<Configs />} />
+                                <Route path="crm" element={<Crm />} />
+                            </>
+                            : null}
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>

@@ -2,12 +2,15 @@ import React from 'react'
 import TopPart from '../../components/topPart/TopPart'
 import { SearchBox } from './components/search/SearchBox'
 import './Properties.scss'
+import { List } from './components/list/List'
 
 const Properties = () => {
     return (
         <article className='properties'>
-            <TopPart/>
-            <SearchBox/>
+            <TopPart />
+            <SearchBox />
+            <List />
+
         </article>
     )
 }

@@ -5,6 +5,10 @@
   padding: 40px 20px;
 
   &__searchbox {
+    position: sticky;
+    top: 0;
+    background: $bg;
+
     &-top {
       @include flex;
       justify-content: space-between;
@@ -24,7 +28,6 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 16px;
-        // color: $textBtn;
         padding: 12px 101px 12px 40px;
         background: $bgSub;
         border: 1px solid $inputBorder;
@@ -39,7 +42,7 @@
       }
     }
 
-    &-advanced {
+    &-advancedBtn {
       @include flex;
       gap: 8px;
       font-size: 16px;
@@ -51,14 +54,84 @@
       padding: 11px 18px;
     }
 
-    &-advancedClose,
-    &-advancedOpen {
+    &-form {
+      @include flexCol;
+      gap: 8px;
       background: $advancedBack;
       border-radius: 10px;
       padding: 16px;
+
+      gap: 8px;
+      @include transition;
+
+      &-open {
+        @include flex;
+        gap: 8px;
+      }
+
+      &-close {
+        display: none;
+        @include transition;
+      }
+
+      &-inputSymbol {
+        position: relative;
+
+        input {
+          padding: 12px 16px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 16px;
+          background: $bgSub;
+          border: 1px solid $inputBorder;
+          border-radius: 6px;
+          width: 145px;
+
+          &::placeholder,
+          :-ms-input-placeholde,
+          ::-ms-input-placeholder {
+            color: $textBtn;
+          }
+        }
+
+        p {
+          position: absolute;
+          top: 14px;
+          right: 16px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 16px;
+          color: $text;
+
+          span {
+            position: absolute;
+            top: -6px;
+            right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  &__list {
+    @include flexCol;
+    gap: 24px;
+    padding-top: 16px;
+
+    &-item {
       @include flex;
       justify-content: space-between;
-      gap: 8px;
+      height: 180px;
+      width: 100%;
+      background: $bgSub;
+      border: 2px solid $textBtn;
+      border-radius: 12px;
+    }
+
+    &-slide {
+    }
+
+    &-info {
     }
   }
 }

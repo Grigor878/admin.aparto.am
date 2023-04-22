@@ -1,0 +1,93 @@
+@import "../../../../variables";
+
+.addproperties {
+  &__main {
+    @include flex;
+    justify-content: space-between; // hanel
+    align-items: flex-start;
+    padding: 28px 20px;
+  }
+
+  &__center {
+  }
+
+  &__right {
+  }
+
+  &__card {
+    @include flexCol;
+    gap: 16px;
+    background: $bgSub;
+    border: 1px solid $advancedBack;
+    border-radius: 8px;
+    padding: 24px;
+    // width: 679px;
+    width: fit-content;
+
+    h2 {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 22px;
+      color: $textSub;
+      padding-bottom: 4px;
+    }
+
+    &-block {
+      @include flexCol;
+      gap: 16px;
+    }
+
+    &-row {
+      @include flex;
+      gap: 16px;
+    }
+
+    // Dropdowns
+    &-singleselect {
+      @include flexCol;
+      gap: 4px;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 13px;
+      text-transform: uppercase;
+      color: $textSmall;
+
+      &-dropdown {
+        width: 306px;
+        background: $bg;
+        border: 1px solid $advancedBack;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #0f1013;
+        border-radius: 8px;
+        padding: 12px 0 12px 16px;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+      }
+    }
+    // Textareas
+    &-text {
+      @include flexCol;
+      gap: 4px;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 13px;
+      text-transform: uppercase;
+      color: $textSmall;
+
+      &-input {
+        width: 629px;
+        padding: 12px 0 62px 16px;
+        background: $bg;
+        border: 1px solid $advancedBack;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+.editproperties {
+}
