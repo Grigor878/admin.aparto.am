@@ -52,5 +52,23 @@ export const statementType = [
   {
     id: 4,
     value: "urgent",
-  }
+  },
+];
+
+export const flags = [
+  {
+    code: "am",
+    name: "Armenian",
+    country_code: "am",
+  },
+  {
+    code: "ru",
+    name: "Russian",
+    country_code: "ru",
+  },
+  {
+    code: "en",
+    name: "English",
+    country_code: "gb",
+  },
 ];

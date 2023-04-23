@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
-import './Styles.scss'
-import { SingleSelect } from '../components/dropdowns/SingleSelect'
-import { propertyType, statementType, transactionType } from '../components/dropdowns/data'
 import { Card } from '../components/card/Card'
+import { SingleSelect } from '../components/dropdowns/SingleSelect'
+import { flags, propertyType, statementType, transactionType } from '../components/dropdowns/data'
+import Flag from 'react-world-flags'
 import { TextArea } from '../components/inputs/TextArea'
+import './Styles.scss'
 
 const AddProperties = () => {
     const [addProperties, setAddProperties] = useState('')
@@ -17,6 +18,10 @@ const AddProperties = () => {
         })
     }
     console.log(addProperties)
+
+    const propertyTitleLng = (code) => {
+        alert(code)
+    }
 
     return (
         <article className='addproperties'>
@@ -42,6 +47,18 @@ const AddProperties = () => {
                                         onChange={addProp}
                                     />
                                 </div>
+                                {flags.map(({ code, country_code }) => (
+                                    <li key={code} >
+                                        <Flag
+                                            onClick={() => propertyTitleLng(code)}
+                                            code={country_code}
+                                            width="36"
+                                            height="20"
+                                            style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
+
+                                        />
+                                    </li>
+                                ))}
                                 <TextArea
                                     title="Title"
                                     id="property_title"
