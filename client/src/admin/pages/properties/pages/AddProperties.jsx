@@ -30,13 +30,13 @@ const AddProperties = () => {
                             <div className='addproperties__card-block'>
                                 <div className='addproperties__card-row'>
                                     <SingleSelect
-                                        id="property__transactionType"
+                                        id="property_transactionType"
                                         title="Transaction Type"
                                         data={transactionType}
                                         onChange={addProp}
                                     />
                                     <SingleSelect
-                                        id="property__propertyType"
+                                        id="property_propertyType"
                                         title="Property Type"
                                         data={propertyType}
                                         onChange={addProp}

@@ -17,6 +17,18 @@ class GeneralFormController extends Controller
     }
 
     public function addGlobalFormField(Request $request) {
+        dd($request->all());
+        $getForm = GlobalForm::where('id', 1)->first();
+        foreach ($request->all() as $key => $value) {
+            $phpData = json_decode($getForm['am'], true);
+            if($value) {
+                $phpData[$value['val']] = null;
+                $getForm->am = json_encode($phpData);
+                $getForm->save();
+            }
+            dd($value);
+          }
+        dd($request->all());
         $data = $request->all();
         $getForm = GlobalForm::where('id', 1)->first();
         $phpData = json_decode($getForm['am'], true);
