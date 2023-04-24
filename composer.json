@@ -1,5 +1,11 @@
 {
     "require": {
         "tymon/jwt-auth": "^2.0"
+    },
+
+    "autoload": {
+        "files": [
+            "app/config/constants.php"
+        ]
     }
 }

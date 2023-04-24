@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GlobalForm;
+use App\Services\GeneralFormService;
 
 
 class GeneralFormController extends Controller
 {
+    protected $generalFormService;
+
+    public function __construct(GeneralFormService $generalFormService)
+    {
+        $this->generalFormService = $generalFormService;
+    }
+    
     public function addGlobalForm(Request $request) {
         $data = $request->all();
         $formAm = new GlobalForm();
@@ -16,26 +24,20 @@ class GeneralFormController extends Controller
 
     }
 
+    public function getFormStructure() {
+        $structure = $this->generalFormService->getFormStructure();
+        return response()->json($structure);
+    }
+
     public function addGlobalFormField(Request $request) {
-        dd($request->all());
+     return $request->all();
         $getForm = GlobalForm::where('id', 1)->first();
-        foreach ($request->all() as $key => $value) {
-            $phpData = json_decode($getForm['am'], true);
-            if($value) {
-                $phpData[$value['val']] = null;
-                $getForm->am = json_encode($phpData);
-                $getForm->save();
-            }
-            dd($value);
-          }
-        dd($request->all());
         $data = $request->all();
         $getForm = GlobalForm::where('id', 1)->first();
         $phpData = json_decode($getForm['am'], true);
         $phpData[$data['addField']] = null;
         $getForm->am = json_encode($phpData);
         $getForm->save();
-        dd($phpData);
     }
 
     public function removeGlobalFormField(Request $request) {
