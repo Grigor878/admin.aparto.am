@@ -1,1 +1,69 @@
 @import "../../../variables";
+
+.structure {
+  padding: 24px 0 0 20px;
+
+  h3 {
+    padding-bottom: 20px;
+  }
+
+  &__main {
+    @include flex;
+    gap: 24px;
+    padding-top: 37px;
+  }
+
+  &__center {
+    @include flexCol;
+    gap: 24px;
+
+    &-card {
+      h4 {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+        color: $textSub;
+      }
+
+      ul {
+        width: 555px; //
+        border: 1px solid $advancedBack;
+        border-radius: 8px;
+        margin-top: 16px;
+        margin-bottom: 8px;
+
+        li {
+          background: $bgSub;
+          padding: 14px 0 14px 16px;
+
+          &:first-child {
+            background: $bg;
+          }
+
+          span {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 16px;
+            color: $text;
+            width: 100% !important;
+          }
+
+          p {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: $text;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      &-btn {
+        @include flexCenter;
+      }
+    }
+  }
+
+  &__right {
+  }
+}

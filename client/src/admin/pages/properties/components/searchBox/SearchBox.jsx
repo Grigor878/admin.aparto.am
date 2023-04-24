@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search } from '../inputs/Search'
+import { Search } from '../../../../components/inputs/Search'
 import { AdvancedBtn } from '../inputs/AdvancedBtn'
 import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
 import { SaleRent, EstateType, Community, Rooms, BuildingType, Floor, Taxation, Situation, Status } from './data'
@@ -7,7 +7,7 @@ import { InputSymbol } from '../inputs/InputSymbol'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
 
 export const SearchBox = () => {
-    const [search, setSeach] = useState('')
+    const [search, setSerach] = useState('')
     const [active, setActive] = useState(true)
     const [properties, setProperties] = useState('')
 
@@ -30,11 +30,12 @@ export const SearchBox = () => {
             <div className="properties__searchbox-top">
                 <Search
                     value={search}
-                    onChange={(e) => setSeach(e.target.value)}
+                    placeholder='Search by ID, Property Name, Phone, Owner or Agent'
+                    onChange={(e) => setSerach(e.target.value)}
                 />
                 <AdvancedBtn
-                    onClick={() => active ? setActive(false) : setActive(true)}
                     status={active}
+                    onClick={() => active ? setActive(false) : setActive(true)}
                 />
             </div>
 

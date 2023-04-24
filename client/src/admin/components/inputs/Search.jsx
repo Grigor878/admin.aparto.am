@@ -1,18 +1,18 @@
 import React from 'react'
-import { search } from '../../../../svgs/svgs'
+import { search } from '../../svgs/svgs'
+import './Inputs.scss'
 
-export const Search = ({ value, onChange }) => {
+export const Search = ({ value, placeholder, onChange }) => {
     return (
-        <label className="properties__searchbox-search">
+        <label className="dash__search">
             <span>
                 {search.icon}
             </span>
             <input
                 type='text'
-                placeholder='Search by ID, Property Name, Phone, Owner or Agent'
+                placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                required
             />
         </label>
     )

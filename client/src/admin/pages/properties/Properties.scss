@@ -15,33 +15,6 @@
       padding: 24px 0 16px 0;
     }
 
-    &-search {
-      @include flex;
-      position: relative;
-
-      span {
-        position: absolute;
-        left: 15px;
-      }
-
-      input {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 16px;
-        padding: 12px 101px 12px 40px;
-        background: $bgSub;
-        border: 1px solid $inputBorder;
-        border-radius: 6px;
-        width: 472px;
-
-        &::placeholder,
-        :-ms-input-placeholde,
-        ::-ms-input-placeholder {
-          color: $textBtn;
-        }
-      }
-    }
-
     &-advancedBtn {
       @include flex;
       gap: 8px;
