@@ -14,3 +14,4 @@ export const dollar = {
     </svg>
   ),
 };
+

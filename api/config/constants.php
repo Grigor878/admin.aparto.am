@@ -247,4 +247,9 @@ define('FORM_STRUCTURE', [
           'name' => "ՄԵՆԵՋԵՐ",
         ],
       ],
+      'information'  => [
+        [
+          'name' => "ԻՆՖՈՐՄԱՑԻԱ",
+        ],
+      ],
     ]);

@@ -1,49 +1,96 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Loader } from '../../../components/loading/Loader'
 import { Search } from '../../components/inputs/Search'
 import { Card } from './components/card/Card'
-import { announcement, location,price } from './components/card/data'
+// import { AddModal } from '../../components/modals/AddModal'
+import baseApi from '../../../apis/baseApi'
 import './Structure.scss'
-import { AddModal } from '../../components/modals/AddModal'
 
 const Structure = () => {
-  const [search, setSerach] = useState('')
+  const [search, setSearch] = useState('')
+  const [strInfo, setStrInfo] = useState()
 
-  const searchByField = (e) => {
-    setSerach(e.target.value)
+  const getStrInfo = async () => {
+    try {
+      const { data } = await baseApi.get('/api/getFormStructure')
+      setStrInfo(data)
+    } catch (err) {
+      console.log(`Get Structure Info: ${err.message}`);
+    }
   }
-  console.log(search)//
+
+  useEffect(() => {
+    getStrInfo()
+  }, [])
+
+  const searchResult = (e) => {
+    setSearch(e.target.value)
+  }
 
   return (
     <article className='structure'>
-      <h3>Form Structure</h3>
-      <Search
-        value={search}
-        placeholder='Search by field'
-        onChange={searchByField}
-      />
-
-      <div className='structure__main'>
-        <div className="structure__center">
-          <Card
-            title="Announcement"
-            data={announcement}
-          />
-          <Card
-            title="Location"
-            data={location}
-          />
-          <Card
-            title="Cost"
-            data={price}
-          />
-        </div>
-
-        {/* <AddModal /> */}
-
-        <div className="structure__right">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet est officiis recusandae esse voluptatem repellendus laborum aliquam temporibus reprehenderit assumenda molestias, fugit itaque dignissimos dolor sed voluptas, eaque ad placeat quis. Cum, ipsa reiciendis totam soluta natus repellat quaerat eaque consequuntur, error quam ad repudiandae facilis eos iste itaque perferendis quasi, quia ex. Dignissimos aliquid quia, non corporis impedit voluptates sequi pariatur fuga facere delectus odit? Eveniet, officiis magni corporis veritatis ea tempora aspernatur vitae earum, eos, modi sunt deserunt? Sit corrupti nam distinctio, sed aut nisi. Quam, dolore rerum doloremque officiis recusandae mollitia neque ipsam quidem sapiente? Maiores, aut!
-        </div>
+      <div className='structure__sticky'>
+        <h3>Form Structure</h3>
+        <Search
+          value={search}
+          placeholder='Search by field'
+          onChange={searchResult}
+        />
       </div>
+
+      {!strInfo
+        ? <Loader />
+        : <div className='structure__main'>
+          <div className="structure__center">
+            <Card
+              title="Հայտարարություն"
+              data={strInfo?.announcement}
+            />
+            <Card
+              title="Գտնվելու Վայրը"
+              data={strInfo?.location}
+            />
+            <Card
+              title="Գինը"
+              data={strInfo?.price}
+            />
+            <Card
+              title="Տան Նկարագիր"
+              data={strInfo?.houseDescription}
+            />
+            <Card
+              title="Շինության Նկարագիր"
+              data={strInfo?.buildingDescription}
+            />
+            <Card
+              title="Կոմունալ Հարմարություններ"
+              data={strInfo?.mainFacilities}
+            />
+            <Card
+              title="Այլ Հարմարություններ"
+              data={strInfo?.otherFacilities}
+            />
+          </div>
+
+          {/* <AddModal /> */}
+
+          <div className="structure__right">
+            <Card
+              title="Իրավաբանական"
+              data={strInfo?.juridical}
+            />
+            <Card
+              title="ԻՆՖՈՐՄԱՑԻԱ"
+              data={strInfo?.information}
+            />
+            <Card
+              title="Կից Մասնագետներ"
+              data={strInfo?.specialists}
+            />
+
+          </div>
+        </div>
+      }
 
     </article>
   )

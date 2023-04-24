@@ -7,11 +7,11 @@ export const Card = ({ title, data }) => {
             <h4>{title}</h4>
             <ul>
                 <li>
-                    <span>Name</span>
+                    <span>Անվանում</span>
                 </li>
-                {data.map(({ id, name }) => {
+                {data.map(({ name }) => {
                     return (
-                        <li key={id}><p>{name}</p></li>
+                        <li key={name}><p>{name}</p></li>
                     )
                 })}
             </ul>

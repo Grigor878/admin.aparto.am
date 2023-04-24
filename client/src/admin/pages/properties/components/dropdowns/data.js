@@ -118,20 +118,39 @@ export const community = [
   },
 ];
 
+export const agentList = [
+  {
+    id: 1,
+    value: "Ընտրեք",
+  },
+  {
+    id: 2,
+    value: "Գեվորգ Բաղդասարյան",
+  }
+];
+
+export const moderatorList = [
+  {
+    id: 1,
+    value: "Ընտրեք",
+  },
+  {
+    id: 2,
+    value: "Էդուարդ Մինասյան",
+  },
+];
+
 export const flags = [
   {
     code: "am",
-    name: "Armenian",
     country_code: "am",
   },
   {
     code: "ru",
-    name: "Russian",
     country_code: "ru",
   },
   {
     code: "en",
-    name: "English",
     country_code: "gb",
   },
 ];

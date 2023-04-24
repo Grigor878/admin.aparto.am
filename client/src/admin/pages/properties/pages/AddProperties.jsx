@@ -8,11 +8,20 @@ import { TextMid } from '../components/inputs/TextMid'
 import { TextSmall } from '../components/inputs/TextSmall'
 import { TextFull } from '../components/inputs/TextFull'
 import { TextMidPlus } from '../components/inputs/TextMidPlus'
-import { community, flags, propertyType, statementType, transactionType } from '../components/dropdowns/data'
+import { agentList, community, flags, moderatorList, propertyType, statementType, transactionType } from '../components/dropdowns/data'
+import { FileUpload } from '../components/inputs/FileUpload'
 import './Styles.scss'
 
 const AddProperties = () => {
     const [addProperties, setAddProperties] = useState('')
+    const [file, setFile] = useState([])
+    // const [fileUrl, setFileUrl] = useState([])
+
+    const uploadFile = (e) => {
+        setFile(Object.values(e.target.files))
+        // let newArray = Object.values(file)
+        // console.log(newArray?.map(el => el.name))
+    }
 
     const addProp = (e) => {
         let { id, value } = e.target
@@ -21,7 +30,7 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    console.log(addProperties)
+    // console.log(addProperties)
 
     const propertyTitleLng = (code) => {
         alert(code)
@@ -32,6 +41,7 @@ const AddProperties = () => {
             <AddPart type="addProperties" />
 
             <div className='addproperties__main'>
+                {/* Center part */}
                 <div className='addproperties__center'>
                     <Card
                         title="Հայտարարություն"
@@ -145,7 +155,9 @@ const AddProperties = () => {
                             </div>
                         }
                     />
+      
                 </div>
+                {/* Right part */}
                 <div className="addproperties__right">
                     <Card
                         title="Իրավաբանական"
@@ -177,7 +189,30 @@ const AddProperties = () => {
                                     placeholder='Գրեք նախընտրած ինֆորմացիան'
                                     onChange={addProp}
                                 />
-                                <span>Կցել Փաստաթուղթ</span>
+                                <FileUpload onChange={uploadFile} />
+                                {file?.map(({ name }) => {
+                                    return <p key={name}>{name}</p>
+                                })}
+
+                            </div>
+                        }
+                    />
+                    <Card
+                        title="Կից Մասնագետներ"
+                        child={
+                            <div className='addproperties__card-block'>
+                                <SingleSelect
+                                    id="specialist_agents"
+                                    title="Գործակալ"
+                                    data={agentList}
+                                    onChange={addProp}
+                                />
+                                <SingleSelect
+                                    id="specialist_moderators"
+                                    title="Մենեջեր"
+                                    data={moderatorList}
+                                    onChange={addProp}
+                                />
                             </div>
                         }
                     />

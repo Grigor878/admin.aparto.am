@@ -1,16 +1,23 @@
 @import "../../../variables";
 
 .structure {
-  padding: 24px 0 0 20px;
+  padding: 0 0 181px 20px;
 
-  h3 {
-    padding-bottom: 20px;
+  &__sticky {
+    position: sticky;
+    top: 0;
+    background: $bg;
+    padding-top: 24px;
+    padding-bottom: 37px;
+
+    h3 {
+      padding-bottom: 20px;
+    }
   }
 
   &__main {
-    @include flex;
+    display: flex;
     gap: 24px;
-    padding-top: 37px;
   }
 
   &__center {
@@ -27,17 +34,25 @@
 
       ul {
         width: 555px; //
-        border: 1px solid $advancedBack;
-        border-radius: 8px;
+        // border: 1px solid $advancedBack;
+
         margin-top: 16px;
         margin-bottom: 8px;
+        // background: $bgSub;
 
         li {
-          background: $bgSub;
+          border: 1px solid $advancedBack;
           padding: 14px 0 14px 16px;
+          background: $bgSub;
 
           &:first-child {
             background: $bg;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+          }
+          &:last-child {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
           }
 
           span {

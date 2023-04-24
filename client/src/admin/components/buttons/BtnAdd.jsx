@@ -7,6 +7,7 @@ export const BtnAdd = ({ onClick, text }) => {
         <button onClick={onClick} className='btn__add'>
             {add.icon}
             <span> Add {text}</span>
+            {/* Ավելացնել */}
         </button>
     )
 }
