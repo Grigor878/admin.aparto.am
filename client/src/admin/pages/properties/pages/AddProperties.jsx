@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
-import { flags, propertyType, statementType, transactionType } from '../components/dropdowns/data'
 import Flag from 'react-world-flags'
-import { TextArea } from '../components/inputs/TextArea'
+import { TextLarg } from '../components/inputs/TextLarg'
+import { TextMid } from '../components/inputs/TextMid'
+import { TextSmall } from '../components/inputs/TextSmall'
+import { TextFull } from '../components/inputs/TextFull'
+import { TextMidPlus } from '../components/inputs/TextMidPlus'
+import { community, flags, propertyType, statementType, transactionType } from '../components/dropdowns/data'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -30,51 +34,112 @@ const AddProperties = () => {
             <div className='addproperties__main'>
                 <div className='addproperties__center'>
                     <Card
-                        title="Announcement"
+                        title="Հայտարարություն"
                         child={
                             <div className='addproperties__card-block'>
                                 <div className='addproperties__card-row'>
                                     <SingleSelect
                                         id="property_transactionType"
-                                        title="Transaction Type"
+                                        title="Գործարքի տեսակ"
                                         data={transactionType}
                                         onChange={addProp}
                                     />
                                     <SingleSelect
                                         id="property_propertyType"
-                                        title="Property Type"
+                                        title="Գույքի տեսակ"
                                         data={propertyType}
                                         onChange={addProp}
                                     />
                                 </div>
-                                {flags.map(({ code, country_code }) => (
-                                    <li key={code} >
-                                        <Flag
-                                            onClick={() => propertyTitleLng(code)}
-                                            code={country_code}
-                                            width="36"
-                                            height="20"
-                                            style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
+                                <ul className='addproperties__card-flags'>
+                                    {flags.map(({ code, country_code }) => (
+                                        <li key={code} >
+                                            <Flag
+                                                onClick={() => propertyTitleLng(code)}
+                                                code={country_code}
+                                                width="36"
+                                                height="20"
+                                                style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
 
-                                        />
-                                    </li>
-                                ))}
-                                <TextArea
-                                    title="Title"
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <TextLarg
                                     id="property_title"
-                                    placeholder="Write the title"
+                                    title="Հայտարարության վերնագիր"
+                                    placeholder="Գրեք վերնագիրը"
                                     onChange={addProp}
                                 />
-                                <TextArea
-                                    title="Description"
+                                <ul className='addproperties__card-flags'>
+                                    {flags.map(({ code, country_code }) => (
+                                        <li key={code} >
+                                            <Flag
+                                                onClick={() => propertyTitleLng(code)}
+                                                code={country_code}
+                                                width="36"
+                                                height="20"
+                                                style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
+
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <TextLarg
                                     id="property_description"
-                                    placeholder="Write the description"
+                                    title="Հայտարարության նկարագրություն"
+                                    placeholder="Գրեք նկարագրությունը"
                                     onChange={addProp}
                                 />
                                 <SingleSelect
-                                    id="property__statementType"
-                                    title="Property Type"
+                                    id="property_statementType"
+                                    title="հայտարարության տեսակ"
                                     data={statementType}
+                                    onChange={addProp}
+                                />
+                            </div>
+                        }
+                    />
+                    <Card
+                        title="Գտնվելու Վայրը - Երևան"
+                        child={
+                            <div className='addproperties__card-block'>
+                                <SingleSelect
+                                    id="place_community"
+                                    title="Համայնք"
+                                    data={community}
+                                    onChange={addProp}
+                                />
+                                <div className='addproperties__card-row'>
+                                    <TextMid
+                                        id="place_street"
+                                        title="Փողոց"
+                                        placeholder="Հասցե"
+                                        onChange={addProp}
+                                    />
+                                    <TextSmall
+                                        id="place_house"
+                                        title="Շենք"
+                                        placeholder="Օրինակ"
+                                        onChange={addProp}
+                                    />
+                                    <TextSmall
+                                        id="place_entrance"
+                                        title="մուտք"
+                                        placeholder="Օրինակ"
+                                        onChange={addProp}
+                                    />
+                                    <TextSmall
+                                        id="place_apartment"
+                                        title="Բնակարան"
+                                        placeholder="Օրինակ"
+                                        onChange={addProp}
+                                    />
+                                </div>
+                                <TextFull
+                                    id="place_realAddress"
+                                    title="իրական հասցե"
+                                    placeholder="Հասցե"
                                     onChange={addProp}
                                 />
                             </div>
@@ -83,14 +148,37 @@ const AddProperties = () => {
                 </div>
                 <div className="addproperties__right">
                     <Card
-                        title="Juridical"
+                        title="Իրավաբանական"
                         child={
-                            <SingleSelect
-                                id="add__propertyType"
-                                title="juridical"
-                                data={propertyType}
-                                onChange={addProp}
-                            />
+                            <div className='addproperties__card-block'>
+                                <TextMidPlus
+                                    id="juridical_ownerName"
+                                    title="Սեփականատեր"
+                                    placeholder='Գրեք սեփականատիրոջ անունը'
+                                    onChange={addProp}
+                                />
+                                <TextMidPlus
+                                    id="juridical_ownerPhone"
+                                    title="սեփականատիրոջ հեռախոսահամար"
+                                    placeholder='Գրեք սեփականատիրոջ հեռախոսահամարը'
+                                    onChange={addProp}
+                                />
+                                <span>Ավելացնել սեփականատեր</span>
+                            </div>
+                        }
+                    />
+                    <Card
+                        title="Լրացուցիչ Ինֆորմացիա"
+                        child={
+                            <div className='addproperties__card-block'>
+                                <TextMidPlus
+                                    id="additional_info"
+                                    title="Ինֆորմացիա"
+                                    placeholder='Գրեք նախընտրած ինֆորմացիան'
+                                    onChange={addProp}
+                                />
+                                <span>Կցել Փաստաթուղթ</span>
+                            </div>
                         }
                     />
                 </div>

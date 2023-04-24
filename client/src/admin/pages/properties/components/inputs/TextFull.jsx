@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TextArea = ({ title, id, placeholder, onChange }) => {
+export const TextFull = ({ title, id, placeholder, onChange }) => {
     return (
         <label className='addproperties__card-text'>
             {title}*
@@ -9,9 +9,8 @@ export const TextArea = ({ title, id, placeholder, onChange }) => {
                 type="text"
                 placeholder={placeholder}
                 // name={name}
-                className='addproperties__card-text-input'
+                className='addproperties__card-text-full'
                 minLength="3"
-                required="false"
                 onChange={onChange}
             />
         </label>

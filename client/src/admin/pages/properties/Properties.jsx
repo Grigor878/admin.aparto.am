@@ -1,6 +1,6 @@
 import React from 'react'
 import TopPart from '../../components/topPart/TopPart'
-import { SearchBox } from './components/search/SearchBox'
+import { SearchBox } from './components/searchBox/SearchBox'
 import './Properties.scss'
 import { List } from './components/list/List'
 
