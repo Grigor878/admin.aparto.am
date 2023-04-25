@@ -6,6 +6,7 @@ import { Card } from './components/card/Card'
 import baseApi from '../../../apis/baseApi'
 import './Structure.scss'
 import axios from 'axios'
+import { random } from '../../../helpers/utils'
 
 const Structure = () => {
   const [search, setSearch] = useState('')
@@ -31,22 +32,27 @@ const Structure = () => {
   }
 
   const postAddedField = (val) => {
+    let unique = random(100)
+    
     let am = {
       [val]: {
-        name: juridical
+        name: juridical,
+        id: juridical + unique
       }
     }
     let ru = {
       [val]: {
-        name: juridical
+        name: juridical,
+        id: juridical + unique,
       }
     }
     let en = {
       [val]: {
-        name: juridical
+        name: juridical,
+        id: juridical + unique,
       }
     }
-    let global = {am, en, ru}
+    let global = { am, en, ru }
     console.log(global);
     baseApi.post('/api/addGlobalFormField', global).then(
 
