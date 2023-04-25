@@ -1,7 +1,7 @@
 import React from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 
-export const Card = ({ title, data }) => {
+export const Card = ({ title, data, onClick }) => {
     return (
         <div className='structure__center-card'>
             <h4>{title}</h4>
@@ -17,7 +17,7 @@ export const Card = ({ title, data }) => {
             </ul>
             <div className='structure__center-card-btn'>
                 <BtnAdd
-                    onClick={() => alert("Added!")}
+                    onClick={onClick}
                 // onClick={onClick}
                 />
             </div>

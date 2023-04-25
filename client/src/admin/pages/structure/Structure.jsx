@@ -5,10 +5,12 @@ import { Card } from './components/card/Card'
 // import { AddModal } from '../../components/modals/AddModal'
 import baseApi from '../../../apis/baseApi'
 import './Structure.scss'
+import axios from 'axios'
 
 const Structure = () => {
   const [search, setSearch] = useState('')
-  const [strInfo, setStrInfo] = useState()
+  const [strInfo, setStrInfo] = useState();
+  const [juridical, setJuridical] = useState();
 
   const getStrInfo = async () => {
     try {
@@ -18,6 +20,7 @@ const Structure = () => {
       console.log(`Get Structure Info: ${err.message}`);
     }
   }
+  console.log(strInfo);
 
   useEffect(() => {
     getStrInfo()
@@ -25,6 +28,29 @@ const Structure = () => {
 
   const searchResult = (e) => {
     setSearch(e.target.value)
+  }
+
+  const postAddedField = (val) => {
+    let am = {
+      [val]: {
+        name: juridical
+      }
+    }
+    let ru = {
+      [val]: {
+        name: juridical
+      }
+    }
+    let en = {
+      [val]: {
+        name: juridical
+      }
+    }
+    let global = {am, en, ru}
+    console.log(global);
+    baseApi.post('/api/addGlobalFormField', global).then(
+
+    )
   }
 
   return (
@@ -78,7 +104,9 @@ const Structure = () => {
             <Card
               title="Իրավաբանական"
               data={strInfo?.juridical}
+              onClick={() => postAddedField('juridical')}
             />
+            <input type='text' onChange={(e) => setJuridical(e.target.value)} />
             <Card
               title="ԻՆՖՈՐՄԱՑԻԱ"
               data={strInfo?.information}

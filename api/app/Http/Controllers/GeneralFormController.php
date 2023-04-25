@@ -30,6 +30,7 @@ class GeneralFormController extends Controller
     }
 
     public function addGlobalFormField(Request $request) {
+        dd($request->all());
      return $request->all();
         $getForm = GlobalForm::where('id', 1)->first();
         $data = $request->all();
