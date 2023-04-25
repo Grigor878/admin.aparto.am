@@ -30,15 +30,11 @@ class GeneralFormController extends Controller
     }
 
     public function addGlobalFormField(Request $request) {
-        dd($request->all());
-     return $request->all();
-        $getForm = GlobalForm::where('id', 1)->first();
         $data = $request->all();
-        $getForm = GlobalForm::where('id', 1)->first();
-        $phpData = json_decode($getForm['am'], true);
-        $phpData[$data['addField']] = null;
-        $getForm->am = json_encode($phpData);
-        $getForm->save();
+        $this->generalFormService->addGeneralField($data);
+        $structure = $this->generalFormService->getFormStructure();
+        return response()->json($structure);
+       
     }
 
     public function removeGlobalFormField(Request $request) {
