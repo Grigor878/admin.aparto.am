@@ -8,7 +8,7 @@ class GeneralFormService
     public function getFormStructure()
     {
         $formStructure = FORM_STRUCTURE;
-        $getForm = GlobalForm::where('id', 1)->first();
+        $getForm = GlobalForm::findOrFail(1);
         $phpData = json_decode($getForm['am'], true);
         foreach ($formStructure as $key => $value) {
             if(isset($phpData[$key])){
@@ -22,11 +22,12 @@ class GeneralFormService
     }
 
     public function addGeneralField($data) {
-        $getForm = GlobalForm::where('id', 1)->first();
+        $getForm = GlobalForm::findOrFail(1);
         $phpDataAm = json_decode($getForm['am'], true);
         $phpDataRu = json_decode($getForm['ru'], true);
         $phpDataEn = json_decode($getForm['en'], true);
-        if($phpDataRu){
+
+        if($phpDataAm){
             if($data['am']){
                 $key = current(array_keys($data['am']));
                 if(!isset($phpDataAm[$key])){
@@ -37,7 +38,7 @@ class GeneralFormService
             } 
         } else {
             $key = current(array_keys($data['am']));
-            $phpDataRu =  [
+            $phpDataAm =  [
                 $key => [
                     [
                         $data['am'][$key],
@@ -58,9 +59,7 @@ class GeneralFormService
             $key = current(array_keys($data['ru']));
             $phpDataRu =  [
                 $key => [
-                    [
-                        $data['ru'][$key]
-                    ]
+                    $data['ru'][$key]
                 ],
             ];
         }
@@ -76,9 +75,7 @@ class GeneralFormService
             $key = current(array_keys($data['en']));
             $phpDataEn =  [
                 $key => [
-                    [
-                        $data['en'][$key],
-                    ],
+                    $data['en'][$key],
                 ]
             ];
         }

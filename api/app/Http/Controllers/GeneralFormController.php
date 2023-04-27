@@ -34,7 +34,6 @@ class GeneralFormController extends Controller
         $this->generalFormService->addGeneralField($data);
         $structure = $this->generalFormService->getFormStructure();
         return response()->json($structure);
-       
     }
 
     public function removeGlobalFormField(Request $request) {
