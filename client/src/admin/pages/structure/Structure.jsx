@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Loader } from '../../../components/loading/Loader'
 import { Search } from '../../components/inputs/Search'
 import { Card } from './components/card/Card'
-// import { AddModal } from '../../components/modals/AddModal'
+import { random } from '../../../helpers/utils'
 import baseApi from '../../../apis/baseApi'
 import './Structure.scss'
-import axios from 'axios'
-import { random } from '../../../helpers/utils'
 
 const Structure = () => {
   const [search, setSearch] = useState('')
-  const [strInfo, setStrInfo] = useState();
-  const [juridical, setJuridical] = useState();
+  const [strInfo, setStrInfo] = useState()
+  // console.log(strInfo)
+
+  // Sranq uje chen ylni AddModali mej nayi comment ka
+  const [juridical, setJuridical] = useState()
+  const [information, setInformation] = useState()
+  const [specialists, setSpecialists] = useState()
 
   const getStrInfo = async () => {
     try {
@@ -21,43 +24,38 @@ const Structure = () => {
       console.log(`Get Structure Info: ${err.message}`);
     }
   }
-  console.log(strInfo);
 
   useEffect(() => {
     getStrInfo()
   }, [])
 
-  const searchResult = (e) => {
-    setSearch(e.target.value)
-  }
+  // Esi el ste petq chi Add Modal.jsx i meja
+  // const postAddedField = (val) => {
+  //   let unique = random(100)
 
-  const postAddedField = (val) => {
-    let unique = random(100)
-    
-    let am = {
-      [val]: {
-        name: juridical,
-        id: juridical + unique
-      }
-    }
-    let ru = {
-      [val]: {
-        name: juridical,
-        id: juridical + unique,
-      }
-    }
-    let en = {
-      [val]: {
-        name: juridical,
-        id: juridical + unique,
-      }
-    }
-    let global = { am, en, ru }
-    console.log(global);
-    baseApi.post('/api/addGlobalFormField', global).then(
+  //   let am = {
+  //     [val]: {
+  //       name: eval(val),
+  //       id: eval(val) + unique
+  //     }
+  //   }
+  //   let ru = {
+  //     [val]: {
+  //       name: eval(val),
+  //       id: eval(val) + unique,
+  //     }
+  //   }
+  //   let en = {
+  //     [val]: {
+  //       name: eval(val),
+  //       id: eval(val) + unique,
+  //     }
+  //   }
 
-    )
-  }
+  //   const global = { am, en, ru }
+  //   console.log(global);
+  //   baseApi.post('/api/addGlobalFormField', global)
+  // }
 
   return (
     <article className='structure'>
@@ -66,7 +64,7 @@ const Structure = () => {
         <Search
           value={search}
           placeholder='Search by field'
-          onChange={searchResult}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
@@ -104,24 +102,25 @@ const Structure = () => {
             />
           </div>
 
-          {/* <AddModal /> */}
-
           <div className="structure__right">
             <Card
               title="Իրավաբանական"
               data={strInfo?.juridical}
-              onClick={() => postAddedField('juridical')}
+              // onClick={() => postAddedField('juridical')}
             />
-            <input type='text' onChange={(e) => setJuridical(e.target.value)} />
+            {/* <input type='text' onChange={(e) => setJuridical(e.target.value)} /> */}
             <Card
               title="ԻՆՖՈՐՄԱՑԻԱ"
               data={strInfo?.information}
+              // onClick={() => postAddedField('information')}
             />
+            {/* <input type='text' onChange={(e) => setInformation(e.target.value)} /> */}
             <Card
               title="Կից Մասնագետներ"
               data={strInfo?.specialists}
+              // onClick={() => postAddedField('specialists')}
             />
-
+            {/* <input type='text' onChange={(e) => setSpecialists(e.target.value)} /> */}
           </div>
         </div>
       }
@@ -131,6 +130,36 @@ const Structure = () => {
 }
 
 export default Structure
+
+
+
+// {/* <div>
+//           {Object.keys(myObject).map(e => (
+//             <div key={e}>
+//               <h3>{e}</h3>
+//               <ul>
+//                 {myObject[e].map(item => (
+//                   <li>{item}</li>
+//                 ))}
+//               </ul>
+//             </div>
+//           ))}
+//         </div> */}
+
+
+// const myObject = {
+//   announcement: ["ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ", "ԳՈՒՅՔԻ ՏԵՍԱԿ", "Հայտարարության վերնագիր", "Հայտարարության ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ", "Հայտարարության ՏԵՍԱԿ", "Ավելացրած հայտ․"],
+//   buildingDescription: ["ՇԻՆՈՒԹՅԱՆ ՏԻՊ", "ՀԱՐԿԱՅՆՈՒԹՅՈՒՆ", "ՇԵՆՔԻ ԿԱՌՈՒՑՄԱՆ ՏԱՐԻՆ", "ԿՈՂՄՆՈՐՈՇՈՒՄԸ", "ՏԱՐԵԿԱՆ ԳՈՒՅՔԱՀԱՐԿ", "ԱՄՍԱԿԱՆ ՍՊԱՍԱՐԿՄԱՆ ՎՃԱՐ"],
+//   houseDescription: ["ՄԱԿԵՐԵՍ", "ԱՌԱՍՏԱՂԻ ԲԱՐՁՐՈՒԹՅՈՒՆԸ", "ՍԵՆՅԱԿՆԵՐԻ ՔԱՆԱԿ", "ՆՆՋԱՍԵՆՅԱԿՆԵՐԻ ՔԱՆԱԿ", "ՍԱՆՀԱՆԳՈՒՅՑՆԵՐԻ ՔԱՆԱԿ", 'ԲԱՑ ՊԱՏՇԳԱՄԲՆԵՐԻ ՔԱՆԱԿ', 'ՓԱԿ ՊԱՏՇԳԱՄԲՆԵՐԻ ՔԱՆԱԿ', 'ՀԱՐԿԸ', 'ՏԱՆ ՎԻՃԱԿ', 'ԱՎՏՈԿԱՅԱՆԱՏԵՂԻ', 'ԽՈՀԱՆՈՑԻ ՏԻՊ'],
+//   information: ["ԻՆՖՈՐՄԱՑԻԱ"],
+//   juridical: ["ՍԵՓԱԿԱՆԱՏԵՐ", "ՍԵՓԱԿԱՆԱՏԻՐՈՁ ՀԵՌԱԽՈՍԱՀԱՄԱՐ"],
+//   location: ["Համայնք", 'Փողոց', "ՇԵՆՔ", 'ՄՈՒՏՔ', 'ԲՆԱԿԱՐԱՆ', 'ԻՐԱԿԱՆ ՀԱՍՑԵ'],
+//   mainFacilities: ["ԱՆՀԱՏԱԿԱՆ ՋԵՌՈՒՑՄԱՆ ՀԱՄԱԿԱՐԳ", "Կենտրոնացված ջեռուցման համակարգ", "Օդորակիչ", "ԿԵՆՏՐՈՆԱՑԱԾ ՀՈՎԱՑՄԱՆ ՀԱՄԱԿԱՐԳ", "ԷԼԵԿՏՐՈԷՆԵՐԳԻԱ", "ԳԱԶ"],
+//   otherFacilities: [],
+//   price: ["ԸՆԴՀԱՆՈՒՐ ԳԻՆԸ", "ԳԻՆԸ 1քմ", "ԿԱՆԽԱՎՃԱՐԻ ՉԱՓ", "ՎՃԱՐՄԱՆ ԿԱՐԳԸ", "ՆԱԽԸՆՏՐԱԾ ԲԱՆԿԸ"],
+//   specialists: ["ԳՈՐԾԱԿԱԼ", "ՄԵՆԵՋԵՐ"],
+// }
+
 
 
 // import axios from 'axios'

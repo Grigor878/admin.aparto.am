@@ -1,5 +1,21 @@
 @import "../../../variables";
 
+.btn__onclick {
+  gap: 7px;
+  padding: 12px 69px;
+  background: $blue;
+  border-radius: 8px;
+  
+  span {
+    font-family: "Noto Sans Armenian";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: $bgSub;
+  }
+}
+
 .btn__add {
   @include flexCenter;
   gap: 7px;
