@@ -40,9 +40,7 @@ class GeneralFormService
             $key = current(array_keys($data['am']));
             $phpDataAm =  [
                 $key => [
-                    [
-                        $data['am'][$key],
-                    ],
+                    $data['am'][$key],
                 ]
             ];
         }
