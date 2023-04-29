@@ -79,4 +79,39 @@ class GeneralFormService
         }
         GlobalForm::where('id', 1)->update(['am'=> json_encode($phpDataAm), 'ru'=> json_encode($phpDataRu), 'en'=> json_encode($phpDataEn)]);
     }
+
+    public function removeGeneralField ($data) {
+        $getForm = GlobalForm::findorFail(1);
+        $getAm = json_decode($getForm->am);
+        $getRu = json_decode($getForm->ru);
+        $getEn = json_decode($getForm->en);
+        $key = current(array_keys($data));
+        $fieldId = $data[$key]['id'];
+
+        if(isset($getAm->$key)) {
+            foreach ($getAm->$key as $idx => $row) {
+                if($row->id == $fieldId) {
+                    unset($getAm->$key[$idx]);
+                }
+            }
+        }
+
+        if(isset($getRu->$key)) {
+            foreach ($getRu->$key as $idx => $row) {
+                if($row->id == $fieldId) {
+                    unset($getRu->$key[$idx]);
+                }
+            }
+        }
+
+        if(isset($getEn->$key)) {
+            foreach ($getEn->$key as $idx => $row) {
+                if($row->id == $fieldId) {
+                    unset($getEn->$key[$idx]);
+                }
+            }
+        }
+
+        $getForm->update(['am'=> json_encode($getAm), 'ru'=> json_encode($getRu), 'en'=> json_encode($getEn)]);
+    }
 }

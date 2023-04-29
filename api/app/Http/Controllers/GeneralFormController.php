@@ -47,11 +47,8 @@ class GeneralFormController extends Controller
 
     public function removeGlobalFormField(Request $request) {
         $data = $request->all();
-        $getForm = GlobalForm::where('id', 1)->first();
-        $phpData = json_decode($getForm['am'], true);
-        unset($phpData[$data['removeField']]);
-        $getForm->am = json_encode($phpData);
-        $getForm->save();
-        dd($data);
+        $this->generalFormService->removeGeneralField($data);
+        $structure = $this->generalFormService->getFormStructure();
+        return response()->json($structure);
     }
 }
