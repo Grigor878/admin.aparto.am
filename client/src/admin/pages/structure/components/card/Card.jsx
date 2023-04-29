@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { AddModal } from '../modal/AddModal'
 
-export const Card = ({ title, data }) => {
+export const Card = ({ title, data, name }) => {
     const [active, setActive] = useState(true)
 
     active
@@ -26,6 +26,7 @@ export const Card = ({ title, data }) => {
                 <BtnAdd onClick={() => setActive(false)} />
             </div>
             <AddModal
+                name={name}
                 title={title}
                 active={active}
                 setActive={setActive}

@@ -2,19 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Loader } from '../../../components/loading/Loader'
 import { Search } from '../../components/inputs/Search'
 import { Card } from './components/card/Card'
-import { random } from '../../../helpers/utils'
 import baseApi from '../../../apis/baseApi'
 import './Structure.scss'
 
 const Structure = () => {
   const [search, setSearch] = useState('')
   const [strInfo, setStrInfo] = useState()
-  // console.log(strInfo)
-
-  // Sranq uje chen ylni AddModali mej nayi comment ka
-  const [juridical, setJuridical] = useState()
-  const [information, setInformation] = useState()
-  const [specialists, setSpecialists] = useState()
+  console.log(strInfo);
 
   const getStrInfo = async () => {
     try {
@@ -24,38 +18,10 @@ const Structure = () => {
       console.log(`Get Structure Info: ${err.message}`);
     }
   }
-
+  console.log(strInfo);
   useEffect(() => {
     getStrInfo()
   }, [])
-
-  // Esi el ste petq chi Add Modal.jsx i meja
-  // const postAddedField = (val) => {
-  //   let unique = random(100)
-
-  //   let am = {
-  //     [val]: {
-  //       name: eval(val),
-  //       id: eval(val) + unique
-  //     }
-  //   }
-  //   let ru = {
-  //     [val]: {
-  //       name: eval(val),
-  //       id: eval(val) + unique,
-  //     }
-  //   }
-  //   let en = {
-  //     [val]: {
-  //       name: eval(val),
-  //       id: eval(val) + unique,
-  //     }
-  //   }
-
-  //   const global = { am, en, ru }
-  //   console.log(global);
-  //   baseApi.post('/api/addGlobalFormField', global)
-  // }
 
   return (
     <article className='structure'>
@@ -73,30 +39,37 @@ const Structure = () => {
         : <div className='structure__main'>
           <div className="structure__center">
             <Card
+              name="announcement"
               title="Հայտարարություն"
               data={strInfo?.announcement}
             />
             <Card
+              name=""
               title="Գտնվելու Վայրը"
               data={strInfo?.location}
             />
             <Card
+              name=""
               title="Գինը"
               data={strInfo?.price}
             />
             <Card
+              name=""
               title="Տան Նկարագիր"
               data={strInfo?.houseDescription}
             />
             <Card
+              name=""
               title="Շինության Նկարագիր"
               data={strInfo?.buildingDescription}
             />
             <Card
+              name=""
               title="Կոմունալ Հարմարություններ"
               data={strInfo?.mainFacilities}
             />
             <Card
+              name=""
               title="Այլ Հարմարություններ"
               data={strInfo?.otherFacilities}
             />
@@ -104,23 +77,21 @@ const Structure = () => {
 
           <div className="structure__right">
             <Card
+              name=""
               title="Իրավաբանական"
               data={strInfo?.juridical}
-              // onClick={() => postAddedField('juridical')}
             />
-            {/* <input type='text' onChange={(e) => setJuridical(e.target.value)} /> */}
             <Card
+              name=""
               title="ԻՆՖՈՐՄԱՑԻԱ"
               data={strInfo?.information}
-              // onClick={() => postAddedField('information')}
+
             />
-            {/* <input type='text' onChange={(e) => setInformation(e.target.value)} /> */}
             <Card
+              name=""
               title="Կից Մասնագետներ"
               data={strInfo?.specialists}
-              // onClick={() => postAddedField('specialists')}
             />
-            {/* <input type='text' onChange={(e) => setSpecialists(e.target.value)} /> */}
           </div>
         </div>
       }

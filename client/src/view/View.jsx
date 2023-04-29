@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
+import StructureTest from "../admin/pages/structure/StructureTest"// test
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -57,6 +58,7 @@ const View = () => {
                         <Route path="properties/edit" element={<EditProperties />} />
                         <Route path="profile" element={<Profile />} />
                         <Route path="form-structure" element={<Structure />} />
+                        <Route path="test-structure" element={<StructureTest />} />
                         <Route path="users" element={<Users />} />
                         <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />

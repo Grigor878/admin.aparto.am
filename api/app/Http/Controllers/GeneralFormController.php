@@ -24,6 +24,15 @@ class GeneralFormController extends Controller
 
     }
 
+    public function getAddedFields () {
+        $form = GlobalForm::findorFail(1);
+
+        $form->am = json_decode($form->am);
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
+        return response()->json($form);
+    }
+
     public function getFormStructure() {
         $structure = $this->generalFormService->getFormStructure();
         return response()->json($structure);

@@ -4,42 +4,46 @@ import baseApi from '../../../../../apis/baseApi'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import './AddModal.scss'
 
-export const AddModal = ({ title, active, setActive }) => {
-    // Gev jan mi state i meja sax galu,de amen avelacneluc mi hat en avelacnum meka
-    // amen lezvin mi state klni eli esi hayrenna
-    const [state, setState] = useState()
-    // en vor Structure um juridical ban er es dranqa mi tex bayc postAddedField i mej hin logikana der
+export const AddModal = ({ title, active, setActive, name }) => {
+    const [arm, setArm] = useState()
+    const [rus, setRus] = useState()
+    const [eng, setEng] = useState()
 
-    //Ste moment ka
-    //AddModaly etuma Card yndic nor structure // nu props chi uxxaki,kjoges et lav hech
+    const postAddedField = () => {
+        let unique = random(1001)
 
-    // backin stic enq uxarkum el structure ejic chi
-    const postAddedField = (val) => {
-        let unique = random(100)
-        // state y stex eli eval neri texy(eval - y setJuridical,setInfo dranq er)
         let am = {
-            [val]: {
-                name: eval(val),
-                id: eval(val) + unique
+            [name]: {
+                // name: eval(val),
+                // id: eval(val) + unique
+                name: arm,
+                id: name + unique // property_unique id
             }
         }
         let ru = {
-            [val]: {
-                name: eval(val),
-                id: eval(val) + unique,
+            [name]: {
+                // name: eval(val),
+                // id: eval(val) + unique,
+                name: rus,
+                id: name + unique
             }
         }
         let en = {
-            [val]: {
-                name: eval(val),
-                id: eval(val) + unique,
+            [name]: {
+                // name: eval(val),
+                // id: eval(val) + unique,
+                name: eng,
+                id: name + unique
             }
         }
 
         const global = { am, en, ru }
-        console.log(global)
+        console.log(global, 'дсадасд')
+
         baseApi.post('/api/addGlobalFormField', global)
     }
+
+    console.log(arm);
 
     return (
         <div className={active ? "addModal-close" : "addModal-open"}>
@@ -51,13 +55,33 @@ export const AddModal = ({ title, active, setActive }) => {
                 <span>Lezuner</span>
 
                 <label className='addModal__card-label'>
-                    դաշտի անվանում*
+                    դաշտի անվանում AM*
                     <input
                         type="text"
                         placeholder='Նշեք դաշտի անվանումը'
                         className=''
                         minLength="3"
-                        onChange={(e) => setState(e.target.value)}
+                        onChange={(e) => setArm(e.target.value)}
+                    />
+                </label>
+                <label className='addModal__card-label'>
+                    դաշտի անվանում RU*
+                    <input
+                        type="text"
+                        placeholder='Նշեք դաշտի անվանումը'
+                        className=''
+                        minLength="3"
+                        onChange={(e) => setRus(e.target.value)}
+                    />
+                </label>
+                <label className='addModal__card-label'>
+                    դաշտի անվանում EN*
+                    <input
+                        type="text"
+                        placeholder='Նշեք դաշտի անվանումը'
+                        className=''
+                        minLength="3"
+                        onChange={(e) => setEng(e.target.value)}
                     />
                 </label>
 

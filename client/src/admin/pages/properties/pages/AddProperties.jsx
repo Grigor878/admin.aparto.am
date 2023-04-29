@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
@@ -11,11 +11,28 @@ import { TextMidPlus } from '../components/inputs/TextMidPlus'
 import { agentList, community, flags, moderatorList, propertyType, statementType, transactionType } from '../components/dropdowns/data'
 import { FileUpload } from '../components/inputs/FileUpload'
 import './Styles.scss'
+import baseApi from '../../../../apis/baseApi'
 
 const AddProperties = () => {
     const [addProperties, setAddProperties] = useState('')
     const [file, setFile] = useState([])
     // const [fileUrl, setFileUrl] = useState([])
+
+    const [addedInfo, setStrInfo] = useState()
+
+    const getStrInfo = async () => {
+        try {
+            const { data } = await baseApi.get('/api/getAddFields')
+            setStrInfo(data)
+        } catch (err) {
+            console.log(`Get Structure Info: ${err.message}`);
+        }
+    }
+    console.log(addedInfo)//
+
+    useEffect(() => {
+        getStrInfo()
+    }, [])
 
     const uploadFile = (e) => {
         setFile(Object.values(e.target.files))
@@ -75,6 +92,12 @@ const AddProperties = () => {
                                         </li>
                                     ))}
                                 </ul>
+                                <TextLarg
+                                    id="property_title"
+                                    title="Հայտարարության վերնագիր"
+                                    placeholder="Գրեք վերնագիրը"
+                                    onChange={addProp}
+                                />
                                 <TextLarg
                                     id="property_title"
                                     title="Հայտարարության վերնագիր"
@@ -155,7 +178,7 @@ const AddProperties = () => {
                             </div>
                         }
                     />
-      
+
                 </div>
                 {/* Right part */}
                 <div className="addproperties__right">
