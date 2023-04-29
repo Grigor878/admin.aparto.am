@@ -43,6 +43,24 @@
     padding: 20px 0 12px 0;
   }
 
+  &-flags {
+    @include flexCenter;
+    gap: 4px;
+    padding: 20px 0 24px 0;
+
+    &-flag {
+      opacity: 0.5;
+      border-radius: 2px;
+      border: 0.5px solid $textBtn;
+      cursor: pointer;
+    }
+
+    &-flagActive {
+      border-radius: 2px;
+      border: 1px solid $blue;
+    }
+  }
+
   &-label {
     @include flexCol;
     gap: 4px;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { AddModal } from '../modal/AddModal'
+import { random } from '../../../../../helpers/utils'
 
-export const Card = ({ title, data, name }) => {
+export const Card = ({ title, data, name, search }) => {
     const [active, setActive] = useState(true)
 
     active
@@ -10,15 +11,15 @@ export const Card = ({ title, data, name }) => {
         : (document.body.style.overflow = "hidden")
 
     return (
-        <div className='structure__center-card' >
+        <div className='structure__center-card' style={{ display: search }}>
             <h4>{title}</h4>
             <ul>
                 <li>
                     <span>Անվանում</span>
                 </li>
-                {data.map(({ name }) => {
+                {data?.map((el) => {
                     return (
-                        <li key={name}><p>{name}</p></li>
+                        <li key={random(99999)}><p>{el.name}</p></li>
                     )
                 })}
             </ul>

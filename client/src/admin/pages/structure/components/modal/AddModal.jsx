@@ -1,49 +1,56 @@
 import React, { useState } from 'react'
+import { flags } from '../../../properties/components/dropdowns/data'
+import Flag from 'react-world-flags'
+import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import { random } from '../../../../../helpers/utils'
 import baseApi from '../../../../../apis/baseApi'
-import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
+import { error } from '../../../../../components/swal/swal'
 import './AddModal.scss'
 
 export const AddModal = ({ title, active, setActive, name }) => {
-    const [arm, setArm] = useState()
-    const [rus, setRus] = useState()
-    const [eng, setEng] = useState()
+    const [arm, setArm] = useState('')
+    const [rus, setRus] = useState('')
+    const [eng, setEng] = useState('')
+
+    const [activeFlag, setActiveFlag] = useState('am')
 
     const postAddedField = () => {
-        let unique = random(1001)
+        if (arm && rus && eng) {
+            let unique = random(9999)
 
-        let am = {
-            [name]: {
-                // name: eval(val),
-                // id: eval(val) + unique
-                name: arm,
-                id: name + unique // property_unique id
+            let am = {
+                [name]: {
+                    name: arm,
+                    id: name + "_" + unique // property_unique id
+                }
             }
-        }
-        let ru = {
-            [name]: {
-                // name: eval(val),
-                // id: eval(val) + unique,
-                name: rus,
-                id: name + unique
+            let ru = {
+                [name]: {
+                    name: rus,
+                    id: name + "_" + unique
+                }
             }
-        }
-        let en = {
-            [name]: {
-                // name: eval(val),
-                // id: eval(val) + unique,
-                name: eng,
-                id: name + unique
+            let en = {
+                [name]: {
+                    name: eng,
+                    id: name + "_" + unique
+                }
             }
-        }
 
-        const global = { am, en, ru }
-        console.log(global, 'дсадасд')
+            setArm("")
+            setRus("")
+            setEng("")
 
-        baseApi.post('/api/addGlobalFormField', global)
+            const global = { am, en, ru }
+            console.log(global)
+            // baseApi.post('/api/addGlobalFormField', global)
+
+            setActive(true)
+            // window.location.reload(false)
+        } else {
+            error("Complete all fields!")
+        }
     }
-
-    console.log(arm);
 
     return (
         <div className={active ? "addModal-close" : "addModal-open"}>
@@ -52,38 +59,56 @@ export const AddModal = ({ title, active, setActive, name }) => {
 
                 <p>Դուք ցանկանում եք ավելացնել նոր դաշտ “{title}” բաժնում</p>
 
-                <span>Lezuner</span>
+                <div>
+                    <div className="addModal__card-flags">
+                        {flags.map(({ country_code }) => (
+                            <Flag
+                                key={country_code}
+                                code={country_code}
+                                onClick={() => setActiveFlag(country_code)}
+                                className={activeFlag === country_code ? 'addModal__card-flags-flagActive' : 'addModal__card-flags-flag'}
+                                width="36"
+                                height="20"
+                            />
+                        ))}
+                    </div>
 
-                <label className='addModal__card-label'>
-                    դաշտի անվանում AM*
-                    <input
-                        type="text"
-                        placeholder='Նշեք դաշտի անվանումը'
-                        className=''
-                        minLength="3"
-                        onChange={(e) => setArm(e.target.value)}
-                    />
-                </label>
-                <label className='addModal__card-label'>
-                    դաշտի անվանում RU*
-                    <input
-                        type="text"
-                        placeholder='Նշեք դաշտի անվանումը'
-                        className=''
-                        minLength="3"
-                        onChange={(e) => setRus(e.target.value)}
-                    />
-                </label>
-                <label className='addModal__card-label'>
-                    դաշտի անվանում EN*
-                    <input
-                        type="text"
-                        placeholder='Նշեք դաշտի անվանումը'
-                        className=''
-                        minLength="3"
-                        onChange={(e) => setEng(e.target.value)}
-                    />
-                </label>
+                    {activeFlag === "am"
+                        ? <label className='addModal__card-label'>
+                            դաշտի անվանում *
+                            <input
+                                value={arm}
+                                type="text"
+                                placeholder='Նշեք դաշտի անվանումը'
+                                className=''
+                                minLength="3"
+                                onChange={(e) => setArm(e.target.value)}
+                            />
+                        </label>
+                        : activeFlag === "ru"
+                            ? <label className='addModal__card-label'>
+                                դաշտի անվանում {activeFlag}*
+                                <input
+                                    value={rus}
+                                    type="text"
+                                    placeholder='Նշեք դաշտի անվանումը'
+                                    className=''
+                                    minLength="3"
+                                    onChange={(e) => setRus(e.target.value)}
+                                />
+                            </label>
+                            : <label className='addModal__card-label'>
+                                դաշտի անվանում {activeFlag}*
+                                <input
+                                    value={eng}
+                                    type="text"
+                                    placeholder='Նշեք դաշտի անվանումը'
+                                    className=''
+                                    minLength="3"
+                                    onChange={(e) => setEng(e.target.value)}
+                                />
+                            </label>}
+                </div>
 
                 <BtnOnclick
                     text="Պահպանել"
