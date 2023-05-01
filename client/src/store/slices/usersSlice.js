@@ -4,7 +4,6 @@ import baseApi from "../../apis/baseApi";
 const initialState = {
   loading: false,
   users: [],
-  // error: "",
 };
 
 export const getUsers = createAsyncThunk("users", async () => {
@@ -16,6 +15,7 @@ export const getUsers = createAsyncThunk("users", async () => {
   }
 });
 
+// store um el add anel vor ashxati
 // export const addUser = createAsyncThunk("userAdd", async ({ formData }) => {
 //   await baseApi.post("/api/addUser", formData);
 // });
@@ -32,12 +32,7 @@ const userSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.users = action.payload;
-        // state.error = "";
       });
-    // .addCase(getUsers.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.error.message;
-    // });
   },
 });
 
