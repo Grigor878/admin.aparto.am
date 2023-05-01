@@ -34,8 +34,42 @@ class GeneralFormController extends Controller
     }
 
     public function getFormStructure() {
-        $structure = $this->generalFormService->getFormStructure();
-        return response()->json($structure);
+
+        // $structure = $this->generalFormService->getFormStructure();
+        $form = GlobalForm::findorFail(1);
+        // $obj = [
+        //   'am' => [
+        //     'name'=> "announcement",
+        //     'id' => 'announcement_id1',
+        //     'val' => 'Ավելացրած'
+        //   ]
+        // ] ;
+        $form->am = json_decode($form->am);
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
+
+        // foreach ($form->am as $key => $value) {
+        //   if($obj['am']['name'] == $value->name){
+        //     if(isset($value->added)){
+        //       $value->added[] = [$obj['am']['id'] => $obj['am']['val']];
+        //     }
+        //   }
+        // };
+        //   foreach ($form->am as $key => $value) {
+        //   if($obj['am']['name'] == $value->name){
+        //     if(isset($value->added)){
+        //       foreach ($value->added as $idx => $field) {
+        //         $keys = array_keys(get_object_vars($field));
+        //         if($keys[0] == $obj['am']['id']) {
+        //           unset($value->added[$idx]);
+        //         }
+               
+        //       }
+        //     }
+        //   }
+        // };
+        // GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
+return json_decode(GlobalForm::findorFail(1)->am);
     }
 
     public function addGlobalFormField(Request $request) {
@@ -50,5 +84,162 @@ class GeneralFormController extends Controller
         $this->generalFormService->removeGeneralField($data);
         $structure = $this->generalFormService->getFormStructure();
         return response()->json($structure);
+    }
+
+    public function addNow() {
+        $form = GlobalForm::findorFail(1);
+
+
+        $form->am = json_encode(
+            
+            [
+                [
+                  'name' => "announcement",
+                  'title'=> "Հայտարարություն",
+                  'data'=> [
+                    "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
+                    "ԳՈՒՅՔԻ ՏԵՍԱԿ",
+                    "Հայտարարության վերնագիր",
+                    "Հայտարարության ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ",
+                    "Հայտարարության ՏԵՍԱԿ",
+                    "Ավելացրած հայտ․",
+                  ],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "buildingDescription",
+                  'title'=> "Գտնվելու Վայրը",
+                  'data'=> [
+                    "ՇԻՆՈՒԹՅԱՆ ՏԻՊ",
+                    "ՀԱՐԿԱՅՆՈՒԹՅՈՒՆ",
+                    "ՇԵՆՔԻ ԿԱՌՈՒՑՄԱՆ ՏԱՐԻՆ",
+                    "ԿՈՂՄՆՈՐՈՇՈՒՄԸ",
+                    "ՏԱՐԵԿԱՆ ԳՈՒՅՔԱՀԱՐԿ",
+                    "ԱՄՍԱԿԱՆ ՍՊԱՍԱՐԿՄԱՆ ՎՃԱՐ",
+                  ],
+                 'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "houseDescription",
+                  'title'=> "Շինության Նկարագիր",
+                  'data'=> [
+                    "ՄԱԿԵՐԵՍ",
+                    "ԱՌԱՍՏԱՂԻ ԲԱՐՁՐՈՒԹՅՈՒՆԸ",
+                    "ՍԵՆՅԱԿՆԵՐԻ ՔԱՆԱԿ",
+                    "ՆՆՋԱՍԵՆՅԱԿՆԵՐԻ ՔԱՆԱԿ",
+                    "ՍԱՆՀԱՆԳՈՒՅՑՆԵՐԻ ՔԱՆԱԿ",
+                    "ԲԱՑ ՊԱՏՇԳԱՄԲՆԵՐԻ ՔԱՆԱԿ",
+                    "ՓԱԿ ՊԱՏՇԳԱՄԲՆԵՐԻ ՔԱՆԱԿ",
+                    "ՀԱՐԿԸ",
+                    "ՏԱՆ ՎԻՃԱԿ",
+                    "ԱՎՏՈԿԱՅԱՆԱՏԵՂԻ",
+                    "ԽՈՀԱՆՈՑԻ ՏԻՊ",
+                  ],
+                 'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "information",
+                  'title'=> "ԻՆՖՈՐՄԱՑԻԱ",
+                  'data'=> ["ԻՆՖՈՐՄԱՑԻԱ"],
+          'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "juridical",
+                  'title'=> "Իրավաբանական",
+                  'data'=> ["ՍԵՓԱԿԱՆԱՏԵՐ", "ՍԵՓԱԿԱՆԱՏԻՐՈՁ ՀԵՌԱԽՈՍԱՀԱՄԱՐ"],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "location",
+                  'title'=> "Գտնվելու Վայրը",
+                  'data'=> [
+                    "Համայնք",
+                    "Փողոց",
+                    "ՇԵՆՔ",
+                    "ՄՈՒՏՔ",
+                    "ԲՆԱԿԱՐԱՆ",
+                    "ԻՐԱԿԱՆ ՀԱՍՑԵ",
+                    "Ավելա․ տող",
+                    "ավելա տեքստ",
+                  ],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+            
+                [
+                  'name'=> "mainFacilities",
+                  'title'=> "Կոմունալ Հարմարություններ",
+                  'data'=> [
+                    "ԱՆՀԱՏԱԿԱՆ ՋԵՌՈՒՑՄԱՆ ՀԱՄԱԿԱՐԳ",
+                    "Կենտրոնացված ջեռուցման համակարգ",
+                    "Օդորակիչ",
+                    "ԿԵՆՏՐՈՆԱՑԱԾ ՀՈՎԱՑՄԱՆ ՀԱՄԱԿԱՐԳ",
+                    "ԷԼԵԿՏՐՈԷՆԵՐԳԻԱ",
+                    "ԳԱԶ",
+                  ],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "otherFacilities",
+                  'title'=> "Այլ Հարմարություններ",
+                  'data'=> [
+                    "ԿԱՀՈՒՅՔ",
+                    "Տեխնիկա",
+                    "Վերելակ",
+                    "ՓԱԿ ՏՆՏԵՍԱԿԱՆ ՊԱՏՇԳԱՄԲ",
+                    "ԵՎՐՈՊԱՏՈՒՀԱՆ",
+                    "ԼԱՄԻՆԱՏ",
+                    "ՄԱՆՐԱՀԱՏԱԿ",
+                    "ՍԱԼԻԿԱՊԱՏՎԱԾ",
+                    "ՊՌԵՍԳՐԱՆԻՏ",
+                    "ԳԵՂԵՑԻԿ ՏԵՍԱՐԱՆ",
+                    "ԱՆՎՏԱՆԳՈՒԹՅԱՆ ՀԱՄԱԿԱՐԳ",
+                    "ԽԱՂԱՀՐԱՊԱՐԱԿ",
+                    "ԵՐԿԿՈՂՄԱՆԻ ԴԻՐՔ",
+                    "ՇՈԳԵԲԱՂՆԻՔ",
+                    "ԼՈՋԱ",
+                    "ԽՈՐԴԱՆՈՑ",
+                    "ԶԳԵՍՏԱՊԱՀԱՐԱՆ",
+                    "ԼՎԱՑՔԱՏՈՒՆ",
+                    "ԶԲՈՍԱՅԳԻ",
+                    "ԱՌԱՋԻՆ ԳԻԾ",
+                    "ՄԻՋԲԱԿԱՅԻՆ ՇԵՆՔ",
+                    "ԿԱՆԳԱՌԻ ՄՈՏ",
+                    "ԱՐԵՎԿՈՂՄ",
+                    "ՏԱՔԱՑՎՈՂ ՀԱՏԱԿ",
+                    "ԴԱՐՊԱՍ",
+                    "ՊԱՐՍՊԱՊԱՏ",
+                    "ԵՐԿԿՈՂՄԱՆԻ ՄՈՒՏՔ",
+                    "ԵՐԿԱԹՅԱ ԴՈՒՌ",
+                    "ԼՈՂԱՎԱԶԱՆ",
+                    "ՀԱՏԱԿ",
+                    "ԱՌԱՍՏԱՂ",
+                    "ԾԱԾԿԵՐ",
+                  ],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "price",
+                  'title'=> "Գինը",
+                  'data'=> [
+                    "ԸՆԴՀԱՆՈՒՐ ԳԻՆԸ",
+                    "ԳԻՆԸ 1քմ",
+                    "ԿԱՆԽԱՎՃԱՐԻ ՉԱՓ",
+                    "ՎՃԱՐՄԱՆ ԿԱՐԳԸ",
+                    "ՆԱԽԸՆՏՐԱԾ ԲԱՆԿԸ",
+                  ],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+                [
+                  'name'=> "specialists",
+                  'title'=> "Կից Մասնագետներ",
+                  'data'=> ["ԳՈՐԾԱԿԱԼ", "ՄԵՆԵՋԵՐ"],
+                  'added'=> [[ "announcement_masnik"=> "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+                ],
+              ]
+        );
+        $form->save();
+
+        // $form->ru = json_decode($form->ru);
+        // $form->en = json_decode($form->en);
     }
 }
