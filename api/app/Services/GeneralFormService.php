@@ -22,96 +22,66 @@ class GeneralFormService
     }
 
     public function addGeneralField($data) {
-        $getForm = GlobalForm::findOrFail(1);
-        $phpDataAm = json_decode($getForm['am'], true);
-        $phpDataRu = json_decode($getForm['ru'], true);
-        $phpDataEn = json_decode($getForm['en'], true);
+        $form = GlobalForm::findorFail(1);
+        $form->am = json_decode($form->am);
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
 
-        if($phpDataAm){
-            if($data['am']){
-                $key = current(array_keys($data['am']));
-                if(!isset($phpDataAm[$key])){
-                    $phpDataAm[$key] = [$data['am'][$key]]; 
-                } else {
-                    array_push($phpDataAm[$key], $data['am'][$key]);
-                }
-            } 
-        } else {
-            $key = current(array_keys($data['am']));
-            $phpDataAm =  [
-                $key => [
-                    $data['am'][$key],
-                ]
-            ];
+        if($form->am){
+          foreach ($form->am as $key => $value) {
+            if($data['am']['name'] == $value->name){
+              if(isset($value->added)){
+                $value->added[] = [$data['am']['id'] => $data['am']['val']];
+              }
+            }
+          };
         }
-        if($phpDataRu){
-            if($data['ru']){
-                $key = current(array_keys($data['ru']));
-                if(!isset($phpDataRu[$key])){
-                    $phpDataAm[$key] = [$data['ru'][$key]]; 
-                } else {
-                    array_push($phpDataRu[$key], $data['ru'][$key]);
-                }
-            } 
-        }else {
-            $key = current(array_keys($data['ru']));
-            $phpDataRu =  [
-                $key => [
-                    $data['ru'][$key]
-                ],
-            ];
-        }
-        if($phpDataEn){
-            if($data['en']){
-                $key = current(array_keys($data['en']));
-                if(!isset($phpDataEn[$key])){
-                    $phpDataAm[$key] = [$data['en'][$key]]; 
-                } else {
-                    array_push($phpDataEn[$key], $data['en'][$key]);
-                }
-        } }else {
-            $key = current(array_keys($data['en']));
-            $phpDataEn =  [
-                $key => [
-                    $data['en'][$key],
-                ]
-            ];
-        }
-        GlobalForm::where('id', 1)->update(['am'=> json_encode($phpDataAm), 'ru'=> json_encode($phpDataRu), 'en'=> json_encode($phpDataEn)]);
+
+        // if($form->ru){
+        //   foreach ($form->ru as $key => $value) {
+        //     if($data['ru']['name'] == $value->name){
+        //       if(isset($value->added)){
+        //         $value->added[] = [$data['ru']['id'] => $data['ru']['val']];
+        //       }
+        //     }
+        //   };
+        // }
+
+        // if($form->en){
+        //   foreach ($form->en as $key => $value) {
+        //     if($data['en']['name'] == $value->name){
+        //       if(isset($value->added)){
+        //         $value->added[] = [$data['en']['id'] => $data['en']['val']];
+        //       }
+        //     }
+        //   };
+        // }
+
+        GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am), 'ru'=> json_encode($form->ru), 'en'=> json_encode($form->en)]);
     }
 
     public function removeGeneralField ($data) {
-        $getForm = GlobalForm::findorFail(1);
-        $getAm = json_decode($getForm->am);
-        $getRu = json_decode($getForm->ru);
-        $getEn = json_decode($getForm->en);
+        $form = GlobalForm::findorFail(1);
+        $form->am = json_decode($form->am);
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
         $key = current(array_keys($data));
-        $fieldId = $data[$key]['id'];
 
-        if(isset($getAm->$key)) {
-            foreach ($getAm->$key as $idx => $row) {
-                if($row->id == $fieldId) {
-                    unset($getAm->$key[$idx]);
+        if($form->am){
+            foreach ($form->am as $key => $value) {
+                if($data['am']['name'] == $value->name){
+                  if(isset($value->added)){
+                    foreach ($value->added as $idx => $field) {
+                      $keys = array_keys(get_object_vars($field));
+                      if($keys[0] == $data['am']['id']) {
+                        unset($value->added[$idx]);
+                      }
+                     
+                    }
+                  }
                 }
-            }
+            };
         }
-
-        if(isset($getRu->$key)) {
-            foreach ($getRu->$key as $idx => $row) {
-                if($row->id == $fieldId) {
-                    unset($getRu->$key[$idx]);
-                }
-            }
-        }
-
-        if(isset($getEn->$key)) {
-            foreach ($getEn->$key as $idx => $row) {
-                if($row->id == $fieldId) {
-                    unset($getEn->$key[$idx]);
-                }
-            }
-        }
-
-        $getForm->update(['am'=> json_encode($getAm), 'ru'=> json_encode($getRu), 'en'=> json_encode($getEn)]);
+          GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
     }
 }

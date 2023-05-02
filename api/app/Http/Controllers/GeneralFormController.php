@@ -48,42 +48,19 @@ class GeneralFormController extends Controller
         $form->ru = json_decode($form->ru);
         $form->en = json_decode($form->en);
 
-        // foreach ($form->am as $key => $value) {
-        //   if($obj['am']['name'] == $value->name){
-        //     if(isset($value->added)){
-        //       $value->added[] = [$obj['am']['id'] => $obj['am']['val']];
-        //     }
-        //   }
-        // };
-        //   foreach ($form->am as $key => $value) {
-        //   if($obj['am']['name'] == $value->name){
-        //     if(isset($value->added)){
-        //       foreach ($value->added as $idx => $field) {
-        //         $keys = array_keys(get_object_vars($field));
-        //         if($keys[0] == $obj['am']['id']) {
-        //           unset($value->added[$idx]);
-        //         }
-               
-        //       }
-        //     }
-        //   }
-        // };
-        // GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
 return json_decode(GlobalForm::findorFail(1)->am);
     }
 
     public function addGlobalFormField(Request $request) {
         $data = $request->all();
         $this->generalFormService->addGeneralField($data);
-        $structure = $this->generalFormService->getFormStructure();
-        return response()->json($structure);
+        return json_decode(GlobalForm::findorFail(1)->am);
     }
 
     public function removeGlobalFormField(Request $request) {
         $data = $request->all();
         $this->generalFormService->removeGeneralField($data);
-        $structure = $this->generalFormService->getFormStructure();
-        return response()->json($structure);
+        return json_decode(GlobalForm::findorFail(1)->am);
     }
 
     public function addNow() {
