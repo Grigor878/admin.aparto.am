@@ -1,18 +1,18 @@
 import React from 'react'
 
-export const TextLarg = ({ title, id, placeholder, value, onChange }) => {
+export const NumPrice = ({ title, id, placeholder, onChange, ex }) => {
     return (
         <label className='addproperties__card-text'>
-            {title}*
+            {title}
             <input
                 id={id}
-                type="text"
+                type="number"
                 placeholder={placeholder}
-                className='addproperties__card-text-larg'
+                className='addproperties__card-text-price'
                 minLength="3"
-                // value={value}
                 onChange={onChange}
             />
+            <span>{ex}</span>
         </label>
     )
 }

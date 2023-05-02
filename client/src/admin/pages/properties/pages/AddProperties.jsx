@@ -8,10 +8,14 @@ import { TextMid } from '../components/inputs/TextMid'
 import { TextSmall } from '../components/inputs/TextSmall'
 import { TextFull } from '../components/inputs/TextFull'
 import { TextMidPlus } from '../components/inputs/TextMidPlus'
-import { agentList, community, flags, moderatorList, propertyType, statementType, transactionType } from '../components/dropdowns/data'
+import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 import { FileUpload } from '../components/inputs/FileUpload'
-import './Styles.scss'
 import baseApi from '../../../../apis/baseApi'
+import { NumPrice } from '../components/inputs/NumPrice'
+import { NumHug } from '../components/inputs/NumHug'
+import { NumSelector } from '../components/inputs/NumSelector'
+import './Styles.scss'
+import { AddedFields } from '../components/addedFields/AddedFields'
 
 const AddProperties = () => {
     const [addProperties, setAddProperties] = useState('')
@@ -19,6 +23,13 @@ const AddProperties = () => {
     // const [fileUrl, setFileUrl] = useState([])
 
     const [addedInfo, setStrInfo] = useState()
+    const [propTitleLng, setPropTitleLng] = useState('am')
+    const [propDescLng, setPropDescLng] = useState('am')
+    const [rooms, setRooms] = useState(null)
+    const [bedrooms, setBedrooms] = useState(null)
+    const [toilets, setToilets] = useState(null)
+    const [openBalconies, setOpenBalconies] = useState(null)
+    const [closeBalconies, setCloseBalconies] = useState(null)
 
     const getStrInfo = async () => {
         try {
@@ -47,11 +58,10 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    // console.log(addProperties)
+    console.log(addProperties)//
 
-    const propertyTitleLng = (code) => {
-        alert(code)
-    }
+    let added = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" }, { 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }]
+    let added2 = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ", 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }];
 
     return (
         <article className='addproperties'>
@@ -66,70 +76,124 @@ const AddProperties = () => {
                             <div className='addproperties__card-block'>
                                 <div className='addproperties__card-row'>
                                     <SingleSelect
-                                        id="property_transactionType"
+                                        id="announcement_transactionType"
                                         title="Գործարքի տեսակ"
                                         data={transactionType}
                                         onChange={addProp}
                                     />
                                     <SingleSelect
-                                        id="property_propertyType"
+                                        id="announcement_propertyType"
                                         title="Գույքի տեսակ"
                                         data={propertyType}
                                         onChange={addProp}
                                     />
                                 </div>
                                 <ul className='addproperties__card-flags'>
-                                    {flags.map(({ code, country_code }) => (
-                                        <li key={code} >
+                                    {flags.map(({ country_code }) => (
+                                        <li key={country_code} >
                                             <Flag
-                                                onClick={() => propertyTitleLng(code)}
                                                 code={country_code}
+                                                onClick={() => setPropTitleLng(country_code)}
                                                 width="36"
                                                 height="20"
-                                                style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
-
+                                                className={propTitleLng === country_code ? 'addproperties__card-flags-flagActive' : 'addproperties__card-flags-flag'}
                                             />
                                         </li>
                                     ))}
                                 </ul>
-                                <TextLarg
-                                    id="property_title"
-                                    title="Հայտարարության վերնագիր"
-                                    placeholder="Գրեք վերնագիրը"
-                                    onChange={addProp}
-                                />
-                                <TextLarg
-                                    id="property_title"
-                                    title="Հայտարարության վերնագիր"
-                                    placeholder="Գրեք վերնագիրը"
-                                    onChange={addProp}
-                                />
+                                {propTitleLng === "am"
+                                    ? <TextLarg
+                                        id="announcement_title-am"
+                                        title="Հայտարարության վերնագիր"
+                                        placeholder="Գրեք վերնագիրը"
+                                        onChange={addProp}
+                                    />
+                                    : propTitleLng === "ru"
+                                        ? <TextLarg
+                                            id="announcement_title-ru"
+                                            title="Հայտարարության վերնագիր RU"
+                                            placeholder="Գրեք վերնագիրը"
+                                            // placeholder="Напишите название"
+                                            onChange={addProp}
+                                        /> :
+                                        <TextLarg
+                                            id="announcement_title-en"
+                                            title="Հայտարարության վերնագիր GB"
+                                            placeholder="Գրեք վերնագիրը"
+                                            // placeholder="Write the title"
+                                            onChange={addProp}
+                                        />
+                                }
                                 <ul className='addproperties__card-flags'>
-                                    {flags.map(({ code, country_code }) => (
-                                        <li key={code} >
+                                    {flags.map(({ country_code }) => (
+                                        <li key={country_code} >
                                             <Flag
-                                                onClick={() => propertyTitleLng(code)}
-                                                code={country_code}
+                                                onClick={() => setPropDescLng(country_code)} code={country_code}
                                                 width="36"
                                                 height="20"
-                                                style={{ borderRadius: "2px", border: " 1px solid #4A46F1" }}
-
+                                                className={propDescLng === country_code ? 'addproperties__card-flags-flagActive' : 'addproperties__card-flags-flag'}
                                             />
                                         </li>
                                     ))}
                                 </ul>
-                                <TextLarg
-                                    id="property_description"
-                                    title="Հայտարարության նկարագրություն"
-                                    placeholder="Գրեք նկարագրությունը"
-                                    onChange={addProp}
-                                />
+                                {propDescLng === "am"
+                                    ? <TextLarg
+                                        id="announcement_description-am"
+                                        title="Հայտարարության նկարագրություն"
+                                        placeholder="Գրեք նկարագրությունը"
+                                        onChange={addProp}
+                                    />
+                                    : propDescLng === "ru"
+                                        ? <TextLarg
+                                            id="announcement_description-ru"
+                                            title="Հայտարարության նկարագրություն RU"
+                                            // placeholder="Напишите описание"
+                                            placeholder="Գրեք նկարագրությունը"
+                                            onChange={addProp}
+                                        />
+                                        : <TextLarg
+                                            id="announcement_description-en"
+                                            title="Հայտարարության նկարագրություն GB"
+                                            // placeholder="Write the description"
+                                            placeholder="Գրեք նկարագրությունը"
+                                            onChange={addProp}
+                                        />
+                                }
                                 <SingleSelect
-                                    id="property_statementType"
+                                    id="announcement_statementType"
                                     title="հայտարարության տեսակ"
                                     data={statementType}
                                     onChange={addProp}
                                 />
+                                {addedInfo
+                                    ? <AddedFields
+                                        data={addedInfo?.am?.announcement}
+                                        addProp={addProp}
+                                    />
+                                    : null}
+                                <p>ADDED TEST</p>
+                                {added.map((obj, index) => {
+                                    const key = Object.keys(obj)[0];
+                                    const value = obj[key];
+                                    return (
+                                        <div key={index}>
+                                            <span>{value}</span>
+                                        </div>
+                                    );
+                                })}
+                                <br />
+                                <p>ADDED TEST 2</p>
+                                {added2.map((obj, index) => {
+                                    return (
+                                        <div key={index}>
+                                            {Object.entries(obj).map(([key, value]) => (
+                                                <div key={key}>
+                                                    <span>{value}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         }
                     />
@@ -138,20 +202,20 @@ const AddProperties = () => {
                         child={
                             <div className='addproperties__card-block'>
                                 <SingleSelect
-                                    id="place_community"
+                                    id="location_community"
                                     title="Համայնք"
                                     data={community}
                                     onChange={addProp}
                                 />
                                 <div className='addproperties__card-row'>
                                     <TextMid
-                                        id="place_street"
+                                        id="location_street"
                                         title="Փողոց"
                                         placeholder="Հասցե"
                                         onChange={addProp}
                                     />
                                     <TextSmall
-                                        id="place_house"
+                                        id="location_house"
                                         title="Շենք"
                                         placeholder="Օրինակ"
                                         onChange={addProp}
@@ -163,14 +227,15 @@ const AddProperties = () => {
                                         onChange={addProp}
                                     />
                                     <TextSmall
-                                        id="place_apartment"
+                                        id="location_apartment"
                                         title="Բնակարան"
                                         placeholder="Օրինակ"
                                         onChange={addProp}
                                     />
                                 </div>
+                                <p>Yandex map</p>
                                 <TextFull
-                                    id="place_realAddress"
+                                    id="location_realAddress"
                                     title="իրական հասցե"
                                     placeholder="Հասցե"
                                     onChange={addProp}
@@ -178,8 +243,187 @@ const AddProperties = () => {
                             </div>
                         }
                     />
+                    <Card
+                        title='Գինը'
+                        child={
+                            <div className='addproperties__card-block'>
+                                <div className='addproperties__card-rowGap'>
+                                    <NumPrice
+                                        title="Ընդհանուր Գինը*"
+                                        id="price_usd"
+                                        placeholder="Գինը դոլարով"
+                                        onChange={addProp}
+                                        ex="USD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_amd"
+                                        placeholder="Գինը դրամով"
+                                        onChange={addProp}
+                                        ex="AMD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_rub"
+                                        placeholder="Գինը ռուբլիով"
+                                        onChange={addProp}
+                                        ex="RUB"
+                                    />
+                                </div>
+                                <p>Gin paymanagrayin</p>
+                                <div className='addproperties__card-rowGap'>
+                                    <NumPrice
+                                        title="Գինը 1 քմ*"
+                                        id="price_sqm-usd"
+                                        placeholder="Գինը դոլարով"
+                                        onChange={addProp}
+                                        ex="USD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_sqm-amd"
+                                        placeholder="Գինը դրամով"
+                                        onChange={addProp}
+                                        ex="AMD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_sqm-rub"
+                                        placeholder="Գինը ռուբլիով"
+                                        onChange={addProp}
+                                        ex="RUB"
+                                    />
+                                </div>
+                                <div className='addproperties__card-rowGap'>
+                                    <NumPrice
+                                        title="Կանխավճարի չափ*"
+                                        id="price_advancedPay-usd"
+                                        placeholder="Գինը դոլարով"
+                                        onChange={addProp}
+                                        ex="USD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_advancedPay-amd"
+                                        placeholder="Գինը դրամով"
+                                        onChange={addProp}
+                                        ex="AMD"
+                                    />
+                                    <NumPrice
+                                        title='.'
+                                        id="price_advancedPay-rub"
+                                        placeholder="Գինը ռուբլիով"
+                                        onChange={addProp}
+                                        ex="RUB"
+                                    />
+                                </div>
+                                <div className="addproperties__card-row">
+                                    <SingleSelect
+                                        id="price_paymentProcedure"
+                                        title="վճարման կարգը"
+                                        data={paymentProcedure}
+                                        onChange={addProp}
+                                    />
+                                    <SingleSelect
+                                        id="price_preferedBank"
+                                        title="Նախընտրած բանկը"
+                                        data={preferedBank}
+                                        onChange={addProp}
+                                    />
+                                </div>
+                            </div>
+                        }
+                    />
+                    <Card
+                        title='Տան Նկարագիր'
+                        child={
+                            <div className='addproperties__card-block'>
+                                <div className='addproperties__card-row'>
+                                    <NumHug
+                                        title="մակերես*"
+                                        id=""
+                                        placeholder="Նշեք մակերեսը"
+                                        onChange={addProp}
+                                        ex="մ.ք."
+                                    />
+                                    <NumHug
+                                        title="Առաստաղի բարձրությունը*"
+                                        id=""
+                                        placeholder="Նշեք բարձրությունը"
+                                        onChange={addProp}
+                                        ex="մետր"
+                                    />
+                                </div>
+                                <div className='addproperties__card-row'>
+                                    <NumSelector
+                                        title="Սենյակների քանակ*"
+                                        data={roomsNum}
+                                        state={rooms}
+                                        setState={setRooms}
+                                    />
+                                    <NumSelector
+                                        title="Սենյակների քանակ*"
+                                        data={roomsNum}
+                                        state={bedrooms}
+                                        setState={setBedrooms}
+                                    />
+                                </div>
 
+                                <NumSelector
+                                    title="սահանգույցների քանակ*"
+                                    data={toiletsNum}
+                                    state={toilets}
+                                    setState={setToilets}
+                                />
+
+                                <div className='addproperties__card-row'>
+                                    <NumSelector
+                                        title="բաց պատշգամբների քանակ*"
+                                        data={balconiesNum}
+                                        state={openBalconies}
+                                        setState={setOpenBalconies}
+                                    />
+                                    <NumSelector
+                                        title="փակ պատշգամբների քանակ*"
+                                        data={balconiesNum}
+                                        state={closeBalconies}
+                                        setState={setCloseBalconies}
+                                    />
+                                </div>
+                                <div className='addproperties__card-row'>
+                                    <NumHug
+                                        title="ՀԱՐԿԸ*"
+                                        id="houseDescription_floor"
+                                        placeholder="Ex."
+                                        onChange={addProp}
+                                    />
+                                    <SingleSelect
+                                        title="տան վիճակ"
+                                        id="houseDescription_houseCondition"
+                                        onChange={addProp}
+                                        data={houseCondition}
+                                    />
+                                </div>
+
+                                <div className='addproperties__card-row'>
+                                    <SingleSelect
+                                        title="ավտոկայանատեղի"
+                                        id="houseDescription_parking"
+                                        onChange={addProp}
+                                        data={parking}
+                                    />
+                                    <SingleSelect
+                                        title="ավտոկայանատեղի"
+                                        id="houseDescription_kitchenType"
+                                        onChange={addProp}
+                                        data={kitchenType}
+                                    />
+                                </div>
+                            </div>
+                        }
+                    />
                 </div>
+
                 {/* Right part */}
                 <div className="addproperties__right">
                     <Card
@@ -241,7 +485,6 @@ const AddProperties = () => {
                     />
                 </div>
             </div>
-
         </article>
     )
 }

@@ -6,8 +6,8 @@ export const BtnAdd = ({ onClick, text }) => {
     return (
         <button onClick={onClick} className='btn__add'>
             {add.icon}
-            <span>Ավելացնել{text}</span>
-            {/* Ավելացնել Add*/}
+            {/* <span>Ավելացնել {text}</span> */}
+            <span>Add {text}</span>
         </button>
     )
 }

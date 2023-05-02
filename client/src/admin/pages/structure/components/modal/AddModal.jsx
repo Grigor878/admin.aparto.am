@@ -16,24 +16,25 @@ export const AddModal = ({ title, active, setActive, name }) => {
 
     const postAddedField = () => {
         if (arm && rus && eng) {
-            let unique = random(9999)
+
+            let uniqueId = name + "_" + eng.toLowerCase().split(' ').join('')
 
             let am = {
                 [name]: {
                     name: arm,
-                    id: name + "_" + unique // property_unique id
+                    id: uniqueId + '-am'
                 }
             }
             let ru = {
                 [name]: {
                     name: rus,
-                    id: name + "_" + unique
+                    id: uniqueId + '-ru'
                 }
             }
             let en = {
                 [name]: {
                     name: eng,
-                    id: name + "_" + unique
+                    id: uniqueId + '-en'
                 }
             }
 
@@ -44,7 +45,6 @@ export const AddModal = ({ title, active, setActive, name }) => {
             const global = { am, en, ru }
             console.log(global)
             // baseApi.post('/api/addGlobalFormField', global)
-
             setActive(true)
             // window.location.reload(false)
         } else {

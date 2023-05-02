@@ -12,6 +12,9 @@ const Structure = () => {
   const [search, setSearch] = useState('')
 
   const { info } = useSelector((state) => state.structure)
+  console.log(info)
+  // let keys = Object.keys(info)
+  // console.log(keys)
 
   useEffect(() => {
     dispatch(getStructureInfo())

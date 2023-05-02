@@ -188,17 +188,10 @@ const YandexMap = () => {
         });
     };
 
-    // Places api
-    // <YMaps query={{ apikey: "ae237afc-6c17-4934-b480-fd8c89c7811e", lang: "en_RU" }}>
-    //HIN javascript api http geocoder
-    // <YMaps query={{ apikey: "c6f73ad1-401a-4923-93c8-37a304669c9d", lang: "en_RU" }}> 
-
     // ASHXATOX API KEY
     // <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
-    // PTI ASHXATI
-    // <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
     return (
-        <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
+        <YMaps query={{ apikey: "c6f73ad1-401a-4923-93c8-37a304669c9d", lang: "en_RU" }}>
             <div>
                 <div >
                     <div >

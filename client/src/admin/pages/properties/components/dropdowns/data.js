@@ -118,6 +118,169 @@ export const community = [
   },
 ];
 
+export const paymentProcedure = [
+  {
+    id: 1,
+    value: "Բանկային փոխանցում",
+  },
+  {
+    id: 2,
+    value: "Հիպոթեքային վարկ",
+  },
+  {
+    id: 3,
+    value: "Այլ",
+  },
+];
+
+export const preferedBank = [
+  {
+    id: 1,
+    value: "Ամերիա բանկ",
+  },
+  {
+    id: 2,
+    value: "Էվոկաբանկ",
+  },
+  {
+    id: 3,
+    value: "Ինեկոբանկ",
+  },
+  {
+    id: 4,
+    value: "ԱյԴի բանկ",
+  },
+  {
+    id: 5,
+    value: "Ակբա բանկ",
+  },
+  {
+    id: 6,
+    value: "Մելլաթ բանկ",
+  },
+  {
+    id: 7,
+    value: "ՀայԷկոնոմ բանկ",
+  },
+  {
+    id: 8,
+    value: "HSBC բանկ",
+  },
+  {
+    id: 9,
+    value: "Յունիբանկ",
+  },
+  {
+    id: 10,
+    value: "Հայբիզնեսբանկ",
+  },
+  {
+    id: 11,
+    value: "Կոնվերս բանկ",
+  },
+  {
+    id: 12,
+    value: "Արարատ բանկ",
+  },
+  {
+    id: 13,
+    value: "Ֆասթ բանկ",
+  },
+  {
+    id: 14,
+    value: "Արմսվիսբանկ",
+  },
+  {
+    id: 15,
+    value: "Արցախ բանկ",
+  },
+  {
+    id: 16,
+    value: "Բիբլոս Բանկ Արմենիա",
+  },
+  {
+    id: 17,
+    value: "Արդշինբանկ",
+  },
+  {
+    id: 18,
+    value: "ՎՏԲ-Հայաստան բանկ",
+  },
+  {
+    id: 19,
+    value: "Այլ",
+  },
+];
+
+export const roomsNum = ["1", "2", "3", "4", "5", "6", "7+"];
+export const toiletsNum = ["1", "2", "3", "4", "5+"];
+export const balconiesNum = ["0", "1", "2", "3", "4", "5", "6"];
+
+export const houseCondition = [
+  {
+    id: 0,
+    value: "Ընտրեք տեսակը",
+  },
+  {
+    id: 1,
+    value: "Պետական վիճակ",
+  },
+  {
+    id: 2,
+    value: "Լավ",
+  },
+  {
+    id: 3,
+    value: "Զրոյական",
+  },
+  {
+    id: 4,
+    value: "Վերանորոգված",
+  },
+];
+
+export const parking = [
+  {
+    id: 0,
+    value: "Ընտրեք տեսակը",
+  },
+  {
+    id: 1,
+    value: "Քարե",
+  },
+  {
+    id: 2,
+    value: "Ստորգետնյա",
+  },
+  {
+    id: 3,
+    value: "Բաց ավտոկայանատեղի",
+  },
+  {
+    id: 4,
+    value: "Ազատ տարածություն",
+  },
+];
+
+export const kitchenType = [
+  {
+    id: 0,
+    value: "Ընտրեք տեսակը",
+  },
+  {
+    id: 1,
+    value: "Առանձին",
+  },
+  {
+    id: 2,
+    value: "Ստուդիո",
+  },
+  {
+    id: 3,
+    value: "Նախագծված չէ",
+  },
+];
+
 export const agentList = [
   {
     id: 1,
@@ -126,7 +289,7 @@ export const agentList = [
   {
     id: 2,
     value: "Գեվորգ Բաղդասարյան",
-  }
+  },
 ];
 
 export const moderatorList = [
