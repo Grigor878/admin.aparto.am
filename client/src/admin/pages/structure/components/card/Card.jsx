@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { AddModal } from '../modal/AddModal'
 import { remove } from '../../../../svgs/svgs'
+import baseApi from '../../../../../apis/baseApi'
 // import { random } from '../../../../../helpers/utils'
 
 export const Card = ({ title, name, data, added, search }) => {
@@ -26,7 +27,7 @@ export const Card = ({ title, name, data, added, search }) => {
         }
         const removedField = { am, en, ru }
         console.log(removedField)
-        // baseApi.post('/api/removeGlobalFormField', removedField)
+        baseApi.post('/api/removeGlobalFormField', removedField)
     }
 
     return (

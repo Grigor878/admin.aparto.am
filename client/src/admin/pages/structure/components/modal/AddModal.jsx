@@ -42,7 +42,7 @@ export const AddModal = ({ title, active, setActive, name }) => {
 
             const global = { am, en, ru }
             console.log(global)
-            // baseApi.post('/api/addGlobalFormField', global)
+            baseApi.post('/api/addGlobalFormField', global)
             setActive(true)
             // window.location.reload(false)
         } else {
