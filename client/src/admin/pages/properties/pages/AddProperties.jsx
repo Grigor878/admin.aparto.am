@@ -39,7 +39,13 @@ const AddProperties = () => {
             console.log(`Get Structure Info: ${err.message}`);
         }
     }
-    console.log(addedInfo)//
+    // console.log(addedInfo)//
+
+    useEffect(()=>{
+        baseApi.get('/api/getAllStructure').then(
+            response=>{console.log(response.data, "sdsadd")}
+        )
+    }, [])
 
     useEffect(() => {
         getStrInfo()
@@ -58,7 +64,7 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    console.log(addProperties)//
+    // console.log(addProperties)//
 
     let added = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" }, { 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }]
     let added2 = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ", 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }];

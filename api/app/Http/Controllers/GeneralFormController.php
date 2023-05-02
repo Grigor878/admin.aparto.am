@@ -63,6 +63,14 @@ return json_decode(GlobalForm::findorFail(1)->am);
         return json_decode(GlobalForm::findorFail(1)->am);
     }
 
+    public function getAllStructure() {
+      $form = GlobalForm::findorFail(1);
+      $form->am = json_decode($form->am);
+      $form->ru = json_decode($form->ru);
+      $form->en = json_decode($form->en);
+      return response()->json($form);
+    }
+
     public function addNow() {
         $form = GlobalForm::findorFail(1);
 
