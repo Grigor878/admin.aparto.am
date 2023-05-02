@@ -35,26 +35,26 @@ export const Password = () => {
 
     return (
         <div className='profile__bottom'>
-            {retryError ? <h3 style={{ color: 'red' }}>{retryError}</h3> : <h3>Change Password</h3>}
+            {retryError ? <h3 style={{ color: 'red' }}>{retryError}</h3> : <h3>Փոխել Ծածկագիրը</h3>}
             <form onSubmit={handlePassword} autoComplete="off" className='profile__bottom-form'>
                 <AddInput
                     id='userOldPassword'
                     type='password'
                     placeholder='Password'
-                    name='old'
+                    name='Հին ծածկագիրը'
                 />
                 <div className='profile__bottom-form-parts'>
                     <AddInput
                         id='userNewPassword'
                         type='password'
                         placeholder='Password'
-                        name='new'
+                        name='նոր ծածկագիրը'
                     />
                     <AddInput
                         id='userRetryPassword'
                         type='password'
                         placeholder='Password'
-                        name='retry'
+                        name='կրկնեք նոր ծածկագիրը'
                     />
                 </div>
                 <BtnCustom text="Change Password" />

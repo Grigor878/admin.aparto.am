@@ -20,22 +20,20 @@ export const AddModal = ({ title, active, setActive, name }) => {
             let uniqueId = name + "_" + eng.toLowerCase().split(' ').join('')
 
             let am = {
-                [name]: {
-                    name: arm,
-                    id: uniqueId + '-am'
-                }
+                name: name,
+                id: uniqueId,
+                val: arm
+                // id: uniqueId + '-am',
             }
             let ru = {
-                [name]: {
-                    name: rus,
-                    id: uniqueId + '-ru'
-                }
+                name: name,
+                id: uniqueId,
+                val: rus
             }
             let en = {
-                [name]: {
-                    name: eng,
-                    id: uniqueId + '-en'
-                }
+                name: name,
+                id: uniqueId,
+                val: eng
             }
 
             setArm("")

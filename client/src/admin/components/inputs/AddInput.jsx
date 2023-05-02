@@ -4,9 +4,11 @@ import './Inputs.scss'
 export const AddInput = ({ id, type, placeholder, name, onChange }) => {
     return (
         <label className='dash__label'>
-            {type === 'tel'
+            {/* For English */}
+            {/* {type === 'tel'
                 ? name + ' (+374)' : type === 'password'
-                    ? name + ' password' : name}
+                    ? name + ' password' : name} */}
+            {type === 'tel' ? name + ' (+374)' : name}
             <input
                 id={id}
                 type={type}

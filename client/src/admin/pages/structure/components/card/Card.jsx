@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { AddModal } from '../modal/AddModal'
-import { random } from '../../../../../helpers/utils'
+import { remove } from '../../../../svgs/svgs'
+// import { random } from '../../../../../helpers/utils'
 
-export const Card = ({ title, data, name, search }) => {
+export const Card = ({ title, name, data, added, search }) => {
     const [active, setActive] = useState(true)
+
+    // console.log(added)
 
     active
         ? (document.body.style.overflow = "auto")
         : (document.body.style.overflow = "hidden")
+
+    const removeField = () => {
+        alert('Removed!')
+    }
 
     return (
         <div className='structure__center-card' style={{ display: search }}>
@@ -19,9 +26,34 @@ export const Card = ({ title, data, name, search }) => {
                 </li>
                 {data?.map((el) => {
                     return (
-                        <li key={random(99999)}><p>{el.name}</p></li>
+                        <li key={el}>
+                            <p>{el}</p>
+                        </li>
+                        // <li key={random(99999)}><p>{el.name}</p></li>
                     )
                 })}
+                {/* Avelacvacnery */}
+                {added?.map((obj, index) => {
+                    const key = Object.keys(obj)[0]
+                    const value = obj[key]
+                    return (
+                        <>
+                            <li
+                                key={index}
+                                style={{ display: 'flex', justifyContent: "space-between" }}
+                            >
+                                <p>{value}</p>
+                                <button
+                                    style={{ background: 'transparent' }}
+                                    onClick={removeField}
+                                >{remove.icon}
+                                </button>
+                            </li>
+
+                        </>
+                    );
+                })}
+
             </ul>
             <div className='structure__center-card-btn'>
                 <BtnAdd onClick={() => setActive(false)} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Loader } from '../../../../../components/loading/Loader'
+// import { Loader } from '../../../../../components/loading/Loader'
 import { logout } from '../../../../../store/slices/authSlice'
 import { logOut } from '../../../../svgs/svgs'
 import userImg from '../../../../../assets/imgs/user.webp'
@@ -18,10 +18,10 @@ export const Personal = () => {
     return (
         <>
             <div className='profile__top'>
-                <h3>Personal Page</h3>
+                <h3>Անձնական Էջ</h3>
                 <button onClick={hanldeLogOut} className='profile__top-logout'>
                     {logOut.icon}
-                    <p >Log-Out</p>
+                    <p>Դուրս Գալ Համակարգից</p>
                 </button>
             </div>
 
@@ -35,21 +35,21 @@ export const Personal = () => {
                 <div className='profile__data-form'>
                     <div className='profile__data-form-parts'>
                         <DisabledInput
-                            name='Name'
+                            name='ԱՆուն'
                             value={full_name?.en}
                         />
                         <DisabledInput
-                            name='Role'
+                            name='հաստիք'
                             value={role}
                         />
                     </div>
                     <div className='profile__data-form-parts'>
                         <DisabledInput
-                            name='Phone'
+                            name='Հեռախոսահամար'
                             value={phone?.tel1}
                         />
                         <DisabledInput
-                            name='Email'
+                            name='էլ. Փոստ'
                             value={email}
                         />
                     </div>
