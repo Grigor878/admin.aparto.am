@@ -70,6 +70,15 @@
             color: $text;
             text-transform: uppercase;
           }
+
+          button {
+            background: transparent;
+            @include transition;
+
+            &:hover {
+              scale: (.9);
+            }
+          }
         }
       }
 

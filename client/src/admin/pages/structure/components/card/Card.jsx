@@ -7,14 +7,26 @@ import { remove } from '../../../../svgs/svgs'
 export const Card = ({ title, name, data, added, search }) => {
     const [active, setActive] = useState(true)
 
-    // console.log(added)
-
     active
         ? (document.body.style.overflow = "auto")
         : (document.body.style.overflow = "hidden")
 
-    const removeField = () => {
-        alert('Removed!')
+    const postRemovedField = (key) => {
+        let am = {
+            name: name,
+            id: key,
+        }
+        let ru = {
+            name: name,
+            id: key,
+        }
+        let en = {
+            name: name,
+            id: key,
+        }
+        const removedField = { am, en, ru }
+        console.log(removedField)
+        // baseApi.post('/api/removeGlobalFormField', removedField)
     }
 
     return (
@@ -36,6 +48,7 @@ export const Card = ({ title, name, data, added, search }) => {
                 {added?.map((obj, index) => {
                     const key = Object.keys(obj)[0]
                     const value = obj[key]
+
                     return (
                         <>
                             <li
@@ -44,8 +57,7 @@ export const Card = ({ title, name, data, added, search }) => {
                             >
                                 <p>{value}</p>
                                 <button
-                                    style={{ background: 'transparent' }}
-                                    onClick={removeField}
+                                    onClick={() => postRemovedField(key)}
                                 >{remove.icon}
                                 </button>
                             </li>
