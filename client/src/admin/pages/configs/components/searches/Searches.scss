@@ -1,0 +1,46 @@
+@import "../../../../../variables";
+
+.searches {
+  &__top {
+    @include flex;
+    justify-content: space-between;
+
+    &-right {
+      @include flex;
+
+    //   &:first-child {
+    //     margin-right: 13px;
+    //   }
+
+      &-picker {
+        position: relative;
+        width: 173px;
+        // margin-left: 13px;
+        background: $bgSub;
+        border: 1.5px solid $inputBorder;
+        border-radius: 8px;
+        padding: 11px 0 11px 16px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: $textSub;
+      }
+
+      span {
+        position: absolute;
+        right: 32px;
+      }
+    }
+  }
+
+  &__bottom {
+  }
+}
+
+.react-datepicker-wrapper {
+  width: 173px !important;
+}
+
+.react-datepicker__input-container {
+  width: 173px !important;
+}

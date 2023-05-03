@@ -1,0 +1,15 @@
+# real.estate.aleks L6QsTWGvz}$Li
+REACT_YANDEX_MAP = "e0163e11-3a80-4013-bfb5-54d1f4b05e5b"
+
+https://host15.name.am:2083/
+apart2023
+AleksAparto5!
+
+Users
+1. grigsgog@gmail.com 123456
+2. gev@gmail.com      123456
+3. eduard@gmail.com   123456
+4. gayane99@gmail.com 123456
+
+// im ashxatox keyn
+# REACT_YANDEX_MAP_KEY = "c6f73ad1-401a-4923-93c8-37a304669c9d"

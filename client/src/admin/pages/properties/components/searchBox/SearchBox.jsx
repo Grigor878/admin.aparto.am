@@ -22,7 +22,6 @@ export const SearchBox = () => {
     const submitSearch = (e) => {
         e.preventDefault();
         console.log(properties);
-
     }
     // AddUsersi pes data ov anel
     return (

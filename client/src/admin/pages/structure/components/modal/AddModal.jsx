@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { flags } from '../../../properties/components/dropdowns/data'
 import Flag from 'react-world-flags'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
-// import { random } from '../../../../../helpers/utils'
 import baseApi from '../../../../../apis/baseApi'
-import { error } from '../../../../../components/swal/swal'
+import { error, success } from '../../../../../components/swal/swal'
 import './AddModal.scss'
 
 export const AddModal = ({ title, active, setActive, name }) => {
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
     const [eng, setEng] = useState('')
+    // 
 
     const [activeFlag, setActiveFlag] = useState('am')
 
@@ -41,9 +41,10 @@ export const AddModal = ({ title, active, setActive, name }) => {
             setEng("")
 
             const global = { am, en, ru }
-            console.log(global)
+            // console.log(global)
             baseApi.post('/api/addGlobalFormField', global)
             setActive(true)
+            success('Field added!')
             // window.location.reload(false)
         } else {
             error("Complete all fields!")

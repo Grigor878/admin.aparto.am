@@ -15,6 +15,13 @@ export const getStructureInfo = createAsyncThunk("structure", async () => {
   }
 });
 
+// export const removeStructureField = createAsyncThunk(
+//   "structure",
+//   async ({ removedField }) => {
+//     return baseApi.post("/api/removeGlobalFormField", removedField);
+//   }
+// );
+
 const structureSlice = createSlice({
   name: "structure",
   initialState,

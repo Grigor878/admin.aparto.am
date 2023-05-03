@@ -10,7 +10,6 @@ const Properties = () => {
             <TopPart />
             <SearchBox />
             <List />
-
         </article>
     )
 }

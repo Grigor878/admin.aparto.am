@@ -14,8 +14,8 @@ import baseApi from '../../../../apis/baseApi'
 import { NumPrice } from '../components/inputs/NumPrice'
 import { NumHug } from '../components/inputs/NumHug'
 import { NumSelector } from '../components/inputs/NumSelector'
-import './Styles.scss'
 import { AddedFields } from '../components/addedFields/AddedFields'
+import './Styles.scss'
 
 const AddProperties = () => {
     const [addProperties, setAddProperties] = useState('')
@@ -41,11 +41,11 @@ const AddProperties = () => {
     }
     // console.log(addedInfo)//
 
-    useEffect(()=>{
-        baseApi.get('/api/getAllStructure').then(
-            response=>{console.log(response.data, "sdsadd")}
-        )
-    }, [])
+    // useEffect(()=>{
+    //     baseApi.get('/api/getAllStructure').then(
+    //         response=>{console.log(response.data, "sdsadd")}
+    //     )
+    // }, [])
 
     useEffect(() => {
         getStrInfo()
@@ -66,8 +66,6 @@ const AddProperties = () => {
     }
     // console.log(addProperties)//
 
-    let added = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" }, { 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }]
-    let added2 = [{ 1: "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ", 2: "ԳՈՐԾԱՐՔԻ Օրինակ" }];
 
     return (
         <article className='addproperties'>
@@ -177,7 +175,7 @@ const AddProperties = () => {
                                         addProp={addProp}
                                     />
                                     : null}
-                                <p>ADDED TEST</p>
+                                {/* <p>ADDED TEST</p>
                                 {added.map((obj, index) => {
                                     const key = Object.keys(obj)[0];
                                     const value = obj[key];
@@ -199,7 +197,7 @@ const AddProperties = () => {
                                             ))}
                                         </div>
                                     );
-                                })}
+                                })} */}
                             </div>
                         }
                     />

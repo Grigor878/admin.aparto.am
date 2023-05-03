@@ -3,7 +3,7 @@ import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { AddModal } from '../modal/AddModal'
 import { remove } from '../../../../svgs/svgs'
 import baseApi from '../../../../../apis/baseApi'
-// import { random } from '../../../../../helpers/utils'
+import { success } from '../../../../../components/swal/swal'
 
 export const Card = ({ title, name, data, added, search }) => {
     const [active, setActive] = useState(true)
@@ -26,8 +26,10 @@ export const Card = ({ title, name, data, added, search }) => {
             id: key,
         }
         const removedField = { am, en, ru }
-        console.log(removedField)
+
         baseApi.post('/api/removeGlobalFormField', removedField)
+        success('Field removed!')
+        // window.location.reload(false)
     }
 
     return (
@@ -42,31 +44,30 @@ export const Card = ({ title, name, data, added, search }) => {
                         <li key={el}>
                             <p>{el}</p>
                         </li>
-                        // <li key={random(99999)}><p>{el.name}</p></li>
                     )
                 })}
                 {/* Avelacvacnery */}
-                {added?.map((obj, index) => {
-                    const key = Object.keys(obj)[0]
-                    const value = obj[key]
+                {added.length
+                    ? added.map((obj, index) => {
+                        const key = Object.keys(obj)[0]
+                        const value = obj[key]
 
-                    return (
-                        <>
-                            <li
-                                key={index}
-                                style={{ display: 'flex', justifyContent: "space-between" }}
-                            >
-                                <p>{value}</p>
-                                <button
-                                    onClick={() => postRemovedField(key)}
-                                >{remove.icon}
-                                </button>
-                            </li>
-
-                        </>
-                    );
-                })}
-
+                        return (
+                            <>
+                                <li
+                                    key={key + index}
+                                    style={{ display: 'flex', justifyContent: "space-between" }}
+                                >
+                                    <p>{value}</p>
+                                    <button
+                                        onClick={() => postRemovedField(key)}
+                                    >{remove.icon}
+                                    </button>
+                                </li>
+                            </>
+                        );
+                    }) 
+                    : null}
             </ul>
             <div className='structure__center-card-btn'>
                 <BtnAdd onClick={() => setActive(false)} />

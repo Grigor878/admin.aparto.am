@@ -87,7 +87,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Հայտարարության Նկարագիր",
                 "Հայտարարության ՏԵՍԱԿ",
               ],
-              'added'=> [["announcement_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "location",
@@ -101,7 +101,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Քարտեզ",
                 "ԻՐԱԿԱՆ ՀԱՍՑԵ",
               ],
-              'added'=> [["location_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["location_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "price",
@@ -114,7 +114,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "ՎՃԱՐՄԱՆ ԿԱՐԳԸ",
                 "ՆԱԽԸՆՏՐԱԾ ԲԱՆԿԸ",
               ],
-              'added'=> [["price_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["price_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "houseDescription",
@@ -132,7 +132,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "ԱՎՏՈԿԱՅԱՆԱՏԵՂԻ",
                 "ԽՈՀԱՆՈՑԻ ՏԻՊ",
               ],
-              'added'=> [["houseDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["houseDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "buildingDescription",
@@ -145,7 +145,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "ՏԱՐԵԿԱՆ ԳՈՒՅՔԱՀԱՐԿ",
                 "ԱՄՍԱԿԱՆ ՍՊԱՍԱՐԿՄԱՆ ՎՃԱՐ",
               ],
-              'added'=> [["buildingDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["buildingDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "mainFacilities",
@@ -158,7 +158,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "ԷԼԵԿՏՐՈԷՆԵՐԳԻԱ",
                 "ԳԱԶ",
               ],
-              'added'=> [["mainFacilities_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["mainFacilities_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
              [
               'name'=> "otherFacilities",
@@ -232,7 +232,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Описание объявления",
                 "Тип объявления",
               ],
-              'added'=> [["announcement_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["announcement_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "location",
@@ -246,7 +246,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "На карте",
                 "Реальный адрес",
               ],
-              'added'=> [["location_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["location_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=>[],
             ],
             [
               'name'=> "price",
@@ -259,7 +259,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Способ оплаты",
                 "Предпочтительный банк владельца",
               ],
-              'added'=> [["price_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["price_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "houseDescription",
@@ -277,7 +277,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Парковка",
                 "Тип кухни",
               ],
-              'added'=> [["houseDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["houseDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "buildingDescription",
@@ -290,7 +290,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Ежегодный налог на недвижимость",
                 "Ежемесячная плата за обслуживание",
               ],
-              'added'=> [["buildingDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["buildingDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=>[],
             ],
             [
               'name'=> "mainFacilities",
@@ -303,7 +303,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Электричество",
                 "Газ",
               ],
-              'added'=> [["mainFacilities_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["mainFacilities_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
              [
               'name'=> "otherFacilities",
@@ -377,7 +377,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Announcement Description",
                 "Announcement Type",
               ],
-              'added'=> [["announcement_gorcarq" => "dfsdfsdf" ], ["announcement_orinak"=> "sdfsdf" ]],
+              'added'=> [],
             ],
             [
               'name'=> "location",
@@ -391,7 +391,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "See on Map",
                 "Real Address",
               ],
-              'added'=> [["location_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["location_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=>[],
             ],
             [
               'name'=> "price",
@@ -404,7 +404,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Payment method",
                 "Owner's preferred bank",
               ],
-              'added'=> [["price_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["price_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "houseDescription",
@@ -422,7 +422,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Parking lot",
                 "Kitchen type",
               ],
-              'added'=> [["houseDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["houseDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
             [
               'name'=> "buildingDescription",
@@ -435,7 +435,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Yearly property tax",
                 "Monthly service fee",
               ],
-              'added'=> [["buildingDescription_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["buildingDescription_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=>[],
             ],
             [
               'name'=> "mainFacilities",
@@ -448,7 +448,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "Electricity",
                 "Gas",
               ],
-              'added'=> [["mainFacilities_gorcarq" => "ԳՈՐԾԱՐՔԻ ՄԱՍՆԻԿ" ], ["mainFacilities_orinak"=> "ԳՈՐԾԱՐՔԻ Օրինակ" ]],
+              'added'=> [],
             ],
              [
               'name'=> "otherFacilities",
