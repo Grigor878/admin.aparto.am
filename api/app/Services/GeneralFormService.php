@@ -75,6 +75,7 @@ class GeneralFormService
                       $keys = array_keys(get_object_vars($field));
                       if($keys[0] == $data['am']['id']) {
                         unset($value->added[$idx]);
+                        $value->added = array_values($value->added);
                       }
                      
                     }
