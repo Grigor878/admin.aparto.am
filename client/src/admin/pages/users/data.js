@@ -2,52 +2,20 @@ import { Link } from "react-router-dom";
 import { admin, agent, moderator } from "../../svgs/svgs";
 import { capitalize } from "../../../helpers/formatters";
 
-export const userCustomColumns = [
-  {
-    name: "Name",
-    selector: (row) => row.full_name.en,
-    sortable: true,
-  },
-  {
-    name: "Email",
-    selector: (row) => row.email,
-    sortable: true,
-  },
-  {
-    name: "Phone Number",
-    selector: (row) => row.phone.tel1,
-  },
-  {
-    name: "Role",
-    cell: (row) => {
-      return (
-        <p className="users__table-role">
-          {row.role === "admin"
-            ? admin.icon
-            : row.role === "agent"
-            ? agent.icon
-            : moderator.icon}
-          {capitalize(row.role)}
-        </p>
-      );
-    },
-  },
-];
-
 export const userAdminColumns = [
   {
     name: "Name",
-    selector: (row) => row.full_name.en,
+    cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
     sortable: true,
   },
   {
     name: "Email",
-    selector: (row) => row.email,
+    cell: (row) => <p className="columFontSize">{row.email}</p>,
     sortable: true,
   },
   {
     name: "Phone Number",
-    selector: (row) => row.phone?.tel1,
+    cell: (row) => <p className="columFontSize">{row.phone?.tel1}</p>,
   },
   {
     name: "Role",
@@ -66,7 +34,7 @@ export const userAdminColumns = [
   },
   {
     name: "Status",
-    selector: (row) => row.status,
+    cell: (row) => <p className="columFontSize">{row.status}</p>,
   },
   {
     name: "",
@@ -77,6 +45,38 @@ export const userAdminColumns = [
         <Link to={`edit/${row.id}`} className="users__table-link">
           Edit
         </Link>
+      );
+    },
+  },
+];
+
+export const userCustomColumns = [
+  {
+    name: "Name",
+    cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
+    sortable: true,
+  },
+  {
+    name: "Email",
+    cell: (row) => <p className="columFontSize">{row.email}</p>,
+    sortable: true,
+  },
+  {
+    name: "Phone Number",
+    cell: (row) => <p className="columFontSize">{row.phone.tel1}</p>,
+  },
+  {
+    name: "Role",
+    cell: (row) => {
+      return (
+        <p className="users__table-role">
+          {row.role === "admin"
+            ? admin.icon
+            : row.role === "agent"
+            ? agent.icon
+            : moderator.icon}
+          {capitalize(row.role)}
+        </p>
       );
     },
   },

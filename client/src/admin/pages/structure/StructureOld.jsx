@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getStructureInfo } from '../../../store/slices/structureSlice'
-import { Loader } from '../../../components/loading/Loader'
+// import { Loader } from '../../../components/loading/Loader'
 import { Search } from '../../components/inputs/Search'
-import { Card } from './components/card/Card'
+// import { Card } from './components/card/Card'
 import './Structure.scss'
 
 const StructureOld = () => {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../store/slices/usersSlice'
 import TopPart from '../../components/topPart/TopPart'
 import Table from '../../components/table/Table'
-import { Loader } from '../../../components/loading/Loader'
+import { Loader } from '../../../components/loader/Loader'
 import { userAdminColumns, userCustomColumns } from './data'
 import './Users.scss'
 

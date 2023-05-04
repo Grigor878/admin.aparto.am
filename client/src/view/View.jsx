@@ -1,10 +1,9 @@
 import React, { lazy, Suspense } from "react"
-import { Loading } from "../components/loading/Loading"
+// import { Loader } from "../components/loader/Loader"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
-import YandexMap from "../components/yandexMap/YandexMap"
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
@@ -12,8 +11,8 @@ const Sale = lazy(() => import('../pages/sale/Sale'))
 const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
 const Services = lazy(() => import('../pages/services/Services'))
 const Contact = lazy(() => import('../pages/contact/Contact'))
-const Login = lazy(() => import('../admin/pages/login/Login'))
 const NotFound = lazy(() => import('../pages/404/NotFound'))
+const Login = lazy(() => import('../admin/pages/login/Login'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
 const AddProperties = lazy(() => import('../admin/pages/properties/pages/AddProperties'))
@@ -31,7 +30,7 @@ const View = () => {
 
     return (
         <Router>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<p></p>}>
                 <Routes>
                     <Route path="/" element={<LayoutMain />}>
                         <Route index element={<Home />} />
@@ -41,7 +40,6 @@ const View = () => {
                         <Route path="for-sale/:id" element={<SubSale />} />
                         <Route path="our-services" element={<Services />} />
                         <Route path="contact-us" element={<Contact />} />
-                        <Route path="yandex" element={<YandexMap />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
 

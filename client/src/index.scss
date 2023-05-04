@@ -85,7 +85,7 @@ img {
 }
 
 article {
-  background: $bg;
+  background: $bgAdmin;
   width: 100%;
 
   h3 {
@@ -95,7 +95,7 @@ article {
     font-weight: 600;
     font-size: 20px;
     line-height: 28px;
-    color: #0f1013;
+    color: $text;
   }
 }
 

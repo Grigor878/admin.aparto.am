@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Loader } from '../../../../../components/loading/Loader'
+import { Loader } from '../../../../../components/loader/Loader'
 import { Link } from 'react-router-dom'
 import { userIcon, shevron } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config'

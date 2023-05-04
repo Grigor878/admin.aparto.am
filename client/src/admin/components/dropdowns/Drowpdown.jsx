@@ -7,12 +7,12 @@ export const Drowpdown = ({ id, value, onChange, data }) => {
             {data.map((el) => {
                 return (
                     <option
-                    // sra het id data um avelacnel
+                        // sra het id data um avelacnel
                         // disabled={el.id === 1 ? "disabled" : null}
                         key={el.name} //el.id
                         value={el.value}
-                    >{el.name} 
-                    {/* el.value */}
+                    >
+                        {el.name}
                     </option>
                 )
             })}

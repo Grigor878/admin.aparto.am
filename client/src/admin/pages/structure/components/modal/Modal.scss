@@ -1,6 +1,6 @@
 @import "../../../../../variables";
 
-.addModal-open {
+.modal-open {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,11 +11,11 @@
   background: rgba(124, 124, 125, 0.7);
 }
 
-.addModal-close {
+.modal-close {
   display: none;
 }
 
-.addModal__card {
+.modal__card {
   @include flexColCenter;
   gap: 12px;
   width: 424px;
@@ -63,9 +63,9 @@
 
   &-label {
     @include flexCol;
-    gap: 4px;
+    gap: 8px;
     width: 328px;
-    padding-bottom: 31px;
+    padding-bottom: 20px;
     font-weight: 600;
     font-size: 12px;
     line-height: 13px;
@@ -73,7 +73,7 @@
     color: $textSmall;
 
     input {
-      background: $bg;
+      // background: $bg;
       border: 1px solid $advancedBack;
       border-radius: 8px;
       padding: 11px 0 11px 16px;

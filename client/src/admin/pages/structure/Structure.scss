@@ -6,7 +6,7 @@
   &__sticky {
     position: sticky;
     top: 0;
-    background: $bg;
+    background: $bgAdmin;
     padding-top: 24px;
     padding-bottom: 37px;
 
@@ -76,7 +76,7 @@
             @include transition;
 
             &:hover {
-              scale: (.9);
+              scale: (0.9);
             }
           }
         }

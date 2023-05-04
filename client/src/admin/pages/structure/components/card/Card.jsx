@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
-import { AddModal } from '../modal/AddModal'
+import { Modal } from '../modal/Modal'
 import { remove } from '../../../../svgs/svgs'
-import baseApi from '../../../../../apis/baseApi'
+import { useDispatch } from 'react-redux'
+import { removeStructureField } from '../../../../../store/slices/structureSlice'
 import { success } from '../../../../../components/swal/swal'
 
 export const Card = ({ title, name, data, added, search }) => {
     const [active, setActive] = useState(true)
 
     active
-        ? (document.body.style.overflow = "auto")
-        : (document.body.style.overflow = "hidden")
+    ? (document.body.style.overflow = "auto")
+    : (document.body.style.overflow = "hidden")
+    
+    const dispatch = useDispatch()
 
     const postRemovedField = (key) => {
         let am = {
@@ -27,9 +30,8 @@ export const Card = ({ title, name, data, added, search }) => {
         }
         const removedField = { am, en, ru }
 
-        baseApi.post('/api/removeGlobalFormField', removedField)
-        success('Field removed!')
-        // window.location.reload(false)
+        dispatch(removeStructureField({ removedField }))
+        success('Field removed !')
     }
 
     return (
@@ -53,26 +55,25 @@ export const Card = ({ title, name, data, added, search }) => {
                         const value = obj[key]
 
                         return (
-                            <>
-                                <li
-                                    key={key + index}
-                                    style={{ display: 'flex', justifyContent: "space-between" }}
-                                >
-                                    <p>{value}</p>
-                                    <button
-                                        onClick={() => postRemovedField(key)}
-                                    >{remove.icon}
-                                    </button>
-                                </li>
-                            </>
+                            <li
+                                key={key + index}
+                                // key={key}
+                                style={{ display: 'flex', justifyContent: "space-between" }}
+                            >
+                                <p>{value}</p>
+                                <button
+                                    onClick={() => postRemovedField(key)}
+                                >{remove.icon}
+                                </button>
+                            </li>
                         );
-                    }) 
+                    })
                     : null}
             </ul>
             <div className='structure__center-card-btn'>
                 <BtnAdd onClick={() => setActive(false)} />
             </div>
-            <AddModal
+            <Modal
                 name={name}
                 title={title}
                 active={active}

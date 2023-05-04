@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 import Header from '../header/Header'
 import AutoScroll from '../../helpers/autoScroll'
 import HelmetAsync from '../helmetAsync/HelmetAsync'
-import {Loading} from "../loading/Loading"
+import {Loader} from "../loader/Loader"
 import Footer from '../footer/Footer'
 
 const LayoutMain = () => {
@@ -18,7 +18,7 @@ const LayoutMain = () => {
       <Header />
       <AutoScroll />
       <HelmetAsync />
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense >
       <Footer />

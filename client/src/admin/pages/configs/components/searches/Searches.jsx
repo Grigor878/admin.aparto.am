@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { Search } from '../../../../components/inputs/Search'
-import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { calendar } from '../../../../svgs/svgs'
-import { searchTypes } from './data'
+import { searchColumns, searchTypes, searches } from './data'
 import './Searches.scss'
+import Table from '../../../../components/table/Table'
 
 export const Searches = () => {
     const [search, setSearch] = useState("")
     const [date, setDate] = useState(null)
-    const [searchType, setSearchType] = useState("Որոնման տեսակ")
+    const [select, setSelect] = useState("Որոնման տեսակ")
 
-    console.log(searchType);
+    console.log(date)
 
     return (
         <section className='searches'>
@@ -24,11 +24,11 @@ export const Searches = () => {
                 />
                 <div className='searches__top-right'>
                     <select
-                        style={{ marginRight: "13px" }}
                         className="dash__input-dropdown"
-                        value={searchType}
-                        onChange={(e) => setSearchType(e.target.value)}
+                        value={select}
+                        onChange={(e) => setSelect(e.target.value)}
                     >
+                        <option value="">Search Types</option>
                         {searchTypes.map(({ id, value }) => {
                             return (
                                 <option key={id}>{value}</option>
@@ -41,14 +41,17 @@ export const Searches = () => {
                         onChange={(date) => setDate(date)}
                         disabledKeyboardNavigation
                         placeholderText="Date Range"
-                    // withPortal
+                        withPortal
                     />
                     <span>{calendar.icon}</span>
                 </div>
             </div>
 
             <div className='searches__bottom'>
-
+                <Table
+                    Data={searches}
+                    Columns={searchColumns}
+                />
             </div>
         </section>
     )
