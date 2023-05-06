@@ -6,7 +6,7 @@ export const SingleSelect = ({ title, id, value, onChange, data }) => {
         <label className='addproperties__card-singleselect'>
             {title}*
             <select id={id} value={value} onChange={onChange} className="addproperties__card-singleselect-dropdown">
-                {data?.map((el) => {
+                {data.map((el) => {
                     return (
                         <option
                             // disabled={el.id === 1 ? "disabled" : null}

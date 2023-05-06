@@ -14,7 +14,7 @@ import baseApi from '../../../../apis/baseApi'
 // import { NumPrice } from '../components/inputs/NumPrice'
 // import { NumHug } from '../components/inputs/NumHug'
 // import { NumSelector } from '../components/inputs/NumSelector'
-import { AddedFields } from '../components/lngPart/LngPart'
+import { AddedFields, LngPart } from '../components/lngPart/LngPart'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -22,7 +22,7 @@ const AddProperties = () => {
     const [file, setFile] = useState([])
     // const [fileUrl, setFileUrl] = useState([])
 
-    const [fields, setFields] = useState()
+    const [allFields, setAllFields] = useState()
     const [propTitleLng, setPropTitleLng] = useState('am')
     const [propDescLng, setPropDescLng] = useState('am')
     // const [rooms, setRooms] = useState(null)
@@ -44,12 +44,12 @@ const AddProperties = () => {
     const getStrInfo = async () => {
         try {
             const { data } = await baseApi.get('/api/getAllStructure')
-            setFields(data)
+            setAllFields(data)
         } catch (err) {
             console.log(`Get Structure Info: ${err.message}`);
         }
     }
-    console.log(fields)//
+    console.log(allFields)//
 
     useEffect(() => {
         getStrInfo()
@@ -68,7 +68,7 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    // console.log(addProperties)//
+    console.log(addProperties)//
 
 
     return (
@@ -79,27 +79,36 @@ const AddProperties = () => {
                 {/* Center part */}
                 <div className='addproperties__center'>
 
-                    {fields ? Object.keys(fields[0])?.map((el, idx) => (
-                        console.log(el, idx)
-                        // return (
-                        //     <Card
-                        //         key={el.name}
-                        //         title={el.title}
-                        //         child={
-                        //             <div className='addproperties__card-block'>
-                        //                 <div className='addproperties__card-row'>
-                        //                     <SingleSelect
-                        //                         id
-                        //                         title={el.transactionType.title}
-                        //                         data={el.transactionType.option}
-                        //                         onChange={addProp}
-                        //                     />
-                        //                 </div>
-                        //             </div>
-                        //         }
-                        //     />
-                        // )
-                    )) : null}
+                    {allFields?.map(({ name, title, fields, added }) => {
+                        return (
+                            <Card
+                                key={name}
+                                title={title}
+                                child={fields.map(({ key, title, type, option }) => {
+                                    return (
+                                        <div className='addproperties__card-block' key={key}>
+                                            {type === "select"
+                                                ? <SingleSelect
+                                                    id={key}
+                                                    title={title}
+                                                    data={option}
+                                                    onChange={addProp}
+                                                />
+                                                : type === "text"
+                                                    ? <LngPart
+                                                        id={key}
+                                                        title={title}
+                                                        addProp={addProp}
+                                                    />
+                                                    : null
+                                            }
+                                        </div>
+                                    )
+                                })
+                                }
+                            />
+                        )
+                    })}
 
                     {/* <Card
                         title="Հայտարարություն"
