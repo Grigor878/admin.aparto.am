@@ -41,11 +41,12 @@ const AddProperties = () => {
     }
     // console.log(addedInfo)//
 
-    // useEffect(()=>{
-    //     baseApi.get('/api/getAllStructure').then(
-    //         response=>{console.log(response.data, "sdsadd")}
-    //     )
-    // }, [])
+    useEffect(()=>{
+        baseApi.get('/api/getAllStructure').then(resp => {
+            console.log(resp.data, "aaaaaa");
+        });
+      
+    }, [])
 
     useEffect(() => {
         getStrInfo()
@@ -64,7 +65,7 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    // console.log(addProperties)//
+    console.log(addProperties)//
 
 
     return (
