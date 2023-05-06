@@ -3,11 +3,10 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const AddedFields = ({ data, addProp }) => {
+export const LngPart = ({ data, addProp }) => {
     const [state, setState] = useState('am')
 
     return (
-        <>
             <div>
                 {data?.map(({ name, id }) => {
                     return (
@@ -85,6 +84,5 @@ export const AddedFields = ({ data, addProp }) => {
                     )
                 })}
             </div>
-        </>
     )
 }

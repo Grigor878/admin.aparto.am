@@ -60,7 +60,7 @@
           background: $bgSub;
           border: 1px solid $inputBorder;
           border-radius: 6px;
-          width: 145px;
+          width: 175px;
 
           &::placeholder,
           :-ms-input-placeholde,
@@ -77,12 +77,6 @@
           font-size: 14px;
           line-height: 16px;
           color: $text;
-
-          span {
-            position: absolute;
-            top: -6px;
-            right: 0px;
-          }
         }
       }
     }

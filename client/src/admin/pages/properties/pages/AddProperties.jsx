@@ -4,17 +4,17 @@ import { Card } from '../components/card/Card'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import Flag from 'react-world-flags'
 import { TextLarg } from '../components/inputs/TextLarg'
-import { TextMid } from '../components/inputs/TextMid'
-import { TextSmall } from '../components/inputs/TextSmall'
-import { TextFull } from '../components/inputs/TextFull'
-import { TextMidPlus } from '../components/inputs/TextMidPlus'
+// import { TextMid } from '../components/inputs/TextMid'
+// import { TextSmall } from '../components/inputs/TextSmall'
+// import { TextFull } from '../components/inputs/TextFull'
+// import { TextMidPlus } from '../components/inputs/TextMidPlus'
 import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
-import { FileUpload } from '../components/inputs/FileUpload'
+// import { FileUpload } from '../components/inputs/FileUpload'
 import baseApi from '../../../../apis/baseApi'
-import { NumPrice } from '../components/inputs/NumPrice'
-import { NumHug } from '../components/inputs/NumHug'
-import { NumSelector } from '../components/inputs/NumSelector'
-import { AddedFields } from '../components/addedFields/AddedFields'
+// import { NumPrice } from '../components/inputs/NumPrice'
+// import { NumHug } from '../components/inputs/NumHug'
+// import { NumSelector } from '../components/inputs/NumSelector'
+import { AddedFields } from '../components/lngPart/LngPart'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -22,31 +22,34 @@ const AddProperties = () => {
     const [file, setFile] = useState([])
     // const [fileUrl, setFileUrl] = useState([])
 
-    const [addedInfo, setStrInfo] = useState()
+    const [fields, setFields] = useState()
     const [propTitleLng, setPropTitleLng] = useState('am')
     const [propDescLng, setPropDescLng] = useState('am')
-    const [rooms, setRooms] = useState(null)
-    const [bedrooms, setBedrooms] = useState(null)
-    const [toilets, setToilets] = useState(null)
-    const [openBalconies, setOpenBalconies] = useState(null)
-    const [closeBalconies, setCloseBalconies] = useState(null)
+    // const [rooms, setRooms] = useState(null)
+    // const [bedrooms, setBedrooms] = useState(null)
+    // const [toilets, setToilets] = useState(null)
+    // const [openBalconies, setOpenBalconies] = useState(null)
+    // const [closeBalconies, setCloseBalconies] = useState(null)
+
+    // old,only addeds
+    // const getStrInfo = async () => {
+    //     try {
+    //         const { data } = await baseApi.get('/api/getAddFields')
+    //         setStrInfo(data)
+    //     } catch (err) {
+    //         console.log(`Get Structure Info: ${err.message}`);
+    //     }
+    // }
 
     const getStrInfo = async () => {
         try {
-            const { data } = await baseApi.get('/api/getAddFields')
-            setStrInfo(data)
+            const { data } = await baseApi.get('/api/getAllStructure')
+            setFields(data)
         } catch (err) {
             console.log(`Get Structure Info: ${err.message}`);
         }
     }
-    // console.log(addedInfo)//
-
-    useEffect(()=>{
-        baseApi.get('/api/getAllStructure').then(resp => {
-            console.log(resp.data, "aaaaaa");
-        });
-      
-    }, [])
+    console.log(fields)//
 
     useEffect(() => {
         getStrInfo()
@@ -65,7 +68,7 @@ const AddProperties = () => {
             return { ...prev, [id]: value }
         })
     }
-    console.log(addProperties)//
+    // console.log(addProperties)//
 
 
     return (
@@ -75,7 +78,30 @@ const AddProperties = () => {
             <div className='addproperties__main'>
                 {/* Center part */}
                 <div className='addproperties__center'>
-                    <Card
+
+                    {fields ? Object.keys(fields[0])?.map((el, idx) => (
+                        console.log(el, idx)
+                        // return (
+                        //     <Card
+                        //         key={el.name}
+                        //         title={el.title}
+                        //         child={
+                        //             <div className='addproperties__card-block'>
+                        //                 <div className='addproperties__card-row'>
+                        //                     <SingleSelect
+                        //                         id
+                        //                         title={el.transactionType.title}
+                        //                         data={el.transactionType.option}
+                        //                         onChange={addProp}
+                        //                     />
+                        //                 </div>
+                        //             </div>
+                        //         }
+                        //     />
+                        // )
+                    )) : null}
+
+                    {/* <Card
                         title="Հայտարարություն"
                         child={
                             <div className='addproperties__card-block'>
@@ -170,39 +196,17 @@ const AddProperties = () => {
                                     data={statementType}
                                     onChange={addProp}
                                 />
-                                {addedInfo
+                                
+                                {fields
                                     ? <AddedFields
-                                        data={addedInfo?.am?.announcement}
+                                        data={fields?.am?.announcement}
                                         addProp={addProp}
                                     />
                                     : null}
-                                {/* <p>ADDED TEST</p>
-                                {added.map((obj, index) => {
-                                    const key = Object.keys(obj)[0];
-                                    const value = obj[key];
-                                    return (
-                                        <div key={index}>
-                                            <span>{value}</span>
-                                        </div>
-                                    );
-                                })}
-                                <br />
-                                <p>ADDED TEST 2</p>
-                                {added2.map((obj, index) => {
-                                    return (
-                                        <div key={index}>
-                                            {Object.entries(obj).map(([key, value]) => (
-                                                <div key={key}>
-                                                    <span>{value}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    );
-                                })} */}
                             </div>
                         }
-                    />
-                    <Card
+                    /> */}
+                    {/* <Card
                         title="Գտնվելու Վայրը - Երևան"
                         child={
                             <div className='addproperties__card-block'>
@@ -426,11 +430,11 @@ const AddProperties = () => {
                                 </div>
                             </div>
                         }
-                    />
+                    /> */}
                 </div>
 
                 {/* Right part */}
-                <div className="addproperties__right">
+                {/* <div className="addproperties__right">
                     <Card
                         title="Իրավաբանական"
                         child={
@@ -488,7 +492,7 @@ const AddProperties = () => {
                             </div>
                         }
                     />
-                </div>
+                </div> */}
             </div>
         </article>
     )

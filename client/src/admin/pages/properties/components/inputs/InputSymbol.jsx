@@ -11,9 +11,10 @@ export const InputSymbol = ({ id, placeholder, name, onChange }) => {
                 name={name}
                 onChange={onChange}
             />
-            <p>
-                {name === "price" ? dollar.icon : <span> m<sup>2</sup></span>}
-            </p>
+            {/* <p>
+                {name === "price" ? dollar.icon : <span>ք.մ.</span>}
+            </p> */}
+            {name === "price" ? <p>{dollar.icon}</p>: <p>ք.մ.</p>}
         </label>
     )
 }

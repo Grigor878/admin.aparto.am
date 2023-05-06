@@ -1,7 +1,7 @@
 @import "../../../variables";
 
 .structure {
-  padding: 0 0 181px 20px;
+  padding: 0 46px 181px 20px;
 
   &__sticky {
     position: sticky;
@@ -17,6 +17,7 @@
 
   &__main {
     display: flex;
+    justify-content: space-between;
     gap: 24px;
   }
 
@@ -89,5 +90,7 @@
   }
 
   &__right {
+    @include flexCol;
+    gap: 24px;
   }
 }

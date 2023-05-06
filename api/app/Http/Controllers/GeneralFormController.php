@@ -137,47 +137,46 @@ return json_decode(GlobalForm::findorFail(1)->am);
             "class" => "width:80%",
             "option" => []
           ],
-          "announcementDesc" => [
-            "key" => "announcementDesc",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
-            "type" => "text",
-            "class" => "width:80%",
-            "option" => []
-          ],
-          "announcementType" => [
-            "key" => "announcementType",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
-            "type" => "select",
-            "class" => "margin:left",
-            "option" => [
-              [
-                "id"=> 1,
-                "name"=> "Ընտրեք տեսակը",
-                "value" => ""
-              ],
-              [
-                "id"=> 2,
-                "name"=> "Հասարակ",
-                "value" => "Հասարակ"
-              ],
-              [
-                "id"=> 3,
-                "name"=> "Տոպ",
-                "value" => "Տոպ"
-              ],
-              [
-                "id"=> 4,
-                "name"=> "Շտապ",
-                "value" => "Շտապ"
-              ],
-            ]
-          ],
-        ]
-       ] ;
-       return response()->json($str);
-    }
+          "announcementDesc" => [ "key" => "announcementDesc",
+          "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
+          "type" => "text",
+          "class" => "width:80%",
+          "option" => []
+        ],
+        "announcementType" => [
+          "key" => "announcementType",
+          "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
+          "type" => "select",
+          "class" => "margin:left",
+          "option" => [
+            [
+              "id"=> 1,
+              "name"=> "Ընտրեք տեսակը",
+              "value" => ""
+            ],
+            [
+              "id"=> 2,
+              "name"=> "Հասարակ",
+              "value" => "Հասարակ"
+            ],
+            [
+              "id"=> 3,
+              "name"=> "Տոպ",
+              "value" => "Տոպ"
+            ],
+            [
+              "id"=> 4,
+              "name"=> "Շտապ",
+              "value" => "Շտապ"
+            ],
+          ]
+        ],
+      ]
+     ] ;
+     return response()->json($str);
+  }
 
-    public function addNow() {
+  public function addNow() {
 //         $form = GlobalForm::findorFail(1);
 
 
@@ -194,7 +193,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
 //                 ],
 //                 "ԳՈՒՅՔԻ ՏԵՍԱԿ" => [
 //                   "Ընտրեք տեսակը",
-                    
+                  
 //                 ],
 //                 "Հայտարարության վերնագիր",
 //                 "Հայտարարության Նկարագիր",
@@ -395,8 +394,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
 //             [
 //               'name'=> "buildingDescription",
 //               'title'=> "Описание Здания",
-//               'data'=> [
-//                 "Тип здания",
+//               'data'=> [//                 "Тип здания",
 //                 "Кольво этажей",
 //                 "Дата строительства",
 //                 "Ориентация",
@@ -477,7 +475,6 @@ return json_decode(GlobalForm::findorFail(1)->am);
 //             ],
 // ]
 //         );
-
 //         $form->en = json_encode(
 //           [
 //             [
@@ -602,8 +599,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
 //               ],
 //               'added'=> [],
 //             ],
-//             [
-//               'name'=> "juridical",
+//             [//               'name'=> "juridical",
 //               'title'=> "Juridical",
 //               'data'=> ["Owner", "Owner's telephone number"],
 //               'added'=> [],
@@ -626,4 +622,4 @@ return json_decode(GlobalForm::findorFail(1)->am);
 //         $form->save();
 
     }
-}
+  }

@@ -55,6 +55,7 @@ export const SearchBox = () => {
                         onChange={propertiesSearch}
                         data={Community}
                     />
+                    {/* Zerov grel rooms u harkanutyun*/}
                     <Drowpdown
                         id='prop_rooms'
                         onChange={propertiesSearch}
@@ -62,13 +63,13 @@ export const SearchBox = () => {
                     />
                     <InputSymbol
                         id='prop_minPrice'
-                        placeholder="Min Price"
+                        placeholder="Գին մին."
                         name="price"
                         onChange={propertiesSearch}
                     />
                     <InputSymbol
                         id='prop_maxPrice'
-                        placeholder="Max Price"
+                        placeholder="Գին մաքս."
                         name="price"
                         onChange={propertiesSearch}
                     />
@@ -96,12 +97,12 @@ export const SearchBox = () => {
                     />
                     <InputSymbol
                         id='prop_minSquare'
-                        placeholder="Min Square"
+                        placeholder="Մակերես մին."
                         onChange={propertiesSearch}
                     />
                     <InputSymbol
                         id='prop_maxSquare'
-                        placeholder="Max Square"
+                        placeholder="Մակերես մաքս."
                         onChange={propertiesSearch}
                     />
                 </div>
@@ -114,7 +115,7 @@ export const SearchBox = () => {
                 </div>
                 <BtnCustom
                     form="propertiesSearch"
-                    text="Search"
+                    text="Փնտրել"
                 />
             </form>
         </div>

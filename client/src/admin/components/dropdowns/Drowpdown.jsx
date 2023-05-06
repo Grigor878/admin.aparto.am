@@ -7,9 +7,8 @@ export const Drowpdown = ({ id, value, onChange, data }) => {
             {data.map((el) => {
                 return (
                     <option
-                        // sra het id data um avelacnel
-                        // disabled={el.id === 1 ? "disabled" : null}
-                        key={el.name} //el.id
+                        className="dash__input-dropdown-options"
+                        key={el.name}
                         value={el.value}
                     >
                         {el.name}

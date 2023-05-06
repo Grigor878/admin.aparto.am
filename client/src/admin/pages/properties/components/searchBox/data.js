@@ -2,99 +2,271 @@ export const SaleRent = [
   {
     id: 1,
     value: "",
-    name: "Sale/rent",
+    name: "Վաճառք / վարձ.",
   },
   {
     id: 2,
-    value: "sale",
-    name: "Sale",
+    value: "Վաճառք",
+    name: "Վաճառք",
   },
   {
     id: 3,
-    value: "rent",
-    name: "Rent",
+    value: "Վարձակալություն",
+    name: "Վարձակալություն",
   },
 ];
 
 export const EstateType = [
   {
     value: "",
-    name: "Estate type",
+    name: "Գույքի տիպ",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "Բնակարան",
+    name: "Բնակարան",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "Առանձնատուն",
+    name: "Առանձնատուն",
+  },
+  {
+    value: "Կոմերցիոն (առանձնատուն)",
+    name: "Կոմերցիոն (առանձնատուն)",
+  },
+  {
+    value: "Կոմերցիոն (բնակարան)",
+    name: "Կոմերցիոն (բնակարան)",
   },
 ];
 
 export const Community = [
   {
     value: "",
-    name: "Community",
+    name: "Համայնք",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "Աջափնյակ",
+    name: "Աջափնյակ",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "Արաբկիր",
+    name: "Արաբկիր",
+  },
+  {
+    value: "Ավան",
+    name: "Ավան",
+  },
+  {
+    value: "Դավթաշեն",
+    name: "Դավթաշեն",
+  },
+  {
+    value: "Էրեբունի",
+    name: "Էրեբունի",
+  },
+  {
+    value: "Քանաքեռ-Զեյթուն",
+    name: "Քանաքեռ-Զեյթուն",
+  },
+  {
+    value: "Կենտրոն",
+    name: "Կենտրոն",
+  },
+  {
+    value: "Մալաթիա-Սեբաստիա",
+    name: "Մալաթիա-Սեբաստիա",
+  },
+  {
+    value: "Նորք-Մարաշ",
+    name: "Նորք-Մարաշ",
+  },
+  {
+    value: "Նոր Նորք",
+    name: "Նոր Նորք",
+  },
+  {
+    value: "Նուբարաշեն",
+    name: "Նուբարաշեն",
+  },
+  {
+    value: "Շենգավիթ",
+    name: "Շենգավիթ",
+  },
+  {
+    value: "Վահագնի թաղամաս",
+    name: "Վահագնի թաղամաս",
+  },
+  {
+    value: "Այլ",
+    name: "Այլ",
   },
 ];
 
 export const Rooms = [
   {
     value: "",
-    name: "Rooms",
+    name: "Սենյակներ",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "1",
+    name: "1",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "2",
+    name: "2",
+  },
+  {
+    value: "3",
+    name: "3",
+  },
+  {
+    value: "4",
+    name: "4",
+  },
+  {
+    value: "5",
+    name: "5",
+  },
+  {
+    value: "6",
+    name: "6",
+  },
+  {
+    value: "7+",
+    name: "7+",
   },
 ];
 
 export const BuildingType = [
   {
     value: "",
-    name: "Building Type",
+    name: "Շինության տիպ",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "Մոնոլիտ",
+    name: "Մոնոլիտ",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "Քարե",
+    name: "Քարե",
+  },
+  {
+    value: "Պանելային",
+    name: "Պանելային",
+  },
+  {
+    value: "Այլ",
+    name: "Այլ",
   },
 ];
 
 export const Floor = [
   {
     value: "",
-    name: "Floor",
+    name: "Հարկ",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "1",
+    name: "1",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "2",
+    name: "2",
   },
+  {
+    value: "3",
+    name: "3",
+  },
+  {
+    value: "4",
+    name: "4",
+  },
+  {
+    value: "5",
+    name: "5",
+  },
+  {
+    value: "6",
+    name: "6",
+  },
+  {
+    value: "7",
+    name: "7",
+  },
+  {
+    value:"8",
+    name:"8"
+  },
+  {
+    value:"9",
+    name:"9"
+  },
+  {
+    value:"10",
+    name:"10"
+  },
+  {
+    value:"11",
+    name:"11"
+  },
+  {
+    value:"12",
+    name:"12"
+  },
+  {
+    value:"13",
+    name:"13"
+  },
+  {
+    value:"14",
+    name:"14"
+  },
+  {
+    value:"15",
+    name:"15"
+  },
+  {
+    value:"16",
+    name:"16"
+  },
+  {
+    value:"17",
+    name:"17"
+  },
+  {
+    value:"18",
+    name:"18"
+  },
+  {
+    value:"19",
+    name:"19"
+  },
+  {
+    value:"20",
+    name:"20"
+  },
+  {
+    value:"21",
+    name:"21"
+  },
+  {
+    value:"22",
+    name:"22"
+  },
+  {
+    value:"23",
+    name:"23"
+  },
+  {
+    value:"24",
+    name:"24"
+  }
 ];
 
 export const Taxation = [
   {
     value: "",
-    name: "Taxation",
+    name: "Հարկայնություն",
   },
   {
     value: "sale",
@@ -109,22 +281,30 @@ export const Taxation = [
 export const Situation = [
   {
     value: "",
-    name: "Situation",
+    name: "Վիճակ",
   },
   {
-    value: "sale",
-    name: "Sale",
+    value: "Պետական վիճակ",
+    name: "Պետական վիճակ",
   },
   {
-    value: "rent",
-    name: "Rent",
+    value: "Լավ",
+    name: "Լավ",
+  },
+  {
+    value: "Զրոյական",
+    name: "Զրոյական",
+  },
+  {
+    value: "Վերանորոգված",
+    name: "Վերանորոգված",
   },
 ];
 
 export const Status = [
   {
     value: "",
-    name: "Status",
+    name: "Ստատուս",
   },
   {
     value: "sale",
