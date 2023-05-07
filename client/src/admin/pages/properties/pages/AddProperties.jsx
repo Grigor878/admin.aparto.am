@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
+import { LngPart } from '../components/lngPart/LngPart'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
-import Flag from 'react-world-flags'
-import { TextLarg } from '../components/inputs/TextLarg'
+// import Flag from 'react-world-flags'
+// import { TextLarg } from '../components/inputs/TextLarg'
 // import { TextMid } from '../components/inputs/TextMid'
 // import { TextSmall } from '../components/inputs/TextSmall'
 // import { TextFull } from '../components/inputs/TextFull'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
-import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
+// import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { FileUpload } from '../components/inputs/FileUpload'
 import baseApi from '../../../../apis/baseApi'
 // import { NumPrice } from '../components/inputs/NumPrice'
 // import { NumHug } from '../components/inputs/NumHug'
 // import { NumSelector } from '../components/inputs/NumSelector'
-import { AddedFields, LngPart } from '../components/lngPart/LngPart'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -23,8 +23,8 @@ const AddProperties = () => {
     // const [fileUrl, setFileUrl] = useState([])
 
     const [allFields, setAllFields] = useState()
-    const [propTitleLng, setPropTitleLng] = useState('am')
-    const [propDescLng, setPropDescLng] = useState('am')
+    // const [propTitleLng, setPropTitleLng] = useState('am')
+    // const [propDescLng, setPropDescLng] = useState('am')
     // const [rooms, setRooms] = useState(null)
     // const [bedrooms, setBedrooms] = useState(null)
     // const [toilets, setToilets] = useState(null)

@@ -74,34 +74,82 @@ return json_decode(GlobalForm::findorFail(1)->am);
           'name' => "announcement",
           'title'=> "Հայտարարություն",
           'added'=> [],
-          "transactionType" => [
-            "key" => "transactionType",
-            "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
-            "type" => "select",
-            "class" => "margin:left",
-            "option" => [
-              [
-                "id"=> 1,
-                "name"=> "Ընտրեք տեսակը",
-                "value" => ""
-              ],
-              [
-                "id"=> 2,
-                "name"=> "Վաճառք",
-                "value" => "Վաճառք"
-              ],
-              [
-                "id"=> 3,
-                "name"=> "Վարձակալություն",
-                "value" => "Վարձակալություն"
+          "fields" => [
+            [
+              "key" => "transactionType",
+              "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
+              "type" => "select",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Վաճառք",
+                  "value" => "Վաճառք"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Վարձակալություն",
+                  "value" => "Վարձակալություն"
+                ]
               ]
-            ]
+            ],
+             [
+              "key" => "propertyType",
+              "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ",
+              "type" => "select",
+              "style" => "margin:right",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Բնակարան",
+                  "value" => "Բնակարան"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Առանձնատուն",
+                  "value" => "Առանձնատուն"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Կոմերցիոն (առանձնատուն)",
+                  "value" => "Կոմերցիոն (առանձնատուն)"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "Կոմերցիոն (բնակարան)",
+                  "value" => "Կոմերցիոն (բնակարան)"
+                ],
+              ]
+            ],
+             [
+              "key" => "announcementTitle",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
+              "type" => "text",
+              "style" => "width:80%",
+              "option" => []
+            ],
+            [
+            "key" => "announcementDesc",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
+            "type" => "text",
+            "style" => "width:80%",
+            "option" => []
           ],
-          "propertyType" => [
-            "key" => "propertyType",
-            "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ",
+           [
+            "key" => "announcementType",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
             "type" => "select",
-            "class" => "margin:right",
+            "style" => "margin:left",
             "option" => [
               [
                 "id"=> 1,
@@ -110,69 +158,150 @@ return json_decode(GlobalForm::findorFail(1)->am);
               ],
               [
                 "id"=> 2,
-                "name"=> "Բնակարան",
-                "value" => "Բնակարան"
+                "name"=> "Հասարակ",
+                "value" => "Հասարակ"
               ],
               [
                 "id"=> 3,
-                "name"=> "Առանձնատուն",
-                "value" => "Առանձնատուն"
+                "name"=> "Տոպ",
+                "value" => "Տոպ"
               ],
               [
                 "id"=> 4,
-                "name"=> "Կոմերցիոն (առանձնատուն)",
-                "value" => "Կոմերցիոն (առանձնատուն)"
-              ],
-              [
-                "id"=> 5,
-                "name"=> "Կոմերցիոն (բնակարան)",
-                "value" => "Կոմերցիոն (բնակարան)"
+                "name"=> "Շտապ",
+                "value" => "Շտապ"
               ],
             ]
           ],
-          "announcementTitle" => [
-            "key" => "announcementTitle",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
-            "type" => "text",
-            "class" => "width:80%",
-            "option" => []
-          ],
-          "announcementDesc" => [ "key" => "announcementDesc",
-          "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
-          "type" => "text",
-          "class" => "width:80%",
-          "option" => []
+          ]
         ],
-        "announcementType" => [
-          "key" => "announcementType",
-          "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
-          "type" => "select",
-          "class" => "margin:left",
-          "option" => [
+        [
+          'name' => "location",
+          'title'=> "Գտնվելու Վայրը - Երևան",
+          'added'=> [],
+          "fields" => [
             [
-              "id"=> 1,
-              "name"=> "Ընտրեք տեսակը",
-              "value" => ""
+              "key" => "community",
+              "title" => "Համայնք*",
+              "type" => "select",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Ընտրեք",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Աջափնյակ",
+                  "value" => "Աջափնյակ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Արաբկիր",
+                  "value" => "Արաբկիր"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Ավան",
+                  "value" => "Ավան"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "Դավթաշեն",
+                  "value" => "Դավթաշեն"
+                ],
+                [
+                  "id"=> 6,
+                  "name"=> "Էրեբունի",
+                  "value" => "Էրեբունի"
+                ],
+                [
+                  "id"=> 7,
+                  "name"=> "Քանաքեռ-Զեյթուն",
+                  "value" => "Քանաքեռ-Զեյթուն"
+                ],
+                [
+                  "id"=> 8,
+                  "name"=> "Կենտրոն",
+                  "value" => "Կենտրոն"
+                ],
+                [
+                  "id"=> 9,
+                  "name"=> "Մալաթիա-Սեբաստիա",
+                  "value" => "Մալաթիա-Սեբաստիա"
+                ],
+                [
+                  "id"=> 10,
+                  "name"=> "Նորք-Մարաշ",
+                  "value" => "Նորք-Մարաշ"
+                ],
+                [
+                  "id"=> 11,
+                  "name"=> "Նոր Նորք",
+                  "value" => "Նոր Նորք"
+                ],
+                [
+                  "id"=> 12,
+                  "name"=> "Նուբարաշեն",
+                  "value" => "Նուբարաշեն"
+                ],
+                [
+                  "id"=> 13,
+                  "name"=> "Շենգավիթ",
+                  "value" => "Շենգավիթ"
+                ],
+                [
+                  "id"=> 14,
+                  "name"=> "Վահագնի թաղամաս",
+                  "value" => "Վահագնի թաղամաս"
+                ],
+                [
+                  "id"=> 15,
+                  "name"=> "Այլ",
+                  "value" => "Այլ"
+                ]
+              ]
             ],
             [
-              "id"=> 2,
-              "name"=> "Հասարակ",
-              "value" => "Հասարակ"
+            "key" => "street",
+            "title" => "Փողոց*",
+            "type" => "streetSelect",
+            "style" => "margin:right",
+            "option" => [ ]
+            ],
+           [
+              "key" => "building",
+              "title" => "Շենք*",
+              "type" => "inputText",
+              "style" => "width:80%",
+              "option" => []
             ],
             [
-              "id"=> 3,
-              "name"=> "Տոպ",
-              "value" => "Տոպ"
+              "key" => "entrance",
+              "title" => "Մուտք*",
+              "type" => "inputNumber",
+              "style" => "width:80%",
+              "option" => []
             ],
             [
-              "id"=> 4,
-              "name"=> "Շտապ",
-              "value" => "Շտապ"
+              "key" => "apartment",
+              "title" => "Բնակարան*",
+              "type" => "inputNumber",
+              "style" => "margin:left",
+              "option" => []
+            ],
+            [
+              "key" => "realAddress",
+              "title" => "Իրական հասցե*",
+              "type" => "inputText",
+              "style" => "margin:left",
+              "option" => []
             ],
           ]
         ],
-      ]
      ] ;
+     
      return response()->json($str);
   }
 
