@@ -300,6 +300,597 @@ return json_decode(GlobalForm::findorFail(1)->am);
             ],
           ]
         ],
+        [
+          'name' => "price",
+          'title'=> "Գինը",
+          'added'=> [
+            [
+              "key" => "priceAdded",
+              "title" => "Ավել Գինը*",
+              "type" => "inputText",
+              "style" => "width:80%",
+              "option" => []
+            ],
+          ],
+          "fields" => [
+            [
+              "key" => "totalPrice",
+              "title" => "Ընդհանուր գինը*",
+              "type" => "inputNumberSymbol",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Գինը դոլարով",
+                  "symbol"=>'usd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Գինը դրամով",
+                  "symbol"=>'amd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Գինը ռուբլիով",
+                  "symbol"=>'rub',
+                  "value" => ""
+                ]
+              ]
+            ],
+
+             [
+              "key" => "priceNegotiable",
+              "title" => "Գինը պայմանագրային",
+              "type" => "checkbox",
+              "style" => "margin:right",
+              "option" => [
+                "status" => false
+               ]
+            ],
+            [
+              "key" => "sqmPrice",
+              "title" => "Գինը 1 քմ*",
+              "type" => "inputNumberSymbol",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Գինը դոլարով",
+                  "symbol"=>'usd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Գինը դրամով",
+                  "symbol"=>'amd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Գինը ռուբլիով",
+                  "symbol"=>'rub',
+                  "value" => ""
+                ]
+              ]
+            ],
+            [
+              "key" => "downPayment",
+              "title" => "Կանխավճարի չափ*",
+              "type" => "inputNumberSymbol",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Գինը դոլարով",
+                  "symbol"=>'usd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Գինը դրամով",
+                  "symbol"=>'amd',
+                  "value" => ""
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Գինը ռուբլիով",
+                  "symbol"=>'rub',
+                  "value" => ""
+                ]
+              ]
+            ],
+           [
+            "key" => "paymentMethod",
+            "title" => "Վճարման կարգը*",
+            "type" => "select",
+            "style" => "margin:left",
+            "option" => [
+              [
+                "id"=> 0,
+                "name"=> "Ընտրեք",
+                "value" => ""
+              ],
+              [
+                "id"=> 1,
+                "name"=> "Բանկային փոխանցում",
+                "value" => "Բանկային փոխանցում"
+              ],
+              [
+                "id"=> 2,
+                "name"=> "Հիպոթեքային վարկ",
+                "value" => "Հիպոթեքային վարկ"
+              ],
+              [
+                "id"=> 3,
+                "name"=> "Այլ",
+                "value" => "Այլ"
+              ],
+            ]
+          ],
+          [
+            "key" => "preferredBank",
+            "title" => "Նախընտրած բանկը*",
+            "type" => "select",
+            "style" => "margin:left",
+            "option" => [
+              [
+                "id"=> 0,
+                "name"=> "Ընտրեք նախընտրած բանկը",
+                "value" => ""
+              ],
+              [
+                "id"=> 1,
+                "name"=> "Ամերիա բանկ",
+                "value" => "Ամերիա բանկ"
+              ],
+              [
+                "id"=> 2,
+                "name"=> "Էվոկաբանկ",
+                "value" => "Էվոկաբանկ"
+              ],
+              [
+                "id"=> 3,
+                "name"=> "Ինեկոբանկ",
+                "value" => "Ինեկոբանկ"
+              ],
+              [
+                "id"=> 4,
+                "name"=> "ԱյԴի բանկ",
+                "value" => "ԱյԴի բանկ"
+              ],
+              [
+                "id"=> 5,
+                "name"=> "Ակբա բանկ",
+                "value" => "Ակբա բանկ"
+              ],
+              [
+                "id"=> 6,
+                "name"=> "Մելլաթ բանկ",
+                "value" => "Մելլաթ բանկ"
+              ],
+              [
+                "id"=> 7,
+                "name"=> "ՀայԷկոնոմ բանկ",
+                "value" => "ՀայԷկոնոմ բանկ"
+              ],
+              [
+                "id"=> 8,
+                "name"=> "HSBC բանկ",
+                "value" => "HSBC բանկ"
+              ],
+              [
+                "id"=> 9,
+                "name"=> "Յունիբանկ",
+                "value" => "Յունիբանկ"
+              ],
+              [
+                "id"=> 10,
+                "name"=> "Հայբիզնեսբանկ",
+                "value" => "Հայբիզնեսբանկ"
+              ],
+              [
+                "id"=> 11,
+                "name"=> "Կոնվերս բանկ",
+                "value" => "Կոնվերս բանկ"
+              ],
+              [
+                "id"=> 12,
+                "name"=> "Արարատ բանկ",
+                "value" => "Արարատ բանկ"
+              ],
+              [
+                "id"=> 13,
+                "name"=> "Ֆասթ բանկ",
+                "value" => "Ֆասթ բանկ"
+              ],
+              [
+                "id"=> 14,
+                "name"=> "Արմսվիսբանկ",
+                "value" => "Արմսվիսբանկ"
+              ],
+              [
+                "id"=> 15,
+                "name"=> "Արցախ բանկ",
+                "value" => "Արցախ բանկ"
+              ],
+              [
+                "id"=> 16,
+                "name"=> "Բիբլոս Բանկ Արմենիա",
+                "value" => "Բիբլոս Բանկ Արմենիա"
+              ],
+              [
+                "id"=> 17,
+                "name"=> "Արդշինբանկ",
+                "value" => "Արդշինբանկ"
+              ],
+              [
+                "id"=> 18,
+                "name"=> "ՎՏԲ-Հայաստան բանկ",
+                "value" => "ՎՏԲ-Հայաստան բանկ"
+              ],
+              [
+                "id"=> 19,
+                "name"=> "Այլ",
+                "value" => "Այլ"
+              ],
+            ]
+          ],
+          ]
+        ],
+//                 "Number of rooms:",
+//                 "Number of bedrooms:",
+//                 "Number of bathrooms",
+//                 "Number of open balconies",
+//                 "Number of closed balconies",
+//                 "Floor",
+//                 "Home Conditions",
+//                 "Parking lot",
+//                 "Kitchen type",
+        [
+          'name' => "houseDescription",
+          'title'=> "Տան Նկարագիր",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "surface",
+              "title" => "Մակերես*",
+              "type" => "inputNumberSymbol",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Նշեք մակերեսը",
+                  "symbol"=>'մ.ք.',
+                  "value" => ""
+                ],
+              ]
+            ],
+            [
+              "key" => "ceilingHeight",
+              "title" => "Առաստաղի բարձրությունը*",
+              "type" => "inputNumberSymbol",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "Նշեք բարձրությունը ",
+                  "symbol"=>'մետր',
+                  "value" => ""
+                ],
+              ]
+            ],
+            [
+              "key" => "NumberOfRooms",
+              "title" => "Սենյակների քանակ*",
+              "type" => "numSelect",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "1",
+                  "value" => "1"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "2",
+                  "value" => "2"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "3",
+                  "value" => "3"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "4",
+                  "value" => "4"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "5",
+                  "value" => "5"
+                ],
+                [
+                  "id"=> 6,
+                  "name"=> "6",
+                  "value" => "6"
+                ],
+                [
+                  "id"=> 7,
+                  "name"=> "7+",
+                  "value" => "7+"
+                ],
+              ]
+            ],
+            [
+              "key" => "NumberOfBedrooms",
+              "title" => "Նջասենյակի քանակ*",
+              "type" => "numSelect",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "1",
+                  "value" => "1"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "2",
+                  "value" => "2"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "3",
+                  "value" => "3"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "4",
+                  "value" => "4"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "5",
+                  "value" => "5"
+                ],
+                [
+                  "id"=> 6,
+                  "name"=> "6",
+                  "value" => "6"
+                ],
+                [
+                  "id"=> 7,
+                  "name"=> "7+",
+                  "value" => "7+"
+                ],
+              ]
+            ],
+            [
+              "key" => "NumberOfBathrooms",
+              "title" => "Սահանգույցների քանակ*",
+              "type" => "numSelect",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 1,
+                  "name"=> "1",
+                  "value" => "1"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "2",
+                  "value" => "2"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "3",
+                  "value" => "3"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "4",
+                  "value" => "4"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "5+",
+                  "value" => "5+"
+                ],
+              ]
+            ],
+            [
+              "key" => "NumberOpenBalconies",
+              "title" => "Բաց պատշգամբների քանակ*",
+              "type" => "numSelect",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "0",
+                  "value" => "0"
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "1",
+                  "value" => "1"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "2",
+                  "value" => "2"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "3",
+                  "value" => "3"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "4",
+                  "value" => "4"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "5",
+                  "value" => "5"
+                ],
+                [
+                  "id"=> 6,
+                  "name"=> "6",
+                  "value" => "6"
+                ],
+              ]
+            ],
+            [
+              "key" => "NumberCloseBalconies",
+              "title" => "Փակ պատշգամբների քանակ*",
+              "type" => "numSelect",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "0",
+                  "value" => "0"
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "1",
+                  "value" => "1"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "2",
+                  "value" => "2"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "3",
+                  "value" => "3"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "4",
+                  "value" => "4"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "5",
+                  "value" => "5"
+                ],
+                [
+                  "id"=> 6,
+                  "name"=> "6",
+                  "value" => "6"
+                ],
+              ]
+            ],
+            [
+              "key" => "floor",
+              "title" => "Հարկը*",
+              "type" => "inputText",
+              "style" => "width:80%",
+              "option" => []
+            ],
+            [
+              "key" => "houseCondition",
+              "title" => "Տան վիճակ*",
+              "type" => "select",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Պետական վիճակ",
+                  "value" => "Պետական վիճակ"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Լավ",
+                  "value" => "Լավ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Զրոյական",
+                  "value" => "Զրոյական"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Վերանորոգված",
+                  "value" => "Վերանորոգված"
+                ],
+              ]
+            ],
+            [
+              "key" => "parking",
+              "title" => "Ավտոկայանատեղի*",
+              "type" => "select",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Քարե",
+                  "value" => "Քարե"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Ստորգետնյա",
+                  "value" => "Ստորգետնյա"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Բաց ավտոկայանատեղի",
+                  "value" => "Բաց ավտոկայանատեղի"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Ազատ տարածություն",
+                  "value" => "Ազատ տարածություն"
+                ],
+              ]
+            ],
+            [
+              "key" => "kitchenType",
+              "title" => "Խոհանոցի տիպ*",
+              "type" => "select",
+              "style" => "margin:left",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Առանձին",
+                  "value" => "Առանձին"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Ստուդիո",
+                  "value" => "Ստուդիո"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Նախագծված չէ",
+                  "value" => "Նախագծված չէ"
+                ],
+                
+              ]
+            ],
+          ]
+        ],
+        
      ] ;
      
      return response()->json($str);
