@@ -3,9 +3,15 @@ import { Search } from '../../../../components/inputs/Search'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import './Addresses.scss'
 import { Modal } from '../modal/Modal'
+import baseApi from '../../../../../apis/baseApi'
 
 export const Addresses = () => {
   const [search, setSearch] = useState("")
+  baseApi.get('/api/getAddress')
+  .then(response => {
+      console.log(response.data, 856)
+  })
+  
 
   const [open, setOpen] = useState(false)// modal active
 

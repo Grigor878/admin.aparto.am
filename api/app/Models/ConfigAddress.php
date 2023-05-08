@@ -14,6 +14,8 @@ class ConfigAddress extends Model
     protected $fillable = [
         'am',
         'ru',
-        'en'
+        'en',
+        'communityId',
+        'addressId'
     ];
 }

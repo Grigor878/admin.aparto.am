@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('config_addresses', function (Blueprint $table) {
             $table->id();
+            $table->integer('communityId');
+            $table->string('addressId')->nullable();
             $table->string('am')->nullable();
             $table->string('ru')->nullable();
             $table->string('en')->nullable();

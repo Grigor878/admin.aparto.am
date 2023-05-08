@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GlobalForm;
+use App\Models\ConfigAddress;
 use App\Services\GeneralFormService;
 
 
@@ -31,6 +32,26 @@ class GeneralFormController extends Controller
         $form->ru = json_decode($form->ru);
         $form->en = json_decode($form->en);
         return response()->json($form);
+    }
+
+    public function createAddress(Request $request) {
+      $data = $request->all();
+      $newAddress = new ConfigAddress();
+      $newAddress->am = $data['am']['value'];
+      $newAddress->ru = $data['ru']['value'];
+      $newAddress->en = $data['en']['value'];
+      $newAddress->addressId = $data['am']['id'];
+      $newAddress->communityId = $data['am']['communityId'];
+      $newAddress->save();
+      return true;
+    }
+
+    public function getAddress () {
+      // $address = ConfigAddress::select(['id as addressId,  am as value, communityId'])->get();
+      $address =  \DB::table('config_addresses')
+      ->select(\DB::raw('id as addressId, am as value, addressId as id, communityId, am as name'))
+      ->get();
+      return response()->json($address);
     }
 
     public function getFormStructure() {

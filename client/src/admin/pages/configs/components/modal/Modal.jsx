@@ -6,6 +6,7 @@ import { capitalize } from '../../../../../helpers/utils'
 import { error, success } from '../../../../../components/swal/swal'
 import '../../../structure/components/modal/Modal.scss'
 import './Modal.scss'
+import baseApi from '../../../../../apis/baseApi'
 
 export const Modal = ({ open, setOpen }) => {
     const [arm, setArm] = useState('')
@@ -44,6 +45,11 @@ export const Modal = ({ open, setOpen }) => {
 
             const addedAddress = { am, en, ru }
             console.log(addedAddress)//
+
+            baseApi.post('/api/createAddress', addedAddress)
+            .then(response => {
+                console.log(response.data, 856)
+            })
 
             setOpen(false)
             success('Address added !')
