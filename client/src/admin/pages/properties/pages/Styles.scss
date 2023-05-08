@@ -15,14 +15,16 @@
   }
 
   &__card {
-    @include flexCol;
+    // @include flexCol;
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
+    width: 679px;
     background: $bgSub;
     border: 1px solid $advancedBack;
     border-radius: 8px;
-    padding: 24px;
-    // width: 679px;
-    width: fit-content;
+    padding: 25px;
+    // width: fit-content;
 
     h2 {
       font-weight: 700;
@@ -33,7 +35,8 @@
     }
 
     &-block {
-      @include flexCol;
+      @include flex;
+      flex-wrap: wrap;
       gap: 16px;
     }
 
@@ -61,7 +64,7 @@
       color: $textSmall;
 
       &-dropdown {
-        width: 306px;
+        // width: 306px;
         background: $bg;
         border: 1px solid $advancedBack;
         font-weight: 400;
@@ -97,7 +100,7 @@
 
       // full width and with height input
       &-larg {
-        width: 629px;
+        // width: 629px;
         padding: 12px 0 62px 16px;
       }
 

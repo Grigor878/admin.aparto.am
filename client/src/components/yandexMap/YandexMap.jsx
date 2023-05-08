@@ -139,7 +139,7 @@ const initialState = {
     zoom: 17,
 };
 
-const YandexMap = () => {
+const YandexMap = ({ id, title, style, height, onChange }) => {
     const [state, setState] = useState({ ...initialState });
     const [placemark, setPlacemark] = useState([]);
     const [mapConstructor, setMapConstructor] = useState(null);
@@ -200,18 +200,13 @@ const YandexMap = () => {
                             <p title={state.title}>
                                 {state.title}
                             </p>
-                            {/* <button onClick={handleReset}>
-                               Default place
-                            </button> */}
                             <BtnCustom onClick={handleReset} text='Default place' />
                         </div>
                     </div>
-                    {/* <button onClick={handleSubmit} disabled={!state.title.length} >
-                        Get Data of this address
-                    </button> */}
                     <BtnCustom onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' />
                 </div>
 
+                {title}
                 <Map
                     {...mapOptions}
                     state={state}
@@ -219,8 +214,8 @@ const YandexMap = () => {
                     onBoundsChange={handleBoundsChange}
                     instanceRef={mapRef}
                     // width="100%"
-                    width="679px"
-                    height="700px"
+                    width={style}
+                    height={height}
                 >
                     <Placemark geometry={placemark} />
                     <GeolocationControl {...geolocationOptions} />

@@ -79,7 +79,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "transactionType",
               "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
               "type" => "select",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -98,11 +98,11 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 ]
               ]
             ],
-             [
+            [
               "key" => "propertyType",
               "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ",
               "type" => "select",
-              "style" => "margin:right",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -131,25 +131,25 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 ],
               ]
             ],
-             [
+            [
               "key" => "announcementTitle",
               "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
               "type" => "text",
-              "style" => "width:80%",
+              "style" => "629px",
               "option" => []
             ],
             [
-            "key" => "announcementDesc",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
-            "type" => "text",
-            "style" => "width:80%",
-            "option" => []
-          ],
+              "key" => "announcementDesc",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
+              "type" => "text",
+              "style" => "629px",
+              "option" => []
+            ],
            [
             "key" => "announcementType",
             "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
             "type" => "select",
-            "style" => "margin:left",
+            "style" => "306px",
             "option" => [
               [
                 "id"=> 1,
@@ -184,7 +184,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "community",
               "title" => "Համայնք*",
               "type" => "select",
-              "style" => "margin:left",
+              "style" => "629px",
               "option" => [
                 [
                   "id"=> 1,
@@ -264,38 +264,45 @@ return json_decode(GlobalForm::findorFail(1)->am);
               ]
             ],
             [
-            "key" => "street",
-            "title" => "Փողոց*",
-            "type" => "streetSelect",
-            "style" => "margin:right",
-            "option" => [ ]
+              "key" => "street",
+              "title" => "Փողոց*",
+              "type" => "select",
+              "style" => "283px",
+              "option" => []
             ],
-           [
+            [
               "key" => "building",
               "title" => "Շենք*",
-              "type" => "inputText",
-              "style" => "width:80%",
+              "type" => "inputNumber",
+              "style" => "100px",
               "option" => []
             ],
             [
               "key" => "entrance",
               "title" => "Մուտք*",
               "type" => "inputNumber",
-              "style" => "width:80%",
+              "style" => "100px",
               "option" => []
             ],
             [
               "key" => "apartment",
               "title" => "Բնակարան*",
               "type" => "inputNumber",
-              "style" => "margin:left",
+              "style" => "100px",
+              "option" => []
+            ],
+            [
+              "key" => "map",
+              "title" => "MAP PIN*",
+              "type" => "map",
+              "style" => "631px",
               "option" => []
             ],
             [
               "key" => "realAddress",
               "title" => "Իրական հասցե*",
               "type" => "inputText",
-              "style" => "margin:left",
+              "style" => "629px",
               "option" => []
             ],
           ]
@@ -317,34 +324,33 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "totalPrice",
               "title" => "Ընդհանուր գինը*",
               "type" => "inputNumberSymbol",
-              "style" => "margin:left",
+              "style" => "202px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "priceUsd",
                   "name"=> "Գինը դոլարով",
                   "symbol"=>'usd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "priceAmd",
                   "name"=> "Գինը դրամով",
                   "symbol"=>'amd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "priceRub",
                   "name"=> "Գինը ռուբլիով",
                   "symbol"=>'rub',
                   "value" => ""
                 ]
               ]
             ],
-
-             [
+            [
               "key" => "priceNegotiable",
               "title" => "Գինը պայմանագրային",
               "type" => "checkbox",
-              "style" => "margin:right",
+              "style" => "",
               "option" => [
                 "status" => false
                ]
@@ -353,22 +359,22 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "sqmPrice",
               "title" => "Գինը 1 քմ*",
               "type" => "inputNumberSymbol",
-              "style" => "margin:left",
+              "style" => "202px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "sqmPriceUsd",
                   "name"=> "Գինը դոլարով",
                   "symbol"=>'usd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "sqmPriceAmd",
                   "name"=> "Գինը դրամով",
                   "symbol"=>'amd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "sqmPriceRub",
                   "name"=> "Գինը ռուբլիով",
                   "symbol"=>'rub',
                   "value" => ""
@@ -379,34 +385,34 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "downPayment",
               "title" => "Կանխավճարի չափ*",
               "type" => "inputNumberSymbol",
-              "style" => "margin:left",
+              "style" => "202px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "downPaymentUsd",
                   "name"=> "Գինը դոլարով",
                   "symbol"=>'usd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "downPaymentAmd",
                   "name"=> "Գինը դրամով",
                   "symbol"=>'amd',
                   "value" => ""
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "downPaymentRub",
                   "name"=> "Գինը ռուբլիով",
                   "symbol"=>'rub',
                   "value" => ""
                 ]
               ]
             ],
-           [
-            "key" => "paymentMethod",
-            "title" => "Վճարման կարգը*",
-            "type" => "select",
-            "style" => "margin:left",
-            "option" => [
+            [
+              "key" => "paymentMethod",
+              "title" => "Վճարման կարգը*",
+              "type" => "select",
+              "style" => "306px",
+              "option" => [
               [
                 "id"=> 0,
                 "name"=> "Ընտրեք",
@@ -427,13 +433,13 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "name"=> "Այլ",
                 "value" => "Այլ"
               ],
-            ]
-          ],
-          [
+              ]
+            ],
+            [
             "key" => "preferredBank",
             "title" => "Նախընտրած բանկը*",
             "type" => "select",
-            "style" => "margin:left",
+            "style" => "306px",
             "option" => [
               [
                 "id"=> 0,
@@ -536,18 +542,9 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "value" => "Այլ"
               ],
             ]
-          ],
+            ],
           ]
         ],
-//                 "Number of rooms:",
-//                 "Number of bedrooms:",
-//                 "Number of bathrooms",
-//                 "Number of open balconies",
-//                 "Number of closed balconies",
-//                 "Floor",
-//                 "Home Conditions",
-//                 "Parking lot",
-//                 "Kitchen type",
         [
           'name' => "houseDescription",
           'title'=> "Տան Նկարագիր",
@@ -557,7 +554,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "surface",
               "title" => "Մակերես*",
               "type" => "inputNumberSymbol",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -571,7 +568,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "ceilingHeight",
               "title" => "Առաստաղի բարձրությունը*",
               "type" => "inputNumberSymbol",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -585,7 +582,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "NumberOfRooms",
               "title" => "Սենյակների քանակ*",
               "type" => "numSelect",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -628,7 +625,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "NumberOfBedrooms",
               "title" => "Նջասենյակի քանակ*",
               "type" => "numSelect",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -671,7 +668,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "NumberOfBathrooms",
               "title" => "Սահանգույցների քանակ*",
               "type" => "numSelect",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 1,
@@ -704,7 +701,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "NumberOpenBalconies",
               "title" => "Բաց պատշգամբների քանակ*",
               "type" => "numSelect",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 0,
@@ -747,7 +744,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "NumberCloseBalconies",
               "title" => "Փակ պատշգամբների քանակ*",
               "type" => "numSelect",
-              "style" => "margin:left",
+              "style" => "629px",
               "option" => [
                 [
                   "id"=> 0,
@@ -789,15 +786,15 @@ return json_decode(GlobalForm::findorFail(1)->am);
             [
               "key" => "floor",
               "title" => "Հարկը*",
-              "type" => "inputText",
-              "style" => "width:80%",
+              "type" => "inputNumber",
+              "style" => "306px",
               "option" => []
             ],
             [
               "key" => "houseCondition",
               "title" => "Տան վիճակ*",
               "type" => "select",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 0,
@@ -830,7 +827,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "parking",
               "title" => "Ավտոկայանատեղի*",
               "type" => "select",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 0,
@@ -863,7 +860,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "kitchenType",
               "title" => "Խոհանոցի տիպ*",
               "type" => "select",
-              "style" => "margin:left",
+              "style" => "306px",
               "option" => [
                 [
                   "id"=> 0,

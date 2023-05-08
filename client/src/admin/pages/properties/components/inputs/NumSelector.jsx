@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export const NumSelector = ({data, title, state, setState }) => {
+export const NumSelector = ({ id, title, data, value, style }) => {
+
+    const [state, setState] = useState(null)
+    value = id + state
+    // console.log(value)//
 
     return (
-        <label className='addproperties__card-text'>
+        <label className='addproperties__card-text' style={{ width: style }}>
             {title}
             <div style={{ display: "flex", gap: "4px" }}>
-                {data?.map((number) => (
+                {data?.map((el) => (
                     <button
-                        key={number}
-                        onClick={() => setState(number)}
+                        key={el.id}
+                        onClick={() => setState(el.value)} //addProp dnel
                         className='addproperties__card-text-numSelector'
-                        style={{ backgroundColor: state === number ? "#cfd1da" : "#f3f4f8" }}
+                        style={{ backgroundColor: state === el.value ? "#cfd1da" : "#f3f4f8" }}
                     >
-                        {number}
+                        {el.name}
                     </button>
                 ))}
             </div>

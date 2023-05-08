@@ -5,7 +5,9 @@ export const Card = ({ title, child }) => {
     return (
         <div className='addproperties__card'>
             <h2>{title}</h2>
-            {child}
+            <div className='addproperties__card-block'>
+                {child}
+            </div>
         </div>
     )
 }

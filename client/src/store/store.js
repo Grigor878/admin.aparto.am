@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/authSlice";
 import userGlobalSlice from "./slices/userGlobalSlice";
 import usersSlice from "./slices/usersSlice";
+import propertySlice from "./slices/propertySlice";
 import structureSlice from "./slices/structureSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   auth: authSlice,
   userGlobal: userGlobalSlice,
   users: usersSlice,
+  property: propertySlice,
   structure: structureSlice,
 });
 

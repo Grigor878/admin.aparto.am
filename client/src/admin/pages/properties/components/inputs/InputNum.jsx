@@ -1,15 +1,15 @@
 import React from 'react'
 
-export const TextFull = ({ title, id, placeholder, onChange }) => {
+export const InputNum = ({ title, id, placeholder, onChange, style }) => {
     return (
         <label className='addproperties__card-text'>
-            {title}*
+            {title}
             <input
                 id={id}
-                type="text"
+                type="number"
                 placeholder={placeholder}
-                // name={name}
-                className='addproperties__card-text-full'
+                className='addproperties__card-text-hug'
+                style={{ width: style }}
                 minLength="3"
                 onChange={onChange}
             />

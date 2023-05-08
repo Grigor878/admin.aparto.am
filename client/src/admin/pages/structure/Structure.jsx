@@ -13,13 +13,14 @@ const Structure = () => {
 
   const { info, added, removed } = useSelector((state) => state.structure)
   console.log(info)//
-
-  const center = info?.slice(0, 7)
-  const right = info?.slice(7, 10)
-
+  
   useEffect(() => {
     dispatch(getStructureInfo())
   }, [dispatch, added, removed])
+  
+  const center = info?.slice(0, 7)
+  const right = info?.slice(7, 10)
+  
 
   return (
     <article className="structure">
