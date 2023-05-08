@@ -12,7 +12,7 @@ import { SingleSelect } from '../components/dropdowns/SingleSelect'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { FileUpload } from '../components/inputs/FileUpload'
-import baseApi from '../../../../apis/baseApi'
+// import baseApi from '../../../../apis/baseApi'
 // import { NumPrice } from '../components/inputs/NumPrice'
 // import { NumHug } from '../components/inputs/NumHug'
 // import { NumSelector } from '../components/inputs/NumSelector'
@@ -29,6 +29,7 @@ const AddProperties = () => {
     const dispatch = useDispatch()
 
     const { data } = useSelector((state) => state.property)
+    console.log(data)
 
     useEffect(() => {
         dispatch(getPropertyData())

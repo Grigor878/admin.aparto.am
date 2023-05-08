@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Flag from 'react-world-flags'
 import { community, flags } from '../../../properties/components/dropdowns/data'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
+import { capitalize } from '../../../../../helpers/utils'
 import { error, success } from '../../../../../components/swal/swal'
 import '../../../structure/components/modal/Modal.scss'
 import './Modal.scss'
@@ -10,37 +11,36 @@ export const Modal = ({ open, setOpen }) => {
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
     const [eng, setEng] = useState('')
-    const [select, setSelect] = useState('')
+    const [selectedId, setSelectId] = useState('')
 
     const [activeFlag, setActiveFlag] = useState('am')
 
     const postAddedAddress = () => {
-        if (select && select !== "Ընտրեք" && arm && rus && eng) {
+        if (selectedId && selectedId !== '1' && arm && rus && eng) {
 
-            let uniqueId = "address_" + eng.toLowerCase().split(' ').join('')
+            let uniqueId = "street" + capitalize(eng.toLowerCase().split(' ').join(''))
 
-            let community = select;
             let am = {
                 id: uniqueId,
-                val: arm,
-                community
+                value: arm,
+                communityId: Number(selectedId)
             }
             let ru = {
                 id: uniqueId,
-                val: rus,
-                community
+                value: rus,
+                communityId: Number(selectedId)
             }
             let en = {
                 id: uniqueId,
-                val: eng,
-                community
+                value: eng,
+                communityId: Number(selectedId)
             }
 
             setArm("")
             setRus("")
             setEng("")
             setActiveFlag('am')
-            setSelect('')
+            setSelectId('')
 
             const addedAddress = { am, en, ru }
             console.log(addedAddress)//
@@ -63,8 +63,8 @@ export const Modal = ({ open, setOpen }) => {
                     <label className='modal__label'>
                         Համայնք*
                         <select
-                            value={select}
-                            onChange={(e) => setSelect(e.target.value)}
+                            value={selectedId}
+                            onChange={(e) => setSelectId(e.target.value)}
                             className='modal__label-select'
                         >
                             {community.map((el) => {
@@ -72,7 +72,7 @@ export const Modal = ({ open, setOpen }) => {
                                     <option
                                         // disabled={el.id === 1 ? "disabled" : null}
                                         key={el.id}
-                                        value={el.value}
+                                        value={el.id}
                                     >{el.value}
                                     </option>
                                 )
