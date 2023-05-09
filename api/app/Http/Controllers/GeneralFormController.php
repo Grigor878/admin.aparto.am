@@ -1031,8 +1031,299 @@ return json_decode(GlobalForm::findorFail(1)->am);
               ],
             ]
            ],
+           [
+            "key" => "monthlyFee",
+            "title" => "ԱմսԱկան Սպասարկման Վճար*",
+            "type" => "inputNumSymbol",
+            "style" => "202px",
+            "option" => [
+              [
+                "id"=> "monthlyFeeUsd",
+                "name"=> "Գինը դոլարով",
+                "symbol"=>'usd',
+                "value" => ""
+              ],
+              [
+                "id"=> "monthlyFeeAmd",
+                "name"=> "Գինը դրամով",
+                "symbol"=>'amd',
+                "value" => ""
+              ],
+              [
+                "id"=> "monthlyFeeRub",
+                "name"=> "Գինը ռուբլիով",
+                "symbol"=>'rub',
+                "value" => ""
+              ]
+            ]
+           ],
+           [
+            "key" => "propertyTax",
+            "title" => "Տարեկան գույքահարկ*",
+            "type" => "inputNumSymbol",
+            "style" => "202px",
+            "option" => [
+              [
+                "id"=> "propertyTaxUsd",
+                "name"=> "Գինը դոլարով",
+                "symbol"=>'usd',
+                "value" => ""
+              ],
+              [
+                "id"=> "propertyTaxAmd",
+                "name"=> "Գինը դրամով",
+                "symbol"=>'amd',
+                "value" => ""
+              ],
+              [
+                "id"=> "propertyTaxRub",
+                "name"=> "Գինը ռուբլիով",
+                "symbol"=>'rub',
+                "value" => ""
+              ]
+            ]
+           ],
           ]
-        ]
+        ],
+        [
+          'name' => "mainFacility",
+          'title'=> "Կոմունալ հարմարություններ",
+          'added'=> [],
+          "fields" => [],
+        ],
+        [
+          'name' => "otherFacility",
+          'title'=> "Այլ հարմարություններ",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "floor",
+              "title" => "Հատակ*",
+              "type" => "select",
+              "style" => "306px",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք հատակի տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Լամինատ",
+                  "value" => "Լամինատ"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Մանրահատակ",
+                  "value" => "Մանրահատակ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Սալիկ",
+                  "value" => "Սալիկ"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Բետոն",
+                  "value" => "Բետոն"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "Այլ",
+                  "value" => "Այլ"
+                ],
+              ],
+            ],
+            [
+              "key" => "roof",
+              "title" => "Առաստաղ*",
+              "type" => "select",
+              "style" => "306px",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք առաստաղի տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Լամինատ",
+                  "value" => "Լամինատ"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Մանրահատակ",
+                  "value" => "Մանրահատակ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Սալիկ",
+                  "value" => "Սալիկ"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Բետոն",
+                  "value" => "Բետոն"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "Այլ",
+                  "value" => "Այլ"
+                ],
+              ],
+            ],
+            [
+              "key" => "cover",
+              "title" => "Ծածկեր*",
+              "type" => "select",
+              "style" => "306px",
+              "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք ծածկի տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Լամինատ",
+                  "value" => "Լամինատ"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Մանրահատակ",
+                  "value" => "Մանրահատակ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Սալիկ",
+                  "value" => "Սալիկ"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Բետոն",
+                  "value" => "Բետոն"
+                ],
+                [
+                  "id"=> 5,
+                  "name"=> "Այլ",
+                  "value" => "Այլ"
+                ],
+              ],
+            ],
+          ],
+        ],
+        [
+          'name' => "Media",
+          'title'=> "Մեդիա",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "video",
+              "title" => "Վիդեոյի հղում*",
+              "type" => "inputText",
+              "style" => "412px",
+              "option" => [],
+            ]
+          ],
+        ],
+        [
+          'name' => "keywords",
+          'title'=> "Բանալի Բառեր",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "chooseWords",
+              "title" => "Ընտրել բառեր*",
+              "type" => "select",
+              "style" => "419px",
+              "option" => [],
+            ],
+            [
+              "key" => "chossedWords",
+              "title" => "Ընտրված բառեր*",
+              "type" => "selecteds",
+              "style" => "412px",
+              "option" => [],
+            ],
+          ],
+        ],
+        [
+          'name' => "juridical",
+          'title'=> "Իրավաբանական",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "owner",
+              "title" => "Սեփականատեր*",
+              "type" => "inputText",
+              "style" => "412px",
+              "option" => [],
+            ],
+            [
+              "key" => "ownerTel",
+              "title" => "Սեփականատիրոջ Հեռախոսահամար*",
+              "type" => "inputText",
+              "style" => "412px",
+              "option" => [],
+            ],
+            [
+              "key" => "addOwner",
+              "title" => "Ավելացնել սեփականատեր",
+              "type" => "addField",
+              "style" => "217px",
+              "option" => [],
+            ],
+            // [
+            //   "key" => "ownerAdded",
+            //   "title" => "Ավելացված Սեփականատեր*",
+            //   "type" => "inputText",
+            //   "style" => "412px",
+            //   "option" => [],
+            // ],
+          ],
+        ],
+        [
+          'name' => "additionalInfo",
+          'title'=> "Լրացուցիչ Ինֆորմացիա",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "owner",
+              "title" => "Սեփականատեր*",
+              "type" => "text",
+              "style" => "412px",
+              "option" => [],
+            ],
+            [
+              "key" => "uploadFiles",
+              "title" => "Կցել Փաստաթուղթ",
+              "type" => "uploadFile",
+              "style" => "217px",
+              "option" => [],
+            ],
+          ],
+        ],
+        [
+          'name' => "specialists",
+          'title'=> "Կից Մասնագետներ",
+          'added'=> [],
+          "fields" => [
+            [
+              "key" => "agent",
+              "title" => "Գործակալ*",
+              "type" => "select",
+              "style" => "412px",
+              "option" => [],
+            ],
+            [
+              "key" => "meneger",
+              "title" => "Մենեջեր*",
+              "type" => "select",
+              "style" => "412px",
+              "option" => [],
+            ],
+          ],
+        ],
      ] ;
      
      return response()->json($str);

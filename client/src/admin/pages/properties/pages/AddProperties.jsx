@@ -42,7 +42,7 @@ const AddProperties = () => {
     }, [dispatch])
 
     const center = data?.slice(0, 7)
-    // const right = data?.slice(7, 10)
+    const right = data?.slice(7, 10)
 
     const [addProperties, setAddProperties] = useState('')
     const [file, setFile] = useState([])
@@ -91,6 +91,7 @@ const AddProperties = () => {
                                                     <Card
                                                         key={name}
                                                         title={title}
+                                                        width="679px"
                                                         child={fields.map(({ key, title, type, option, style }) => {
                                                             return (
                                                                 // <div className='addproperties__card-block' key={key}>
@@ -165,7 +166,66 @@ const AddProperties = () => {
 
                     {/* Right part */}
                     <div className='addproperties__right'>
-
+                        {right?.map(({ name, title, fields, added })=>{
+                            return(
+                                <Card
+                                key={name}
+                                title={title}
+                                width="460px"
+                                child={fields.map(({ key, title, type, option, style }) => {
+                                    return (
+                                        // <div className='addproperties__card-block' key={key}>
+                                        <div key={key}>
+                                            {type === "select"
+                                                ? <SingleSelect
+                                                    id={key}
+                                                    title={title}
+                                                    data={option}
+                                                    style={style}
+                                                    onChange={addProp}
+                                                />
+                                                : type === "text"
+                                                    ? <LngPart
+                                                        id={key}
+                                                        title={title}
+                                                        style={style}
+                                                        addProp={addProp}
+                                                    />
+                                                    : type === "inputNumber"
+                                                        ? <InputNum
+                                                            id={key}
+                                                            title={title}
+                                                            placeholder="Ex."
+                                                            style={style}
+                                                            onChange={addProp}
+                                                        />
+                                                        : type === "inputText"
+                                                            ? <InputText
+                                                                id={key}
+                                                                title={title}
+                                                                // placeholder
+                                                                style={style}
+                                                                onChange={addProp}
+                                                            />
+                                                                : type === 'inputNumberSymbol'
+                                                                    ? <InputNumSymbol
+                                                                        id={key}
+                                                                        title={title}
+                                                                        data={option}
+                                                                        style={style}
+                                                                        onChange={addProp}
+                                                                    />
+                                                                    : type === "checkbox"
+                                                                        ? "sdf"
+                                                                            : null
+                                            }
+                                        </div>
+                                    )
+                                })
+                                }
+                                />
+                            )
+                        })}
                     </div>
                </div>
                } 
