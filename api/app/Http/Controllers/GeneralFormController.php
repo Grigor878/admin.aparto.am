@@ -43,7 +43,8 @@ class GeneralFormController extends Controller
       $newAddress->addressId = $data['am']['id'];
       $newAddress->communityId = $data['am']['communityId'];
       $newAddress->save();
-      return true;
+      $address = ConfigAddress::all();
+      return response()->json($address);
     }
 
     public function getAddress () {

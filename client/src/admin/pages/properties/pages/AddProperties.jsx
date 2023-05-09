@@ -16,7 +16,6 @@ import { SingleSelect } from '../components/dropdowns/SingleSelect'
 // import { NumPrice } from '../components/inputs/NumPrice'
 // import { NumHug } from '../components/inputs/NumHug'
 // import { NumSelector } from '../components/inputs/NumSelector'
-import './Styles.scss'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
 import YandexMap from '../../../../components/yandexMap/YandexMap'
@@ -24,6 +23,8 @@ import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { NumSelector } from '../components/inputs/NumSelector'
 import { getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
+import './Styles.scss'
+import baseApi from '../../../../apis/baseApi'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
@@ -33,6 +34,11 @@ const AddProperties = () => {
 
     useEffect(() => {
         dispatch(getPropertyData())
+
+          baseApi.get('/api/getAddressForStructure')
+  .then(response => {
+      console.log(response.data, 999)
+  })
     }, [dispatch])
 
     const center = data?.slice(0, 7)

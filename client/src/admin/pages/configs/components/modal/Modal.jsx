@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Flag from 'react-world-flags'
 import { community, flags } from '../../../properties/components/dropdowns/data'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
+import { useDispatch } from 'react-redux'
+import { addConfigsAddress } from '../../../../../store/slices/configsSlice'
 import { capitalize } from '../../../../../helpers/utils'
 import { error, success } from '../../../../../components/swal/swal'
 import '../../../structure/components/modal/Modal.scss'
 import './Modal.scss'
-import baseApi from '../../../../../apis/baseApi'
 
 export const Modal = ({ open, setOpen }) => {
     const [arm, setArm] = useState('')
@@ -15,6 +16,8 @@ export const Modal = ({ open, setOpen }) => {
     const [selectedId, setSelectId] = useState('')
 
     const [activeFlag, setActiveFlag] = useState('am')
+
+    const dispatch = useDispatch()
 
     const postAddedAddress = () => {
         if (selectedId && selectedId !== '0' && arm && rus && eng) {
@@ -44,14 +47,9 @@ export const Modal = ({ open, setOpen }) => {
             setSelectId('')
 
             const addedAddress = { am, en, ru }
-            console.log(addedAddress)//
-
-            baseApi.post('/api/createAddress', addedAddress)
-            .then(response => {
-                console.log(response.data, 856)
-            })
-
+            // console.log(addedAddress)//
             setOpen(false)
+            dispatch(addConfigsAddress({ addedAddress }))
             success('Address added !')
         } else {
             error("Complete all fields !")

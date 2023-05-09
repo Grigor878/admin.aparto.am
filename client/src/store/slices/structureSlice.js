@@ -3,7 +3,7 @@ import baseApi from "../../apis/baseApi";
 
 const initialState = {
   loading: false,
-  info: null,
+  data: null,
   removed: false,
   added: false,
 };
@@ -50,7 +50,7 @@ const structureSlice = createSlice({
       })
       .addCase(getStructureInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.info = action.payload;
+        state.data = action.payload;
       })
 
       .addCase(removeStructureField.pending, (state) => {

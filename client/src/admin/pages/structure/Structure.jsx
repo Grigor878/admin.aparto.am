@@ -11,16 +11,14 @@ const Structure = () => {
 
   const [search, setSearch] = useState("")
 
-  const { info, added, removed } = useSelector((state) => state.structure)
-  console.log(info)//
-  
+  const { data, added, removed } = useSelector((state) => state.structure)
+
   useEffect(() => {
     dispatch(getStructureInfo())
   }, [dispatch, added, removed])
-  
-  const center = info?.slice(0, 7)
-  const right = info?.slice(7, 10)
-  
+
+  const center = data?.slice(0, 7)
+  const right = data?.slice(7, 10)
 
   return (
     <article className="structure">
@@ -33,7 +31,7 @@ const Structure = () => {
         />
       </div>
 
-      {!info
+      {!data
         ? <Loader />
         : <div className="structure__main">
           <div className="structure__center">

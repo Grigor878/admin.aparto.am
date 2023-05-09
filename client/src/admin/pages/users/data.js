@@ -7,11 +7,13 @@ export const userAdminColumns = [
     name: "Name",
     cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
     sortable: true,
+    selector: (row) => row.full_name.en,
   },
   {
     name: "Email",
     cell: (row) => <p className="columFontSize">{row.email}</p>,
     sortable: true,
+    selector: (row) => row.email,
   },
   {
     name: "Phone Number",
@@ -42,7 +44,7 @@ export const userAdminColumns = [
     text: "Action",
     cell: (row) => {
       return (
-        <Link to={`edit/${row.id}`} className="users__table-link">
+        <Link to={`edit/${row.id}`} className="users__table-link columnDelete">
           Edit
         </Link>
       );

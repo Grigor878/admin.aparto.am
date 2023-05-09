@@ -22,7 +22,7 @@ export const searches = [
   },
   {
     address: "opera baxramyan kaskad araratin nayi kofe dni achqs shoyi",
-    result: "No Result",
+    result: "18 Results",
     date: "Apr 17 2023",
   },
 ];
@@ -31,6 +31,7 @@ export const searchColumns = [
   {
     name: "Որոնում",
     sortable: true,
+    selector:  row => row.result,
     cell: (row) => <p className="columFontSize">{row.address}</p>,
   },
   {

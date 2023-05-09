@@ -22,3 +22,11 @@
   line-height: 16px;
   color: $text;
 }
+
+// remove btn to left
+.columnDelete {
+  width: 100%;
+  background: transparent;
+  @include flex;
+  justify-content: flex-end;
+}
