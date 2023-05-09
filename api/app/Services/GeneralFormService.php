@@ -835,13 +835,118 @@ class GeneralFormService
                   "name"=> "Նախագծված չէ",
                   "value" => "Նախագծված չէ"
                 ],
-                
               ]
             ],
           ]
         ],
-        
-     ]);
+        [
+          'name' => "buildingDescription",
+          'title'=> "Շինության նկարագիր",
+          'added'=> [],
+          "fields" => [
+           [
+            "key" => "buildingType",
+            "title" => "Շինության տիպ*",
+            "type" => "select",
+            "style" => "306px",
+            "option" => [
+                [
+                  "id"=> 0,
+                  "name"=> "Ընտրեք տեսակը",
+                  "value" => ""
+                ],
+                [
+                  "id"=> 1,
+                  "name"=> "Մոնոլիտ",
+                  "value" => "Մոնոլիտ"
+                ],
+                [
+                  "id"=> 2,
+                  "name"=> "Քարե",
+                  "value" => "Քարե"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Պանելային",
+                  "value" => "Պանելային"
+                ],
+                [
+                  "id"=> 4,
+                  "name"=> "Այլ",
+                  "value" => "Այլ"
+                ],
+            ]
+           ],
+           [
+            "key" => "statement",
+            "title" => "ՀԱՐԿԱՅՆՈՒԹՅՈՒՆ*",
+            "type" => "inputText",
+            "style" => "306px",
+            "option" => [],
+           ],
+           [
+            "key" => "buildingConstructionYear",
+            "title" => "Շենքի կառուցման տարին*",
+            "type" => "inputNumber",
+            "style" => "306px",
+            "option" => [],
+           ],
+           [
+            "key" => "orentation",
+            "title" => "կողմնորոշումը*",
+            "type" => "select",
+            "style" => "306px",
+            "option" => [
+              [
+                "id"=> 0,
+                "name"=> "Ընտրեք տեսակը",
+                "value" => ""
+              ],
+              [
+                "id"=> 1,
+                "name"=> "Հյուսիսային",
+                "value" => "Հյուսիսային"
+              ],
+              [
+                "id"=> 2,
+                "name"=> "Հարավային",
+                "value" => "Հարավային"
+              ],
+              [
+                "id"=> 3,
+                "name"=> "Արևելյան",
+                "value" => "Արևելյան"
+              ],
+              [
+                "id"=> 4,
+                "name"=> "Արևմտյան",
+                "value" => "Արևմտյան"
+              ],
+              [
+                "id"=> 5,
+                "name"=> "Հարավ-Արևելյան",
+                "value" => "Հարավ-Արևելյան"
+              ],
+              [
+                "id"=> 6,
+                "name"=> "Հարավ-Արևմտյան",
+                "value" => "Հարավ-Արևմտյան"
+              ],
+              [
+                "id"=> 7,
+                "name"=> "Հյուսիս-Արևելյան",
+                "value" => "Հյուսիս-Արևելյան"
+              ],
+              [
+                "id"=> 8,
+                "name"=> "Հյուսիս-Արևմտյան",
+                "value" => "Հյուսիս-Արևմտյան"
+              ],
+            ]
+           ],
+          ]
+        ]
+     ] );
 $str = json_decode($str);
         // $form = GlobalForm::findorFail(1);
         // $form->am = json_decode($form->am);
