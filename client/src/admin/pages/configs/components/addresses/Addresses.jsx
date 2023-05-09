@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Search } from '../../../../components/inputs/Search'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import './Addresses.scss'
@@ -7,10 +7,26 @@ import baseApi from '../../../../../apis/baseApi'
 
 export const Addresses = () => {
   const [search, setSearch] = useState("")
-  baseApi.get('/api/getAddress')
-  .then(response => {
-      console.log(response.data, 856)
-  })
+
+  useEffect(()=>{
+    baseApi.get('/api/getAddress')
+    .then(response => {
+        console.log(response.data, 856)
+    })
+  
+    baseApi.get('/api/getAddressForStructure')
+    .then(response => {
+        console.log(response.data, 999)
+    })
+    let addressId = {
+      id: 4
+    }
+    baseApi.post('/api/deleteAddress', addressId)
+    .then(response => {
+        console.log(response.data, 999)
+    })
+  }, [])
+ 
   
 
   const [open, setOpen] = useState(false)// modal active

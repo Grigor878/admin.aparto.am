@@ -39,7 +39,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getAllStructure', [GeneralFormController::class, 'getAllStructure']);
     Route::post('/createAddress', [GeneralFormController::class, 'createAddress']);
     Route::get('/getAddress', [GeneralFormController::class, 'getAddress']);
-
+    Route::get('/getAddressForStructure', [GeneralFormController::class, 'getAddressForStructure']);
+    Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
 
     Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
     

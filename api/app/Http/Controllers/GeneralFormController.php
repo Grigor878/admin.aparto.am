@@ -47,12 +47,28 @@ class GeneralFormController extends Controller
     }
 
     public function getAddress () {
-      // $address = ConfigAddress::select(['id as addressId,  am as value, communityId'])->get();
+      $address = ConfigAddress::all();
+      return response()->json($address);
+    }
+
+    public function getAddressForStructure () {
       $address =  \DB::table('config_addresses')
       ->select(\DB::raw('id as addressId, am as value, addressId as id, communityId, am as name'))
       ->get();
       return response()->json($address);
     }
+
+    public function deleteAddress (Request $request) {
+      $id = $request->all();
+      $item = ConfigAddress::find($id['id']);
+      if (!$item) {
+          return response()->json(['message' => 'Address not found'], 404);
+      }
+      $item->delete();
+      $address = ConfigAddress::all();
+      return response()->json($address);
+    }
+    
 
     public function getFormStructure() {
 
@@ -74,7 +90,9 @@ return json_decode(GlobalForm::findorFail(1)->am);
 
     public function addGlobalFormField(Request $request) {
         $data = $request->all();
-        $this->generalFormService->addGeneralField($data);
+       $kkk =  $this->generalFormService->addGeneralField($data);
+       return $kkk;
+        dd($data);
         return json_decode(GlobalForm::findorFail(1)->am);
     }
 
