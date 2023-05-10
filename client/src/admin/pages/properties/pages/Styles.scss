@@ -15,8 +15,9 @@
   }
 
   &__card {
-    // @include flexCol;
-    display: flex;
+    @include flexCol;
+    // display: flex;
+    // flex-direction: column;
     flex-wrap: wrap;
     gap: 16px;
     background: $bgSub;

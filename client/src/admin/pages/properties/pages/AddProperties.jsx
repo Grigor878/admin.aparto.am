@@ -25,6 +25,7 @@ import { getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
 import './Styles.scss'
 import baseApi from '../../../../apis/baseApi'
+import { Checkbox } from '../../../components/checkboxes/Checkbox'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
@@ -35,10 +36,7 @@ const AddProperties = () => {
     useEffect(() => {
         dispatch(getPropertyData())
 
-          baseApi.get('/api/getAddressForStructure')
-  .then(response => {
-      console.log(response.data, 999)
-  })
+        // baseApi.get('/api/getAddressForStructure').then(response => {console.log(response.data, 999)})
     }, [dispatch])
 
     const center = data?.slice(0, 9)
@@ -68,10 +66,11 @@ const AddProperties = () => {
     }
 
     const addProp = (e) => {
-        let { id, value } = e.target
+        let { id, value, checked } = e.target
 
         setAddProperties((prev) => {
-            return { ...prev, [id]: value }
+            // aranznacnel ete inj checkbox nery
+            return { ...prev, [id]: checked ? checked : value }
         })
     }
     console.log(addProperties)//
@@ -143,7 +142,12 @@ const AddProperties = () => {
                                                         onChange={addProp}
                                                     />
                                                     : type === "checkbox"
-                                                    ? "sdf"
+                                                    ? <Checkbox
+                                                        id={key}
+                                                        title={title}
+                                                        style={style}
+                                                        onChange={addProp}
+                                                    />
                                                     : type === "numSelect"
                                                     ? <NumSelector
                                                         id={key}
@@ -175,47 +179,33 @@ const AddProperties = () => {
                                         // <div className='addproperties__card-block' key={key}>
                                         <div key={key}>
                                             {type === "select"
-                                                ? <SingleSelect
-                                                    id={key}
-                                                    title={title}
-                                                    data={option}
-                                                    style={style}
-                                                    onChange={addProp}
-                                                />
-                                                : type === "text"
-                                                    ? <LngPart
-                                                        id={key}
-                                                        title={title}
-                                                        style={style}
-                                                        addProp={addProp}
-                                                    />
-                                                    : type === "inputNumber"
-                                                        ? <InputNum
-                                                            id={key}
-                                                            title={title}
-                                                            placeholder="Ex."
-                                                            style={style}
-                                                            onChange={addProp}
-                                                        />
-                                                        : type === "inputText"
-                                                            ? <InputText
-                                                                id={key}
-                                                                title={title}
-                                                                // placeholder
-                                                                style={style}
-                                                                onChange={addProp}
-                                                            />
-                                                                : type === 'inputNumberSymbol'
-                                                                    ? <InputNumSymbol
-                                                                        id={key}
-                                                                        title={title}
-                                                                        data={option}
-                                                                        style={style}
-                                                                        onChange={addProp}
-                                                                    />
-                                                                    : type === "checkbox"
-                                                                        ? "sdf"
-                                                                            : null
+                                            ? <SingleSelect
+                                                id={key}
+                                                title={title}
+                                                data={option}
+                                                style={style}
+                                                onChange={addProp}
+                                            />
+                                            : type === "inputNumber"
+                                            ? <InputNum
+                                                id={key}
+                                                title={title}
+                                                placeholder="Ex."
+                                                style={style}
+                                                onChange={addProp}
+                                            />
+                                            : type === "inputText"
+                                            ? <InputText
+                                                id={key}
+                                                title={title}
+                                                // placeholder
+                                                style={style}
+                                                onChange={addProp}
+                                            />
+                                            : type === "addField"
+                                            ? "Ավելացնել սեփականատեր"
+                                            : type === "uploadFile"
+                                            ? "Կցել Փաստաթուղթ" : null
                                             }
                                         </div>
                                     )

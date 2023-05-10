@@ -5,7 +5,7 @@ import './Styles.scss'
 const EditProperties = () => {
     return (
         <article className='editproperties'>
-            <AddPart type="editProperties" />
+            {/* <AddPart type="editProperties" /> */}
         </article>
     )
 }

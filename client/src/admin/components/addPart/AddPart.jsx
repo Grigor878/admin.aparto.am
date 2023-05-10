@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { back } from '../../svgs/svgs'
-import { capitalize } from '../../../helpers/formatters'
+// import { capitalize } from '../../../helpers/formatters'
 import { BtnDiscard } from '../buttons/BtnDiscard'
 import { BtnCustom } from '../buttons/BtnCustom'
 import './AddPart.scss'
@@ -17,33 +17,36 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
       <div className='addpart__navigate'>
         <button onClick={() => navigate(-1)}>
           {back.icon}
-          <span>Back to All {capitalize(newPath)}</span>
+          {/* <span>Back to All {capitalize(newPath)}</span> */}
+          <span>Վերադառնալ {newPath === "users" ? "Օգտատերեր" : "Գույք"}</span>
         </button>
         {/* Users u Properies aranznacnel */}
         {type === "addUsers" || type === "addProperties"
-          ? <h3>Add a New {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
-          </h3>
-          : <h3>Edit {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
-          </h3>}
+          // ? <h3>Add a New {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
+          // : <h3>Edit {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
+          ? <h3>Ավելացնել {newPath === "users" ? "Օգտատերեր" : "Գույք"}</h3>
+          : <h3>Փոփոխել {newPath === "users" ? "Օգտատիրոջը" : "Գույքը"}</h3>}
       </div>
       {/* Users u Properies aranznacnel */}
       {type === "addUsers" || type === "addProperties"
         ? <div className='addpart__btns'>
-          <BtnDiscard text="Discard" />
+          <BtnDiscard text="Չեղարկել" />
           <BtnCustom
             form="addUserForm"
-            text={`Add This ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
+            // text={`Add This ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
+            text="Ավելացնել"
           />
         </div>
         : <div className='addpart__btns'>
           {currentUser.status === "approved"
-            ? <button className='addpart__btns-deactivate' onClick={changeStatus}>Deactivate</button>
-            : <button className='addpart__btns-deactivate' onClick={changeStatus}>Activate</button>
+            ? <button className='addpart__btns-deactivate' onClick={changeStatus}>Ապաակտիվացնել</button>
+            : <button className='addpart__btns-deactivate' onClick={changeStatus}>Ակտիվացնել</button>
           }
-          <BtnDiscard text="Discard" />
+          <BtnDiscard text="Չեղարկել" />
           <BtnCustom
             form="editUserForm"
-            text={`Save ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
+            // text={`Save ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
+            text="Պահպանել"
           />
         </div>}
 
