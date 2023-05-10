@@ -57,11 +57,13 @@ export const userCustomColumns = [
     name: "Name",
     cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
     sortable: true,
+    selector: (row) => row.email,
   },
   {
     name: "Email",
     cell: (row) => <p className="columFontSize">{row.email}</p>,
     sortable: true,
+    selector: (row) => row.email,
   },
   {
     name: "Phone Number",

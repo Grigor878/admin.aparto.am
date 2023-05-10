@@ -1358,28 +1358,18 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 ],
                 [
                   "id"=> 1,
-                  "name"=> "Լամինատ",
-                  "value" => "Լամինատ"
+                  "name"=> "Կախովի",
+                  "value" => "Կախովի"
                 ],
                 [
                   "id"=> 2,
-                  "name"=> "Մանրահատակ",
-                  "value" => "Մանրահատակ"
+                  "name"=> "Ձգվող",
+                  "value" => "Ձգվող"
                 ],
                 [
                   "id"=> 3,
-                  "name"=> "Սալիկ",
-                  "value" => "Սալիկ"
-                ],
-                [
-                  "id"=> 4,
                   "name"=> "Բետոն",
                   "value" => "Բետոն"
-                ],
-                [
-                  "id"=> 5,
-                  "name"=> "Այլ",
-                  "value" => "Այլ"
                 ],
               ],
             ],
@@ -1396,28 +1386,18 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 ],
                 [
                   "id"=> 1,
-                  "name"=> "Լամինատ",
-                  "value" => "Լամինատ"
-                ],
-                [
-                  "id"=> 2,
-                  "name"=> "Մանրահատակ",
-                  "value" => "Մանրահատակ"
-                ],
-                [
-                  "id"=> 3,
-                  "name"=> "Սալիկ",
-                  "value" => "Սալիկ"
-                ],
-                [
-                  "id"=> 4,
                   "name"=> "Բետոն",
                   "value" => "Բետոն"
                 ],
                 [
-                  "id"=> 5,
-                  "name"=> "Այլ",
-                  "value" => "Այլ"
+                  "id"=> 2,
+                  "name"=> "Բաղդադ",
+                  "value" => "Բաղդադ"
+                ],
+                [
+                  "id"=> 3,
+                  "name"=> "Պանել",
+                  "value" => "Պանել"
                 ],
               ],
             ],
@@ -1432,7 +1412,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "video",
               "title" => "Վիդեոյի հղում*",
               "type" => "inputText",
-              "style" => "412px",
+              "style" => "639px",
               "option" => [],
             ]
           ],
@@ -1446,14 +1426,14 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "key" => "chooseWords",
               "title" => "Ընտրել բառեր*",
               "type" => "select",
-              "style" => "419px",
+              "style" => "639px",
               "option" => [],
             ],
             [
               "key" => "chossedWords",
               "title" => "Ընտրված բառեր*",
               "type" => "selecteds",
-              "style" => "412px",
+              "style" => "639px",
               "option" => [],
             ],
           ],
@@ -1500,8 +1480,8 @@ return json_decode(GlobalForm::findorFail(1)->am);
           "fields" => [
             [
               "key" => "owner",
-              "title" => "Սեփականատեր*",
-              "type" => "text",
+              "title" => "Գրեք նախընտրած ինֆորմացիան*",
+              "type" => "inputText",
               "style" => "412px",
               "option" => [],
             ],

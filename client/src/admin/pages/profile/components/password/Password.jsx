@@ -40,24 +40,24 @@ export const Password = () => {
                 <AddInput
                     id='userOldPassword'
                     type='password'
-                    placeholder='Password'
+                    placeholder="Նվազագույնը 6 արժեք"
                     name='Հին ծածկագիրը'
                 />
                 <div className='profile__bottom-form-parts'>
                     <AddInput
                         id='userNewPassword'
                         type='password'
-                        placeholder='Password'
+                        placeholder="Նվազագույնը 6 արժեք"
                         name='նոր ծածկագիրը'
                     />
                     <AddInput
                         id='userRetryPassword'
                         type='password'
-                        placeholder='Password'
+                        placeholder="Նվազագույնը 6 արժեք"
                         name='կրկնեք նոր ծածկագիրը'
                     />
                 </div>
-                <BtnCustom text="Change Password" />
+                <BtnCustom text="ՓՈԽԵԼ ԾԱԾԿԱԳԻՐԸ" />
             </form>
         </div>
     )
