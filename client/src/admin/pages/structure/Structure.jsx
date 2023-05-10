@@ -12,13 +12,14 @@ const Structure = () => {
   const [search, setSearch] = useState("")
 
   const { data, added, removed } = useSelector((state) => state.structure)
+  // console.log(data)//
 
   useEffect(() => {
     dispatch(getStructureInfo())
   }, [dispatch, added, removed])
 
-  const center = data?.slice(0, 7)
-  const right = data?.slice(7, 10)
+  const center = data?.slice(0, 9) // 7 dnel
+  const right = data?.slice(9, 12)
 
   return (
     <article className="structure">
@@ -35,28 +36,29 @@ const Structure = () => {
         ? <Loader />
         : <div className="structure__main">
           <div className="structure__center">
-            {center?.map(({ title, name, data, added }) => {
+            {center?.map(({ title, name, fields, added }) => {
               return (
                 <Card
                   key={name}
                   title={title}
                   name={name}
-                  data={data}
+                  fields={fields}
                   added={added}
                   search={title.toLowerCase().includes(search) ? "block" : 'none'}
                 />
               )
+              // console.log(fields);
             })}
           </div>
 
           <div className="structure__right">
-            {right?.map(({ title, name, data, added }) => {
+            {right?.map(({ title, name, fields, added }) => {
               return (
                 <Card
                   key={name}
                   title={title}
                   name={name}
-                  data={data}
+                  fields={fields}
                   added={added}
                   search={title.toLowerCase().includes(search) ? "block" : 'none'}
                 />

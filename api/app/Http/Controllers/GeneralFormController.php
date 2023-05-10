@@ -115,7 +115,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
           "fields" => [
             [
               "key" => "transactionType",
-              "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
+              "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ*",
               "type" => "select",
               "style" => "306px",
               "option" => [
@@ -138,7 +138,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
             ],
             [
               "key" => "propertyType",
-              "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ",
+              "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ*",
               "type" => "select",
               "style" => "306px",
               "option" => [
@@ -595,7 +595,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "surface",
                   "name"=> "Նշեք մակերեսը",
                   "symbol"=>'մ.ք.',
                   "value" => ""
@@ -609,7 +609,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "ceilingHeight",
                   "name"=> "Նշեք բարձրությունը ",
                   "symbol"=>'մետր',
                   "value" => ""
@@ -1507,7 +1507,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
 
 
         $form = GlobalForm::findorFail(1);
-        $form->am = json_encode(  $str = [
+        $form->am = json_encode(  [
           [
             'name' => "announcement",
             'title'=> "Հայտարարություն",
@@ -1515,7 +1515,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
             "fields" => [
               [
                 "key" => "transactionType",
-                "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ",
+                "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ*",
                 "type" => "select",
                 "style" => "306px",
                 "option" => [
@@ -1538,7 +1538,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               ],
               [
                 "key" => "propertyType",
-                "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ",
+                "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ*",
                 "type" => "select",
                 "style" => "306px",
                 "option" => [
@@ -1995,7 +1995,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "style" => "306px",
                 "option" => [
                   [
-                    "id"=> 1,
+                    "id"=> "surface",
                     "name"=> "Նշեք մակերեսը",
                     "symbol"=>'մ.ք.',
                     "value" => ""
@@ -2009,7 +2009,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "style" => "306px",
                 "option" => [
                   [
-                    "id"=> 1,
+                    "id"=> "ceilingHeight",
                     "name"=> "Նշեք բարձրությունը ",
                     "symbol"=>'մետր',
                     "value" => ""

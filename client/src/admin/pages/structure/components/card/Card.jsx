@@ -6,13 +6,13 @@ import { useDispatch } from 'react-redux'
 import { removeStructureField } from '../../../../../store/slices/structureSlice'
 import { success } from '../../../../../components/swal/swal'
 
-export const Card = ({ title, name, data, added, search }) => {
+export const Card = ({ title, name, fields, added, search }) => {
     const [active, setActive] = useState(true)
 
     active
-    ? (document.body.style.overflow = "auto")
-    : (document.body.style.overflow = "hidden")
-    
+        ? (document.body.style.overflow = "auto")
+        : (document.body.style.overflow = "hidden")
+
     const dispatch = useDispatch()
 
     const postRemovedField = (key) => {
@@ -29,7 +29,6 @@ export const Card = ({ title, name, data, added, search }) => {
             id: key,
         }
         const removedField = { am, en, ru }
-
         dispatch(removeStructureField({ removedField }))
         success('Field removed !')
     }
@@ -41,26 +40,22 @@ export const Card = ({ title, name, data, added, search }) => {
                 <li>
                     <span>Անվանում</span>
                 </li>
-                {data?.map((el) => {
+                {fields?.map(({ key, title }) => {
                     return (
-                        <li key={el}>
-                            <p>{el}</p>
+                        <li key={key}>
+                            <p>{title.includes('*') ? title.slice(0, -1) : title}</p>
                         </li>
                     )
                 })}
                 {/* Avelacvacnery */}
                 {added.length
-                    ? added.map((obj, index) => {
-                        const key = Object.keys(obj)[0]
-                        const value = obj[key]
-
+                    ? added.map(({ key, title }) => {
                         return (
                             <li
-                                key={key + index}
-                                // key={key}
+                                key={key}
                                 style={{ display: 'flex', justifyContent: "space-between" }}
                             >
-                                <p>{value}</p>
+                                <p>{title}</p>
                                 <button
                                     onClick={() => postRemovedField(key)}
                                 >{remove.icon}
