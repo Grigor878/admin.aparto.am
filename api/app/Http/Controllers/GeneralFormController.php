@@ -625,37 +625,37 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "NumberOfRooms",
                   "name"=> "1",
                   "value" => "1"
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "NumberOfRooms",
                   "name"=> "2",
                   "value" => "2"
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "NumberOfRooms",
                   "name"=> "3",
                   "value" => "3"
                 ],
                 [
-                  "id"=> 4,
+                  "id"=> "NumberOfRooms",
                   "name"=> "4",
                   "value" => "4"
                 ],
                 [
-                  "id"=> 5,
+                  "id"=> "NumberOfRooms",
                   "name"=> "5",
                   "value" => "5"
                 ],
                 [
-                  "id"=> 6,
+                  "id"=> "NumberOfRooms",
                   "name"=> "6",
                   "value" => "6"
                 ],
                 [
-                  "id"=> 7,
+                  "id"=> "NumberOfRooms",
                   "name"=> "7+",
                   "value" => "7+"
                 ],
@@ -668,37 +668,37 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "1",
                   "value" => "1"
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "2",
                   "value" => "2"
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "3",
                   "value" => "3"
                 ],
                 [
-                  "id"=> 4,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "4",
                   "value" => "4"
                 ],
                 [
-                  "id"=> 5,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "5",
                   "value" => "5"
                 ],
                 [
-                  "id"=> 6,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "6",
                   "value" => "6"
                 ],
                 [
-                  "id"=> 7,
+                  "id"=> "NumberOfBedrooms",
                   "name"=> "7+",
                   "value" => "7+"
                 ],
@@ -711,27 +711,27 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 1,
+                  "id"=> "NumberOfBathrooms",
                   "name"=> "1",
                   "value" => "1"
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "NumberOfBathrooms",
                   "name"=> "2",
                   "value" => "2"
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "NumberOfBathrooms",
                   "name"=> "3",
                   "value" => "3"
                 ],
                 [
-                  "id"=> 4,
+                  "id"=> "NumberOfBathrooms",
                   "name"=> "4",
                   "value" => "4"
                 ],
                 [
-                  "id"=> 5,
+                  "id"=> "NumberOfBathrooms",
                   "name"=> "5+",
                   "value" => "5+"
                 ],
@@ -744,37 +744,37 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 0,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "0",
                   "value" => "0"
                 ],
                 [
-                  "id"=> 1,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "1",
                   "value" => "1"
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "2",
                   "value" => "2"
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "3",
                   "value" => "3"
                 ],
                 [
-                  "id"=> 4,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "4",
                   "value" => "4"
                 ],
                 [
-                  "id"=> 5,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "5",
                   "value" => "5"
                 ],
                 [
-                  "id"=> 6,
+                  "id"=> "NumberOpenBalconies",
                   "name"=> "6",
                   "value" => "6"
                 ],
@@ -787,37 +787,37 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "629px",
               "option" => [
                 [
-                  "id"=> 0,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "0",
                   "value" => "0"
                 ],
                 [
-                  "id"=> 1,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "1",
                   "value" => "1"
                 ],
                 [
-                  "id"=> 2,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "2",
                   "value" => "2"
                 ],
                 [
-                  "id"=> 3,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "3",
                   "value" => "3"
                 ],
                 [
-                  "id"=> 4,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "4",
                   "value" => "4"
                 ],
                 [
-                  "id"=> 5,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "5",
                   "value" => "5"
                 ],
                 [
-                  "id"=> 6,
+                  "id"=> "NumberCloseBalconies",
                   "name"=> "6",
                   "value" => "6"
                 ],

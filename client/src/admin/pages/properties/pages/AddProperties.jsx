@@ -154,6 +154,7 @@ const AddProperties = () => {
                                                         title={title}
                                                         data={option}
                                                         style={style}
+                                                        onChange={addProp}
                                                         // value esi idn ira arjeqo addProp anel
                                                     />
                                                     : null
