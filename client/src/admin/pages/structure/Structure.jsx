@@ -12,7 +12,6 @@ const Structure = () => {
   const [search, setSearch] = useState("")
 
   const { data, added, removed } = useSelector((state) => state.structure)
-  // console.log(data)//
 
   useEffect(() => {
     dispatch(getStructureInfo())
@@ -47,7 +46,6 @@ const Structure = () => {
                   search={title.toLowerCase().includes(search) ? "block" : 'none'}
                 />
               )
-              // console.log(fields);
             })}
           </div>
 
