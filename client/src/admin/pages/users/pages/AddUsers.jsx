@@ -7,8 +7,8 @@ import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../components/SelectRole'
 import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
+import { addUserInputs } from '../data'
 import './Styles.scss'
-import { addUserInputs } from '../data';
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
@@ -51,8 +51,12 @@ const AddUsers = () => {
         };
 
         const formData = new FormData()
-        formData.append('file', avatar)
-        formData.append('fileName', avatar.name)
+
+        if (avatar) {
+            formData.append('file', avatar)
+            formData.append('fileName', avatar.name)
+        }
+
         formData.append('userInfo', JSON.stringify(userInfo))
 
         baseApi.post('/api/addUser', formData)

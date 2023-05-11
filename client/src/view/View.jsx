@@ -33,13 +33,13 @@ const View = () => {
             <Suspense fallback={<p></p>}>
                 <Routes>
                     <Route path="/" element={<LayoutMain />}>
-                        <Route index element={<Home />} />
+                        {/* <Route index element={<Home />} />
                         <Route path="for-rent" element={<Rent />} />
                         <Route path="for-rent/:id" element={<SubRent />} />
                         <Route path="for-sale" element={<Sale />} />
                         <Route path="for-sale/:id" element={<SubSale />} />
                         <Route path="our-services" element={<Services />} />
-                        <Route path="contact-us" element={<Contact />} />
+                        <Route path="contact-us" element={<Contact />} /> */}
                         <Route path="*" element={<NotFound />} />
                     </Route>
 

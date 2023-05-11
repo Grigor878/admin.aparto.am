@@ -22,17 +22,17 @@ const EditUsers = () => {
     console.log(currentUser)//
 
     const email = currentUser.email
-    const [avatar, setAvatar] = useState(currentUser.photo)
+    const [avatar, setAvatar] = useState(currentUser?.photo)
     const [uploaded, setUploaded] = useState([])
-    const [statusPhoto, setStatusPhoto] = useState(currentUser.photo)
+    const [statusPhoto, setStatusPhoto] = useState(currentUser?.photo)
     const [avatarUrl, setAvatarUrl] = useState([])
-    const [role, setRole] = useState(currentUser.role)
-    const [am, setAm] = useState(currentUser.full_name.am)
-    const [ru, setRu] = useState(currentUser.full_name.ru)
-    const [en, setEn] = useState(currentUser.full_name.en)
-    const [tel1, setTel1] = useState(currentUser.phone.tel1)
-    const [messengers, setMessengers] = useState(currentUser.phone.messengers)
-    const [tel2, setTel2] = useState(currentUser.phone.tel2)
+    const [role, setRole] = useState(currentUser?.role)
+    const [am, setAm] = useState(currentUser?.full_name?.am)
+    const [ru, setRu] = useState(currentUser?.full_name?.ru)
+    const [en, setEn] = useState(currentUser?.full_name?.en)
+    const [tel1, setTel1] = useState(currentUser?.phone?.tel1)
+    const [tel2, setTel2] = useState(currentUser?.phone?.tel2)
+    const [messengers, setMessengers] = useState(currentUser?.phone?.messengers)
 
     const addAvatar = (e) => {
         setAvatar(e.target.files[0]) // jnjel

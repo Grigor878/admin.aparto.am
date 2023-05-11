@@ -21,10 +21,10 @@ const User = () => {
                     }
                     <div className='user__info-text'>
                         <p>{
-                            userGlobal.full_name?.en.split(' ')[0]
-                            + " " +
-                            userGlobal.full_name?.en.split(' ')[1][0]
-                            + "."
+                            userGlobal?.full_name?.en?.split(' ')[0]
+                            // + " " +
+                            // userGlobal?.full_name?.en?.split(' ')[1][0]
+                            // + "."
                         }</p>
                         <span>{
                             userGlobal.role !== undefined
