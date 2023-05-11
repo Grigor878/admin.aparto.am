@@ -4,6 +4,7 @@
   &__main {
     @include flex;
     gap: 21px;
+    // justify-content: space-between;
     align-items: flex-start;
     padding: 28px 20px;
   }
@@ -164,16 +165,22 @@
     // file upload
     &-fileUpload {
       @include flex;
-      gap: 10px;
-      cursor: pointer;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      text-decoration-line: underline;
-      color: $blue;
+      justify-content: space-between;
+      width: 412px;
+      
+      &-label {
+        @include flex;
+        gap: 10px;
+        cursor: pointer;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-decoration-line: underline;
+        color: $blue;
 
-      input {
-        display: none;
+        input {
+          display: none;
+        }
       }
     }
 

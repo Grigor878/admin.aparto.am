@@ -11,7 +11,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextFull } from '../components/inputs/TextFull'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
-// import { FileUpload } from '../components/inputs/FileUpload'
+import { FileUpload } from '../components/inputs/FileUpload'
 // import { NumPrice } from '../components/inputs/NumPrice'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -38,7 +38,7 @@ const AddProperties = () => {
     const right = data?.slice(9, 12)
 
     const [addProperties, setAddProperties] = useState('')
-    const [file, setFile] = useState([])
+
     // const [fileUrl, setFileUrl] = useState([])
 
     // const [propTitleLng, setPropTitleLng] = useState('am')
@@ -54,18 +54,12 @@ const AddProperties = () => {
     //     }
     // }
 
-    const uploadFile = (e) => {
-        setFile(Object.values(e.target.files))
-        // let newArray = Object.values(file)
-        // console.log(newArray?.map(el => el.name))
-    }
-
     const addProp = (e) => {
-        let { id, value, checked } = e.target
+        let { id, value, checked, files } = e.target
 
         setAddProperties((prev) => {
             // aranznacnel ete inj checkbox nery
-            return { ...prev, [id]: checked ? checked : value }
+            return { ...prev, [id]: checked ? checked : value ? value : files }
         })
     }
     useEffect(()=>{
@@ -100,10 +94,10 @@ const AddProperties = () => {
                                                     />
                                                     : type === "text"
                                                     ? <LngPart
-                                                    id={key}
-                                                    title={title}
-                                                    style={style}
-                                                    addProp={addProp}
+                                                        id={key}
+                                                        title={title}
+                                                        style={style}
+                                                        addProp={addProp}
                                                     />
                                                     : type === "inputNumber"
                                                     ? <InputNum
@@ -202,7 +196,10 @@ const AddProperties = () => {
                                             : type === "addField"
                                             ? "Ավելացնել սեփականատեր"
                                             : type === "uploadFile"
-                                            ? "Կցել Փաստաթուղթ" : null
+                                            ? <FileUpload
+                                                onChange={addProp}
+                                            />
+                                            : null
                                             }
                                         </div>
                                     )
@@ -587,10 +584,10 @@ export default AddProperties
 //                                     placeholder='Գրեք նախընտրած ինֆորմացիան'
 //                                     onChange={addProp}
 //                                 />
-//                                 <FileUpload onChange={uploadFile} />
-//                                 {file?.map(({ name }) => {
-//                                     return <p key={name}>{name}</p>
-//                                 })}
+                                // <FileUpload onChange={uploadFile} />
+                                // {file?.map(({ name }) => {
+                                //     return <p key={name}>{name}</p>
+                                // })}
 
 //                             </div>
 //                         }

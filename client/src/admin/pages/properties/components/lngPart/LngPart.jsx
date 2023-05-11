@@ -27,7 +27,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
 
             {activeFlag === "am"
                 ? <TextLarg
-                    id={id + "_" + arm}
+                    id={id + "Am"}
                     value={arm}
                     title={title}
                     placeholder="Գրեք նկարագրությունը"
@@ -36,7 +36,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
                 />
                 : activeFlag === "ru"
                     ? <TextLarg
-                        id={id + "_" + rus}
+                        id={id + "Ru"}
                         value={rus}
                         title={title}
                         placeholder="Գրեք նկարագրությունը"
@@ -45,7 +45,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
 
                     />
                     : <TextLarg
-                        id={id + "_" + eng}
+                        id={id + "En"}
                         value={eng}
                         title={title}
                         placeholder="Գրեք նկարագրությունը"
