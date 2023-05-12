@@ -74,7 +74,7 @@ const AddUsers = () => {
             <div className='subUsers__container'>
                 <div className='subUsers__choose'>
                     {avatarUrl.length === 0
-                        ? <ImgUpload onChange={handleAvatar} />
+                        ? <ImgUpload onChange={handleAvatar} multiple={false} />
                         : avatarUrl.map((img, index) => {
                             return (
                                 <div key={index} className='subUsers__uploaded'>

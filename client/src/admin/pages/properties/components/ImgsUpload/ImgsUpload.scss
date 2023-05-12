@@ -1,0 +1,58 @@
+@import "../../../../../variables";
+
+.imgsUpload {
+  &__upload {
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+  }
+
+  &__card {
+    // @include flex;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    &-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    &-img {
+      width: 200px;
+      height: 152px;
+    }
+
+    &-btns {
+      @include flex;
+      gap: 6px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+
+      &-delete {
+        @include flex;
+        justify-content: center;
+        background: rgba(50, 51, 56, 0.9);
+        border-radius: 4px;
+        padding: 5px 6px;
+      }
+
+      &-hideShow {
+        @include flex;
+        justify-content: center;
+        gap: 3px;
+        background: rgba(50, 51, 56, 0.9);
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $bg;
+      }
+    }
+  }
+}

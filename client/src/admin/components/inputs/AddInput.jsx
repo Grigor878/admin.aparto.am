@@ -1,6 +1,8 @@
 import React from 'react'
 import './Inputs.scss'
 
+// ^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$ full name regex
+
 export const AddInput = ({ id, type, placeholder, name, onChange }) => {
     return (
         <label className='dash__label'>

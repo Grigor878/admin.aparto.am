@@ -1387,10 +1387,17 @@ return json_decode(GlobalForm::findorFail(1)->am);
           ],
         ],
         [
-          'name' => "Media",
+          'name' => "media",
           'title'=> "Մեդիա",
           'added'=> [],
           "fields" => [
+            [
+              "key" => "uploadedImgs",
+              "title" => "",
+              "type" => "imgsUpload",
+              "style" => "639px",
+              "option" => [],
+            ],
             [
               "key" => "video",
               "title" => "Վիդեոյի հղում*",
@@ -1408,15 +1415,8 @@ return json_decode(GlobalForm::findorFail(1)->am);
             [
               "key" => "chooseWords",
               "title" => "Ընտրել բառեր*",
-              "type" => "select",
-              "style" => "639px",
-              "option" => [],
-            ],
-            [
-              "key" => "chossedWords",
-              "title" => "Ընտրված բառեր*",
-              "type" => "selecteds",
-              "style" => "639px",
+              "type" => "keyword",
+              "style" => "631px",
               "option" => [],
             ],
           ],
@@ -1447,13 +1447,6 @@ return json_decode(GlobalForm::findorFail(1)->am);
               "style" => "217px",
               "option" => [],
             ],
-            // [
-            //   "key" => "ownerAdded",
-            //   "title" => "Ավելացված Սեփականատեր*",
-            //   "type" => "inputText",
-            //   "style" => "412px",
-            //   "option" => [],
-            // ],
           ],
         ],
         [
@@ -1498,7 +1491,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
             ],
           ],
         ],
-     ] ;
+      ] ;
      
      return response()->json($str);
   }
@@ -2787,10 +2780,17 @@ return json_decode(GlobalForm::findorFail(1)->am);
             ],
           ],
           [
-            'name' => "Media",
+            'name' => "media",
             'title'=> "Մեդիա",
             'added'=> [],
             "fields" => [
+              [
+                "key" => "uploadedImgs",
+                "title" => "",
+                "type" => "imgsUpload",
+                "style" => "639px",
+                "option" => [],
+              ],
               [
                 "key" => "video",
                 "title" => "Վիդեոյի հղում*",
@@ -2808,15 +2808,8 @@ return json_decode(GlobalForm::findorFail(1)->am);
               [
                 "key" => "chooseWords",
                 "title" => "Ընտրել բառեր*",
-                "type" => "select",
-                "style" => "639px",
-                "option" => [],
-              ],
-              [
-                "key" => "chossedWords",
-                "title" => "Ընտրված բառեր*",
-                "type" => "selecteds",
-                "style" => "639px",
+                "type" => "keyword",
+                "style" => "631px",
                 "option" => [],
               ],
             ],
@@ -2847,13 +2840,6 @@ return json_decode(GlobalForm::findorFail(1)->am);
                 "style" => "217px",
                 "option" => [],
               ],
-              // [
-              //   "key" => "ownerAdded",
-              //   "title" => "Ավելացված Սեփականատեր*",
-              //   "type" => "inputText",
-              //   "style" => "412px",
-              //   "option" => [],
-              // ],
             ],
           ],
           [
@@ -2898,7 +2884,7 @@ return json_decode(GlobalForm::findorFail(1)->am);
               ],
             ],
           ],
-       ] );
+        ]);
        $form->save();
 //         $form->am = json_encode(
 //           [

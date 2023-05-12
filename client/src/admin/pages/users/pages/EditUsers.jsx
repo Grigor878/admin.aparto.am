@@ -19,7 +19,6 @@ const EditUsers = () => {
     const { users } = useSelector((state => state.users))
     
     const currentUser = users.find(item => item.id === userId)
-    console.log(currentUser)//
 
     const email = currentUser.email
     const [avatar, setAvatar] = useState(currentUser?.photo)
@@ -86,7 +85,7 @@ const EditUsers = () => {
             },
             role: role,
         }
-        console.log("test", userInfo)//
+        // console.log("test", userInfo)//
 
         const formData = new FormData()
         formData.append('file', uploaded)
@@ -94,7 +93,7 @@ const EditUsers = () => {
         formData.append('avatarChangeStatus', statusPhoto)
         formData.append('userEditedInfo', JSON.stringify(userInfo))
 
-        console.log("test2", formData)//
+        // console.log("test2", formData)//
 
         baseApi.post('/api/editUser', formData)
             .then((res) => {

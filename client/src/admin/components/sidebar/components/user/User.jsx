@@ -20,12 +20,10 @@ const User = () => {
                         : <img src={API_BASE_URL + '/images/' + userGlobal.photo} alt="User" />
                     }
                     <div className='user__info-text'>
-                        <p>{
-                            userGlobal?.full_name?.en?.split(' ')[0]
-                            // + " " +
-                            // userGlobal?.full_name?.en?.split(' ')[1][0]
-                            // + "."
-                        }</p>
+                        {userGlobal.full_name?.en?.split(' ')[1]
+                            ? <p>{userGlobal.full_name?.en?.split(' ')[0] + " " + userGlobal.full_name?.en?.split(' ')[1][0] + "."} </p>
+                            : <p>{userGlobal.full_name?.en?.split(' ')[0]}</p>}
+
                         <span>{
                             userGlobal.role !== undefined
                                 ? capitalize(userGlobal.role)

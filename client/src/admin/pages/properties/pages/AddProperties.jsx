@@ -11,38 +11,34 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextFull } from '../components/inputs/TextFull'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
-import { FileUpload } from '../components/inputs/FileUpload'
 // import { NumPrice } from '../components/inputs/NumPrice'
+// import baseApi from '../../../../apis/baseApi'
+import { getPropertyData } from '../../../../store/slices/propertySlice'
+import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
 import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { NumSelector } from '../components/inputs/NumSelector'
-import { getPropertyData } from '../../../../store/slices/propertySlice'
-// import baseApi from '../../../../apis/baseApi'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
+import { Keywords } from '../components/keywords/Keywords'
+import { ImgsUpload } from '../components/ImgsUpload/ImgsUpload'
 import './Styles.scss'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
 
     const { data } = useSelector((state) => state.property)
+    // console.log(data)
     
     useEffect(() => {
         dispatch(getPropertyData())
-        // console.log(data)
-        // baseApi.get('/api/getAddressForStructure').then(response => {console.log(response.data, 999)})
     }, [dispatch])
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
 
-    const [addProperties, setAddProperties] = useState('')
-
     // const [fileUrl, setFileUrl] = useState([])
-
-    // const [propTitleLng, setPropTitleLng] = useState('am')
-    // const [propDescLng, setPropDescLng] = useState('am')
 
     // old,only addeds
     // const getStrInfo = async () => {
@@ -54,6 +50,8 @@ const AddProperties = () => {
     //     }
     // }
 
+    const [addProperties, setAddProperties] = useState('')
+    
     const addProp = (e) => {
         let { id, value, checked, files } = e.target
 
@@ -62,6 +60,7 @@ const AddProperties = () => {
             return { ...prev, [id]: checked ? checked : value ? value : files }
         })
     }
+
     useEffect(()=>{
         console.log(addProperties)//
     },[addProperties])
@@ -146,6 +145,17 @@ const AddProperties = () => {
                                                         style={style}
                                                         onChange={addProp}
                                                         // value esi idn ira arjeqo addProp anel
+                                                    />
+                                                    : type === "keyword"
+                                                    ? <Keywords
+                                                        id={key}
+                                                        title={title}
+                                                        style={style}
+                                                    />
+                                                    : type === "imgsUpload"
+                                                    ? <ImgsUpload
+                                                        id={key}
+                                                        style={style}
                                                     />
                                                     : null
                                                 }
