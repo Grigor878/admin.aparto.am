@@ -86,7 +86,18 @@ class GeneralFormController extends Controller
         $form->ru = json_decode($form->ru);
         $form->en = json_decode($form->en);
 
-return json_decode(GlobalForm::findorFail(1)->am);
+      return json_decode(GlobalForm::findorFail(1)->am);
+    }
+
+    public function multyPhoto(Request $request){
+      $data = $request->all();
+      $photoName = [];
+      foreach ($data as $key => $photo) {
+        $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+        $photo->move(public_path('images'), $fileName);
+        $photoName[] = $fileName;
+      }
+      dd($photoName);
     }
 
     public function addGlobalFormField(Request $request) {

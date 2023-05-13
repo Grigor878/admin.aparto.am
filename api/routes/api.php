@@ -41,6 +41,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getAddress', [GeneralFormController::class, 'getAddress']);
     Route::get('/getAddressForStructure', [GeneralFormController::class, 'getAddressForStructure']);
     Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
+    
+    Route::post('/multyPhoto',  [GeneralFormController::class, 'multyPhoto']);
 
     Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
     

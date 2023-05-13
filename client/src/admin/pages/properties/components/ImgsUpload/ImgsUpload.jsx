@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import './ImgsUpload.scss'
+import baseApi from '../../../../../apis/baseApi';
 
 export const ImgsUpload = ({ id, style }) => {
     const [images, setImages] = useState([]);
@@ -50,7 +51,7 @@ export const ImgsUpload = ({ id, style }) => {
             formData.append(`image${index}`, image);
         });
         console.log(formData)
-        // axios.post('/your-backend-endpoint', formData);
+        // baseApi.post('api/multyPhoto', formData);
     };
 
     return (
