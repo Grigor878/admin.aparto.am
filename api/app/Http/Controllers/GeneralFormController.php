@@ -91,13 +91,14 @@ class GeneralFormController extends Controller
 
     public function multyPhoto(Request $request){
       $data = $request->all();
-      $photoName = [];
-      foreach ($data as $key => $photo) {
-        $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
-        $photo->move(public_path('images'), $fileName);
-        $photoName[] = $fileName;
-      }
-      dd($photoName);
+      dd($data);
+      // $photoName = [];
+      // foreach ($data as $key => $photo) {
+      //   $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+      //   $photo->move(public_path('images'), $fileName);
+      //   $photoName[] = $fileName;
+      // }
+      // dd($photoName);
     }
 
     public function addGlobalFormField(Request $request) {
