@@ -1,57 +1,54 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import './ImgsUpload.scss'
-// import baseApi from '../../../../../apis/baseApi';
 
 export const ImgsUpload = ({ style }) => {
-    const [images, setImages] = useState([]);
-    const [previewImages, setPreviewImages] = useState([]);
-    const [visibleImages, setVisibleImages] = useState([]);
+    const [images, setImages] = useState([])
+    const [previewImages, setPreviewImages] = useState([])
+    const [visibleImages, setVisibleImages] = useState([])
+
+    const dispatch = useDispatch()
 
     const handleImageUpload = (e) => {
-        const files = Array.from(e.target.files);
-        const uploadedImages = files.map((file) => URL.createObjectURL(file));
-
-        setImages((prevImages) => [...prevImages, ...files]);
-        setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages]);
-        setVisibleImages((prevVisible) => [...prevVisible, ...Array(files.length).fill(true)]);
-    };
+        const files = Array.from(e?.target?.files)
+        // console.log(files)//
+        const uploadedImages = files.map((file) => URL.createObjectURL(file))
+        setImages((prevImages) => [...prevImages, ...files])
+        setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
+        setVisibleImages((prevVisible) => [...prevVisible, ...Array(files.length).fill(true)])
+    }
 
     const handleImageDelete = (index) => {
         setImages((prevImages) => {
-            const updatedImages = [...prevImages];
-            updatedImages.splice(index, 1);
-            return updatedImages;
+            const updatedImages = [...prevImages]
+            updatedImages.splice(index, 1)
+            return updatedImages
         });
 
         setPreviewImages((prevPreviews) => {
-            const updatedPreviews = [...prevPreviews];
-            updatedPreviews.splice(index, 1);
-            return updatedPreviews;
+            const updatedPreviews = [...prevPreviews]
+            updatedPreviews.splice(index, 1)
+            return updatedPreviews
         });
 
         setVisibleImages((prevVisible) => {
-            const updatedVisible = [...prevVisible];
-            updatedVisible.splice(index, 1);
-            return updatedVisible;
+            const updatedVisible = [...prevVisible]
+            updatedVisible.splice(index, 1)
+            return updatedVisible
         });
-    };
+
+
+    }
 
     const handleToggleVisibility = (index) => {
         setVisibleImages((prevVisible) => {
-            const updatedVisible = [...prevVisible];
-            updatedVisible[index] = !updatedVisible[index];
-            return updatedVisible;
+            const updatedVisible = [...prevVisible]
+            updatedVisible[index] = !updatedVisible[index]
+            return updatedVisible
         });
-    };
-
-    const handleUpload = () => {
-        const formData = new FormData();
-        images.forEach((image, index) => {
-            formData.append(`image${index}`, image);
-        });
-        // baseApi.post('api/multyPhoto', formData);
-    };
+    }
 
     const dragItem = useRef(null)
     const dragOverItem = useRef(null)
@@ -69,9 +66,22 @@ export const ImgsUpload = ({ style }) => {
         setPreviewImages(duplicates)
     }
 
+    const updateUploadPhoto = () => {
+        const formData = new FormData()
+        previewImages.forEach((image, index) => {
+            formData.append(`image${index}`, image)
+        });
+        dispatch(setUploadPhoto(formData))//
+    }
+
+    useEffect(() => {
+        updateUploadPhoto()
+        console.log('rendered')
+    }, [previewImages])
+
     return (
         <div style={{ width: style }} className='imgsUpload'>
-            <button onClick={handleUpload}>Send</button>
+            {/* <button onClick={handleUpload}>Send</button> */}
 
             <div className='imgsUpload__card'>
                 <label className='imgsUpload__upload'>

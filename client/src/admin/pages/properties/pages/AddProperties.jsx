@@ -13,7 +13,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
 // import baseApi from '../../../../apis/baseApi'
-import { getPropertyData } from '../../../../store/slices/propertySlice'
+import { addPropertiesImgs, getPropertyData, getUploadPhoto } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -28,6 +28,8 @@ import './Styles.scss'
 const AddProperties = () => {
     const dispatch = useDispatch()
 
+    // const uploadPhoto = useSelector(getUploadPhoto)
+    const { uploadPhoto } = useSelector((state) => state.property)
     const { data } = useSelector((state) => state.property)
     // console.log(data)
 
@@ -37,18 +39,6 @@ const AddProperties = () => {
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
-
-    // const [fileUrl, setFileUrl] = useState([])
-
-    // old,only addeds
-    // const getStrInfo = async () => {
-    //     try {
-    //         const { data } = await baseApi.get('/api/getAddFields')
-    //         setStrInfo(data)
-    //     } catch (err) {
-    //         console.log(`Get Structure Info: ${err.message}`);
-    //     }
-    // }
 
     const [addProperties, setAddProperties] = useState('')
 
@@ -60,14 +50,12 @@ const AddProperties = () => {
             return { ...prev, [id]: checked ? checked : value ? value : files }
         })
     }
-
-    useEffect(() => {
-        console.log(addProperties)//
-    }, [addProperties])
+    // console.log(addProperties)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('clicked')
+
+        dispatch(addPropertiesImgs({ uploadPhoto }))
     }
 
     return (
@@ -159,8 +147,7 @@ const AddProperties = () => {
                                                                                     />
                                                                                     : type === "imgsUpload"
                                                                                         ? <ImgsUpload
-                                                                                            style={style}
-                                                                                        />
+                                                                                            style={style} />
                                                                                         : null
                                                 }
                                             </div>
@@ -231,3 +218,14 @@ const AddProperties = () => {
 }
 
 export default AddProperties
+
+
+    // old,only addeds
+    // const getStrInfo = async () => {
+    //     try {
+    //         const { data } = await baseApi.get('/api/getAddFields')
+    //         setStrInfo(data)
+    //     } catch (err) {
+    //         console.log(`Get Structure Info: ${err.message}`);
+    //     }
+    // }

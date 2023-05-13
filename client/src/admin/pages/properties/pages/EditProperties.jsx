@@ -6,7 +6,7 @@ const EditProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('clicked')
+        alert('clicked')
     }
 
     return (
