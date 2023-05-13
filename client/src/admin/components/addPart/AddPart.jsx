@@ -20,15 +20,16 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
           {/* <span>Back to All {capitalize(newPath)}</span> */}
           <span>Վերադառնալ {newPath === "users" ? "Օգտատերեր" : "Գույք"}</span>
         </button>
-        {/* Users u Properies aranznacnel */}
+
         {type === "addUsers" || type === "addProperties"
           // ? <h3>Add a New {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
           // : <h3>Edit {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
           ? <h3>Ավելացնել {newPath === "users" ? "Օգտատերեր" : "Գույք"}</h3>
           : <h3>Փոփոխել {newPath === "users" ? "Օգտատիրոջը" : "Գույքը"}</h3>}
       </div>
-      {/* Users u Properies aranznacnel */}
-      {type === "addUsers" || type === "addProperties"
+
+      {/* Add/Edit Users */}
+      {type === "addUsers"
         ? <div className='addpart__btns'>
           <BtnDiscard text="Չեղարկել" />
           <BtnCustom
@@ -37,7 +38,10 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
             text="Ավելացնել"
           />
         </div>
-        : <div className='addpart__btns'>
+        : null
+      }
+      {type === "editUser"
+        ? <div className='addpart__btns'>
           {currentUser.status === "approved"
             ? <button className='addpart__btns-deactivate' onClick={changeStatus}>Ապաակտիվացնել</button>
             : <button className='addpart__btns-deactivate' onClick={changeStatus}>Ակտիվացնել</button>
@@ -48,8 +52,35 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
             // text={`Save ${newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}`}
             text="Պահպանել"
           />
-        </div>}
+        </div>
+        : null
+      }
 
+      {/* Add/Edit Properties */}
+      {type === "addProperties"
+        ? <div className='addpart__btns'>
+          <BtnDiscard text="Չեղարկել" />
+          <BtnCustom
+            form="addPropertiesForm"
+            text="Ավելացնել"
+          />
+        </div>
+        : null
+      }
+      {type === "editProperties"
+        ? <div className='addpart__btns'>
+          {/* {currentUser.status === "approved"
+            ? <button className='addpart__btns-deactivate' onClick={changeStatus}>Ապաակտիվացնել</button>
+            : <button className='addpart__btns-deactivate' onClick={changeStatus}>Ակտիվացնել</button>
+          } */}
+          <BtnDiscard text="Չեղարկել" />
+          <BtnCustom
+            form="editPropertiesForm"
+            text="Պահպանել"
+          />
+        </div>
+        : null
+      }
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { file } from '../../../../svgs/svgs'
 // import baseApi from '../../../../../apis/baseApi'
 
-export const FileUpload = ({ onChange }) => {
+export const FileUpload = ({ id, onChange }) => {
     const [upload, setUpload] = useState([])
 
     const uploadFile = (e) => {

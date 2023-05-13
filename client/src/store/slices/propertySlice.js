@@ -15,8 +15,31 @@ export const getPropertyData = createAsyncThunk("property", async () => {
   }
 });
 
+// nkarneri uxarkelu hamar
+export const addPropertiesImgs = createAsyncThunk(
+  "property/addPropertiesImgs",
+  async ({ formData }) => {
+    try {
+      await baseApi.post("/api/multyPhoto", formData);
+    } catch (err) {
+      console.log(`Add Properties Imgs Sending Error: ${err.message}`);
+    }
+  }
+);
+// fileri uxarkelu hamar
+export const addPropertiesFiles = createAsyncThunk(
+  "property/addPropertiesFiles",
+  async ({ formData }) => {
+    try {
+      await baseApi.post("/api/multyPhoto", formData);
+    } catch (err) {
+      console.log(`Add Properties Files Sending Error: ${err.message}`);
+    }
+  }
+);
+
 const structureSlice = createSlice({
-  name: "structure",
+  name: "property",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

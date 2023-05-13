@@ -30,7 +30,7 @@ const AddProperties = () => {
 
     const { data } = useSelector((state) => state.property)
     // console.log(data)
-    
+
     useEffect(() => {
         dispatch(getPropertyData())
     }, [dispatch])
@@ -51,7 +51,7 @@ const AddProperties = () => {
     // }
 
     const [addProperties, setAddProperties] = useState('')
-    
+
     const addProp = (e) => {
         let { id, value, checked, files } = e.target
 
@@ -61,18 +61,23 @@ const AddProperties = () => {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(addProperties)//
-    },[addProperties])
+    }, [addProperties])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('clicked')
+    }
 
     return (
         <article className='addproperties'>
             <AddPart type="addProperties" />
 
-               {!data 
-               ? <Loader />
-               : <div className='addproperties__main'>
-                   {/* Center part */}
+            {!data
+                ? <Loader />
+                : <form id="addPropertiesForm" onSubmit={handleSubmit} className='addproperties__main'>
+                    {/* Center part */}
                     <div className='addproperties__center'>
                         {center?.map(({ name, title, fields, added }) => {
                             return (
@@ -84,607 +89,145 @@ const AddProperties = () => {
                                         return (
                                             <div key={key}>
                                                 {type === "select"
-                                                ? <SingleSelect
-                                                    id={key}
-                                                    title={title}
-                                                    data={option}
-                                                    style={style}
-                                                    onChange={addProp}
+                                                    ? <SingleSelect
+                                                        id={key}
+                                                        title={title}
+                                                        data={option}
+                                                        style={style}
+                                                        onChange={addProp}
                                                     />
                                                     : type === "text"
-                                                    ? <LngPart
-                                                        id={key}
-                                                        title={title}
-                                                        style={style}
-                                                        addProp={addProp}
-                                                    />
-                                                    : type === "inputNumber"
-                                                    ? <InputNum
-                                                        id={key}
-                                                        title={title}
-                                                        placeholder="Ex."
-                                                        style={style}
-                                                        onChange={addProp}
-                                                    />
-                                                    : type === "inputText"
-                                                    ? <InputText
-                                                        id={key}
-                                                        title={title}
-                                                        // placeholder
-                                                        style={style}
-                                                        onChange={addProp}
-                                                    />
-                                                    : type === "map"
-                                                    ? <YandexMap
-                                                        id={key}
-                                                        title={title}
-                                                        style={style}
-                                                        height='200px'
-                                                        onChange={addProp}
-                                                    />
-                                                    : type === 'inputNumberSymbol'
-                                                    ? <InputNumSymbol
-                                                        id={key}
-                                                        title={title}
-                                                        data={option}
-                                                        style={style}
-                                                        onChange={addProp}
-                                                    />
-                                                    : type === "checkbox"
-                                                    ? <Checkbox
-                                                        id={key}
-                                                        title={title}
-                                                        style={style}
-                                                        onChange={addProp}
-                                                    />
-                                                    : type === "numSelect"
-                                                    ? <NumSelector
-                                                        id={key}
-                                                        title={title}
-                                                        data={option}
-                                                        style={style}
-                                                        onChange={addProp}
-                                                        // value esi idn ira arjeqo addProp anel
-                                                    />
-                                                    : type === "keyword"
-                                                    ? <Keywords
-                                                        id={key}
-                                                        title={title}
-                                                        style={style}
-                                                    />
-                                                    : type === "imgsUpload"
-                                                    ? <ImgsUpload
-                                                        id={key}
-                                                        style={style}
-                                                    />
-                                                    : null
+                                                        ? <LngPart
+                                                            id={key}
+                                                            title={title}
+                                                            style={style}
+                                                            addProp={addProp}
+                                                        />
+                                                        : type === "inputNumber"
+                                                            ? <InputNum
+                                                                id={key}
+                                                                title={title}
+                                                                placeholder="Ex."
+                                                                style={style}
+                                                                onChange={addProp}
+                                                            />
+                                                            : type === "inputText"
+                                                                ? <InputText
+                                                                    id={key}
+                                                                    title={title}
+                                                                    // placeholder
+                                                                    style={style}
+                                                                    onChange={addProp}
+                                                                />
+                                                                : type === "map"
+                                                                    ? <YandexMap
+                                                                        id={key}
+                                                                        title={title}
+                                                                        style={style}
+                                                                        height='200px'
+                                                                        onChange={addProp}
+                                                                    />
+                                                                    : type === 'inputNumberSymbol'
+                                                                        ? <InputNumSymbol
+                                                                            id={key}
+                                                                            title={title}
+                                                                            data={option}
+                                                                            style={style}
+                                                                            onChange={addProp}
+                                                                        />
+                                                                        : type === "checkbox"
+                                                                            ? <Checkbox
+                                                                                id={key}
+                                                                                title={title}
+                                                                                style={style}
+                                                                                onChange={addProp}
+                                                                            />
+                                                                            : type === "numSelect"
+                                                                                ? <NumSelector
+                                                                                    id={key}
+                                                                                    title={title}
+                                                                                    data={option}
+                                                                                    style={style}
+                                                                                    onChange={addProp}
+                                                                                // value esi idn ira arjeqo addProp anel
+                                                                                />
+                                                                                : type === "keyword"
+                                                                                    ? <Keywords
+                                                                                        id={key}
+                                                                                        title={title}
+                                                                                        style={style}
+                                                                                    />
+                                                                                    : type === "imgsUpload"
+                                                                                        ? <ImgsUpload
+                                                                                            style={style}
+                                                                                        />
+                                                                                        : null
                                                 }
                                             </div>
                                         )
                                     })
                                     }
                                 />
-                            )})}
+                            )
+                        })}
                     </div>
 
                     {/* Right part */}
                     <div className='addproperties__right'>
-                        {right?.map(({ name, title, fields, added })=>{
-                            return(
+                        {right?.map(({ name, title, fields, added }) => {
+                            return (
                                 <Card
-                                key={name}
-                                title={title}
-                                width="460px"
-                                child={fields.map(({ key, title, type, option, style }) => {
-                                    return (
-                                        // <div className='addproperties__card-block' key={key}>
-                                        <div key={key}>
-                                            {type === "select"
-                                            ? <SingleSelect
-                                                id={key}
-                                                title={title}
-                                                data={option}
-                                                style={style}
-                                                onChange={addProp}
-                                            />
-                                            : type === "inputNumber"
-                                            ? <InputNum
-                                                id={key}
-                                                title={title}
-                                                placeholder="Ex."
-                                                style={style}
-                                                onChange={addProp}
-                                            />
-                                            : type === "inputText"
-                                            ? <InputText
-                                                id={key}
-                                                title={title}
-                                                // placeholder
-                                                style={style}
-                                                onChange={addProp}
-                                            />
-                                            : type === "addField"
-                                            ? "Ավելացնել սեփականատեր"
-                                            : type === "uploadFile"
-                                            ? <FileUpload
-                                                onChange={addProp}
-                                            />
-                                            : null
-                                            }
-                                        </div>
-                                    )
-                                })
-                                }
+                                    key={name}
+                                    title={title}
+                                    width="460px"
+                                    child={fields.map(({ key, title, type, option, style }) => {
+                                        return (
+                                            <div key={key}>
+                                                {type === "select"
+                                                    ? <SingleSelect
+                                                        id={key}
+                                                        title={title}
+                                                        data={option}
+                                                        style={style}
+                                                        onChange={addProp}
+                                                    />
+                                                    : type === "inputNumber"
+                                                        ? <InputNum
+                                                            id={key}
+                                                            title={title}
+                                                            placeholder="Ex."
+                                                            style={style}
+                                                            onChange={addProp}
+                                                        />
+                                                        : type === "inputText"
+                                                            ? <InputText
+                                                                id={key}
+                                                                title={title}
+                                                                // placeholder
+                                                                style={style}
+                                                                onChange={addProp}
+                                                            />
+                                                            : type === "addField"
+                                                                ? "Ավելացնել սեփականատեր"
+                                                                : type === "uploadFile"
+                                                                    ? <FileUpload
+                                                                        id={key}
+                                                                        onChange={addProp}
+                                                                    />
+                                                                    : null
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                    }
                                 />
                             )
                         })}
                     </div>
-               </div>
-               } 
+                </form>
+            }
         </article>
     )
 }
 
 export default AddProperties
-
-
-
-
-// {/* <Card
-//                         title="Հայտարարություն"
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <div className='addproperties__card-row'>
-//                                     <SingleSelect
-//                                         id="announcement_transactionType"
-//                                         title="Գործարքի տեսակ"
-//                                         data={transactionType}
-//                                         onChange={addProp}
-//                                     />
-//                                     <SingleSelect
-//                                         id="announcement_propertyType"
-//                                         title="Գույքի տեսակ"
-//                                         data={propertyType}
-//                                         onChange={addProp}
-//                                     />
-//                                 </div>
-//                                 <ul className='addproperties__card-flags'>
-//                                     {flags.map(({ country_code }) => (
-//                                         <li key={country_code} >
-//                                             <Flag
-//                                                 code={country_code}
-//                                                 onClick={() => setPropTitleLng(country_code)}
-//                                                 width="36"
-//                                                 height="20"
-//                                                 className={propTitleLng === country_code ? 'addproperties__card-flags-flagActive' : 'addproperties__card-flags-flag'}
-//                                             />
-//                                         </li>
-//                                     ))}
-//                                 </ul>
-//                                 {propTitleLng === "am"
-//                                     ? <TextLarg
-//                                         id="announcement_title-am"
-//                                         title="Հայտարարության վերնագիր"
-//                                         placeholder="Գրեք վերնագիրը"
-//                                         onChange={addProp}
-//                                     />
-//                                     : propTitleLng === "ru"
-//                                         ? <TextLarg
-//                                             id="announcement_title-ru"
-//                                             title="Հայտարարության վերնագիր RU"
-//                                             placeholder="Գրեք վերնագիրը"
-//                                             // placeholder="Напишите название"
-//                                             onChange={addProp}
-//                                         /> :
-//                                         <TextLarg
-//                                             id="announcement_title-en"
-//                                             title="Հայտարարության վերնագիր GB"
-//                                             placeholder="Գրեք վերնագիրը"
-//                                             // placeholder="Write the title"
-//                                             onChange={addProp}
-//                                         />
-//                                 }
-//                                 <ul className='addproperties__card-flags'>
-//                                     {flags.map(({ country_code }) => (
-//                                         <li key={country_code} >
-//                                             <Flag
-//                                                 onClick={() => setPropDescLng(country_code)} code={country_code}
-//                                                 width="36"
-//                                                 height="20"
-//                                                 className={propDescLng === country_code ? 'addproperties__card-flags-flagActive' : 'addproperties__card-flags-flag'}
-//                                             />
-//                                         </li>
-//                                     ))}
-//                                 </ul>
-//                                 {propDescLng === "am"
-//                                     ? <TextLarg
-//                                         id="announcement_description-am"
-//                                         title="Հայտարարության նկարագրություն"
-//                                         placeholder="Գրեք նկարագրությունը"
-//                                         onChange={addProp}
-//                                     />
-//                                     : propDescLng === "ru"
-//                                         ? <TextLarg
-//                                             id="announcement_description-ru"
-//                                             title="Հայտարարության նկարագրություն RU"
-//                                             // placeholder="Напишите описание"
-//                                             placeholder="Գրեք նկարագրությունը"
-//                                             onChange={addProp}
-//                                         />
-//                                         : <TextLarg
-//                                             id="announcement_description-en"
-//                                             title="Հայտարարության նկարագրություն GB"
-//                                             // placeholder="Write the description"
-//                                             placeholder="Գրեք նկարագրությունը"
-//                                             onChange={addProp}
-//                                         />
-//                                 }
-//                                 <SingleSelect
-//                                     id="announcement_statementType"
-//                                     title="հայտարարության տեսակ"
-//                                     data={statementType}
-//                                     onChange={addProp}
-//                                 />
-                                
-//                                 {fields
-//                                     ? <AddedFields
-//                                         data={fields?.am?.announcement}
-//                                         addProp={addProp}
-//                                     />
-//                                     : null}
-//                             </div>
-//                         }
-//                     /> */}
-//                     {/* <Card
-//                         title="Գտնվելու Վայրը - Երևան"
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <SingleSelect
-//                                     id="location_community"
-//                                     title="Համայնք"
-//                                     data={community}
-//                                     onChange={addProp}
-//                                 />
-//                                 <div className='addproperties__card-row'>
-//                                     <TextMid
-//                                         id="location_street"
-//                                         title="Փողոց"
-//                                         placeholder="Հասցե"
-//                                         onChange={addProp}
-//                                     />
-//                                     <TextSmall
-//                                         id="location_house"
-//                                         title="Շենք"
-//                                         placeholder="Օրինակ"
-//                                         onChange={addProp}
-//                                     />
-//                                     <TextSmall
-//                                         id="place_entrance"
-//                                         title="մուտք"
-//                                         placeholder="Օրինակ"
-//                                         onChange={addProp}
-//                                     />
-//                                     <TextSmall
-//                                         id="location_apartment"
-//                                         title="Բնակարան"
-//                                         placeholder="Օրինակ"
-//                                         onChange={addProp}
-//                                     />
-//                                 </div>
-//                                 <p>Yandex map</p>
-//                                 <TextFull
-//                                     id="location_realAddress"
-//                                     title="իրական հասցե"
-//                                     placeholder="Հասցե"
-//                                     onChange={addProp}
-//                                 />
-//                             </div>
-//                         }
-//                     />
-//                     <Card
-//                         title='Գինը'
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <div className='addproperties__card-rowGap'>
-//                                     <NumPrice
-//                                         title="Ընդհանուր Գինը*"
-//                                         id="price_usd"
-//                                         placeholder="Գինը դոլարով"
-//                                         onChange={addProp}
-//                                         ex="USD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_amd"
-//                                         placeholder="Գինը դրամով"
-//                                         onChange={addProp}
-//                                         ex="AMD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_rub"
-//                                         placeholder="Գինը ռուբլիով"
-//                                         onChange={addProp}
-//                                         ex="RUB"
-//                                     />
-//                                 </div>
-//                                 <p>Gin paymanagrayin</p>
-//                                 <div className='addproperties__card-rowGap'>
-//                                     <NumPrice
-//                                         title="Գինը 1 քմ*"
-//                                         id="price_sqm-usd"
-//                                         placeholder="Գինը դոլարով"
-//                                         onChange={addProp}
-//                                         ex="USD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_sqm-amd"
-//                                         placeholder="Գինը դրամով"
-//                                         onChange={addProp}
-//                                         ex="AMD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_sqm-rub"
-//                                         placeholder="Գինը ռուբլիով"
-//                                         onChange={addProp}
-//                                         ex="RUB"
-//                                     />
-//                                 </div>
-//                                 <div className='addproperties__card-rowGap'>
-//                                     <NumPrice
-//                                         title="Կանխավճարի չափ*"
-//                                         id="price_advancedPay-usd"
-//                                         placeholder="Գինը դոլարով"
-//                                         onChange={addProp}
-//                                         ex="USD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_advancedPay-amd"
-//                                         placeholder="Գինը դրամով"
-//                                         onChange={addProp}
-//                                         ex="AMD"
-//                                     />
-//                                     <NumPrice
-//                                         title='.'
-//                                         id="price_advancedPay-rub"
-//                                         placeholder="Գինը ռուբլիով"
-//                                         onChange={addProp}
-//                                         ex="RUB"
-//                                     />
-//                                 </div>
-//                                 <div className="addproperties__card-row">
-//                                     <SingleSelect
-//                                         id="price_paymentProcedure"
-//                                         title="վճարման կարգը"
-//                                         data={paymentProcedure}
-//                                         onChange={addProp}
-//                                     />
-//                                     <SingleSelect
-//                                         id="price_preferedBank"
-//                                         title="Նախընտրած բանկը"
-//                                         data={preferedBank}
-//                                         onChange={addProp}
-//                                     />
-//                                 </div>
-//                             </div>
-//                         }
-//                     />
-//                     <Card
-//                         title='Տան Նկարագիր'
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <div className='addproperties__card-row'>
-//                                     <NumHug
-//                                         title="մակերես*"
-//                                         id=""
-//                                         placeholder="Նշեք մակերեսը"
-//                                         onChange={addProp}
-//                                         ex="մ.ք."
-//                                     />
-//                                     <NumHug
-//                                         title="Առաստաղի բարձրությունը*"
-//                                         id=""
-//                                         placeholder="Նշեք բարձրությունը"
-//                                         onChange={addProp}
-//                                         ex="մետր"
-//                                     />
-//                                 </div>
-//                                 <div className='addproperties__card-row'>
-//                                     <NumSelector
-//                                         title="Սենյակների քանակ*"
-//                                         data={roomsNum}
-//                                         state={rooms}
-//                                         setState={setRooms}
-//                                     />
-//                                     <NumSelector
-//                                         title="Սենյակների քանակ*"
-//                                         data={roomsNum}
-//                                         state={bedrooms}
-//                                         setState={setBedrooms}
-//                                     />
-//                                 </div>
-
-//                                 <NumSelector
-//                                     title="սահանգույցների քանակ*"
-//                                     data={toiletsNum}
-//                                     state={toilets}
-//                                     setState={setToilets}
-//                                 />
-
-//                                 <div className='addproperties__card-row'>
-//                                     <NumSelector
-//                                         title="բաց պատշգամբների քանակ*"
-//                                         data={balconiesNum}
-//                                         state={openBalconies}
-//                                         setState={setOpenBalconies}
-//                                     />
-//                                     <NumSelector
-//                                         title="փակ պատշգամբների քանակ*"
-//                                         data={balconiesNum}
-//                                         state={closeBalconies}
-//                                         setState={setCloseBalconies}
-//                                     />
-//                                 </div>
-//                                 <div className='addproperties__card-row'>
-//                                     <NumHug
-//                                         title="ՀԱՐԿԸ*"
-//                                         id="houseDescription_floor"
-//                                         placeholder="Ex."
-//                                         onChange={addProp}
-//                                     />
-//                                     <SingleSelect
-//                                         title="տան վիճակ"
-//                                         id="houseDescription_houseCondition"
-//                                         onChange={addProp}
-//                                         data={houseCondition}
-//                                     />
-//                                 </div>
-
-//                                 <div className='addproperties__card-row'>
-//                                     <SingleSelect
-//                                         title="ավտոկայանատեղի"
-//                                         id="houseDescription_parking"
-//                                         onChange={addProp}
-//                                         data={parking}
-//                                     />
-//                                     <SingleSelect
-//                                         title="ավտոկայանատեղի"
-//                                         id="houseDescription_kitchenType"
-//                                         onChange={addProp}
-//                                         data={kitchenType}
-//                                     />
-//                                 </div>
-//                             </div>
-//                         }
-//                     /> */}
-
-
-
-// {/* <div className="addproperties__right">
-//                     <Card
-//                         title="Իրավաբանական"
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <TextMidPlus
-//                                     id="juridical_ownerName"
-//                                     title="Սեփականատեր"
-//                                     placeholder='Գրեք սեփականատիրոջ անունը'
-//                                     onChange={addProp}
-//                                 />
-//                                 <TextMidPlus
-//                                     id="juridical_ownerPhone"
-//                                     title="սեփականատիրոջ հեռախոսահամար"
-//                                     placeholder='Գրեք սեփականատիրոջ հեռախոսահամարը'
-//                                     onChange={addProp}
-//                                 />
-//                                 <span>Ավելացնել սեփականատեր</span>
-//                             </div>
-//                         }
-//                     />
-//                     <Card
-//                         title="Լրացուցիչ Ինֆորմացիա"
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <TextMidPlus
-//                                     id="additional_info"
-//                                     title="Ինֆորմացիա"
-//                                     placeholder='Գրեք նախընտրած ինֆորմացիան'
-//                                     onChange={addProp}
-//                                 />
-                                // <FileUpload onChange={uploadFile} />
-                                // {file?.map(({ name }) => {
-                                //     return <p key={name}>{name}</p>
-                                // })}
-
-//                             </div>
-//                         }
-//                     />
-//                     <Card
-//                         title="Կից Մասնագետներ"
-//                         child={
-//                             <div className='addproperties__card-block'>
-//                                 <SingleSelect
-//                                     id="specialist_agents"
-//                                     title="Գործակալ"
-//                                     data={agentList}
-//                                     onChange={addProp}
-//                                 />
-//                                 <SingleSelect
-//                                     id="specialist_moderators"
-//                                     title="Մենեջեր"
-//                                     data={moderatorList}
-//                                     onChange={addProp}
-//                                 />
-//                             </div>
-//                         }
-//                     />
-//                 </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react'
-// import TopPart from '../../components/topPart/TopPart'
-// import { SearchBox } from './components/search/SearchBox'
-// import './Properties.scss'
-
-// const Properties = () => {
-//     const [val, setVal] = useState('')
-//     const [sel, setSel] = useState()
-//     const [languageSection, setLanguageSection] = useState('am')
-//     const changeVal = (e) => {
-//         const fieldName = e.target.dataset.fieldName;
-//         let objAm = {
-//             կդկդկ: "մկդմկդ "
-//         }
-
-//         if (languageSection == 'am') {
-
-//         } else if (languageSection == 'ru') {
-
-//         }
-//         else if (languageSection == 'en') {
-
-//         }
-//         console.log(fieldName)
-//         setVal(e.target.value)
-//         console.log(e.target.dataset.fieldName, "seleet");
-//         // setSel(e.target.dataset.fieldName)
-//     }
-
-//     return (
-//         <article className='properties'>
-//             <TopPart />
-//             <SearchBox />
-//             <button style={{ margin: '10px' }} onClick={() => setLanguageSection('am')}>Am</button>
-//             <button style={{ margin: '10px' }} onClick={() => setLanguageSection('ru')}>Ru</button>
-//             <button style={{ margin: '10px' }} onClick={() => setLanguageSection('en')}>En</button>
-//             <input type='text' value={val} data-field-name="gorcarq" onChange={(e) => changeVal(e)} />
-//             <br />
-//             <select name="" data-field-name="test" value={sel} onChange={(e) => console.log(e.target.dataset.fieldName)}>
-//                 <option value="a">sds</option>
-//                 <option value="x">sdsd</option>
-//                 <option value="z">sdsd</option>
-//                 <option value="a">sdsd</option>
-
-//                 <option value="">sdsd</option>
-//             </select>
-//         </article>
-//     )
-// }
-
-// export default Properties

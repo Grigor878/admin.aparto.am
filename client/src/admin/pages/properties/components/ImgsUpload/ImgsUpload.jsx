@@ -3,7 +3,7 @@ import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs
 import './ImgsUpload.scss'
 // import baseApi from '../../../../../apis/baseApi';
 
-export const ImgsUpload = ({ id, style }) => {
+export const ImgsUpload = ({ style }) => {
     const [images, setImages] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
     const [visibleImages, setVisibleImages] = useState([]);
