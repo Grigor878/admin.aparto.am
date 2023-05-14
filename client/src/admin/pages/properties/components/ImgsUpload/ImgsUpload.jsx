@@ -38,7 +38,6 @@ export const ImgsUpload = ({ style }) => {
             return updatedVisible
         });
     }
-    console.log(images, "images")
 
     const handleToggleVisibility = (index) => {
         setVisibleImages((prevVisible) => {
@@ -51,55 +50,80 @@ export const ImgsUpload = ({ style }) => {
     const dragItem = useRef(null)
     const dragOverItem = useRef(null)
 
+    // const handleSort = () => {
+    //     let duplicatesPreview = [...previewImages]
+    //     let duplicatesImages = [...images]
+
+    //     const draggedItemPreview = duplicatesPreview.splice(dragItem.current, 1)[0]
+    //     console.log(draggedItemPreview)
+    //     const draggedItemImages = Object.keys(duplicatesImages).filter((e) => dragItem.current === Number(e)).reduce((cur, key) => { return Object.assign(cur, { [key]: duplicatesImages[key] }) }, {})
+    //     console.log(draggedItemImages)
+
+
+    //     duplicatesPreview.splice(dragOverItem.current, 0, draggedItemPreview)
+    //     // console.log(duplicatesPreview)
+    //     // draggedItemImages.splice(dragOverItem.current, 0, draggedItemImages)
+
+    //     dragItem.current = null
+    //     dragOverItem.current = null
+
+    //     setPreviewImages(duplicatesPreview)
+    //     // setImages(duplicatesImages)
+    // }
+
     const handleSort = () => {
-        let duplicatesPreview = [...previewImages]
-        let duplicatesImages = images
-        console.log(dragItem.current, "changeItem1")
-        console.log(dragOverItem.current, "changeItem2")
-        console.log(duplicatesImages, "test1")
-        let dragOverItemTest =  duplicatesImages[dragOverItem.current];
-        let dragItemTest = duplicatesImages[dragItem.current];
-        duplicatesImages[dragOverItem.current] = dragItemTest;
-        console.log(duplicatesImages, duplicatesImages[dragOverItem.current], 8444 )
-        // duplicatesImages[dragOverItem.current] = dragOverItemTest;
+        const draggedItemIndex = dragItem.current;
+        const dragOverItemIndex = dragOverItem.current;
 
-        console.log(dragOverItemTest, dragItemTest ,'dsdfsd' );
-        // duplicatesImages[dragOverItem.current] = duplicatesImages[dragItem.current]
-        // duplicatesImages[dragItem.current] =  duplicatesImages[dragOverItem.current]
+        const updatedImages = [...images];
+        const updatedPreviews = [...previewImages];
 
-        console.log(duplicatesImages, "test2")
-        // [duplicatesImages[dragItem.current], duplicatesImages[dragOverItem.current]] = [duplicatesImages[dragOverItem.current], duplicatesImages[dragItem.current] ]
+        const draggedImage = updatedImages[draggedItemIndex];
+        const draggedPreview = updatedPreviews[draggedItemIndex];
 
+        updatedImages.splice(draggedItemIndex, 1);
+        updatedPreviews.splice(draggedItemIndex, 1);
 
+        updatedImages.splice(dragOverItemIndex, 0, draggedImage);
+        updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview);
 
-        const draggedItemPreview = duplicatesPreview.splice(dragItem.current, 1)[0]
-        // console.log(draggedItemPreview)
-        const draggedItemImages = Object.keys(duplicatesImages).filter((e) => dragItem.current === Number(e)).reduce((cur, key) => { return Object.assign(cur, { [key]: duplicatesImages[key] }) }, {})
-        // console.log(draggedItemImages)
+        const reorderedImages = Array.from(updatedImages);
+        const reorderedPreviews = Array.from(updatedPreviews);
 
+        setImages(reorderedImages);
+        setPreviewImages(reorderedPreviews);
+    };
 
-        duplicatesPreview.splice(dragOverItem.current, 0, draggedItemPreview)
-        // console.log(duplicatesPreview)
-        // draggedItemImages.splice(dragOverItem.current, 0, draggedItemImages)
+    console.log(images)//
 
-        dragItem.current = null
-        dragOverItem.current = null
-
-        setPreviewImages(duplicatesPreview)
-        // setImages(duplicatesImages)
-    }
-
+    // mi masov verevy avelacrac visible,hidden
     const updateUploadPhoto = () => {
-        const formData = new FormData()
+        const sortedFormData = new FormData();
         images.forEach((image, index) => {
-            formData.append(`image${index}`, image)
+            sortedFormData.append(`image${index}`, image);
+            sortedFormData.append(index, visibleImages[index] ? 'visible' : 'hidden');
         });
-        dispatch(setUploadPhoto(formData))//
-    }
+
+        dispatch(setUploadPhoto(sortedFormData));
+    };
+
+    // aranzin erku mas (visible,hidden)
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData();
+    //     images.forEach((image, index) => {
+    //         if (visibleImages[index]) {
+    //             sortedFormData.append(`visibleImages[${index}]`, image);
+    //         } else {
+    //             sortedFormData.append(`hiddenImages[${index}]`, image);
+    //         }
+    //     });
+
+    //     dispatch(setUploadPhoto(sortedFormData));
+    // };
 
     useEffect(() => {
         updateUploadPhoto()
-    }, [images])
+    }, [images, visibleImages])
 
     return (
         <div style={{ width: style }} className='imgsUpload'>
