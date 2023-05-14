@@ -97,11 +97,21 @@ export const ImgsUpload = ({ style }) => {
     console.log(images)//
 
     // mi masov verevy avelacrac visible,hidden
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData();
+    //     images.forEach((image, index) => {
+    //         sortedFormData.append(`image${index}`, image);
+    //         sortedFormData.append(index, visibleImages[index] ? 'visible' : 'hidden');
+    //     });
+
+    //     dispatch(setUploadPhoto(sortedFormData));
+    // };
+
+    //esa axper qo gracy verevna
     const updateUploadPhoto = () => {
         const sortedFormData = new FormData();
         images.forEach((image, index) => {
-            sortedFormData.append(`image${index}`, image);
-            sortedFormData.append(index, visibleImages[index] ? 'visible' : 'hidden');
+            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image);
         });
 
         dispatch(setUploadPhoto(sortedFormData));

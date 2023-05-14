@@ -96,14 +96,25 @@ class GeneralFormController extends Controller
 
     public function multyPhoto(Request $request){
       $data = $request->all();
-      dd($data);
-      // $photoName = [];
-      // foreach ($data as $key => $photo) {
-      //   $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
-      //   $photo->move(public_path('images'), $fileName);
-      //   $photoName[] = $fileName;
-      // }
-      // dd($photoName);
+      $photoName = [];
+      foreach ($data as $key => $photo) {
+        $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+        $photo->move(public_path('images'), $fileName);
+       
+        if(is_numeric(strpos($key, 'visible'))) {
+          $info = [
+            'name' => $fileName,
+            'visible' => 'true'
+          ];
+        } else {
+          $info = [
+            'name' => $fileName,
+            'visible' => 'false'
+          ];
+        }
+        $photoName[] = $info;
+      }
+      return response()->json($photoName);
     }
 
     public function addGlobalFormField(Request $request) {
