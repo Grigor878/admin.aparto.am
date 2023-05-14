@@ -54,7 +54,6 @@ const AddProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         dispatch(addPropertiesImgs({ uploadPhoto }))
     }
 

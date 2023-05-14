@@ -13,7 +13,6 @@ export const ImgsUpload = ({ style }) => {
 
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
-        // console.log(files)//
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
         setImages((prevImages) => [...prevImages, ...files])
         setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
@@ -38,9 +37,8 @@ export const ImgsUpload = ({ style }) => {
             updatedVisible.splice(index, 1)
             return updatedVisible
         });
-
-
     }
+    console.log(images, "images")
 
     const handleToggleVisibility = (index) => {
         setVisibleImages((prevVisible) => {
@@ -54,21 +52,46 @@ export const ImgsUpload = ({ style }) => {
     const dragOverItem = useRef(null)
 
     const handleSort = () => {
-        let duplicates = [...previewImages]
+        let duplicatesPreview = [...previewImages]
+        let duplicatesImages = images
+        console.log(dragItem.current, "changeItem1")
+        console.log(dragOverItem.current, "changeItem2")
+        console.log(duplicatesImages, "test1")
+        let dragOverItemTest =  duplicatesImages[dragOverItem.current];
+        let dragItemTest = duplicatesImages[dragItem.current];
+        duplicatesImages[dragOverItem.current] = dragItemTest;
+        console.log(duplicatesImages, duplicatesImages[dragOverItem.current], 8444 )
+        // duplicatesImages[dragOverItem.current] = dragOverItemTest;
 
-        const draggedItemContent = duplicates.splice(dragItem.current, 1)[0]
+        console.log(dragOverItemTest, dragItemTest ,'dsdfsd' );
+        // duplicatesImages[dragOverItem.current] = duplicatesImages[dragItem.current]
+        // duplicatesImages[dragItem.current] =  duplicatesImages[dragOverItem.current]
 
-        duplicates.splice(dragOverItem.current, 0, draggedItemContent)
+        console.log(duplicatesImages, "test2")
+        // [duplicatesImages[dragItem.current], duplicatesImages[dragOverItem.current]] = [duplicatesImages[dragOverItem.current], duplicatesImages[dragItem.current] ]
+
+
+
+        const draggedItemPreview = duplicatesPreview.splice(dragItem.current, 1)[0]
+        // console.log(draggedItemPreview)
+        const draggedItemImages = Object.keys(duplicatesImages).filter((e) => dragItem.current === Number(e)).reduce((cur, key) => { return Object.assign(cur, { [key]: duplicatesImages[key] }) }, {})
+        // console.log(draggedItemImages)
+
+
+        duplicatesPreview.splice(dragOverItem.current, 0, draggedItemPreview)
+        // console.log(duplicatesPreview)
+        // draggedItemImages.splice(dragOverItem.current, 0, draggedItemImages)
 
         dragItem.current = null
         dragOverItem.current = null
 
-        setPreviewImages(duplicates)
+        setPreviewImages(duplicatesPreview)
+        // setImages(duplicatesImages)
     }
 
     const updateUploadPhoto = () => {
         const formData = new FormData()
-        previewImages.forEach((image, index) => {
+        images.forEach((image, index) => {
             formData.append(`image${index}`, image)
         });
         dispatch(setUploadPhoto(formData))//
@@ -76,8 +99,7 @@ export const ImgsUpload = ({ style }) => {
 
     useEffect(() => {
         updateUploadPhoto()
-        console.log('rendered')
-    }, [previewImages])
+    }, [images])
 
     return (
         <div style={{ width: style }} className='imgsUpload'>
@@ -109,19 +131,19 @@ export const ImgsUpload = ({ style }) => {
                         />
                         {!visibleImages[index] ? <p>Թաքցված</p> : null}
                         <div className='imgsUpload__card-btns'>
-                            <button
+                            <span
                                 onClick={() => handleToggleVisibility(index)}
                                 className='imgsUpload__card-btns-hideShow'
                             >
                                 {visibleImages[index] ? hideImg.icon : showImg.icon}
                                 {visibleImages[index] ? 'Թաքցնել' : 'Բացել'}
-                            </button>
-                            <button
+                            </span>
+                            <span
                                 onClick={() => handleImageDelete(index)}
                                 className='imgsUpload__card-btns-delete'
                             >
                                 {removeWhite.icon}
-                            </button>
+                            </span>
                         </div>
                     </div>
                 ))}
