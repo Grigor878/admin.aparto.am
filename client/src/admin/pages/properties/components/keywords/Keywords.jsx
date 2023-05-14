@@ -19,7 +19,7 @@ export const Keywords = ({ id, title, style, onChange }) => {
         setKeyword(keyword.filter((i) => i !== index))
     };
 
-    console.log(keyword)//
+    // console.log(keyword)//
 
     return (
         <div className='keywords'>
