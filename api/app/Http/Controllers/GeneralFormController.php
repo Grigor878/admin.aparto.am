@@ -89,6 +89,11 @@ class GeneralFormController extends Controller
       return json_decode(GlobalForm::findorFail(1)->am);
     }
 
+    public function documentUpload(Request $request) {
+      $data = $request->all();
+      dd($data);
+    }
+
     public function multyPhoto(Request $request){
       $data = $request->all();
       dd($data);
