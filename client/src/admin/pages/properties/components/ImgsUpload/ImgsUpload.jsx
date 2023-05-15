@@ -9,8 +9,6 @@ export const ImgsUpload = ({ style }) => {
     const [previewImages, setPreviewImages] = useState([])
     const [visibleImages, setVisibleImages] = useState([])
 
-    const dispatch = useDispatch()
-
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
@@ -72,29 +70,29 @@ export const ImgsUpload = ({ style }) => {
     // }
 
     const handleSort = () => {
-        const draggedItemIndex = dragItem.current;
-        const dragOverItemIndex = dragOverItem.current;
+        const draggedItemIndex = dragItem.current
+        const dragOverItemIndex = dragOverItem.current
 
-        const updatedImages = [...images];
-        const updatedPreviews = [...previewImages];
+        const updatedImages = [...images]
+        const updatedPreviews = [...previewImages]
 
-        const draggedImage = updatedImages[draggedItemIndex];
-        const draggedPreview = updatedPreviews[draggedItemIndex];
+        const draggedImage = updatedImages[draggedItemIndex]
+        const draggedPreview = updatedPreviews[draggedItemIndex]
 
-        updatedImages.splice(draggedItemIndex, 1);
-        updatedPreviews.splice(draggedItemIndex, 1);
+        updatedImages.splice(draggedItemIndex, 1)
+        updatedPreviews.splice(draggedItemIndex, 1)
 
-        updatedImages.splice(dragOverItemIndex, 0, draggedImage);
-        updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview);
+        updatedImages.splice(dragOverItemIndex, 0, draggedImage)
+        updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
 
-        const reorderedImages = Array.from(updatedImages);
-        const reorderedPreviews = Array.from(updatedPreviews);
+        const reorderedImages = Array.from(updatedImages)
+        const reorderedPreviews = Array.from(updatedPreviews)
 
-        setImages(reorderedImages);
-        setPreviewImages(reorderedPreviews);
+        setImages(reorderedImages)
+        setPreviewImages(reorderedPreviews)
     };
 
-    console.log(images)//
+    const dispatch = useDispatch()
 
     // mi masov verevy avelacrac visible,hidden
     // const updateUploadPhoto = () => {
@@ -109,12 +107,11 @@ export const ImgsUpload = ({ style }) => {
 
     //esa axper qo gracy verevna
     const updateUploadPhoto = () => {
-        const sortedFormData = new FormData();
+        const sortedFormData = new FormData()
         images.forEach((image, index) => {
             sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image);
         });
-
-        dispatch(setUploadPhoto(sortedFormData));
+        dispatch(setUploadPhoto(sortedFormData))
     };
 
     // aranzin erku mas (visible,hidden)

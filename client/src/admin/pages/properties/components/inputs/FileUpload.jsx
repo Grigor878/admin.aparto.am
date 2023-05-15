@@ -1,24 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { file } from '../../../../svgs/svgs'
-// import baseApi from '../../../../../apis/baseApi'
+import { useDispatch } from 'react-redux'
+import { setUploadFile } from '../../../../../store/slices/propertySlice'
 
-export const FileUpload = ({ id, onChange }) => {
+export const FileUpload = () => {
     const [upload, setUpload] = useState([])
 
     const uploadFile = (e) => {
-        const files = Array.from(e.target.files);
-        setUpload((prevImages) => [...prevImages, ...files]);
-
-        // onChange(e)
+        const files = Array.from(e.target.files)
+        setUpload((prevImages) => [...prevImages, ...files])
     }
+
+    const dispatch = useDispatch()
 
     const uploadFormData = () => {
-        const formData = new FormData();
+        const formData = new FormData()
         upload.forEach((file, index) => {
-            formData.append(`file${index}`, file);
-        });
-        // baseApi.post('api/multyPhoto', formData);
+            formData.append(`file${index}`, file)
+        })
+        dispatch(setUploadFile(formData))
     }
+
+    useEffect(() => {
+        uploadFormData()
+    }, [upload])
 
     return (
         <div className='addproperties__card-fileUpload'>
@@ -32,7 +37,6 @@ export const FileUpload = ({ id, onChange }) => {
                     multiple
                     accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
             </label>
-            <button onClick={uploadFormData}>Send</button>
             {upload?.map(({ name }) => {
                 return <p key={name}>{name}</p>
             })}

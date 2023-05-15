@@ -4,11 +4,13 @@ import baseApi from "../../apis/baseApi";
 const initialState = {
   loading: false,
   data: null,
-  // sendedImgs: false,
-  // sendedFiles: false,
+  sendedImgs: false,
+  sendedFiles: false,
   uploadPhoto: {},
+  uploadFile: {},
 };
 
+// global data get
 export const getPropertyData = createAsyncThunk("property", async () => {
   try {
     const { data } = await baseApi.get("/api/getAllStructure");
@@ -18,7 +20,7 @@ export const getPropertyData = createAsyncThunk("property", async () => {
   }
 });
 
-// nkarneri uxarkelu hamar
+// imgs post
 export const addPropertiesImgs = createAsyncThunk(
   "property/addPropertiesImgs",
   async ({ uploadPhoto }) => {
@@ -29,12 +31,13 @@ export const addPropertiesImgs = createAsyncThunk(
     }
   }
 );
-// fileri uxarkelu hamar
+
+// files post
 export const addPropertiesFiles = createAsyncThunk(
   "property/addPropertiesFiles",
-  async ({ formData }) => {
+  async ({ uploadFile }) => {
     try {
-      await baseApi.post("/api/multyPhoto", formData);
+      await baseApi.post("/api/documentUpload", uploadFile);
     } catch (err) {
       console.log(`Add Properties Files Sending Error: ${err.message}`);
     }
@@ -48,6 +51,9 @@ const structureSlice = createSlice({
     setUploadPhoto: (state, action) => {
       state.uploadPhoto = action.payload;
     },
+    setUploadFile: (state, action) => {
+      state.uploadFile = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,22 +65,22 @@ const structureSlice = createSlice({
         state.data = action.payload;
       })
 
-      // .addCase(addPropertiesImgs.pending, (state) => {
-      //   state.sendedImgs = false;
-      // })
-      // .addCase(addPropertiesImgs.fulfilled, (state, action) => {
-      //   state.sendedImgs = true;
-      // })
+      .addCase(addPropertiesImgs.pending, (state) => {
+        state.sendedImgs = true;
+      })
+      .addCase(addPropertiesImgs.fulfilled, (state) => {
+        state.sendedImgs = false;
+      })
 
-      // .addCase(addPropertiesFiles.pending, (state) => {
-      //   state.sendedFiles = false;
-      // })
-      // .addCase(addPropertiesFiles.fulfilled, (state, action) => {
-      //   state.sendedFiles = true;
-      // });
+      .addCase(addPropertiesFiles.pending, (state) => {
+        state.sendedFiles = true;
+      })
+      .addCase(addPropertiesFiles.fulfilled, (state) => {
+        state.sendedFiles = false;
+      });
   },
 });
 
-export const { setUploadPhoto } = structureSlice.actions;
+export const { setUploadPhoto, setUploadFile } = structureSlice.actions;
 // export const getUploadPhoto = (state) => state.property?.uploadPhoto;
 export default structureSlice.reducer;

@@ -12,8 +12,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-// import baseApi from '../../../../apis/baseApi'
-import { addPropertiesImgs, getPropertyData, getUploadPhoto } from '../../../../store/slices/propertySlice'
+import { addPropertiesFiles, addPropertiesImgs, getPropertyData } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -28,14 +27,14 @@ import './Styles.scss'
 const AddProperties = () => {
     const dispatch = useDispatch()
 
-    // const uploadPhoto = useSelector(getUploadPhoto)
-    const { uploadPhoto } = useSelector((state) => state.property)
-    const { data } = useSelector((state) => state.property)
-    // console.log(data)
-
     useEffect(() => {
         dispatch(getPropertyData())
     }, [dispatch])
+
+    const { data } = useSelector((state) => state.property)
+    const { sendedImgs, sendedFiles, uploadPhoto, uploadFile } = useSelector((state) => state.property)
+    // console.log(sendedImgs)
+    // console.log(sendedFiles)
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
@@ -54,7 +53,12 @@ const AddProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addPropertiesImgs({ uploadPhoto }))
+        if (!sendedImgs) {
+            dispatch(addPropertiesImgs({ uploadPhoto }))
+        }
+        if (!sendedFiles) {
+            dispatch(addPropertiesFiles({ uploadFile }))
+        }
     }
 
     return (
