@@ -42,32 +42,11 @@ export const ImgsUpload = ({ style }) => {
             const updatedVisible = [...prevVisible]
             updatedVisible[index] = !updatedVisible[index]
             return updatedVisible
-        });
+        })
     }
 
     const dragItem = useRef(null)
     const dragOverItem = useRef(null)
-
-    // const handleSort = () => {
-    //     let duplicatesPreview = [...previewImages]
-    //     let duplicatesImages = [...images]
-
-    //     const draggedItemPreview = duplicatesPreview.splice(dragItem.current, 1)[0]
-    //     console.log(draggedItemPreview)
-    //     const draggedItemImages = Object.keys(duplicatesImages).filter((e) => dragItem.current === Number(e)).reduce((cur, key) => { return Object.assign(cur, { [key]: duplicatesImages[key] }) }, {})
-    //     console.log(draggedItemImages)
-
-
-    //     duplicatesPreview.splice(dragOverItem.current, 0, draggedItemPreview)
-    //     // console.log(duplicatesPreview)
-    //     // draggedItemImages.splice(dragOverItem.current, 0, draggedItemImages)
-
-    //     dragItem.current = null
-    //     dragOverItem.current = null
-
-    //     setPreviewImages(duplicatesPreview)
-    //     // setImages(duplicatesImages)
-    // }
 
     const handleSort = () => {
         const draggedItemIndex = dragItem.current
@@ -90,9 +69,17 @@ export const ImgsUpload = ({ style }) => {
 
         setImages(reorderedImages)
         setPreviewImages(reorderedPreviews)
-    };
+    }
 
     const dispatch = useDispatch()
+
+    const updateUploadPhoto = () => {
+        const sortedFormData = new FormData()
+        images.forEach((image, index) => {
+            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+        });
+        dispatch(setUploadPhoto(sortedFormData))
+    }
 
     // mi masov verevy avelacrac visible,hidden
     // const updateUploadPhoto = () => {
@@ -104,15 +91,6 @@ export const ImgsUpload = ({ style }) => {
 
     //     dispatch(setUploadPhoto(sortedFormData));
     // };
-
-    //esa axper qo gracy verevna
-    const updateUploadPhoto = () => {
-        const sortedFormData = new FormData()
-        images.forEach((image, index) => {
-            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image);
-        });
-        dispatch(setUploadPhoto(sortedFormData))
-    };
 
     // aranzin erku mas (visible,hidden)
     // const updateUploadPhoto = () => {

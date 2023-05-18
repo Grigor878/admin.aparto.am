@@ -117,9 +117,10 @@
 // https://gribnoysup.github.io/react-yandex-maps/#/sandbox/controls/listbox - hasceneri dropdown
 
 import React, { useEffect, useRef, useState } from "react";
-import { YMaps, GeolocationControl, Map, ZoomControl, Placemark } from "react-yandex-maps";
-import '../../admin/components/inputs/Inputs.scss';
+import { YMaps, GeolocationControl, Map, ZoomControl, Placemark, FullscreenControl } from "react-yandex-maps";
 import { BtnCustom } from "../../admin/components/buttons/BtnCustom";
+import '../../admin/components/inputs/Inputs.scss';
+import './YandexMap.scss'
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],
@@ -128,10 +129,10 @@ const mapOptions = {
     // height: 400,
 };
 
-const geolocationOptions = {
-    defaultOptions: { maxWidth: 128 },
-    defaultData: { content: "Determine" },
-};
+// const geolocationOptions = {
+//     defaultOptions: { maxWidth: 128 },
+//     defaultData: { content: "Determine" },
+// };
 
 const initialState = {
     title: "",
@@ -146,10 +147,12 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
     const mapRef = useRef(null);
     const searchRef = useRef(null);
 
-    // submits
-    const handleSubmit = () => {
-        console.log({ title: state.title, center: mapRef.current.getCenter() });
-    };
+    // const handleSubmit = () => {
+    //     console.log(state)//
+    //     console.log(placemark)//
+    //     // console.log({ title: state.title, center: mapRef.current.getCenter() })//
+    //     // console.log({ title: searchRef.current.value, center: mapRef.current.getCenter() })//
+    // };
 
     // reset state & search
     const handleReset = () => {
@@ -166,7 +169,6 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
                 const selectedName = e.get("item").value;
                 mapConstructor.geocode(selectedName).then((result) => {
                     const newCoords = result.geoObjects.get(0).geometry.getCoordinates();
-                    console.log(newCoords);//
                     setPlacemark(newCoords)
                     setState((prevState) => ({ ...prevState, center: newCoords }));
                 });
@@ -175,7 +177,7 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
     }, [mapConstructor]);
 
     // change title
-    const handleBoundsChange = (e) => {
+    const handleBoundsChange = () => {
         const newCoords = mapRef.current.getCenter();
         mapConstructor.geocode(newCoords).then((res) => {
             const nearest = res.geoObjects.get(0);
@@ -188,38 +190,53 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
         });
     };
 
+    // change placemark
+    const handleClick = (event) => {
+        const coords = event.get('coords');
+        setPlacemark(coords);
+    };
+    console.log(placemark)//
+    console.log(state)//
+
     // ASHXATOX API KEY
     // <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
     return (
-        <YMaps query={{ apikey: "c6f73ad1-401a-4923-93c8-37a304669c9d", lang: "en_RU" }}>
-            <div>
+        <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
+            <div >
                 <div >
                     <div >
-                        <input ref={searchRef} placeholder="Search..." disabled={!mapConstructor} className="dash__input" />
-                        <div >
-                            <p title={state.title}>
-                                {state.title}
-                            </p>
-                            <BtnCustom onClick={handleReset} text='Default place' />
-                        </div>
+                        <p title={state.title}>
+                            {state.title}
+                        </p>
+                        <BtnCustom onClick={handleReset} text='Default place' />
                     </div>
-                    <BtnCustom onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' />
                 </div>
+                {/* <BtnCustom onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' /> */}
+            </div>
 
-                {title}
+            {title}
+
+            <div className="yandex__map">
+                <input
+                    ref={searchRef}
+                    placeholder="Search..."
+                    disabled={!mapConstructor}
+                    className="yandex__map-search"
+                />
                 <Map
                     {...mapOptions}
                     state={state}
                     onLoad={setMapConstructor}
                     onBoundsChange={handleBoundsChange}
                     instanceRef={mapRef}
-                    // width="100%"
                     width={style}
                     height={height}
+                    onClick={handleClick}
                 >
                     <Placemark geometry={placemark} />
-                    <GeolocationControl {...geolocationOptions} />
-                    <ZoomControl />
+                    {/* <GeolocationControl {...geolocationOptions} /> */}
+                    {/* <ZoomControl /> */}
+                    {/* <FullscreenControl /> */}
                 </Map>
             </div>
         </YMaps>
