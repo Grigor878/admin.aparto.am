@@ -121,10 +121,13 @@ import { YMaps, GeolocationControl, Map, ZoomControl, Placemark, FullscreenContr
 import { BtnCustom } from "../../admin/components/buttons/BtnCustom";
 import '../../admin/components/inputs/Inputs.scss';
 import './YandexMap.scss'
+import { useDispatch } from "react-redux";
+import { setYandexMapClick } from "../../store/slices/propertySlice";
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],
     defaultOptions: { suppressMapOpenBlock: true },
+
     // width: 600,
     // height: 400,
 };
@@ -141,6 +144,7 @@ const initialState = {
 };
 
 const YandexMap = ({ id, title, style, height, onChange }) => {
+    const dispatch = useDispatch()
     const [state, setState] = useState({ ...initialState });
     const [placemark, setPlacemark] = useState([]);
     const [mapConstructor, setMapConstructor] = useState(null);
@@ -193,10 +197,11 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
     // change placemark
     const handleClick = (event) => {
         const coords = event.get('coords');
+        dispatch(setYandexMapClick(coords))
         setPlacemark(coords);
     };
-    console.log(placemark)//
-    console.log(state)//
+    // console.log(placemark)//
+    // console.log(state)//
 
     // ASHXATOX API KEY
     // <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>

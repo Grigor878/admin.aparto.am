@@ -12,7 +12,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-import { addPropertiesFiles, addPropertiesImgs, getPropertyData } from '../../../../store/slices/propertySlice'
+import { addPropertiesFiles, addPropertiesImgs, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -40,7 +40,9 @@ const AddProperties = () => {
     const right = data?.slice(9, 12)
 
     const [addProperties, setAddProperties] = useState('')
-
+    const getYandexLocation = useSelector(getYandexMapClick)
+    console.log(getYandexLocation, 6666);
+    
     const addProp = (e) => {
         let { id, value, checked, files } = e.target
 

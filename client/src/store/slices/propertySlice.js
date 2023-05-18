@@ -8,6 +8,7 @@ const initialState = {
   sendedFiles: false,
   uploadPhoto: {},
   uploadFile: {},
+  yandexMapClick: []
 };
 
 // global data get
@@ -54,6 +55,9 @@ const structureSlice = createSlice({
     setUploadFile: (state, action) => {
       state.uploadFile = action.payload;
     },
+    setYandexMapClick: (state, action) => {
+      state.yandexMapClick = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -81,6 +85,7 @@ const structureSlice = createSlice({
   },
 });
 
-export const { setUploadPhoto, setUploadFile } = structureSlice.actions;
+export const { setUploadPhoto, setUploadFile, setYandexMapClick } = structureSlice.actions;
 // export const getUploadPhoto = (state) => state.property?.uploadPhoto;
+export const getYandexMapClick = (state) => state.property?.yandexMapClick;
 export default structureSlice.reducer;
