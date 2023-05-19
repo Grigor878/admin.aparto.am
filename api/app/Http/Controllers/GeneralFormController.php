@@ -1539,6 +1539,7 @@ class GeneralFormController extends Controller
                 "title" => "ԳՈՐԾԱՐՔԻ ՏԵՍԱԿ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 1,
@@ -1562,6 +1563,7 @@ class GeneralFormController extends Controller
                 "title" => "ԳՈՒՅՔԻ ՏԵՍԱԿ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 1,
@@ -1594,6 +1596,7 @@ class GeneralFormController extends Controller
                 "key" => "announcementTitle",
                 "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
                 "type" => "text",
+                "value" => "",
                 "style" => "629px",
                 "option" => []
               ],
@@ -1602,6 +1605,7 @@ class GeneralFormController extends Controller
                 "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ*",
                 "type" => "text",
                 "style" => "629px",
+                "value" => "",
                 "option" => []
               ],
              [
@@ -1609,6 +1613,7 @@ class GeneralFormController extends Controller
               "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
               "type" => "select",
               "style" => "306px",
+              "value" => "",
               "option" => [
                 [
                   "id"=> 1,
@@ -1644,6 +1649,7 @@ class GeneralFormController extends Controller
                 "title" => "Համայնք*",
                 "type" => "select",
                 "style" => "629px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 1,
@@ -1727,6 +1733,7 @@ class GeneralFormController extends Controller
                 "title" => "Փողոց*",
                 "type" => "select",
                 "style" => "283px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -1734,6 +1741,7 @@ class GeneralFormController extends Controller
                 "title" => "Շենք*",
                 "type" => "inputNumber",
                 "style" => "100px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -1741,6 +1749,7 @@ class GeneralFormController extends Controller
                 "title" => "Մուտք*",
                 "type" => "inputNumber",
                 "style" => "100px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -1748,6 +1757,7 @@ class GeneralFormController extends Controller
                 "title" => "Բնակարան*",
                 "type" => "inputNumber",
                 "style" => "100px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -1755,6 +1765,7 @@ class GeneralFormController extends Controller
                 "title" => "MAP PIN*",
                 "type" => "map",
                 "style" => "631px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -1762,6 +1773,7 @@ class GeneralFormController extends Controller
                 "title" => "Իրական հասցե*",
                 "type" => "inputText",
                 "style" => "629px",
+                "value" => "",
                 "option" => []
               ],
             ]
@@ -1775,6 +1787,7 @@ class GeneralFormController extends Controller
                 "title" => "Ավել Գինը*",
                 "type" => "inputText",
                 "style" => "width:80%",
+                "value" => "",
                 "option" => []
               ],
             ],
@@ -1784,6 +1797,7 @@ class GeneralFormController extends Controller
                 "title" => "Ընդհանուր գինը*",
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "priceUsd",
@@ -1810,6 +1824,7 @@ class GeneralFormController extends Controller
                 "title" => "Գինը պայմանագրային",
                 "type" => "checkbox",
                 "style" => "",
+                "value" => "",
                 "option" => [
                   "status" => false
                  ]
@@ -1819,6 +1834,7 @@ class GeneralFormController extends Controller
                 "title" => "Գինը 1 քմ*",
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "sqmPriceUsd",
@@ -1845,6 +1861,7 @@ class GeneralFormController extends Controller
                 "title" => "Կանխավճարի չափ*",
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "downPaymentUsd",
@@ -1871,6 +1888,7 @@ class GeneralFormController extends Controller
                 "title" => "Վճարման կարգը*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                 [
                   "id"=> 0,
@@ -1895,112 +1913,113 @@ class GeneralFormController extends Controller
                 ]
               ],
               [
-              "key" => "preferredBank",
-              "title" => "Նախընտրած բանկը*",
-              "type" => "select",
-              "style" => "306px",
-              "option" => [
-                [
-                  "id"=> 0,
-                  "name"=> "Ընտրեք նախընտրած բանկը",
-                  "value" => ""
-                ],
-                [
-                  "id"=> 1,
-                  "name"=> "Ամերիա բանկ",
-                  "value" => "Ամերիա բանկ"
-                ],
-                [
-                  "id"=> 2,
-                  "name"=> "Էվոկաբանկ",
-                  "value" => "Էվոկաբանկ"
-                ],
-                [
-                  "id"=> 3,
-                  "name"=> "Ինեկոբանկ",
-                  "value" => "Ինեկոբանկ"
-                ],
-                [
-                  "id"=> 4,
-                  "name"=> "ԱյԴի բանկ",
-                  "value" => "ԱյԴի բանկ"
-                ],
-                [
-                  "id"=> 5,
-                  "name"=> "Ակբա բանկ",
-                  "value" => "Ակբա բանկ"
-                ],
-                [
-                  "id"=> 6,
-                  "name"=> "Մելլաթ բանկ",
-                  "value" => "Մելլաթ բանկ"
-                ],
-                [
-                  "id"=> 7,
-                  "name"=> "ՀայԷկոնոմ բանկ",
-                  "value" => "ՀայԷկոնոմ բանկ"
-                ],
-                [
-                  "id"=> 8,
-                  "name"=> "HSBC բանկ",
-                  "value" => "HSBC բանկ"
-                ],
-                [
-                  "id"=> 9,
-                  "name"=> "Յունիբանկ",
-                  "value" => "Յունիբանկ"
-                ],
-                [
-                  "id"=> 10,
-                  "name"=> "Հայբիզնեսբանկ",
-                  "value" => "Հայբիզնեսբանկ"
-                ],
-                [
-                  "id"=> 11,
-                  "name"=> "Կոնվերս բանկ",
-                  "value" => "Կոնվերս բանկ"
-                ],
-                [
-                  "id"=> 12,
-                  "name"=> "Արարատ բանկ",
-                  "value" => "Արարատ բանկ"
-                ],
-                [
-                  "id"=> 13,
-                  "name"=> "Ֆասթ բանկ",
-                  "value" => "Ֆասթ բանկ"
-                ],
-                [
-                  "id"=> 14,
-                  "name"=> "Արմսվիսբանկ",
-                  "value" => "Արմսվիսբանկ"
-                ],
-                [
-                  "id"=> 15,
-                  "name"=> "Արցախ բանկ",
-                  "value" => "Արցախ բանկ"
-                ],
-                [
-                  "id"=> 16,
-                  "name"=> "Բիբլոս Բանկ Արմենիա",
-                  "value" => "Բիբլոս Բանկ Արմենիա"
-                ],
-                [
-                  "id"=> 17,
-                  "name"=> "Արդշինբանկ",
-                  "value" => "Արդշինբանկ"
-                ],
-                [
-                  "id"=> 18,
-                  "name"=> "ՎՏԲ-Հայաստան բանկ",
-                  "value" => "ՎՏԲ-Հայաստան բանկ"
-                ],
-                [
-                  "id"=> 19,
-                  "name"=> "Այլ",
-                  "value" => "Այլ"
-                ],
-              ]
+                "key" => "preferredBank",
+                "title" => "Նախընտրած բանկը*",
+                "type" => "select",
+                "style" => "306px",
+                "value" => "",
+                "option" => [
+                  [
+                    "id"=> 0,
+                    "name"=> "Ընտրեք նախընտրած բանկը",
+                    "value" => ""
+                  ],
+                  [
+                    "id"=> 1,
+                    "name"=> "Ամերիա բանկ",
+                    "value" => "Ամերիա բանկ"
+                  ],
+                  [
+                    "id"=> 2,
+                    "name"=> "Էվոկաբանկ",
+                    "value" => "Էվոկաբանկ"
+                  ],
+                  [
+                    "id"=> 3,
+                    "name"=> "Ինեկոբանկ",
+                    "value" => "Ինեկոբանկ"
+                  ],
+                  [
+                    "id"=> 4,
+                    "name"=> "ԱյԴի բանկ",
+                    "value" => "ԱյԴի բանկ"
+                  ],
+                  [
+                    "id"=> 5,
+                    "name"=> "Ակբա բանկ",
+                    "value" => "Ակբա բանկ"
+                  ],
+                  [
+                    "id"=> 6,
+                    "name"=> "Մելլաթ բանկ",
+                    "value" => "Մելլաթ բանկ"
+                  ],
+                  [
+                    "id"=> 7,
+                    "name"=> "ՀայԷկոնոմ բանկ",
+                    "value" => "ՀայԷկոնոմ բանկ"
+                  ],
+                  [
+                    "id"=> 8,
+                    "name"=> "HSBC բանկ",
+                    "value" => "HSBC բանկ"
+                  ],
+                  [
+                    "id"=> 9,
+                    "name"=> "Յունիբանկ",
+                    "value" => "Յունիբանկ"
+                  ],
+                  [
+                    "id"=> 10,
+                    "name"=> "Հայբիզնեսբանկ",
+                    "value" => "Հայբիզնեսբանկ"
+                  ],
+                  [
+                    "id"=> 11,
+                    "name"=> "Կոնվերս բանկ",
+                    "value" => "Կոնվերս բանկ"
+                  ],
+                  [
+                    "id"=> 12,
+                    "name"=> "Արարատ բանկ",
+                    "value" => "Արարատ բանկ"
+                  ],
+                  [
+                    "id"=> 13,
+                    "name"=> "Ֆասթ բանկ",
+                    "value" => "Ֆասթ բանկ"
+                  ],
+                  [
+                    "id"=> 14,
+                    "name"=> "Արմսվիսբանկ",
+                    "value" => "Արմսվիսբանկ"
+                  ],
+                  [
+                    "id"=> 15,
+                    "name"=> "Արցախ բանկ",
+                    "value" => "Արցախ բանկ"
+                  ],
+                  [
+                    "id"=> 16,
+                    "name"=> "Բիբլոս Բանկ Արմենիա",
+                    "value" => "Բիբլոս Բանկ Արմենիա"
+                  ],
+                  [
+                    "id"=> 17,
+                    "name"=> "Արդշինբանկ",
+                    "value" => "Արդշինբանկ"
+                  ],
+                  [
+                    "id"=> 18,
+                    "name"=> "ՎՏԲ-Հայաստան բանկ",
+                    "value" => "ՎՏԲ-Հայաստան բանկ"
+                  ],
+                  [
+                    "id"=> 19,
+                    "name"=> "Այլ",
+                    "value" => "Այլ"
+                  ],
+                ]
               ],
             ]
           ],
@@ -2014,6 +2033,7 @@ class GeneralFormController extends Controller
                 "title" => "Մակերես*",
                 "type" => "inputNumberSymbol",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "surface",
@@ -2028,6 +2048,7 @@ class GeneralFormController extends Controller
                 "title" => "Առաստաղի բարձրությունը*",
                 "type" => "inputNumberSymbol",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "ceilingHeight",
@@ -2042,6 +2063,7 @@ class GeneralFormController extends Controller
                 "title" => "Սենյակների քանակ*",
                 "type" => "numSelect",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "NumberOfRooms",
@@ -2085,6 +2107,7 @@ class GeneralFormController extends Controller
                 "title" => "Նջասենյակի քանակ*",
                 "type" => "numSelect",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "NumberOfBedrooms",
@@ -2128,6 +2151,7 @@ class GeneralFormController extends Controller
                 "title" => "Սահանգույցների քանակ*",
                 "type" => "numSelect",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "NumberOfBathrooms",
@@ -2161,6 +2185,7 @@ class GeneralFormController extends Controller
                 "title" => "Բաց պատշգամբների քանակ*",
                 "type" => "numSelect",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "NumberOpenBalconies",
@@ -2204,6 +2229,7 @@ class GeneralFormController extends Controller
                 "title" => "Փակ պատշգամբների քանակ*",
                 "type" => "numSelect",
                 "style" => "629px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> "NumberCloseBalconies",
@@ -2247,6 +2273,7 @@ class GeneralFormController extends Controller
                 "title" => "Հարկը*",
                 "type" => "inputNumber",
                 "style" => "306px",
+                "value" => "",
                 "option" => []
               ],
               [
@@ -2254,6 +2281,7 @@ class GeneralFormController extends Controller
                 "title" => "Տան վիճակ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2287,6 +2315,7 @@ class GeneralFormController extends Controller
                 "title" => "Ավտոկայանատեղի*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2320,6 +2349,7 @@ class GeneralFormController extends Controller
                 "title" => "Խոհանոցի տիպ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2355,6 +2385,7 @@ class GeneralFormController extends Controller
               "title" => "Շինության տիպ*",
               "type" => "select",
               "style" => "306px",
+              "value" => "",
               "option" => [
                   [
                     "id"=> 0,
@@ -2388,6 +2419,7 @@ class GeneralFormController extends Controller
               "title" => "ՀԱՐԿԱՅՆՈՒԹՅՈՒՆ*",
               "type" => "inputText",
               "style" => "306px",
+              "value" => "",
               "option" => [],
              ],
              [
@@ -2395,6 +2427,7 @@ class GeneralFormController extends Controller
               "title" => "Շենքի կառուցման տարին*",
               "type" => "inputNumber",
               "style" => "306px",
+              "value" => "",
               "option" => [],
              ],
              [
@@ -2402,6 +2435,7 @@ class GeneralFormController extends Controller
               "title" => "կողմնորոշումը*",
               "type" => "select",
               "style" => "306px",
+              "value" => "",
               "option" => [
                 [
                   "id"=> 0,
@@ -2455,6 +2489,7 @@ class GeneralFormController extends Controller
               "title" => "ԱմսԱկան Սպասարկման Վճար*",
               "type" => "inputNumSymbol",
               "style" => "202px",
+              "value" => "",
               "option" => [
                 [
                   "id"=> "monthlyFeeUsd",
@@ -2481,6 +2516,7 @@ class GeneralFormController extends Controller
               "title" => "Տարեկան գույքահարկ*",
               "type" => "inputNumSymbol",
               "style" => "202px",
+              "value" => "",
               "option" => [
                 [
                   "id"=> "propertyTaxUsd",
@@ -2514,34 +2550,40 @@ class GeneralFormController extends Controller
                 "title" => "Անհատական ջեռուցման համակարգ",
                 "type" => "checkbox",
                 "style" => "371px",
+                "value" => "",
               ],
               [
                 "key" => "electricity",
                 "title" => "Էլեկտրոէներգիա",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "centralizedHeatingSystem",
                 "title" => "Կենտրոնացված ջեռուցման համակարգ",
                 "type" => "checkbox",
                 "style" => "371px",
+                "value" => "",
               ],
               [
                 "key" => "gas",
                 "title" => "Գազ",
                 "type" => "checkbox",
                 "style" => "157px",
+                "value" => "",
               ],
               [
                 "key" => "airConditioner",
                 "title" => "Օդորակիչ",
                 "type" => "checkbox",
                 "style" => "371px",
+                "value" => "",
               ],
               [
                 "key" => "centralizedCoolingSystem",
                 "title" => "Կենտրոնացած հովացման համակարգ",
                 "type" => "checkbox",
+                "value" => "",
               ],
             ],
           ],
@@ -2555,167 +2597,197 @@ class GeneralFormController extends Controller
                 "title" => "Կահույք",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "storageRoom",
                 "title" => "Խորդանոց",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "technics",
                 "title" => "Տեխնիկա",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "wardrobe",
                 "title" => "Զգեստապահարան",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "elevator",
                 "title" => "Վերելակ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "laundryRoom",
                 "title" => "Լվացքատուն",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "closedEconomyBalcony",
                 "title" => "Փակ տնտեսական պատշգամբ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "park",
                 "title" => "Զբոսայգի",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "europeWindow",
                 "title" => "Եվրոպատուհան",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "firstLine",
                 "title" => "Առաջին գիծ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "laminate",
                 "title" => "Լամինատ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "courtyardBuilding",
                 "title" => "Միջբակային շենք",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "parquetFloor",
                 "title" => "Մանրահատակ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "nearStop",
                 "title" => "Կանգառի մոտ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "tiled",
                 "title" => "Սալիկապատված",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "sunnySide",
                 "title" => "Արևկողմ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "presgranite",
                 "title" => "Պռեսգրանիտ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "heatedFloor",
                 "title" => "Տաքացվող հատակ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "beautifulView",
                 "title" => "Գեղեցիկ տեսարան",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               
               [
                 "key" => "gate",
                 "title" => "Դարպաս",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "securitySystem",
                 "title" => "Անվտանգության համակարգ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "fenced",
                 "title" => "Պարսպապատ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "playground",
                 "title" => "Խաղահրապարակ",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "twoWayEntry",
                 "title" => "Երկկողմանի մուտք",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "bilateralPosition",
                 "title" => "Երկկողմանի դիրք",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "ironDoor",
                 "title" => "Երկաթյա դուռ",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "sauna",
                 "title" => "Շոգեբաղնիք",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "loggia",
                 "title" => "Լոջա",
                 "type" => "checkbox",
+                "value" => "",
               ],
               [
                 "key" => "pool",
                 "title" => "Լողավազան",
                 "type" => "checkbox",
                 "style" => "309px",
+                "value" => "",
               ],
               [
                 "key" => "floor",
                 "title" => "Հատակ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2754,6 +2826,7 @@ class GeneralFormController extends Controller
                 "title" => "Առաստաղ*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2782,6 +2855,7 @@ class GeneralFormController extends Controller
                 "title" => "Ծածկեր*",
                 "type" => "select",
                 "style" => "306px",
+                "value" => "",
                 "option" => [
                   [
                     "id"=> 0,
@@ -2817,6 +2891,7 @@ class GeneralFormController extends Controller
                 "title" => "",
                 "type" => "imgsUpload",
                 "style" => "639px",
+                "value" => "",
                 "option" => [],
               ],
               [
@@ -2824,6 +2899,7 @@ class GeneralFormController extends Controller
                 "title" => "Վիդեոյի հղում*",
                 "type" => "inputText",
                 "style" => "639px",
+                "value" => "",
                 "option" => [],
               ]
             ],
@@ -2838,6 +2914,7 @@ class GeneralFormController extends Controller
                 "title" => "Ընտրել բառեր*",
                 "type" => "keyword",
                 "style" => "631px",
+                "value" => "",
                 "option" => [],
               ],
             ],
@@ -2852,6 +2929,7 @@ class GeneralFormController extends Controller
                 "title" => "Սեփականատեր*",
                 "type" => "inputText",
                 "style" => "412px",
+                "value" => "",
                 "option" => [],
               ],
               [
@@ -2859,6 +2937,7 @@ class GeneralFormController extends Controller
                 "title" => "Սեփականատիրոջ Հեռախոսահամար*",
                 "type" => "inputNumber",
                 "style" => "412px",
+                "value" => "",
                 "option" => [],
               ],
               [
@@ -2866,6 +2945,7 @@ class GeneralFormController extends Controller
                 "title" => "Ավելացնել սեփականատեր",
                 "type" => "addField",
                 "style" => "217px",
+                "value" => "",
                 "option" => [],
               ],
             ],
@@ -2880,6 +2960,7 @@ class GeneralFormController extends Controller
                 "title" => "Գրեք նախընտրած ինֆորմացիան*",
                 "type" => "inputText",
                 "style" => "412px",
+                "value" => "",
                 "option" => [],
               ],
               [
@@ -2887,6 +2968,7 @@ class GeneralFormController extends Controller
                 "title" => "Կցել Փաստաթուղթ",
                 "type" => "uploadFile",
                 "style" => "217px",
+                "value" => "",
                 "option" => [],
               ],
             ],
@@ -2901,6 +2983,7 @@ class GeneralFormController extends Controller
                 "title" => "Գործակալ*",
                 "type" => "select",
                 "style" => "412px",
+                "value" => "",
                 "option" => [],
               ],
               [
@@ -2908,6 +2991,7 @@ class GeneralFormController extends Controller
                 "title" => "Մենեջեր*",
                 "type" => "select",
                 "style" => "412px",
+                "value" => "",
                 "option" => [],
               ],
             ],
