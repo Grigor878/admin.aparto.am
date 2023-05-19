@@ -39,4 +39,9 @@ class HomeController extends Controller
         
         return response()->json($obj);
     }
+
+    public function addHome(Request $request) {
+        $data = $request->all();
+        dd($data);
+    }
 }
