@@ -44,4 +44,11 @@ class HomeController extends Controller
         $data = $request->all();
         dd($data);
     }
+
+    public function addKeyword(Request $request) {
+        $data = $request->all();
+        dd($data);
+    }
+
+    
 }

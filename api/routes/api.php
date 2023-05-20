@@ -49,6 +49,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
  //HomeController form routes
     Route::post('/addHome',  [HomeController::class, 'addHome']);
+    Route::post('/addKeyword',  [HomeController::class, 'addKeyword']);
 
     
 });
