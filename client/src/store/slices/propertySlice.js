@@ -10,6 +10,7 @@ const initialState = {
   uploadPhoto: {},
   uploadFile: {},
   yandexMapClick: [],
+  keywords: [],
 };
 
 // get global data
@@ -58,6 +59,18 @@ export const addPropertiesFiles = createAsyncThunk(
   }
 );
 
+// post keywords
+export const addPropertiesKeywords = createAsyncThunk(
+  "property/addPropertiesFiles",
+  async ({ keyword }) => {
+    try {
+      await baseApi.post("/api/addKeyword", keyword);
+    } catch (err) {
+      console.log(`Add Properties Keywords Sending Error: ${err.message}`);
+    }
+  }
+);
+
 const structureSlice = createSlice({
   name: "property",
   initialState,
@@ -70,6 +83,9 @@ const structureSlice = createSlice({
     },
     setYandexMapClick: (state, action) => {
       state.yandexMapClick = action.payload;
+    },
+    setKeywords: (state, action) => {
+      state.keywords = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -101,11 +117,18 @@ const structureSlice = createSlice({
       })
       .addCase(addPropertiesFiles.fulfilled, (state) => {
         state.sendedFiles = false;
-      });
+      })
+
+      // .addCase(addPropertiesKeywords.pending, (state) => {
+      //   state.sendedFiles = true;
+      // })
+      // .addCase(addPropertiesKeywords.fulfilled, (state) => {
+      //   state.sendedFiles = false;
+      // });
   },
 });
 
-export const { setUploadPhoto, setUploadFile, setYandexMapClick } =
+export const { setUploadPhoto, setUploadFile, setYandexMapClick, setKeywords } =
   structureSlice.actions;
 // export const getUploadPhoto = (state) => state.property?.uploadPhoto;
 // export const getYandexMapClick = (state) => state.property?.yandexMapClick;

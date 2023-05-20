@@ -12,7 +12,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-import { addPropertiesFiles, addPropertiesImgs, addPropertyData, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
+import { addPropertiesFiles, addPropertiesImgs, addPropertiesKeywords, addPropertyData, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -32,11 +32,12 @@ const AddProperties = () => {
     }, [dispatch])
 
     const { data } = useSelector((state) => state.property)
-    const { sendedImgs, sendedFiles, yandexMapClick, uploadPhoto, uploadFile } = useSelector((state) => state.property)
+    const { yandexMapClick, keywords, uploadPhoto, uploadFile } = useSelector((state) => state.property)
     // console.log(data)
-    // console.log(sendedImgs)
-    // console.log(sendedFiles)
+    // console.log(keywords)
     // console.log(yandexMapClick)
+    // console.log(uploadPhoto)
+    // console.log(uploadFile)
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
@@ -90,26 +91,27 @@ const AddProperties = () => {
     console.log(addProperties)//
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         // if (Object.keys(addProperties).length === 0) {
-        //     alert('addProperties is empty');
-        //     return;
+        //     alert('addProperties is empty')
+        //     return
         // }
 
         // if (uploadPhoto.entries().next().done) {
-        //     alert('uploadPhoto is empty');
-        //     return;
+        //     alert('uploadPhoto is empty')
+        //     return
         // }
 
         // if (uploadFile.entries().next().done) {
-        //     alert('uploadFile is empty');
-        //     return;
+        //     alert('uploadFile is empty')
+        //     return
         // }
 
-        // dispatch(addPropertiesImgs({ uploadPhoto }));
-        // dispatch(addPropertiesFiles({ uploadFile }));
-        // dispatch(addPropertyData({ addProperties }));
+        dispatch(addPropertiesImgs({ uploadPhoto }))
+        dispatch(addPropertiesFiles({ uploadFile }))
+        dispatch(addPropertyData({ addProperties }))
+        dispatch(addPropertiesKeywords({ keywords }))
     };
 
     return (

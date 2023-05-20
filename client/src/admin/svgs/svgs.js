@@ -225,7 +225,7 @@ export const removeKeyword = {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         clipRule="evenodd"
         d="M0.922974 10C0.922974 4.47 5.39297 0 10.923 0C16.453 0 20.923 4.47 20.923 10C20.923 15.53 16.453 20 10.923 20C5.39297 20 0.922974 15.53 0.922974 10ZM14.513 15L15.923 13.59L12.333 10L15.923 6.41L14.513 5L10.923 8.59L7.33297 5L5.92297 6.41L9.51297 10L5.92297 13.59L7.33297 15L10.923 11.41L14.513 15Z"
         fill="#323338"
@@ -379,7 +379,7 @@ export const cancel = {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         clipRule="evenodd"
         d="M0 10C0 4.47 4.47 0 10 0C15.53 0 20 4.47 20 10C20 15.53 15.53 20 10 20C4.47 20 0 15.53 0 10ZM13.59 15L15 13.59L11.41 10L15 6.41L13.59 5L10 8.59L6.41 5L5 6.41L8.59 10L5 13.59L6.41 15L10 11.41L13.59 15Z"
         fill="#323338"
