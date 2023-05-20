@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { removeKeyword } from '../../../../svgs/svgs'
 import './Keywords.scss'
 
@@ -13,11 +13,12 @@ export const Keywords = ({ id, title, style, onChange }) => {
                 event.target.value = '';
             }
         }
-    };
+
+    }
 
     const deleteKey = (index) => {
         setKeyword(keyword.filter((i) => i !== index))
-    };
+    }
 
     // console.log(keyword)//
 
@@ -41,7 +42,7 @@ export const Keywords = ({ id, title, style, onChange }) => {
                     ? <ul className='keywords__addeds-list'>
                         {keyword.map((e) => (
                             <li key={e} className='keywords__addeds-link'>
-                                {e}<button onClick={() => deleteKey(e)}>{removeKeyword.icon}</button>
+                                {e}<button type="button" onClick={() => deleteKey(e)}>{removeKeyword.icon}</button>
                             </li>
                         ))}
                     </ul>

@@ -3,15 +3,16 @@ import baseApi from "../../apis/baseApi";
 
 const initialState = {
   loading: false,
+  postLoading: false,
   data: null,
   sendedImgs: false,
   sendedFiles: false,
   uploadPhoto: {},
   uploadFile: {},
-  yandexMapClick: []
+  yandexMapClick: [],
 };
 
-// global data get
+// get global data
 export const getPropertyData = createAsyncThunk("property", async () => {
   try {
     const { data } = await baseApi.get("/api/getAllStructure");
@@ -21,7 +22,19 @@ export const getPropertyData = createAsyncThunk("property", async () => {
   }
 });
 
-// imgs post
+// post added data
+export const addPropertyData = createAsyncThunk(
+  "property/addPropertyData",
+  async ({ addProperties }) => {
+    try {
+      await baseApi.post("/api/addHome", addProperties);
+    } catch (err) {
+      console.log(`Add Properties Data Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post imgs
 export const addPropertiesImgs = createAsyncThunk(
   "property/addPropertiesImgs",
   async ({ uploadPhoto }) => {
@@ -33,7 +46,7 @@ export const addPropertiesImgs = createAsyncThunk(
   }
 );
 
-// files post
+// post files
 export const addPropertiesFiles = createAsyncThunk(
   "property/addPropertiesFiles",
   async ({ uploadFile }) => {
@@ -57,7 +70,7 @@ const structureSlice = createSlice({
     },
     setYandexMapClick: (state, action) => {
       state.yandexMapClick = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -67,6 +80,13 @@ const structureSlice = createSlice({
       .addCase(getPropertyData.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+      })
+
+      .addCase(addPropertyData.pending, (state) => {
+        state.postLoading = true;
+      })
+      .addCase(addPropertyData.fulfilled, (state) => {
+        state.postLoading = false;
       })
 
       .addCase(addPropertiesImgs.pending, (state) => {
@@ -85,7 +105,8 @@ const structureSlice = createSlice({
   },
 });
 
-export const { setUploadPhoto, setUploadFile, setYandexMapClick } = structureSlice.actions;
+export const { setUploadPhoto, setUploadFile, setYandexMapClick } =
+  structureSlice.actions;
 // export const getUploadPhoto = (state) => state.property?.uploadPhoto;
 // export const getYandexMapClick = (state) => state.property?.yandexMapClick;
 export default structureSlice.reducer;

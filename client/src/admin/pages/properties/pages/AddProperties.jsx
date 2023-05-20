@@ -12,7 +12,7 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-import { addPropertiesFiles, addPropertiesImgs, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
+import { addPropertiesFiles, addPropertiesImgs, addPropertyData, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -90,14 +90,27 @@ const AddProperties = () => {
     console.log(addProperties)//
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        if (!sendedImgs) {
-            dispatch(addPropertiesImgs({ uploadPhoto }))
-        }
-        if (!sendedFiles) {
-            dispatch(addPropertiesFiles({ uploadFile }))
-        }
-    }
+        e.preventDefault();
+
+        // if (Object.keys(addProperties).length === 0) {
+        //     alert('addProperties is empty');
+        //     return;
+        // }
+
+        // if (uploadPhoto.entries().next().done) {
+        //     alert('uploadPhoto is empty');
+        //     return;
+        // }
+
+        // if (uploadFile.entries().next().done) {
+        //     alert('uploadFile is empty');
+        //     return;
+        // }
+
+        // dispatch(addPropertiesImgs({ uploadPhoto }));
+        // dispatch(addPropertiesFiles({ uploadFile }));
+        // dispatch(addPropertyData({ addProperties }));
+    };
 
     return (
         <article className='addproperties'>
@@ -180,7 +193,6 @@ const AddProperties = () => {
                                                                                 />
                                                                                 : type === "keyword"
                                                                                     ? <Keywords
-                                                                                        id={key}
                                                                                         title={title}
                                                                                         style={style}
                                                                                     />
@@ -254,6 +266,17 @@ const AddProperties = () => {
 }
 
 export default AddProperties
+
+
+// if (!sendedImgs) {
+//     dispatch(addPropertiesImgs({ uploadPhoto }))
+// }
+// if (!sendedFiles) {
+//     dispatch(addPropertiesFiles({ uploadFile }))
+// }
+// if(!sendedImgs || !sendedFiles || addProperties.length){
+//     dispatch(addPropertyData({addProperties}))
+// }
 
 
     // old,only addeds
