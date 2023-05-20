@@ -50,5 +50,12 @@ class HomeController extends Controller
         dd($data);
     }
 
+    public function addYandexLocation(Request $request) {
+        $data = $request->all();
+        dd($data);
+    }
+
+    
+
     
 }
