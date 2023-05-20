@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setKeywords } from '../../../../../store/slices/propertySlice'
 import { removeKeyword } from '../../../../svgs/svgs'
 import './Keywords.scss'
 
-export const Keywords = ({ id, title, style, onChange }) => {
-    const [keyword, setKeyword] = useState([]);
+export const Keywords = ({ title, style }) => {
+    const [keyword, setKeyword] = useState([])
+    const dispatch = useDispatch()
 
     const handleKeyDown = (event) => {
         if (event.keyCode === 13) {
-            const text = event.target.value.trim();
+            const text = event.target.value.trim()
             if (text !== '') {
                 setKeyword([...keyword, text]);
-                event.target.value = '';
+                event.target.value = ''
             }
         }
-
     }
+
+    useEffect(() => {
+        dispatch(setKeywords(keyword))
+    }, [dispatch, keyword])
 
     const deleteKey = (index) => {
         setKeyword(keyword.filter((i) => i !== index))
     }
-
-    // console.log(keyword)//
 
     return (
         <div className='keywords'>
