@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { file } from '../../../../svgs/svgs'
-import { useDispatch } from 'react-redux'
-import { setUploadFile } from '../../../../../store/slices/propertySlice'
+import React, { useEffect, useState } from 'react';
+import { file } from '../../../../svgs/svgs';
+import { useDispatch } from 'react-redux';
+import { setUploadFile } from '../../../../../store/slices/propertySlice';
 
 export const FileUpload = () => {
-    const [upload, setUpload] = useState([])
+    const [upload, setUpload] = useState([]);
 
     const uploadFile = (e) => {
-        const files = Array.from(e.target.files)
-        setUpload((prevImages) => [...prevImages, ...files])
-    }
+        const files = Array.from(e.target.files);
 
-    const dispatch = useDispatch()
+        const uniqueFiles = files.filter((file) => {
+            return !upload.some((uploadedFile) => uploadedFile.name === file.name);
+        });
+
+        setUpload((prevImages) => [...prevImages, ...uniqueFiles]);
+    };
+
+    const dispatch = useDispatch();
 
     const uploadFormData = () => {
-        const formData = new FormData()
+        const formData = new FormData();
         upload.forEach((file, index) => {
-            formData.append(`file${index}`, file)
-        })
-        dispatch(setUploadFile(formData))
-    }
+            formData.append(`file${index}`, file);
+        });
+        dispatch(setUploadFile(formData));
+    };
 
     useEffect(() => {
-        uploadFormData()
-    }, [upload])
+        uploadFormData();
+    }, [upload]);
 
     return (
         <div className='addproperties__card-fileUpload'>
@@ -35,11 +40,14 @@ export const FileUpload = () => {
                     name='File'
                     onChange={uploadFile}
                     multiple
-                    accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                    accept='.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf'
+                />
             </label>
-            {upload?.map(({ name }) => {
-                return <p key={name}>{name}</p>
-            })}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {upload?.map(({ name }) => {
+                    return <p key={name}>{name}</p>;
+                })}
+            </div>
         </div>
-    )
-}
+    );
+};

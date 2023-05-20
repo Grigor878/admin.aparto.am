@@ -3,7 +3,7 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const LngPart = ({ title, id, style, addProp }) => {
+export const LngPart = ({ title, id, style, onChange }) => {
     const [activeFlag, setActiveFlag] = useState('am')
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
@@ -32,7 +32,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
                     title={title}
                     placeholder="Գրեք նկարագրությունը"
                     // onChange={addProp}
-                    onChange={(e) => { setArm(e.target.value); addProp(e) }}
+                    onChange={(e) => { setArm(e.target.value); onChange(e) }}
                 />
                 : activeFlag === "ru"
                     ? <TextLarg
@@ -41,7 +41,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
                         title={title}
                         placeholder="Գրեք նկարագրությունը"
                         // onChange={addProp}
-                        onChange={(e) => { setRus(e.target.value); addProp(e) }}
+                        onChange={(e) => { setRus(e.target.value); onChange(e) }}
 
                     />
                     : <TextLarg
@@ -50,7 +50,7 @@ export const LngPart = ({ title, id, style, addProp }) => {
                         title={title}
                         placeholder="Գրեք նկարագրությունը"
                         // onChange={addProp}
-                        onChange={(e) => { setEng(e.target.value); addProp(e) }}
+                        onChange={(e) => { setEng(e.target.value); onChange(e) }}
                     />}
         </div >
     )

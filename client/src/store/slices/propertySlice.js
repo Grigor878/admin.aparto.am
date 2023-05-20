@@ -87,5 +87,5 @@ const structureSlice = createSlice({
 
 export const { setUploadPhoto, setUploadFile, setYandexMapClick } = structureSlice.actions;
 // export const getUploadPhoto = (state) => state.property?.uploadPhoto;
-export const getYandexMapClick = (state) => state.property?.yandexMapClick;
+// export const getYandexMapClick = (state) => state.property?.yandexMapClick;
 export default structureSlice.reducer;

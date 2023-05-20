@@ -143,7 +143,7 @@ const initialState = {
     zoom: 17,
 };
 
-const YandexMap = ({ id, title, style, height, onChange }) => {
+const YandexMap = ({ title, style, height }) => {
     const dispatch = useDispatch()
     const [state, setState] = useState({ ...initialState });
     const [placemark, setPlacemark] = useState([]);
@@ -175,10 +175,11 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
                     const newCoords = result.geoObjects.get(0).geometry.getCoordinates();
                     setPlacemark(newCoords)
                     setState((prevState) => ({ ...prevState, center: newCoords }));
+                    dispatch(setYandexMapClick(newCoords))
                 });
             });
         }
-    }, [mapConstructor]);
+    }, [dispatch, mapConstructor]);
 
     // change title
     const handleBoundsChange = () => {
@@ -209,14 +210,12 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
         <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
             <div >
                 <div >
-                    <div >
-                        <p title={state.title}>
-                            {state.title}
-                        </p>
-                        <BtnCustom onClick={handleReset} text='Default place' />
-                    </div>
+                    <p title={state.title}>
+                        {state.title}
+                    </p>
+                    <BtnCustom type="button" onClick={handleReset} text='Default place' />
                 </div>
-                {/* <BtnCustom onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' /> */}
+                {/* <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' /> */}
             </div>
 
             {title}
@@ -240,7 +239,7 @@ const YandexMap = ({ id, title, style, height, onChange }) => {
                 >
                     <Placemark geometry={placemark} />
                     {/* <GeolocationControl {...geolocationOptions} /> */}
-                    {/* <ZoomControl /> */}
+                    <ZoomControl />
                     {/* <FullscreenControl /> */}
                 </Map>
             </div>
