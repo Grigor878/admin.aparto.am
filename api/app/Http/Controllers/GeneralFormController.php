@@ -73,7 +73,9 @@ class GeneralFormController extends Controller
 
     public function getFormStructure() {
 
-        // $structure = $this->generalFormService->getFormStructure();
+        // $structure = $this->generalFormService->getAmDistrict();
+        // $lalalal = GlobalForm::LALALA;
+        // dd(111,$structure);
         $form = GlobalForm::findorFail(1);
         // $obj = [
         //   'am' => [

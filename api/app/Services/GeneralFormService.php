@@ -5,6 +5,58 @@ use App\Models\GlobalForm;
 
 class GeneralFormService
 {
+
+    // public function getAmDistrict () {
+    //   $amDistrict = [
+    //     [
+    //       "name"=> "Choose",
+    //     ],
+    //     [
+    //       "name"=> "Ajapnyak",
+    //     ],
+    //     [
+    //       "name"=> "Arabkir",
+    //     ],
+    //     [
+    //       "name"=> "Avan",
+    //     ],
+    //     [
+    //       "name"=> "Davtashen",
+    //     ],
+    //     [
+    //       "name"=> "Erebuni",
+    //     ],
+    //     [
+    //       "name"=> "Kanaker-Zeytun",
+    //     ],
+    //     [
+    //       "name"=> "Kentron",
+    //     ],
+    //     [
+    //       "name"=> "Malatia-Sebastia",
+    //     ],
+    //     [
+    //       "name"=> "Nork-Marash",
+    //     ],
+    //     [
+    //       "name"=> "Nor Nork",
+    //     ],
+    //     [
+    //       "name"=> "Nubarashen",
+    //     ],
+    //     [
+    //       "name"=> "Shengavit",
+    //     ],
+    //     [
+    //       "name"=> "Vahagni",
+    //     ],
+    //     [
+    //       "name"=> "Other",
+    //     ]
+    //   ];
+    //   return $amDistrict;
+    // }
+  
     public function getFormStructure()
     {
         $formStructure = FORM_STRUCTURE;
