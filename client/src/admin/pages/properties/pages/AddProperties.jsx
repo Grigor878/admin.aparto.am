@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
-import { Card } from '../components/card/Card'
-import { LngPart } from '../components/lngPart/LngPart'
-import { SingleSelect } from '../components/dropdowns/SingleSelect'
+import { getPropertyData, addPropertyData, addPropertyFiles, addPropertyImgs, addPropertyKeyword, addPropertyYandex } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
+import { Card } from '../components/card/Card'
+import { SingleSelect } from '../components/dropdowns/SingleSelect'
+import { MultiSelect } from '../components/dropdowns/MultiSelect'
+import { LngPart } from '../components/lngPart/LngPart'
 // import { TextLarg } from '../components/inputs/TextLarg'
 // import { TextMid } from '../components/inputs/TextMid'
 // import { TextSmall } from '../components/inputs/TextSmall'
@@ -12,7 +14,6 @@ import { Loader } from '../../../../components/loader/Loader'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-import { addPropertiesFiles, addPropertiesImgs, addPropertiesKeywords, addPropertyData, getPropertyData, getYandexMapClick } from '../../../../store/slices/propertySlice'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -32,22 +33,22 @@ const AddProperties = () => {
     }, [dispatch])
 
     const { data } = useSelector((state) => state.property)
-    const { yandexMapClick, keywords, uploadPhoto, uploadFile } = useSelector((state) => state.property)
+    const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
     // console.log(data)
-    // console.log(keywords)
-    // console.log(yandexMapClick)
+    // console.log(keyword)
+    // console.log(yandex)
     // console.log(uploadPhoto)
     // console.log(uploadFile)
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
 
-    const [addProperties, setAddProperties] = useState('')
+    const [addProperty, setAddProperty] = useState('')
 
     // const addProp = (e, name) => {
     //     let { id, value, checked, files } = e.target;
 
-    //     setAddProperties((prev) => {
+    //     setAddProperty((prev) => {
     //         let obj = {
     //             [name]: {
     //                 ...prev[name],
@@ -58,14 +59,14 @@ const AddProperties = () => {
     //     });
     // };
 
-    const addProp = (e, name, type) => {
-        let { id, value, checked, files } = e.target
+    const addProp = (e, getOptionName, name, type) => {
+        let { id, value, checked, files } = e.target;
 
-        setAddProperties((prev) => {
-            let obj = {}
+        setAddProperty((prev) => {
+            let obj = {};
 
             if (type === 'text' && id.endsWith('Am') || id.endsWith('Ru') || id.endsWith('En')) {
-                const nestedKey = id.slice(0, -2)
+                const nestedKey = id.slice(0, -2);
 
                 obj = {
                     [name]: {
@@ -75,20 +76,26 @@ const AddProperties = () => {
                             [id]: value,
                         },
                     },
-                }
+                };
             } else {
                 obj = {
                     [name]: {
                         ...prev[name],
                         [id]: checked ? checked : value ? value : files,
                     },
-                }
+                };
             }
 
-            return { ...prev, ...obj }
-        })
-    }
-    console.log(addProperties)//
+            // selectneri logikan
+            if (obj[name] && obj[name][id]) {
+                obj[name][id] = getOptionName;
+            }
+
+            return { ...prev, ...obj };
+        });
+    };
+
+    console.log(addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -108,10 +115,11 @@ const AddProperties = () => {
         //     return
         // }
 
-        dispatch(addPropertiesImgs({ uploadPhoto }))
-        dispatch(addPropertiesFiles({ uploadFile }))
-        dispatch(addPropertyData({ addProperties }))
-        dispatch(addPropertiesKeywords({ keywords }))
+        dispatch(addPropertyData({ addProperty }))
+        dispatch(addPropertyImgs({ uploadPhoto }))
+        dispatch(addPropertyFiles({ uploadFile }))
+        dispatch(addPropertyYandex({ yandex }))
+        dispatch(addPropertyKeyword({ keyword }))
     };
 
     return (
@@ -136,10 +144,11 @@ const AddProperties = () => {
                                                     ? <SingleSelect
                                                         id={key}
                                                         title={title}
-                                                        nameAttr={name}
+                                                        name={name}
                                                         data={option}
                                                         style={style}
-                                                        onChange={(e) => addProp(e, name)}
+                                                        // onChange={(e) => addProp(e, name)}
+                                                        onChange={(getOptionName, e) => addProp(e, getOptionName, name)}
                                                     />
                                                     : type === "text"
                                                         ? <LngPart

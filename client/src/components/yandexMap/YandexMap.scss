@@ -1,14 +1,22 @@
-@import '../../variables';
+@import "../../variables";
 
-.yandex{
-    &__map{
-        position: relative;
+.yandex {
+  &__map {
+    position: relative;
 
-        &-search{
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 40001;
-        }
+    &-search {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 40001;
+      padding: 5px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: $text;
+      border-radius: 5px;
+      border: 1px solid $advancedBack;
     }
+  }
 }
+

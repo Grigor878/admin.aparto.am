@@ -4,7 +4,7 @@ import Flag from 'react-world-flags'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import { useDispatch } from 'react-redux'
 import { addStructureField } from '../../../../../store/slices/structureSlice'
-import { capitalize } from '../../../../../helpers/utils'
+import { capitalize } from '../../../../../helpers/formatters'
 import { error, success } from '../../../../../components/swal/swal'
 import './Modal.scss'
 

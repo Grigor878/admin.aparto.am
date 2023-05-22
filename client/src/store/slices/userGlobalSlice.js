@@ -33,7 +33,6 @@ const userGlobalSlice = createSlice({
       .addCase(getUserGlobal.fulfilled, (state, action) => {
         state.loading = false;
         state.userGlobal = action.payload;
-        // state.error = "";
       })
       .addCase(getUserGlobal.rejected, (state, action) => {
         state.loading = false;

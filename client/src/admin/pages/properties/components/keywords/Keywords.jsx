@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setKeywords } from '../../../../../store/slices/propertySlice'
+import { setKeyword } from '../../../../../store/slices/propertySlice'
 import { removeKeyword } from '../../../../svgs/svgs'
 import './Keywords.scss'
+import { error } from '../../../../../components/swal/swal'
 
 export const Keywords = ({ title, style }) => {
-    const [keyword, setKeyword] = useState([])
+    const [keywords, setKeywords] = useState([])
     const dispatch = useDispatch()
 
-    const handleKeyDown = (event) => {
-        if (event.keyCode === 13) {
-            const text = event.target.value.trim()
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault()
+            const text = e.target.value.trim()
             if (text !== '') {
-                setKeyword([...keyword, text]);
-                event.target.value = ''
+                const lowercaseText = text.toLowerCase()
+                if (!keywords.some((keyword) => keyword.toLowerCase() === lowercaseText)) {
+                    setKeywords([...keywords, text])
+                } else {
+                    error('Keyword already exist!')
+                }
+                e.target.value = ''
             }
         }
+    };
+
+    const deleteKey = (index) => {
+        setKeywords(keywords.filter((i) => i !== index))
     }
 
     useEffect(() => {
-        dispatch(setKeywords(keyword))
-    }, [dispatch, keyword])
-
-    const deleteKey = (index) => {
-        setKeyword(keyword.filter((i) => i !== index))
-    }
+        dispatch(setKeyword(keywords))
+    }, [dispatch, keywords])
 
     return (
         <div className='keywords'>
@@ -42,9 +49,9 @@ export const Keywords = ({ title, style }) => {
             <p>ընտրված բառեր</p>
 
             <div className='keywords__addeds'>
-                {keyword.length
+                {keywords.length
                     ? <ul className='keywords__addeds-list'>
-                        {keyword.map((e) => (
+                        {keywords.map((e) => (
                             <li key={e} className='keywords__addeds-link'>
                                 {e}<button type="button" onClick={() => deleteKey(e)}>{removeKeyword.icon}</button>
                             </li>

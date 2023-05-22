@@ -6,7 +6,6 @@ import { Outlet } from 'react-router-dom'
 import Sidebar from '../sidebar/Sidebar'
 import AutoScroll from '../../../helpers/autoScroll'
 import HelmetAdmin from '../../../components/helmetAsync/HelmetAdmin'
-// import { Loader } from '../../../components/loader/Loader'
 
 const LayoutDash = () => {
     let location = useLocation()
@@ -15,6 +14,7 @@ const LayoutDash = () => {
 
     useEffect(() => {
         dispatch(getUserGlobal())
+        console.log('render')
     }, [dispatch])
 
     if (location.pathname === '/dashboard') {
@@ -26,7 +26,7 @@ const LayoutDash = () => {
             <Sidebar />
             <AutoScroll />
             <HelmetAdmin />
-            <Suspense fallback={<p></p>}>
+            <Suspense fallback={null}>
                 <Outlet />
             </Suspense >
         </div>

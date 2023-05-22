@@ -16,7 +16,7 @@ export const getUsers = createAsyncThunk("users", async () => {
 });
 
 // store um el add anel vor ashxati
-// export const addUser = createAsyncThunk("userAdd", async ({ formData }) => {
+// export const addUser = createAsyncThunk("users/add", async ({ formData }) => {
 //   await baseApi.post("/api/addUser", formData);
 // });
 

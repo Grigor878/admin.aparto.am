@@ -1,16 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
+import { getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   loading: false,
-  postLoading: false,
   data: null,
-  sendedImgs: false,
-  sendedFiles: false,
+  postLoading: false,
+  // sendedImgs: false,
+  // sendedFiles: false,
   uploadPhoto: {},
   uploadFile: {},
-  yandexMapClick: [],
-  keywords: [],
+  yandex: [],
+  keyword: [],
 };
 
 // get global data
@@ -26,47 +27,59 @@ export const getPropertyData = createAsyncThunk("property", async () => {
 // post added data
 export const addPropertyData = createAsyncThunk(
   "property/addPropertyData",
-  async ({ addProperties }) => {
+  async ({ addProperty }) => {
     try {
-      await baseApi.post("/api/addHome", addProperties);
+      await baseApi.post("/api/addHome", addProperty, getAxiosConfig());
     } catch (err) {
-      console.log(`Add Properties Data Sending Error: ${err.message}`);
+      console.log(`Add Property Data Sending Error: ${err.message}`);
     }
   }
 );
 
 // post imgs
-export const addPropertiesImgs = createAsyncThunk(
-  "property/addPropertiesImgs",
+export const addPropertyImgs = createAsyncThunk(
+  "property/addPropertyImgs",
   async ({ uploadPhoto }) => {
     try {
       await baseApi.post("/api/multyPhoto", uploadPhoto);
     } catch (err) {
-      console.log(`Add Properties Imgs Sending Error: ${err.message}`);
+      console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
   }
 );
 
 // post files
-export const addPropertiesFiles = createAsyncThunk(
-  "property/addPropertiesFiles",
+export const addPropertyFiles = createAsyncThunk(
+  "property/addPropertyFiles",
   async ({ uploadFile }) => {
     try {
       await baseApi.post("/api/documentUpload", uploadFile);
     } catch (err) {
-      console.log(`Add Properties Files Sending Error: ${err.message}`);
+      console.log(`Add Property Files Sending Error: ${err.message}`);
     }
   }
 );
 
-// post keywords
-export const addPropertiesKeywords = createAsyncThunk(
-  "property/addPropertiesFiles",
+// post yandex
+export const addPropertyYandex = createAsyncThunk(
+  "property/addPropertyYandex",
+  async ({ yandexMapClick }) => {
+    try {
+      await baseApi.post("/api/addYandexLocation", yandexMapClick);
+    } catch (err) {
+      console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post keyword
+export const addPropertyKeyword = createAsyncThunk(
+  "property/addPropertyKeyword",
   async ({ keyword }) => {
     try {
       await baseApi.post("/api/addKeyword", keyword);
     } catch (err) {
-      console.log(`Add Properties Keywords Sending Error: ${err.message}`);
+      console.log(`Add Property Keyword Sending Error: ${err.message}`);
     }
   }
 );
@@ -81,11 +94,11 @@ const structureSlice = createSlice({
     setUploadFile: (state, action) => {
       state.uploadFile = action.payload;
     },
-    setYandexMapClick: (state, action) => {
-      state.yandexMapClick = action.payload;
+    setYandex: (state, action) => {
+      state.yandex = action.payload;
     },
-    setKeywords: (state, action) => {
-      state.keywords = action.payload;
+    setKeyword: (state, action) => {
+      state.keyword = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -103,33 +116,32 @@ const structureSlice = createSlice({
       })
       .addCase(addPropertyData.fulfilled, (state) => {
         state.postLoading = false;
-      })
+      });
 
-      .addCase(addPropertiesImgs.pending, (state) => {
-        state.sendedImgs = true;
-      })
-      .addCase(addPropertiesImgs.fulfilled, (state) => {
-        state.sendedImgs = false;
-      })
+    // .addCase(addPropertyImgs.pending, (state) => {
+    //   state.sendedImgs = true;
+    // })
+    // .addCase(addPropertyImgs.fulfilled, (state) => {
+    //   state.sendedImgs = false;
+    // })
 
-      .addCase(addPropertiesFiles.pending, (state) => {
-        state.sendedFiles = true;
-      })
-      .addCase(addPropertiesFiles.fulfilled, (state) => {
-        state.sendedFiles = false;
-      })
+    // .addCase(addPropertyFiles.pending, (state) => {
+    //   state.sendedFiles = true;
+    // })
+    // .addCase(addPropertyFiles.fulfilled, (state) => {
+    //   state.sendedFiles = false;
+    // });
 
-      // .addCase(addPropertiesKeywords.pending, (state) => {
-      //   state.sendedFiles = true;
-      // })
-      // .addCase(addPropertiesKeywords.fulfilled, (state) => {
-      //   state.sendedFiles = false;
-      // });
+    // .addCase(addPropertyKeywords.pending, (state) => {
+    //   state.sendedFiles = true;
+    // })
+    // .addCase(addPropertyKeywords.fulfilled, (state) => {
+    //   state.sendedFiles = false;
+    // });
   },
 });
 
-export const { setUploadPhoto, setUploadFile, setYandexMapClick, setKeywords } =
+export const { setUploadPhoto, setUploadFile, setYandex, setKeyword } =
   structureSlice.actions;
-// export const getUploadPhoto = (state) => state.property?.uploadPhoto;
-// export const getYandexMapClick = (state) => state.property?.yandexMapClick;
+// export const getYandexMapClick = (state) => state.property?.yandex;
 export default structureSlice.reducer;

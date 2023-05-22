@@ -6,7 +6,3 @@ export function isValidEmail(mail) {
 export function random(num) {
   return Math.floor(Math.random() * num);
 }
-// capitalize
-export function capitalize(str){
- return str.charAt(0).toUpperCase() + str.slice(1)
-}

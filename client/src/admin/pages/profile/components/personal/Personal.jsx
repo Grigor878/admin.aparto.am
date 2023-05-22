@@ -44,10 +44,12 @@ export const Personal = () => {
                         />
                     </div>
                     <div className='profile__data-form-parts'>
-                        <DisabledInput
-                            name='Հեռախոսահամար'
-                            value={phone?.tel1}
-                        />
+                        {phone?.tel1.length
+                            ? <DisabledInput
+                                name='Հեռախոսահամար'
+                                value={phone?.tel1}
+                            />
+                            : null}
                         <DisabledInput
                             name='էլ. Փոստ'
                             value={email}

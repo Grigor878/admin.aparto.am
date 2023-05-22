@@ -122,20 +122,17 @@ import { BtnCustom } from "../../admin/components/buttons/BtnCustom";
 import '../../admin/components/inputs/Inputs.scss';
 import './YandexMap.scss'
 import { useDispatch } from "react-redux";
-import { setYandexMapClick } from "../../store/slices/propertySlice";
+import { setYandex } from "../../store/slices/propertySlice";
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],
-    defaultOptions: { suppressMapOpenBlock: true },
-
-    // width: 600,
-    // height: 400,
+    defaultOptions: { suppressMapOpenBlock: true }
 };
 
-// const geolocationOptions = {
-//     defaultOptions: { maxWidth: 128 },
-//     defaultData: { content: "Determine" },
-// };
+const geolocationOptions = {
+    defaultOptions: { maxWidth: 128 },
+    defaultData: { content: "Determine" },
+};
 
 const initialState = {
     title: "",
@@ -145,11 +142,11 @@ const initialState = {
 
 const YandexMap = ({ title, style, height }) => {
     const dispatch = useDispatch()
-    const [state, setState] = useState({ ...initialState });
-    const [placemark, setPlacemark] = useState([]);
-    const [mapConstructor, setMapConstructor] = useState(null);
-    const mapRef = useRef(null);
-    const searchRef = useRef(null);
+    const [state, setState] = useState({ ...initialState })
+    const [placemark, setPlacemark] = useState([])
+    const [mapConstructor, setMapConstructor] = useState(null)
+    const mapRef = useRef(null)
+    const searchRef = useRef(null)
 
     // const handleSubmit = () => {
     //     console.log(state)//
@@ -159,23 +156,23 @@ const YandexMap = ({ title, style, height }) => {
     // };
 
     // reset state & search
-    const handleReset = () => {
-        setState({ ...initialState });
-        searchRef.current.value = "";
-        mapRef.current.setCenter(initialState.center);
-        mapRef.current.setZoom(initialState.zoom);
-    };
+    // const handleReset = () => {
+    //     setState({ ...initialState })
+    //     searchRef.current.value = ""
+    //     mapRef.current.setCenter(initialState.center)
+    //     mapRef.current.setZoom(initialState.zoom)
+    // };
 
     // search popup
     useEffect(() => {
         if (mapConstructor) {
             new mapConstructor.SuggestView(searchRef.current).events.add("select", function (e) {
-                const selectedName = e.get("item").value;
+                const selectedName = e.get("item").value
                 mapConstructor.geocode(selectedName).then((result) => {
-                    const newCoords = result.geoObjects.get(0).geometry.getCoordinates();
+                    const newCoords = result.geoObjects.get(0).geometry.getCoordinates()
                     setPlacemark(newCoords)
-                    setState((prevState) => ({ ...prevState, center: newCoords }));
-                    dispatch(setYandexMapClick(newCoords))
+                    setState((prevState) => ({ ...prevState, center: newCoords }))
+                    dispatch(setYandex(newCoords))
                 });
             });
         }
@@ -186,26 +183,22 @@ const YandexMap = ({ title, style, height }) => {
         const newCoords = mapRef.current.getCenter();
         mapConstructor.geocode(newCoords).then((res) => {
             const nearest = res.geoObjects.get(0);
-            const foundAddress = nearest.properties.get("text");
-            const [centerX, centerY] = nearest.geometry.getCoordinates();
-            const [initialCenterX, initialCenterY] = initialState.center;
+            const foundAddress = nearest.properties.get("text")
+            const [centerX, centerY] = nearest.geometry.getCoordinates()
+            const [initialCenterX, initialCenterY] = initialState.center
             if (centerX !== initialCenterX && centerY !== initialCenterY) {
-                setState((prevState) => ({ ...prevState, title: foundAddress }));
+                setState((prevState) => ({ ...prevState, title: foundAddress }))
             }
         });
     };
 
     // change placemark
     const handleClick = (event) => {
-        const coords = event.get('coords');
-        dispatch(setYandexMapClick(coords))
-        setPlacemark(coords);
+        const coords = event.get('coords')
+        dispatch(setYandex(coords))
+        setPlacemark(coords)
     };
-    // console.log(placemark)//
-    // console.log(state)//
 
-    // ASHXATOX API KEY
-    // <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
     return (
         <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
             <div >
@@ -213,7 +206,7 @@ const YandexMap = ({ title, style, height }) => {
                     <p title={state.title}>
                         {state.title}
                     </p>
-                    <BtnCustom type="button" onClick={handleReset} text='Default place' />
+                    {/* <BtnCustom type="button" onClick={handleReset} text='Default place' /> */}
                 </div>
                 {/* <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' /> */}
             </div>
@@ -238,9 +231,9 @@ const YandexMap = ({ title, style, height }) => {
                     onClick={handleClick}
                 >
                     <Placemark geometry={placemark} />
-                    {/* <GeolocationControl {...geolocationOptions} /> */}
+                    {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
                     <ZoomControl />
-                    {/* <FullscreenControl /> */}
+                    <FullscreenControl />
                 </Map>
             </div>
         </YMaps>
@@ -248,3 +241,5 @@ const YandexMap = ({ title, style, height }) => {
 }
 
 export default YandexMap
+
+//https://codesandbox.io/s/yandex-map-search-organization-dutdr?file=/src/YmapsComponent.tsx:633-668
