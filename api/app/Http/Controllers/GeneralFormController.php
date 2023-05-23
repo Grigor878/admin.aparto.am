@@ -1429,14 +1429,28 @@ class GeneralFormController extends Controller
               "style" => "217px",
               "option" => [
                 [
-                  "key" => "owner",
+                  "key" => "owner2",
                   "title" => "Սեփականատեր 2*",
                   "placeholder" => "Գրեք սեփականատիրոջ անունը",
                   "type" => "inputText",
                   "style" => "412px",
                 ],
                 [
-                  "key" => "ownerTel",
+                  "key" => "ownerTel2",
+                  "title" => "Սեփականատիրոջ Հեռախոսահամար*",
+                  "type" => "inputNumber",
+                  "style" => "412px",
+                  "option" => [],
+                ],
+                [
+                  "key" => "owner3",
+                  "title" => "Սեփականատեր 3*",
+                  "placeholder" => "Գրեք սեփականատիրոջ անունը",
+                  "type" => "inputText",
+                  "style" => "412px",
+                ],
+                [
+                  "key" => "ownerTel3",
                   "title" => "Սեփականատիրոջ Հեռախոսահամար*",
                   "type" => "inputNumber",
                   "style" => "412px",
