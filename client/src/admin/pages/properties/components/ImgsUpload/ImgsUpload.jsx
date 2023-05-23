@@ -140,19 +140,21 @@ export const ImgsUpload = ({ style }) => {
                         />
                         {!visibleImages[index] ? <p>Թաքցված</p> : null}
                         <div className='imgsUpload__card-btns'>
-                            <span
+                            <button
+                                type="button"
                                 onClick={() => handleToggleVisibility(index)}
                                 className='imgsUpload__card-btns-hideShow'
                             >
                                 {visibleImages[index] ? hideImg.icon : showImg.icon}
                                 {visibleImages[index] ? 'Թաքցնել' : 'Բացել'}
-                            </span>
-                            <span
+                            </button>
+                            <button
+                                type="button"
                                 onClick={() => handleImageDelete(index)}
                                 className='imgsUpload__card-btns-delete'
                             >
                                 {removeWhite.icon}
-                            </span>
+                            </button>
                         </div>
                     </div>
                 ))}

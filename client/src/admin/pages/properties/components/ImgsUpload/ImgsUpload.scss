@@ -59,6 +59,7 @@
         background: rgba(50, 51, 56, 0.9);
         border-radius: 4px;
         padding: 5px 6px;
+        cursor: pointer;
       }
 
       &-hideShow {
@@ -72,6 +73,7 @@
         font-size: 14px;
         line-height: 16px;
         color: $bg;
+        cursor: pointer;
       }
     }
   }

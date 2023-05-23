@@ -9,6 +9,8 @@ export const LngPart = ({ title, id, style, onChange }) => {
     const [rus, setRus] = useState('')
     const [eng, setEng] = useState('')
 
+    let placeholder = title?.split(" ").pop().slice(0, -1).toLowerCase() + "ը"
+
     return (
         <div key={id} style={{ width: style }}>
             <ul className="addproperties__card-flags">
@@ -30,8 +32,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                     id={id + "Am"}
                     value={arm}
                     title={title}
-                    placeholder="Գրեք նկարագրությունը"
-                    // onChange={addProp}
+                    placeholder={`Գրեք ` + placeholder}
                     onChange={(e) => { setArm(e.target.value); onChange(e) }}
                 />
                 : activeFlag === "ru"
@@ -39,8 +40,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                         id={id + "Ru"}
                         value={rus}
                         title={title}
-                        placeholder="Գրեք նկարագրությունը"
-                        // onChange={addProp}
+                        placeholder={`Գրեք ` + placeholder}
                         onChange={(e) => { setRus(e.target.value); onChange(e) }}
 
                     />
@@ -48,8 +48,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                         id={id + "En"}
                         value={eng}
                         title={title}
-                        placeholder="Գրեք նկարագրությունը"
-                        // onChange={addProp}
+                        placeholder={`Գրեք ` + placeholder}
                         onChange={(e) => { setEng(e.target.value); onChange(e) }}
                     />}
         </div >

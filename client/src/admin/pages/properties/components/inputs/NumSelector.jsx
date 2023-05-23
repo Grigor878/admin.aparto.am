@@ -18,7 +18,7 @@ export const NumSelector = ({ id, title, data, value, style, onChange }) => {
                         className='addproperties__card-text-numSelector'
                         style={{ backgroundColor: state === el.value ? "#cfd1da" : "#f3f4f8" }}
                     >
-                        {el.name}
+                        {el.value}
                     </button>
                 ))}
             </div>
