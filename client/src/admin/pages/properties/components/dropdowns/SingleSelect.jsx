@@ -1,22 +1,14 @@
 import React from 'react'
-import '../../../../components/inputs/Inputs.scss'
+// import '../../../../components/inputs/Inputs.scss'
 
 export const SingleSelect = ({ title, id, value, onChange, data, style }) => {
-
-    const handleOptionChange = (e) => {
-        const selectedIndex = e.target.selectedIndex
-        const selectedOption = data[selectedIndex]
-        const optionName = selectedOption.getOptionName || ''
-        onChange(optionName, e, id)
-    }
-
     return (
         <label className='addproperties__card-singleselect'>
             {title}
             <select
                 id={id}
                 value={value}
-                onChange={handleOptionChange}
+                onChange={onChange}
                 style={{ width: style }}
                 className="addproperties__card-singleselect-dropdown"
             >
@@ -24,7 +16,7 @@ export const SingleSelect = ({ title, id, value, onChange, data, style }) => {
                     return (
                         <option
                             key={el.id}
-                            value={el.value}
+                            value={el.getOptionName}
                         >{el.name}
                         </option>
                     )

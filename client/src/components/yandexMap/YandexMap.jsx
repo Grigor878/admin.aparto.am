@@ -173,10 +173,10 @@ const YandexMap = ({ title, style, height }) => {
                     setPlacemark(newCoords)
                     setState((prevState) => ({ ...prevState, center: newCoords }))
                     dispatch(setYandex(newCoords))
-                });
-            });
+                })
+            })
         }
-    }, [dispatch, mapConstructor]);
+    }, [dispatch, mapConstructor])
 
     // change title
     const handleBoundsChange = () => {
@@ -189,15 +189,15 @@ const YandexMap = ({ title, style, height }) => {
             if (centerX !== initialCenterX && centerY !== initialCenterY) {
                 setState((prevState) => ({ ...prevState, title: foundAddress }))
             }
-        });
-    };
+        })
+    }
 
     // change placemark
     const handleClick = (event) => {
         const coords = event.get('coords')
         dispatch(setYandex(coords))
         setPlacemark(coords)
-    };
+    }
 
     return (
         <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>

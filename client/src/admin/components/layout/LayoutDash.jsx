@@ -14,7 +14,6 @@ const LayoutDash = () => {
 
     useEffect(() => {
         dispatch(getUserGlobal())
-        console.log('render')
     }, [dispatch])
 
     if (location.pathname === '/dashboard') {

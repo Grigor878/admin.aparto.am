@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
-
 export const MultiSelect = ({ title, id, name, data, style }) => {
     const [selected, setSelected] = useState()
 
-    // const mod = Object.assign([
-    //     {
-    //         name: name,
-    //         key: id,
-    //     },
-    //     selected
-    // ])
+    const mod = Object.assign([
+        {
+            name: name,
+            key: id,
+        },
+        selected
+    ])
     // console.log(mod)
 
 
@@ -26,13 +20,18 @@ export const MultiSelect = ({ title, id, name, data, style }) => {
             <Select
                 isMulti
                 closeMenuOnSelect={false}
-                options={options}
+                options={data}
                 placeholder="Ընտրեք"
                 onChange={(e) => setSelected(e)}
                 styles={{
                     control: (baseStyles) => ({
                         ...baseStyles,
                         width: style,
+                        borderRadius: "8px",
+                        fontWeight: "400",
+                        fontSize: "14px",
+                        textTransform:"capitalize",
+                        lineHeight: "16px",
                         borderColor: '#e7e9f0',
                         '&:hover': {
                             borderColor: '#e7e9f0',

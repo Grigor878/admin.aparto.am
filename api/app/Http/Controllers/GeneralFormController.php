@@ -152,17 +152,20 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 1,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Վաճառք",
-                  "value" => "Վաճառք"
+                  "value" => "Վաճառք",
+                  "getOptionName" => "sale"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Վարձակալություն",
-                  "value" => "Վարձակալություն"
+                  "value" => "Վարձակալություն",
+                  "getOptionName" => "rent"
                 ]
               ]
             ],
@@ -175,27 +178,32 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 1,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Բնակարան",
-                  "value" => "Բնակարան"
+                  "value" => "Բնակարան",
+                  "getOptionName" => "house"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Առանձնատուն",
-                  "value" => "Առանձնատուն"
+                  "value" => "Առանձնատուն",
+                  "getOptionName" => "privateHouse"
                 ],
                 [
                   "id"=> 4,
                   "name"=> "Կոմերցիոն (առանձնատուն)",
-                  "value" => "Կոմերցիոն (առանձնատուն)"
+                  "value" => "Կոմերցիոն (առանձնատուն)",
+                  "getOptionName" => "commercialHouse"
                 ],
                 [
                   "id"=> 5,
                   "name"=> "Կոմերցիոն (բնակարան)",
-                  "value" => "Կոմերցիոն (բնակարան)"
+                  "value" => "Կոմերցիոն (բնակարան)",
+                  "getOptionName" => "commercialApartment"
                 ],
               ]
             ],
@@ -222,22 +230,26 @@ class GeneralFormController extends Controller
               [
                 "id"=> 1,
                 "name"=> "Ընտրեք տեսակը",
-                "value" => ""
+                "value" => "",
+                "getOptionName" => ""
               ],
               [
                 "id"=> 2,
                 "name"=> "Հասարակ",
-                "value" => "Հասարակ"
+                "value" => "Հասարակ",
+                "getOptionName" => "simple"
               ],
               [
                 "id"=> 3,
                 "name"=> "Տոպ",
-                "value" => "Տոպ"
+                "value" => "Տոպ",
+                "getOptionName" => "top"
               ],
               [
                 "id"=> 4,
                 "name"=> "Շտապ",
-                "value" => "Շտապ"
+                "value" => "Շտապ",
+                "getOptionName" => "urgent"
               ],
             ]
           ],
@@ -257,77 +269,92 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 1,
                   "name"=> "Ընտրեք",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Աջափնյակ",
-                  "value" => "Աջափնյակ"
+                  "value" => "Աջափնյակ",
+                  "getOptionName" => "ajapnyak"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Արաբկիր",
-                  "value" => "Արաբկիր"
+                  "value" => "Արաբկիր",
+                  "getOptionName" => "arabkir"
                 ],
                 [
                   "id"=> 4,
                   "name"=> "Ավան",
-                  "value" => "Ավան"
+                  "value" => "Ավան",
+                  "getOptionName" => "avan"
                 ],
                 [
                   "id"=> 5,
                   "name"=> "Դավթաշեն",
-                  "value" => "Դավթաշեն"
+                  "value" => "Դավթաշեն",
+                  "getOptionName" => "davtashen"
                 ],
                 [
                   "id"=> 6,
                   "name"=> "Էրեբունի",
-                  "value" => "Էրեբունի"
+                  "value" => "Էրեբունի",
+                  "getOptionName" => "erebuni"
                 ],
                 [
                   "id"=> 7,
                   "name"=> "Քանաքեռ-Զեյթուն",
-                  "value" => "Քանաքեռ-Զեյթուն"
+                  "value" => "Քանաքեռ-Զեյթուն",
+                  "getOptionName" => "zeytun"
                 ],
                 [
                   "id"=> 8,
                   "name"=> "Կենտրոն",
-                  "value" => "Կենտրոն"
+                  "value" => "Կենտրոն",
+                  "getOptionName" => "kentron"
                 ],
                 [
                   "id"=> 9,
                   "name"=> "Մալաթիա-Սեբաստիա",
-                  "value" => "Մալաթիա-Սեբաստիա"
+                  "value" => "Մալաթիա-Սեբաստիա",
+                  "getOptionName" => "malatia"
                 ],
                 [
                   "id"=> 10,
                   "name"=> "Նորք-Մարաշ",
-                  "value" => "Նորք-Մարաշ"
+                  "value" => "Նորք-Մարաշ",
+                  "getOptionName" => "norqMarash"
                 ],
                 [
                   "id"=> 11,
                   "name"=> "Նոր Նորք",
-                  "value" => "Նոր Նորք"
+                  "value" => "Նոր Նորք",
+                  "getOptionName" => "norNorq"
                 ],
                 [
                   "id"=> 12,
                   "name"=> "Նուբարաշեն",
-                  "value" => "Նուբարաշեն"
+                  "value" => "Նուբարաշեն",
+                  "getOptionName" => "nubarashen"
                 ],
                 [
                   "id"=> 13,
                   "name"=> "Շենգավիթ",
-                  "value" => "Շենգավիթ"
+                  "value" => "Շենգավիթ",
+                  "getOptionName" => "shengavit"
                 ],
                 [
                   "id"=> 14,
                   "name"=> "Վահագնի թաղամաս",
-                  "value" => "Վահագնի թաղամաս"
+                  "value" => "Վահագնի թաղամաս",
+                  "getOptionName" => "vahagni"
                 ],
                 [
                   "id"=> 15,
                   "name"=> "Այլ",
-                  "value" => "Այլ"
+                  "value" => "Այլ",
+                  "getOptionName" => "other"
                 ]
               ]
             ],
@@ -371,6 +398,7 @@ class GeneralFormController extends Controller
               "title" => "Իրական հասցե*",
               "type" => "inputText",
               "style" => "629px",
+              "placeholder" => "Հասցե",
               "option" => []
             ],
           ]
@@ -478,136 +506,104 @@ class GeneralFormController extends Controller
             [
               "key" => "paymentMethod",
               "title" => "Վճարման կարգը*",
-              "type" => "select",
+              "type" => "multiselect",
               "style" => "306px",
               "option" => [
               [
-                "id"=> 0,
-                "name"=> "Ընտրեք",
-                "value" => ""
+                "label"=> "Բանկային փոխանցում",
+                "value" => "bankTransfer"
               ],
               [
-                "id"=> 1,
-                "name"=> "Բանկային փոխանցում",
-                "value" => "Բանկային փոխանցում"
+                "label"=> "Հիպոթեքային վարկ",
+                "value" => "mortgageLoan"
               ],
               [
-                "id"=> 2,
-                "name"=> "Հիպոթեքային վարկ",
-                "value" => "Հիպոթեքային վարկ"
-              ],
-              [
-                "id"=> 3,
-                "name"=> "Այլ",
-                "value" => "Այլ"
+                "label"=> "Այլ",
+                "value" => "other"
               ],
               ]
             ],
             [
             "key" => "preferredBank",
             "title" => "Նախընտրած բանկը*",
-            "type" => "select",
+            "type" => "multiselect",
             "style" => "306px",
             "option" => [
               [
-                "id"=> 0,
-                "name"=> "Ընտրեք նախընտրած բանկը",
-                "value" => ""
+                "label"=> "Ամերիա բանկ",
+                "value" => "ameriaBank"
               ],
               [
-                "id"=> 1,
-                "name"=> "Ամերիա բանկ",
-                "value" => "Ամերիա բանկ"
+                "label"=> "Էվոկաբանկ",
+                "value" => "evocaBank"
               ],
               [
-                "id"=> 2,
-                "name"=> "Էվոկաբանկ",
-                "value" => "Էվոկաբանկ"
+                "label"=> "Ինեկոբանկ",
+                "value" => "inecoBank"
               ],
               [
-                "id"=> 3,
-                "name"=> "Ինեկոբանկ",
-                "value" => "Ինեկոբանկ"
+                "label"=> "ԱյԴի բանկ",
+                "value" => "idBank"
               ],
               [
-                "id"=> 4,
-                "name"=> "ԱյԴի բանկ",
-                "value" => "ԱյԴի բանկ"
+                "label"=> "Ակբա բանկ",
+                "value" => "acbaBank"
               ],
               [
-                "id"=> 5,
-                "name"=> "Ակբա բանկ",
-                "value" => "Ակբա բանկ"
+                "label"=> "Մելլաթ բանկ",
+                "value" => "mellatBank"
               ],
               [
-                "id"=> 6,
-                "name"=> "Մելլաթ բանկ",
-                "value" => "Մելլաթ բանկ"
+                "label"=> "ՀայԷկոնոմ բանկ",
+                "value" => "armeconomBank"
               ],
               [
-                "id"=> 7,
-                "name"=> "ՀայԷկոնոմ բանկ",
-                "value" => "ՀայԷկոնոմ բանկ"
+                "label"=> "HSBC բանկ",
+                "value" => "HSBC"
               ],
               [
-                "id"=> 8,
-                "name"=> "HSBC բանկ",
-                "value" => "HSBC բանկ"
+                "label"=> "Յունիբանկ",
+                "value" => "uniBank"
               ],
               [
-                "id"=> 9,
-                "name"=> "Յունիբանկ",
-                "value" => "Յունիբանկ"
+                "label"=> "Հայբիզնեսբանկ",
+                "value" => "armbusinessMank"
               ],
               [
-                "id"=> 10,
-                "name"=> "Հայբիզնեսբանկ",
-                "value" => "Հայբիզնեսբանկ"
+                "label"=> "Կոնվերս բանկ",
+                "value" => "converseBank"
               ],
               [
-                "id"=> 11,
-                "name"=> "Կոնվերս բանկ",
-                "value" => "Կոնվերս բանկ"
+                "label"=> "Արարատ բանկ",
+                "value" => "araratBank"
               ],
               [
-                "id"=> 12,
-                "name"=> "Արարատ բանկ",
-                "value" => "Արարատ բանկ"
+                "label"=> "Ֆասթ բանկ",
+                "value" => "fastBank"
               ],
               [
-                "id"=> 13,
-                "name"=> "Ֆասթ բանկ",
-                "value" => "Ֆասթ բանկ"
+                "label"=> "Արմսվիսբանկ",
+                "value" => "armswissBank"
               ],
               [
-                "id"=> 14,
-                "name"=> "Արմսվիսբանկ",
-                "value" => "Արմսվիսբանկ"
+                "label"=> "Արցախ բանկ",
+                "value" => "artsakh"
               ],
               [
-                "id"=> 15,
-                "name"=> "Արցախ բանկ",
-                "value" => "Արցախ բանկ"
+                "label"=> "Բիբլոս Բանկ Արմենիա",
+                "value" => "biblos"
               ],
               [
-                "id"=> 16,
-                "name"=> "Բիբլոս Բանկ Արմենիա",
-                "value" => "Բիբլոս Բանկ Արմենիա"
+                "label"=> "Արդշինբանկ",
+                "value" => "ardshin"
               ],
               [
-                "id"=> 17,
-                "name"=> "Արդշինբանկ",
-                "value" => "Արդշինբանկ"
+                "label"=> "ՎՏԲ-Հայաստան բանկ",
+                "value" => "vtb"
               ],
               [
-                "id"=> 18,
-                "name"=> "ՎՏԲ-Հայաստան բանկ",
-                "value" => "ՎՏԲ-Հայաստան բանկ"
-              ],
-              [
-                "id"=> 19,
-                "name"=> "Այլ",
-                "value" => "Այլ"
+                "label"=> "Այլ",
+                "value" => "other"
               ],
             ]
             ],
@@ -647,206 +643,173 @@ class GeneralFormController extends Controller
               ]
             ],
             [
-              "key" => "NumberOfRooms",
+              "key" => "numberOfRooms",
               "title" => "Սենյակների քանակ*",
               "type" => "numSelect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "1",
+                  "id"=> "numberOfRooms",
                   "value" => "1"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "2",
+                  "id"=> "numberOfRooms",
                   "value" => "2"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "3",
+                  "id"=> "numberOfRooms",
                   "value" => "3"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "4",
+                  "id"=> "numberOfRooms",
                   "value" => "4"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "5",
+                  "id"=> "numberOfRooms",
                   "value" => "5"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "6",
+                  "id"=> "numberOfRooms",
                   "value" => "6"
                 ],
                 [
-                  "id"=> "NumberOfRooms",
-                  "name"=> "7+",
+                  "id"=> "numberOfRooms",
                   "value" => "7+"
                 ],
               ]
             ],
             [
-              "key" => "NumberOfBedrooms",
-              "title" => "Նջասենյակի քանակ*",
+              "key" => "numberOfBedrooms",
+              "title" => "Ննջասենյակի քանակ*",
               "type" => "numSelect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "1",
+                  "id"=> "numberOfBedrooms",
                   "value" => "1"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "2",
+                  "id"=> "numberOfBedrooms",
                   "value" => "2"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "3",
+                  "id"=> "numberOfBedrooms",
                   "value" => "3"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "4",
+                  "id"=> "numberOfBedrooms",
                   "value" => "4"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "5",
+                  "id"=> "numberOfBedrooms",
                   "value" => "5"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "6",
+                  "id"=> "numberOfBedrooms",
                   "value" => "6"
                 ],
                 [
-                  "id"=> "NumberOfBedrooms",
-                  "name"=> "7+",
+                  "id"=> "numberOfBedrooms",
                   "value" => "7+"
                 ],
               ]
             ],
             [
-              "key" => "NumberOfBathrooms",
+              "key" => "numberOfBathrooms",
               "title" => "Սահանգույցների քանակ*",
               "type" => "numSelect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> "NumberOfBathrooms",
-                  "name"=> "1",
+                  "id"=> "numberOfBathrooms",
                   "value" => "1"
                 ],
                 [
-                  "id"=> "NumberOfBathrooms",
-                  "name"=> "2",
+                  "id"=> "numberOfBathrooms",
                   "value" => "2"
                 ],
                 [
-                  "id"=> "NumberOfBathrooms",
-                  "name"=> "3",
+                  "id"=> "numberOfBathrooms",
                   "value" => "3"
                 ],
                 [
-                  "id"=> "NumberOfBathrooms",
-                  "name"=> "4",
+                  "id"=> "numberOfBathrooms",
                   "value" => "4"
                 ],
                 [
-                  "id"=> "NumberOfBathrooms",
-                  "name"=> "5+",
+                  "id"=> "numberOfBathrooms",
                   "value" => "5+"
                 ],
               ]
             ],
             [
-              "key" => "NumberOpenBalconies",
+              "key" => "numberOpenBalconies",
               "title" => "Բաց պատշգամբների քանակ*",
               "type" => "numSelect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "0",
+                  "id"=> "numberOpenBalconies",
                   "value" => "0"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "1",
+                  "id"=> "numberOpenBalconies",
                   "value" => "1"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "2",
+                  "id"=> "numberOpenBalconies",
                   "value" => "2"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "3",
+                  "id"=> "numberOpenBalconies",
                   "value" => "3"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "4",
+                  "id"=> "numberOpenBalconies",
                   "value" => "4"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "5",
+                  "id"=> "numberOpenBalconies",
                   "value" => "5"
                 ],
                 [
-                  "id"=> "NumberOpenBalconies",
-                  "name"=> "6",
+                  "id"=> "numberOpenBalconies",
                   "value" => "6"
                 ],
               ]
             ],
             [
-              "key" => "NumberCloseBalconies",
+              "key" => "numberCloseBalconies",
               "title" => "Փակ պատշգամբների քանակ*",
               "type" => "numSelect",
               "style" => "629px",
               "option" => [
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "0",
+                  "id"=> "numberCloseBalconies",
                   "value" => "0"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "1",
+                  "id"=> "numberCloseBalconies",
                   "value" => "1"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "2",
+                  "id"=> "numberCloseBalconies",
                   "value" => "2"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "3",
+                  "id"=> "numberCloseBalconies",
                   "value" => "3"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "4",
+                  "id"=> "numberCloseBalconies",
                   "value" => "4"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "5",
+                  "id"=> "numberCloseBalconies",
                   "value" => "5"
                 ],
                 [
-                  "id"=> "NumberCloseBalconies",
-                  "name"=> "6",
+                  "id"=> "numberCloseBalconies",
                   "value" => "6"
                 ],
               ]
@@ -867,27 +830,32 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 0,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 1,
                   "name"=> "Պետական վիճակ",
-                  "value" => "Պետական վիճակ"
+                  "value" => "Պետական վիճակ",
+                  "getOptionName" => "stateCondition"
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Լավ",
-                  "value" => "Լավ"
+                  "value" => "Լավ",
+                  "getOptionName" => "good"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Զրոյական",
-                  "value" => "Զրոյական"
+                  "value" => "Զրոյական",
+                  "getOptionName" => "zero"
                 ],
                 [
                   "id"=> 4,
                   "name"=> "Վերանորոգված",
-                  "value" => "Վերանորոգված"
+                  "value" => "Վերանորոգված",
+                  "getOptionName" => "renovated"
                 ],
               ]
             ],
@@ -900,27 +868,32 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 0,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 1,
                   "name"=> "Քարե",
-                  "value" => "Քարե"
+                  "value" => "Քարե",
+                  "getOptionName" => "stoned"
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Ստորգետնյա",
-                  "value" => "Ստորգետնյա"
+                  "value" => "Ստորգետնյա",
+                  "getOptionName" => "underground"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Բաց ավտոկայանատեղի",
-                  "value" => "Բաց ավտոկայանատեղի"
+                  "value" => "Բաց ավտոկայանատեղի",
+                  "getOptionName" => "openParking"
                 ],
                 [
                   "id"=> 4,
                   "name"=> "Ազատ տարածություն",
-                  "value" => "Ազատ տարածություն"
+                  "value" => "Ազատ տարածություն",
+                  "getOptionName" => "freeSpace"
                 ],
               ]
             ],
@@ -933,22 +906,26 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 0,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 1,
                   "name"=> "Առանձին",
-                  "value" => "Առանձին"
+                  "value" => "Առանձին",
+                  "getOptionName" => "separately"
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Ստուդիո",
-                  "value" => "Ստուդիո"
+                  "value" => "Ստուդիո",
+                  "getOptionName" => "studio"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Նախագծված չէ",
-                  "value" => "Նախագծված չէ"
+                  "value" => "Նախագծված չէ",
+                  "getOptionName" => "notDesigned"
                 ],
               ]
             ],
@@ -968,40 +945,52 @@ class GeneralFormController extends Controller
                 [
                   "id"=> 0,
                   "name"=> "Ընտրեք տեսակը",
-                  "value" => ""
+                  "value" => "",
+                  "getOptionName" => ""
                 ],
                 [
                   "id"=> 1,
                   "name"=> "Մոնոլիտ",
-                  "value" => "Մոնոլիտ"
+                  "value" => "Մոնոլիտ",
+                  "getOptionName" => "monolith"
                 ],
                 [
                   "id"=> 2,
                   "name"=> "Քարե",
-                  "value" => "Քարե"
+                  "value" => "Քարե",
+                  "getOptionName" => "stone"
                 ],
                 [
                   "id"=> 3,
                   "name"=> "Պանելային",
-                  "value" => "Պանելային"
+                  "value" => "Պանելային",
+                  "getOptionName" => "panel"
                 ],
                 [
                   "id"=> 4,
                   "name"=> "Այլ",
-                  "value" => "Այլ"
+                  "value" => "Այլ",
+                  "getOptionName" => "other"
                 ],
             ]
            ],
            [
             "key" => "statement",
             "title" => "ՀԱՐԿԱՅՆՈՒԹՅՈՒՆ*",
+            "placeholder" => "Ex.",
             "type" => "inputText",
             "style" => "306px",
             "option" => [],
            ],
            [
+            "key" => "newBuilt",
+            "type" => "checkbox",
+            "title" => "Նորակառույց",
+            "style" => "612px",
+           ],
+           [
             "key" => "buildingConstructionYear",
-            "title" => "Շենքի կառուցման տարին*",
+            "title" => "Կառուցման տարին*",
             "type" => "inputNumber",
             "style" => "306px",
             "option" => [],
@@ -1009,86 +998,47 @@ class GeneralFormController extends Controller
            [
             "key" => "orentation",
             "title" => "կողմնորոշումը*",
-            "type" => "select",
+            "type" => "multiselect",
             "style" => "306px",
             "option" => [
               [
-                "id"=> 0,
-                "name"=> "Ընտրեք տեսակը",
-                "value" => ""
+                "label"=> "Հյուսիսային",
+                "value" => "north"
               ],
               [
-                "id"=> 1,
-                "name"=> "Հյուսիսային",
-                "value" => "Հյուսիսային"
+                "label"=> "Հարավային",
+                "value" => "south"
               ],
               [
-                "id"=> 2,
-                "name"=> "Հարավային",
-                "value" => "Հարավային"
+                "label"=> "Արևելյան",
+                "value" => "east"
               ],
               [
-                "id"=> 3,
-                "name"=> "Արևելյան",
-                "value" => "Արևելյան"
+                "label"=> "Արևմտյան",
+                "value" => "west"
               ],
               [
-                "id"=> 4,
-                "name"=> "Արևմտյան",
-                "value" => "Արևմտյան"
+                "label"=> "Հարավ-Արևելյան",
+                "value" => "southEast"
               ],
               [
-                "id"=> 5,
-                "name"=> "Հարավ-Արևելյան",
-                "value" => "Հարավ-Արևելյան"
+                "label"=> "Հարավ-Արևմտյան",
+                "value" => "southWest"
               ],
               [
-                "id"=> 6,
-                "name"=> "Հարավ-Արևմտյան",
-                "value" => "Հարավ-Արևմտյան"
+                "label"=> "Հյուսիս-Արևելյան",
+                "value" => "northEast"
               ],
               [
-                "id"=> 7,
-                "name"=> "Հյուսիս-Արևելյան",
-                "value" => "Հյուսիս-Արևելյան"
+                "label"=> "Հյուսիս-Արևմտյան",
+                "value" => "northWest"
               ],
-              [
-                "id"=> 8,
-                "name"=> "Հյուսիս-Արևմտյան",
-                "value" => "Հյուսիս-Արևմտյան"
-              ],
-            ]
-           ],
-           [
-            "key" => "monthlyFee",
-            "title" => "ԱմսԱկան Սպասարկման Վճար*",
-            "type" => "inputNumSymbol",
-            "style" => "202px",
-            "option" => [
-              [
-                "id"=> "monthlyFeeUsd",
-                "name"=> "Գինը դոլարով",
-                "symbol"=>'usd',
-                "value" => ""
-              ],
-              [
-                "id"=> "monthlyFeeAmd",
-                "name"=> "Գինը դրամով",
-                "symbol"=>'amd',
-                "value" => ""
-              ],
-              [
-                "id"=> "monthlyFeeRub",
-                "name"=> "Գինը ռուբլիով",
-                "symbol"=>'rub',
-                "value" => ""
-              ]
             ]
            ],
            [
             "key" => "propertyTax",
             "title" => "Տարեկան գույքահարկ*",
-            "type" => "inputNumSymbol",
+            "type" => "inputNumberSymbol",
             "style" => "202px",
             "option" => [
               [
@@ -1105,6 +1055,32 @@ class GeneralFormController extends Controller
               ],
               [
                 "id"=> "propertyTaxRub",
+                "name"=> "Գինը ռուբլիով",
+                "symbol"=>'rub',
+                "value" => ""
+              ]
+            ]
+           ],
+           [
+            "key" => "monthlyFee",
+            "title" => "ԱմսԱկան Սպասարկման Վճար*",
+            "type" => "inputNumberSymbol",
+            "style" => "202px",
+            "option" => [
+              [
+                "id"=> "monthlyFeeUsd",
+                "name"=> "Գինը դոլարով",
+                "symbol"=>'usd',
+                "value" => ""
+              ],
+              [
+                "id"=> "monthlyFeeAmd",
+                "name"=> "Գինը դրամով",
+                "symbol"=>'amd',
+                "value" => ""
+              ],
+              [
+                "id"=> "monthlyFeeRub",
                 "name"=> "Գինը ռուբլիով",
                 "symbol"=>'rub',
                 "value" => ""
@@ -1323,94 +1299,68 @@ class GeneralFormController extends Controller
             [
               "key" => "floor",
               "title" => "Հատակ*",
-              "type" => "select",
+              "type" => "multiselect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 0,
-                  "name"=> "Ընտրեք հատակի տեսակը",
-                  "value" => ""
+                  "label"=> "Լամինատ",
+                  "value" => "laminate"
                 ],
                 [
-                  "id"=> 1,
-                  "name"=> "Լամինատ",
-                  "value" => "Լամինատ"
+                  "label"=> "Մանրահատակ",
+                  "value" => "parquetFloor"
                 ],
                 [
-                  "id"=> 2,
-                  "name"=> "Մանրահատակ",
-                  "value" => "Մանրահատակ"
+                  "label"=> "Սալիկ",
+                  "value" => "tile"
                 ],
                 [
-                  "id"=> 3,
-                  "name"=> "Սալիկ",
-                  "value" => "Սալիկ"
+                  "label"=> "Բետոն",
+                  "value" => "concrete"
                 ],
                 [
-                  "id"=> 4,
-                  "name"=> "Բետոն",
-                  "value" => "Բետոն"
-                ],
-                [
-                  "id"=> 5,
-                  "name"=> "Այլ",
-                  "value" => "Այլ"
+                  "label"=> "Այլ",
+                  "value" => "other"
                 ],
               ],
             ],
             [
               "key" => "roof",
               "title" => "Առաստաղ*",
-              "type" => "select",
+              "type" => "multiselect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 0,
-                  "name"=> "Ընտրեք առաստաղի տեսակը",
-                  "value" => ""
+                  "label"=> "Կախովի",
+                  "value" => "suspended"
                 ],
                 [
-                  "id"=> 1,
-                  "name"=> "Կախովի",
-                  "value" => "Կախովի"
+                  "label"=> "Ձգվող",
+                  "value" => "tensile"
                 ],
                 [
-                  "id"=> 2,
-                  "name"=> "Ձգվող",
-                  "value" => "Ձգվող"
-                ],
-                [
-                  "id"=> 3,
-                  "name"=> "Բետոն",
-                  "value" => "Բետոն"
+                  "label"=> "Բետոն",
+                  "value" => "concrete"
                 ],
               ],
             ],
             [
               "key" => "cover",
               "title" => "Ծածկեր*",
-              "type" => "select",
+              "type" => "multiselect",
               "style" => "306px",
               "option" => [
                 [
-                  "id"=> 0,
-                  "name"=> "Ընտրեք ծածկի տեսակը",
-                  "value" => ""
+                  "label"=> "Բետոն",
+                  "value" => "concrete"
                 ],
                 [
-                  "id"=> 1,
-                  "name"=> "Բետոն",
-                  "value" => "Բետոն"
+                  "label"=> "Բաղդադ",
+                  "value" => "baghdad"
                 ],
                 [
-                  "id"=> 2,
-                  "name"=> "Բաղդադ",
-                  "value" => "Բաղդադ"
-                ],
-                [
-                  "id"=> 3,
-                  "name"=> "Պանել",
-                  "value" => "Պանել"
+                  "label"=> "Պանել",
+                  "value" => "panel"
                 ],
               ],
             ],
@@ -1431,6 +1381,7 @@ class GeneralFormController extends Controller
             [
               "key" => "video",
               "title" => "Վիդեոյի հղում*",
+              "placeholder" => "Տեղադրեք հղումը",
               "type" => "inputText",
               "style" => "639px",
               "option" => [],
@@ -1458,7 +1409,8 @@ class GeneralFormController extends Controller
           "fields" => [
             [
               "key" => "owner",
-              "title" => "Սեփականատեր*",
+              "title" => "Սեփականատեր 1*",
+              "placeholder" => "Գրեք սեփականատիրոջ անունը",
               "type" => "inputText",
               "style" => "412px",
               "option" => [],
@@ -1475,7 +1427,22 @@ class GeneralFormController extends Controller
               "title" => "Ավելացնել սեփականատեր",
               "type" => "addField",
               "style" => "217px",
-              "option" => [],
+              "option" => [
+                [
+                  "key" => "owner",
+                  "title" => "Սեփականատեր 2*",
+                  "placeholder" => "Գրեք սեփականատիրոջ անունը",
+                  "type" => "inputText",
+                  "style" => "412px",
+                ],
+                [
+                  "key" => "ownerTel",
+                  "title" => "Սեփականատիրոջ Հեռախոսահամար*",
+                  "type" => "inputNumber",
+                  "style" => "412px",
+                  "option" => [],
+                ],
+              ],
             ],
           ],
         ],
@@ -1485,10 +1452,11 @@ class GeneralFormController extends Controller
           'added'=> [],
           "fields" => [
             [
-              "key" => "owner",
+              "key" => "likelyInfo",
               "title" => "Գրեք նախընտրած ինֆորմացիան*",
               "type" => "inputText",
               "style" => "412px",
+              "height" => "80px",
               "option" => [],
             ],
             [

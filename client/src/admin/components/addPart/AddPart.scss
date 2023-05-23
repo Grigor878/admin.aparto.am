@@ -10,7 +10,8 @@
   border-right: none;
   position: sticky;
   top: 0;
-  z-index: 99;
+  z-index: 2502;
+  // for yandex map search yMap-2500 search-2501
 
   &__navigate {
     @include flexCol;
