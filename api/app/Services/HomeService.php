@@ -105,295 +105,285 @@ class HomeService
         'en' => 'Urgent',
         'ru' => 'Срочно',
        ],
-
-
-             
-       'urgent' => [
+       'ajapnyak' => [
         'am' => 'Աջափնյակ',
         'en' => 'Ajapnyak',
         'ru' => 'Аджапняк',
        ],
-       'urgent' => [
+       'arabkir' => [
         'am' => 'Արաբկիր',
         'en' => 'Arabkir',
         'ru' => 'Арабкир',
        ],
-       'urgent' => [
+       'avan' => [
         'am' => 'Ավան',
         'en' => 'Avan',
         'ru' => 'Аван',
        ],
-       'urgent' => [
+       'davtashen' => [
         'am' => 'Դավթաշեն',
         'en' => 'Davtashen',
         'ru' => 'Давташен',
        ],
-       'urgent' => [
+       'erebuni' => [
         'am' => 'Էրեբունի',
         'en' => 'Erebuni',
         'ru' => 'Эребуни',
        ],
-       'urgent' => [
+       'zeytun' => [
         'am' => 'Քանաքեռ-Զեյթուն',
         'en' => 'Kanaker-Zeytun',
         'ru' => 'Канакер-Зейтун',
        ],
-       'urgent' => [
+       'kentron' => [
         'am' => 'Կենտրոն',
         'en' => 'Kentron',
         'ru' => 'Кентрон',
        ],
-       'urgent' => [
-        'am' => 'Malatia-Sebastia',
-        'en' => 'Urgent',
+       'malatia' => [
+        'am' => 'Մալաթիա-Սեբաստիա',
+        'en' => 'Malatia-Sebastia',
         'ru' => 'Малатия-Себастия',
        ],
-       'urgent' => [
-        'am' => 'Nork-Marash',
-        'en' => 'Urgent',
+       'norqMarash' => [
+        'am' => 'Նորք-Մարաշ',
+        'en' => 'Nork-Marash',
         'ru' => 'Норк-Мараш',
        ],
-       'urgent' => [
+       'norNorq' => [
         'am' => 'Նոր Նորք',
         'en' => 'Nor Nork',
         'ru' => 'Нор Норк',
        ],
-       'urgent' => [
+       'nubarashen' => [
         'am' => 'Նուբարաշեն',
         'en' => 'Nubarashen',
         'ru' => 'Нубарашен',
        ],
-       'urgent' => [
+       'shengavit' => [
         'am' => 'Շենգավիթ',
         'en' => 'Shengavit',
         'ru' => 'Шенгавит',
        ],
-       'urgent' => [
+       'vahagni' => [
         'am' => 'Վահագնի թաղամաս',
         'en' => 'Vahagni',
         'ru' => 'Ваганы',
        ],
-       'urgent' => [
+       'other' => [
         'am' => 'Այլ',
         'en' => 'Other',
         'ru' => 'Другой',
        ],
 
-       'urgent' => [
+       'bankTransfer' => [
         'am' => 'Բանկային փոխանցում',
         'en' => 'Bank transfer',
         'ru' => 'Банковский перевод',
        ],
-       'urgent' => [
+       'mortgageLoan' => [
         'am' => 'Հիպոթեքային վարկ',
         'en' => 'Mortgage',
         'ru' => 'Ипотечный заем',
        ],
-
-
-       'urgent' => [
+       'ameriaBank' => [
         'am' => 'Ամերիա բանկ',
         'en' => 'Ameria Bank',
         'ru' => 'Америя Банк',
        ],
-       'urgent' => [
+       'evocaBank' => [
         'am' => 'Էվոկաբանկ',
         'en' => 'Evocabank',
         'ru' => 'Эвокабанк',
        ],
-       'urgent' => [
+       'inecoBank' => [
         'am' => 'Ինեկոբանկ',
         'en' => 'Inecobank',
         'ru' => 'Инекобанк',
        ],
-       'urgent' => [
+       'idBank' => [
         'am' => 'ԱյԴի բանկ',
         'en' => 'ID Bank',
         'ru' => 'ID Банк',
        ],
-       'urgent' => [
+       'acbaBank' => [
         'am' => 'Ակբա բանկ',
         'en' => 'Akba Bank',
         'ru' => 'Акба Банк',
        ],
-       'urgent' => [
+       'mellatBank' => [
         'am' => 'Մելլաթ բանկ',
         'en' => 'Mellat Bank',
         'ru' => 'Меллат Банк',
        ],
-       'urgent' => [
+       'armeconomBank' => [
         'am' => 'ՀայԷկոնոմ բանկ',
-        'en' => 'Armenian Economy Bank',
-        'ru' => 'Армянский экономический банк',
+        'en' => 'Arm Economy Bank',
+        'ru' => 'Арм эконом банк',
        ],
-       'urgent' => [
+       'HSBC' => [
         'am' => 'HSBC բանկ',
         'en' => 'HSBC bank',
         'ru' => 'HSBC Банк',
        ],
-       'urgent' => [
+       'uniBank' => [
         'am' => 'Յունիբանկ',
         'en' => 'Unibank',
         'ru' => 'Юнибанк',
        ],
-       'urgent' => [
+       'armbusinessMank' => [
         'am' => 'Հայբիզնեսբանկ',
         'en' => 'Armbusiness Bank',
         'ru' => 'Армбизнес Банк',
        ],
-       'urgent' => [
+       'converseBank' => [
         'am' => 'Կոնվերս բանկ',
         'en' => 'Converse Bank',
         'ru' => 'Конверс Банк',
        ],
-       'urgent' => [
+       'araratBank' => [
         'am' => 'Արարատ բանկ',
         'en' => 'Ararat Bank',
         'ru' => 'Арарат Банк',
        ],
-       'urgent' => [
+       'fastBank' => [
         'am' => 'Ֆասթ բանկ',
         'en' => 'Fast bank',
         'ru' => 'Фаст банк',
        ],
-       'urgent' => [
+       'armswissBank' => [
         'am' => 'Արմսվիսբանկ',
         'en' => 'Armswissbank',
         'ru' => 'Армсвисбанк',
        ],
-       'urgent' => [
+       'artsakh' => [
         'am' => 'Արցախ բանկ',
         'en' => 'Artsakh Bank',
         'ru' => 'Арцах Банк',
        ],
-       'urgent' => [
+       'biblos' => [
         'am' => 'Բիբլոս Բանկ Արմենիա',
         'en' => 'Byblos Bank Armenia',
         'ru' => 'Библос Банк Армения',
        ],
-       'urgent' => [
+       'ardshin' => [
         'am' => 'Արդշինբանկ',
         'en' => 'Ardshinbank',
         'ru' => 'Ардшинбанк',
        ],
-       'urgent' => [
+       'vtb' => [
         'am' => 'ՎՏԲ-Հայաստան բանկ',
         'en' => 'VTB-Armenia Bank',
         'ru' => 'ВТБ-Армения Банк',
        ],
 
-       'urgent' => [
+       'stateCondition' => [
         'am' => 'Պետական վիճակ',
         'en' => 'State condition',
         'ru' => 'Гос. состояние',
        ],
-       'urgent' => [
+       'good' => [
         'am' => 'Լավ',
         'en' => 'Good',
         'ru' => 'Хороший',
        ],
-       'urgent' => [
+       'zero' => [
         'am' => 'Զրոյական',
         'en' => 'Zero',
         'ru' => 'Нулевое',
        ],
-       'urgent' => [
+       'renovated' => [
         'am' => 'Վերանորոգված',
-        'en' => 'Renovated - Date:',
-        'ru' => 'Отремонтировано - дата:',
+        'en' => 'Renovated',
+        'ru' => 'Отремонтировано',
        ],
 
-       'urgent' => [
+       'stoned' => [
         'am' => 'Քարե',
         'en' => 'Stone',
         'ru' => 'Камень',
        ],
-       'urgent' => [
+       'underground' => [
         'am' => 'Ստորգետնյա',
         'en' => 'Underground',
         'ru' => 'Подземный',
        ],
-       'urgent' => [
+       'openParking' => [
         'am' => 'Բաց ավտոկայանատեղի,',
         'en' => 'Open parking',
         'ru' => 'Открытая парковка',
        ],
-       'urgent' => [
+       'freeSpace' => [
         'am' => 'Ազատ տարածություն',
         'en' => 'Free space ',
         'ru' => 'Свободное место',
        ],
 
-       'urgent' => [
+       'separately' => [
         'am' => 'Առանձին',
         'en' => 'Separate',
         'ru' => 'Отдельный',
        ],
-       'urgent' => [
+       'studio' => [
         'am' => 'Ստուդիո',
         'en' => 'Studio',
         'ru' => 'Студия',
        ],
-       'urgent' => [
+       'notDesigned' => [
         'am' => 'Նախագծված չէ',
-        'en' => 'Not designed for',
-        'ru' => 'Не предназначен для',
+        'en' => 'Not designed',
+        'ru' => 'Не предназначен',
        ],
 
 
-       'urgent' => [
+       'monolith' => [
         'am' => 'Մոնոլիտ',
         'en' => 'Monolithic',
         'ru' => 'Монолитный',
        ],
-       'urgent' => [
-        'am' => 'Քարե',
-        'en' => 'Stone',
-        'ru' => 'Каменный',
-       ],
-       'urgent' => [
+       'panel' => [
         'am' => 'Պանելային',
         'en' => 'Panel building',
         'ru' => 'Панельный',
        ],
 
 
-       'urgent' => [
+       'north' => [
         'am' => 'Հյուսիսային',
         'en' => 'North',
         'ru' => 'Северный',
        ],
-       'urgent' => [
+       'south' => [
         'am' => 'Հարավային',
         'en' => 'South',
         'ru' => 'Южный',
        ],
-       'urgent' => [
+       'east' => [
         'am' => 'Արևելյան',
         'en' => 'East',
         'ru' => 'Восточный',
        ],
-       'urgent' => [
+       'west' => [
         'am' => 'Արևմտյան',
         'en' => 'West',
         'ru' => 'Западный',
        ],
-       'urgent' => [
+       'southEast' => [
         'am' => 'Հարավ-Արևելյան',
         'en' => 'South-Eastern',
         'ru' => 'Юго-Восточный',
        ],
-       'urgent' => [
+       'southWest' => [
         'am' => 'Հարավ-Արևմտյան',
         'en' => 'South-Western',
         'ru' => 'Юго-Западный',
        ],
-       'urgent' => [
+       'northEast' => [
         'am' => 'Հյուսիս-Արևելյան',
         'en' => 'North-Eastern',
-        'ru' => 'Северо-Восточный:',
+        'ru' => 'Северо-Восточный',
        ],
-       'urgent' => [
+       'northWest' => [
         'am' => 'Հյուսիս-Արևմտյան',
         'en' => 'North-Western',
         'ru' => 'Северо-Западный',
