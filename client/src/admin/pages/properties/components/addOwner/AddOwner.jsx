@@ -24,7 +24,8 @@ export const AddOwner = ({ data, onChange }) => {
                 <button
                     type='button'
                     className='addOwner__labelsActive-remove'
-                    onClick={() => { setActive(false); setActiveTwo(false) }}
+                    onClick={() => setActive(false)}
+                    style={{ display: activeTwo ? "none" : "flex" }}
                 >
                     {remove.icon}
                     Հեռացնել
@@ -43,7 +44,6 @@ export const AddOwner = ({ data, onChange }) => {
                                 className='addproperties__card-text-full'
                                 minLength="3"
                                 style={{ width: style }}
-                                // onChange={()=>console.log(key)}
                                 onChange={onChange}
                             />
                         </label>
@@ -82,7 +82,6 @@ export const AddOwner = ({ data, onChange }) => {
                                 className='addproperties__card-text-full'
                                 minLength="3"
                                 style={{ width: style }}
-                                // onChange={()=>console.log(key)}
                                 onChange={onChange}
                             />
                         </label>

@@ -12,8 +12,9 @@
   padding: 20px;
   height: 100vh;
   min-width: 240px;
-  z-index: 2503;
+  // z-index: 2503;
   // for yandex map search yMap-2500 search-2501 addPart-2502
+  z-index: 3;
 
   h1 {
     font-weight: 600;

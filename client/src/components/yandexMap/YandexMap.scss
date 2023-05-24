@@ -8,7 +8,6 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      z-index: 2501;
       padding: 5px;
       font-weight: 400;
       font-size: 14px;
@@ -16,6 +15,8 @@
       color: $text;
       border-radius: 5px;
       border: 1px solid $advancedBack;
+      // z-index: 2501;
+      z-index: 1;
     }
   }
 }

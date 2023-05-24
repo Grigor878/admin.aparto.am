@@ -46,7 +46,7 @@ const AddProperties = () => {
 
     const [addProperty, setAddProperty] = useState('')
 
-    const addProp = (e, name, type) => {
+    const addProp = (e, name, type, key) => {
         let { id, value, checked } = e.target;
 
         setAddProperty((prev) => {
@@ -60,6 +60,16 @@ const AddProperties = () => {
                         ...prev[name],
                         [nestedKey]: {
                             ...prev[name]?.[nestedKey],
+                            [id]: value,
+                        },
+                    },
+                };
+            } else if (type === "inputNumberSymbol" && name === "price") {
+                obj = {
+                    [name]: {
+                        ...prev[name],
+                        [key]: {
+                            ...prev[name]?.[key],
                             [id]: value,
                         },
                     },
@@ -173,7 +183,7 @@ const AddProperties = () => {
                                                                                 title={title}
                                                                                 data={option}
                                                                                 style={style}
-                                                                                onChange={(e) => addProp(e, name)}
+                                                                                onChange={(e) => addProp(e, name, type, key)}
                                                                             />
                                                                             : type === "checkbox"
                                                                                 ? <Checkbox
