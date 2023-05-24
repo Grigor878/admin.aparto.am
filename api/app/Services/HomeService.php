@@ -422,7 +422,6 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = implode(", ", $itemsEn);
                 }
               }
-
               if($globalVal->type == "checkbox"){
                 if($key === $globalVal->key) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
@@ -430,7 +429,6 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
-              
               if($globalVal->type == "numSelect"){
                 if($key === $globalVal->key) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;

@@ -128,6 +128,11 @@ class GeneralFormController extends Controller
         return json_decode(GlobalForm::findorFail(1)->am);
     }
 
+    public function getAllAddresses() {
+      $address = ConfigAddress::all();
+      return response()->json($address);
+    }
+
     public function getAllStructure() {
       $form = GlobalForm::findorFail(1);
       $form->am = json_decode($form->am);
