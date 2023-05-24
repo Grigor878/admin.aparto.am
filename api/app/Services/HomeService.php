@@ -358,7 +358,6 @@ class HomeService
         $assocCopyFormRu = array_combine($keysRu, $copyGeneralFormRu);
         $assocCopyFormEn = array_combine($keysEn, $copyGeneralFormEn);
 
-        dd($data);
         foreach ($data as $idx => $item) {
           foreach ($item as $key => $value) {
             foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
@@ -388,23 +387,55 @@ class HomeService
                   }
                 }
               }
-              dd(11);
-              if($globalVal->type == "multiselect"){
+              if($globalVal->type == "inputNumber"){
                 if($key === $globalVal->key) {
-                  foreach($value as $indText => $textItem) {
-                    if($indText){
-                      $langKey = strtolower(substr($indText, -2));
-                      if($langKey == 'am'){
-                        $assocCopyFormAm[$idx]->fields[$globKey]->value = $textItem;
-                      }
-                      if($langKey == 'ru'){
-                        $assocCopyFormRu[$idx]->fields[$globKey]->value = $textItem;
-                      }
-                      if($langKey == 'en'){
-                        $assocCopyFormEn[$idx]->fields[$globKey]->value = $textItem;
-                      }
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
+              }
+              if($globalVal->type == "inputNumberSymbol"){
+                if($key === $globalVal->key) {
+                  if($assocCopyFormAm[$idx]->name == 'price'){
+                    if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] != "on")) {
+                      $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                      $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                      $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                     }
+                  }else {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                   }
+                }
+              }
+              if($globalVal->type == 'multiselect') {
+                if($key === $globalVal->key) {
+                  foreach ($value as $multiKey => $multiItem) {
+                    $lang = $allSelect[$multiItem];
+                    $itemsAm[] = $lang['am'];
+                    $itemsRu[] = $lang['ru'];
+                    $itemsEn[] = $lang['en'];
+                  }
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = implode(", ", $itemsAm);
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = implode(", ", $itemsRu);
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = implode(", ", $itemsEn);
+                }
+              }
+
+              if($globalVal->type == "checkbox"){
+                if($key === $globalVal->key) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
+              }
+              
+              if($globalVal->type == "numSelect"){
+                if($key === $globalVal->key) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
                     // if($key === $globalVal->key) {
