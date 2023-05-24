@@ -6,7 +6,7 @@ import { getAxiosConfig } from '../../../../../apis/config'
 import { error, success } from '../../../../../components/swal/swal'
 
 export const Password = () => {
-    const [retryError, setRetryError] = useState(null)
+    // const [retryError, setRetryError] = useState(null)
 
     const handlePassword = (e) => {
         e.preventDefault()
@@ -15,27 +15,31 @@ export const Password = () => {
         let retryPassword = e.target.userRetryPassword.value
 
         if (!oldPassword.length || !newPassword.length || !retryPassword.length) {
-            setRetryError('Complete all fields!')
+            // setRetryError('Complete all fields!')
+            error('Complete all fields!');
         } else if (oldPassword === newPassword && oldPassword === retryPassword) {
-            setRetryError('There is no changes!')
+            // setRetryError('There is no changes!')
+            error('There is no changes!');
         } else if (newPassword === retryPassword) {
-            setRetryError(null)
+            // setRetryError(null)
 
             baseApi.post('/api/changePassword', { oldPassword, newPassword }, getAxiosConfig())
                 .then(res => success(res.data.message))
-                .catch(err => error(err.message))
+                .catch(err => error(err.response.data.message))
 
             e.target.userOldPassword.value = ""
             e.target.userNewPassword.value = ""
             e.target.userRetryPassword.value = ""
         } else {
-            setRetryError('Passwords are not same!')
+            // setRetryError('Passwords are not same!')
+            error('Passwords are not same!')
         }
     }
 
     return (
         <div className='profile__bottom'>
-            {retryError ? <h3 style={{ color: 'red' }}>{retryError}</h3> : <h3>Փոխել Ծածկագիրը</h3>}
+            <h3>Փոխել Ծածկագիրը</h3>
+            {/* {retryError ? <p style={{ color: 'red' }}>{retryError}</p> : null} */}
             <form onSubmit={handlePassword} autoComplete="off" className='profile__bottom-form'>
                 <AddInput
                     id='userOldPassword'

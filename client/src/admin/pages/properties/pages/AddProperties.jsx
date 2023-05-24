@@ -133,8 +133,10 @@ const AddProperties = () => {
                                                         ? <MultiSelect
                                                             id={key}
                                                             title={title}
+                                                            name={name}
                                                             data={option}
                                                             style={style}
+                                                            onChange={(e) => addProp(e, name)}
                                                         />
                                                         : type === "text"
                                                             ? <LngPart

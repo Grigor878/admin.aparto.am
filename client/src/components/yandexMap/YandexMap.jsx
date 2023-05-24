@@ -233,7 +233,7 @@ const YandexMap = ({ title, style, height }) => {
                     <Placemark geometry={placemark} />
                     {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
                     <ZoomControl />
-                    <FullscreenControl />
+                    {/* <FullscreenControl /> */}
                 </Map>
             </div>
         </YMaps>

@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Select from 'react-select'
 
-export const MultiSelect = ({ title, id, name, data, style }) => {
-    const [selected, setSelected] = useState()
+export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
 
-    const mod = Object.assign([
-        {
-            name: name,
-            key: id,
-        },
-        selected
-    ])
-    // console.log(mod)
-
+    const handleChange = (selectedOptions) => {
+        const selectedValues = selectedOptions.map((option) => option.value)
+        const e = {
+          target: {
+            id,
+            value: selectedValues,
+          },
+        }
+    
+        onChange(e, name)
+      }
 
     return (
         <label className='addproperties__card-singleselect' >
@@ -22,7 +23,7 @@ export const MultiSelect = ({ title, id, name, data, style }) => {
                 closeMenuOnSelect={false}
                 options={data}
                 placeholder="Ընտրեք"
-                onChange={(e) => setSelected(e)}
+                onChange={handleChange}
                 styles={{
                     control: (baseStyles) => ({
                         ...baseStyles,
@@ -30,7 +31,7 @@ export const MultiSelect = ({ title, id, name, data, style }) => {
                         borderRadius: "8px",
                         fontWeight: "400",
                         fontSize: "14px",
-                        textTransform:"capitalize",
+                        textTransform: "capitalize",
                         lineHeight: "16px",
                         borderColor: '#e7e9f0',
                         '&:hover': {
