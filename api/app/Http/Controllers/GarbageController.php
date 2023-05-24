@@ -311,19 +311,19 @@ class GarbageController extends Controller
                 "value" => '',
                 "option" => [
                   [
-                    "id"=> "priceUsd",
+                    "id"=> "totalPriceUsd",
                     "name"=> "Գինը դոլարով",
                     "symbol"=>'usd',
                     "value" => ""
                   ],
                   [
-                    "id"=> "priceAmd",
+                    "id"=> "totalPriceAmd",
                     "name"=> "Գինը դրամով",
                     "symbol"=>'amd',
                     "value" => ""
                   ],
                   [
-                    "id"=> "priceRub",
+                    "id"=> "totalPriceRub",
                     "name"=> "Գինը ռուբլիով",
                     "symbol"=>'rub',
                     "value" => ""

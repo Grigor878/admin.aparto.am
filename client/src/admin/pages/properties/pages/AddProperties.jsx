@@ -35,7 +35,7 @@ const AddProperties = () => {
 
     const { data } = useSelector((state) => state.property)
     // const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
-    // console.log(data)
+    console.log(data)
     // console.log(keyword)
     // console.log(yandex)
     // console.log(uploadPhoto)
@@ -64,7 +64,7 @@ const AddProperties = () => {
                         },
                     },
                 };
-            } else if (type === "inputNumberSymbol" && name === "price") {
+            } else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
                 obj = {
                     [name]: {
                         ...prev[name],
@@ -93,6 +93,7 @@ const AddProperties = () => {
 
         dispatch(addPropertyData({ addProperty }))
     };
+
 
     return (
         <article className='addproperties'>
