@@ -66,7 +66,7 @@ class UserController extends Controller
                 return response()->json(['message' => "Password changed succesfully"]);
             }
            
-            return response()->json(['message' => "Passwords do not match"]);
+            return response()->json(['message' => "Incorrect old password"], 422);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['message' => 'Something went wrong.'], 500);

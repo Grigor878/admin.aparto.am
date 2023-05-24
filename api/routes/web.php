@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GeneralFormController;
+use App\Http\Controllers\GarbageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +16,4 @@ use App\Http\Controllers\GeneralFormController;
 
 
 
-Route::get('/', [GeneralFormController::class, 'addNow']);
+Route::get('/', [GarbageController::class, 'addNow']);

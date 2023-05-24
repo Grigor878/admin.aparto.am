@@ -57,7 +57,8 @@ class HomeController extends Controller
             $home = new Home();
             $home->employee_id = $employee->id;
             $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
-            $home->am = $this->homeService->getAmForm($data);
+            $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
+            // $home->am = $this->homeService->getAmForm($data);
             return  $home;
 
         }
