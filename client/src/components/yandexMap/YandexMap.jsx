@@ -229,6 +229,7 @@ const YandexMap = ({ title, style, height }) => {
                     width={style}
                     height={height}
                     onClick={handleClick}
+                    // className="yandex__map-ymap"
                 >
                     <Placemark geometry={placemark} />
                     {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
