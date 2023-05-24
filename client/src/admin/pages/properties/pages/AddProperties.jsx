@@ -34,7 +34,7 @@ const AddProperties = () => {
     }, [dispatch])
 
     const { data } = useSelector((state) => state.property)
-    const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
+    // const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
     // console.log(data)
     // console.log(keyword)
     // console.log(yandex)
@@ -91,26 +91,7 @@ const AddProperties = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // if (Object.keys(addProperties).length === 0) {
-        //     alert('addProperties is empty')
-        //     return
-        // }
-
-        // if (uploadPhoto.entries().next().done) {
-        //     alert('uploadPhoto is empty')
-        //     return
-        // }
-
-        // if (uploadFile.entries().next().done) {
-        //     alert('uploadFile is empty')
-        //     return
-        // }
-
         dispatch(addPropertyData({ addProperty }))
-        dispatch(addPropertyImgs({ uploadPhoto }))
-        dispatch(addPropertyFiles({ uploadFile }))
-        dispatch(addPropertyYandex({ yandex }))
-        dispatch(addPropertyKeyword({ keyword }))
     };
 
     return (
@@ -311,6 +292,21 @@ export default AddProperties
 //     dispatch(addPropertyData({addProperties}))
 // }
 
+
+      // if (Object.keys(addProperties).length === 0) {
+        //     alert('addProperties is empty')
+        //     return
+        // }
+
+        // if (uploadPhoto.entries().next().done) {
+        //     alert('uploadPhoto is empty')
+        //     return
+        // }
+
+        // if (uploadFile.entries().next().done) {
+        //     alert('uploadFile is empty')
+        //     return
+        // }
 
     // old,only addeds
     // const getStrInfo = async () => {
