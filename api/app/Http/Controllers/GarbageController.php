@@ -143,7 +143,8 @@ class GarbageController extends Controller
                 "key" => "community",
                 "title" => "Համայնք*",
                 "type" => "communitySelect",
-                "style" => "629px",
+                // "style" => "629px",
+                "style" => "283px",
                 "value" => '',
                 "option" => [
                   [

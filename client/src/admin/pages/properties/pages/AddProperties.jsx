@@ -80,7 +80,7 @@ const AddProperties = () => {
                 obj = {
                     [name]: {
                         ...prev[name],
-                        [id]: checked ? checked : value,
+                        [id]: checked ? checked : type === "communitySelect" ? value.replace(/\d/g, "") : value,
                     },
                 }
             }
@@ -136,6 +136,7 @@ const AddProperties = () => {
                                                                 title={title}
                                                                 data={option}
                                                                 style={style}
+                                                                onChange={(e) => addProp(e, name, type)}
                                                             />
                                                             : type === "text"
                                                                 ? <LngPart

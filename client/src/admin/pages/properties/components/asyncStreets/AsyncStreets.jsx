@@ -3,7 +3,7 @@ import baseApi from '../../../../../apis/baseApi'
 
 export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
     const [streets, setStreets] = useState([])
-    const [communityId, setCommunityId] = useState(10)
+    const [communityId, setCommunityId] = useState(1)
 
     const getStreetsByCommunityId = async () => {
         try {
@@ -19,19 +19,20 @@ export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [communityId])
 
-    // console.log(data)
-    // console.log(id)
-    console.log(streets)
+    const handleChange = (e) => {
+        let id = e.target.value.replace(/\D/g, "")
+        setCommunityId(id)
+        onChange(e)
+    }
 
     return (
-        <>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px"}}>
             <label className='addproperties__card-singleselect'>
                 {title}
                 <select
                     id={id}
                     value={value}
-                    onChange={onChange}
-                    // onChange={(e) => console.log(e.target.value)}
+                    onChange={handleChange}
                     style={{ width: style }}
                     className="addproperties__card-singleselect-dropdown"
                 >
@@ -39,36 +40,35 @@ export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
                         return (
                             <option
                                 key={id}
-                                value={getOptionName}
-                                onChange={() => setCommunityId(id)}
+                                value={getOptionName + id}
                             >{name}
                             </option>
                         )
-                        // console.log(el.id);
                     })}
                 </select>
             </label>
-            <label className='addproperties__card-singleselect'>
+            <label className='addproperties__card-singleselect' style={{ width: "283px" }}>
                 Փողոց*
                 <select
                     id={id}
                     value={value}
-                    onChange={onChange}
-                    style={{ width: "283px" }}
+                    onChange={(e) => console.log(e.target.value)}
                     className="addproperties__card-singleselect-dropdown"
                 >
-                    {streets?.map(({ id, am }) => {
-                        return (
-                            <option
-                                key={id}
-                                value={id}
-                                onChange={() => console.log(id)}
-                            >{am}
-                            </option>
-                        )
-                    })}
+                    {streets.id === 1
+                        ? <option>{streets.am}</option>
+                        : streets?.map(({ id, am }) => {
+                            return (
+                                <option
+                                    key={id}
+                                    value={id}
+                                >{am}
+                                </option>
+                            )
+                        })
+                    }
                 </select>
             </label>
-        </>
+        </div>
     )
 }
