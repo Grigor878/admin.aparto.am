@@ -128,8 +128,13 @@ class GeneralFormController extends Controller
         return json_decode(GlobalForm::findorFail(1)->am);
     }
 
-    public function getAllAddresses() {
-      $address = ConfigAddress::all();
+    public function getAllAddresses($id) {
+      $address = [];
+      if($id) {
+        $address = ConfigAddress::where('communityId', $id)->get();
+      }else {
+        $address = ConfigAddress::all();
+      }
       return response()->json($address);
     }
 

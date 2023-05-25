@@ -394,6 +394,13 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
+              if($globalVal->type == "inputText"){
+                if($key === $globalVal->key) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
+              }
               if($globalVal->type == "inputNumberSymbol"){
                 if($key === $globalVal->key) {
                   if($assocCopyFormAm[$idx]->name == 'price'){
