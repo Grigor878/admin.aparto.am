@@ -4,9 +4,6 @@ import AddPart from '../../../components/addPart/AddPart'
 import { getPropertyData, addPropertyData, addPropertyFiles, addPropertyImgs, addPropertyKeyword, addPropertyYandex } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
 import { Card } from '../components/card/Card'
-import { SingleSelect } from '../components/dropdowns/SingleSelect'
-import { MultiSelect } from '../components/dropdowns/MultiSelect'
-import { LngPart } from '../components/lngPart/LngPart'
 // import { TextLarg } from '../components/inputs/TextLarg'
 // import { TextMid } from '../components/inputs/TextMid'
 // import { TextSmall } from '../components/inputs/TextSmall'
@@ -14,17 +11,22 @@ import { LngPart } from '../components/lngPart/LngPart'
 // import { TextMidPlus } from '../components/inputs/TextMidPlus'
 // import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
 // import { NumPrice } from '../components/inputs/NumPrice'
-import { FileUpload } from '../components/inputs/FileUpload'
+import { LngPart } from '../components/lngPart/LngPart'
+import { SingleSelect } from '../components/dropdowns/SingleSelect'
+import { MultiSelect } from '../components/dropdowns/MultiSelect'
+import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
-import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { NumSelector } from '../components/inputs/NumSelector'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { Keywords } from '../components/keywords/Keywords'
 import { ImgsUpload } from '../components/ImgsUpload/ImgsUpload'
-import './Styles.scss'
+import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/addOwner/AddOwner'
+import './Styles.scss'
+import baseApi from '../../../../apis/baseApi'
+import { AsyncStreets } from '../components/asyncStreets/AsyncStreets'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
@@ -35,7 +37,7 @@ const AddProperties = () => {
 
     const { data } = useSelector((state) => state.property)
     // const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
-    console.log(data)
+    // console.log(data)
     // console.log(keyword)
     // console.log(yandex)
     // console.log(uploadPhoto)
@@ -47,10 +49,10 @@ const AddProperties = () => {
     const [addProperty, setAddProperty] = useState('')
 
     const addProp = (e, name, type, key) => {
-        let { id, value, checked } = e.target;
+        let { id, value, checked } = e.target
 
         setAddProperty((prev) => {
-            let obj = {};
+            let obj = {}
 
             if (type === 'text') {
                 const nestedKey = id.slice(0, -2);
@@ -63,7 +65,7 @@ const AddProperties = () => {
                             [id]: value,
                         },
                     },
-                };
+                }
             } else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
                 obj = {
                     [name]: {
@@ -73,27 +75,25 @@ const AddProperties = () => {
                             [id]: value,
                         },
                     },
-                };
+                }
             } else {
                 obj = {
                     [name]: {
                         ...prev[name],
                         [id]: checked ? checked : value,
                     },
-                };
+                }
             }
 
-            return { ...prev, ...obj };
-        });
-    };
+            return { ...prev, ...obj }
+        })
+    }
     console.log(addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         dispatch(addPropertyData({ addProperty }))
-    };
-
+    }
 
     return (
         <article className='addproperties'>
@@ -130,67 +130,74 @@ const AddProperties = () => {
                                                             style={style}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
-                                                        : type === "text"
-                                                            ? <LngPart
+                                                        : type === "communitySelect"
+                                                            ? <AsyncStreets
                                                                 id={key}
                                                                 title={title}
+                                                                data={option}
                                                                 style={style}
-                                                                onChange={(e) => addProp(e, name, type)}
                                                             />
-                                                            : type === "inputNumber"
-                                                                ? <InputNum
+                                                            : type === "text"
+                                                                ? <LngPart
                                                                     id={key}
                                                                     title={title}
-                                                                    placeholder="Ex."
                                                                     style={style}
-                                                                    onChange={(e) => addProp(e, name)}
+                                                                    onChange={(e) => addProp(e, name, type)}
                                                                 />
-                                                                : type === "inputText"
-                                                                    ? <InputText
+                                                                : type === "inputNumber"
+                                                                    ? <InputNum
                                                                         id={key}
                                                                         title={title}
-                                                                        placeholder={placeholder}
+                                                                        placeholder="Ex."
                                                                         style={style}
                                                                         onChange={(e) => addProp(e, name)}
                                                                     />
-                                                                    : type === "map"
-                                                                        ? <YandexMap
+                                                                    : type === "inputText"
+                                                                        ? <InputText
+                                                                            id={key}
                                                                             title={title}
+                                                                            placeholder={placeholder}
                                                                             style={style}
-                                                                            height='200px'
+                                                                            onChange={(e) => addProp(e, name)}
                                                                         />
-                                                                        : type === 'inputNumberSymbol'
-                                                                            ? <InputNumSymbol
-                                                                                id={key}
+                                                                        : type === "map"
+                                                                            ? <YandexMap
                                                                                 title={title}
-                                                                                data={option}
                                                                                 style={style}
-                                                                                onChange={(e) => addProp(e, name, type, key)}
+                                                                                height='200px'
                                                                             />
-                                                                            : type === "checkbox"
-                                                                                ? <Checkbox
+                                                                            : type === 'inputNumberSymbol'
+                                                                                ? <InputNumSymbol
                                                                                     id={key}
                                                                                     title={title}
+                                                                                    data={option}
                                                                                     style={style}
-                                                                                    onChange={(e) => addProp(e, name)}
+                                                                                    onChange={(e) => addProp(e, name, type, key)}
                                                                                 />
-                                                                                : type === "numSelect"
-                                                                                    ? <NumSelector
+                                                                                : type === "checkbox"
+                                                                                    ? <Checkbox
                                                                                         id={key}
                                                                                         title={title}
-                                                                                        data={option}
                                                                                         style={style}
                                                                                         onChange={(e) => addProp(e, name)}
                                                                                     />
-                                                                                    : type === "keyword"
-                                                                                        ? <Keywords
+                                                                                    : type === "numSelect"
+                                                                                        ? <NumSelector
+                                                                                            id={key}
                                                                                             title={title}
+                                                                                            data={option}
                                                                                             style={style}
+                                                                                            onChange={(e) => addProp(e, name)}
                                                                                         />
-                                                                                        : type === "imgsUpload"
-                                                                                            ? <ImgsUpload
-                                                                                                style={style} />
-                                                                                            : null
+                                                                                        : type === "keyword"
+                                                                                            ? <Keywords
+                                                                                                title={title}
+                                                                                                style={style}
+                                                                                            />
+                                                                                            : type === "imgsUpload"
+                                                                                                ? <ImgsUpload
+                                                                                                    style={style} />
+                                                                                                : null
                                                 }
                                             </div>
                                         )

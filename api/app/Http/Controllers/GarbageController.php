@@ -142,7 +142,7 @@ class GarbageController extends Controller
               [
                 "key" => "community",
                 "title" => "Համայնք*",
-                "type" => "select",
+                "type" => "communitySelect",
                 "style" => "629px",
                 "value" => '',
                 "option" => [
@@ -236,16 +236,17 @@ class GarbageController extends Controller
                     "value" => "Այլ",
                     "getOptionName" => "other"
                   ]
-                ]
+                  ],
+                
               ],
-              [
-                "key" => "street",
-                "title" => "Փողոց*",
-                "type" => "select",
-                "style" => "283px",
-                "value" => '',
-                "option" => []
-              ],
+              // [
+              //   "key" => "street",
+              //   "title" => "Փողոց*",
+              //   "type" => "select",
+              //   "style" => "283px",
+              //   "value" => '',
+              //   "option" => []
+              // ],
               [
                 "key" => "building",
                 "title" => "Շենք*",

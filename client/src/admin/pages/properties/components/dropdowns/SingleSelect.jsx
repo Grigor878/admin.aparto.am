@@ -20,6 +20,7 @@ export const SingleSelect = ({ title, id, value, onChange, data, style }) => {
                         >{el.name}
                         </option>
                     )
+                    // console.log(el.id);
                 })}
             </select>
         </label>
