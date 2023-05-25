@@ -63,7 +63,7 @@ class HomeController extends Controller
             $home->ru =json_encode($homeLanguageContsructor['ru']);
             $home->en =json_encode($homeLanguageContsructor['en']);
             $home->save();
-            dd($home);
+            return response()->json($home->id);
         }
     }
 

@@ -135,9 +135,9 @@ class GeneralFormController extends Controller
       }else {
         $address = ConfigAddress::all();
       }
-      if($id == 0) {
+      if($id == 1) {
        $address = [ 
-        "id" => 0,
+        "id" => 1,
         "communityId" => 0,
         "addressId" => "streetAddress",
         "am" => "Լրացրեք համայնքը"
