@@ -14,6 +14,7 @@ import { Card } from '../components/card/Card'
 import { LngPart } from '../components/lngPart/LngPart'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import { MultiSelect } from '../components/dropdowns/MultiSelect'
+import { AsyncStreets } from '../components/asyncStreets/AsyncStreets'
 import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -25,8 +26,6 @@ import { ImgsUpload } from '../components/ImgsUpload/ImgsUpload'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/addOwner/AddOwner'
 import './Styles.scss'
-import baseApi from '../../../../apis/baseApi'
-import { AsyncStreets } from '../components/asyncStreets/AsyncStreets'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
@@ -47,6 +46,16 @@ const AddProperties = () => {
     const right = data?.slice(9, 12)
 
     const [addProperty, setAddProperty] = useState('')
+
+    const handleStreetChange = (value) => {
+        setAddProperty((prev) => ({
+            ...prev,
+            location: {
+                ...prev.location,
+                street: Number(value)
+            }
+        }));
+    };
 
     const addProp = (e, name, type, key) => {
         let { id, value, checked } = e.target
@@ -76,6 +85,13 @@ const AddProperties = () => {
                         },
                     },
                 }
+            } else if (name === "location" && key === "street") {
+                obj = {
+                    [name]: {
+                        ...prev[name],
+                        [key]: value,
+                    },
+                };
             } else {
                 obj = {
                     [name]: {
@@ -137,6 +153,7 @@ const AddProperties = () => {
                                                                 data={option}
                                                                 style={style}
                                                                 onChange={(e) => addProp(e, name, type)}
+                                                                onStreetChange={(value) => handleStreetChange(value)}
                                                             />
                                                             : type === "text"
                                                                 ? <LngPart

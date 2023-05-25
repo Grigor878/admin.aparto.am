@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 
-export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
+export const AsyncStreets = ({ title, id, value, onChange, onStreetChange, data, style }) => {
     const [streets, setStreets] = useState([])
     const [communityId, setCommunityId] = useState(1)
 
@@ -26,7 +26,7 @@ export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
     }
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px"}}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <label className='addproperties__card-singleselect'>
                 {title}
                 <select
@@ -52,7 +52,9 @@ export const AsyncStreets = ({ title, id, value, onChange, data, style }) => {
                 <select
                     id={id}
                     value={value}
-                    onChange={(e) => console.log(e.target.value)}
+                    // onChange={onChange}
+                    // onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => onStreetChange(e.target.value)}
                     className="addproperties__card-singleselect-dropdown"
                 >
                     {streets.id === 1
