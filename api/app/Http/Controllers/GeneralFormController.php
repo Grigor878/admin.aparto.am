@@ -72,20 +72,10 @@ class GeneralFormController extends Controller
     
 
     public function getFormStructure() {
+      $form = GlobalForm::findorFail(1);
+      $form->am = json_decode($form->am);
 
-        $form = GlobalForm::findorFail(1);
-        // $obj = [
-        //   'am' => [
-        //     'name'=> "announcement",
-        //     'id' => 'announcement_id1',
-        //     'val' => 'Ավելացրած'
-        //   ]
-        // ] ;
-        $form->am = json_decode($form->am);
-        $form->ru = json_decode($form->ru);
-        $form->en = json_decode($form->en);
-
-      return json_decode(GlobalForm::findorFail(1)->am);
+      return response()->json($form->am);
     }
 
     public function documentUpload(Request $request) {
@@ -118,7 +108,7 @@ class GeneralFormController extends Controller
 
     public function addGlobalFormField(Request $request) {
         $data = $request->all();
-       $this->generalFormService->addGeneralField($data);
+        $this->generalFormService->addGeneralField($data);
         return json_decode(GlobalForm::findorFail(1)->am);
     }
 

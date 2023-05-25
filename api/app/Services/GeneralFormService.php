@@ -22,7 +22,7 @@ class GeneralFormService
     }
 
     public function addGeneralField($data) {
-    $form = GlobalForm::findorFail(1);
+        $form = GlobalForm::findorFail(1);
         $form->am = json_decode($form->am);
 
         // $form = GlobalForm::findorFail(1);
@@ -44,9 +44,6 @@ class GeneralFormService
             }
           };
         }
-        // return $str;
-        // dd($str);
-
 
         // if($form->ru){
         //   foreach ($form->ru as $key => $value) {
