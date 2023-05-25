@@ -244,7 +244,7 @@ class HomeService
           'en' => 'Renovated',
           'ru' => 'Отремонтировано',
           ],
-          'stoned' => [
+          'stone' => [
           'am' => 'Քարե',
           'en' => 'Stone',
           'ru' => 'Камень',
@@ -328,6 +328,51 @@ class HomeService
           'am' => 'Հյուսիս-Արևմտյան',
           'en' => 'North-Western',
           'ru' => 'Северо-Западный',
+          ],
+          'parquetFloor' => [
+            'am' => 'Մանրահատակ',
+            'en' => 'Parquet',
+            'ru' => 'Паркет',
+          ],
+          'laminate' => [
+            'am' => 'Լամինատ',
+            'en' => 'Laminate flooring',
+            'ru' => 'Ламинат',
+          ],
+          'tile' => [
+            'am' => 'Սալիկ',
+            'en' => 'Tile',
+            'ru' => 'Плитка',
+          ],
+          'concrete' => [
+            'am' => 'Բետոն',
+            'en' => 'Concrete',
+            'ru' => 'Бетон',
+          ],
+          'baghdad' => [
+            'am' => 'Բաղդադ',
+            'en' => 'Baghdad',
+            'ru' => 'Багдад',
+          ],
+          'concrete' => [
+            'am' => 'Բետոն',
+            'en' => 'Concrete',
+            'ru' => 'Бетон',
+          ],
+          'panel' => [
+            'am' => 'Պանել',
+            'en' => 'Panel',
+            'ru' => 'Панельный',
+          ],
+          'tensile' => [
+            'am' => 'Ձգվող',
+            'en' => 'Stretch',
+            'ru' => 'Натяжной',
+          ],
+          'suspended' => [
+            'am' => 'Կախովի',
+            'en' => 'Suspended',
+            'ru' => 'Подвесной',
           ],
         ];
         return $allSelect;
@@ -418,6 +463,9 @@ class HomeService
               }
               if($globalVal->type == 'multiselect') {
                 if($key === $globalVal->key) {
+                  $itemsAm = [];
+                  $itemsRu = [];
+                  $itemsEn = [];
                   foreach ($value as $multiKey => $multiItem) {
                     $lang = $allSelect[$multiItem];
                     $itemsAm[] = $lang['am'];
@@ -443,20 +491,15 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
-                    // if($key === $globalVal->key) {
-                    //     $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-                    // }
                 }
             }
         }
-dd($assocCopyFormAm,  $assocCopyFormRu, $assocCopyFormEn );
 
-        dd($assocCopyFormEn, 999);
-        $normalArray = array_values($assocCopyForm);
+        $normalArrayAm = array_values($assocCopyFormAm);
+        $normalArrayRu = array_values($assocCopyFormRu);
+        $assocCopyFormEn = array_values($assocCopyFormEn);
 
-        return $normalArray;
-        $formStructure = $copyGeneralFormAm;
-        return $formStructure;
+        return ['am'=>$normalArrayAm, 'ru'=> $normalArrayRu, 'en'=>$assocCopyFormEn];
     }
 
 }

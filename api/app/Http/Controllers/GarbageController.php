@@ -778,7 +778,7 @@ class GarbageController extends Controller
                     "id"=> 1,
                     "name"=> "Քարե",
                     "value" => "Քարե",
-                    "getOptionName" => "stoned"
+                    "getOptionName" => "stone"
                   ],
                   [
                     "id"=> 2,
