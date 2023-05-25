@@ -240,14 +240,14 @@ class GarbageController extends Controller
                   ],
                 
               ],
-              // [
-              //   "key" => "street",
-              //   "title" => "Փողոց*",
-              //   "type" => "select",
-              //   "style" => "283px",
-              //   "value" => '',
-              //   "option" => []
-              // ],
+              [
+                "key" => "street",
+                "title" => "Փողոց*",
+                "type" => "select",
+                "style" => "283px",
+                "value" => '',
+                "option" => []
+              ],
               [
                 "key" => "building",
                 "title" => "Շենք*",

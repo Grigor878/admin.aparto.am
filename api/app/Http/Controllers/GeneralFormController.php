@@ -125,6 +125,12 @@ class GeneralFormController extends Controller
       }else {
         $address = ConfigAddress::all();
       }
+      $address->prepend( [ 
+        "id" => 1,
+        "communityId" => 0,
+        "addressId" => "streetAddress",
+        "am" => "Լրացրեք փողոցը"
+       ]);
       if($id == 1) {
        $address = [ 
         "id" => 1,
@@ -133,6 +139,7 @@ class GeneralFormController extends Controller
         "am" => "Լրացրեք համայնքը"
        ];
       }
+     
       return response()->json($address);
     }
 
