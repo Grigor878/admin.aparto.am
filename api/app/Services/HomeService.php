@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Models\GlobalForm;
+use App\Models\ConfigAddress;
 
 
 class HomeService
@@ -437,6 +438,16 @@ class HomeService
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
+              }
+              if($globalVal->type == "selectStreet"){
+                if($key === $globalVal->key) {
+                  if($value) {
+                    $addresses = ConfigAddress::findorFail($value);
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $addresses->am;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $addresses->ru;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $addresses->en;
+                  }
                 }
               }
               if($globalVal->type == "inputText"){

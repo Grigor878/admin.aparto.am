@@ -243,7 +243,7 @@ class GarbageController extends Controller
               [
                 "key" => "street",
                 "title" => "Փողոց*",
-                "type" => "select",
+                "type" => "selectStreet",
                 "style" => "283px",
                 "value" => '',
                 "option" => []
@@ -1529,7 +1529,7 @@ class GarbageController extends Controller
                 [
                 "key" => "street",
                 "title" => "Адрес*",
-                "type" => "select",
+                "type" => "selectStreet",
                 "style" => "283px",
                 "value" => '',
                 "option" => []
@@ -2250,7 +2250,7 @@ class GarbageController extends Controller
                 [
                 "key" => "street",
                 "title" => "Address*",
-                "type" => "select",
+                "type" => "selectStreet",
                 "style" => "283px",
                 "value" => '',
                 "option" => []
