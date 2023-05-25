@@ -57,63 +57,63 @@ export const statementType = [
 
 export const community = [
   {
-    id: 0,
+    id: 1,
     value: "Ընտրեք",
   },
   {
-    id: 1,
+    id: 2,
     value: "Աջափնյակ",
   },
   {
-    id: 2,
+    id: 3,
     value: "Արաբկիր",
   },
   {
-    id: 3,
+    id: 4,
     value: "Ավան",
   },
   {
-    id: 4,
+    id: 5,
     value: "Դավթաշեն",
   },
   {
-    id: 5,
+    id: 6,
     value: "Էրեբունի",
   },
   {
-    id: 6,
+    id: 7,
     value: "Քանաքեռ-Զեյթուն",
   },
   {
-    id: 7,
+    id: 8,
     value: "Կենտրոն",
   },
   {
-    id: 8,
+    id: 9,
     value: "Մալաթիա-Սեբաստիա",
   },
   {
-    id: 9,
+    id: 10,
     value: "Նորք-Մարաշ",
   },
   {
-    id: 10,
+    id: 11,
     value: "Նոր Նորք",
   },
   {
-    id: 11,
+    id: 12,
     value: "Նուբարաշեն",
   },
   {
-    id: 12,
+    id: 13,
     value: "Շենգավիթ",
   },
   {
-    id: 13,
+    id: 14,
     value: "Վահագնի թաղամաս",
   },
   {
-    id: 14,
+    id: 15,
     value: "Այլ",
   },
 ];
