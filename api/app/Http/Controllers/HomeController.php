@@ -57,11 +57,13 @@ class HomeController extends Controller
             $home = new Home();
             $home->employee_id = $employee->id;
             $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+            $home->photo = '';
             $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
-            dd($homeLanguageContsructor);
-            // $home->am = $this->homeService->getAmForm($data);
-            return  $home;
-
+            $home->am =json_encode($homeLanguageContsructor['am']);
+            $home->ru =json_encode($homeLanguageContsructor['ru']);
+            $home->en =json_encode($homeLanguageContsructor['en']);
+            $home->save();
+            dd($home);
         }
     }
 
