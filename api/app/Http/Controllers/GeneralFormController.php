@@ -135,6 +135,14 @@ class GeneralFormController extends Controller
       }else {
         $address = ConfigAddress::all();
       }
+      if($id == 0) {
+       $address = [ 
+        "id" => 0,
+        "communityId" => 0,
+        "addressId" => "streetAddress",
+        "am" => "Լրացրեք համայնքը"
+       ];
+      }
       return response()->json($address);
     }
 
