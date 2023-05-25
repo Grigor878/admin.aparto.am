@@ -30,6 +30,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/changePassword', [UserController::class, 'changePassword']);
     Route::post('/getGlobalUser', [UserController::class, 'getGlobalUser']);
     Route::post('/changeStatus', [UserController::class, 'changeStatus']);
+    Route::get('/getAgent', [UserController::class, 'getAgent']);
+    Route::get('/getAdminModerator', [UserController::class, 'getAdminModerator']);
 
     //General form routes
     Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);

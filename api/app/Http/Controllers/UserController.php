@@ -73,6 +73,15 @@ class UserController extends Controller
         }
      }
 
+     public function getAgent(){
+        $agent = Employe::all();
+        return response()->json($agent);
+     }
+
+     public function getAdminModerator() {
+        $agent = Employe::where('role', 'admin')->orWhere('role', 'moderator')->get();
+     }
+
      public function getGlobalUser() {
         $globalUser = auth()->user();
         $globalUser->full_name = json_decode($globalUser['full_name'], true);
