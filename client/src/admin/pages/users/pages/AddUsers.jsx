@@ -9,6 +9,7 @@ import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import { addUserInputs } from '../data'
 import './Styles.scss'
+import { capitalize } from '../../../../helpers/formatters'
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()
@@ -42,9 +43,9 @@ const AddUsers = () => {
 
         let userInfo = {
             full_name: {
-                am: info.user_name_am,
-                ru: info.user_name_ru,
-                en: info.user_name_en,
+                am: capitalize(info.user_name_am),
+                ru: capitalize(info.user_name_ru),
+                en: capitalize(info.user_name_en),
             },
             email: info.user_mail,
             role: info.user_role,

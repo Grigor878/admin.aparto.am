@@ -67,7 +67,7 @@ export const userCustomColumns = [
   },
   {
     name: "Phone Number",
-    cell: (row) => <p className="columFontSize">{row.phone.tel1}</p>,
+    cell: (row) => <p className="columFontSize">{row.phone?.tel1}</p>,
   },
   {
     name: "Role",
