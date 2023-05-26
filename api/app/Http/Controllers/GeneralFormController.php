@@ -129,14 +129,14 @@ class GeneralFormController extends Controller
         "id" => 1,
         "communityId" => 0,
         "addressId" => "streetAddress",
-        "am" => "Լրացրեք փողոցը"
+        "am" => "Ընտրեք"
        ]);
       if($id == 1) {
        $address = [ 
         "id" => 1,
         "communityId" => 0,
         "addressId" => "streetAddress",
-        "am" => "Լրացրեք համայնքը"
+        "am" => "Ընտրեք համայնքը"
        ];
       }
      

@@ -80,6 +80,7 @@ class UserController extends Controller
 
      public function getAdminModerator() {
         $agent = Employe::where('role', 'admin')->orWhere('role', 'moderator')->get();
+        return response()->json($agent);
      }
 
      public function getGlobalUser() {

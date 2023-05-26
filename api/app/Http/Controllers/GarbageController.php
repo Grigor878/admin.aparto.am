@@ -1449,7 +1449,7 @@ class GarbageController extends Controller
               [
                 "key" => "agent",
                 "title" => "Գործակալ*",
-                "type" => "select",
+                "type" => "agentSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
@@ -1457,7 +1457,7 @@ class GarbageController extends Controller
               [
                 "key" => "meneger",
                 "title" => "Մենեջեր*",
-                "type" => "select",
+                "type" => "managerSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
@@ -2170,7 +2170,7 @@ class GarbageController extends Controller
                 [
                 "key" => "agent",
                 "title" => "Агент*",
-                "type" => "select",
+                "type" => "agentSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
@@ -2178,7 +2178,7 @@ class GarbageController extends Controller
                 [
                 "key" => "meneger",
                 "title" => "Менеджер*",
-                "type" => "select",
+                "type" => "managerSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
@@ -2891,7 +2891,7 @@ class GarbageController extends Controller
                 [
                 "key" => "agent",
                 "title" => "Agent*",
-                "type" => "select",
+                "type" => "agentSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
@@ -2899,7 +2899,7 @@ class GarbageController extends Controller
                 [
                 "key" => "meneger",
                 "title" => "Manager*",
-                "type" => "select",
+                "type" => "managerSelect",
                 "style" => "412px",
                 "value" => '',
                 "option" => [],
