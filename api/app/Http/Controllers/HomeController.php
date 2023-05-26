@@ -58,6 +58,8 @@ class HomeController extends Controller
             $home->employee_id = $employee->id;
             $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
             $home->photo = '';
+            $home->file = '';
+            $home->keywords = '';
             $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
             $home->am =json_encode($homeLanguageContsructor['am']);
             $home->ru =json_encode($homeLanguageContsructor['ru']);
@@ -67,14 +69,85 @@ class HomeController extends Controller
         }
     }
 
-    public function addKeyword(Request $request) {
+    public function multyPhoto($id, Request $request){
         $data = $request->all();
-        dd($data);
+        $home = Home::findorFail($id);
+        $photoName = [];
+        foreach ($data as $key => $photo) {
+          $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+          $photo->move(public_path('images'), $fileName);
+         
+          if(is_numeric(strpos($key, 'visible'))) {
+            $info = [
+              'name' => $fileName,
+              'visible' => 'true'
+            ];
+          } else {
+            $info = [
+              'name' => $fileName,
+              'visible' => 'false'
+            ];
+          }
+          $photoName[] = $info;
+        }
+        $home->photo = json_encode($photoName);
+        $home->save();
+        return true;
+      }
+
+    public function documentUpload($id, Request $request) {
+        $data = $request->all();
+        $home = Home::findorFail($id);
+        $fileNameArray = [];
+        foreach ($data as $key => $file) {
+            $fileName = round(microtime(true) * 1000).'.'.$file->extension();
+            $file->move(public_path('files'), $fileName);
+            $fileNameArray[] = $fileName;
+          }
+          $home->file = json_encode($fileNameArray);
+          $home->save();
+
+          return true;
+    }
+  
+
+    public function addKeyword($id, Request $request) {
+        $data = $request->all();
+        $home = Home::findorFail($id);
+        $home->keywords = json_encode($data);
+        $home->save();
+        return true;
     }
 
-    public function addYandexLocation(Request $request) {
+    public function addYandexLocation($id, Request $request) {
         $data = $request->all();
-        dd($data);
+        $home = Home::findorFail($id);
+
+        if($home) {
+            $homeAm = json_decode($home->am);
+            $homeRu = json_decode($home->ru);
+            $homeEn = json_decode($home->en);
+
+            if($homeAm[1]->name == 'location'){
+                $homeAm[1] = (array) $homeAm[1];
+                $homeAm[1]['fields'][5]->value = $data;
+            }
+            if($homeRu[1]->name == 'location'){
+                $homeRu[1] = (array) $homeRu[1];
+                $homeRu[1]['fields'][5]->value = $data;
+            }
+            if($homeEn[1]->name == 'location'){
+                $homeEn[1] = (array) $homeRu[1];
+                $homeEn[1]['fields'][5]->value = $data;
+            }
+
+            $home->am = json_encode($homeAm);
+            $home->ru = json_encode($homeRu);
+            $home->en = json_encode($homeEn);
+
+            $home->save();
+        }
+        return true;
     }
 
     

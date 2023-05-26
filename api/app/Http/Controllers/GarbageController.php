@@ -277,7 +277,7 @@ class GarbageController extends Controller
                 "title" => "MAP PIN*",
                 "type" => "map",
                 "style" => "631px",
-                "value" => '',
+                "value" => [],
                 "option" => []
               ],
               [

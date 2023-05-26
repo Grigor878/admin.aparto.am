@@ -78,34 +78,6 @@ class GeneralFormController extends Controller
       return response()->json($form->am);
     }
 
-    public function documentUpload(Request $request) {
-      $data = $request->all();
-      dd($data);
-    }
-
-    public function multyPhoto(Request $request){
-      $data = $request->all();
-      $photoName = [];
-      foreach ($data as $key => $photo) {
-        $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
-        $photo->move(public_path('images'), $fileName);
-       
-        if(is_numeric(strpos($key, 'visible'))) {
-          $info = [
-            'name' => $fileName,
-            'visible' => 'true'
-          ];
-        } else {
-          $info = [
-            'name' => $fileName,
-            'visible' => 'false'
-          ];
-        }
-        $photoName[] = $info;
-      }
-      return response()->json($photoName);
-    }
-
     public function addGlobalFormField(Request $request) {
         $data = $request->all();
         $this->generalFormService->addGeneralField($data);
@@ -136,7 +108,7 @@ class GeneralFormController extends Controller
         "id" => 1,
         "communityId" => 0,
         "addressId" => "streetAddress",
-        "am" => "Ընտրեք համայնքը"
+        "am" => "Լրացրեք համայնքը"
        ];
       }
      

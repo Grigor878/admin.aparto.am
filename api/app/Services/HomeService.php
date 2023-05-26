@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\GlobalForm;
 use App\Models\ConfigAddress;
+use App\Models\Employe;
 
 
 class HomeService
@@ -470,6 +471,14 @@ class HomeService
                     $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                   }
+                }
+              }
+              if($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect"){
+                if($key === $globalVal->key) {
+                  $employe = Employe::findorFail($value);
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode( $employe->full_name)->am;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode( $employe->full_name)->ru;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode( $employe->full_name)->en;
                 }
               }
               if($globalVal->type == 'multiselect') {

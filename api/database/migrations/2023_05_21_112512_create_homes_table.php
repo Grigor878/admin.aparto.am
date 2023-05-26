@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('employee_id')->nullabe();
             $table->text('photo')->nullabe();
+            $table->text('file')->nullabe();
+            $table->text('keywords')->nullabe();
             $table->string('status')->nullabe();
             $table->text('am')->nullabe();
             $table->text('ru')->nullabe();

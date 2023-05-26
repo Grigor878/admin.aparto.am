@@ -43,17 +43,16 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getAddress', [GeneralFormController::class, 'getAddress']);
     Route::get('/getAddressForStructure', [GeneralFormController::class, 'getAddressForStructure']);
     Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
-    
-    Route::post('/multyPhoto',  [GeneralFormController::class, 'multyPhoto']);
-    Route::post('/documentUpload',  [GeneralFormController::class, 'documentUpload']);
-
     Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
     Route::get('/getAllAddresses/{id}', [GeneralFormController::class, 'getAllAddresses']);
 
  //HomeController form routes
     Route::post('/addHome',  [HomeController::class, 'addHome']);
-    Route::post('/addKeyword',  [HomeController::class, 'addKeyword']);
-    Route::post('/addYandexLocation',  [HomeController::class, 'addYandexLocation']);
+    Route::post('/addKeyword/{id}',  [HomeController::class, 'addKeyword']);
+    Route::post('/addYandexLocation/{id}',  [HomeController::class, 'addYandexLocation']);
+    Route::post('/multyPhoto/{id}',  [HomeController::class, 'multyPhoto']);
+    Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
+
 
     
 });
