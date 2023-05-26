@@ -6,6 +6,7 @@ export const TextLarg = ({ title, id, placeholder, value, onChange }) => {
             {title}
             <input
                 id={id}
+                required 
                 type="text"
                 placeholder={placeholder}
                 className='addproperties__card-text-larg'

@@ -4,7 +4,6 @@ import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
 export const AgentSelect = ({ title, id, onChange, style }) => {
-
     const { role, full_name } = useSelector((state => state.userGlobal.userGlobal))
 
     const [data, setData] = useState([])
@@ -43,6 +42,7 @@ export const AgentSelect = ({ title, id, onChange, style }) => {
                 {title}
                 <select
                     id={id}
+                    required 
                     onChange={onChange}
                     style={{ width: style }}
                     className="addproperties__card-singleselect-dropdown"

@@ -6,6 +6,7 @@ export const InputNum = ({ title, id, placeholder, onChange, style }) => {
             {title}
             <input
                 id={id}
+                required 
                 type="number"
                 placeholder={placeholder}
                 className='addproperties__card-text-hug'

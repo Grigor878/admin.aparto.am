@@ -13,7 +13,6 @@ export const ManagerSelect = ({ title, id, onChange, style }) => {
       console.log(`Error: ${error.message}`)
     }
   }
-  console.log(data)
 
   useEffect(() => {
     getManagers()
@@ -39,6 +38,7 @@ export const ManagerSelect = ({ title, id, onChange, style }) => {
       {title}
       <select
         id={id}
+        required
         onChange={onChange}
         style={{ width: style }}
         className="addproperties__card-singleselect-dropdown"

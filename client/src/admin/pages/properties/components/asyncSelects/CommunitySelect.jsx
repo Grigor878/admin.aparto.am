@@ -31,6 +31,7 @@ export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, da
                 {title}
                 <select
                     id={id}
+                    required
                     value={value}
                     onChange={handleChange}
                     style={{ width: style }}
@@ -51,6 +52,7 @@ export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, da
                 Փողոց*
                 <select
                     id={id}
+                    required
                     defaultValue={value}
                     onChange={(e) => onStreetChange(e.target.value)}
                     className="addproperties__card-singleselect-dropdown"

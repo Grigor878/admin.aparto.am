@@ -7,6 +7,7 @@ export const SingleSelect = ({ title, id, onChange, data, style }) => {
             {title}
             <select
                 id={id}
+                required
                 onChange={onChange}
                 style={{ width: style }}
                 className="addproperties__card-singleselect-dropdown"

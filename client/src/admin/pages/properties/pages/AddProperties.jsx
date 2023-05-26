@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
-import { getPropertyData, addPropertyData, addPropertyFiles, addPropertyImgs, addPropertyKeyword, addPropertyYandex } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
+import { getPropertyData, addPropertyData } from '../../../../store/slices/propertySlice'
 import { Card } from '../components/card/Card'
 // import { TextLarg } from '../components/inputs/TextLarg'
 // import { TextMid } from '../components/inputs/TextMid'
@@ -27,6 +27,7 @@ import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/addOwner/AddOwner'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
+import { error } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -36,13 +37,7 @@ const AddProperties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { data } = useSelector((state) => state.property)
-    // const { yandex, keyword, uploadPhoto, uploadFile } = useSelector((state) => state.property)
-    // console.log(data)
-    // console.log(keyword)
-    // console.log(yandex)
-    // console.log(uploadPhoto)
-    // console.log(uploadFile)
+    const { data, yandex, uploadPhoto, keyword } = useSelector((state) => state.property)
 
     const center = data?.slice(0, 9)
     const right = data?.slice(9, 12)
@@ -110,7 +105,16 @@ const AddProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addPropertyData({ addProperty }))
+
+        if (!yandex.length) {
+            error('Chosse yandex location!')
+        } else if (uploadPhoto.entries().next().done) {
+            error('Upload imgs!')
+        } else if (!keyword.length) {
+            error('Add keywords!')
+        } else {
+            dispatch(addPropertyData({ addProperty }))
+        }
     }
 
     return (

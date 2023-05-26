@@ -10,6 +10,7 @@ export const InputNumSymbol = ({ id, data, title, onChange, style }) => {
                         <div key={el.id}>
                             <input
                                 id={el.id}
+                                required 
                                 type="number"
                                 placeholder={el.name}
                                 className='addproperties__card-text-price'

@@ -6,20 +6,21 @@ export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map((option) => option.value)
         const e = {
-          target: {
-            id,
-            value: selectedValues,
-          },
+            target: {
+                id,
+                value: selectedValues,
+            },
         }
-    
+
         onChange(e, name)
-      }
+    }
 
     return (
         <label className='addproperties__card-singleselect' >
             {title}
             <Select
                 isMulti
+                isRequired
                 closeMenuOnSelect={false}
                 options={data}
                 placeholder="Ընտրեք"
