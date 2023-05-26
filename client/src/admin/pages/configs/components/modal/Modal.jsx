@@ -20,7 +20,7 @@ export const Modal = ({ open, setOpen }) => {
     const dispatch = useDispatch()
 
     const postAddedAddress = () => {
-        if (selectedId && selectedId !== '0' && arm && rus && eng) {
+        if (selectedId && selectedId !== "1" && arm && rus && eng) {
 
             let uniqueId = "street" + capitalize(eng.toLowerCase().split(' ').join(''))
 

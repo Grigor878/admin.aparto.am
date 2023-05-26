@@ -14,7 +14,7 @@ import { Card } from '../components/card/Card'
 import { LngPart } from '../components/lngPart/LngPart'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import { MultiSelect } from '../components/dropdowns/MultiSelect'
-import { AsyncStreets } from '../components/asyncStreets/AsyncStreets'
+import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
@@ -22,9 +22,11 @@ import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { NumSelector } from '../components/inputs/NumSelector'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { Keywords } from '../components/keywords/Keywords'
-import { ImgsUpload } from '../components/ImgsUpload/ImgsUpload'
+import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/addOwner/AddOwner'
+import { AgentSelect } from '../components/asyncSelects/AgentSelect'
+import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import './Styles.scss'
 
 const AddProperties = () => {
@@ -147,7 +149,7 @@ const AddProperties = () => {
                                                             onChange={(e) => addProp(e, name)}
                                                         />
                                                         : type === "communitySelect"
-                                                            ? <AsyncStreets
+                                                            ? <CommunitySelect
                                                                 id={key}
                                                                 title={title}
                                                                 data={option}
@@ -274,7 +276,21 @@ const AddProperties = () => {
                                                                 />
                                                                 : type === "uploadFile"
                                                                     ? <FileUpload />
-                                                                    : null
+                                                                    : type === "agentSelect"
+                                                                        ? <AgentSelect
+                                                                            id={key}
+                                                                            title={title}
+                                                                            style={style}
+                                                                            onChange={(e) => addProp(e, name)}
+                                                                        />
+                                                                        : type === "managerSelect"
+                                                                            ? <ManagerSelect
+                                                                                id={key}
+                                                                                title={title}
+                                                                                style={style}
+                                                                                onChange={(e) => addProp(e, name)}
+                                                                            />
+                                                                            : null
                                                 }
                                             </div>
                                         )

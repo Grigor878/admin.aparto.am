@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 // import { capitalize } from '../../../helpers/formatters'
 import { BtnAdd } from '../buttons/BtnAdd'
 import './TopPart.scss'
 
 const TopPart = ({ data }) => {
-    const { role } = useSelector((state => state.userGlobal.userGlobal))
+    // const { role } = useSelector((state => state.userGlobal.userGlobal))
     const { pathname } = useLocation()
     const navigate = useNavigate()
 
@@ -20,7 +20,7 @@ const TopPart = ({ data }) => {
                 {newPath === "properties" ? data?.length + " Գույք" : null}
             </h3>
 
-            {role === "admin" ?
+            {/* {role === "admin" ?
                 <BtnAdd
                     // text={newPath === "users"
                     //     ? capitalize(newPath).slice(0, -1)
@@ -29,7 +29,10 @@ const TopPart = ({ data }) => {
                     onClick={() => navigate('add')}
                 />
                 : null
-            }
+            } */}
+
+            <BtnAdd onClick={() => navigate('add')} />
+
         </div>
     )
 }

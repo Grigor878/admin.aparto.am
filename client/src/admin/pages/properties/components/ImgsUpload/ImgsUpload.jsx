@@ -48,28 +48,65 @@ export const ImgsUpload = ({ style }) => {
     const dragItem = useRef(null)
     const dragOverItem = useRef(null)
 
+    // const handleSort = () => {
+    //     if (!visibleImages[dragItem.current]) {
+    //         return;
+    //     }
+    //     const draggedItemIndex = dragItem.current
+    //     const dragOverItemIndex = dragOverItem.current
+
+    //     const updatedImages = [...images]
+    //     const updatedPreviews = [...previewImages]
+
+    //     const draggedImage = updatedImages[draggedItemIndex]
+    //     const draggedPreview = updatedPreviews[draggedItemIndex]
+
+    //     updatedImages.splice(draggedItemIndex, 1)
+    //     updatedPreviews.splice(draggedItemIndex, 1)
+
+    //     updatedImages.splice(dragOverItemIndex, 0, draggedImage)
+    //     updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
+
+    //     const reorderedImages = Array.from(updatedImages)
+    //     const reorderedPreviews = Array.from(updatedPreviews)
+
+    //     setImages(reorderedImages)
+    //     setPreviewImages(reorderedPreviews)
+    // }
+
     const handleSort = () => {
-        const draggedItemIndex = dragItem.current
-        const dragOverItemIndex = dragOverItem.current
+        if (!visibleImages[dragItem.current]) {
+            return;
+        }
 
-        const updatedImages = [...images]
-        const updatedPreviews = [...previewImages]
+        const draggedImage = images[dragItem.current];
+        const draggedPreview = previewImages[dragItem.current];
+        const draggedVisible = visibleImages[dragItem.current];
 
-        const draggedImage = updatedImages[draggedItemIndex]
-        const draggedPreview = updatedPreviews[draggedItemIndex]
+        const updatedImages = [...images];
+        const updatedPreviews = [...previewImages];
+        const updatedVisible = [...visibleImages];
 
-        updatedImages.splice(draggedItemIndex, 1)
-        updatedPreviews.splice(draggedItemIndex, 1)
+        updatedImages.splice(dragItem.current, 1);
+        updatedPreviews.splice(dragItem.current, 1);
+        updatedVisible.splice(dragItem.current, 1);
 
-        updatedImages.splice(dragOverItemIndex, 0, draggedImage)
-        updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
+        if (dragOverItem.current === null) {
+            updatedImages.push(draggedImage);
+            updatedPreviews.push(draggedPreview);
+            updatedVisible.push(draggedVisible);
+        } else {
+            const insertIndex = updatedVisible[dragOverItem.current] ? dragOverItem.current : dragOverItem.current + 1;
 
-        const reorderedImages = Array.from(updatedImages)
-        const reorderedPreviews = Array.from(updatedPreviews)
+            updatedImages.splice(insertIndex, 0, draggedImage);
+            updatedPreviews.splice(insertIndex, 0, draggedPreview);
+            updatedVisible.splice(insertIndex, 0, draggedVisible);
+        }
 
-        setImages(reorderedImages)
-        setPreviewImages(reorderedPreviews)
-    }
+        setImages(updatedImages);
+        setPreviewImages(updatedPreviews);
+        setVisibleImages(updatedVisible);
+    };
 
     const dispatch = useDispatch()
 
@@ -81,39 +118,13 @@ export const ImgsUpload = ({ style }) => {
         dispatch(setUploadPhoto(sortedFormData))
     }
 
-    // mi masov verevy avelacrac visible,hidden
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData();
-    //     images.forEach((image, index) => {
-    //         sortedFormData.append(`image${index}`, image);
-    //         sortedFormData.append(index, visibleImages[index] ? 'visible' : 'hidden');
-    //     });
-
-    //     dispatch(setUploadPhoto(sortedFormData));
-    // };
-
-    // aranzin erku mas (visible,hidden)
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData();
-    //     images.forEach((image, index) => {
-    //         if (visibleImages[index]) {
-    //             sortedFormData.append(`visibleImages[${index}]`, image);
-    //         } else {
-    //             sortedFormData.append(`hiddenImages[${index}]`, image);
-    //         }
-    //     });
-
-    //     dispatch(setUploadPhoto(sortedFormData));
-    // };
-
     useEffect(() => {
         updateUploadPhoto()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images, visibleImages])
 
     return (
         <div style={{ width: style }} className='imgsUpload'>
-            {/* <button onClick={handleUpload}>Send</button> */}
-
             <div className='imgsUpload__card'>
                 <label className='imgsUpload__upload'>
                     {uploadImgs.icon}
@@ -127,9 +138,23 @@ export const ImgsUpload = ({ style }) => {
                     <div
                         key={index}
                         className='imgsUpload__card-main'
-                        draggable={visibleImages[index] ? true : false}
-                        onDragStart={() => dragItem.current = index}
-                        onDragEnter={() => dragOverItem.current = index}
+                        // draggable={visibleImages[index] ? true : false}
+                        // onDragStart={() => dragItem.current = index}
+                        // onDragEnter={() => dragOverItem.current = index}
+                        draggable={visibleImages[index]}
+                        onDragStart={(e) => {
+                            if (!visibleImages[index]) {
+                                e.preventDefault();
+                                return;
+                            }
+                            dragItem.current = index;
+                        }}
+                        onDragEnter={() => {
+                            if (!visibleImages[index]) {
+                                return;
+                            }
+                            dragOverItem.current = index;
+                        }}
                         onDragEnd={handleSort}
 
                     >
@@ -162,3 +187,28 @@ export const ImgsUpload = ({ style }) => {
         </div>
     );
 };
+
+// mi masov verevy avelacrac visible,hidden
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData();
+    //     images.forEach((image, index) => {
+    //         sortedFormData.append(`image${index}`, image);
+    //         sortedFormData.append(index, visibleImages[index] ? 'visible' : 'hidden');
+    //     });
+
+    //     dispatch(setUploadPhoto(sortedFormData));
+    // };
+
+    // aranzin erku mas (visible,hidden)
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData();
+    //     images.forEach((image, index) => {
+    //         if (visibleImages[index]) {
+    //             sortedFormData.append(`visibleImages[${index}]`, image);
+    //         } else {
+    //             sortedFormData.append(`hiddenImages[${index}]`, image);
+    //         }
+    //     });
+
+    //     dispatch(setUploadPhoto(sortedFormData));
+    // };

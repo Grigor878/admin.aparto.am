@@ -18,9 +18,27 @@ export const Addresses = () => {
 
   const { data, added, removed } = useSelector((state) => state.configs)
 
+  const [filteredData, setFilteredData] = useState(data)
+
   useEffect(() => {
     dispatch(getConfigsAddresses())
   }, [dispatch, added, removed])
+
+  useEffect(() => {
+    if (data) {
+      const filtered = data.filter(row => {
+        const addressAM = row.am.toLowerCase()
+        const addressEN = row.en.toLowerCase()
+        const addressRU = row.ru.toLowerCase()
+        const searchValue = search.toLowerCase()
+
+        return (
+          addressAM.includes(searchValue) || addressEN.includes(searchValue) || addressRU.includes(searchValue)
+        )
+      })
+      setFilteredData(filtered)
+    }
+  }, [data, search])
 
   const postRemovedAddress = (e) => {
     let removedAddress = { id: e }
@@ -75,10 +93,10 @@ export const Addresses = () => {
       </div>
 
       <div className='addresses__bottom'>
-        {!data
+        {!filteredData
           ? <Loader />
           : <Table
-            Data={data}
+            Data={filteredData}
             Columns={adressColumns}
           />
         }

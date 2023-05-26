@@ -44,7 +44,7 @@ export const Personal = () => {
                         />
                     </div>
                     <div className='profile__data-form-parts'>
-                        {phone?.tel1.length
+                        {phone?.tel1?.length
                             ? <DisabledInput
                                 name='Հեռախոսահամար'
                                 value={phone?.tel1}
