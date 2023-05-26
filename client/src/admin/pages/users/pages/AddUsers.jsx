@@ -5,11 +5,11 @@ import { ImgUpload } from '../../../components/inputs/ImgUpload'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../components/SelectRole'
+import { capitalize } from '../../../../helpers/formatters'
 import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import { addUserInputs } from '../data'
 import './Styles.scss'
-import { capitalize } from '../../../../helpers/formatters'
 
 const AddUsers = () => {
     const [avatar, setAvatar] = useState()

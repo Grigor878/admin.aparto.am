@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { getPropertyData, addPropertyData } from '../../../../store/slices/propertySlice'
@@ -27,11 +28,13 @@ import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/addOwner/AddOwner'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
-import { error } from '../../../../components/swal/swal'
+import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getPropertyData())
@@ -114,6 +117,8 @@ const AddProperties = () => {
             error('Add keywords!')
         } else {
             dispatch(addPropertyData({ addProperty }))
+            success("Property added!")
+            navigate(-1)
         }
     }
 
