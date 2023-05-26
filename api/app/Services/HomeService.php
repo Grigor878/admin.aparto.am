@@ -408,7 +408,7 @@ class HomeService
         foreach ($data as $idx => $item) {
           foreach ($item as $key => $value) {
             foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
-              if($globalVal->type == 'select') {
+              if($globalVal->type == 'select' || $globalVal->type == 'communitySelect') {
                 if($key === $globalVal->key) {
                   $lang = $allSelect[$value];
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
