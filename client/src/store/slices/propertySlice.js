@@ -1,10 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { getAxiosConfig } from "../../apis/config";
+import { Navigate } from "react-router-dom";
 
 const initialState = {
-  loading: false,
-  data: null,
+  structureLoading: false,
+  structure: null,
+  propertyLoading: false,
+  propertyData: null,
   postLoading: false,
   uploadPhoto: {},
   uploadFile: {},
@@ -12,15 +15,28 @@ const initialState = {
   keyword: [],
 };
 
-// get global data
-export const getPropertyData = createAsyncThunk("property", async () => {
+// get property structure
+export const getPropertyStructure = createAsyncThunk("property", async () => {
   try {
     const { data } = await baseApi.get("/api/getAllStructure");
     return data;
   } catch (err) {
-    console.log(`Get Property Data Error: ${err.message}`);
+    console.log(`Get Property Structure Error: ${err.message}`);
   }
 });
+
+// get property data
+export const getPropertyData = createAsyncThunk(
+  "property/getPropertyData",
+  async () => {
+    try {
+      const { data } = await baseApi.get("/api/getHome");
+      return data;
+    } catch (err) {
+      console.log(`Get Property Data Error: ${err.message}`);
+    }
+  }
+);
 
 // post added data
 export const addPropertyData = createAsyncThunk(
@@ -47,9 +63,9 @@ export const addPropertyImgs = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
-      let uploadImgs = state.property.uploadPhoto
+      let uploadImgs = state.property.uploadPhoto;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadImgs);
-      thunkAPI.dispatch(addPropertyFiles(id))
+      thunkAPI.dispatch(addPropertyFiles(id));
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
@@ -62,10 +78,9 @@ export const addPropertyFiles = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
-      let uploadFile = state.property.uploadFile
+      let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
-      thunkAPI.dispatch(addPropertyYandex(id))
-      
+      thunkAPI.dispatch(addPropertyYandex(id));
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
     }
@@ -80,7 +95,7 @@ export const addPropertyYandex = createAsyncThunk(
       const state = thunkAPI.getState();
       let setYandex = state.property.yandex;
       await baseApi.post(`/api/addYandexLocation/${id}`, setYandex);
-      thunkAPI.dispatch(addPropertyKeyword(id))
+      thunkAPI.dispatch(addPropertyKeyword(id));
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
     }
@@ -120,12 +135,19 @@ const structureSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getPropertyStructure.pending, (state) => {
+        state.structureLoading = true;
+      })
+      .addCase(getPropertyStructure.fulfilled, (state, action) => {
+        state.structureLoading = false;
+        state.structure = action.payload;
+      })
       .addCase(getPropertyData.pending, (state) => {
-        state.loading = true;
+        state.propertyLoading = true;
       })
       .addCase(getPropertyData.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
+        state.propertyLoading = false;
+        state.propertyData = action.payload;
       })
       .addCase(addPropertyData.pending, (state) => {
         state.postLoading = true;

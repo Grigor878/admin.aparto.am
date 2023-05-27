@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
-export const AgentSelect = ({ title, id, onChange, style }) => {
+export const AgentSelect = ({ title, id, onChange, style, required }) => {
     const { role, full_name } = useSelector((state => state.userGlobal.userGlobal))
 
     const [data, setData] = useState([])
@@ -42,7 +42,7 @@ export const AgentSelect = ({ title, id, onChange, style }) => {
                 {title}
                 <select
                     id={id}
-                    required 
+                    required={required}
                     onChange={onChange}
                     style={{ width: style }}
                     className="addproperties__card-singleselect-dropdown"

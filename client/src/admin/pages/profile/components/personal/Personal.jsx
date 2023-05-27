@@ -15,6 +15,8 @@ export const Personal = () => {
         dispatch(logout())
     }
 
+    console.log(photo)
+
     return (
         <>
             <div className='profile__top'>
@@ -27,7 +29,7 @@ export const Personal = () => {
 
             <div className='profile__data'>
                 <div className='profile__data-userImg'>
-                    {photo === null
+                    {!photo.length
                         ? <img src={userImg} alt="User" />
                         : <img src={API_BASE_URL + '/images/' + photo} alt="User" />
                     }

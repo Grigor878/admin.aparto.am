@@ -20,7 +20,6 @@ export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
             {title}
             <Select
                 isMulti
-                isRequired
                 closeMenuOnSelect={false}
                 options={data}
                 placeholder="Ընտրեք"

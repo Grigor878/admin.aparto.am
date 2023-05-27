@@ -10,7 +10,6 @@ export const NumSelector = ({ id, title, data, value, style, onChange }) => {
             <div style={{ display: "flex", gap: "4px" }}>
                 {data?.map((el) => (
                     <button
-                        required
                         type="button"
                         key={el.value}
                         id={el.id}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
-export const ManagerSelect = ({ title, id, onChange, style }) => {
+export const ManagerSelect = ({ title, id, onChange, style, required }) => {
   const [data, setData] = useState([])
 
   const getManagers = async () => {
@@ -38,7 +38,7 @@ export const ManagerSelect = ({ title, id, onChange, style }) => {
       {title}
       <select
         id={id}
-        required
+        required={required}
         onChange={onChange}
         style={{ width: style }}
         className="addproperties__card-singleselect-dropdown"

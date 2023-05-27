@@ -12,15 +12,3 @@ export const getAxiosConfig = () => {
     headers: { Authorization: "Bearer " + token },
   };
 };
-
-// export const GetAxiosConfig = () => {
-//   import { useSelector } from "react-redux";
-//   const { token } = useSelector((state) => state.auth);
-//   const token = localStorage.getItem("token")
-//     ? localStorage.getItem("token")
-//     : "";
-
-//   return {
-//     headers: { Authorization: "Bearer " + token },
-//   };
-// };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
-import { getPropertyData, addPropertyData } from '../../../../store/slices/propertySlice'
+import { addPropertyData, getPropertyStructure } from '../../../../store/slices/propertySlice'
 import { Card } from '../components/card/Card'
 // import { TextLarg } from '../components/inputs/TextLarg'
 // import { TextMid } from '../components/inputs/TextMid'
@@ -37,13 +37,13 @@ const AddProperties = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getPropertyData())
+        dispatch(getPropertyStructure())
     }, [dispatch])
 
-    const { data, yandex, uploadPhoto, keyword } = useSelector((state) => state.property)
+    const { structure, yandex } = useSelector((state) => state.property)
 
-    const center = data?.slice(0, 9)
-    const right = data?.slice(9, 12)
+    const center = structure?.slice(0, 9)
+    const right = structure?.slice(9, 12)
 
     const [addProperty, setAddProperty] = useState('')
 
@@ -111,14 +111,9 @@ const AddProperties = () => {
 
         if (!yandex.length) {
             error('Chosse yandex location!')
-        } else if (uploadPhoto.entries().next().done) {
-            error('Upload imgs!')
-        } else if (!keyword.length) {
-            error('Add keywords!')
         } else {
             dispatch(addPropertyData({ addProperty }))
             success("Property added!")
-            navigate(-1)
         }
     }
 
@@ -126,7 +121,7 @@ const AddProperties = () => {
         <article className='addproperties'>
             <AddPart type="addProperties" />
 
-            {!data
+            {!structure
                 ? <Loader />
                 : <form id="addPropertiesForm" onSubmit={handleSubmit} className='addproperties__main'>
                     {/* Center part */}
@@ -137,7 +132,7 @@ const AddProperties = () => {
                                     key={name}
                                     title={title}
                                     width="679px"
-                                    child={fields.map(({ key, title, type, option, style, placeholder }) => {
+                                    child={fields.map(({ key, title, type, option, style, required, placeholder }) => {
                                         return (
                                             <div key={key}>
                                                 {type === "select"
@@ -146,6 +141,7 @@ const AddProperties = () => {
                                                         title={title}
                                                         data={option}
                                                         style={style}
+                                                        required={required}
                                                         onChange={(e) => addProp(e, name)}
                                                     />
                                                     : type === "multiselect"
@@ -155,6 +151,7 @@ const AddProperties = () => {
                                                             name={name}
                                                             data={option}
                                                             style={style}
+                                                            // required={required}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
                                                         : type === "communitySelect"
@@ -163,6 +160,7 @@ const AddProperties = () => {
                                                                 title={title}
                                                                 data={option}
                                                                 style={style}
+                                                                required={required}
                                                                 onChange={(e) => addProp(e, name, type)}
                                                                 onStreetChange={(value) => handleStreetChange(value)}
                                                             />
@@ -171,6 +169,7 @@ const AddProperties = () => {
                                                                     id={key}
                                                                     title={title}
                                                                     style={style}
+                                                                    required={required}
                                                                     onChange={(e) => addProp(e, name, type)}
                                                                 />
                                                                 : type === "inputNumber"
@@ -179,6 +178,7 @@ const AddProperties = () => {
                                                                         title={title}
                                                                         placeholder="Ex."
                                                                         style={style}
+                                                                        required={required}
                                                                         onChange={(e) => addProp(e, name)}
                                                                     />
                                                                     : type === "inputText"
@@ -187,6 +187,7 @@ const AddProperties = () => {
                                                                             title={title}
                                                                             placeholder={placeholder}
                                                                             style={style}
+                                                                            required={required}
                                                                             onChange={(e) => addProp(e, name)}
                                                                         />
                                                                         : type === "map"
@@ -201,6 +202,7 @@ const AddProperties = () => {
                                                                                     title={title}
                                                                                     data={option}
                                                                                     style={style}
+                                                                                    required={required}
                                                                                     onChange={(e) => addProp(e, name, type, key)}
                                                                                 />
                                                                                 : type === "checkbox"
@@ -216,12 +218,14 @@ const AddProperties = () => {
                                                                                             title={title}
                                                                                             data={option}
                                                                                             style={style}
+                                                                                            // required={required}
                                                                                             onChange={(e) => addProp(e, name)}
                                                                                         />
                                                                                         : type === "keyword"
                                                                                             ? <Keywords
                                                                                                 title={title}
                                                                                                 style={style}
+                                                                                            // required={required}
                                                                                             />
                                                                                             : type === "imgsUpload"
                                                                                                 ? <ImgsUpload
@@ -245,7 +249,7 @@ const AddProperties = () => {
                                     key={name}
                                     title={title}
                                     width="460px"
-                                    child={fields.map(({ key, title, type, option, style, height, placeholder }) => {
+                                    child={fields.map(({ key, title, type, option, style, required, height, placeholder }) => {
                                         return (
                                             <div key={key}>
                                                 {type === "select"
@@ -254,6 +258,7 @@ const AddProperties = () => {
                                                         title={title}
                                                         data={option}
                                                         style={style}
+                                                        required={required}
                                                         onChange={(e) => addProp(e, name)}
                                                     />
                                                     : type === "inputNumber"
@@ -262,6 +267,7 @@ const AddProperties = () => {
                                                             title={title}
                                                             placeholder="Ex."
                                                             style={style}
+                                                            required={required}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
                                                         : type === "inputText"
@@ -271,6 +277,7 @@ const AddProperties = () => {
                                                                 placeholder={placeholder}
                                                                 height={height}
                                                                 style={style}
+                                                                required={required}
                                                                 onChange={(e) => addProp(e, name)}
                                                             />
                                                             : type === "addField"
@@ -280,6 +287,7 @@ const AddProperties = () => {
                                                                     placeholder={placeholder}
                                                                     style={style}
                                                                     data={option}
+                                                                    // required={required}
                                                                     onChange={(e) => addProp(e, name)}
 
                                                                 />
@@ -290,6 +298,7 @@ const AddProperties = () => {
                                                                             id={key}
                                                                             title={title}
                                                                             style={style}
+                                                                            required={required}
                                                                             onChange={(e) => addProp(e, name)}
                                                                         />
                                                                         : type === "managerSelect"
@@ -297,6 +306,7 @@ const AddProperties = () => {
                                                                                 id={key}
                                                                                 title={title}
                                                                                 style={style}
+                                                                                required={required}
                                                                                 onChange={(e) => addProp(e, name)}
                                                                             />
                                                                             : null

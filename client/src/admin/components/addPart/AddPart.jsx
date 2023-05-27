@@ -42,7 +42,7 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
       }
       {type === "editUser"
         ? <div className='addpart__btns'>
-          {currentUser.status === "approved"
+          {currentUser?.status === "approved"
             ? <button className='addpart__btns-deactivate' onClick={changeStatus}>Ապաակտիվացնել</button>
             : <button className='addpart__btns-deactivate' onClick={changeStatus}>Ակտիվացնել</button>
           }

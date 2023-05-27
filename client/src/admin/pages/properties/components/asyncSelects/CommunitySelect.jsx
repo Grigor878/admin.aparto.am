@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 
-export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, data, style }) => {
+export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, data, style, required }) => {
     const [streets, setStreets] = useState([])
     const [communityId, setCommunityId] = useState(1)
 
@@ -31,7 +31,7 @@ export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, da
                 {title}
                 <select
                     id={id}
-                    required
+                    required={required}
                     value={value}
                     onChange={handleChange}
                     style={{ width: style }}

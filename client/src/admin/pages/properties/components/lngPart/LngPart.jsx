@@ -3,7 +3,7 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const LngPart = ({ title, id, style, onChange }) => {
+export const LngPart = ({ title, id, style, required, onChange }) => {
     const [activeFlag, setActiveFlag] = useState('am')
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
@@ -32,6 +32,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                     id={id + "Am"}
                     value={arm}
                     title={title}
+                    required={required}
                     placeholder={`Գրեք ` + placeholder}
                     onChange={(e) => { setArm(e.target.value); onChange(e) }}
                 />
@@ -40,6 +41,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                         id={id + "Ru"}
                         value={rus}
                         title={title}
+                        required={required}
                         placeholder={`Գրեք ` + placeholder}
                         onChange={(e) => { setRus(e.target.value); onChange(e) }}
 
@@ -48,6 +50,7 @@ export const LngPart = ({ title, id, style, onChange }) => {
                         id={id + "En"}
                         value={eng}
                         title={title}
+                        required={required}
                         placeholder={`Գրեք ` + placeholder}
                         onChange={(e) => { setEng(e.target.value); onChange(e) }}
                     />}

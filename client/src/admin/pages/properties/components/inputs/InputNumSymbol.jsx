@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const InputNumSymbol = ({ id, data, title, onChange, style }) => {
+export const InputNumSymbol = ({ id, data, title, onChange, style, required }) => {
     return (
         <label className='addproperties__card-text' id={id}>
             {title}
@@ -10,7 +10,7 @@ export const InputNumSymbol = ({ id, data, title, onChange, style }) => {
                         <div key={el.id}>
                             <input
                                 id={el.id}
-                                required 
+                                required={required}
                                 type="number"
                                 placeholder={el.name}
                                 className='addproperties__card-text-price'

@@ -16,15 +16,16 @@ const EditUsers = () => {
     const navigate = useNavigate()
     const params = useParams()
     const userId = Number(params.id)
+
     const { users } = useSelector((state => state.users))
-    
+
     const currentUser = users.find(item => item.id === userId)
 
-    const email = currentUser.email
+    const email = currentUser?.email
     const [avatar, setAvatar] = useState(currentUser?.photo)
     const [uploaded, setUploaded] = useState([])
-    const [statusPhoto, setStatusPhoto] = useState(currentUser?.photo)
     const [avatarUrl, setAvatarUrl] = useState([])
+    const [statusPhoto, setStatusPhoto] = useState(currentUser?.photo)
     const [role, setRole] = useState(currentUser?.role)
     const [am, setAm] = useState(currentUser?.full_name?.am)
     const [ru, setRu] = useState(currentUser?.full_name?.ru)
@@ -56,7 +57,7 @@ const EditUsers = () => {
     const changeStatus = () => {
         let statusChangeInfo = {
             id: userId,
-            status: currentUser.status === "approved" ? "deactivated" : "approved"
+            status: currentUser?.status === "approved" ? "deactivated" : "approved"
         }
 
         baseApi.post('/api/changeStatus', statusChangeInfo)
@@ -103,7 +104,7 @@ const EditUsers = () => {
     }
 
     return (
-        <article className='subUsers'>
+       <article className='subUsers'>
             <AddPart
                 type="editUser"
                 changeStatus={changeStatus}

@@ -15,11 +15,11 @@ const User = () => {
             ? <Loader />
             : <Link to='/dashboard/profile' className='user'>
                 <div className='user__info'>
-                    {userGlobal.photo === null && userGlobal.role === "admin"
+                    {!userGlobal.photo?.length && userGlobal.role === "admin"
                         ? admin.icon
-                        : userGlobal.photo === null && userGlobal.role === "moderator"
+                        : !userGlobal.photo?.length && userGlobal.role === "moderator"
                             ? userIcon.icon
-                            : userGlobal.photo === null && userGlobal.role === "agent"
+                            : !userGlobal.photo?.length && userGlobal.role === "agent"
                                 ? agent.icon
                                 : <img src={API_BASE_URL + '/images/' + userGlobal.photo} alt="User" />
                     }
