@@ -411,6 +411,11 @@ class HomeService
               if($globalVal->type == 'select' || $globalVal->type == 'communitySelect') {
                 if($key === $globalVal->key) {
                   $lang = $allSelect[$value];
+                  if($globalVal->key == 'transactionType') {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
+                  }
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];

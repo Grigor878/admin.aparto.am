@@ -23,6 +23,7 @@ class GarbageController extends Controller
                 "type" => "select",
                 "style" => "306px",
                 "value" => '',
+                "selectedOptionName" => '',
                 "option" => [
                   [
                     "id"=> 1,
@@ -1477,6 +1478,7 @@ class GarbageController extends Controller
                 "type" => "select",
                 "style" => "306px",
                 "value" => '',
+                "selectedOptionName" => '',
                 "option" => []
                 ],
                 [
@@ -2198,6 +2200,7 @@ class GarbageController extends Controller
                 "type" => "select",
                 "style" => "306px",
                 "value" => '',
+                "selectedOptionName" => '',
                 "option" => []
                 ],
                 [
