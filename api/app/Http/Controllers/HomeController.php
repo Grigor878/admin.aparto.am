@@ -70,10 +70,12 @@ class HomeController extends Controller
     }
 
     public function getHome() {
-        $allHome = Home::select('id', 'am', 'photo', 'file', 'keywords')->get();
+        $allHome = Home::orderByRaw("status = 'moderation' DESC")
+        ->select('id', 'am', 'photo', 'file', 'keywords', 'status')
+        ->get();
         foreach ($allHome as $key => $home) {
            $home->am = json_decode($home->am);
-           $home->selectedTransationType = $home->am[0]->fields[0]->selectedOptionName;
+           $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
            $home->photo = json_decode($home->photo);
            $home->file = json_decode($home->file);
            $home->keywords = json_decode($home->keywords);
