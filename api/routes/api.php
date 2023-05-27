@@ -52,6 +52,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/addYandexLocation/{id}',  [HomeController::class, 'addYandexLocation']);
     Route::post('/multyPhoto/{id}',  [HomeController::class, 'multyPhoto']);
     Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
+    Route::get('/getHome',  [HomeController::class, 'getHome']);
 
 
     

@@ -69,6 +69,19 @@ class HomeController extends Controller
         }
     }
 
+    public function getHome() {
+        $allHome = Home::all();
+        foreach ($allHome as $key => $home) {
+           $home->am = json_decode($home->am);
+           $home->ru = json_decode($home->ru);
+           $home->en = json_decode($home->en);
+           $home->photo = json_decode($home->photo);
+           $home->file = json_decode($home->file);
+           $home->keywords = json_decode($home->keywords);
+        }
+        return response()->json($allHome);
+    }
+
     public function multyPhoto($id, Request $request){
         $data = $request->all();
         $home = Home::findorFail($id);
