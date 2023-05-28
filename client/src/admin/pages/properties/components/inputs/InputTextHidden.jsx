@@ -1,18 +1,17 @@
 import React from 'react'
 
-export const InputNum = ({ title, value, id, placeholder, onChange, style, required }) => {
+export const InputTextHidden = ({ title, id, style, required, height, placeholder, onChange }) => {
     return (
         <label className='addproperties__card-text'>
             {title}
             <input
                 id={id}
-                defaultValue={value ? value : null}
                 required={required}
-                type="number"
+                type="text"
                 placeholder={placeholder}
-                className='addproperties__card-text-hug'
-                style={{ width: style }}
+                className='addproperties__card-text-full'
                 minLength="3"
+                style={{ width: style, height: height }}
                 onChange={onChange}
             />
         </label>

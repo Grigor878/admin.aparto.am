@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { addPropertyData, getPropertyStructure } from '../../../../store/slices/propertySlice'
@@ -30,11 +30,13 @@ import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
+import { InputTextHidden } from '../components/inputs/InputTextHidden'
+import { InputNumHidden } from '../components/inputs/InputNumHidden'
 
 const AddProperties = () => {
     const dispatch = useDispatch()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getPropertyStructure())
@@ -123,7 +125,11 @@ const AddProperties = () => {
 
             {!structure
                 ? <Loader />
-                : <form id="addPropertiesForm" onSubmit={handleSubmit} className='addproperties__main'>
+                : <form
+                    id="addPropertiesForm"
+                    className='addproperties__main'
+                    onSubmit={handleSubmit}
+                >
                     {/* Center part */}
                     <div className='addproperties__center'>
                         {center?.map(({ name, title, fields, added }) => {
@@ -282,15 +288,28 @@ const AddProperties = () => {
                                                             />
                                                             : type === "addField"
                                                                 ? <AddOwner
-                                                                    id={key}
-                                                                    title={title}
-                                                                    placeholder={placeholder}
-                                                                    style={style}
                                                                     data={option}
-                                                                    // required={required}
                                                                     onChange={(e) => addProp(e, name)}
-
                                                                 />
+                                                            // : type === "inputTextHidden"
+                                                            //     ? <InputTextHidden
+                                                            //         id={key}
+                                                            //         title={title}
+                                                            //         placeholder={placeholder}
+                                                            //         height={height}
+                                                            //         style={style}
+                                                            //         required={required}
+                                                            //         onChange={(e) => addProp(e, name)}
+                                                            //     />
+                                                                //     : type === "inputNumberHidden"
+                                                                //         ? <InputNumHidden
+                                                                //             id={key}
+                                                                //             title={title}
+                                                                //             placeholder="Ex."
+                                                                //             style={style}
+                                                                //             required={required}
+                                                                //             onChange={(e) => addProp(e, name)}
+                                                                //         />
                                                                 : type === "uploadFile"
                                                                     ? <FileUpload />
                                                                     : type === "agentSelect"
@@ -313,8 +332,7 @@ const AddProperties = () => {
                                                 }
                                             </div>
                                         )
-                                    })
-                                    }
+                                    })}
                                 />
                             )
                         })}

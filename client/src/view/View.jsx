@@ -53,7 +53,7 @@ const View = () => {
                     >
                         <Route index path="properties" element={<Properties />} />
                         <Route path="properties/add" element={<AddProperties />} />
-                        <Route path="properties/edit" element={<EditProperties />} />
+                        <Route path="properties/edit/:id" element={<EditProperties />} />
                         <Route path="profile" element={<Profile />} />
                         <Route path="form-structure" element={<Structure />} />
                         <Route path="users" element={<Users />} />

@@ -9,6 +9,7 @@ export const AddOwner = ({ data, onChange }) => {
     const secondOwner = data?.slice(0, 2)
     const thirdOwner = data?.slice(2, data.length)
 
+
     return (
         <div className='addOwner'>
             <button

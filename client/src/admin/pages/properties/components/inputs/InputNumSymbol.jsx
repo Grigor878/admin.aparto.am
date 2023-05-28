@@ -1,11 +1,16 @@
 import React from 'react'
 
-export const InputNumSymbol = ({ id, data, title, onChange, style, required }) => {
+export const InputNumSymbol = ({ id, data, title, value, onChange, style, required }) => {
     return (
         <label className='addproperties__card-text' id={id}>
             {title}
             <div style={{ display: "flex", gap: "12px" }}>
                 {data.map((el) => {
+
+                    if (value) {
+                        var currentValue = value[el.id] || '';
+                    }
+
                     return (
                         <div key={el.id}>
                             <input
@@ -17,6 +22,7 @@ export const InputNumSymbol = ({ id, data, title, onChange, style, required }) =
                                 minLength="3"
                                 style={{ width: style }}
                                 onChange={onChange}
+                                defaultValue={currentValue}
                             />
                             {/* <span>{el.symbol}</span> */}
                         </div>

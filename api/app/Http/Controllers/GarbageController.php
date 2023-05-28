@@ -1408,7 +1408,6 @@ class GarbageController extends Controller
                 "style" => "412px",
                 "required" => true,
                 "value" => '',
-                "option" => [],
               ],
               [
                 "key" => "ownerTel",
@@ -1417,14 +1416,13 @@ class GarbageController extends Controller
                 "style" => "412px",
                 "required" => true,
                 "value" => '',
-                "option" => [],
               ],
               [
                 "key" => "addOwner",
                 "title" => "Ավելացնել սեփականատեր",
                 "type" => "addField",
                 "style" => "217px",
-                "value" => '',
+                // "value" => '',
                 "option" => [
                   [
                     "key" => "owner2",
@@ -1432,6 +1430,7 @@ class GarbageController extends Controller
                     "placeholder" => "Գրեք սեփականատիրոջ անունը",
                     "type" => "inputText",
                     "style" => "412px",
+                    "value" => '',
                   ],
                   [
                     "key" => "ownerTel2",
@@ -1439,6 +1438,7 @@ class GarbageController extends Controller
                     "type" => "inputNumber",
                     "style" => "412px",
                     "option" => [],
+                    "value" => '',
                   ],
                   [
                     "key" => "owner3",
@@ -1446,6 +1446,7 @@ class GarbageController extends Controller
                     "placeholder" => "Գրեք սեփականատիրոջ անունը",
                     "type" => "inputText",
                     "style" => "412px",
+                    "value" => '',
                   ],
                   [
                     "key" => "ownerTel3",
@@ -1453,9 +1454,40 @@ class GarbageController extends Controller
                     "type" => "inputNumber",
                     "style" => "412px",
                     "option" => [],
+                    "value" => '',
                   ],
                 ],
               ],
+              // [
+              //   "key" => "owner2",
+              //   "title" => "Սեփականատեր 2*",
+              //   "placeholder" => "Գրեք սեփականատիրոջ անունը",
+              //   "type" => "inputText",
+              //   "style" => "412px",
+              //   "value" => '',
+              // ],
+              // [
+              //   "key" => "ownerTel2",
+              //   "title" => "Սեփականատիրոջ Հեռախոսահամար*",
+              //   "type" => "inputNumber",
+              //   "style" => "412px",
+              //   "value" => '',
+              // ],
+              // [
+              //   "key" => "owner3",
+              //   "title" => "Սեփականատեր 3*",
+              //   "placeholder" => "Գրեք սեփականատիրոջ անունը",
+              //   "type" => "inputText",
+              //   "style" => "412px",
+              //   "value" => '',
+              // ],
+              // [
+              //   "key" => "ownerTel3",
+              //   "title" => "Սեփականատիրոջ Հեռախոսահամար*",
+              //   "type" => "inputNumber",
+              //   "style" => "412px",
+              //   "value" => '',
+              // ],
             ],
           ],
           [

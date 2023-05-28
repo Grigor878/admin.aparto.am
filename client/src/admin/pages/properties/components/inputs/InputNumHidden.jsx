@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const InputNum = ({ title, value, id, placeholder, onChange, style, required }) => {
+export const InputNumHidden = ({ title, value, id, placeholder, onChange, style, required }) => {
     return (
         <label className='addproperties__card-text'>
             {title}
