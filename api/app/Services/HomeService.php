@@ -463,6 +463,28 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
+              if(array_key_exists('juridical', $data)){
+                if(array_key_exists('owner2', $data['juridical'])){
+                 $assocCopyFormAm['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+                 $assocCopyFormRu['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+                 $assocCopyFormEn['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+                }
+                if(array_key_exists('ownerTel2', $data['juridical'])){
+                  $assocCopyFormAm['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+                  $assocCopyFormRu['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+                  $assocCopyFormEn['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+                 }
+                 if(array_key_exists('owner3', $data['juridical'])){
+                  $assocCopyFormAm['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+                  $assocCopyFormRu['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+                  $assocCopyFormEn['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+                 }
+                 if(array_key_exists('ownerTel3', $data['juridical'])){
+                  $assocCopyFormAm['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+                  $assocCopyFormRu['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+                  $assocCopyFormEn['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+                 }
+              }
               if($globalVal->type == "inputNumberSymbol"){
                 if($key === $globalVal->key) {
                   if($assocCopyFormAm[$idx]->name == 'price'){
