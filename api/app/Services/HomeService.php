@@ -56,70 +56,83 @@ class HomeService
           'en' => 'Urgent',
           'ru' => 'Срочно',
           ],
-          'ajapnyak' => [
+          'ajapnyak2' => [
           'am' => 'Աջափնյակ',
           'en' => 'Ajapnyak',
           'ru' => 'Аджапняк',
+          'id' => 2
           ],
-          'arabkir' => [
+          'arabkir3' => [
           'am' => 'Արաբկիր',
           'en' => 'Arabkir',
           'ru' => 'Арабкир',
+          'id' => 3
           ],
-          'avan' => [
+          'avan4' => [
           'am' => 'Ավան',
           'en' => 'Avan',
           'ru' => 'Аван',
+          'id' => 4
           ],
-          'davtashen' => [
+          'davtashen5' => [
           'am' => 'Դավթաշեն',
           'en' => 'Davtashen',
           'ru' => 'Давташен',
+          'id' => 5
           ],
-          'erebuni' => [
+          'erebuni6' => [
           'am' => 'Էրեբունի',
           'en' => 'Erebuni',
           'ru' => 'Эребуни',
+          'id' => 6
           ],
-          'zeytun' => [
+          'zeytun7' => [
           'am' => 'Քանաքեռ-Զեյթուն',
           'en' => 'Kanaker-Zeytun',
           'ru' => 'Канакер-Зейтун',
+          'id' => 7
           ],
-          'kentron' => [
+          'kentron8' => [
           'am' => 'Կենտրոն',
           'en' => 'Kentron',
           'ru' => 'Кентрон',
+          'id' => 8
           ],
-          'malatia' => [
+          'malatia9' => [
           'am' => 'Մալաթիա-Սեբաստիա',
           'en' => 'Malatia-Sebastia',
           'ru' => 'Малатия-Себастия',
+          'id' => 9
           ],
-          'norqMarash' => [
+          'norqMarash10' => [
           'am' => 'Նորք-Մարաշ',
           'en' => 'Nork-Marash',
           'ru' => 'Норк-Мараш',
+          'id' => 10
           ],
-          'norNorq' => [
+          'norNorq11' => [
           'am' => 'Նոր Նորք',
           'en' => 'Nor Nork',
           'ru' => 'Нор Норк',
+          'id' => 11
           ],
-          'nubarashen' => [
+          'nubarashen12' => [
           'am' => 'Նուբարաշեն',
           'en' => 'Nubarashen',
           'ru' => 'Нубарашен',
+          'id' => 12
           ],
-          'shengavit' => [
+          'shengavit13' => [
           'am' => 'Շենգավիթ',
           'en' => 'Shengavit',
           'ru' => 'Шенгавит',
+          'id' => 13
           ],
-          'vahagni' => [
+          'vahagni14' => [
           'am' => 'Վահագնի թաղամաս',
           'en' => 'Vahagni',
           'ru' => 'Ваганы',
+          'id' => 15
           ],
           'other' => [
           'am' => 'Այլ',
@@ -408,7 +421,7 @@ class HomeService
         foreach ($data as $idx => $item) {
           foreach ($item as $key => $value) {
             foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
-              if($globalVal->type == 'select' || $globalVal->type == 'communitySelect') {
+              if($globalVal->type == 'select' ) {
                 if($key === $globalVal->key) {
                   $lang = $allSelect[$value];
                   if($globalVal->key == 'transactionType') {
@@ -416,6 +429,15 @@ class HomeService
                     $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
                   }
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                }
+              }
+              if( $globalVal->type == 'communitySelect') {
+                if($key === $globalVal->key) {
+                  $lang = $allSelect[$value];
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityId = $lang['id'];
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
@@ -448,13 +470,12 @@ class HomeService
                 }
               }
               if($globalVal->type == "selectStreet"){
-                if($key === $globalVal->key) {
-                  if($value) {
-                    $addresses = ConfigAddress::findorFail($value);
+                if(array_key_exists('street', $item)) {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->streetId = $item['street'];
+                    $addresses = ConfigAddress::findorFail($item['street']);
                     $assocCopyFormAm[$idx]->fields[$globKey]->value = $addresses->am;
                     $assocCopyFormRu[$idx]->fields[$globKey]->value = $addresses->ru;
                     $assocCopyFormEn[$idx]->fields[$globKey]->value = $addresses->en;
-                  }
                 }
               }
               if($globalVal->type == "inputText"){
