@@ -93,6 +93,7 @@ class GarbageController extends Controller
                 "style" => "629px",
                 "required" => true,
                 "value" => '',
+                "allAnswers" => [],
                 "option" => []
               ],
               [
@@ -102,6 +103,7 @@ class GarbageController extends Controller
                 "style" => "629px",
                 "required" => true,
                 "value" => '',
+                "allAnswers" => [],
                 "option" => []
               ],
             [
@@ -1569,6 +1571,7 @@ class GarbageController extends Controller
                 "title" => "Название объявления*",
                 "type" => "text",
                 "style" => "629px",
+
                 "value" => '',
                 "option" => []
                 ],

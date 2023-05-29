@@ -437,6 +437,7 @@ class HomeService
                       }
                     }
                   }
+                  $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers = $value;
                 }
               }
               if($globalVal->type == "inputNumber"){
