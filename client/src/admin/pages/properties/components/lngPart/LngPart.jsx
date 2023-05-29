@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
@@ -6,9 +6,29 @@ import { TextLarg } from '../inputs/TextLarg'
 export const LngPart = ({ title, value, id, style, required, onChange }) => {
     // console.log(value)//
     const [activeFlag, setActiveFlag] = useState('am')
-    const [arm, setArm] = useState('' )
+    const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
     const [eng, setEng] = useState('')
+
+    useEffect(() => {
+        if (value) {
+
+            const keys = Object.keys(value)
+
+            const keyWithAm = keys.find(key => key.includes('Am'))
+            const valueWithAm = keyWithAm ? value[keyWithAm] : ''
+
+            const keyWithEn = keys.find(key => key.includes('En'))
+            const valueWithEn = keyWithEn ? value[keyWithEn] : ''
+
+            const keyWithRu = keys.find(key => key.includes('Ru'))
+            const valueWithRu = keyWithRu ? value[keyWithRu] : ''
+
+            setArm(valueWithAm || '');
+            setEng(valueWithEn || '');
+            setRus(valueWithRu || '');
+        }
+    }, [value])
 
     let placeholder = title?.split(" ").pop().slice(0, -1).toLowerCase() + "ը"
 

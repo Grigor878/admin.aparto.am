@@ -6,7 +6,7 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
     const [communityId, setCommunityId] = useState(1)
     // const [communityId, setCommunityId] = useState(defValue ? 11 : 1)
 
-    console.log(defValue)
+    // console.log(defValue)
 
     const getStreetsByCommunityId = async () => {
         try {
