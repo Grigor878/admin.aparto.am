@@ -5,10 +5,10 @@ export const InputNumSymbol = ({ id, data, title, value, onChange, style, requir
         <label className='addproperties__card-text' id={id}>
             {title}
             <div style={{ display: "flex", gap: "12px" }}>
-                {data.map((el) => {
+                {data?.map((el) => {
 
                     if (value) {
-                        var currentValue = value[el.id] || '';
+                        var currentValue = value[el.id] || value;
                     }
 
                     return (
@@ -19,7 +19,6 @@ export const InputNumSymbol = ({ id, data, title, value, onChange, style, requir
                                 type="number"
                                 placeholder={el.name}
                                 className='addproperties__card-text-price'
-                                minLength="3"
                                 style={{ width: style }}
                                 onChange={onChange}
                                 defaultValue={currentValue}

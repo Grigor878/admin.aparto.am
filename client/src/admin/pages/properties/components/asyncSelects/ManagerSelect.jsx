@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
-export const ManagerSelect = ({ title, id, onChange, style, required }) => {
+export const ManagerSelect = ({ title, value, id, onChange, style, required }) => {
   const [data, setData] = useState([])
 
   const getManagers = async () => {
@@ -48,6 +48,7 @@ export const ManagerSelect = ({ title, id, onChange, style, required }) => {
             <option
               key={id}
               value={id}
+              selected={name === value}
             >{name}
             </option>
           )

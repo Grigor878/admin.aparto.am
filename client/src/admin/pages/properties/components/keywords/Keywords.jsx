@@ -5,8 +5,9 @@ import { removeKeyword } from '../../../../svgs/svgs'
 import './Keywords.scss'
 import { error } from '../../../../../components/swal/swal'
 
-export const Keywords = ({ title, style }) => {
-    const [keywords, setKeywords] = useState([])
+export const Keywords = ({ title, style, value }) => {
+    const [keywords, setKeywords] = useState(value ? value : [])
+    
     const dispatch = useDispatch()
 
     const handleKeyDown = (e) => {

@@ -12,7 +12,6 @@ export const InputNum = ({ title, value, id, placeholder, onChange, style, requi
                 placeholder={placeholder}
                 className='addproperties__card-text-hug'
                 style={{ width: style }}
-                minLength="3"
                 onChange={onChange}
             />
         </label>

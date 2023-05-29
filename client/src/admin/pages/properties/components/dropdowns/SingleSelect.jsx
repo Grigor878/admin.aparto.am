@@ -1,7 +1,7 @@
 import React from 'react'
 // import '../../../../components/inputs/Inputs.scss'
 
-export const SingleSelect = ({ title, id, onChange, data, style, required }) => {
+export const SingleSelect = ({ title, id, value, onChange, data, style, required }) => {
     return (
         <label className='addproperties__card-singleselect'>
             {title}
@@ -12,12 +12,14 @@ export const SingleSelect = ({ title, id, onChange, data, style, required }) => 
                 style={{ width: style }}
                 className="addproperties__card-singleselect-dropdown"
             >
-                {data.map((el) => {
+                {data?.map((el) => {
                     return (
                         <option
                             key={el.id}
                             value={el.getOptionName}
-                        >{el.name}
+                            selected={el.value === value}
+                        >
+                            {el.name}
                         </option>
                     )
                 })}

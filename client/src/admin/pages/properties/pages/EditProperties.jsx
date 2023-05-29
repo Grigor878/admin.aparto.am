@@ -5,20 +5,35 @@ import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { Card } from '../components/card/Card'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
+import { EditableSelect } from '../components/dropdowns/EditableSelect'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
+import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
+import { LngPart } from '../components/lngPart/LngPart'
+import { InputText } from '../components/inputs/InputText'
+import YandexMap from '../../../../components/yandexMap/YandexMap'
+import { AgentSelect } from '../components/asyncSelects/AgentSelect'
+import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
+import { EditOwner } from '../components/owner/EditOwner'
+import { Keywords } from '../components/keywords/Keywords'
 import './Styles.scss'
+import { FileUpload } from '../components/inputs/FileUpload'
+import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 
 const EditProperties = () => {
-    // const navigate = useNavigate()
     const params = useParams()
     const propertyId = Number(params.id)
 
     const { propertyData } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
+
     const currentPropertyData = currentProperty?.am
-    console.log(currentPropertyData)
+    const currentPropertyKeywords = currentProperty?.keywords
+    const currentPropertyFiles = currentProperty?.file
+    const currentPropertyImgs = currentProperty?.photo
+    // console.log(currentPropertyKeywords)//
+
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
 
@@ -49,37 +64,94 @@ const EditProperties = () => {
                                     child={fields.map(({ key, title, type, option, value, style, required, height, placeholder }) => {
                                         return (
                                             <div key={key}>
-                                                {
-                                                    type === "select"
-                                                        ? <SingleSelect
+                                                {type === "select"
+                                                    ? <SingleSelect
+                                                        id={key}
+                                                        title={title}
+                                                        data={option}
+                                                        value={value}
+                                                        style={style}
+                                                        required={required}
+                                                    // onChange={(e) => addProp(e, name)}
+                                                    />
+                                                    : type === "multiselect"
+                                                        ? <EditableSelect
                                                             id={key}
                                                             title={title}
+                                                            name={name}
                                                             data={option}
-                                                            // value={value}
+                                                            value={value}
                                                             style={style}
-                                                            required={required}
                                                         // onChange={(e) => addProp(e, name)}
                                                         />
-                                                        : type === "inputNumber"
-                                                            ? <InputNum
+                                                        // : type === "text"
+                                                        //     ? <LngPart
+                                                        //         id={key}
+                                                        //         title={title}
+                                                        //         value={value}
+                                                        //         style={style}
+                                                        //         required={required}
+                                                        //         // onChange={(e) => addProp(e, name, type)}
+                                                        //     />
+                                                        : type === "communitySelect"
+                                                            ? <CommunitySelect
                                                                 id={key}
                                                                 title={title}
-                                                                value={value}
-                                                                placeholder="Ex."
+                                                                data={option}
+                                                                defValue={value}
                                                                 style={style}
                                                                 required={required}
-                                                            // onChange={(e) => addProp(e, name)}
-                                                            /> : type === 'inputNumberSymbol'
-                                                                ? <InputNumSymbol
+                                                            // onChange={(e) => addProp(e, name, type)}
+                                                            // onStreetChange={(value) => handleStreetChange(value)}
+                                                            />
+                                                            : type === "inputNumber"
+                                                                ? <InputNum
                                                                     id={key}
                                                                     title={title}
-                                                                    data={option}
                                                                     value={value}
+                                                                    placeholder="Ex."
                                                                     style={style}
                                                                     required={required}
-                                                                // onChange={(e) => addProp(e, name, type, key)}
+                                                                // onChange={(e) => addProp(e, name)}
                                                                 />
-                                                                : null
+                                                                : type === "inputText"
+                                                                    ? <InputText
+                                                                        id={key}
+                                                                        title={title}
+                                                                        value={value}
+                                                                        placeholder={placeholder}
+                                                                        style={style}
+                                                                        required={required}
+                                                                    // onChange={(e) => addProp(e, name)}
+                                                                    />
+                                                                    : type === "map"
+                                                                        ? <YandexMap
+                                                                            title={title}
+                                                                            defValue={value}
+                                                                            style={style}
+                                                                            height='200px'
+                                                                        />
+                                                                        : type === 'inputNumberSymbol'
+                                                                            ? <InputNumSymbol
+                                                                                id={key}
+                                                                                title={title}
+                                                                                data={option}
+                                                                                value={value}
+                                                                                style={style}
+                                                                                required={required}
+                                                                            // onChange={(e) => addProp(e, name, type, key)}
+                                                                            />
+                                                                            : type === "imgsUpload"
+                                                                                ? <ImgsUpload
+                                                                                    value={currentPropertyImgs}
+                                                                                    style={style} />
+                                                                                : type === "keyword"
+                                                                                    ? <Keywords
+                                                                                        title={title}
+                                                                                        style={style}
+                                                                                        value={currentPropertyKeywords}
+                                                                                    />
+                                                                                    : null
                                                 }
                                             </div>
                                         )
@@ -97,6 +169,72 @@ const EditProperties = () => {
                                     key={name}
                                     title={title}
                                     width="460px"
+                                    child={fields.map(({ key, title, type, option, value, style, required, height, placeholder }) => {
+                                        return (
+                                            <div key={key}>
+                                                {type === "select"
+                                                    ? <SingleSelect
+                                                        id={key}
+                                                        title={title}
+                                                        data={option}
+                                                        value={value}
+                                                        style={style}
+                                                        required={required}
+                                                    // onChange={(e) => addProp(e, name)}
+                                                    />
+                                                    : type === "inputNumber"
+                                                        ? <InputNum
+                                                            id={key}
+                                                            title={title}
+                                                            value={value}
+                                                            placeholder="Ex."
+                                                            style={style}
+                                                            required={required}
+                                                        // onChange={(e) => addProp(e, name)}
+                                                        />
+                                                        : type === "inputText"
+                                                            ? <InputText
+                                                                id={key}
+                                                                title={title}
+                                                                value={value}
+                                                                placeholder={placeholder}
+                                                                height={height}
+                                                                style={style}
+                                                                required={required}
+                                                            // onChange={(e) => addProp(e, name)}
+                                                            />
+                                                            : type === "addField"
+                                                                ? <EditOwner
+                                                                    data={option}
+                                                                // onChange={(e) => addProp(e, name)}
+                                                                />
+                                                                : type === "uploadFile"
+                                                                    ? <FileUpload
+                                                                        value={currentPropertyFiles}
+                                                                    />
+                                                                    : type === "agentSelect"
+                                                                        ? <AgentSelect
+                                                                            id={key}
+                                                                            title={title}
+                                                                            value={value}
+                                                                            style={style}
+                                                                            required={required}
+                                                                        // onChange={(e) => addProp(e, name)}
+                                                                        />
+                                                                        : type === "managerSelect"
+                                                                            ? <ManagerSelect
+                                                                                id={key}
+                                                                                title={title}
+                                                                                value={value}
+                                                                                style={style}
+                                                                                required={required}
+                                                                            // onChange={(e) => addProp(e, name)}
+                                                                            />
+                                                                            : null
+                                                }
+                                            </div>
+                                        )
+                                    })}
                                 />
                             )
                         })}

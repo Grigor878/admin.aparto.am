@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ownerAdd, remove } from '../../../../svgs/svgs'
-import './AddOwner.scss'
+import './Styles.scss'
 
 export const AddOwner = ({ data, onChange }) => {
     const [active, setActive] = useState(false)
@@ -8,7 +8,6 @@ export const AddOwner = ({ data, onChange }) => {
 
     const secondOwner = data?.slice(0, 2)
     const thirdOwner = data?.slice(2, data.length)
-
 
     return (
         <div className='addOwner'>

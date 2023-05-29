@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 
-export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, data, style, required }) => {
+export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreetChange, data, style, required }) => {
     const [streets, setStreets] = useState([])
     const [communityId, setCommunityId] = useState(1)
+    // const [communityId, setCommunityId] = useState(defValue ? 11 : 1)
 
     const getStreetsByCommunityId = async () => {
         try {
@@ -37,11 +38,12 @@ export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, da
                     style={{ width: style }}
                     className="addproperties__card-singleselect-dropdown"
                 >
-                    {data.map(({ id, name, getOptionName }) => {
+                    {data?.map(({ id, name, getOptionName, value }) => {
                         return (
                             <option
                                 key={id}
                                 value={getOptionName + id}
+                                selected={value === defValue}
                             >{name}
                             </option>
                         )
@@ -64,6 +66,7 @@ export const CommunitySelect = ({ title, id, value, onChange, onStreetChange, da
                                 <option
                                     key={id}
                                     value={id}
+                                    // selected={defValue ? 10 : null}
                                 >{am}
                                 </option>
                             )

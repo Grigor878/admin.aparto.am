@@ -25,13 +25,12 @@ import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { Keywords } from '../components/keywords/Keywords'
 import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { FileUpload } from '../components/inputs/FileUpload'
-import { AddOwner } from '../components/addOwner/AddOwner'
+import { AddOwner } from '../components/owner/AddOwner'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
-import { InputTextHidden } from '../components/inputs/InputTextHidden'
-import { InputNumHidden } from '../components/inputs/InputNumHidden'
+
 
 const AddProperties = () => {
     const dispatch = useDispatch()
@@ -52,7 +51,7 @@ const AddProperties = () => {
     const handleStreetChange = (value) => {
         setAddProperty((prev) => ({
             ...prev,
-            location: {
+            location : {
                 ...prev.location,
                 street: Number(value)
             }
@@ -160,6 +159,14 @@ const AddProperties = () => {
                                                             // required={required}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
+                                                        : type === "text"
+                                                            ? <LngPart
+                                                                id={key}
+                                                                title={title}
+                                                                style={style}
+                                                                required={required}
+                                                                onChange={(e) => addProp(e, name, type)}
+                                                            />
                                                         : type === "communitySelect"
                                                             ? <CommunitySelect
                                                                 id={key}
@@ -170,14 +177,6 @@ const AddProperties = () => {
                                                                 onChange={(e) => addProp(e, name, type)}
                                                                 onStreetChange={(value) => handleStreetChange(value)}
                                                             />
-                                                            : type === "text"
-                                                                ? <LngPart
-                                                                    id={key}
-                                                                    title={title}
-                                                                    style={style}
-                                                                    required={required}
-                                                                    onChange={(e) => addProp(e, name, type)}
-                                                                />
                                                                 : type === "inputNumber"
                                                                     ? <InputNum
                                                                         id={key}
@@ -291,25 +290,6 @@ const AddProperties = () => {
                                                                     data={option}
                                                                     onChange={(e) => addProp(e, name)}
                                                                 />
-                                                            // : type === "inputTextHidden"
-                                                            //     ? <InputTextHidden
-                                                            //         id={key}
-                                                            //         title={title}
-                                                            //         placeholder={placeholder}
-                                                            //         height={height}
-                                                            //         style={style}
-                                                            //         required={required}
-                                                            //         onChange={(e) => addProp(e, name)}
-                                                            //     />
-                                                                //     : type === "inputNumberHidden"
-                                                                //         ? <InputNumHidden
-                                                                //             id={key}
-                                                                //             title={title}
-                                                                //             placeholder="Ex."
-                                                                //             style={style}
-                                                                //             required={required}
-                                                                //             onChange={(e) => addProp(e, name)}
-                                                                //         />
                                                                 : type === "uploadFile"
                                                                     ? <FileUpload />
                                                                     : type === "agentSelect"

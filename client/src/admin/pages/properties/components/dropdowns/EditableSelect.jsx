@@ -1,28 +1,19 @@
 import React from 'react'
 import Select from 'react-select'
 
-export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
-    const handleChange = (selectedOptions) => {
-        const selectedValues = selectedOptions.map((option) => option.value)
-        const e = {
-            target: {
-                id,
-                value: selectedValues,
-            },
-        }
-
-        onChange(e, name)
-    }
-
+export const EditableSelect = ({ title, id, name, data, value, style, onChange }) => {
     return (
         <label className='addproperties__card-singleselect' >
             {title}
             <Select
                 isMulti
+                defaultValue={data?.filter((option) => value.includes(option.label))}
+                // defaultValue={data.filter(function (option) {
+                //     return option.label === value;
+                // })}
                 closeMenuOnSelect={false}
                 options={data}
                 placeholder="Ընտրեք"
-                onChange={handleChange}
                 styles={{
                     control: (baseStyles) => ({
                         ...baseStyles,

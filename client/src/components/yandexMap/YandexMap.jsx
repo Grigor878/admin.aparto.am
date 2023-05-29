@@ -118,32 +118,33 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { YMaps, GeolocationControl, Map, ZoomControl, Placemark, FullscreenControl } from "react-yandex-maps";
-import { BtnCustom } from "../../admin/components/buttons/BtnCustom";
-import '../../admin/components/inputs/Inputs.scss';
-import './YandexMap.scss'
 import { useDispatch } from "react-redux";
 import { setYandex } from "../../store/slices/propertySlice";
+import './YandexMap.scss'
+import '../../admin/components/inputs/Inputs.scss';
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],
     defaultOptions: { suppressMapOpenBlock: true }
 };
 
-const geolocationOptions = {
-    defaultOptions: { maxWidth: 128 },
-    defaultData: { content: "Determine" },
-};
+// const geolocationOptions = {
+//     defaultOptions: { maxWidth: 128 },
+//     defaultData: { content: "Determine" },
+// };
 
-const initialState = {
-    title: "",
-    center: [40.177200, 44.503490],
-    zoom: 17,
-};
 
-const YandexMap = ({ title, style, height }) => {
+const YandexMap = ({ title, defValue, style, height }) => {
+
+    const initialState = {
+        title: "",
+        center: defValue ? defValue : [40.177200, 44.503490],
+        zoom: 17,
+    }
+
     const dispatch = useDispatch()
     const [state, setState] = useState({ ...initialState })
-    const [placemark, setPlacemark] = useState([])
+    const [placemark, setPlacemark] = useState(defValue ? defValue : [])
     const [mapConstructor, setMapConstructor] = useState(null)
     const mapRef = useRef(null)
     const searchRef = useRef(null)
@@ -164,6 +165,7 @@ const YandexMap = ({ title, style, height }) => {
     // };
 
     // search popup
+   
     useEffect(() => {
         if (mapConstructor) {
             new mapConstructor.SuggestView(searchRef.current).events.add("select", function (e) {
@@ -229,7 +231,7 @@ const YandexMap = ({ title, style, height }) => {
                     width={style}
                     height={height}
                     onClick={handleClick}
-                    // className="yandex__map-ymap"
+                // className="yandex__map-ymap"
                 >
                     <Placemark geometry={placemark} />
                     {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}

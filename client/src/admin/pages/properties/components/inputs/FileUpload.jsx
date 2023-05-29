@@ -1,34 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { file } from '../../../../svgs/svgs';
+import { file, remove } from '../../../../svgs/svgs';
 import { useDispatch } from 'react-redux';
 import { setUploadFile } from '../../../../../store/slices/propertySlice';
 
-export const FileUpload = () => {
-    const [upload, setUpload] = useState([]);
+export const FileUpload = ({ value }) => {
+    const [upload, setUpload] = useState(value ? value : [])
+
+    const dispatch = useDispatch()
 
     const uploadFile = (e) => {
-        const files = Array.from(e.target.files);
+        const files = Array.from(e.target.files)
 
         const uniqueFiles = files.filter((file) => {
-            return !upload.some((uploadedFile) => uploadedFile.name === file.name);
+            return !upload.some((uploadedFile) => uploadedFile.name === file.name)
         });
 
-        setUpload((prevImages) => [...prevImages, ...uniqueFiles]);
+        setUpload((prevImages) => [...prevImages, ...uniqueFiles])
     };
 
-    const dispatch = useDispatch();
+    const removeFile = (file) => {
+        setUpload((prevImages) => prevImages.filter((uploadedFile) => uploadedFile !== file))
+    }
+
+    // const downloadFile = (file) => {
+    //     const url = URL.createObjectURL(file);
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.download = file || 'download';
+    //     link.click();
+    // }
 
     const uploadFormData = () => {
-        const formData = new FormData();
+        const formData = new FormData()
         upload.forEach((file, index) => {
-            formData.append(`file${index}`, file);
-        });
-        dispatch(setUploadFile(formData));
-    };
+            formData.append(`file${index}`, file)
+        })
+        dispatch(setUploadFile(formData))
+    }
 
     useEffect(() => {
-        uploadFormData();
-    }, [upload]);
+        uploadFormData()
+    }, [upload])
 
     return (
         <div className='addproperties__card-fileUpload'>
@@ -43,9 +55,20 @@ export const FileUpload = () => {
                     accept='.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf'
                 />
             </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {upload?.map(({ name }) => {
-                    return <p key={name}>{name}</p>;
+            <div style={{ display: 'flex', alignItems: "flex-end", flexDirection: 'column', gap: '4px' }}>
+                {upload?.map((el) => {
+                    return (
+                        <div key={el.name || el} style={{ display: 'flex', gap: '7px' }}>
+                            <p>{el.name || el}</p>
+                            <button
+                                type='button'
+                                onClick={() => removeFile(el)}
+                                style={{ background: "transparent" }}
+                            >{remove.icon}
+                            </button>
+                            {/* <button type='button' onClick={() => downloadFile(el)}>Download</button> */}
+                        </div>
+                    )
                 })}
             </div>
         </div>

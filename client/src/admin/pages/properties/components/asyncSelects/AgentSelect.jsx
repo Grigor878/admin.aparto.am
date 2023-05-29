@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
-export const AgentSelect = ({ title, id, onChange, style, required }) => {
+export const AgentSelect = ({ title, value, id, onChange, style, required }) => {
     const { role, full_name } = useSelector((state => state.userGlobal.userGlobal))
 
     const [data, setData] = useState([])
@@ -52,6 +52,7 @@ export const AgentSelect = ({ title, id, onChange, style, required }) => {
                             <option
                                 key={id}
                                 value={id}
+                                selected={name === value}
                             >{name}
                             </option>
                         )

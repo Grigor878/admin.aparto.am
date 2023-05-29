@@ -38,3 +38,11 @@
     display: none;
   }
 }
+
+.editOwner{
+  &__card{
+    @include flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}

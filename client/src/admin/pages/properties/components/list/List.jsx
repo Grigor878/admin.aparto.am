@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export const List = () => {
     const { propertyData } = useSelector((state) => state.property)
-
+    
     const dispatch = useDispatch()
 
     useEffect(() => {

@@ -4,7 +4,8 @@ import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import './ImgsUpload.scss'
 
-export const ImgsUpload = ({ style }) => {
+export const ImgsUpload = ({ style, value }) => {
+    console.log(value)//
     const [images, setImages] = useState([])
     const [previewImages, setPreviewImages] = useState([])
     const [visibleImages, setVisibleImages] = useState([])
@@ -47,32 +48,6 @@ export const ImgsUpload = ({ style }) => {
 
     const dragItem = useRef(null)
     const dragOverItem = useRef(null)
-
-    // const handleSort = () => {
-    //     if (!visibleImages[dragItem.current]) {
-    //         return;
-    //     }
-    //     const draggedItemIndex = dragItem.current
-    //     const dragOverItemIndex = dragOverItem.current
-
-    //     const updatedImages = [...images]
-    //     const updatedPreviews = [...previewImages]
-
-    //     const draggedImage = updatedImages[draggedItemIndex]
-    //     const draggedPreview = updatedPreviews[draggedItemIndex]
-
-    //     updatedImages.splice(draggedItemIndex, 1)
-    //     updatedPreviews.splice(draggedItemIndex, 1)
-
-    //     updatedImages.splice(dragOverItemIndex, 0, draggedImage)
-    //     updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
-
-    //     const reorderedImages = Array.from(updatedImages)
-    //     const reorderedPreviews = Array.from(updatedPreviews)
-
-    //     setImages(reorderedImages)
-    //     setPreviewImages(reorderedPreviews)
-    // }
 
     const handleSort = () => {
         if (!visibleImages[dragItem.current]) {
@@ -187,6 +162,32 @@ export const ImgsUpload = ({ style }) => {
         </div>
     );
 };
+
+    // const handleSort = () => {
+    //     if (!visibleImages[dragItem.current]) {
+    //         return;
+    //     }
+    //     const draggedItemIndex = dragItem.current
+    //     const dragOverItemIndex = dragOverItem.current
+
+    //     const updatedImages = [...images]
+    //     const updatedPreviews = [...previewImages]
+
+    //     const draggedImage = updatedImages[draggedItemIndex]
+    //     const draggedPreview = updatedPreviews[draggedItemIndex]
+
+    //     updatedImages.splice(draggedItemIndex, 1)
+    //     updatedPreviews.splice(draggedItemIndex, 1)
+
+    //     updatedImages.splice(dragOverItemIndex, 0, draggedImage)
+    //     updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
+
+    //     const reorderedImages = Array.from(updatedImages)
+    //     const reorderedPreviews = Array.from(updatedPreviews)
+
+    //     setImages(reorderedImages)
+    //     setPreviewImages(reorderedPreviews)
+    // }
 
 // mi masov verevy avelacrac visible,hidden
     // const updateUploadPhoto = () => {
