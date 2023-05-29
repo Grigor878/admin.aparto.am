@@ -6,6 +6,8 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
     const [communityId, setCommunityId] = useState(1)
     // const [communityId, setCommunityId] = useState(defValue ? 11 : 1)
 
+    console.log(defValue)
+
     const getStreetsByCommunityId = async () => {
         try {
             const { data } = await baseApi.get(`/api/getAllAddresses/${communityId}`)
@@ -22,6 +24,7 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
 
     const handleChange = (e) => {
         let id = e.target.value.replace(/\D/g, "")
+        // let idSend = e.target.value
         setCommunityId(id)
         onChange(e)
     }
@@ -66,7 +69,7 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
                                 <option
                                     key={id}
                                     value={id}
-                                    // selected={defValue ? 10 : null}
+                                // selected={defValue ? 10 : null}
                                 >{am}
                                 </option>
                             )

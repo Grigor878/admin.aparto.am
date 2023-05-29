@@ -6,7 +6,7 @@ import { TextLarg } from '../inputs/TextLarg'
 export const LngPart = ({ title, value, id, style, required, onChange }) => {
     // console.log(value)//
     const [activeFlag, setActiveFlag] = useState('am')
-    const [arm, setArm] = useState('')
+    const [arm, setArm] = useState('' )
     const [rus, setRus] = useState('')
     const [eng, setEng] = useState('')
 

@@ -97,7 +97,8 @@ const AddProperties = () => {
                 obj = {
                     [name]: {
                         ...prev[name],
-                        [id]: checked ? checked : type === "communitySelect" ? value.replace(/\d/g, "") : value,
+                        // [id]: checked ? checked : type === "communitySelect" ? value.replace(/\d/g, "") : value, // vor gna nornorq nornorq11 i texy
+                        [id]: checked ? checked : value,
                     },
                 }
             }

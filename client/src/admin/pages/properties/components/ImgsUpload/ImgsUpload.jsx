@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
+import { API_BASE_URL } from '../../../../../apis/config'
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
@@ -109,7 +110,7 @@ export const ImgsUpload = ({ style, value }) => {
                         accept='image/png , image/jpeg , image/jpg , image.webp'
                         onChange={handleImageUpload} />
                 </label>
-                {previewImages.map((preview, index) => (
+                {/* {previewImages.map((preview, index) => (
                     <div
                         key={index}
                         className='imgsUpload__card-main'
@@ -157,7 +158,13 @@ export const ImgsUpload = ({ style, value }) => {
                             </button>
                         </div>
                     </div>
-                ))}
+                ))} */}
+
+                {value?.map(({ name }) => {
+                    return (
+                        <img style={{ width: "200px", height: "200px" }} src={API_BASE_URL + `/images/` + name} alt="sdfsd" />
+                    )
+                })}
             </div>
         </div>
     );

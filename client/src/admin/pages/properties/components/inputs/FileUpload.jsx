@@ -66,11 +66,11 @@ export const FileUpload = ({ value }) => {
                                 style={{ background: "transparent" }}
                             >{remove.icon}
                             </button>
-                            {/* <button type='button' onClick={() => downloadFile(el)}>Download</button> */}
+                            <a target='_blank' href={`http://127.0.0.1:8000/files/` + el} rel="noreferrer">View</a>
                         </div>
                     )
                 })}
             </div>
-        </div>
+        </div >
     );
 };
