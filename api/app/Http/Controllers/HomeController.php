@@ -69,6 +69,10 @@ class HomeController extends Controller
         }
     }
 
+    public function editHome(Request $request){
+        dd($request->all());
+    }
+
     public function getHome() {
         $allHome = Home::orderByRaw("status = 'moderation' DESC")
         ->select('id', 'am', 'photo', 'file', 'keywords', 'status')
