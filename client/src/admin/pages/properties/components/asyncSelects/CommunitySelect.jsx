@@ -7,14 +7,12 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
 
     const getStreetsByCommunityId = async () => {
         try {
-            const { data } = await baseApi.get(`/api/getAllAddresses/11`)
+            const { data } = await baseApi.get(`/api/getAllAddresses/${communityId}`)
             setStreets(data)
         } catch (error) {
             console.log(`Error: ${error.message}`)
         }
     }
-
-    console.log(streetData)
 
     useEffect(() => {
         getStreetsByCommunityId()
@@ -28,7 +26,10 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
         onChange(e)
     }
 
-    console.log(streets)
+    // console.log(streetData)
+    // console.log(streets)
+    // console.log(defValue)
+    // console.log(valueId)
 
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "283px" }}>
@@ -54,8 +55,7 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
                     })}
                 </select>
             </label>
-            {/* 283px */}
-            <label className='addproperties__card-singleselect' style={{ width: streetData?.style }}>
+            <label className='addproperties__card-singleselect' style={{ width: "283px" }}>
                 {streetData?.title}
                 <select
                     id={id}
@@ -71,7 +71,7 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
                                 <option
                                     key={id}
                                     value={id}
-                                    selected={am === "Բաղյան"}
+                                    // selected={am}
                                 >{am}
                                 </option>
                             )

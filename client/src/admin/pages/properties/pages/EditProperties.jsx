@@ -19,6 +19,7 @@ import { Keywords } from '../components/keywords/Keywords'
 import './Styles.scss'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
+import { InputNumSingle } from '../components/inputs/InputNumSingle'
 
 const EditProperties = () => {
     const params = useParams()
@@ -133,27 +134,37 @@ const EditProperties = () => {
                                                                                 style={style}
                                                                                 height='200px'
                                                                             />
-                                                                            : type === 'inputNumberSymbol'
-                                                                                ? <InputNumSymbol
+                                                                            : type === 'inputNumberSingle'
+                                                                                ? <InputNumSingle
                                                                                     id={key}
                                                                                     title={title}
-                                                                                    data={option}
-                                                                                    value={value}
+                                                                                    placeholder={placeholder}
                                                                                     style={style}
                                                                                     required={required}
-                                                                                // onChange={(e) => addProp(e, name, type, key)}
+                                                                                    value={value}
+                                                                                    // onChange={(e) => addProp(e, name)}
                                                                                 />
-                                                                                : type === "imgsUpload"
-                                                                                    ? <ImgsUpload
-                                                                                        value={currentPropertyImgs}
-                                                                                        style={style} />
-                                                                                    : type === "keyword"
-                                                                                        ? <Keywords
-                                                                                            title={title}
-                                                                                            style={style}
-                                                                                            value={currentPropertyKeywords}
-                                                                                        />
-                                                                                        : null
+                                                                                : type === 'inputNumberSymbol'
+                                                                                    ? <InputNumSymbol
+                                                                                        id={key}
+                                                                                        title={title}
+                                                                                        data={option}
+                                                                                        value={value}
+                                                                                        style={style}
+                                                                                        required={required}
+                                                                                    // onChange={(e) => addProp(e, name, type, key)}
+                                                                                    />
+                                                                                    : type === "imgsUpload"
+                                                                                        ? <ImgsUpload
+                                                                                            value={currentPropertyImgs}
+                                                                                            style={style} />
+                                                                                        : type === "keyword"
+                                                                                            ? <Keywords
+                                                                                                title={title}
+                                                                                                style={style}
+                                                                                                value={currentPropertyKeywords}
+                                                                                            />
+                                                                                            : null
                                                 }
                                             </div>
                                         )
