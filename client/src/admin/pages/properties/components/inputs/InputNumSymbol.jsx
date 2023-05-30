@@ -23,7 +23,7 @@ export const InputNumSymbol = ({ id, data, title, value, onChange, style, requir
                                 onChange={onChange}
                                 defaultValue={currentValue}
                             />
-                            {/* <span>{el.symbol}</span> */}
+                            <span>{el.symbol}</span>
                         </div>
                     )
                 })}

@@ -19,6 +19,7 @@ import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import YandexMap from '../../../../components/yandexMap/YandexMap'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
+import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { NumSelector } from '../components/inputs/NumSelector'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
@@ -31,17 +32,18 @@ import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
+// for currency
+// https://www.npmjs.com/package/@everapi/currencyapi-js 
+
 const AddProperties = () => {
     const dispatch = useDispatch()
-
-    // const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getPropertyStructure())
     }, [dispatch])
 
     const { structure, yandex } = useSelector((state) => state.property)
-    console.log(structure)//
+    // console.log(structure)//
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
@@ -202,41 +204,50 @@ const AddProperties = () => {
                                                                                 style={style}
                                                                                 height='200px'
                                                                             />
-                                                                            : type === 'inputNumberSymbol'
-                                                                                ? <InputNumSymbol
+                                                                            : type === 'inputNumberSingle'
+                                                                                ? <InputNumSingle
                                                                                     id={key}
                                                                                     title={title}
-                                                                                    data={option}
+                                                                                    placeholder={placeholder}
                                                                                     style={style}
                                                                                     required={required}
-                                                                                    onChange={(e) => addProp(e, name, type, key)}
+                                                                                    onChange={(e) => addProp(e, name)}
                                                                                 />
-                                                                                : type === "checkbox"
-                                                                                    ? <Checkbox
+                                                                                : type === 'inputNumberSymbol'
+                                                                                    ? <InputNumSymbol
                                                                                         id={key}
                                                                                         title={title}
+                                                                                        data={option}
                                                                                         style={style}
-                                                                                        onChange={(e) => addProp(e, name)}
+                                                                                        required={required}
+                                                                                        onChange={(e) => addProp(e, name, type, key)}
                                                                                     />
-                                                                                    : type === "numSelect"
-                                                                                        ? <NumSelector
+                                                                                    : type === "checkbox"
+                                                                                        ? <Checkbox
                                                                                             id={key}
                                                                                             title={title}
-                                                                                            data={option}
                                                                                             style={style}
-                                                                                            // required={required}
                                                                                             onChange={(e) => addProp(e, name)}
                                                                                         />
-                                                                                        : type === "keyword"
-                                                                                            ? <Keywords
+                                                                                        : type === "numSelect"
+                                                                                            ? <NumSelector
+                                                                                                id={key}
                                                                                                 title={title}
+                                                                                                data={option}
                                                                                                 style={style}
-                                                                                            // required={required}
+                                                                                                // required={required}
+                                                                                                onChange={(e) => addProp(e, name)}
                                                                                             />
-                                                                                            : type === "imgsUpload"
-                                                                                                ? <ImgsUpload
-                                                                                                    style={style} />
-                                                                                                : null
+                                                                                            : type === "keyword"
+                                                                                                ? <Keywords
+                                                                                                    title={title}
+                                                                                                    style={style}
+                                                                                                // required={required}
+                                                                                                />
+                                                                                                : type === "imgsUpload"
+                                                                                                    ? <ImgsUpload
+                                                                                                        style={style} />
+                                                                                                    : null
                                                 }
                                             </div>
                                         )
