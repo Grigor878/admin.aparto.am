@@ -507,7 +507,7 @@ class HomeService
                   $assocCopyFormEn['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
                  }
               }
-              if($globalVal->type == "inputNumberSymbol"){
+              if($globalVal->type == "inputNumberSingle"){
                 if($key === $globalVal->key) {
                   if($assocCopyFormAm[$idx]->name == 'price'){
                     if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] != "on")) {
@@ -515,11 +515,14 @@ class HomeService
                       $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                       $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                     }
-                  }else {
-                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                   }
+                }
+              }
+              if($globalVal->type == "inputNumberSymbol"){
+                if($key === $globalVal->key) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
               if($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect"){

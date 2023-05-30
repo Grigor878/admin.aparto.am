@@ -334,7 +334,7 @@ class GarbageController extends Controller
               [
                 "key" => "totalPrice",
                 "title" => "Ընդհանուր գինը*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "placeholder" => "Գինը դոլարով",
                 "required" => true,
@@ -354,7 +354,7 @@ class GarbageController extends Controller
                 "key" => "sqmPrice",
                 "title" => "Գինը 1 քմ",
                 "required" => false,
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "placeholder" => "Գինը դոլարով",
                 "value" => '',
@@ -362,7 +362,7 @@ class GarbageController extends Controller
               [
                 "key" => "downPayment",
                 "title" => "Կանխավճարի չափ",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "placeholder" => "Գինը դոլարով",
                 "required" => false,
@@ -958,7 +958,7 @@ class GarbageController extends Controller
             [
               "key" => "propertyTax",
               "title" => "Տարեկան գույքահարկ",
-              "type" => "inputNumberSymbol",
+              "type" => "inputNumberSingle",
               "style" => "202px",
               "placeholder" => "Գինը դոլարով",
               "required" => false,
@@ -966,8 +966,8 @@ class GarbageController extends Controller
             ],
             [
               "key" => "monthlyFee",
-              "title" => "ԱմսԱկան Սպասարկման Վճար",
-              "type" => "inputNumberSymbol",
+              "title" => "Ամսական Սպասարկման Վճար",
+              "type" => "inputNumberSingle",
               "style" => "202px",
               "placeholder" => "Գինը դոլարով",
               "required" => false,
@@ -1611,7 +1611,7 @@ class GarbageController extends Controller
                 [
                 "key" => "totalPrice",
                 "title" => "Общая сумма*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -1627,7 +1627,7 @@ class GarbageController extends Controller
                 [
                 "key" => "sqmPrice",
                 "title" => "Цена/ кв. м.*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -1635,7 +1635,7 @@ class GarbageController extends Controller
                 [
                 "key" => "downPayment",
                 "title" => "Сумма предоплаты*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -1801,7 +1801,7 @@ class GarbageController extends Controller
             [
                 "key" => "propertyTax",
                 "title" => "Ежегодный налог на недвижимость*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -1809,7 +1809,7 @@ class GarbageController extends Controller
             [
                 "key" => "monthlyFee",
                 "title" => "Ежемесячная плата за обслуживание*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -2366,7 +2366,7 @@ class GarbageController extends Controller
                 [
                 "key" => "totalPrice",
                 "title" => "Total amount*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -2382,7 +2382,7 @@ class GarbageController extends Controller
                 [
                 "key" => "sqmPrice",
                 "title" => "SQM /price*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -2390,7 +2390,7 @@ class GarbageController extends Controller
                 [
                 "key" => "downPayment",
                 "title" => "Down Payment*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -2556,7 +2556,7 @@ class GarbageController extends Controller
             [
                 "key" => "propertyTax",
                 "title" => "Yearly property tax*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
@@ -2564,7 +2564,7 @@ class GarbageController extends Controller
             [
                 "key" => "monthlyFee",
                 "title" => "Monthly service fee*",
-                "type" => "inputNumberSymbol",
+                "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
                 "option" => []
