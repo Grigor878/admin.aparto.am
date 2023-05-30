@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { file, remove } from '../../../../svgs/svgs';
-import { useDispatch } from 'react-redux';
-import { setUploadFile } from '../../../../../store/slices/propertySlice';
+import React, { useEffect, useState } from 'react'
+import { file, remove } from '../../../../svgs/svgs'
+import { useDispatch } from 'react-redux'
+import { API_BASE_URL } from '../../../../../apis/config'
+import { setUploadFile } from '../../../../../store/slices/propertySlice'
 
 export const FileUpload = ({ value }) => {
     const [upload, setUpload] = useState(value ? value : [])
@@ -15,11 +16,11 @@ export const FileUpload = ({ value }) => {
             return !upload.some((uploadedFile) => uploadedFile.name === file.name)
         });
 
-        setUpload((prevImages) => [...prevImages, ...uniqueFiles])
+        setUpload((prev) => [...prev, ...uniqueFiles])
     };
 
     const removeFile = (file) => {
-        setUpload((prevImages) => prevImages.filter((uploadedFile) => uploadedFile !== file))
+        setUpload((prev) => prev.filter((uploadedFile) => uploadedFile !== file))
     }
 
     // const downloadFile = (file) => {
@@ -66,7 +67,7 @@ export const FileUpload = ({ value }) => {
                                 style={{ background: "transparent" }}
                             >{remove.icon}
                             </button>
-                            <a target='_blank' href={`http://127.0.0.1:8000/files/` + el} rel="noreferrer">View</a>
+                            {value && <a style={{ fontSize: "14px", color: "#61636b" }} target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">View</a>}
                         </div>
                     )
                 })}

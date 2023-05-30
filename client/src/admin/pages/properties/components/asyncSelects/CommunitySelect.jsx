@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 
-export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreetChange, data, style, required }) => {
+export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange, onStreetChange, data, streetData, style, required }) => {
     const [streets, setStreets] = useState([])
-    const [communityId, setCommunityId] = useState(1)
-    // const [communityId, setCommunityId] = useState(defValue ? 11 : 1)
-
-    // console.log(defValue)
+    const [communityId, setCommunityId] = useState(valueId ? valueId : 1)
 
     const getStreetsByCommunityId = async () => {
         try {
-            const { data } = await baseApi.get(`/api/getAllAddresses/${communityId}`)
+            const { data } = await baseApi.get(`/api/getAllAddresses/11`)
             setStreets(data)
         } catch (error) {
             console.log(`Error: ${error.message}`)
         }
     }
+
+    console.log(streetData)
 
     useEffect(() => {
         getStreetsByCommunityId()
@@ -29,8 +28,10 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
         onChange(e)
     }
 
+    console.log(streets)
+
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "267px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "283px" }}>
             <label className='addproperties__card-singleselect'>
                 {title}
                 <select
@@ -53,8 +54,9 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
                     })}
                 </select>
             </label>
-            <label className='addproperties__card-singleselect' style={{ width: "283px" }}>
-                Փողոց*
+            {/* 283px */}
+            <label className='addproperties__card-singleselect' style={{ width: streetData?.style }}>
+                {streetData?.title}
                 <select
                     id={id}
                     required
@@ -69,7 +71,7 @@ export const CommunitySelect = ({ title, id, value, defValue, onChange, onStreet
                                 <option
                                     key={id}
                                     value={id}
-                                // selected={defValue ? 10 : null}
+                                    selected={am === "Բաղյան"}
                                 >{am}
                                 </option>
                             )

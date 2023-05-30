@@ -155,6 +155,16 @@ class GarbageController extends Controller
                 "communityId" => '',
                 "required" => true,
                 "value" => '',
+                "communityStreet" => [
+                  "key" => "street",
+                  "title" => "Փողոց*",
+                  "type" => "selectStreet",
+                  "style" => "283px",
+                  "streetId" => '',
+                  "required" => true,
+                  "value" => '',
+                  "option" => []
+                ],
                 "option" => [
                   [
                     "id"=> 1,
@@ -249,28 +259,29 @@ class GarbageController extends Controller
                   ],
                 
               ],
-              [
-                "key" => "street",
-                "title" => "Փողոց*",
-                "type" => "selectStreet",
-                "style" => "283px",
-                "streetId" => '',
-                "required" => true,
-                "value" => '',
-                "option" => []
-              ],
+              //structurna dzvi
+              // [
+              //   "key" => "street",
+              //   "title" => "Փողոց*",
+              //   "type" => "selectStreet",
+              //   "style" => "283px",
+              //   "streetId" => '',
+              //   "required" => true,
+              //   "value" => '',
+              //   "option" => []
+              // ],
               [
                 "key" => "building",
-                "title" => "Շենք*",
+                "title" => "Շենք",
                 "type" => "inputNumber",
                 "style" => "100px",
-                "required" => true,
+                "required" => false,
                 "value" => '',
                 "option" => []
               ],
               [
                 "key" => "entrance",
-                "title" => "Մուտք*",
+                "title" => "Մուտք",
                 "type" => "inputNumber",
                 "style" => "100px",
                 "required" => false,
@@ -279,10 +290,10 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "apartment",
-                "title" => "Բնակարան*",
+                "title" => "Բնակարան",
                 "type" => "inputNumber",
                 "style" => "100px",
-                "required" => true,
+                "required" => false,
                 "value" => '',
                 "option" => []
               ],
@@ -296,7 +307,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "realAddress",
-                "title" => "Իրական հասցե*",
+                "title" => "Իրական հասցե",
                 "type" => "inputText",
                 "style" => "629px",
                 "required" => false,
@@ -325,35 +336,15 @@ class GarbageController extends Controller
                 "title" => "Ընդհանուր գինը*",
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "placeholder" => "Գինը դոլարով",
                 "required" => true,
                 "value" => '',
-                "option" => [
-                  [
-                    "id"=> "totalPriceUsd",
-                    "name"=> "Գինը դոլարով",
-                    "symbol"=>'usd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "totalPriceAmd",
-                    "name"=> "Գինը դրամով",
-                    "symbol"=>'amd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "totalPriceRub",
-                    "name"=> "Գինը ռուբլիով",
-                    "symbol"=>'rub',
-                    "value" => ""
-                  ]
-                ]
               ],
               [
                 "key" => "priceNegotiable",
-                "title" => "Գինը պայմանագրային",
+                "title" => "Գինը պայմանագրային*",
                 "type" => "checkbox",
                 "style" => "",
-                "required" => true,
                 "value" => 'on',
                 "option" => [
                   "status" => false
@@ -361,59 +352,21 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "sqmPrice",
-                "title" => "Գինը 1 քմ*",
+                "title" => "Գինը 1 քմ",
                 "required" => false,
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "placeholder" => "Գինը դոլարով",
                 "value" => '',
-                "option" => [
-                  [
-                    "id"=> "sqmPriceUsd",
-                    "name"=> "Գինը դոլարով",
-                    "symbol"=>'usd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "sqmPriceAmd",
-                    "name"=> "Գինը դրամով",
-                    "symbol"=>'amd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "sqmPriceRub",
-                    "name"=> "Գինը ռուբլիով",
-                    "symbol"=>'rub',
-                    "value" => ""
-                  ]
-                ]
               ],
               [
                 "key" => "downPayment",
-                "title" => "Կանխավճարի չափ*",
+                "title" => "Կանխավճարի չափ",
                 "type" => "inputNumberSymbol",
                 "style" => "202px",
+                "placeholder" => "Գինը դոլարով",
                 "required" => false,
                 "value" => '',
-                "option" => [
-                  [
-                    "id"=> "downPaymentUsd",
-                    "name"=> "Գինը դոլարով",
-                    "symbol"=>'usd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "downPaymentAmd",
-                    "name"=> "Գինը դրամով",
-                    "symbol"=>'amd',
-                    "value" => ""
-                  ],
-                  [
-                    "id"=> "downPaymentRub",
-                    "name"=> "Գինը ռուբլիով",
-                    "symbol"=>'rub',
-                    "value" => ""
-                  ]
-                ]
               ],
               [
                 "key" => "paymentMethod",
@@ -437,9 +390,9 @@ class GarbageController extends Controller
                 ],
                 ]
               ],
-              [
+            [
               "key" => "preferredBank",
-              "title" => "Նախընտրած բանկը*",
+              "title" => "Նախընտրած բանկը",
               "type" => "multiselect",
               "style" => "306px",
               "required" => false,
@@ -522,7 +475,7 @@ class GarbageController extends Controller
                   "value" => "other"
                 ],
               ]
-              ],
+            ],
             ]
           ],
           [
@@ -670,7 +623,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "numberOpenBalconies",
-                "title" => "Բաց պատշգամբների քանակ*",
+                "title" => "Բաց պատշգամբների քանակ",
                 "type" => "numSelect",
                 "style" => "306px",
                 "required" => false,
@@ -708,9 +661,10 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "numberCloseBalconies",
-                "title" => "Փակ պատշգամբների քանակ*",
+                "title" => "Փակ պատշգամբների քանակ",
                 "type" => "numSelect",
-                "style" => "629px",
+                // "style" => "629px",
+                "style" => "306px",
                 "required" => false,
                 "value" => '',
                 "option" => [
@@ -744,12 +698,30 @@ class GarbageController extends Controller
                   ],
                 ]
               ],
+              // new field added
+              [
+                "key" => "groundSurface",
+                "title" => "Հողի Մակերես",
+                "type" => "inputNumberSymbol",
+                "style" => "306px",
+                "required" => false,
+                "value" => '',
+                "option" => [
+                  [
+                    "id"=> "groundSurface", 
+                    "name"=> "Նշեք հողի մակերեսը",
+                    "symbol"=>'մ.ք.',
+                    "value" => ""
+                  ],
+                ]
+              ],
+              //
               [
                 "key" => "floor",
-                "title" => "Հարկը*",
+                "title" => "Հարկը",
                 "type" => "inputNumber",
                 "style" => "306px",
-                "required" => true,
+                "required" => false,
                 "value" => '',
                 "option" => []
               ],
@@ -795,7 +767,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "parking",
-                "title" => "Ավտոկայանատեղի*",
+                "title" => "Ավտոկայանատեղի",
                 "type" => "select",
                 "style" => "306px",
                 "required" => false,
@@ -930,10 +902,11 @@ class GarbageController extends Controller
               "title" => "Նորակառույց",
               "value" => 'on',
               "style" => "612px",
+              "required" => false,
             ],
             [
               "key" => "buildingConstructionYear",
-              "title" => "Կառուցման տարին*",
+              "title" => "Կառուցման տարին",
               "type" => "inputNumber",
               "style" => "306px",
               "required" => false,
@@ -942,7 +915,7 @@ class GarbageController extends Controller
             ],
             [
               "key" => "orentation",
-              "title" => "կողմնորոշումը*",
+              "title" => "Կողմնորոշումը",
               "type" => "multiselect",
               "style" => "306px",
               "required" => false,
@@ -984,59 +957,21 @@ class GarbageController extends Controller
             ],
             [
               "key" => "propertyTax",
-              "title" => "Տարեկան գույքահարկ*",
+              "title" => "Տարեկան գույքահարկ",
               "type" => "inputNumberSymbol",
               "style" => "202px",
+              "placeholder" => "Գինը դոլարով",
               "required" => false,
               "value" => '',
-              "option" => [
-                [
-                  "id"=> "propertyTaxUsd",
-                  "name"=> "Գինը դոլարով",
-                  "symbol"=>'usd',
-                  "value" => ""
-                ],
-                [
-                  "id"=> "propertyTaxAmd",
-                  "name"=> "Գինը դրամով",
-                  "symbol"=>'amd',
-                  "value" => ""
-                ],
-                [
-                  "id"=> "propertyTaxRub",
-                  "name"=> "Գինը ռուբլիով",
-                  "symbol"=>'rub',
-                  "value" => ""
-                ]
-              ]
             ],
             [
               "key" => "monthlyFee",
-              "title" => "ԱմսԱկան Սպասարկման Վճար*",
+              "title" => "ԱմսԱկան Սպասարկման Վճար",
               "type" => "inputNumberSymbol",
               "style" => "202px",
+              "placeholder" => "Գինը դոլարով",
               "required" => false,
               "value" => '',
-              "option" => [
-                [
-                  "id"=> "monthlyFeeUsd",
-                  "name"=> "Գինը դոլարով",
-                  "symbol"=>'usd',
-                  "value" => ""
-                ],
-                [
-                  "id"=> "monthlyFeeAmd",
-                  "name"=> "Գինը դրամով",
-                  "symbol"=>'amd',
-                  "value" => ""
-                ],
-                [
-                  "id"=> "monthlyFeeRub",
-                  "name"=> "Գինը ռուբլիով",
-                  "symbol"=>'rub',
-                  "value" => ""
-                ]
-              ]
             ],
             ]
           ],
@@ -1373,7 +1308,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "video",
-                "title" => "Վիդեոյի հղում*",
+                "title" => "Վիդեոյի հղում",
                 "placeholder" => "Տեղադրեք հղումը",
                 "type" => "inputText",
                 "style" => "639px",
@@ -1390,7 +1325,7 @@ class GarbageController extends Controller
             "fields" => [
               [
                 "key" => "chooseWords",
-                "title" => "Ընտրել բառեր*",
+                "title" => "Ընտրել բառեր",
                 "type" => "keyword",
                 "style" => "631px",
                 "required" => false,
@@ -1501,7 +1436,7 @@ class GarbageController extends Controller
             "fields" => [
               [
                 "key" => "likelyInfo",
-                "title" => "Գրեք նախընտրած ինֆորմացիան*",
+                "title" => "Գրեք նախընտրած ինֆորմացիան",
                 "type" => "inputText",
                 "style" => "412px",
                 "height" => "80px",
@@ -1535,7 +1470,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "meneger",
-                "title" => "Մենեջեր*",
+                "title" => "Մենեջեր",
                 "type" => "managerSelect",
                 "style" => "412px",
                 "required" => false,

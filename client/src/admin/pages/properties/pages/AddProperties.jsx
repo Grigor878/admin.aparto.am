@@ -31,7 +31,6 @@ import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
-
 const AddProperties = () => {
     const dispatch = useDispatch()
 
@@ -42,7 +41,7 @@ const AddProperties = () => {
     }, [dispatch])
 
     const { structure, yandex } = useSelector((state) => state.property)
-
+    console.log(structure)//
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
@@ -51,7 +50,7 @@ const AddProperties = () => {
     const handleStreetChange = (value) => {
         setAddProperty((prev) => ({
             ...prev,
-            location : {
+            location: {
                 ...prev.location,
                 street: Number(value)
             }
@@ -137,8 +136,8 @@ const AddProperties = () => {
                                 <Card
                                     key={name}
                                     title={title}
-                                    width="679px"
-                                    child={fields.map(({ key, title, type, option, style, required, placeholder }) => {
+                                    width="680px"
+                                    child={fields.map(({ key, title, type, option, communityStreet, style, required, placeholder }) => {
                                         return (
                                             <div key={key}>
                                                 {type === "select"
@@ -168,16 +167,17 @@ const AddProperties = () => {
                                                                 required={required}
                                                                 onChange={(e) => addProp(e, name, type)}
                                                             />
-                                                        : type === "communitySelect"
-                                                            ? <CommunitySelect
-                                                                id={key}
-                                                                title={title}
-                                                                data={option}
-                                                                style={style}
-                                                                required={required}
-                                                                onChange={(e) => addProp(e, name, type)}
-                                                                onStreetChange={(value) => handleStreetChange(value)}
-                                                            />
+                                                            : type === "communitySelect"
+                                                                ? <CommunitySelect
+                                                                    id={key}
+                                                                    title={title}
+                                                                    data={option}
+                                                                    streetData={communityStreet}
+                                                                    style={style}
+                                                                    required={required}
+                                                                    onChange={(e) => addProp(e, name, type)}
+                                                                    onStreetChange={(value) => handleStreetChange(value)}
+                                                                />
                                                                 : type === "inputNumber"
                                                                     ? <InputNum
                                                                         id={key}

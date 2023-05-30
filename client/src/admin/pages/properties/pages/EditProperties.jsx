@@ -61,8 +61,8 @@ const EditProperties = () => {
                                 <Card
                                     key={name}
                                     title={title}
-                                    width="679px"
-                                    child={fields.map(({ key, title, type, option, value, allAnswers, style, required, height, placeholder }) => {
+                                    width="680px"
+                                    child={fields.map(({ key, title, type, option, value, communityId, allAnswers, style, required, height, placeholder }) => {
                                         return (
                                             <div key={key}>
                                                 {type === "select"
@@ -100,6 +100,7 @@ const EditProperties = () => {
                                                                     title={title}
                                                                     data={option}
                                                                     defValue={value}
+                                                                    valueId={communityId}
                                                                     style={style}
                                                                     required={required}
                                                                 // onChange={(e) => addProp(e, name, type)}
