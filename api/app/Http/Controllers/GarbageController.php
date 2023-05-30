@@ -335,27 +335,17 @@ class GarbageController extends Controller
                 "key" => "totalPrice",
                 "title" => "Ընդհանուր գինը*",
                 "type" => "inputNumberSingle",
-                "style" => "202px",
+                "style" => "198px",
                 "placeholder" => "Գինը դոլարով",
                 "required" => true,
                 "value" => '',
-              ],
-              [
-                "key" => "priceNegotiable",
-                "title" => "Գինը պայմանագրային*",
-                "type" => "checkbox",
-                "style" => "",
-                "value" => 'on',
-                "option" => [
-                  "status" => false
-                ]
               ],
               [
                 "key" => "sqmPrice",
                 "title" => "Գինը 1 քմ",
                 "required" => false,
                 "type" => "inputNumberSingle",
-                "style" => "202px",
+                "style" => "198px",
                 "placeholder" => "Գինը դոլարով",
                 "value" => '',
               ],
@@ -363,10 +353,20 @@ class GarbageController extends Controller
                 "key" => "downPayment",
                 "title" => "Կանխավճարի չափ",
                 "type" => "inputNumberSingle",
-                "style" => "202px",
+                "style" => "198px",
                 "placeholder" => "Գինը դոլարով",
                 "required" => false,
                 "value" => '',
+              ],
+              [
+                "key" => "priceNegotiable",
+                "title" => "Գինը պայմանագրային*",
+                "type" => "checkbox",
+                "style" => "629px",
+                "value" => 'on',
+                "option" => [
+                  "status" => false
+                ]
               ],
               [
                 "key" => "paymentMethod",
@@ -959,7 +959,7 @@ class GarbageController extends Controller
               "key" => "propertyTax",
               "title" => "Տարեկան գույքահարկ",
               "type" => "inputNumberSingle",
-              "style" => "202px",
+              "style" => "306px",
               "placeholder" => "Գինը դոլարով",
               "required" => false,
               "value" => '',
@@ -968,7 +968,7 @@ class GarbageController extends Controller
               "key" => "monthlyFee",
               "title" => "Ամսական Սպասարկման Վճար",
               "type" => "inputNumberSingle",
-              "style" => "202px",
+              "style" => "306px",
               "placeholder" => "Գինը դոլարով",
               "required" => false,
               "value" => '',
