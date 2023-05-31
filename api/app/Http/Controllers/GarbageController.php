@@ -698,7 +698,6 @@ class GarbageController extends Controller
                   ],
                 ]
               ],
-              // new field added
               [
                 "key" => "groundSurface",
                 "title" => "Հողի Մակերես",
@@ -715,7 +714,6 @@ class GarbageController extends Controller
                   ],
                 ]
               ],
-              //
               [
                 "key" => "floor",
                 "title" => "Հարկը",
@@ -1541,6 +1539,16 @@ class GarbageController extends Controller
                 "type" => "communitySelect",
                 "style" => "629px",
                 "value" => '',
+                "communityStreet" => [
+                  "key" => "street",
+                  "title" => "Улица*",
+                  "type" => "selectStreet",
+                  "style" => "283px",
+                  "streetId" => '',
+                  "required" => true,
+                  "value" => '',
+                  "option" => []
+                ],
                 "option" => []
                 ],
                 [
@@ -1718,6 +1726,15 @@ class GarbageController extends Controller
                 "style" => "629px",
                 "value" => '',
                 "option" => []
+                ],
+                [
+                  "key" => "groundSurface",
+                  "title" => "Поверхности суши",
+                  "type" => "inputNumberSymbol",
+                  "style" => "306px",
+                  "required" => false,
+                  "value" => '',
+                  "option" => []
                 ],
                 [
                 "key" => "floor",
@@ -2296,6 +2313,16 @@ class GarbageController extends Controller
                 "type" => "communitySelect",
                 "style" => "629px",
                 "value" => '',
+                "communityStreet" => [
+                  "key" => "street",
+                  "title" => "Street*",
+                  "type" => "selectStreet",
+                  "style" => "283px",
+                  "streetId" => '',
+                  "required" => true,
+                  "value" => '',
+                  "option" => []
+                ],
                 "option" => []
                 ],
                 [
@@ -2473,6 +2500,15 @@ class GarbageController extends Controller
                 "style" => "629px",
                 "value" => '',
                 "option" => []
+                ],
+                [
+                  "key" => "groundSurface",
+                  "title" => "Land Surface",
+                  "type" => "inputNumberSymbol",
+                  "style" => "306px",
+                  "required" => false,
+                  "value" => '',
+                  "option" => []
                 ],
                 [
                 "key" => "floor",

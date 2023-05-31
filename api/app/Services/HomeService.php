@@ -423,15 +423,17 @@ class HomeService
             foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
               if($globalVal->type == 'select' ) {
                 if($key === $globalVal->key) {
-                  $lang = $allSelect[$value];
-                  if($globalVal->key == 'transactionType') {
-                    $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
-                    $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
-                    $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
-                  }
-                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
-                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
-                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                  if($value){
+                    $lang = $allSelect[$value];
+                    if($globalVal->key == 'transactionType') {
+                      $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
+                      $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
+                      $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
+                    }
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                  };
                 }
               }
               if( $globalVal->type == 'communitySelect') {
@@ -441,6 +443,14 @@ class HomeService
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+
+                  if(array_key_exists('street', $item)) {
+                      $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
+                      $addresses = ConfigAddress::findorFail($item['street']);
+                      $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
+                      $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
+                      $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                  }
                 }
               }
               if($globalVal->type == "text"){
@@ -469,15 +479,7 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                 }
               }
-              if($globalVal->type == "selectStreet"){
-                if(array_key_exists('street', $item)) {
-                    $assocCopyFormAm[$idx]->fields[$globKey]->streetId = $item['street'];
-                    $addresses = ConfigAddress::findorFail($item['street']);
-                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $addresses->am;
-                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $addresses->ru;
-                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $addresses->en;
-                }
-              }
+
               if($globalVal->type == "inputText"){
                 if($key === $globalVal->key) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
@@ -501,11 +503,11 @@ class HomeService
                   $assocCopyFormRu['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
                   $assocCopyFormEn['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
                  }
-                 if(array_key_exists('ownerTel3', $data['juridical'])){
+                if(array_key_exists('ownerTel3', $data['juridical'])){
                   $assocCopyFormAm['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
                   $assocCopyFormRu['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
                   $assocCopyFormEn['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
-                 }
+                }
               }
               if($globalVal->type == "inputNumberSingle"){
                 if($key === $globalVal->key) {
