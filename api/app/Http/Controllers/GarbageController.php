@@ -259,17 +259,6 @@ class GarbageController extends Controller
                   ],
                 
               ],
-              //structurna dzvi
-              // [
-              //   "key" => "street",
-              //   "title" => "Փողոց*",
-              //   "type" => "selectStreet",
-              //   "style" => "283px",
-              //   "streetId" => '',
-              //   "required" => true,
-              //   "value" => '',
-              //   "option" => []
-              // ],
               [
                 "key" => "building",
                 "title" => "Շենք",
@@ -1285,7 +1274,7 @@ class GarbageController extends Controller
                   ],
                   [
                     "label"=> "Պանել",
-                    "value" => "panel"
+                    "value" => "panelCover"
                   ],
                 ],
               ],
@@ -1549,14 +1538,6 @@ class GarbageController extends Controller
                   "value" => '',
                   "option" => []
                 ],
-                "option" => []
-                ],
-                [
-                "key" => "street",
-                "title" => "Адрес*",
-                "type" => "selectStreet",
-                "style" => "283px",
-                "value" => '',
                 "option" => []
                 ],
                 [
@@ -2323,14 +2304,6 @@ class GarbageController extends Controller
                   "value" => '',
                   "option" => []
                 ],
-                "option" => []
-                ],
-                [
-                "key" => "street",
-                "title" => "Address*",
-                "type" => "selectStreet",
-                "style" => "283px",
-                "value" => '',
                 "option" => []
                 ],
                 [

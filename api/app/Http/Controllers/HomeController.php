@@ -148,15 +148,15 @@ class HomeController extends Controller
 
             if($homeAm[1]->name == 'location'){
                 $homeAm[1] = (array) $homeAm[1];
-                $homeAm[1]['fields'][5]->value = $data;
+                $homeAm[1]['fields'][4]->value = $data;
             }
             if($homeRu[1]->name == 'location'){
                 $homeRu[1] = (array) $homeRu[1];
-                $homeRu[1]['fields'][5]->value = $data;
+                $homeRu[1]['fields'][4]->value = $data;
             }
             if($homeEn[1]->name == 'location'){
                 $homeEn[1] = (array) $homeRu[1];
-                $homeEn[1]['fields'][5]->value = $data;
+                $homeEn[1]['fields'][4]->value = $data;
             }
 
             $home->am = json_encode($homeAm);

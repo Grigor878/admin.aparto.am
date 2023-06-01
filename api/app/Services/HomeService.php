@@ -374,7 +374,7 @@ class HomeService
             'en' => 'Concrete',
             'ru' => 'Бетон',
           ],
-          'panel' => [
+          'panelCover' => [
             'am' => 'Պանել',
             'en' => 'Panel',
             'ru' => 'Панельный',
@@ -480,11 +480,23 @@ class HomeService
                 }
               }
 
+              if($globalVal->type == "map"){
+                if($key === $globalVal->key) {
+                  if($value){
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  }
+                }
+              }
+
               if($globalVal->type == "inputText"){
                 if($key === $globalVal->key) {
-                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  if($value) {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  }
                 }
               }
               if(array_key_exists('juridical', $data)){
@@ -572,7 +584,6 @@ class HomeService
         $normalArrayAm = array_values($assocCopyFormAm);
         $normalArrayRu = array_values($assocCopyFormRu);
         $assocCopyFormEn = array_values($assocCopyFormEn);
-
         return ['am'=>$normalArrayAm, 'ru'=> $normalArrayRu, 'en'=>$assocCopyFormEn];
     }
 
