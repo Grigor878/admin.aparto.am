@@ -529,6 +529,10 @@ class HomeService
                       $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                       $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                     }
+                  }else {
+                      $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                      $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                      $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
                   }
                 }
               }
