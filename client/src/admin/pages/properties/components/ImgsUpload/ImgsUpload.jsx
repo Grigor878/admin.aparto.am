@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { API_BASE_URL } from '../../../../../apis/config'
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
-// import { API_BASE_URL } from '../../../../../apis/config'
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
-    // console.log(value)//
     const [images, setImages] = useState([])
     const [previewImages, setPreviewImages] = useState([])
     const [visibleImages, setVisibleImages] = useState([])
@@ -99,6 +98,9 @@ export const ImgsUpload = ({ style, value }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images, visibleImages])
 
+    // console.log(previewImages)
+    // console.log(value);
+
     return (
         <div style={{ width: style }} className='imgsUpload'>
             <div className='imgsUpload__card'>
@@ -110,7 +112,7 @@ export const ImgsUpload = ({ style, value }) => {
                         accept='image/png , image/jpeg , image/jpg , image.webp'
                         onChange={handleImageUpload} />
                 </label>
-                {previewImages.map((preview, index) => (
+                {!value && previewImages.map((preview, index) => (
                     <div
                         key={index}
                         className='imgsUpload__card-main'
@@ -160,11 +162,52 @@ export const ImgsUpload = ({ style, value }) => {
                     </div>
                 ))}
 
-                {/* {value?.map(({ name }) => {
-                    return (
-                        <img style={{ width: "200px", height: "200px" }} src={API_BASE_URL + `/images/` + name} alt="sdfsd" />
-                    )
-                })} */}
+                {value && value?.map((image, index) => (
+                    <div
+                        key={index}
+                        className='imgsUpload__card-main'
+                        draggable={image.visible === "true"}
+                        onDragStart={(e) => {
+                            if (image.visible !== "true") {
+                                e.preventDefault();
+                                return;
+                            }
+                            dragItem.current = index;
+                        }}
+                        onDragEnter={() => {
+                            if (image.visible !== "true") {
+                                return;
+                            }
+                            dragOverItem.current = index;
+                        }}
+                        onDragEnd={handleSort}
+                    >
+                        <img
+                            src={API_BASE_URL + `/images/` + image.name}
+                            alt={`Preview ${index}`}
+                            className='imgsUpload__card-img'
+                        />
+                        {image.visible !== "true" && <p>Թաքցված</p>}
+                        <div className='imgsUpload__card-btns'>
+                            <button
+                                type="button"
+                                onClick={() => handleToggleVisibility(index)}
+                                className='imgsUpload__card-btns-hideShow'
+                            >
+                                {image.visible === "true" ? hideImg.icon : showImg.icon}
+                                {image.visible === "true" ? 'Թաքցնել' : 'Բացել'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => handleImageDelete(index)}
+                                className='imgsUpload__card-btns-delete'
+                            >
+                                {removeWhite.icon}
+                            </button>
+                        </div>
+                    </div>
+                ))}
+
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ export const InputNumSingle = ({ id, title, placeholder, required, style, onChan
             {title}
             <input
                 id={id}
-                // defaultValue={value ? value : null}
+                defaultValue={value ? value : null}
                 required={required}
                 type="number"
                 placeholder={placeholder}

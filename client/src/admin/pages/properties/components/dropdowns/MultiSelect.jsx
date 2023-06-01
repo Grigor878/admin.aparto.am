@@ -1,7 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
+// import { error } from '../../../../../components/swal/swal'
 
-export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
+export const MultiSelect = ({ title, id, name, data, style, required, onChange }) => {
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map((option) => option.value)
         const e = {
@@ -15,34 +16,35 @@ export const MultiSelect = ({ title, id, name, data, style, onChange }) => {
     }
 
     return (
-        <label className='addproperties__card-singleselect' >
-            {title}
-            <Select
-                isMulti
-                closeMenuOnSelect={false}
-                options={data}
-                placeholder="Ընտրեք"
-                onChange={handleChange}
-                styles={{
-                    control: (baseStyles) => ({
-                        ...baseStyles,
-                        width: style,
-                        borderRadius: "8px",
-                        fontWeight: "400",
-                        fontSize: "14px",
-                        textTransform: "capitalize",
-                        lineHeight: "16px",
-                        borderColor: '#e7e9f0',
-                        '&:hover': {
+        <>
+            <label className='addproperties__card-singleselect' >
+                {title}
+                <Select
+                    isMulti
+                    closeMenuOnSelect={false}
+                    options={data}
+                    placeholder="Ընտրեք"
+                    onChange={handleChange}
+                    styles={{
+                        control: (baseStyles) => ({
+                            ...baseStyles,
+                            width: style,
+                            borderRadius: "8px",
+                            fontWeight: "400",
+                            fontSize: "14px",
+                            textTransform: "capitalize",
+                            lineHeight: "16px",
                             borderColor: '#e7e9f0',
-                        },
-                        boxShadow: 'none',
-                        background: "#f3f4f8",
-                        cursor: "pointer"
-                    }),
-                }}
-
-            />
-        </ label>
+                            '&:hover': {
+                                borderColor: '#e7e9f0',
+                            },
+                            boxShadow: 'none',
+                            background: "#f3f4f8",
+                            cursor: "pointer"
+                        }),
+                    }}
+                />
+            </ label>
+        </>
     )
 }

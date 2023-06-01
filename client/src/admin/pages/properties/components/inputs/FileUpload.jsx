@@ -23,14 +23,6 @@ export const FileUpload = ({ value }) => {
         setUpload((prev) => prev.filter((uploadedFile) => uploadedFile !== file))
     }
 
-    // const downloadFile = (file) => {
-    //     const url = URL.createObjectURL(file);
-    //     const link = document.createElement('a');
-    //     link.href = url;
-    //     link.download = file || 'download';
-    //     link.click();
-    // }
-
     const uploadFormData = () => {
         const formData = new FormData()
         upload.forEach((file, index) => {

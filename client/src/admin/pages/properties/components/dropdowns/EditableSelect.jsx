@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-export const EditableSelect = ({ title, id, name, data, value, style, onChange }) => {
+export const EditableSelect = ({ title, id, name, data, value, style, required, onChange }) => {
     return (
         <label className='addproperties__card-singleselect' >
             {title}

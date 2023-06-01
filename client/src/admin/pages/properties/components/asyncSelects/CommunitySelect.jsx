@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 
-export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange, onStreetChange, data, streetData, style, required }) => {
+export const CommunitySelect = ({ title, id, required, value, defValue, valueId, streetData, onChange, onStreetChange, data, style }) => {
     const [streets, setStreets] = useState([])
     const [communityId, setCommunityId] = useState(valueId ? valueId : 1)
 
@@ -25,11 +25,6 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
         setCommunityId(id)
         onChange(e)
     }
-
-    // console.log(streetData)
-    // console.log(streets)
-    // console.log(defValue)
-    // console.log(valueId)
 
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "283px" }}>
@@ -56,10 +51,10 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
                 </select>
             </label>
             <label className='addproperties__card-singleselect' style={{ width: "283px" }}>
-                {streetData?.title}
+                {title}
                 <select
                     id={id}
-                    required
+                    required={required}
                     defaultValue={value}
                     onChange={(e) => onStreetChange(e.target.value)}
                     className="addproperties__card-singleselect-dropdown"
@@ -71,7 +66,7 @@ export const CommunitySelect = ({ title, id, value, defValue, valueId, onChange,
                                 <option
                                     key={id}
                                     value={id}
-                                    // selected={am}
+                                    selected={streetData?.streetId === id}
                                 >{am}
                                 </option>
                             )

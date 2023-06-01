@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { addPropertyData, getPropertyStructure } from '../../../../store/slices/propertySlice'
@@ -36,6 +36,7 @@ import './Styles.scss'
 // https://www.npmjs.com/package/@everapi/currencyapi-js 
 
 const AddProperties = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -43,7 +44,6 @@ const AddProperties = () => {
     }, [dispatch])
 
     const { structure, yandex } = useSelector((state) => state.property)
-    // console.log(structure)//
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
@@ -77,17 +77,19 @@ const AddProperties = () => {
                         },
                     },
                 }
-            } else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
-                obj = {
-                    [name]: {
-                        ...prev[name],
-                        [key]: {
-                            ...prev[name]?.[key],
-                            [id]: value,
-                        },
-                    },
-                }
-            } else if (name === "location" && key === "street") {
+            }
+            //  else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
+            //     obj = {
+            //         [name]: {
+            //             ...prev[name],
+            //             [key]: {
+            //                 ...prev[name]?.[key],
+            //                 [id]: value,
+            //             },
+            //         },
+            //     }
+            // }
+            else if (name === "location" && key === "street") {
                 obj = {
                     [name]: {
                         ...prev[name],
@@ -117,6 +119,7 @@ const AddProperties = () => {
         } else {
             dispatch(addPropertyData({ addProperty }))
             success("Property added!")
+            setTimeout(() => navigate(-1), 3700)
         }
     }
 
@@ -158,7 +161,7 @@ const AddProperties = () => {
                                                             name={name}
                                                             data={option}
                                                             style={style}
-                                                            // required={required}
+                                                            required={required}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
                                                         : type === "text"
@@ -173,10 +176,10 @@ const AddProperties = () => {
                                                                 ? <CommunitySelect
                                                                     id={key}
                                                                     title={title}
+                                                                    required={required}
                                                                     data={option}
                                                                     streetData={communityStreet}
                                                                     style={style}
-                                                                    required={required}
                                                                     onChange={(e) => addProp(e, name, type)}
                                                                     onStreetChange={(value) => handleStreetChange(value)}
                                                                 />
@@ -242,7 +245,6 @@ const AddProperties = () => {
                                                                                                 ? <Keywords
                                                                                                     title={title}
                                                                                                     style={style}
-                                                                                                // required={required}
                                                                                                 />
                                                                                                 : type === "imgsUpload"
                                                                                                     ? <ImgsUpload

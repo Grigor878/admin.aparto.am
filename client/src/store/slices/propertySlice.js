@@ -63,8 +63,8 @@ export const addPropertyImgs = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
-      let uploadImgs = state.property.uploadPhoto;
-      await baseApi.post(`/api/multyPhoto/${id}`, uploadImgs);
+      let uploadPhoto = state.property.uploadPhoto;
+      await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
       thunkAPI.dispatch(addPropertyFiles(id));
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
@@ -93,8 +93,8 @@ export const addPropertyYandex = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
-      let setYandex = state.property.yandex;
-      await baseApi.post(`/api/addYandexLocation/${id}`, setYandex);
+      let yandex = state.property.yandex;
+      await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
       thunkAPI.dispatch(addPropertyKeyword(id));
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
@@ -163,9 +163,7 @@ const structureSlice = createSlice({
 
           builder.dispatch(addPropertyImgs({ uploadPhoto: action.payload }));
           builder.dispatch(addPropertyFiles({ uploadFile: action.payload }));
-          builder.dispatch(
-            addPropertyYandex({ yandexMapClick: action.payload })
-          );
+          builder.dispatch(addPropertyYandex({ yandex: action.payload }));
           builder.dispatch(addPropertyKeyword({ keyword: action.payload }));
         }
       });

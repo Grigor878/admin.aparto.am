@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getPropertyData } from '../../../../../store/slices/propertySlice'
+import React from 'react'
+import {  useSelector } from 'react-redux'
 import { Loader } from '../../../../../components/loader/Loader'
 import { Link } from 'react-router-dom'
 
 export const List = () => {
     const { propertyData } = useSelector((state) => state.property)
-    
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getPropertyData())
-    }, [dispatch])
 
     return (
         <div className="properties__list">

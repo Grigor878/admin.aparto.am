@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 export const NumSelector = ({ id, title, data, value, style, onChange }) => {
-    const [state, setState] = useState(null)
-    value = id + state
+    const [state, setState] = useState(value ? value : null)
+    // value = id + state // aranc id u sra ashxatuma hasknal inja sa
 
     return (
         <label className='addproperties__card-text' style={{ width: style }}>

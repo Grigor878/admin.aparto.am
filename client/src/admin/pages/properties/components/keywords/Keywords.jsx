@@ -7,7 +7,6 @@ import { error } from '../../../../../components/swal/swal'
 
 export const Keywords = ({ title, style, value }) => {
     const [keywords, setKeywords] = useState(value ? value : [])
-    
     const dispatch = useDispatch()
 
     const handleKeyDown = (e) => {
