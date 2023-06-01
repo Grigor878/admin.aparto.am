@@ -40,6 +40,9 @@
 }
 
 .editOwner{
+  @include flex;
+  flex-wrap: wrap;
+  gap: 16px;
   &__card{
     @include flex;
     flex-wrap: wrap;
