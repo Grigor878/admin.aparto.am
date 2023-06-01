@@ -151,7 +151,7 @@ class GarbageController extends Controller
                 "key" => "community",
                 "title" => "Համայնք*",
                 "type" => "communitySelect",
-                "style" => "283px",
+                "style" => "306px",
                 "communityId" => '',
                 "required" => true,
                 "value" => '',
@@ -1526,7 +1526,7 @@ class GarbageController extends Controller
                 "key" => "community",
                 "title" => "Административный район*",
                 "type" => "communitySelect",
-                "style" => "629px",
+                "style" => "306px",
                 "value" => '',
                 "communityStreet" => [
                   "key" => "street",
@@ -2292,7 +2292,7 @@ class GarbageController extends Controller
                 "key" => "community",
                 "title" => "Administrative District*",
                 "type" => "communitySelect",
-                "style" => "629px",
+                "style" => "306px",
                 "value" => '',
                 "communityStreet" => [
                   "key" => "street",
