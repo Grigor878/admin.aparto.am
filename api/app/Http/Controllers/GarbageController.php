@@ -1623,7 +1623,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "downPayment",
-                "title" => "Сумма предоплаты*",
+                "title" => "Сумма авансового платежа",
                 "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
@@ -2089,7 +2089,7 @@ class GarbageController extends Controller
             "fields" => [
                 [
                 "key" => "uploadedImgs",
-                "title" => "Ավելացնել նկարներ",
+                "title" => "Добавить фотографии",
                 "type" => "imgsUpload",
                 "style" => "639px",
                 "value" => '',
@@ -2389,7 +2389,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "downPayment",
-                "title" => "Down Payment*",
+                "title" => "Advance payment amount",
                 "type" => "inputNumberSingle",
                 "style" => "202px",
                 "value" => '',
@@ -2855,7 +2855,7 @@ class GarbageController extends Controller
             "fields" => [
                 [
                 "key" => "uploadedImgs",
-                "title" => "Ավելացնել նկարներ",
+                "title" => "Add pictures",
                 "type" => "imgsUpload",
                 "style" => "639px",
                 "value" => '',
