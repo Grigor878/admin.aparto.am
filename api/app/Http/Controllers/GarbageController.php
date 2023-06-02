@@ -340,7 +340,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "downPayment",
-                "title" => "Կանխավճարի չափ",
+                "title" => "Նախավճարի չափ",
                 "type" => "inputNumberSingle",
                 "style" => "198px",
                 "placeholder" => "Գինը դոլարով",
@@ -1287,7 +1287,7 @@ class GarbageController extends Controller
             "fields" => [
               [
                 "key" => "uploadedImgs",
-                "title" => "",
+                "title" => "Ավելացնել նկարներ",
                 "type" => "imgsUpload",
                 "style" => "639px",
                 "value" => '',
@@ -2089,7 +2089,7 @@ class GarbageController extends Controller
             "fields" => [
                 [
                 "key" => "uploadedImgs",
-                "title" => "",
+                "title" => "Ավելացնել նկարներ",
                 "type" => "imgsUpload",
                 "style" => "639px",
                 "value" => '',
@@ -2855,7 +2855,7 @@ class GarbageController extends Controller
             "fields" => [
                 [
                 "key" => "uploadedImgs",
-                "title" => "",
+                "title" => "Ավելացնել նկարներ",
                 "type" => "imgsUpload",
                 "style" => "639px",
                 "value" => '',

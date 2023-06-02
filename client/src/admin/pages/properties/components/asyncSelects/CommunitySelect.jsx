@@ -51,7 +51,7 @@ export const CommunitySelect = ({ title, id, required, value, defValue, valueId,
                 </select>
             </label>
             <label className='addproperties__card-singleselect' style={{ width: "283px" }}>
-                {title}
+                {streetData?.title}
                 <select
                     id={id}
                     required={required}

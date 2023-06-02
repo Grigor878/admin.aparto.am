@@ -8,6 +8,7 @@ export const InputNum = ({ title, value, id, placeholder, onChange, style, requi
                 id={id}
                 defaultValue={value ? value : null}
                 required={required}
+                min={0}
                 type="number"
                 placeholder={placeholder}
                 className='addproperties__card-text-hug'

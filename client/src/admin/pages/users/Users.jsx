@@ -21,7 +21,10 @@ const Users = () => {
 
   return (
     <article className='users'>
-      <TopPart data={role === "admin" ? users : approvedUsers} />
+      <TopPart
+       data={role === "admin" ? users : approvedUsers} 
+       type="users"
+       />
 
       <div className="users__table">
         {loading && <Loader />}

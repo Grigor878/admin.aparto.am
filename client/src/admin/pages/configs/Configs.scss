@@ -2,12 +2,19 @@
 
 .configs {
   @include flexCol;
-  gap: 24px;
-  padding: 24px 20px 41px;
+  // gap: 24px;
+  // padding: 24px 20px 41px;
+  padding: 0 20px 41px;
 
   &__nav {
     @include flexCol;
     gap: 20px;
+    //
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    padding: 24px 0;
+    background: $bgAdmin;
 
     &-list {
       @include flex;
@@ -37,6 +44,4 @@
       border-bottom: 2px solid #4a46f1;
     }
   }
-
-  
 }

@@ -17,7 +17,10 @@ const Properties = () => {
 
     return (
         <article className='properties'>
-            <TopPart data={propertyData} />
+            <TopPart
+                data={propertyData}
+                type="properties"
+            />
             <SearchBox />
             <List />
         </article>

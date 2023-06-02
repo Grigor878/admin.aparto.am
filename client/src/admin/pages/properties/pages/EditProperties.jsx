@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { Card } from '../components/card/Card'
@@ -16,16 +16,23 @@ import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { EditOwner } from '../components/owner/EditOwner'
 import { Keywords } from '../components/keywords/Keywords'
-import './Styles.scss'
 import { FileUpload } from '../components/inputs/FileUpload'
 import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
+import './Styles.scss'
+import { getPropertyData } from '../../../../store/slices/propertySlice'
 
 const EditProperties = () => {
     const params = useParams()
     const propertyId = Number(params.id)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getPropertyData())
+    }, [dispatch])
 
     const { propertyData } = useSelector((state) => state.property)
 
@@ -178,8 +185,8 @@ const EditProperties = () => {
                                                                                                     data={option}
                                                                                                     style={style}
                                                                                                     value={value}
-                                                                                                    // required={required}
-                                                                                                    // onChange={(e) => addProp(e, name)}
+                                                                                                // required={required}
+                                                                                                // onChange={(e) => addProp(e, name)}
                                                                                                 />
                                                                                                 : type === "keyword"
                                                                                                     ? <Keywords

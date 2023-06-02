@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Loader } from '../../../../components/loader/Loader'
 import { useNavigate } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
 import { ImgUpload } from '../../../components/inputs/ImgUpload'
@@ -12,9 +13,9 @@ import { addUserInputs } from '../data'
 import './Styles.scss'
 
 const AddUsers = () => {
+    const [loading, setLoading] = useState(false)
     const [avatar, setAvatar] = useState()
     const [avatarUrl, setAvatarUrl] = useState([])
-    // const [role, setRole] = useState('')
     const [info, setInfo] = useState({})
 
     const navigate = useNavigate()
@@ -41,6 +42,8 @@ const AddUsers = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        setLoading(true)
+
         let userInfo = {
             full_name: {
                 am: capitalize(info.user_name_am),
@@ -66,52 +69,56 @@ const AddUsers = () => {
                 navigate(-1)
             })
             .catch(err => error(err.message))
-
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     return (
-        <article className='subUsers'>
-            <AddPart type="addUsers" />
-            <div className='subUsers__container'>
-                <div className='subUsers__choose'>
-                    {avatarUrl.length === 0
-                        ? <ImgUpload onChange={handleAvatar} multiple={false} />
-                        : avatarUrl.map((img, index) => {
-                            return (
-                                <div key={index} className='subUsers__uploaded'>
-                                    <img src={img} alt="Uploaded Avatar" />
-                                    <button
-                                        onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
-                                    ><RiDeleteBin5Fill />
-                                    </button>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
-                    <div className="subUsers__form-parts">
-                        {addUserInputs.map(({ id, type, placeholder, name }) => {
-                            return (
-                                <AddInput
-                                    key={id}
-                                    id={id}
-                                    type={type}
-                                    placeholder={placeholder}
-                                    name={name}
-                                    onChange={handleChange}
-                                />
-                            )
-                        })}
-                        <SelectRole
-                            // role={role}
-                            // setRole={setRole}
-                            onChange={handleChange}
-                        />
+        loading
+            ? <Loader />
+            : <article className='subUsers'>
+                <AddPart type="addUsers" />
+                <div className='subUsers__container'>
+                    <div className='subUsers__choose'>
+                        {avatarUrl.length === 0
+                            ? <ImgUpload onChange={handleAvatar} multiple={false} />
+                            : avatarUrl.map((img, index) => {
+                                return (
+                                    <div key={index} className='subUsers__uploaded'>
+                                        <img src={img} alt="Uploaded Avatar" />
+                                        <button
+                                            onClick={() => setAvatarUrl(avatarUrl.filter((e) => e !== img))}
+                                        ><RiDeleteBin5Fill />
+                                        </button>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
-                </form>
-            </div>
-        </article>
+                    <form id="addUserForm" onSubmit={handleSubmit} className='subUsers__form'>
+                        <div className="subUsers__form-parts">
+                            {addUserInputs.map(({ id, type, placeholder, name }) => {
+                                return (
+                                    <AddInput
+                                        key={id}
+                                        id={id}
+                                        type={type}
+                                        placeholder={placeholder}
+                                        name={name}
+                                        onChange={handleChange}
+                                    />
+                                )
+                            })}
+                            <SelectRole
+                                // role={role}
+                                // setRole={setRole}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </form>
+                </div>
+            </article>
     )
 }
 

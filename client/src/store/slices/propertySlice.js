@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { getAxiosConfig } from "../../apis/config";
-import { Navigate } from "react-router-dom";
 
 const initialState = {
   structureLoading: false,

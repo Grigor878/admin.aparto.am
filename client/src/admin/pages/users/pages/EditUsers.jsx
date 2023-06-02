@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Loader } from '../../../../components/loader/Loader'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
@@ -13,6 +14,8 @@ import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const EditUsers = () => {
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate()
     const params = useParams()
     const userId = Number(params.id)
@@ -55,6 +58,8 @@ const EditUsers = () => {
     }
 
     const changeStatus = () => {
+        setLoading(true)
+
         let statusChangeInfo = {
             id: userId,
             status: currentUser?.status === "approved" ? "deactivated" : "approved"
@@ -66,10 +71,16 @@ const EditUsers = () => {
                 navigate(-1)
             })
             .catch(err => error(err.message))
+            .finally(() => {
+                setLoading(false)
+            })
 
     }
 
     const handleSubmit = (e) => {
+
+        setLoading(true)
+
         e.preventDefault()
 
         let userInfo = {
@@ -101,102 +112,108 @@ const EditUsers = () => {
                 success(res.data.status)
                 navigate(-1)
             })
+            .catch(err => error(err.message))
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     return (
-       <article className='subUsers'>
-            <AddPart
-                type="editUser"
-                changeStatus={changeStatus}
-                currentUser={currentUser}
-            />
-            <div className="subUsers__container">
-                <div className='subUsers__choose'>
-                    {avatar && avatarUrl.length === 0
-                        ? <div className='subUsers__uploaded'>
-                            <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
-                            <button
-                                onClick={removeAvatar} //() => setAvatar()
-                            ><RiDeleteBin5Fill /></button>
+        loading
+            ? <Loader />
+            : <article className='subUsers'>
+                <AddPart
+                    type="editUser"
+                    changeStatus={changeStatus}
+                    currentUser={currentUser}
+                />
+                <div className="subUsers__container">
+                    <div className='subUsers__choose'>
+                        {avatar && avatarUrl.length === 0
+                            ? <div className='subUsers__uploaded'>
+                                <img src={API_BASE_URL + '/images/' + currentUser.photo} alt="User" />
+                                <button
+                                    onClick={removeAvatar} //() => setAvatar()
+                                ><RiDeleteBin5Fill /></button>
+                            </div>
+                            : null
+                        }
+                        {!avatarUrl.length === 0 || !avatar
+                            ? <ImgUpload onChange={addAvatar} />
+                            : avatarUrl.map((img, index) => {
+                                return (
+                                    <div key={index} className='subUsers__uploaded'>
+                                        <img src={img} alt="Uploaded Avatar" />
+                                        <button
+                                            onClick={removeAvatar}
+                                        ><RiDeleteBin5Fill /></button>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
+                        <div className='subUsers__form-parts'>
+                            <EditInput
+                                type='text'
+                                placeholder='Enter user name'
+                                name='Name'
+                                onChange={(e) => setAm(e.target.value)}
+                                value={am}
+                            />
+                            <EditInput
+                                type='text'
+                                placeholder='Enter user name'
+                                name='Name RUS'
+                                onChange={(e) => setRu(e.target.value)}
+                                value={ru}
+                            />
+                            <EditInput
+                                type='text'
+                                placeholder='Enter user name'
+                                name='Name ENG'
+                                onChange={(e) => setEn(e.target.value)}
+                                value={en}
+                            />
                         </div>
-                        : null
-                    }
-                    {!avatarUrl.length === 0 || !avatar
-                        ? <ImgUpload onChange={addAvatar} />
-                        : avatarUrl.map((img, index) => {
-                            return (
-                                <div key={index} className='subUsers__uploaded'>
-                                    <img src={img} alt="Uploaded Avatar" />
-                                    <button
-                                        onClick={removeAvatar}
-                                    ><RiDeleteBin5Fill /></button>
-                                </div>
-                            )
-                        })
-                    }
+                        <div className='subUsers__form-parts'>
+                            <DisabledInput
+                                name='Email'
+                                value={email}
+                            />
+                            <SelectRole
+                                role={role}
+                                setRole={setRole}
+                                onChange={(e) => setRole(e.target.value)}
+                                value={role}
+                            />
+                            <EditInput
+                                type='tel'
+                                placeholder='Enter user phone'
+                                name='Phone 1'
+                                onChange={(e) => setTel1(e.target.value)}
+                                value={tel1}
+                            />
+                        </div>
+                        <div className='subUsers__form-parts-else'>
+                            <EditInput
+                                type='tel'
+                                placeholder='Enter user phone'
+                                name='viber/ whatsapp / telegram'
+                                onChange={(e) => setMessengers(e.target.value)}
+                                value={messengers}
+                            />
+                            <EditInput
+                                type='tel'
+                                placeholder='Enter user phone'
+                                name='Phone 2'
+                                onChange={(e) => setTel2(e.target.value)}
+                                value={tel2}
+                            />
+                        </div>
+                    </form>
                 </div>
-                <form id="editUserForm" onSubmit={handleSubmit} className='subUsers__form'>
-                    <div className='subUsers__form-parts'>
-                        <EditInput
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name'
-                            onChange={(e) => setAm(e.target.value)}
-                            value={am}
-                        />
-                        <EditInput
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name RUS'
-                            onChange={(e) => setRu(e.target.value)}
-                            value={ru}
-                        />
-                        <EditInput
-                            type='text'
-                            placeholder='Enter user name'
-                            name='Name ENG'
-                            onChange={(e) => setEn(e.target.value)}
-                            value={en}
-                        />
-                    </div>
-                    <div className='subUsers__form-parts'>
-                        <DisabledInput
-                            name='Email'
-                            value={email}
-                        />
-                        <SelectRole
-                            role={role}
-                            setRole={setRole}
-                            onChange={(e) => setRole(e.target.value)}
-                            value={role}
-                        />
-                        <EditInput
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Phone 1'
-                            onChange={(e) => setTel1(e.target.value)}
-                            value={tel1}
-                        />
-                    </div>
-                    <div className='subUsers__form-parts-else'>
-                        <EditInput
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='viber/ whatsapp / telegram'
-                            onChange={(e) => setMessengers(e.target.value)}
-                            value={messengers}
-                        />
-                        <EditInput
-                            type='tel'
-                            placeholder='Enter user phone'
-                            name='Phone 2'
-                            onChange={(e) => setTel2(e.target.value)}
-                            value={tel2}
-                        />
-                    </div>
-                </form>
-            </div>
-        </article>
+            </article>
     )
 }
 
