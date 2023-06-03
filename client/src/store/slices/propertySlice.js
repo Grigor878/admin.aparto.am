@@ -119,10 +119,10 @@ export const addPropertyKeyword = createAsyncThunk(
 // post edited data
 export const editPropertyData = createAsyncThunk(
   "property/editPropertyData",
-  async ({ editProperty }, { rejectWithValue, dispatch }) => {
+  async ({ editProperty, propertyId }, { rejectWithValue, dispatch }) => {
     try {
       const response = await baseApi.post(
-        "/api/editHome",
+        `/api/editHome/${propertyId}`,
         editProperty,
         getAxiosConfig()
       );

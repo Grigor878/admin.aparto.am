@@ -99,7 +99,7 @@ const EditProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(editPropertyData({ editProperty }))
+        dispatch(editPropertyData({ editProperty, propertyId }))
         success("Property edited!")
         // setTimeout(() => navigate(-1), 2500)
     }
