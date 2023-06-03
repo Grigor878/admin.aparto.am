@@ -119,9 +119,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { YMaps, GeolocationControl, Map, ZoomControl, Placemark, FullscreenControl } from "react-yandex-maps";
 import { useDispatch } from "react-redux";
-import { setYandex } from "../../store/slices/propertySlice";
+import { setYandex } from "../../../../../store/slices/propertySlice";
 import './YandexMap.scss'
-import '../../admin/components/inputs/Inputs.scss';
+import '../../../../components/inputs/Inputs.scss';
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],

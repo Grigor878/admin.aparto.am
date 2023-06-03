@@ -2,6 +2,19 @@ import React from 'react'
 import Select from 'react-select'
 
 export const EditableSelect = ({ title, id, name, data, value, style, required, onChange }) => {
+    
+    const handleChange = (selectedOptions) => {
+        const selectedValues = selectedOptions.map((option) => option.value)
+        const e = {
+            target: {
+                id,
+                value: selectedValues,
+            },
+        }
+
+        onChange(e, name)
+    }
+
     return (
         <label className='addproperties__card-singleselect' >
             {title}
@@ -14,6 +27,7 @@ export const EditableSelect = ({ title, id, name, data, value, style, required, 
                 closeMenuOnSelect={false}
                 options={data}
                 placeholder="Ընտրեք"
+                onChange={handleChange}
                 styles={{
                     control: (baseStyles) => ({
                         ...baseStyles,

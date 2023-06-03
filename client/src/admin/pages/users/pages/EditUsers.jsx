@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUsers } from '../../../../store/slices/usersSlice'
 import { Loader } from '../../../../components/loader/Loader'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { SelectRole } from '../components/SelectRole'
 import { ImgUpload } from '../../../components/inputs/ImgUpload'
@@ -16,11 +17,17 @@ import './Styles.scss'
 const EditUsers = () => {
     const [loading, setLoading] = useState(false)
 
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getUsers())
+    }, [dispatch])
+
+    const { users } = useSelector((state => state.users))
+
     const navigate = useNavigate()
     const params = useParams()
     const userId = Number(params.id)
-
-    const { users } = useSelector((state => state.users))
 
     const currentUser = users.find(item => item.id === userId)
 
@@ -74,7 +81,6 @@ const EditUsers = () => {
             .finally(() => {
                 setLoading(false)
             })
-
     }
 
     const handleSubmit = (e) => {

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import AddPart from '../../../components/addPart/AddPart'
+import { getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
+import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import { EditableSelect } from '../components/dropdowns/EditableSelect'
@@ -11,7 +12,7 @@ import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import { LngPart } from '../components/lngPart/LngPart'
 import { InputText } from '../components/inputs/InputText'
-import YandexMap from '../../../../components/yandexMap/YandexMap'
+import YandexMap from '../components/yandexMap/YandexMap'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { EditOwner } from '../components/owner/EditOwner'
@@ -22,7 +23,6 @@ import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
 import './Styles.scss'
-import { getPropertyData } from '../../../../store/slices/propertySlice'
 
 const EditProperties = () => {
     const params = useParams()
@@ -37,16 +37,67 @@ const EditProperties = () => {
     const { propertyData } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
-    // console.log(currentProperty)//
+
     const currentPropertyData = currentProperty?.am
     const currentPropertyKeywords = currentProperty?.keywords
     const currentPropertyFiles = currentProperty?.file
     const currentPropertyImgs = currentProperty?.photo
 
-    console.log(currentPropertyData)//
+    // console.log(currentPropertyData)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
+
+    const [editProperty, setEditProperty] = useState('')
+
+    const handleStreetChange = (value) => {
+        setEditProperty((prev) => ({
+            ...prev,
+            location: {
+                ...prev.location,
+                street: Number(value)
+            }
+        }))
+    }
+
+    const editProp = (e, name, type, key) => {
+        let { id, value, checked } = e.target
+
+        setEditProperty((prev) => {
+            let obj = {}
+
+            if (type === 'text') {
+                const nestedKey = id.slice(0, -2);
+
+                obj = {
+                    [name]: {
+                        ...prev[name],
+                        [nestedKey]: {
+                            ...prev[name]?.[nestedKey],
+                            [id]: value,
+                        },
+                    },
+                }
+            } else if (name === "location" && key === "street") {
+                obj = {
+                    [name]: {
+                        ...prev[name],
+                        [key]: value,
+                    },
+                };
+            } else {
+                obj = {
+                    [name]: {
+                        ...prev[name],
+                        [id]: checked ? checked : value,
+                    },
+                }
+            }
+
+            return { ...prev, ...obj }
+        })
+    }
+    console.log(editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -83,7 +134,7 @@ const EditProperties = () => {
                                                         value={value}
                                                         style={style}
                                                         required={required}
-                                                    // onChange={(e) => addProp(e, name)}
+                                                        onChange={(e) => editProp(e, name)}
                                                     />
                                                     : type === "multiselect"
                                                         ? <EditableSelect
@@ -94,7 +145,7 @@ const EditProperties = () => {
                                                             value={value}
                                                             style={style}
                                                             required={required}
-                                                        // onChange={(e) => addProp(e, name)}
+                                                            onChange={(e) => editProp(e, name)}
                                                         />
                                                         : type === "text"
                                                             ? <LngPart
@@ -103,7 +154,7 @@ const EditProperties = () => {
                                                                 value={allAnswers}
                                                                 style={style}
                                                                 required={required}
-                                                            // onChange={(e) => addProp(e, name, type)}
+                                                                onChange={(e) => editProp(e, name, type)}
                                                             />
                                                             : type === "communitySelect"
                                                                 ? <CommunitySelect
@@ -115,8 +166,8 @@ const EditProperties = () => {
                                                                     streetData={communityStreet}
                                                                     style={style}
                                                                     required={required}
-                                                                // onChange={(e) => addProp(e, name, type)}
-                                                                // onStreetChange={(value) => handleStreetChange(value)}
+                                                                    onChange={(e) => editProp(e, name, type)}
+                                                                    onStreetChange={(value) => handleStreetChange(value)}
                                                                 />
                                                                 : type === "inputNumber"
                                                                     ? <InputNum
@@ -126,7 +177,7 @@ const EditProperties = () => {
                                                                         placeholder="Ex."
                                                                         style={style}
                                                                         required={required}
-                                                                    // onChange={(e) => addProp(e, name)}
+                                                                        onChange={(e) => editProp(e, name)}
                                                                     />
                                                                     : type === "inputText"
                                                                         ? <InputText
@@ -136,7 +187,7 @@ const EditProperties = () => {
                                                                             placeholder={placeholder}
                                                                             style={style}
                                                                             required={required}
-                                                                        // onChange={(e) => addProp(e, name)}
+                                                                            onChange={(e) => editProp(e, name)}
                                                                         />
                                                                         : type === "map"
                                                                             ? <YandexMap
@@ -153,7 +204,7 @@ const EditProperties = () => {
                                                                                     style={style}
                                                                                     required={required}
                                                                                     value={value}
-                                                                                // onChange={(e) => addProp(e, name)}
+                                                                                    onChange={(e) => editProp(e, name)}
                                                                                 />
                                                                                 : type === 'inputNumberSymbol'
                                                                                     ? <InputNumSymbol
@@ -163,7 +214,7 @@ const EditProperties = () => {
                                                                                         value={value}
                                                                                         style={style}
                                                                                         required={required}
-                                                                                    // onChange={(e) => addProp(e, name, type, key)}
+                                                                                        onChange={(e) => editProp(e, name, type, key)}
                                                                                     />
                                                                                     : type === "checkbox"
                                                                                         ? <Checkbox
@@ -171,7 +222,7 @@ const EditProperties = () => {
                                                                                             title={title}
                                                                                             style={style}
                                                                                             value={value}
-                                                                                        // onChange={(e) => addProp(e, name)}
+                                                                                            onChange={(e) => editProp(e, name)}
                                                                                         />
                                                                                         : type === "imgsUpload"
                                                                                             ? <ImgsUpload
@@ -185,8 +236,8 @@ const EditProperties = () => {
                                                                                                     data={option}
                                                                                                     style={style}
                                                                                                     value={value}
-                                                                                                // required={required}
-                                                                                                // onChange={(e) => addProp(e, name)}
+                                                                                                    required={required}
+                                                                                                    onChange={(e) => editProp(e, name)}
                                                                                                 />
                                                                                                 : type === "keyword"
                                                                                                     ? <Keywords
@@ -223,7 +274,7 @@ const EditProperties = () => {
                                                         value={value}
                                                         style={style}
                                                         required={required}
-                                                    // onChange={(e) => addProp(e, name)}
+                                                        onChange={(e) => editProp(e, name)}
                                                     />
                                                     : type === "inputNumber"
                                                         ? <InputNum
@@ -233,7 +284,7 @@ const EditProperties = () => {
                                                             placeholder="Ex."
                                                             style={style}
                                                             required={required}
-                                                        // onChange={(e) => addProp(e, name)}
+                                                            onChange={(e) => editProp(e, name)}
                                                         />
                                                         : type === "inputText"
                                                             ? <InputText
@@ -244,12 +295,12 @@ const EditProperties = () => {
                                                                 height={height}
                                                                 style={style}
                                                                 required={required}
-                                                            // onChange={(e) => addProp(e, name)}
+                                                                onChange={(e) => editProp(e, name)}
                                                             />
                                                             : type === "addField"
                                                                 ? <EditOwner
                                                                     data={option}
-                                                                // onChange={(e) => addProp(e, name)}
+                                                                    onChange={(e) => editProp(e, name)}
                                                                 />
                                                                 : type === "uploadFile"
                                                                     ? <FileUpload
@@ -262,7 +313,7 @@ const EditProperties = () => {
                                                                             value={value}
                                                                             style={style}
                                                                             required={required}
-                                                                        // onChange={(e) => addProp(e, name)}
+                                                                            onChange={(e) => editProp(e, name)}
                                                                         />
                                                                         : type === "managerSelect"
                                                                             ? <ManagerSelect
@@ -271,7 +322,7 @@ const EditProperties = () => {
                                                                                 value={value}
                                                                                 style={style}
                                                                                 required={required}
-                                                                            // onChange={(e) => addProp(e, name)}
+                                                                                onChange={(e) => editProp(e, name)}
                                                                             />
                                                                             : null
                                                 }

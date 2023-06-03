@@ -1,8 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
-// import { error } from '../../../../../components/swal/swal'
 
 export const MultiSelect = ({ title, id, name, data, style, required, onChange }) => {
+
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map((option) => option.value)
         const e = {
