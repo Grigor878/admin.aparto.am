@@ -32,9 +32,6 @@ import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
-// for currency
-// https://www.npmjs.com/package/@everapi/currencyapi-js 
-
 const AddProperties = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -59,7 +56,7 @@ const AddProperties = () => {
         }))
     }
 
-    const addProp = (e, name, type, key) => {
+    const addProp = (e, name, type) => {
         let { id, value, checked } = e.target
 
         setAddProperty((prev) => {
@@ -77,26 +74,7 @@ const AddProperties = () => {
                         },
                     },
                 }
-            }
-            //  else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
-            //     obj = {
-            //         [name]: {
-            //             ...prev[name],
-            //             [key]: {
-            //                 ...prev[name]?.[key],
-            //                 [id]: value,
-            //             },
-            //         },
-            //     }
-            // }
-            else if (name === "location" && key === "street") {
-                obj = {
-                    [name]: {
-                        ...prev[name],
-                        [key]: value,
-                    },
-                };
-            } else {
+            }else {
                 obj = {
                     [name]: {
                         ...prev[name],
@@ -223,7 +201,7 @@ const AddProperties = () => {
                                                                                         data={option}
                                                                                         style={style}
                                                                                         required={required}
-                                                                                        onChange={(e) => addProp(e, name, type, key)}
+                                                                                        onChange={(e) => addProp(e, name, type)}
                                                                                     />
                                                                                     : type === "checkbox"
                                                                                         ? <Checkbox
@@ -338,6 +316,26 @@ const AddProperties = () => {
 }
 
 export default AddProperties
+
+    // else if (name === "location" && key === "street") {
+    //     obj = {
+    //         [name]: {
+    //             ...prev[name],
+    //             [key]: value,
+    //         },
+    //     };
+    // }
+    //  else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
+    //     obj = {
+    //         [name]: {
+    //             ...prev[name],
+    //             [key]: {
+    //                 ...prev[name]?.[key],
+    //                 [id]: value,
+    //             },
+    //         },
+    //     }
+    // }
 
 // const addProp = (e, name, type) => {
     //     let { id, value, checked, files } = e.target;
