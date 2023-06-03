@@ -25,6 +25,9 @@ import { NumSelector } from '../components/inputs/NumSelector'
 import './Styles.scss'
 import { success } from '../../../../components/swal/swal'
 
+// for currency
+// https://www.npmjs.com/package/@everapi/currencyapi-js 
+
 const EditProperties = () => {
     const navigate = useNavigate()
     const params = useParams()
@@ -62,7 +65,7 @@ const EditProperties = () => {
         }))
     }
 
-    const editProp = (e, name, type, key) => {
+    const editProp = (e, name, type) => {
         let { id, value, checked } = e.target
 
         setEditProperty((prev) => {
@@ -80,13 +83,6 @@ const EditProperties = () => {
                         },
                     },
                 }
-            } else if (name === "location" && key === "street") {
-                obj = {
-                    [name]: {
-                        ...prev[name],
-                        [key]: value,
-                    },
-                };
             } else {
                 obj = {
                     [name]: {
@@ -218,7 +214,7 @@ const EditProperties = () => {
                                                                                         value={value}
                                                                                         style={style}
                                                                                         required={required}
-                                                                                        onChange={(e) => editProp(e, name, type, key)}
+                                                                                        onChange={(e) => editProp(e, name, type)}
                                                                                     />
                                                                                     : type === "checkbox"
                                                                                         ? <Checkbox
