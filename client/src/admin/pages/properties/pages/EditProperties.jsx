@@ -12,7 +12,7 @@ import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import { LngPart } from '../components/lngPart/LngPart'
 import { InputText } from '../components/inputs/InputText'
-import YandexMap from '../components/yandexMap/YandexMap'
+import {YandexMap} from '../components/yandexMap/YandexMap'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { EditOwner } from '../components/owner/EditOwner'
@@ -43,7 +43,7 @@ const EditProperties = () => {
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
 
-    const currentPropertyData = currentProperty?.am
+    let currentPropertyData = currentProperty?.am
     const currentPropertyKeywords = currentProperty?.keywords
     const currentPropertyFiles = currentProperty?.file
     const currentPropertyImgs = currentProperty?.photo
@@ -103,6 +103,12 @@ const EditProperties = () => {
         success("Property edited!")
         // setTimeout(() => navigate(-1), 2500)
     }
+
+    const { yandex, keyword, uploadFile, uploadPhoto } = useSelector(state => state.property)
+    console.log(yandex)//
+    console.log(keyword)//
+    // console.log(uploadFile)//
+    // console.log(uploadPhoto)//
 
     return (
         <article className='editproperties'>

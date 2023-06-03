@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setKeyword } from '../../../../../store/slices/propertySlice'
 import { removeKeyword } from '../../../../svgs/svgs'
-import './Keywords.scss'
 import { error } from '../../../../../components/swal/swal'
+import './Keywords.scss'
 
 export const Keywords = ({ title, style, value }) => {
     const [keywords, setKeywords] = useState(value ? value : [])

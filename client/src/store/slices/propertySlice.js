@@ -57,7 +57,7 @@ export const addPropertyData = createAsyncThunk(
   }
 );
 
-// post imgs
+// post added imgs
 export const addPropertyImgs = createAsyncThunk(
   "property/addPropertyImgs",
   async (id, thunkAPI) => {
@@ -72,7 +72,7 @@ export const addPropertyImgs = createAsyncThunk(
   }
 );
 
-// post files
+// post added files
 export const addPropertyFiles = createAsyncThunk(
   "property/addPropertyFiles",
   async (id, thunkAPI) => {
@@ -87,7 +87,7 @@ export const addPropertyFiles = createAsyncThunk(
   }
 );
 
-// post yandex
+// post added yandex
 export const addPropertyYandex = createAsyncThunk(
   "property/addPropertyYandex",
   async (id, thunkAPI) => {
@@ -102,7 +102,7 @@ export const addPropertyYandex = createAsyncThunk(
   }
 );
 
-// post keyword
+// post added keyword
 export const addPropertyKeyword = createAsyncThunk(
   "property/addPropertyKeyword",
   async (id, thunkAPI) => {
@@ -126,11 +126,70 @@ export const editPropertyData = createAsyncThunk(
         editProperty,
         getAxiosConfig()
       );
-      // dispatch(addPropertyImgs(response.data));
+      dispatch(editPropertyImgs(response.data));
       return response.data;
     } catch (err) {
       console.log(`Edit Property Data Sending Error: ${err.message}`);
       throw rejectWithValue(err.message);
+    }
+  }
+);
+
+// post edited imgs
+export const editPropertyImgs = createAsyncThunk(
+  "property/editPropertyImgs",
+  async (propertyId, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      let uploadPhoto = state.property.uploadPhoto;
+      await baseApi.post(`/api/editMultyPhoto/${propertyId}`, uploadPhoto);
+      thunkAPI.dispatch(editPropertyFiles(propertyId));
+    } catch (err) {
+      console.log(`Edit Property Imgs Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post edited files
+export const editPropertyFiles = createAsyncThunk(
+  "property/editPropertyFiles",
+  async (propertyId, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      let uploadFile = state.property.uploadFile;
+      await baseApi.post(`/api/editDocument/${propertyId}`, uploadFile);
+      thunkAPI.dispatch(editPropertyYandex(propertyId));
+    } catch (err) {
+      console.log(`Edit Property Files Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post edited yandex
+export const editPropertyYandex = createAsyncThunk(
+  "property/editPropertyYandex",
+  async (propertyId, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      let yandex = state.property.yandex;
+      await baseApi.post(`/api/editYandexLocation/${propertyId}`, yandex);
+      thunkAPI.dispatch(editPropertyKeyword(propertyId));
+    } catch (err) {
+      console.log(`Edit Property Yandex Data Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post edited keyword
+export const editPropertyKeyword = createAsyncThunk(
+  "property/editPropertyKeyword",
+  async (propertyId, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      let keyword = state.property.keyword;
+      await baseApi.post(`/api/editKeyword/${propertyId}`, keyword);
+    } catch (err) {
+      console.log(`Edit Property Keyword Sending Error: ${err.message}`);
     }
   }
 );
@@ -194,17 +253,17 @@ const structureSlice = createSlice({
       .addCase(editPropertyData.fulfilled, (state, action) => {
         state.postEditLoading = false;
 
-        // if (action.payload) {
-        //   state.uploadPhoto = action.payload;
-        //   state.uploadFile = action.payload;
-        //   state.yandex = action.payload;
-        //   state.keyword = action.payload;
+        if (action.payload) {
+          state.uploadPhoto = action.payload;
+          state.uploadFile = action.payload;
+          state.yandex = action.payload;
+          state.keyword = action.payload;
 
-        //   builder.dispatch(addPropertyImgs({ uploadPhoto: action.payload }));
-        //   builder.dispatch(addPropertyFiles({ uploadFile: action.payload }));
-        //   builder.dispatch(addPropertyYandex({ yandex: action.payload }));
-        //   builder.dispatch(addPropertyKeyword({ keyword: action.payload }));
-        // }
+          builder.dispatch(editPropertyImgs({ uploadPhoto: action.payload }));
+          builder.dispatch(editPropertyFiles({ uploadFile: action.payload }));
+          builder.dispatch(editPropertyYandex({ yandex: action.payload }));
+          builder.dispatch(editPropertyKeyword({ keyword: action.payload }));
+        }
       });
   },
 });

@@ -134,7 +134,8 @@ const mapOptions = {
 // };
 
 
-const YandexMap = ({ title, defValue, style, height }) => {
+export const YandexMap = ({ title, defValue, style, height }) => {
+    const dispatch = useDispatch()
 
     const initialState = {
         title: "",
@@ -142,7 +143,6 @@ const YandexMap = ({ title, defValue, style, height }) => {
         zoom: 17,
     }
 
-    const dispatch = useDispatch()
     const [state, setState] = useState({ ...initialState })
     const [placemark, setPlacemark] = useState(defValue ? defValue : [])
     const [mapConstructor, setMapConstructor] = useState(null)
@@ -165,7 +165,6 @@ const YandexMap = ({ title, defValue, style, height }) => {
     // };
 
     // search popup
-   
     useEffect(() => {
         if (mapConstructor) {
             new mapConstructor.SuggestView(searchRef.current).events.add("select", function (e) {
@@ -180,19 +179,19 @@ const YandexMap = ({ title, defValue, style, height }) => {
         }
     }, [dispatch, mapConstructor])
 
-    // change title
-    const handleBoundsChange = () => {
-        const newCoords = mapRef.current.getCenter();
-        mapConstructor.geocode(newCoords).then((res) => {
-            const nearest = res.geoObjects.get(0);
-            const foundAddress = nearest.properties.get("text")
-            const [centerX, centerY] = nearest.geometry.getCoordinates()
-            const [initialCenterX, initialCenterY] = initialState.center
-            if (centerX !== initialCenterX && centerY !== initialCenterY) {
-                setState((prevState) => ({ ...prevState, title: foundAddress }))
-            }
-        })
-    }
+    // change title on mouse scroll
+    // const handleBoundsChange = () => {
+    //     const newCoords = mapRef.current.getCenter();
+    //     mapConstructor.geocode(newCoords).then((res) => {
+    //         const nearest = res.geoObjects.get(0);
+    //         const foundAddress = nearest.properties.get("text")
+    //         const [centerX, centerY] = nearest.geometry.getCoordinates()
+    //         const [initialCenterX, initialCenterY] = initialState.center
+    //         if (centerX !== initialCenterX && centerY !== initialCenterY) {
+    //             setState((prevState) => ({ ...prevState, title: foundAddress }))
+    //         }
+    //     })
+    // }
 
     // change placemark
     const handleClick = (event) => {
@@ -203,15 +202,15 @@ const YandexMap = ({ title, defValue, style, height }) => {
 
     return (
         <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
-            <div >
+            {/* <div >
                 <div >
                     <p title={state.title}>
                         {state.title}
                     </p>
-                    {/* <BtnCustom type="button" onClick={handleReset} text='Default place' /> */}
+                    // <BtnCustom type="button" onClick={handleReset} text='Default place' />
                 </div>
-                {/* <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' /> */}
-            </div>
+                // <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' />
+            </div> */}
 
             {title}
 
@@ -226,12 +225,11 @@ const YandexMap = ({ title, defValue, style, height }) => {
                     {...mapOptions}
                     state={state}
                     onLoad={setMapConstructor}
-                    onBoundsChange={handleBoundsChange}
+                    // onBoundsChange={handleBoundsChange}
                     instanceRef={mapRef}
                     width={style}
                     height={height}
                     onClick={handleClick}
-                // className="yandex__map-ymap"
                 >
                     <Placemark geometry={placemark} />
                     {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
@@ -242,7 +240,4 @@ const YandexMap = ({ title, defValue, style, height }) => {
         </YMaps>
     )
 }
-
-export default YandexMap
-
 //https://codesandbox.io/s/yandex-map-search-organization-dutdr?file=/src/YmapsComponent.tsx:633-668
