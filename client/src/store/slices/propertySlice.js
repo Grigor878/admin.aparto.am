@@ -7,11 +7,12 @@ const initialState = {
   structure: null,
   propertyLoading: false,
   propertyData: null,
-  postLoading: false,
+  postAddLoading: false,
   uploadPhoto: {},
   uploadFile: {},
   yandex: [],
   keyword: [],
+  postEditLoading: false,
 };
 
 // get property structure
@@ -115,6 +116,25 @@ export const addPropertyKeyword = createAsyncThunk(
   }
 );
 
+// post edited data
+export const editPropertyData = createAsyncThunk(
+  "property/editPropertyData",
+  async ({ editProperty }, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await baseApi.post(
+        "/api/editHome",
+        editProperty,
+        getAxiosConfig()
+      );
+      // dispatch(addPropertyImgs(response.data));
+      return response.data;
+    } catch (err) {
+      console.log(`Edit Property Data Sending Error: ${err.message}`);
+      throw rejectWithValue(err.message);
+    }
+  }
+);
+
 const structureSlice = createSlice({
   name: "property",
   initialState,
@@ -148,11 +168,12 @@ const structureSlice = createSlice({
         state.propertyLoading = false;
         state.propertyData = action.payload;
       })
+      // add property
       .addCase(addPropertyData.pending, (state) => {
-        state.postLoading = true;
+        state.postAddLoading = true;
       })
       .addCase(addPropertyData.fulfilled, (state, action) => {
-        state.postLoading = false;
+        state.postAddLoading = false;
 
         if (action.payload) {
           state.uploadPhoto = action.payload;
@@ -165,6 +186,25 @@ const structureSlice = createSlice({
           builder.dispatch(addPropertyYandex({ yandex: action.payload }));
           builder.dispatch(addPropertyKeyword({ keyword: action.payload }));
         }
+      })
+      // edit property
+      .addCase(editPropertyData.pending, (state) => {
+        state.postEditLoading = true;
+      })
+      .addCase(editPropertyData.fulfilled, (state, action) => {
+        state.postEditLoading = false;
+
+        // if (action.payload) {
+        //   state.uploadPhoto = action.payload;
+        //   state.uploadFile = action.payload;
+        //   state.yandex = action.payload;
+        //   state.keyword = action.payload;
+
+        //   builder.dispatch(addPropertyImgs({ uploadPhoto: action.payload }));
+        //   builder.dispatch(addPropertyFiles({ uploadFile: action.payload }));
+        //   builder.dispatch(addPropertyYandex({ yandex: action.payload }));
+        //   builder.dispatch(addPropertyKeyword({ keyword: action.payload }));
+        // }
       });
   },
 });

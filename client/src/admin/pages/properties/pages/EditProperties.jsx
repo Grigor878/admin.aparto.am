@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPropertyData } from '../../../../store/slices/propertySlice'
+import { editPropertyData, getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
@@ -23,8 +23,10 @@ import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
 import './Styles.scss'
+import { success } from '../../../../components/swal/swal'
 
 const EditProperties = () => {
+    const navigate = useNavigate()
     const params = useParams()
     const propertyId = Number(params.id)
 
@@ -101,7 +103,9 @@ const EditProperties = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        alert('clicked')
+        dispatch(editPropertyData({ editProperty }))
+        success("Property edited!")
+        setTimeout(() => navigate(-1), 2500)
     }
 
     return (
