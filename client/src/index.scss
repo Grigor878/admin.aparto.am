@@ -58,6 +58,8 @@ body {
 }
 
 .loader {
+  width: 100%;
+  background: $bgAdmin;
   z-index: 99;
   @include flexCenter;
   margin: 0 auto;

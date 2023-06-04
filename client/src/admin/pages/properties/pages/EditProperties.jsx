@@ -12,7 +12,7 @@ import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import { LngPart } from '../components/lngPart/LngPart'
 import { InputText } from '../components/inputs/InputText'
-import {YandexMap} from '../components/yandexMap/YandexMap'
+import { YandexMap } from '../components/yandexMap/YandexMap'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
 import { EditOwner } from '../components/owner/EditOwner'
@@ -48,7 +48,7 @@ const EditProperties = () => {
     const currentPropertyFiles = currentProperty?.file
     const currentPropertyImgs = currentProperty?.photo
 
-    // console.log(currentPropertyData)//
+    console.log(currentPropertyData)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
@@ -104,9 +104,9 @@ const EditProperties = () => {
         // setTimeout(() => navigate(-1), 2500)
     }
 
-    const { yandex, keyword, uploadFile, uploadPhoto } = useSelector(state => state.property)
-    console.log(yandex)//
-    console.log(keyword)//
+    // const { yandex, keyword, uploadFile, uploadPhoto } = useSelector(state => state.property)
+    // console.log(yandex)//
+    // console.log(keyword)//
     // console.log(uploadFile)//
     // console.log(uploadPhoto)//
 
@@ -256,10 +256,23 @@ const EditProperties = () => {
                                             </div>
                                         )
                                     })}
+                                    addedChild={added.map(({ key, style, title, type }) => {
+                                        return (
+                                            <LngPart
+                                                key={key}
+                                                id={key}
+                                                title={title}
+                                                style={style}
+                                                // required={required}
+                                                onChange={(e) => editProp(e, name, type)}
+                                            />
+                                        )
+                                    })}
                                 />
                             )
                         })}
                     </div>
+
 
                     {/* Right part */}
                     <div className='addproperties__right'>

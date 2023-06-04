@@ -9,13 +9,12 @@ import { DisabledInput } from '../../../../components/inputs/DisabledInput'
 
 export const Personal = () => {
     const dispatch = useDispatch()
+
     const { photo, full_name, role, phone, email } = useSelector((state => state.userGlobal.userGlobal))
 
     const hanldeLogOut = () => {
         dispatch(logout())
     }
-
-    console.log(photo)
 
     return (
         <>
@@ -29,7 +28,8 @@ export const Personal = () => {
 
             <div className='profile__data'>
                 <div className='profile__data-userImg'>
-                    {!photo.length
+                    {/* {!photo?.length */}
+                    {photo === null
                         ? <img src={userImg} alt="User" />
                         : <img src={API_BASE_URL + '/images/' + photo} alt="User" />
                     }

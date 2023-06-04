@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../../store/slices/usersSlice'
+import { getUserGlobal } from '../../../../store/slices/userGlobalSlice'
 import { Loader } from '../../../../components/loader/Loader'
 import { useNavigate, useParams } from 'react-router-dom'
 import AddPart from '../../../components/addPart/AddPart'
@@ -116,11 +117,12 @@ const EditUsers = () => {
         baseApi.post('/api/editUser', formData)
             .then((res) => {
                 success(res.data.status)
-                navigate(-1)
+                dispatch(getUserGlobal())
             })
             .catch(err => error(err.message))
             .finally(() => {
                 setLoading(false)
+                navigate(-1)
             })
     }
 

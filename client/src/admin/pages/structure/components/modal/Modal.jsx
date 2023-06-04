@@ -20,22 +20,22 @@ export const Modal = ({ title, active, setActive, name }) => {
     const postAddedField = () => {
         if (arm && rus && eng) {
 
-            let uniqueId = name + capitalize(eng.toLowerCase().split(' ').join(''))
+            let uniqueId = name + capitalize(eng.toLowerCase().split(' ').join('')) + 'Added'
 
             let am = {
                 name: name,
-                id: uniqueId,
-                val: arm
+                key: uniqueId,
+                title: arm
             }
             let ru = {
                 name: name,
-                id: uniqueId,
-                val: rus
+                key: uniqueId,
+                title: rus
             }
             let en = {
                 name: name,
-                id: uniqueId,
-                val: eng
+                key: uniqueId,
+                title: eng
             }
 
             setArm("")
@@ -44,7 +44,7 @@ export const Modal = ({ title, active, setActive, name }) => {
             setActiveFlag('am')
 
             const addedField = { am, en, ru }
-            // console.log(addedField)//
+            console.log(addedField)//
             dispatch(addStructureField({ addedField }))
             setActive(true)
             success('Field added !')

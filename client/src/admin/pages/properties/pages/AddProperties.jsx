@@ -16,7 +16,7 @@ import { LngPart } from '../components/lngPart/LngPart'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import { MultiSelect } from '../components/dropdowns/MultiSelect'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
-import {YandexMap} from '../components/yandexMap/YandexMap'
+import { YandexMap } from '../components/yandexMap/YandexMap'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputText } from '../components/inputs/InputText'
 import { InputNumSingle } from '../components/inputs/InputNumSingle'
@@ -74,7 +74,7 @@ const AddProperties = () => {
                         },
                     },
                 }
-            }else {
+            } else {
                 obj = {
                     [name]: {
                         ...prev[name],
@@ -87,7 +87,7 @@ const AddProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log(addProperty)//
+    console.log(addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -231,8 +231,19 @@ const AddProperties = () => {
                                                 }
                                             </div>
                                         )
-                                    })
-                                    }
+                                    })}
+                                    addedChild={added.map(({ key, style, title, type }) => {
+                                        return (
+                                            <LngPart
+                                                key={key}
+                                                id={key}
+                                                title={title}
+                                                style={style}
+                                                // required={required}
+                                                onChange={(e) => addProp(e, name, type)}
+                                            />
+                                        )
+                                    })}
                                 />
                             )
                         })}
