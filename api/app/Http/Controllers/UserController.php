@@ -39,7 +39,7 @@ class UserController extends Controller
                 // }
             }
             if($avatarStatus=='removed'){
-                $user->photo = "";
+                $user->photo = NULL;
             }elseif ($avatarStatus=='changed') {
                 $user->photo = $fileName;
             }

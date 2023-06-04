@@ -309,16 +309,7 @@ class GarbageController extends Controller
           [
             'name' => "price",
             'title'=> "Գինը",
-            'added'=> [
-              [
-                "key" => "priceAdded",
-                "title" => "Ավել Գինը*",
-                "type" => "inputText",
-                "style" => "width:80%",
-                "value" => '',
-                "option" => []
-              ],
-            ],
+            'added'=> [],
             "fields" => [
               [
                 "key" => "totalPrice",
@@ -1586,16 +1577,7 @@ class GarbageController extends Controller
             [
             'name' => "price",
             'title'=> "Цена",
-            'added'=> [
-                [
-                "key" => "priceAdded",
-                "title" => "Больше Цена*",
-                "type" => "inputText",
-                "style" => "width:80%",
-                "value" => '',
-                "option" => []
-                ],
-            ],
+            'added'=> [],
             "fields" => [
                 [
                 "key" => "totalPrice",
@@ -2352,16 +2334,7 @@ class GarbageController extends Controller
             [
             'name' => "price",
             'title'=> "Price",
-            'added'=> [
-                [
-                "key" => "priceAdded",
-                "title" => "Big price*",
-                "type" => "inputText",
-                "style" => "width:80%",
-                "value" => '',
-                "option" => []
-                ],
-            ],
+            'added'=> [],
             "fields" => [
                 [
                 "key" => "totalPrice",

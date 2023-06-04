@@ -69,8 +69,18 @@ class HomeController extends Controller
         }
     }
 
-    public function editHome(Request $request){
-        dd($request->all());
+    public function editHome($id, Request $request){
+        $data = $request->all();
+        $home = Home::findorFail($id);
+        
+        $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
+        dd(1111);
+        // $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+        $home->am =json_encode($homeLanguageContsructor['am']);
+        $home->ru =json_encode($homeLanguageContsructor['ru']);
+        $home->en =json_encode($homeLanguageContsructor['en']);
+        $home->save();
+        return response()->json($home->id);
     }
 
     public function getHome() {

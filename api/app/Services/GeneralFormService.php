@@ -35,35 +35,48 @@ class GeneralFormService
             if($data['am']['name'] == $value->name){
               if(isset($value->added)){
                 $value->added[] = [
-                  'key' => $data['am']['id'],
+                  'key' => $data['am']['id'] + 'Added',
                   "title" => $data['am']['val'],
-                  "type" => "inputText",
-                  "style" => 'width:80%'
+                  "value" => '',
+                  "type" => "text",
+                  "style" => 'width:629px'
                 ];
               }
             }
           };
         }
 
-        // if($form->ru){
-        //   foreach ($form->ru as $key => $value) {
-        //     if($data['ru']['name'] == $value->name){
-        //       if(isset($value->added)){
-        //         $value->added[] = [$data['ru']['id'] => $data['ru']['val']];
-        //       }
-        //     }
-        //   };
-        // }
+        if($form->ru){
+          foreach ($form->ru as $key => $value) {
+            if($data['ru']['name'] == $value->name){
+              if(isset($value->added)){
+                $value->added[] = [
+                  'key' => $data['ru']['id'] + "Added",
+                  "title" => $data['ru']['val'],
+                  "value" => '',
+                  "type" => "text",
+                  "style" => 'width:629px'
+                ];
+              }
+            }
+          };
+        }
 
-        // if($form->en){
-        //   foreach ($form->en as $key => $value) {
-        //     if($data['en']['name'] == $value->name){
-        //       if(isset($value->added)){
-        //         $value->added[] = [$data['en']['id'] => $data['en']['val']];
-        //       }
-        //     }
-        //   };
-        // }
+        if($form->en){
+          foreach ($form->en as $key => $value) {
+            if($data['en']['name'] == $value->name){
+              if(isset($value->added)){
+                $value->added[] = [
+                  'key' => $data['en']['id'] + "Added",
+                  "title" => $data['en']['val'],
+                  "value" => '',
+                  "type" => "text",
+                  "style" => 'width:629px'
+                ];
+              }
+            }
+          };
+        }
 
         GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
         // GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am), 'ru'=> json_encode($form->ru), 'en'=> json_encode($form->en)]);
