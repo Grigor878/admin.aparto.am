@@ -7,79 +7,70 @@ class GeneralFormService
 {
     public function getFormStructure()
     {
-        $formStructure = FORM_STRUCTURE;
-        $getForm = GlobalForm::findOrFail(1);
-        $phpData = json_decode($getForm['am'], true);
-        foreach ($formStructure as $key => $value) {
-            if(isset($phpData[$key])){
-                foreach ($phpData[$key] as $idx => $addVal) {
-                    array_push($value, $addVal);
-                }
-                $formStructure[$key] = $value;
-            }
-        }
-        return $formStructure;
+        // $formStructure = [];
+        // $getForm = GlobalForm::findOrFail(1);
+        // $phpData = json_decode($getForm['am'], true);
+        // foreach ($formStructure as $key => $value) {
+        //     if(isset($phpData[$key])){
+        //         foreach ($phpData[$key] as $idx => $addVal) {
+        //             array_push($value, $addVal);
+        //         }
+        //         $formStructure[$key] = $value;
+        //     }
+        // }
+        // return $formStructure;
     }
 
     public function addGeneralField($data) {
+
         $form = GlobalForm::findorFail(1);
         $form->am = json_decode($form->am);
-
-        // $form = GlobalForm::findorFail(1);
-        // $form->am = json_decode($form->am);
-        // $form->ru = json_decode($form->ru);
-        // $form->en = json_decode($form->en);
-        //str i texy $form->am
-        if($form->am){
-          foreach ($form->am as $key => $value) {
-            if($data['am']['name'] == $value->name){
-              if(isset($value->added)){
-                $value->added[] = [
-                  'key' => $data['am']['id'] + 'Added',
-                  "title" => $data['am']['val'],
-                  "value" => '',
-                  "type" => "text",
-                  "style" => 'width:629px'
-                ];
-              }
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
+        
+        foreach ($form->am as $index => $value) {
+          if((string) $value->name == $data['am']['name']){
+            if(isset($value->added)){
+              $value->added[] = [
+                'key' => $data['am']['key'],
+                "title" => $data['am']['title'],
+                "value" => '',
+                "type" => "text",
+                "allAnswers" => [],
+                "style" => '629px'
+              ];
             }
-          };
+          }
+        }
+        foreach ($form->ru as $index => $value) {
+          if((string) $value->name == $data['ru']['name']){
+            if(isset($value->added)){
+              $value->added[] = [
+                'key' => $data['ru']['key'],
+                "title" => $data['ru']['title'],
+                "value" => '',
+                "type" => "text",
+                "style" => '629px'
+              ];
+            }
+          }
+        }
+        foreach ($form->en as $index => $value) {
+          if((string) $value->name == $data['en']['name']){
+            if(isset($value->added)){
+              $value->added[] = [
+                'key' => $data['en']['key'],
+                "title" => $data['en']['title'],
+                "value" => '',
+                "type" => "text",
+                "style" => '629px'
+              ];
+            }
+          }
         }
 
-        if($form->ru){
-          foreach ($form->ru as $key => $value) {
-            if($data['ru']['name'] == $value->name){
-              if(isset($value->added)){
-                $value->added[] = [
-                  'key' => $data['ru']['id'] + "Added",
-                  "title" => $data['ru']['val'],
-                  "value" => '',
-                  "type" => "text",
-                  "style" => 'width:629px'
-                ];
-              }
-            }
-          };
-        }
-
-        if($form->en){
-          foreach ($form->en as $key => $value) {
-            if($data['en']['name'] == $value->name){
-              if(isset($value->added)){
-                $value->added[] = [
-                  'key' => $data['en']['id'] + "Added",
-                  "title" => $data['en']['val'],
-                  "value" => '',
-                  "type" => "text",
-                  "style" => 'width:629px'
-                ];
-              }
-            }
-          };
-        }
-
-        GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
-        // GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am), 'ru'=> json_encode($form->ru), 'en'=> json_encode($form->en)]);
+        GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am), 'ru'=> json_encode($form->ru), 'en'=> json_encode($form->en)]);
+        return true;
     }
 
     public function removeGeneralField ($data) {
