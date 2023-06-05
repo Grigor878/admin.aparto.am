@@ -14,7 +14,7 @@ const Table = ({ Data, Columns, type }) => {
       defaultSortFieldId={1}
       pagination={type === 'addresses' || type === 'users' ? true : false}
       paginationPerPage={20}
-      paginationRowsPerPageOptions={[20, 30, 40, 50]}
+      paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
     />
   )
 }

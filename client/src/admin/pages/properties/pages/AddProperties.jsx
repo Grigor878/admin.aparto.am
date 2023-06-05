@@ -104,7 +104,7 @@ const AddProperties = () => {
                 setLoading(false)
                 success("Property added!")
                 navigate(-1)
-            }, 3300)
+            }, 3500)
         }
     }
 

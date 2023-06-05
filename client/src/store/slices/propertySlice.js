@@ -66,6 +66,7 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
       thunkAPI.dispatch(addPropertyFiles(id));
+      console.warn("imgs uploaded,files in loading"); //
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
@@ -81,6 +82,7 @@ export const addPropertyFiles = createAsyncThunk(
       let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
       thunkAPI.dispatch(addPropertyYandex(id));
+      console.warn("files uploaded,yandex in loading"); //
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
     }
@@ -96,6 +98,7 @@ export const addPropertyYandex = createAsyncThunk(
       let yandex = state.property.yandex;
       await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
       thunkAPI.dispatch(addPropertyKeyword(id));
+      console.warn("yandex uploaded,keywords in loading"); //
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
     }
@@ -110,6 +113,7 @@ export const addPropertyKeyword = createAsyncThunk(
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
       await baseApi.post(`/api/addKeyword/${id}`, keyword);
+      console.warn("keywords uploaded"); //
     } catch (err) {
       console.log(`Add Property Keyword Sending Error: ${err.message}`);
     }
