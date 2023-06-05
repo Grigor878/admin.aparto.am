@@ -102,6 +102,7 @@ const EditProperties = () => {
         e.preventDefault()
         dispatch(editPropertyData({ editProperty, propertyId }))
         success("Property edited!")
+        navigate(-1)
         // setTimeout(() => navigate(-1), 2500)
     }
 

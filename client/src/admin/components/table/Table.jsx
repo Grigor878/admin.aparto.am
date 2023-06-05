@@ -2,7 +2,7 @@ import React from 'react'
 import DataTable from 'react-data-table-component'
 import './Table.scss'
 
-const Table = ({ Data, Columns }) => {
+const Table = ({ Data, Columns, type }) => {
   const data = Data
   const columns = Columns
 
@@ -12,9 +12,9 @@ const Table = ({ Data, Columns }) => {
       data={data}
       fixedHeader
       defaultSortFieldId={1}
-    // data-tag="allowRowEvents"
-    // pagination
-    // progressPending={<Loading />}
+      pagination={type === 'addresses' || type === 'users' ? true : false}
+      paginationPerPage={20}
+      paginationRowsPerPageOptions={[20, 30, 40, 50]}
     />
   )
 }

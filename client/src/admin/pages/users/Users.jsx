@@ -22,9 +22,9 @@ const Users = () => {
   return (
     <article className='users'>
       <TopPart
-       data={role === "admin" ? users : approvedUsers} 
-       type="users"
-       />
+        data={role === "admin" ? users : approvedUsers}
+        type="users"
+      />
 
       <div className="users__table">
         {loading && <Loader />}
@@ -33,6 +33,7 @@ const Users = () => {
           ? <Table
             Data={role === "admin" ? users : approvedUsers}
             Columns={role === "admin" ? userAdminColumns : userCustomColumns}
+            type='users'
           />
           : null}
       </div>

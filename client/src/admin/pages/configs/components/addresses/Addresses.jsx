@@ -98,6 +98,7 @@ export const Addresses = () => {
           : <Table
             Data={filteredData}
             Columns={adressColumns}
+            type='addresses'
           />
         }
       </div>

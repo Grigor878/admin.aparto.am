@@ -3,16 +3,14 @@ import { Search } from '../../../../components/inputs/Search'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { calendar } from '../../../../svgs/svgs'
+import Table from '../../../../components/table/Table'
 import { searchColumns, searchTypes, searches } from './data'
 import './Searches.scss'
-import Table from '../../../../components/table/Table'
 
 export const Searches = () => {
     const [search, setSearch] = useState("")
     const [date, setDate] = useState(null)
     const [select, setSelect] = useState("Որոնման տեսակ")
-
-    console.log(date)
 
     return (
         <section className='searches'>
@@ -51,6 +49,7 @@ export const Searches = () => {
                 <Table
                     Data={searches}
                     Columns={searchColumns}
+                    type="searches"
                 />
             </div>
         </section>
