@@ -101,8 +101,8 @@ const AddProperties = () => {
             dispatch(addPropertyData({ addProperty }))
 
             setTimeout(() => {
-                setLoading(false)
                 success("Property added!")
+                setLoading(false)
                 navigate(-1)
             }, 3500)
         }
