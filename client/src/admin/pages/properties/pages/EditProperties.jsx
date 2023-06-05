@@ -11,6 +11,7 @@ import { InputNum } from '../components/inputs/InputNum'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
 import { LngPart } from '../components/lngPart/LngPart'
+import { LngPartSmall } from '../components/lngPart/LngPartSmall'
 import { InputText } from '../components/inputs/InputText'
 import { YandexMap } from '../components/yandexMap/YandexMap'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
@@ -22,8 +23,8 @@ import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
-import './Styles.scss'
 import { success } from '../../../../components/swal/swal'
+import './Styles.scss'
 
 // for currency
 // https://www.npmjs.com/package/@everapi/currencyapi-js 
@@ -48,7 +49,7 @@ const EditProperties = () => {
     const currentPropertyFiles = currentProperty?.file
     const currentPropertyImgs = currentProperty?.photo
 
-    console.log(currentPropertyData)//
+    // console.log(currentPropertyData)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
@@ -95,7 +96,7 @@ const EditProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    console.log(editProperty)//
+    // console.log(editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -345,6 +346,18 @@ const EditProperties = () => {
                                                                             />
                                                                             : null
                                                 }
+                                            </div>
+                                        )
+                                    })}
+                                    addedChild={added.map(({ key, style, title, type }) => {
+                                        return (
+                                            <div key={key} style={{ width: "100%" }}>
+                                                <LngPartSmall
+                                                    id={key}
+                                                    title={title}
+                                                    style={style}
+                                                    onChange={(e) => editProp(e, name, type)}
+                                                />
                                             </div>
                                         )
                                     })}

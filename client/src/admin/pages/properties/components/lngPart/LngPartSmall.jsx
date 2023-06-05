@@ -3,7 +3,7 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const LngPart = ({ title, value, id, style, required, onChange }) => {
+export const LngPartSmall = ({ title, value, id, style, required, onChange }) => {
     const [activeFlag, setActiveFlag] = useState('am')
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
@@ -32,9 +32,9 @@ export const LngPart = ({ title, value, id, style, required, onChange }) => {
     let placeholder = title.endsWith("*")
         ? title?.split(" ").pop().slice(0, -1).toLowerCase() + "ը"
         : title?.toLowerCase()
-
+        
     return (
-        <div key={id} style={{ width: style }}>
+        <div key={id}>
             <ul className="addproperties__card-flags">
                 {flags.map(({ country_code }) => (
                     <li key={country_code}>

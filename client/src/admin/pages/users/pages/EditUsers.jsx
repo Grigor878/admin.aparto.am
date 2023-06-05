@@ -85,9 +85,7 @@ const EditUsers = () => {
     }
 
     const handleSubmit = (e) => {
-
         setLoading(true)
-
         e.preventDefault()
 
         let userInfo = {
@@ -104,15 +102,12 @@ const EditUsers = () => {
             },
             role: role,
         }
-        // console.log("test", userInfo)//
 
         const formData = new FormData()
         formData.append('file', uploaded)
         formData.append('fileName', uploaded?.name)
         formData.append('avatarChangeStatus', statusPhoto)
         formData.append('userEditedInfo', JSON.stringify(userInfo))
-
-        // console.log("test2", formData)//
 
         baseApi.post('/api/editUser', formData)
             .then((res) => {
