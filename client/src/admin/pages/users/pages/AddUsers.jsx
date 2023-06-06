@@ -41,7 +41,6 @@ const AddUsers = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         setLoading(true)
 
         let userInfo = {

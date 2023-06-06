@@ -85,8 +85,8 @@ const EditUsers = () => {
     }
 
     const handleSubmit = (e) => {
-        setLoading(true)
         e.preventDefault()
+        setLoading(true)
 
         let userInfo = {
             id: userId,

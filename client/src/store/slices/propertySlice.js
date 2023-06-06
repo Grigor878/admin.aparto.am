@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { getAxiosConfig } from "../../apis/config";
+import { success } from "../../components/swal/swal";
+import { APP_BASE_URL } from "../../apis/config";
 
 const initialState = {
   structureLoading: false,
@@ -41,18 +43,18 @@ export const getPropertyData = createAsyncThunk(
 // post added data
 export const addPropertyData = createAsyncThunk(
   "property/addPropertyData",
-  async ({ addProperty }, { rejectWithValue, dispatch }) => {
+  async ({ addProperty }, thunkAPI) => {
     try {
       const response = await baseApi.post(
         "/api/addHome",
         addProperty,
         getAxiosConfig()
       );
-      dispatch(addPropertyImgs(response.data));
+      thunkAPI.dispatch(addPropertyImgs(response.data));
       return response.data;
     } catch (err) {
       console.log(`Add Property Data Sending Error: ${err.message}`);
-      throw rejectWithValue(err.message);
+      throw err;
     }
   }
 );
@@ -66,7 +68,6 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
       thunkAPI.dispatch(addPropertyFiles(id));
-      console.warn("imgs uploaded,files in loading"); //
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
@@ -82,7 +83,6 @@ export const addPropertyFiles = createAsyncThunk(
       let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
       thunkAPI.dispatch(addPropertyYandex(id));
-      console.warn("files uploaded,yandex in loading"); //
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
     }
@@ -98,7 +98,6 @@ export const addPropertyYandex = createAsyncThunk(
       let yandex = state.property.yandex;
       await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
       thunkAPI.dispatch(addPropertyKeyword(id));
-      console.warn("yandex uploaded,keywords in loading"); //
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
     }
@@ -112,8 +111,8 @@ export const addPropertyKeyword = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
-      await baseApi.post(`/api/addKeyword/${id}`, keyword);
-      console.warn("keywords uploaded"); //
+      const response = await baseApi.post(`/api/addKeyword/${id}`, keyword);
+      return response.status;
     } catch (err) {
       console.log(`Add Property Keyword Sending Error: ${err.message}`);
     }
@@ -235,39 +234,21 @@ const structureSlice = createSlice({
       .addCase(addPropertyData.pending, (state) => {
         state.postAddLoading = true;
       })
-      .addCase(addPropertyData.fulfilled, (state, action) => {
+      // .addCase(addPropertyData.fulfilled, (state) => {
+      //   state.postAddLoading = false;
+      // })
+      .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
-
-        if (action.payload) {
-          state.uploadPhoto = action.payload;
-          state.uploadFile = action.payload;
-          state.yandex = action.payload;
-          state.keyword = action.payload;
-
-          builder.dispatch(addPropertyImgs({ uploadPhoto: action.payload }));
-          builder.dispatch(addPropertyFiles({ uploadFile: action.payload }));
-          builder.dispatch(addPropertyYandex({ yandex: action.payload }));
-          builder.dispatch(addPropertyKeyword({ keyword: action.payload }));
-        }
+        success("Property added!");
+        window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
       .addCase(editPropertyData.pending, (state) => {
         state.postEditLoading = true;
       })
-      .addCase(editPropertyData.fulfilled, (state, action) => {
+      .addCase(editPropertyData.fulfilled, (state) => {
         state.postEditLoading = false;
-
-        if (action.payload) {
-          state.uploadPhoto = action.payload;
-          state.uploadFile = action.payload;
-          state.yandex = action.payload;
-          state.keyword = action.payload;
-
-          builder.dispatch(editPropertyImgs({ uploadPhoto: action.payload }));
-          builder.dispatch(editPropertyFiles({ uploadFile: action.payload }));
-          builder.dispatch(editPropertyYandex({ yandex: action.payload }));
-          builder.dispatch(editPropertyKeyword({ keyword: action.payload }));
-        }
       });
   },
 });
