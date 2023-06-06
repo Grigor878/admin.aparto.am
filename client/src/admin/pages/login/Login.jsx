@@ -1,22 +1,21 @@
 import React from 'react'
 import './Login.scss'
 import { LoginForm } from './components/form/LoginForm'
-// import axios from 'axios'
-// import { API_BASE_URL } from '../../../apis/config'
+import { useSelector } from 'react-redux'
+import { Loader } from '../../../components/loader/Loader'
 
 const Login = () => {
-    
-    // axios.post(API_BASE_URL + "/api/signin")
-    // .then(
-    //     response => {
-    //        console.log(response.data, 88);
-    //     })
-  
+    const { loading } = useSelector(state => state.auth)
+
     return (
-        <article className='login'>
-            <h3>Login</h3>
-            <LoginForm />
-        </article>
+        <article className='login' >
+            {loading
+                ? <Loader />
+                : <>
+                    <h3>Login</h3>
+                    <LoginForm />
+                </>}
+        </article >
     )
 }
 

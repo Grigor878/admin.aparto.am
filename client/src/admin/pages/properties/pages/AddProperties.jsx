@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
@@ -30,18 +29,17 @@ import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/owner/AddOwner'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
-import { error, success } from '../../../../components/swal/swal'
+import { error } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const AddProperties = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getPropertyStructure())
     }, [dispatch])
 
-    const { structure, yandex } = useSelector((state) => state.property)
+    const { structure, yandex, postAddLoading } = useSelector((state) => state.property)
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
@@ -92,24 +90,21 @@ const AddProperties = () => {
     // console.log(addProperty)//
 
     const handleSubmit = (e) => {
-        setLoading(true)
         e.preventDefault()
+        setLoading(true)
 
         if (!yandex.length) {
             error('Chosse yandex location!')
+            setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))
-
-            setTimeout(() => {
-                success("Property added!")
-                setLoading(false)
-                navigate(-1)
-            }, 3500)
+            setLoading(false)
         }
     }
 
+
     return (
-        loading
+        (loading && !postAddLoading) || (!loading && postAddLoading)
             ? <Loader />
             : <article className='addproperties'>
                 <AddPart type="addProperties" />

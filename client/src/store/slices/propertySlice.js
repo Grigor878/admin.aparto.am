@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { getAxiosConfig } from "../../apis/config";
+import { success } from "../../components/swal/swal";
+import { APP_BASE_URL } from "../../apis/config";
 
 const initialState = {
   structureLoading: false,
@@ -66,7 +68,6 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
       thunkAPI.dispatch(addPropertyFiles(id));
-      console.log("uploadPhoto", uploadPhoto); //
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
@@ -82,7 +83,6 @@ export const addPropertyFiles = createAsyncThunk(
       let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
       thunkAPI.dispatch(addPropertyYandex(id));
-      console.log("uploadFile", uploadFile); //
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
     }
@@ -98,7 +98,6 @@ export const addPropertyYandex = createAsyncThunk(
       let yandex = state.property.yandex;
       await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
       thunkAPI.dispatch(addPropertyKeyword(id));
-      console.log("yandex", yandex); //
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
     }
@@ -112,8 +111,8 @@ export const addPropertyKeyword = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
-      await baseApi.post(`/api/addKeyword/${id}`, keyword);
-      console.log("keyword", keyword); //
+      const response = await baseApi.post(`/api/addKeyword/${id}`, keyword);
+      return response.status;
     } catch (err) {
       console.log(`Add Property Keyword Sending Error: ${err.message}`);
     }
@@ -235,8 +234,14 @@ const structureSlice = createSlice({
       .addCase(addPropertyData.pending, (state) => {
         state.postAddLoading = true;
       })
-      .addCase(addPropertyData.fulfilled, (state) => {
+      // .addCase(addPropertyData.fulfilled, (state) => {
+      //   state.postAddLoading = false;
+      // })
+      .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
+        success("Property added!");
+        window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
       .addCase(editPropertyData.pending, (state) => {
