@@ -48,13 +48,17 @@ Route::group(['middleware' => 'api'], function ($router) {
 
  //HomeController form routes
     Route::post('/addHome',  [HomeController::class, 'addHome']);
-    Route::post('/editHome/{id}',  [HomeController::class, 'editHome']);
     Route::post('/addKeyword/{id}',  [HomeController::class, 'addKeyword']);
     Route::post('/addYandexLocation/{id}',  [HomeController::class, 'addYandexLocation']);
     Route::post('/multyPhoto/{id}',  [HomeController::class, 'multyPhoto']);
     Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
     Route::get('/getHome',  [HomeController::class, 'getHome']);
 
-
+    //Home Edit apis
+    Route::post('/editHome/{id}',  [HomeController::class, 'editHome']);
+    Route::post('/editKeyword/{id}',  [HomeController::class, 'editKeyword']);
+    Route::post('/editYandexLocation/{id}',  [HomeController::class, 'editYandexLocation']);
+    Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
+    Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
     
 });

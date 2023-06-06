@@ -83,12 +83,36 @@ class HomeController extends Controller
         return response()->json($home->id);
     }
 
+    public function editKeyword($id, Request $request){
+        $data = $request->all();
+        dd($data);
+    }
+    public function editYandexLocation($id, Request $request){
+        $data = $request->all();
+        dd($data);
+    }
+    public function editMultyPhoto($id, Request $request){
+        $data = $request->all();
+        dd($data);
+    }
+    public function editDocumentUpload($id, Request $request){
+        $data = $request->all();
+        dd($data);
+    }
+
     public function getHome() {
         $allHome = Home::orderByRaw("status = 'moderation' DESC")
         ->select('id', 'am', 'photo', 'file', 'keywords', 'status')
         ->get();
         foreach ($allHome as $key => $home) {
            $home->am = json_decode($home->am);
+// dd($home->am[0]->fields[0]);
+//             $searchAllProperty = [
+//                 $home->id,
+//                 $home->am[0]->fields[0]->selectedOptionName,
+
+//             ];
+// $home->searchAllProperty = $searchAllProperty;
            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
            $home->photo = json_decode($home->photo);
            $home->file = json_decode($home->file);
@@ -120,6 +144,8 @@ class HomeController extends Controller
         }
         $home->photo = json_encode($photoName);
         $home->save();
+        \Log::info('multyPhoto'.$id, $photoName);
+
         return true;
       }
 
@@ -134,8 +160,9 @@ class HomeController extends Controller
           }
           $home->file = json_encode($fileNameArray);
           $home->save();
+        \Log::info('documentUpload'.$id, $fileNameArray);
 
-          return true;
+        return true;
     }
   
 
@@ -144,6 +171,8 @@ class HomeController extends Controller
         $home = Home::findorFail($id);
         $home->keywords = json_encode($data);
         $home->save();
+        \Log::info('addKeyword'.$id, $data);
+
         return true;
     }
 
@@ -175,6 +204,8 @@ class HomeController extends Controller
 
             $home->save();
         }
+        \Log::info('addYandexLocation'.$id, $data);
+        
         return true;
     }
 
