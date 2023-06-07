@@ -4,16 +4,17 @@ export const TextLarg = ({ title, id, placeholder, required, value, onChange }) 
     return (
         <label className='addproperties__card-text'>
             {title}
-            <input
+            <textarea
                 id={id}
                 required={required}
-                type="text"
                 placeholder={placeholder}
                 className='addproperties__card-text-larg'
-                minLength="3"
                 value={value}
                 onChange={onChange}
-            />
+                rows="14"
+                cols="10"
+                wrap="soft"
+            ></textarea>
         </label>
     )
 }

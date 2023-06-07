@@ -46,6 +46,15 @@ const AddProperties = () => {
     const [loading, setLoading] = useState(false)
     const [addProperty, setAddProperty] = useState('')
 
+    const [isCompleted, setIsCompleted] = useState({
+        announcementTitleAm: false,
+        announcementTitleRu: false,
+        announcementTitleEn: false,
+        announcementDescAm: false,
+        announcementDescRu: false,
+        announcementDescEn: false,
+    })
+
     const handleStreetChange = (value) => {
         setAddProperty((prev) => ({
             ...prev,
@@ -93,15 +102,19 @@ const AddProperties = () => {
         e.preventDefault()
         setLoading(true)
 
+        const areAllLanguagesCompleted = Object.values(isCompleted).every((value) => value === true);
+
         if (!yandex.length) {
             error('Chosse yandex location!')
+            setLoading(false)
+        } else if (!areAllLanguagesCompleted) {
+            error('Complete all languages!');
             setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))
             setLoading(false)
         }
     }
-
 
     return (
         (loading && !postAddLoading) || (!loading && postAddLoading)
@@ -152,6 +165,7 @@ const AddProperties = () => {
                                                                     title={title}
                                                                     style={style}
                                                                     required={required}
+                                                                    setIsCompleted={setIsCompleted}
                                                                     onChange={(e) => addProp(e, name, type)}
                                                                 />
                                                                 : type === "communitySelect"
@@ -319,13 +333,12 @@ const AddProperties = () => {
                                                 </div>
                                             )
                                         })}
-                                        addedChild={added.map(({ key, style, title, type }) => {
+                                        addedChild={added.map(({ key, title, type }) => {
                                             return (
                                                 <div key={key} style={{ width: "100%" }}>
                                                     <LngPartSmall
                                                         id={key}
                                                         title={title}
-                                                        style={style}
                                                         onChange={(e) => addProp(e, name, type)}
                                                     />
                                                 </div>

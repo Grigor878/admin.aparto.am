@@ -696,10 +696,10 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "floor",
-                "title" => "Հարկը",
+                "title" => "Հարկը*",
                 "type" => "inputNumber",
                 "style" => "306px",
-                "required" => false,
+                "required" => true,
                 "value" => '',
                 "option" => []
               ],
@@ -1197,7 +1197,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "bottom",
-                "title" => "Հատակ*",
+                "title" => "Հատակ",
                 "type" => "multiselect",
                 "style" => "306px",
                 "required" => false,
@@ -1227,7 +1227,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "roof",
-                "title" => "Առաստաղ*",
+                "title" => "Առաստաղ",
                 "type" => "multiselect",
                 "style" => "306px",
                 "required" => false,
@@ -1249,7 +1249,7 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "cover",
-                "title" => "Ծածկեր*",
+                "title" => "Ծածկեր",
                 "type" => "multiselect",
                 "style" => "306px",
                 "required" => false,

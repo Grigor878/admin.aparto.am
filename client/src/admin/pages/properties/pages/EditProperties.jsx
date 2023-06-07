@@ -96,7 +96,7 @@ const EditProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log(editProperty)//
+    console.log(editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()

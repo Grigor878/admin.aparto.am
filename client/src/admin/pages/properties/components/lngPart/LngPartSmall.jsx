@@ -3,7 +3,7 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const LngPartSmall = ({ title, value, id, style, required, onChange }) => {
+export const LngPartSmall = ({ title, value, id, required, onChange }) => {
     const [activeFlag, setActiveFlag] = useState('am')
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')

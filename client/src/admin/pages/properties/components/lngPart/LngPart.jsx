@@ -3,7 +3,7 @@ import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
 
-export const LngPart = ({ title, value, id, style, required, onChange }) => {
+export const LngPart = ({ title, value, id, style, required, onChange, setIsCompleted }) => {
     const [activeFlag, setActiveFlag] = useState('am')
     const [arm, setArm] = useState('')
     const [rus, setRus] = useState('')
@@ -33,6 +33,34 @@ export const LngPart = ({ title, value, id, style, required, onChange }) => {
         ? title?.split(" ").pop().slice(0, -1).toLowerCase() + "ը"
         : title?.toLowerCase()
 
+    const handleLanguageChange = (language, value) => {
+        switch (language) {
+            case 'am':
+                setArm(value);
+                setIsCompleted((prevIsCompleted) => ({
+                    ...prevIsCompleted,
+                    [id + 'Am']: value.trim() !== '',
+                }));
+                break;
+            case 'ru':
+                setRus(value);
+                setIsCompleted((prevIsCompleted) => ({
+                    ...prevIsCompleted,
+                    [id + 'Ru']: value.trim() !== '',
+                }));
+                break;
+            case 'en':
+                setEng(value);
+                setIsCompleted((prevIsCompleted) => ({
+                    ...prevIsCompleted,
+                    [id + 'En']: value.trim() !== '',
+                }));
+                break;
+            default:
+                break;
+        }
+    };
+
     return (
         <div key={id} style={{ width: style }}>
             <ul className="addproperties__card-flags">
@@ -56,7 +84,15 @@ export const LngPart = ({ title, value, id, style, required, onChange }) => {
                     title={title}
                     required={required}
                     placeholder={`Գրեք ` + placeholder}
-                    onChange={(e) => { setArm(e.target.value); onChange(e) }}
+                    onChange={(e) => {
+                        // setArm(e.target.value);
+                        onChange(e);
+                        // setIsCompleted((prevIsCompleted) => ({
+                        //     ...prevIsCompleted,
+                        //     am: e.target.value.trim() !== '',
+                        // }));
+                        handleLanguageChange('am', e.target.value);
+                    }}
                 />
                 : activeFlag === "ru"
                     ? <TextLarg
@@ -65,7 +101,15 @@ export const LngPart = ({ title, value, id, style, required, onChange }) => {
                         title={title}
                         required={required}
                         placeholder={`Գրեք ` + placeholder}
-                        onChange={(e) => { setRus(e.target.value); onChange(e) }}
+                        onChange={(e) => {
+                            // setRus(e.target.value);
+                            onChange(e);
+                            // setIsCompleted((prevIsCompleted) => ({
+                            //     ...prevIsCompleted,
+                            //     ru: e.target.value.trim() !== '',
+                            // }));
+                            handleLanguageChange('ru', e.target.value);
+                        }}
 
                     />
                     : <TextLarg
@@ -74,7 +118,15 @@ export const LngPart = ({ title, value, id, style, required, onChange }) => {
                         title={title}
                         required={required}
                         placeholder={`Գրեք ` + placeholder}
-                        onChange={(e) => { setEng(e.target.value); onChange(e) }}
+                        onChange={(e) => {
+                            // setEng(e.target.value);
+                            onChange(e);
+                            // setIsCompleted((prevIsCompleted) => ({
+                            //     ...prevIsCompleted,
+                            //     [id]: e.target.value.trim() !== "",
+                            // }));
+                            handleLanguageChange('en', e.target.value);
+                        }}
                     />}
         </div >
     )

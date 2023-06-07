@@ -160,7 +160,7 @@ export const editPropertyFiles = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadFile = state.property.uploadFile;
-      await baseApi.post(`/api/editDocument/${propertyId}`, uploadFile);
+      await baseApi.post(`/api/editDocumentUpload/${propertyId}`, uploadFile);
       thunkAPI.dispatch(editPropertyYandex(propertyId));
     } catch (err) {
       console.log(`Edit Property Files Sending Error: ${err.message}`);
