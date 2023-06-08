@@ -74,7 +74,6 @@ class HomeController extends Controller
         $home = Home::findorFail($id);
         
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
-        dd(1111);
         // $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
         $home->am =json_encode($homeLanguageContsructor['am']);
         $home->ru =json_encode($homeLanguageContsructor['ru']);
@@ -102,22 +101,28 @@ class HomeController extends Controller
 
     public function getHome() {
         $allHome = Home::orderByRaw("status = 'moderation' DESC")
-        ->select('id', 'am', 'photo', 'file', 'keywords', 'status')
+        ->select('id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status')
         ->get();
         foreach ($allHome as $key => $home) {
            $home->am = json_decode($home->am);
-// dd($home->am[0]->fields[0]);
-//             $searchAllProperty = [
-//                 $home->id,
-//                 $home->am[0]->fields[0]->selectedOptionName,
+           $home->ru = json_decode($home->ru);
+           $home->en = json_decode($home->en);
 
-//             ];
-// $home->searchAllProperty = $searchAllProperty;
+           $searchAllProperty = [];
+           if(isset($home->am[0]->fields[0]->value)){
+            array_push($searchAllProperty, $home->am[0]->fields[3]->value);
+            array_push($searchAllProperty, $home->ru[0]->fields[3]->value);
+            array_push($searchAllProperty, $home->en[0]->fields[3]->value);
+           }
+           array_push($searchAllProperty, $home->id);
+           
+           $home->searchAllProperty = $searchAllProperty;
            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
            $home->photo = json_decode($home->photo);
            $home->file = json_decode($home->file);
            $home->keywords = json_decode($home->keywords);
         }
+
         return response()->json($allHome);
     }
 
