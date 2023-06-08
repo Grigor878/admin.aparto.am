@@ -3,9 +3,9 @@ import baseApi from "../../apis/baseApi";
 import { error, success } from "../../components/swal/swal";
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: !!localStorage.getItem("token"), // Check if token exists in local storage
   loading: false,
-  token: null,
+  token: localStorage.getItem("token") || null,
 };
 
 export const login = createAsyncThunk("auth", async ({ email, password }) => {

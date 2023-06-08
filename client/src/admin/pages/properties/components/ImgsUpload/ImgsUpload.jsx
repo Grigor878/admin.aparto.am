@@ -169,32 +169,6 @@ export const ImgsUpload = ({ style, value }) => {
     );
 };
 
-    // const handleSort = () => {
-    //     if (!visibleImages[dragItem.current]) {
-    //         return;
-    //     }
-    //     const draggedItemIndex = dragItem.current
-    //     const dragOverItemIndex = dragOverItem.current
-
-    //     const updatedImages = [...images]
-    //     const updatedPreviews = [...previewImages]
-
-    //     const draggedImage = updatedImages[draggedItemIndex]
-    //     const draggedPreview = updatedPreviews[draggedItemIndex]
-
-    //     updatedImages.splice(draggedItemIndex, 1)
-    //     updatedPreviews.splice(draggedItemIndex, 1)
-
-    //     updatedImages.splice(dragOverItemIndex, 0, draggedImage)
-    //     updatedPreviews.splice(dragOverItemIndex, 0, draggedPreview)
-
-    //     const reorderedImages = Array.from(updatedImages)
-    //     const reorderedPreviews = Array.from(updatedPreviews)
-
-    //     setImages(reorderedImages)
-    //     setPreviewImages(reorderedPreviews)
-    // }
-
 // mi masov verevy avelacrac visible,hidden
     // const updateUploadPhoto = () => {
     //     const sortedFormData = new FormData();

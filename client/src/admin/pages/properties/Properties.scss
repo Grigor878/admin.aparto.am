@@ -60,7 +60,7 @@
           background: $bgSub;
           border: 1px solid $inputBorder;
           border-radius: 6px;
-          width: 145px;
+          // width: 145px;
 
           &::placeholder,
           :-ms-input-placeholde,
@@ -95,12 +95,6 @@
       background: $bgSub;
       border: 2px solid $textBtn;
       border-radius: 12px;
-    }
-
-    &-slide {
-    }
-
-    &-info {
     }
   }
 }

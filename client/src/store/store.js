@@ -12,7 +12,8 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "userGlobal"],
+  // whitelist: ["auth", "userGlobal", "users"],
+  whitelist: ["userGlobal", "users"],
   // storageSession,
 };
 
