@@ -2040,7 +2040,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "bottom",
-                "title" => "Пол*",
+                "title" => "Пол",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
@@ -2048,7 +2048,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "roof",
-                "title" => "Потолок*",
+                "title" => "Потолок",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
@@ -2056,7 +2056,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "cover",
-                "title" => "Покрытия*",
+                "title" => "Покрытия",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
@@ -2797,7 +2797,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "bottom",
-                "title" => "Floor*",
+                "title" => "Floor",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
@@ -2805,7 +2805,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "roof",
-                "title" => "Ceiling*",
+                "title" => "Ceiling",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
@@ -2813,7 +2813,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "cover",
-                "title" => "Wall-covering*",
+                "title" => "Wall-covering",
                 "type" => "multiselect",
                 "style" => "306px",
                 "value" => '',
