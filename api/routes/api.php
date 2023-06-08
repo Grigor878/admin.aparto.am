@@ -62,3 +62,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
     
 });
+
+Route::group(['middleware' => 'authcheck'], function ($router) {
+
+});
