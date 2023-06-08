@@ -26,9 +26,6 @@ import { NumSelector } from '../components/inputs/NumSelector'
 import { success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
-// for currency
-// https://www.npmjs.com/package/@everapi/currencyapi-js 
-
 const EditProperties = () => {
     const navigate = useNavigate()
     const params = useParams()
@@ -40,7 +37,7 @@ const EditProperties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { propertyData } = useSelector((state) => state.property)
+    const { propertyData, uploadFile } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
 
@@ -50,6 +47,7 @@ const EditProperties = () => {
     const currentPropertyImgs = currentProperty?.photo
 
     // console.log(currentPropertyData)//
+    console.log(uploadFile)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
@@ -96,7 +94,7 @@ const EditProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    console.log(editProperty)//
+    // console.log(editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()

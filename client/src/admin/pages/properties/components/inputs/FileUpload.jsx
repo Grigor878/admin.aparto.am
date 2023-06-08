@@ -6,9 +6,8 @@ import { setUploadFile } from '../../../../../store/slices/propertySlice'
 
 export const FileUpload = ({ value }) => {
     const [upload, setUpload] = useState(value ? value : [])
-
     const dispatch = useDispatch()
-
+    
     const uploadFile = (e) => {
         const files = Array.from(e.target.files)
 
@@ -34,6 +33,9 @@ export const FileUpload = ({ value }) => {
     useEffect(() => {
         uploadFormData()
     }, [upload])
+    
+    // console.log(value)//
+    // console.log(upload)//
 
     return (
         <div className='addproperties__card-fileUpload'>

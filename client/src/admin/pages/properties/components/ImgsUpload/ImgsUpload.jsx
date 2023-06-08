@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { API_BASE_URL } from '../../../../../apis/config'
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
+import { API_BASE_URL } from '../../../../../apis/config';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
-    const [images, setImages] = useState([])
-    const [previewImages, setPreviewImages] = useState([])
-    const [visibleImages, setVisibleImages] = useState([])
+    const [images, setImages] = useState(value ? value : [])
+    const [previewImages, setPreviewImages] = useState(value ? value : [])
+    const [visibleImages, setVisibleImages] = useState(value ? value.map(image => image.visible === "true") : [])
 
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
@@ -112,7 +112,7 @@ export const ImgsUpload = ({ style, value }) => {
                         accept='image/png , image/jpeg , image/jpg , image.webp'
                         onChange={handleImageUpload} />
                 </label>
-                {!value && previewImages.map((preview, index) => (
+                {previewImages.map((preview, index) => (
                     <div
                         key={index}
                         className='imgsUpload__card-main'
@@ -137,7 +137,10 @@ export const ImgsUpload = ({ style, value }) => {
 
                     >
                         <img
-                            src={preview}
+                            // src={preview}
+                            // add i jamanak preview,editi jamanak myusy
+                            src={!preview.name ? preview : API_BASE_URL + `/images/` + preview.name}
+                            loading='lazy'
                             alt={`Preview ${index}`}
                             className='imgsUpload__card-img'
                         />
@@ -161,53 +164,6 @@ export const ImgsUpload = ({ style, value }) => {
                         </div>
                     </div>
                 ))}
-
-                {value && value?.map((image, index) => (
-                    <div
-                        key={index}
-                        className='imgsUpload__card-main'
-                        draggable={image.visible === "true"}
-                        onDragStart={(e) => {
-                            if (image.visible !== "true") {
-                                e.preventDefault();
-                                return;
-                            }
-                            dragItem.current = index;
-                        }}
-                        onDragEnter={() => {
-                            if (image.visible !== "true") {
-                                return;
-                            }
-                            dragOverItem.current = index;
-                        }}
-                        onDragEnd={handleSort}
-                    >
-                        <img
-                            src={API_BASE_URL + `/images/` + image.name}
-                            alt={`Preview ${index}`}
-                            className='imgsUpload__card-img'
-                        />
-                        {image.visible !== "true" && <p>Թաքցված</p>}
-                        <div className='imgsUpload__card-btns'>
-                            <button
-                                type="button"
-                                onClick={() => handleToggleVisibility(index)}
-                                className='imgsUpload__card-btns-hideShow'
-                            >
-                                {image.visible === "true" ? hideImg.icon : showImg.icon}
-                                {image.visible === "true" ? 'Թաքցնել' : 'Բացել'}
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => handleImageDelete(index)}
-                                className='imgsUpload__card-btns-delete'
-                            >
-                                {removeWhite.icon}
-                            </button>
-                        </div>
-                    </div>
-                ))}
-
             </div>
         </div>
     );
