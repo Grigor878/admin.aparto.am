@@ -234,9 +234,6 @@ const structureSlice = createSlice({
       .addCase(addPropertyData.pending, (state) => {
         state.postAddLoading = true;
       })
-      // .addCase(addPropertyData.fulfilled, (state) => {
-      //   state.postAddLoading = false;
-      // })
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
         success("Property added!");

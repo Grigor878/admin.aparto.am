@@ -1,12 +1,12 @@
 import React from 'react'
 import { dollar } from '../../../../../assets/svgs/svgs'
 
-export const InputSymbol = ({ id, placeholder, name, onChange, width }) => {
+export const InputSymbol = ({ id, type, placeholder, name, onChange, width }) => {
     return (
         <label className="properties__searchbox-form-inputSymbol">
             <input
                 id={id}
-                type="text"
+                type={type}
                 placeholder={placeholder}
                 name={name}
                 onChange={onChange}

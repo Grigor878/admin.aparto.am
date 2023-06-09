@@ -37,7 +37,7 @@ const EditProperties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { propertyData, uploadFile } = useSelector((state) => state.property)
+    const { propertyData } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
 
@@ -47,7 +47,6 @@ const EditProperties = () => {
     const currentPropertyImgs = currentProperty?.photo
 
     // console.log(currentPropertyData)//
-    console.log(uploadFile)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)

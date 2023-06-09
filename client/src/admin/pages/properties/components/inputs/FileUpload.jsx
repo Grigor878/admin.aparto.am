@@ -32,6 +32,7 @@ export const FileUpload = ({ value }) => {
 
     useEffect(() => {
         uploadFormData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [upload])
     
     // console.log(value)//

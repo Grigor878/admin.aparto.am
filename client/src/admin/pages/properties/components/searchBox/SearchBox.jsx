@@ -6,10 +6,21 @@ import { SaleRent, EstateType, Community, Rooms, BuildingType, Floor, Taxation, 
 import { InputSymbol } from '../inputs/InputSymbol'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
 
-export const SearchBox = () => {
+export const SearchBox = ({ data }) => {
     const [search, setSerach] = useState('')
     const [active, setActive] = useState(true)
     const [properties, setProperties] = useState('')
+
+    const handleSearch = (value) => {
+        setSerach(value)
+    }
+    console.log(search)
+
+    const filteredData = data?.filter((item) => {
+        return item.searchAllProperty.includes(search)
+    })
+    console.log(data);
+    console.log(filteredData);
 
     const propertiesSearch = (e) => {
         let { id, value } = e.target
@@ -18,11 +29,10 @@ export const SearchBox = () => {
             return { ...prev, [id]: value }
         })
     }
-    console.log(properties)
 
     const submitSearch = (e) => {
-        e.preventDefault();
-        console.log(properties);
+        e.preventDefault()
+        console.log(properties)
     }
     // AddUsersi pes data ov anel
     return (
@@ -31,7 +41,7 @@ export const SearchBox = () => {
                 <Search
                     value={search}
                     placeholder='Search by ID, Property Name, Phone, Owner or Agent'
-                    onChange={(e) => setSerach(e.target.value)}
+                    onChange={(e) => handleSearch(e.target.value)}
                 />
                 <AdvancedBtn
                     status={active}
@@ -68,6 +78,7 @@ export const SearchBox = () => {
                     />
                     <InputSymbol
                         id='prop_minPrice'
+                        type="number"
                         placeholder="Գին մին."
                         name="price"
                         onChange={propertiesSearch}
@@ -75,6 +86,7 @@ export const SearchBox = () => {
                     />
                     <InputSymbol
                         id='prop_maxPrice'
+                        type="number"
                         placeholder="Գին մաքս."
                         name="price"
                         onChange={propertiesSearch}
@@ -108,12 +120,14 @@ export const SearchBox = () => {
                     />
                     <InputSymbol
                         id='prop_minSquare'
+                        type="text"
                         placeholder="Մակերես մին."
                         onChange={propertiesSearch}
                         width="175px"
                     />
                     <InputSymbol
                         id='prop_maxSquare'
+                        type="text"
                         placeholder="Մակերես մաքս."
                         onChange={propertiesSearch}
                         width="175px"

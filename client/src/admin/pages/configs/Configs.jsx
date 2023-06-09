@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSesionState } from '../../../hooks/useSessionState'
 import { Tab } from './components/tab/Tab'
-import './Configs.scss'
 import { Searches } from './components/searches/Searches'
 import { Addresses } from './components/addresses/Addresses'
+import { Exchange } from './components/exchange/Exchange'
+import './Configs.scss'
 
 const Configs = () => {
-    const [active, setActive] = useState(true)
+    const [active, setActive] = useSesionState('searches', 'configs')
 
     return (
         <article className='configs'>
@@ -13,9 +15,11 @@ const Configs = () => {
                 active={active}
                 setActive={setActive}
             />
-            {active
+            {active === "searches"
                 ? <Searches />
-                : <Addresses />
+                : active === "addresses"
+                    ? <Addresses />
+                    : <Exchange />
             }
         </article>
     )

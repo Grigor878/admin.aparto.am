@@ -21,7 +21,7 @@ const Properties = () => {
                 data={propertyData}
                 type="properties"
             />
-            <SearchBox />
+            <SearchBox data={propertyData} />
             <List />
         </article>
     )
