@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ownerAdd, remove } from '../../../../svgs/svgs'
 import './Styles.scss'
+import '../inputs/Styles.scss'
 
 export const AddOwner = ({ data, onChange }) => {
     const [active, setActive] = useState(false)
@@ -33,7 +34,7 @@ export const AddOwner = ({ data, onChange }) => {
                 {secondOwner?.map(({ title, key, placeholder, style }) => {
                     return (
                         <label
-                            className='addproperties__card-text'
+                            className='cardText'
                             key={key}
                         >
                             {title}
@@ -41,7 +42,7 @@ export const AddOwner = ({ data, onChange }) => {
                                 id={key}
                                 type="text"
                                 placeholder={placeholder ? placeholder : "Ex."}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: style }}
                                 onChange={onChange}
@@ -71,7 +72,7 @@ export const AddOwner = ({ data, onChange }) => {
                 {activeTwo && thirdOwner?.map(({ title, key, placeholder, style }) => {
                     return (
                         <label
-                            className='addproperties__card-text'
+                            className='cardText'
                             key={key}
                         >
                             {title}
@@ -79,7 +80,7 @@ export const AddOwner = ({ data, onChange }) => {
                                 id={key}
                                 type="text"
                                 placeholder={placeholder ? placeholder : "Ex."}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: style }}
                                 onChange={onChange}

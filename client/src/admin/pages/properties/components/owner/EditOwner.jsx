@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { ownerAdd, remove } from '../../../../svgs/svgs';
-import './Styles.scss';
+import React, { useState } from 'react'
+import { ownerAdd, remove } from '../../../../svgs/svgs'
+import './Styles.scss'
+import '../inputs/Styles.scss'
 
 export const EditOwner = ({ data, onChange }) => {
     const [showOwner2, setShowOwner2] = useState(data && data.some(item => item.key === 'owner2' && item.value));
@@ -36,26 +37,26 @@ export const EditOwner = ({ data, onChange }) => {
                                 {remove.icon}
                                 Հեռացնել
                             </button>}
-                        <label className='addproperties__card-text'>
+                        <label className='cardText'>
                             {owner2Data?.title}
                             <input
                                 id={owner2Data?.key}
                                 type="text"
                                 placeholder={owner2Data?.placeholder ? owner2Data.placeholder : 'Ex.'}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: owner2Data?.style }}
                                 onChange={onChange}
                                 defaultValue={owner2Data?.value}
                             />
                         </label>
-                        <label className='addproperties__card-text'>
+                        <label className='cardText'>
                             {ownerTel2Data?.title}
                             <input
                                 id={ownerTel2Data?.key}
                                 type="text"
                                 placeholder={ownerTel2Data?.placeholder ? ownerTel2Data.placeholder : 'Ex.'}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: ownerTel2Data?.style }}
                                 onChange={onChange}
@@ -70,26 +71,26 @@ export const EditOwner = ({ data, onChange }) => {
                             {remove.icon}
                             Հեռացնել
                         </button>}
-                        <label className='addproperties__card-text'>
+                        <label className='cardText'>
                             {owner3Data?.title}
                             <input
                                 id={owner3Data?.key}
                                 type="text"
                                 placeholder={owner3Data?.placeholder ? owner3Data.placeholder : 'Ex.'}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: owner3Data?.style }}
                                 onChange={onChange}
                                 defaultValue={owner3Data?.value}
                             />
                         </label>
-                        <label className='addproperties__card-text'>
+                        <label className='cardText'>
                             {ownerTel3Data?.title}
                             <input
                                 id={ownerTel3Data?.key}
                                 type="text"
                                 placeholder={ownerTel3Data?.placeholder ? ownerTel3Data.placeholder : 'Ex.'}
-                                className='addproperties__card-text-full'
+                                className='cardText-full'
                                 minLength="3"
                                 style={{ width: ownerTel3Data?.style }}
                                 onChange={onChange}
