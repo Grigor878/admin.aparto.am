@@ -1,0 +1,17 @@
+@import '../../../../../variables';
+
+.propertyList {
+    @include flexCol;
+    gap: 24px;
+    padding-top: 16px;
+
+    &__item {
+      @include flex;
+      justify-content: space-between;
+      height: 180px;
+      width: 100%;
+      background: $bgSub;
+      border: 2px solid $textBtn;
+      border-radius: 12px;
+    }
+  }

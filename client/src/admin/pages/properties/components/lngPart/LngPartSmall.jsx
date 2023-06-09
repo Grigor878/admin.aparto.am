@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Flag from 'react-world-flags'
 import { flags } from '../dropdowns/data'
 import { TextLarg } from '../inputs/TextLarg'
+import './Styles.scss'
 
 export const LngPartSmall = ({ title, value, id, required, onChange }) => {
     const [activeFlag, setActiveFlag] = useState('am')
@@ -35,13 +36,13 @@ export const LngPartSmall = ({ title, value, id, required, onChange }) => {
         
     return (
         <div key={id}>
-            <ul className="addproperties__card-flags">
+            <ul className="cardFlags">
                 {flags.map(({ country_code }) => (
                     <li key={country_code}>
                         <Flag
                             code={country_code}
                             onClick={() => setActiveFlag(country_code)}
-                            className={activeFlag === country_code ? 'addproperties__card-flags-flagActive' : 'addproperties__card-flags-flag'}
+                            className={activeFlag === country_code ? 'cardFlags__flagActive' : 'cardFlags__flag'}
                             width="36"
                             height="20"
                         />

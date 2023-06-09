@@ -17,7 +17,7 @@ export const Searches = () => {
             <div className='searches__top'>
                 <Search
                     value={search}
-                    placeholder="Search by input"
+                    placeholder="Փնտրել"
                     onChange={(e) => setSearch(e.target.value.toLowerCase())}
                 />
                 <div className='searches__top-right'>

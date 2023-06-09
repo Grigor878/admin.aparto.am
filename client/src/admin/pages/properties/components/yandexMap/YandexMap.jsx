@@ -1,3 +1,135 @@
+import React, { useEffect, useRef, useState } from "react";
+import { YMaps, Map, ZoomControl, Placemark } from "react-yandex-maps";
+import { useDispatch } from "react-redux";
+import { setYandex } from "../../../../../store/slices/propertySlice";
+import './YandexMap.scss'
+// import '../../../../components/inputs/Inputs.scss';
+
+const mapOptions = {
+    modules: ["geocode", "SuggestView"],
+    defaultOptions: { suppressMapOpenBlock: true }
+}
+
+export const YandexMap = ({ title, defValue, style, height }) => {
+    const dispatch = useDispatch()
+
+    const initialState = {
+        title: "",
+        center: defValue ? defValue : [40.177200, 44.503490],
+        zoom: 17,
+    }
+
+    const [state, setState] = useState({ ...initialState })
+    const [placemark, setPlacemark] = useState(defValue ? defValue : [])
+    const [mapConstructor, setMapConstructor] = useState(null)
+    const mapRef = useRef(null)
+    const searchRef = useRef(null)
+
+    // search popup
+    useEffect(() => {
+        if (mapConstructor) {
+            new mapConstructor.SuggestView(searchRef.current).events.add("select", function (e) {
+                const selectedName = e.get("item").value
+                mapConstructor.geocode(selectedName).then((result) => {
+                    const newCoords = result.geoObjects.get(0).geometry.getCoordinates()
+                    setPlacemark(newCoords)
+                    setState((prevState) => ({ ...prevState, center: newCoords }))
+                    dispatch(setYandex(newCoords))
+                })
+            })
+        }
+    }, [dispatch, mapConstructor])
+
+    // change placemark
+    const handleClick = (event) => {
+        const coords = event.get('coords')
+        dispatch(setYandex(coords))
+        setPlacemark(coords)
+    }
+
+    return (
+        <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
+            {title}
+            <div className="yandex__map">
+                <input
+                    ref={searchRef}
+                    placeholder="Search..."
+                    disabled={!mapConstructor}
+                    className="yandex__map-search"
+                />
+                <Map
+                    {...mapOptions}
+                    state={state}
+                    onLoad={setMapConstructor}
+                    instanceRef={mapRef}
+                    width={style}
+                    height={height}
+                    onClick={handleClick}
+                >
+                    <Placemark geometry={placemark} />
+                    <ZoomControl />
+                </Map>
+            </div>
+        </YMaps>
+    )
+}
+
+
+
+// https://codesandbox.io/s/yandex-map-search-organization-dutdr?file=/src/YmapsComponent.tsx:633-668
+// https://gribnoysup.github.io/react-yandex-maps/#/sandbox/clustering/clusterer-create - miqani ket nshvac
+// https://gribnoysup.github.io/react-yandex-maps/#/sandbox/controls/listbox - hasceneri dropdown
+
+// {/* <FullscreenControl /> */}
+// {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
+// onBoundsChange={handleBoundsChange}
+
+// {/* <div >
+//                 <div >
+//                     <p title={state.title}>
+//                         {state.title}
+//                     </p>
+//                     // <BtnCustom type="button" onClick={handleReset} text='Default place' />
+//                 </div>
+//                 // <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' />
+//             </div> */}
+
+// const geolocationOptions = {
+//     defaultOptions: { maxWidth: 128 },
+//     defaultData: { content: "Determine" },
+// };
+
+    // const handleSubmit = () => {
+    //     console.log(state)//
+    //     console.log(placemark)//
+    //     // console.log({ title: state.title, center: mapRef.current.getCenter() })//
+    //     // console.log({ title: searchRef.current.value, center: mapRef.current.getCenter() })//
+    // };
+
+    // reset state & search
+    // const handleReset = () => {
+    //     setState({ ...initialState })
+    //     searchRef.current.value = ""
+    //     mapRef.current.setCenter(initialState.center)
+    //     mapRef.current.setZoom(initialState.zoom)
+    // };
+
+    // change title on mouse scroll
+    // const handleBoundsChange = () => {
+    //     const newCoords = mapRef.current.getCenter();
+    //     mapConstructor.geocode(newCoords).then((res) => {
+    //         const nearest = res.geoObjects.get(0);
+    //         const foundAddress = nearest.properties.get("text")
+    //         const [centerX, centerY] = nearest.geometry.getCoordinates()
+    //         const [initialCenterX, initialCenterY] = initialState.center
+    //         if (centerX !== initialCenterX && centerY !== initialCenterY) {
+    //             setState((prevState) => ({ ...prevState, title: foundAddress }))
+    //         }
+    //     })
+    // }
+
+
+// DONT NEEDED YET
 // import React, { useState } from 'react'
 // import { YMaps, Map, SearchControl, Placemark } from "react-yandex-maps";
 
@@ -112,132 +244,3 @@
 //         });
 //     };
 // }
-
-// https://gribnoysup.github.io/react-yandex-maps/#/sandbox/clustering/clusterer-create - miqani ket nshvac
-// https://gribnoysup.github.io/react-yandex-maps/#/sandbox/controls/listbox - hasceneri dropdown
-
-import React, { useEffect, useRef, useState } from "react";
-import { YMaps, GeolocationControl, Map, ZoomControl, Placemark, FullscreenControl } from "react-yandex-maps";
-import { useDispatch } from "react-redux";
-import { setYandex } from "../../../../../store/slices/propertySlice";
-import './YandexMap.scss'
-import '../../../../components/inputs/Inputs.scss';
-
-const mapOptions = {
-    modules: ["geocode", "SuggestView"],
-    defaultOptions: { suppressMapOpenBlock: true }
-};
-
-// const geolocationOptions = {
-//     defaultOptions: { maxWidth: 128 },
-//     defaultData: { content: "Determine" },
-// };
-
-
-export const YandexMap = ({ title, defValue, style, height }) => {
-    const dispatch = useDispatch()
-
-    const initialState = {
-        title: "",
-        center: defValue ? defValue : [40.177200, 44.503490],
-        zoom: 17,
-    }
-
-    const [state, setState] = useState({ ...initialState })
-    const [placemark, setPlacemark] = useState(defValue ? defValue : [])
-    const [mapConstructor, setMapConstructor] = useState(null)
-    const mapRef = useRef(null)
-    const searchRef = useRef(null)
-
-    // const handleSubmit = () => {
-    //     console.log(state)//
-    //     console.log(placemark)//
-    //     // console.log({ title: state.title, center: mapRef.current.getCenter() })//
-    //     // console.log({ title: searchRef.current.value, center: mapRef.current.getCenter() })//
-    // };
-
-    // reset state & search
-    // const handleReset = () => {
-    //     setState({ ...initialState })
-    //     searchRef.current.value = ""
-    //     mapRef.current.setCenter(initialState.center)
-    //     mapRef.current.setZoom(initialState.zoom)
-    // };
-
-    // search popup
-    useEffect(() => {
-        if (mapConstructor) {
-            new mapConstructor.SuggestView(searchRef.current).events.add("select", function (e) {
-                const selectedName = e.get("item").value
-                mapConstructor.geocode(selectedName).then((result) => {
-                    const newCoords = result.geoObjects.get(0).geometry.getCoordinates()
-                    setPlacemark(newCoords)
-                    setState((prevState) => ({ ...prevState, center: newCoords }))
-                    dispatch(setYandex(newCoords))
-                })
-            })
-        }
-    }, [dispatch, mapConstructor])
-
-    // change title on mouse scroll
-    // const handleBoundsChange = () => {
-    //     const newCoords = mapRef.current.getCenter();
-    //     mapConstructor.geocode(newCoords).then((res) => {
-    //         const nearest = res.geoObjects.get(0);
-    //         const foundAddress = nearest.properties.get("text")
-    //         const [centerX, centerY] = nearest.geometry.getCoordinates()
-    //         const [initialCenterX, initialCenterY] = initialState.center
-    //         if (centerX !== initialCenterX && centerY !== initialCenterY) {
-    //             setState((prevState) => ({ ...prevState, title: foundAddress }))
-    //         }
-    //     })
-    // }
-
-    // change placemark
-    const handleClick = (event) => {
-        const coords = event.get('coords')
-        dispatch(setYandex(coords))
-        setPlacemark(coords)
-    }
-
-    return (
-        <YMaps query={{ apikey: "e04526f5-e9c9-42b5-9b1f-a65d6cd5b19e", lang: "en_RU" }}>
-            {/* <div >
-                <div >
-                    <p title={state.title}>
-                        {state.title}
-                    </p>
-                    // <BtnCustom type="button" onClick={handleReset} text='Default place' />
-                </div>
-                // <BtnCustom type="button" onClick={handleSubmit} disabled={Boolean(!state.title.length)} text='Get Data of this address' />
-            </div> */}
-
-            {title}
-
-            <div className="yandex__map">
-                <input
-                    ref={searchRef}
-                    placeholder="Search..."
-                    disabled={!mapConstructor}
-                    className="yandex__map-search"
-                />
-                <Map
-                    {...mapOptions}
-                    state={state}
-                    onLoad={setMapConstructor}
-                    // onBoundsChange={handleBoundsChange}
-                    instanceRef={mapRef}
-                    width={style}
-                    height={height}
-                    onClick={handleClick}
-                >
-                    <Placemark geometry={placemark} />
-                    {/* <GeolocationControl options={{ float: "right", noPlacemark: "true" }} {...geolocationOptions} /> */}
-                    <ZoomControl />
-                    {/* <FullscreenControl /> */}
-                </Map>
-            </div>
-        </YMaps>
-    )
-}
-//https://codesandbox.io/s/yandex-map-search-organization-dutdr?file=/src/YmapsComponent.tsx:633-668

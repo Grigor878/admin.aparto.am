@@ -1,8 +1,9 @@
 import React from 'react'
+import './Styles.scss'
 
 export const InputNumSingle = ({ id, title, placeholder, required, style, onChange, value }) => {
     return (
-        <label className='addproperties__card-text'>
+        <label className='cardText'>
             {title}
             <input
                 id={id}
@@ -12,7 +13,7 @@ export const InputNumSingle = ({ id, title, placeholder, required, style, onChan
                 // type="number"
                 type="text"
                 placeholder={placeholder}
-                className='addproperties__card-text-hug'
+                className='cardText-hug'
                 style={{ width: style }}
                 onChange={onChange}
             />

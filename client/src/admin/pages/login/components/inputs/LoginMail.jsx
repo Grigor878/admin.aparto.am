@@ -5,7 +5,7 @@ export const LoginMail = ({ id }) => {
         <input
             id={id}
             type="mail"
-            placeholder="Email"
+            placeholder="էլ․ հասցե"
             name="email"
             className="dash__input"
             autoComplete="new-password"

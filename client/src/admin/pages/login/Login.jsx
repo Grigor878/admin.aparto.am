@@ -12,7 +12,7 @@ const Login = () => {
             {loading
                 ? <Loader />
                 : <>
-                    <h3>Login</h3>
+                    <h3>Մուտք</h3>
                     <LoginForm />
                 </>}
         </article >

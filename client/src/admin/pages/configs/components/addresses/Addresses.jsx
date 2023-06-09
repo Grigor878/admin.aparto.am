@@ -79,7 +79,7 @@ export const Addresses = () => {
       <div className='addresses__top'>
         <Search
           value={search}
-          placeholder="Search by address"
+          placeholder="Փնտրել ըստ հասցեի"
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         <BtnAdd

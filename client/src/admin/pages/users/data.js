@@ -4,23 +4,23 @@ import { capitalize } from "../../../helpers/formatters";
 
 export const userAdminColumns = [
   {
-    name: "Name",
+    name: "Անուն",
     cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
     sortable: true,
     selector: (row) => row.full_name.en,
   },
   {
-    name: "Email",
+    name: "էլ․ հասցե",
     cell: (row) => <p className="columFontSize">{row.email}</p>,
     sortable: true,
     selector: (row) => row.email,
   },
   {
-    name: "Phone Number",
+    name: "Հեռ․ համար",
     cell: (row) => <p className="columFontSize">{row.phone?.tel1}</p>,
   },
   {
-    name: "Role",
+    name: "Հաստիք",
     cell: (row) => {
       return (
         <p className="users__table-role">
@@ -35,8 +35,12 @@ export const userAdminColumns = [
     },
   },
   {
-    name: "Status",
-    cell: (row) => <p className="columFontSize">{row.status}</p>,
+    name: "Կարգավիճակ",
+    cell: (row) => (
+      <p className="columFontSize">
+        {row.status === "approved" ? "Ակտիվ" : "Ոչ ակտիվ"}
+      </p>
+    ),
   },
   {
     name: "",
@@ -45,7 +49,7 @@ export const userAdminColumns = [
     cell: (row) => {
       return (
         <Link to={`edit/${row.id}`} className="users__table-link columnDelete">
-          Edit
+          Փոխել
         </Link>
       );
     },
@@ -54,23 +58,23 @@ export const userAdminColumns = [
 
 export const userCustomColumns = [
   {
-    name: "Name",
+    name: "Անուն",
     cell: (row) => <p className="columFontSize">{row.full_name.en}</p>,
     sortable: true,
     selector: (row) => row.email,
   },
   {
-    name: "Email",
+    name: "էլ․ հասցե",
     cell: (row) => <p className="columFontSize">{row.email}</p>,
     sortable: true,
     selector: (row) => row.email,
   },
   {
-    name: "Phone Number",
+    name: "Հեռ․ համար",
     cell: (row) => <p className="columFontSize">{row.phone?.tel1}</p>,
   },
   {
-    name: "Role",
+    name: "Հաստիք",
     cell: (row) => {
       return (
         <p className="users__table-role">
@@ -90,25 +94,25 @@ export const addUserInputs = [
   {
     id: "user_name_am",
     type: "text",
-    placeholder: "Enter user name",
-    name: "Name",
+    placeholder: "Գրեք անուն ազգանուն",
+    name: "Անուն",
   },
   {
     id: "user_name_ru",
     type: "text",
-    placeholder: "Enter user name",
-    name: "Name RUS",
+    placeholder: "Գրեք անուն ազգանուն",
+    name: "Անուն RUS",
   },
   {
     id: "user_name_en",
     type: "text",
-    placeholder: "Enter user name",
-    name: "Name ENG",
+    placeholder: "Գրեք անուն ազգանուն",
+    name: "Անուն ENG",
   },
   {
     id: "user_mail",
     type: "email",
-    placeholder: "Enter user email",
-    name: "Email",
+    placeholder: "Գրեք էլ․ հասցե",
+    name: "էլ․ հասցե",
   },
 ];

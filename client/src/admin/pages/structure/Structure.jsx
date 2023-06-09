@@ -26,7 +26,7 @@ const Structure = () => {
         <h3>Form Structure</h3>
         <Search
           value={search}
-          placeholder="Search by field"
+          placeholder="Փնտրել ըստ դաշտի"
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
       </div>

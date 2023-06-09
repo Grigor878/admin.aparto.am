@@ -3,11 +3,12 @@ import { file, remove } from '../../../../svgs/svgs'
 import { useDispatch } from 'react-redux'
 import { API_BASE_URL } from '../../../../../apis/config'
 import { setUploadFile } from '../../../../../store/slices/propertySlice'
+import './Styles.scss'
 
 export const FileUpload = ({ value }) => {
     const [upload, setUpload] = useState(value ? value : [])
     const dispatch = useDispatch()
-    
+
     const uploadFile = (e) => {
         const files = Array.from(e.target.files)
 
@@ -32,15 +33,15 @@ export const FileUpload = ({ value }) => {
 
     useEffect(() => {
         uploadFormData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [upload])
-    
+
     // console.log(value)//
     // console.log(upload)//
 
     return (
-        <div className='addproperties__card-fileUpload'>
-            <label className='addproperties__card-fileUpload-label'>
+        <div className='fileUpload'>
+            <label className='fileUpload__label'>
                 {file.icon} <p>Կցել Փաստաթուղթ</p>
                 <input
                     id='uploadFile'

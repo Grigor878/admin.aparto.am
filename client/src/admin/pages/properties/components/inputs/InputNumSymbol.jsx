@@ -1,8 +1,9 @@
 import React from 'react'
+import './Styles.scss'
 
 export const InputNumSymbol = ({ id, data, title, value, onChange, style, required }) => {
     return (
-        <label className='addproperties__card-text' id={id}>
+        <label className='cardText' id={id}>
             {title}
             <div style={{ display: "flex", gap: "12px" }}>
                 {data?.map((el) => {
@@ -16,11 +17,9 @@ export const InputNumSymbol = ({ id, data, title, value, onChange, style, requir
                             <input
                                 id={el.id}
                                 required={required}
-                                // min={0}
-                                // type="number"
                                 type="text"
                                 placeholder={el.name}
-                                className='addproperties__card-text-price'
+                                className='cardText-price'
                                 style={{ width: style }}
                                 onChange={onChange}
                                 defaultValue={currentValue}

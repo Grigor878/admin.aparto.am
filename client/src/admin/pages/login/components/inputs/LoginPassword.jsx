@@ -5,7 +5,7 @@ export const LoginPassword = ({ id }) => {
         <input
             id={id}
             type="password"
-            placeholder="Password"
+            placeholder="Ծածկագիր"
             name="password"
             className="dash__input"
             autoComplete="new-password"

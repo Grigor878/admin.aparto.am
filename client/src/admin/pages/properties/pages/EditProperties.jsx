@@ -98,16 +98,10 @@ const EditProperties = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(editPropertyData({ editProperty, propertyId }))
-        success("Property edited!")
+        success("Edit Property Testing!")
+        // success("Property edited!")
         navigate(-1)
-        // setTimeout(() => navigate(-1), 2500)
     }
-
-    // const { yandex, keyword, uploadFile, uploadPhoto } = useSelector(state => state.property)
-    // console.log(yandex)//
-    // console.log(keyword)//
-    // console.log(uploadFile)//
-    // console.log(uploadPhoto)//
 
     return (
         <article className='editproperties'>

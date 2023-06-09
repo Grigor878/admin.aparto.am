@@ -13,15 +13,15 @@ const Properties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { propertyData } = useSelector((state) => state.property)
+    const { propertyData, filteredData } = useSelector((state) => state.property)
 
     return (
         <article className='properties'>
             <TopPart
-                data={propertyData}
+                data={filteredData === null ? propertyData : filteredData}
                 type="properties"
             />
-            <SearchBox data={propertyData} />
+            <SearchBox />
             <List />
         </article>
     )

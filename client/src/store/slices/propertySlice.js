@@ -9,6 +9,7 @@ const initialState = {
   structure: null,
   propertyLoading: false,
   propertyData: null,
+  filteredData: null,
   postAddLoading: false,
   uploadPhoto: {},
   uploadFile: {},
@@ -213,6 +214,10 @@ const structureSlice = createSlice({
     setKeyword: (state, action) => {
       state.keyword = action.payload;
     },
+    // Filter propertyData by search
+    setFilteredData: (state, action) => {
+      state.filteredData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -250,6 +255,11 @@ const structureSlice = createSlice({
   },
 });
 
-export const { setUploadPhoto, setUploadFile, setYandex, setKeyword } =
-  structureSlice.actions;
+export const {
+  setUploadPhoto,
+  setUploadFile,
+  setYandex,
+  setKeyword,
+  setFilteredData,
+} = structureSlice.actions;
 export default structureSlice.reducer;

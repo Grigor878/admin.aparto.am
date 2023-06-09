@@ -22,7 +22,7 @@ export const LoginForm = () => {
         <form onSubmit={handleLogin} autoComplete="off">
             <LoginMail id="loginEmail" />
             <LoginPassword id="loginPassword" />
-            <BtnCustom type="submit" text="Log-In" />
+            <BtnCustom type="submit" text="Մուտք" />
         </form>
     )
 }

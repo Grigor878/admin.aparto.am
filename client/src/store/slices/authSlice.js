@@ -33,14 +33,14 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        error(`Auth Error: ${action.error.message}`);
+        error(`Մուտքի սխալ: ${action.error.message}`);
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.loading = false;
         state.token = action.payload.access_token;
         localStorage.setItem("token", action.payload.access_token);
-        success("You are logged in");
+        success("Բարի գալուստ");
       });
   },
 });

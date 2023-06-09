@@ -4,13 +4,6 @@ import AddPart from '../../../components/addPart/AddPart'
 import { Loader } from '../../../../components/loader/Loader'
 import { addPropertyData, getPropertyStructure } from '../../../../store/slices/propertySlice'
 import { Card } from '../components/card/Card'
-// import { TextLarg } from '../components/inputs/TextLarg'
-// import { TextMid } from '../components/inputs/TextMid'
-// import { TextSmall } from '../components/inputs/TextSmall'
-// import { TextFull } from '../components/inputs/TextFull'
-// import { TextMidPlus } from '../components/inputs/TextMidPlus'
-// import { agentList, balconiesNum, community, flags, houseCondition, kitchenType, moderatorList, parking, paymentProcedure, preferedBank, propertyType, roomsNum, statementType, toiletsNum, transactionType } from '../components/dropdowns/data'
-// import { NumPrice } from '../components/inputs/NumPrice'
 import { LngPart } from '../components/lngPart/LngPart'
 import { LngPartSmall } from '../components/lngPart/LngPartSmall'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
@@ -102,13 +95,13 @@ const AddProperties = () => {
         e.preventDefault()
         setLoading(true)
 
-        const areAllLanguagesCompleted = Object.values(isCompleted).every((value) => value === true);
+        const areAllLanguagesCompleted = Object.values(isCompleted).every((value) => value === true)
 
-        if (!yandex.length) {
-            error('Chosse yandex location!')
+        if (!areAllLanguagesCompleted) {
+            error('Լրացրեք բոլոր լեզուները:')
             setLoading(false)
-        } else if (!areAllLanguagesCompleted) {
-            error('Complete all languages!');
+        } else if (!yandex.length) {
+            error('Նշեք Yandex-ի վրա գտնվելու վայրը:')
             setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))

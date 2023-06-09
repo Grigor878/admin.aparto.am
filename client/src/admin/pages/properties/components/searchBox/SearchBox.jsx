@@ -1,26 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setFilteredData } from '../../../../../store/slices/propertySlice'
 import { Search } from '../../../../components/inputs/Search'
 import { AdvancedBtn } from '../inputs/AdvancedBtn'
 import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
 import { SaleRent, EstateType, Community, Rooms, BuildingType, Floor, Taxation, Situation, Status } from './data'
 import { InputSymbol } from '../inputs/InputSymbol'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
+import './SearchBox.scss'
 
-export const SearchBox = ({ data }) => {
-    const [search, setSerach] = useState('')
+export const SearchBox = () => {
+    const [search, setSearch] = useState('')
     const [active, setActive] = useState(true)
     const [properties, setProperties] = useState('')
 
-    const handleSearch = (value) => {
-        setSerach(value)
-    }
-    console.log(search)
+    const { propertyData } = useSelector((state) => state.property)
 
-    const filteredData = data?.filter((item) => {
-        return item.searchAllProperty.includes(search)
-    })
-    console.log(data);
-    console.log(filteredData);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (search === "") {
+            dispatch(setFilteredData(propertyData))
+        } else {
+            const filteredData = propertyData?.filter((property) =>
+                property.searchAllProperty.some((value) =>
+                    String(value).toLowerCase().includes(search.toLowerCase())
+                )
+            )
+            dispatch(setFilteredData(filteredData))
+        }
+    }, [dispatch, propertyData, search])
+
 
     const propertiesSearch = (e) => {
         let { id, value } = e.target
@@ -36,12 +46,12 @@ export const SearchBox = ({ data }) => {
     }
     // AddUsersi pes data ov anel
     return (
-        <div className="properties__searchbox">
-            <div className="properties__searchbox-top">
+        <div className="propertiySearchbox">
+            <div className="propertiySearchbox__top">
                 <Search
                     value={search}
-                    placeholder='Search by ID, Property Name, Phone, Owner or Agent'
-                    onChange={(e) => handleSearch(e.target.value)}
+                    placeholder='Փնտրել ըստ ID, Անուն, Փողոց, Հեռ․, Սեփականատեր կամ Գործակալ'
+                    onChange={(e) => setSearch(e.target.value)}
                 />
                 <AdvancedBtn
                     status={active}
@@ -49,8 +59,8 @@ export const SearchBox = ({ data }) => {
                 />
             </div>
 
-            <form id="propertiesSearch" onSubmit={submitSearch} className='properties__searchbox-form'>
-                <div className={"properties__searchbox-form-open"}>
+            <form id="propertiesSearch" onSubmit={submitSearch} className='propertiySearchbox__form'>
+                <div className={"propertiySearchbox__form-open"}>
                     <Drowpdown
                         id='prop_salerent'
                         onChange={propertiesSearch}
@@ -93,7 +103,7 @@ export const SearchBox = ({ data }) => {
                         width="145px"
                     />
                 </div>
-                <div className={active ? "properties__searchbox-form-close" : "properties__searchbox-form-open"}>
+                <div className={active ? "propertiySearchbox__form-close" : "propertiySearchbox__form-open"}>
                     <Drowpdown
                         id='prop_buildType'
                         onChange={propertiesSearch}
@@ -133,7 +143,7 @@ export const SearchBox = ({ data }) => {
                         width="175px"
                     />
                 </div>
-                <div className={active ? "properties__searchbox-form-close" : "properties__searchbox-form-open"}>
+                <div className={active ? "propertiySearchbox__form-close" : "propertiySearchbox__form-open"}>
                     <Drowpdown
                         id='prop_status'
                         onChange={propertiesSearch}

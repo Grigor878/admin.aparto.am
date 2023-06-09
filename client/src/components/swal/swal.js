@@ -7,7 +7,7 @@ export function success(text) {
     icon: "success",
     title: `<h6>${text}</h6>`,
     showConfirmButton: false,
-    timer: 1000,
+    timer: 1500,
     customClass: "swal",
   });
 }

@@ -1,8 +1,9 @@
 import React from 'react'
+import './Styles.scss'
 
 export const InputText = ({ title, value, id, style, required, height, placeholder, onChange }) => {
     return (
-        <label className='addproperties__card-text'>
+        <label className='cardText'>
             {title}
             <input
                 id={id}
@@ -10,7 +11,7 @@ export const InputText = ({ title, value, id, style, required, height, placehold
                 required={required}
                 type="text"
                 placeholder={placeholder}
-                className='addproperties__card-text-full'
+                className='cardText-full'
                 style={{ width: style, height: height }}
                 onChange={onChange}
             />

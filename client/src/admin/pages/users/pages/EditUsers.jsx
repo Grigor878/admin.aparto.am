@@ -159,29 +159,29 @@ const EditUsers = () => {
                         <div className='subUsers__form-parts'>
                             <EditInput
                                 type='text'
-                                placeholder='Enter user name'
-                                name='Name'
+                                placeholder='Գրեք անուն ազգանուն'
+                                name='Անուն'
                                 onChange={(e) => setAm(e.target.value)}
                                 value={am}
                             />
                             <EditInput
                                 type='text'
-                                placeholder='Enter user name'
-                                name='Name RUS'
+                                placeholder='Գրեք անուն ազգանուն'
+                                name='Անուն RUS'
                                 onChange={(e) => setRu(e.target.value)}
                                 value={ru}
                             />
                             <EditInput
                                 type='text'
-                                placeholder='Enter user name'
-                                name='Name ENG'
+                                placeholder='Գրեք անուն ազգանուն'
+                                name='Անուն ENG'
                                 onChange={(e) => setEn(e.target.value)}
                                 value={en}
                             />
                         </div>
                         <div className='subUsers__form-parts'>
                             <DisabledInput
-                                name='Email'
+                                name='էլ․ հասցե'
                                 value={email}
                             />
                             <SelectRole
@@ -192,8 +192,8 @@ const EditUsers = () => {
                             />
                             <EditInput
                                 type='tel'
-                                placeholder='Enter user phone'
-                                name='Phone 1'
+                                placeholder='Գրեք hեռ․ համար'
+                                name='Հեռ․ համար 1'
                                 onChange={(e) => setTel1(e.target.value)}
                                 value={tel1}
                             />
@@ -201,15 +201,15 @@ const EditUsers = () => {
                         <div className='subUsers__form-parts-else'>
                             <EditInput
                                 type='tel'
-                                placeholder='Enter user phone'
+                                placeholder='Գրեք hեռ․ համար'
                                 name='viber/ whatsapp / telegram'
                                 onChange={(e) => setMessengers(e.target.value)}
                                 value={messengers}
                             />
                             <EditInput
                                 type='tel'
-                                placeholder='Enter user phone'
-                                name='Phone 2'
+                                placeholder='Գրեք hեռ․ համար'
+                                name='Հեռ․ համար 2'
                                 onChange={(e) => setTel2(e.target.value)}
                                 value={tel2}
                             />
