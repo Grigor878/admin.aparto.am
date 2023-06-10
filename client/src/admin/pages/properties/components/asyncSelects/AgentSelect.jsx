@@ -4,7 +4,7 @@ import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
 
 export const AgentSelect = ({ title, value, id, onChange, style, required }) => {
-    const { role, full_name } = useSelector((state => state.userGlobal.userGlobal))
+    const { role } = useSelector((state => state.userGlobal.userGlobal))
 
     const [data, setData] = useState([])
 
@@ -24,7 +24,7 @@ export const AgentSelect = ({ title, value, id, onChange, style, required }) => 
 
     const parsedNames = [
         {
-            id: "example",
+            id: "",
             name: "Ընտրեք"
         },
         ...data.map(item => {
@@ -65,7 +65,7 @@ export const AgentSelect = ({ title, value, id, onChange, style, required }) => 
                     className='agentSelect__input'
                     type='text'
                     disabled
-                    value={full_name.am}
+                    value={value}
                 />
             </div>
 

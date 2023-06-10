@@ -249,9 +249,12 @@ const structureSlice = createSlice({
       .addCase(editPropertyData.pending, (state) => {
         state.postEditLoading = true;
       })
-      .addCase(editPropertyData.fulfilled, (state) => {
+      .addCase(editPropertyKeyword.fulfilled, (state) => {
         state.postEditLoading = false;
+        // success("Property edited!");
+        // window.location = `${APP_BASE_URL}/dashboard/properties`;
       });
+      
   },
 });
 

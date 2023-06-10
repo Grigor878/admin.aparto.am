@@ -21,7 +21,7 @@ export const ManagerSelect = ({ title, value, id, onChange, style, required }) =
 
   const parsedNames = [
     {
-      id: "example",
+      id: "",
       name: "Ընտրեք"
     },
     ...data.map(item => {
@@ -57,3 +57,9 @@ export const ManagerSelect = ({ title, value, id, onChange, style, required }) =
     </label>
   )
 }
+
+// {
+//   // id: "example", hin version haskanal xi er drac //nshelov yntreq ancum ein required y
+//   id: "",
+//   name: "Ընտրեք"
+// },
