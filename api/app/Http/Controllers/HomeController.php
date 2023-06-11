@@ -73,11 +73,13 @@ class HomeController extends Controller
 
     public function editMultyPhoto($id, Request $request){
         $data = $request->all();
+
         if($data) {
             $home = Home::findorFail($id);
             $photoName = array_fill(0, count($data), '');
             foreach ($data as $key => $photo) {
-                $indexArray = (int)mb_substr($key, -1);
+                preg_match_all('/\d+/', $key, $matches);
+                $indexArray = (int) $matches[0][0];
                 if(gettype($photo) == 'string') {
                     if(is_numeric(strpos($key, 'visible'))) 
                     {
@@ -112,14 +114,14 @@ class HomeController extends Controller
                     }
                     $photoName[$indexArray] = $info;
                 }
-            
+
             }
             $home->photo = json_encode($photoName);
             $home->save();
         }
         return true;
     }
-    
+
     public function editDocumentUpload($id, Request $request){
         $data = $request->all();
         if($data) {
