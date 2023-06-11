@@ -13,10 +13,6 @@ export const EditUploadImgs = ({ style, value }) => {
     const [valueImages, setValueImages] = useState(value)
     const [backendValueVisible, setBackendValueVisible] = useState(value.map(image => image.visible === "true"));
 
-
-    // console.log(valueImages)
-    // console.log(previewImages)
-
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
@@ -112,38 +108,36 @@ export const EditUploadImgs = ({ style, value }) => {
 
     const handleSort = () => {
         if (dragItem.current === null || dragOverItem.current === null) {
-          return;
+            return;
         }
-      
+
         const draggedImage = images[dragItem.current];
         const draggedPreview = previewImages[dragItem.current];
         const draggedVisible = visibleImages[dragItem.current];
         const draggedBackendVisible = backendValueVisible[dragItem.current];
-      
+
         const updatedImages = [...images];
         const updatedPreviews = [...previewImages];
         const updatedVisible = [...visibleImages];
         const updatedBackendValueVisible = [...backendValueVisible];
-      
+
         updatedImages.splice(dragItem.current, 1);
         updatedPreviews.splice(dragItem.current, 1);
         updatedVisible.splice(dragItem.current, 1);
         updatedBackendValueVisible.splice(dragItem.current, 1);
-      
+
         const insertIndex = dragOverItem.current >= updatedVisible.length ? updatedVisible.length : dragOverItem.current;
-      
+
         updatedImages.splice(insertIndex, 0, draggedImage);
         updatedPreviews.splice(insertIndex, 0, draggedPreview);
         updatedVisible.splice(insertIndex, 0, draggedVisible);
         updatedBackendValueVisible.splice(insertIndex, 0, draggedBackendVisible);
-      
+
         setImages(updatedImages);
         setPreviewImages(updatedPreviews);
         setVisibleImages(updatedVisible);
         setBackendValueVisible(updatedBackendValueVisible);
-      };
-      
-
+    }
 
     const dispatch = useDispatch()
 
@@ -151,7 +145,7 @@ export const EditUploadImgs = ({ style, value }) => {
         const sortedFormData = new FormData()
         images.forEach((image, index) => {
             sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-        });
+        })
         dispatch(setUploadPhoto(sortedFormData))
     }
 
@@ -159,9 +153,6 @@ export const EditUploadImgs = ({ style, value }) => {
         updateUploadPhoto()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images, visibleImages])
-
-    // console.log(previewImages)
-    // console.log(value);
 
     return (
         <div style={{ width: style }} className='imgsUpload'>

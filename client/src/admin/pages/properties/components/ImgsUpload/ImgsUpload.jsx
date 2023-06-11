@@ -6,9 +6,13 @@ import { API_BASE_URL } from '../../../../../apis/config';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
-    const [images, setImages] = useState(value ? value : [])
+
+    const names = value?.map((item) => item.name)
+
+    const [images, setImages] = useState(value ? names : [])
     const [previewImages, setPreviewImages] = useState(value ? value : [])
     const [visibleImages, setVisibleImages] = useState(value ? value.map(image => image.visible === "true") : [])
+
 
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
@@ -81,7 +85,7 @@ export const ImgsUpload = ({ style, value }) => {
         setImages(updatedImages);
         setPreviewImages(updatedPreviews);
         setVisibleImages(updatedVisible);
-    };
+    }
 
     const dispatch = useDispatch()
 
@@ -89,7 +93,8 @@ export const ImgsUpload = ({ style, value }) => {
         const sortedFormData = new FormData()
         images.forEach((image, index) => {
             sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-        });
+        })
+        // console.log(sortedFormData)
         dispatch(setUploadPhoto(sortedFormData))
     }
 
@@ -97,9 +102,6 @@ export const ImgsUpload = ({ style, value }) => {
         updateUploadPhoto()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images, visibleImages])
-
-    // console.log(previewImages)
-    // console.log(value);
 
     return (
         <div style={{ width: style }} className='imgsUpload'>
