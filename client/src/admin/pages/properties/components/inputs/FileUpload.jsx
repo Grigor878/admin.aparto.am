@@ -36,9 +36,6 @@ export const FileUpload = ({ value }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [upload])
 
-    // console.log(value)//
-    // console.log(upload)//
-
     return (
         <div className='fileUpload'>
             <label className='fileUpload__label'>
@@ -54,16 +51,18 @@ export const FileUpload = ({ value }) => {
             </label>
             <div style={{ display: 'flex', alignItems: "flex-end", flexDirection: 'column', gap: '4px' }}>
                 {upload?.map((el) => {
+                    const isFile = el instanceof File;
+
                     return (
                         <div key={el.name || el} style={{ display: 'flex', gap: '7px' }}>
                             <p>{el.name || el}</p>
-                            <button
+                            <buttonE
                                 type='button'
                                 onClick={() => removeFile(el)}
                                 style={{ background: "transparent" }}
                             >{remove.icon}
-                            </button>
-                            {value && <a style={{ fontSize: "14px", color: "#61636b" }} target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">View</a>}
+                            </buttonE>
+                            {!isFile && value && <a style={{ fontSize: "14px", color: "#61636b" }} target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">View</a>}
                         </div>
                     )
                 })}

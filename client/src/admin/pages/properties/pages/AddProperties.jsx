@@ -90,7 +90,7 @@ const AddProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log("add",addProperty)//
+    console.log("add",addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
