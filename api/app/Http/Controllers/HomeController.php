@@ -16,40 +16,6 @@ class HomeController extends Controller
         $this->homeService = $homeService;
     }
 
-    public function getEng () {
-
-        $obj = [
-            "header_rent" => "For Rent",
-            "header_sale"=> "For Sale",
-            "header_services"=> "Our Services",
-            "header_contact"=> "Contact Us"
-        ];
-        return response()->json($obj);
-    }
-
-    public function getRu () {
-
-        $obj = [
-            "header_rent" => "Аренда",
-            "header_sale"=> "Продается",
-            "header_services"=> "Наши услуги",
-            "header_contact"=> "Свяжитесь с нами"
-        ];
-        return response()->json($obj);
-    }
-
-    public function getArm () {
-
-        $obj = [
-            "header_rent" => "Տրվում է վարձով",
-            "header_sale"=> "Վաճառվում է",
-            "header_services"=> "Մեր ծառայությունները",
-            "header_contact"=> "Կապ մեզ հետ"
-        ];
-        
-        return response()->json($obj);
-    }
-
     public function addHome(Request $request) {
         $data = $request->all();
         $employee = auth()->user();
@@ -72,7 +38,6 @@ class HomeController extends Controller
     public function editHome($id, Request $request){
         $data = $request->all();
         $home = Home::findorFail($id);
-        
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
         // $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
         $home->am =json_encode($homeLanguageContsructor['am']);
@@ -84,19 +49,35 @@ class HomeController extends Controller
 
     public function editKeyword($id, Request $request){
         $data = $request->all();
-        dd($data);
+        $home = Home::findorFail($id);
+        $home->keywords = json_encode($data);
+        $home->save();
     }
     public function editYandexLocation($id, Request $request){
         $data = $request->all();
-        dd($data);
+        $this->homeService->addEditYandexLocation($id, $data);
+        return true;
     }
+
     public function editMultyPhoto($id, Request $request){
+        return true;
         $data = $request->all();
         dd($data);
     }
     public function editDocumentUpload($id, Request $request){
         $data = $request->all();
+        $home = Home::findorFail($id);
+        $fileNameArray = [];
+        foreach ($data as $key => $file) {
+            $fileName = round(microtime(true) * 1000).'.'.$file->extension();
+            $file->move(public_path('files'), $fileName);
+            $fileNameArray[] = $fileName;
+          }
+          $home->file = json_encode($fileNameArray);
+          $home->save();
+        \Log::info('documentUpload'.$id, $fileNameArray);
         dd($data);
+        return true;
     }
 
     public function getHome() {
@@ -109,10 +90,10 @@ class HomeController extends Controller
            $home->en = json_decode($home->en);
 
            $searchAllProperty = [];
-           if(isset($home->am[0]->fields[0]->value)){
-            array_push($searchAllProperty, $home->am[0]->fields[3]->value);
-            array_push($searchAllProperty, $home->ru[0]->fields[3]->value);
-            array_push($searchAllProperty, $home->en[0]->fields[3]->value);
+           if(isset($home->am[0]->fields[2]->value)){
+            array_push($searchAllProperty, $home->am[0]->fields[2]->value);
+            array_push($searchAllProperty, $home->ru[0]->fields[2]->value);
+            array_push($searchAllProperty, $home->en[0]->fields[2]->value);
            }
            array_push($searchAllProperty, $home->id);
            
@@ -183,32 +164,7 @@ class HomeController extends Controller
 
     public function addYandexLocation($id, Request $request) {
         $data = $request->all();
-        $home = Home::findorFail($id);
-
-        if($home) {
-            $homeAm = json_decode($home->am);
-            $homeRu = json_decode($home->ru);
-            $homeEn = json_decode($home->en);
-
-            if($homeAm[1]->name == 'location'){
-                $homeAm[1] = (array) $homeAm[1];
-                $homeAm[1]['fields'][4]->value = $data;
-            }
-            if($homeRu[1]->name == 'location'){
-                $homeRu[1] = (array) $homeRu[1];
-                $homeRu[1]['fields'][4]->value = $data;
-            }
-            if($homeEn[1]->name == 'location'){
-                $homeEn[1] = (array) $homeRu[1];
-                $homeEn[1]['fields'][4]->value = $data;
-            }
-
-            $home->am = json_encode($homeAm);
-            $home->ru = json_encode($homeRu);
-            $home->en = json_encode($homeEn);
-
-            $home->save();
-        }
+        $this->homeService->addEditYandexLocation($id, $data);
         \Log::info('addYandexLocation'.$id, $data);
         
         return true;

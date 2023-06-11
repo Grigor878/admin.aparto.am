@@ -618,6 +618,37 @@ class HomeService
     return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $assocCopyFormEn];
   }
 
+  public function addEditYandexLocation($id, $data) {
+      if($data){
+        $home = Home::findorFail($id);
+        if($home) {
+            $homeAm = json_decode($home->am);
+            $homeRu = json_decode($home->ru);
+            $homeEn = json_decode($home->en);
+
+            if($homeAm[1]->name == 'location'){
+                $homeAm[1] = (array) $homeAm[1];
+                $homeAm[1]['fields'][4]->value = $data;
+            }
+            if($homeRu[1]->name == 'location'){
+                $homeRu[1] = (array) $homeRu[1];
+                $homeRu[1]['fields'][4]->value = $data;
+            }
+            if($homeEn[1]->name == 'location'){
+                $homeEn[1] = (array) $homeRu[1];
+                $homeEn[1]['fields'][4]->value = $data;
+            }
+
+            $home->am = json_encode($homeAm);
+            $home->ru = json_encode($homeRu);
+            $home->en = json_encode($homeEn);
+
+            $home->save();
+        }
+    }
+    return true;
+  }
+
   public function homeLanguageContsructorEdit($id, $data)
   {
     $allSelect = $this->getAllSelect();
@@ -642,167 +673,185 @@ class HomeService
     $assocCopyFormAm = array_combine($keysAm, $copyGeneralFormAm);
     $assocCopyFormRu = array_combine($keysRu, $copyGeneralFormRu);
     $assocCopyFormEn = array_combine($keysEn, $copyGeneralFormEn);
-
     foreach ($data as $idx => $item) {
       foreach ($item as $key => $value) {
-        foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
-          if ($globalVal->type == 'select') {
+        if (strpos($key, "Added")) {
+          foreach ($assocCopyFormAm[$idx]->added as $globKey => $globalVal) {
             if ($key === $globalVal->key) {
-              if ($value) {
-                $lang = $allSelect[$value];
-                if ($globalVal->key == 'transactionType') {
-                  $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
-                  $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
-                  $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
-                }
-                $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
-                $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
-                $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
-              }
-              ;
-            }
-          }
-          if ($globalVal->type == 'communitySelect') {
-            if ($key === $globalVal->key) {
-              $lang = $allSelect[$value];
-              $assocCopyFormAm[$idx]->fields[$globKey]->communityId = $lang['id'];
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
-
-              if (array_key_exists('street', $item)) {
-                $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
-                $addresses = ConfigAddress::findorFail($item['street']);
-                $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
-                $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
-                $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
-              }
-            }
-          }
-          if ($globalVal->type == "text") {
-            if ($key === $globalVal->key) {
-              $valueCopy = (array) $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers;
               foreach ($value as $indText => $textItem) {
                 if ($indText) {
                   $langKey = strtolower(substr($indText, -2));
                   if ($langKey == 'am') {
-                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $textItem;
-                    $valueCopy['announcementTitleAm'] = $textItem;
+                    $assocCopyFormAm[$idx]->added[$globKey]->value = $textItem;
                   }
                   if ($langKey == 'ru') {
-                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $textItem;
-                    $valueCopy['announcementTitleRu'] = $textItem;
+                    $assocCopyFormRu[$idx]->added[$globKey]->value = $textItem;
                   }
                   if ($langKey == 'en') {
-                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $textItem;
-                    $valueCopy['announcementTitleEn'] = $textItem;
+                    $assocCopyFormEn[$idx]->added[$globKey]->value = $textItem;
                   }
                 }
               }
-              $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers = $valueCopy;
+              $assocCopyFormAm[$idx]->added[$globKey]->allAnswers = $value;
             }
           }
-          if ($globalVal->type == "inputNumber") {
-            if ($key === $globalVal->key) {
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+        } else {
+          foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
+            if ($globalVal->type == 'select') {
+              if ($key === $globalVal->key) {
+                if ($value) {
+                  $lang = $allSelect[$value];
+                  if ($globalVal->key == 'transactionType') {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
+                  }
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                }
+                ;
+              }
             }
-          }
-          if ($globalVal->type == "inputText") {
-            if ($key === $globalVal->key) {
-              if ($value) {
+            if ($globalVal->type == 'communitySelect') {
+              if ($key === $globalVal->key) {
+                $lang = $allSelect[$value];
+                $assocCopyFormAm[$idx]->fields[$globKey]->communityId = $lang['id'];
+                $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+
+                if (array_key_exists('street', $item)) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
+                  $addresses = ConfigAddress::findorFail($item['street']);
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                }
+              }
+            }
+            if ($globalVal->type == "text") {
+              if ($key === $globalVal->key) {
+                $valueCopy = (array) $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers;
+                foreach ($value as $indText => $textItem) {
+                  if ($indText) {
+                    $langKey = strtolower(substr($indText, -2));
+                    if ($langKey == 'am') {
+                      $assocCopyFormAm[$idx]->fields[$globKey]->value = $textItem;
+                    }
+                    if ($langKey == 'ru') {
+                      $assocCopyFormRu[$idx]->fields[$globKey]->value = $textItem;
+                    }
+                    if ($langKey == 'en') {
+                      $assocCopyFormEn[$idx]->fields[$globKey]->value = $textItem;
+                    }
+                    $valueCopy[$indText] = $textItem;
+                  }
+                }
+                $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers = $valueCopy;
+              }
+            }
+            if ($globalVal->type == "inputNumber") {
+              if ($key === $globalVal->key) {
                 $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
               }
             }
-          }
-          if (array_key_exists('juridical', $data)) {
-            if (array_key_exists('owner2', $data['juridical'])) {
-              $assocCopyFormAm['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
-              $assocCopyFormRu['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
-              $assocCopyFormEn['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
-            }
-            if (array_key_exists('ownerTel2', $data['juridical'])) {
-              $assocCopyFormAm['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
-              $assocCopyFormRu['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
-              $assocCopyFormEn['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
-            }
-            if (array_key_exists('owner3', $data['juridical'])) {
-              $assocCopyFormAm['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
-              $assocCopyFormRu['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
-              $assocCopyFormEn['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
-            }
-            if (array_key_exists('ownerTel3', $data['juridical'])) {
-              $assocCopyFormAm['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
-              $assocCopyFormRu['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
-              $assocCopyFormEn['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
-            }
-          }
-          if ($globalVal->type == "inputNumberSingle") {
-            if ($key === $globalVal->key) {
-              if ($assocCopyFormAm[$idx]->name == 'price') {
-                if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] != "on")) {
+            if ($globalVal->type == "inputText") {
+              if ($key === $globalVal->key) {
+                if ($value) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
-                } else {
-                  $assocCopyFormAm[$idx]->fields[$globKey]->value = '';
-                  $assocCopyFormRu[$idx]->fields[$globKey]->value = '';
-                  $assocCopyFormEn[$idx]->fields[$globKey]->value = '';
                 }
-              } else {
+              }
+            }
+            if (array_key_exists('juridical', $data)) {
+              if (array_key_exists('owner2', $data['juridical'])) {
+                $assocCopyFormAm['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+                $assocCopyFormRu['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+                $assocCopyFormEn['juridical']->fields[2]->option[0]->value = $data['juridical']['owner2'];
+              }
+              if (array_key_exists('ownerTel2', $data['juridical'])) {
+                $assocCopyFormAm['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+                $assocCopyFormRu['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+                $assocCopyFormEn['juridical']->fields[2]->option[1]->value = $data['juridical']['ownerTel2'];
+              }
+              if (array_key_exists('owner3', $data['juridical'])) {
+                $assocCopyFormAm['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+                $assocCopyFormRu['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+                $assocCopyFormEn['juridical']->fields[2]->option[2]->value = $data['juridical']['owner3'];
+              }
+              if (array_key_exists('ownerTel3', $data['juridical'])) {
+                $assocCopyFormAm['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+                $assocCopyFormRu['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+                $assocCopyFormEn['juridical']->fields[2]->option[3]->value = $data['juridical']['ownerTel3'];
+              }
+            }
+            if ($globalVal->type == "inputNumberSingle") {
+              if ($key === $globalVal->key) {
+                if ($assocCopyFormAm[$idx]->name == 'price') {
+                  if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] != "on")) {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  } else {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = '';
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = '';
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = '';
+                  }
+                } else {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
+              }
+            }
+            if ($globalVal->type == "inputNumberSymbol") {
+              if ($key === $globalVal->key) {
                 $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
               }
             }
-          }
-          if ($globalVal->type == "inputNumberSymbol") {
-            if ($key === $globalVal->key) {
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
-            }
-          }
-          //stexem haseeeel
-          if ($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect") {
-            if ($key === $globalVal->key) {
-              $employe = Employe::findorFail($value);
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
-            }
-          }
-          if ($globalVal->type == 'multiselect') {
-            if ($key === $globalVal->key) {
-              $itemsAm = [];
-              $itemsRu = [];
-              $itemsEn = [];
-              foreach ($value as $multiKey => $multiItem) {
-                $lang = $allSelect[$multiItem];
-                $itemsAm[] = $lang['am'];
-                $itemsRu[] = $lang['ru'];
-                $itemsEn[] = $lang['en'];
+            if ($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect") {
+              if ($key === $globalVal->key) {
+                $employe = Employe::findorFail($value);
+                $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
+                $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
+                $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
               }
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = implode(", ", $itemsAm);
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = implode(", ", $itemsRu);
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = implode(", ", $itemsEn);
             }
-          }
-          if ($globalVal->type == "checkbox") {
-            if ($key === $globalVal->key) {
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+            if ($globalVal->type == 'multiselect') {
+              if ($key === $globalVal->key) {
+                $itemsAm = [];
+                $itemsRu = [];
+                $itemsEn = [];
+                foreach ($value as $multiKey => $multiItem) {
+                  $lang = $allSelect[$multiItem];
+                  $itemsAm[] = $lang['am'];
+                  $itemsRu[] = $lang['ru'];
+                  $itemsEn[] = $lang['en'];
+                }
+                $assocCopyFormAm[$idx]->fields[$globKey]->value = implode(", ", $itemsAm);
+                $assocCopyFormRu[$idx]->fields[$globKey]->value = implode(", ", $itemsRu);
+                $assocCopyFormEn[$idx]->fields[$globKey]->value = implode(", ", $itemsEn);
+              }
             }
-          }
-          if ($globalVal->type == "numSelect") {
-            if ($key === $globalVal->key) {
-              $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-              $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+            if ($globalVal->type == "checkbox") {
+              if ($key === $globalVal->key) {
+                $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+              }
+            }
+            if ($globalVal->type == "numSelect") {
+              if ($key === $globalVal->key) {
+                $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+              }
             }
           }
         }
