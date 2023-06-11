@@ -6,7 +6,6 @@ import { API_BASE_URL } from '../../../../../apis/config';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
-
     const names = value?.map((item) => item.name)
 
     const [images, setImages] = useState(value ? names : [])
