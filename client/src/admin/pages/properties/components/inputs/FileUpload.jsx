@@ -56,12 +56,12 @@ export const FileUpload = ({ value }) => {
                     return (
                         <div key={el.name || el} style={{ display: 'flex', gap: '7px' }}>
                             <p>{el.name || el}</p>
-                            <button
+                            <buttonE
                                 type='button'
                                 onClick={() => removeFile(el)}
                                 style={{ background: "transparent" }}
                             >{remove.icon}
-                            </button>
+                            </buttonE>
                             {!isFile && value && <a style={{ fontSize: "14px", color: "#61636b" }} target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">View</a>}
                         </div>
                     )
