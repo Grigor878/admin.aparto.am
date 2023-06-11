@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { editPropertyData, getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
@@ -10,7 +10,7 @@ import { EditableSelect } from '../components/dropdowns/EditableSelect'
 import { InputNum } from '../components/inputs/InputNum'
 import { InputNumSymbol } from '../components/inputs/InputNumSymbol'
 import { CommunitySelect } from '../components/asyncSelects/CommunitySelect'
-import { LngPart } from '../components/lngPart/LngPart'
+import { LngPartEdit } from '../components/lngPart/LngPartEdit'
 import { LngPartSmall } from '../components/lngPart/LngPartSmall'
 import { InputText } from '../components/inputs/InputText'
 import { YandexMap } from '../components/yandexMap/YandexMap'
@@ -23,11 +23,9 @@ import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
-import { success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const EditProperties = () => {
-    const navigate = useNavigate()
     const params = useParams()
     const propertyId = Number(params.id)
 
@@ -37,7 +35,7 @@ const EditProperties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { propertyData } = useSelector((state) => state.property)
+    const { propertyData, postEditLoading } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
 
@@ -51,6 +49,7 @@ const EditProperties = () => {
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
 
+    // const [loading, setLoading] = useState(false)
     const [editProperty, setEditProperty] = useState('')
 
     const handleStreetChange = (value) => {
@@ -93,17 +92,24 @@ const EditProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log(editProperty)//
+    // console.log("edit", editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        // setLoading(true)
+
         dispatch(editPropertyData({ editProperty, propertyId }))
-        success("Edit Property Testing!")
+        // setLoading(false)
+
+        // success("Edit Property Testing!")
         // success("Property edited!")
-        navigate(-1)
+        // navigate(-1)
     }
 
     return (
+        // (loading && !postEditLoading) || (!loading && postEditLoading)
+        //     ? <Loader />
+        //     : 
         <article className='editproperties'>
             <AddPart type="editProperties" />
 
@@ -147,7 +153,7 @@ const EditProperties = () => {
                                                             onChange={(e) => editProp(e, name)}
                                                         />
                                                         : type === "text"
-                                                            ? <LngPart
+                                                            ? <LngPartEdit
                                                                 id={key}
                                                                 title={title}
                                                                 value={allAnswers}
@@ -251,12 +257,11 @@ const EditProperties = () => {
                                     })}
                                     addedChild={added.map(({ key, style, title, type }) => {
                                         return (
-                                            <LngPart
+                                            <LngPartEdit
                                                 key={key}
                                                 id={key}
                                                 title={title}
                                                 style={style}
-                                                // required={required}
                                                 onChange={(e) => editProp(e, name, type)}
                                             />
                                         )
@@ -265,7 +270,6 @@ const EditProperties = () => {
                             )
                         })}
                     </div>
-
 
                     {/* Right part */}
                     <div className='addproperties__right'>
@@ -341,13 +345,12 @@ const EditProperties = () => {
                                             </div>
                                         )
                                     })}
-                                    addedChild={added.map(({ key, style, title, type }) => {
+                                    addedChild={added.map(({ key, title, type }) => {
                                         return (
                                             <div key={key} style={{ width: "100%" }}>
                                                 <LngPartSmall
                                                     id={key}
                                                     title={title}
-                                                    style={style}
                                                     onChange={(e) => editProp(e, name, type)}
                                                 />
                                             </div>

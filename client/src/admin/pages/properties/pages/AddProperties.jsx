@@ -5,6 +5,7 @@ import { Loader } from '../../../../components/loader/Loader'
 import { addPropertyData, getPropertyStructure } from '../../../../store/slices/propertySlice'
 import { Card } from '../components/card/Card'
 import { LngPart } from '../components/lngPart/LngPart'
+import { LngPartEdit } from '../components/lngPart/LngPartEdit'
 import { LngPartSmall } from '../components/lngPart/LngPartSmall'
 import { SingleSelect } from '../components/dropdowns/SingleSelect'
 import { MultiSelect } from '../components/dropdowns/MultiSelect'
@@ -89,7 +90,7 @@ const AddProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log(addProperty)//
+    // console.log("add",addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -245,7 +246,7 @@ const AddProperties = () => {
                                         })}
                                         addedChild={added.map(({ key, style, title, type }) => {
                                             return (
-                                                <LngPart
+                                                <LngPartEdit
                                                     key={key}
                                                     id={key}
                                                     title={title}

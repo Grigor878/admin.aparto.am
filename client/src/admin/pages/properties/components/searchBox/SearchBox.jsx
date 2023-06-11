@@ -23,7 +23,7 @@ export const SearchBox = () => {
             dispatch(setFilteredData(propertyData))
         } else {
             const filteredData = propertyData?.filter((property) =>
-                property.searchAllProperty.some((value) =>
+                property?.searchAllProperty?.some((value) =>
                     String(value).toLowerCase().includes(search.toLowerCase())
                 )
             )

@@ -42,7 +42,8 @@ export const CommunitySelect = ({ title, id, required, value, defValue, valueId,
                         return (
                             <option
                                 key={id}
-                                value={getOptionName + id}
+                                // value={getOptionName + id}
+                                value={id === 1 ? getOptionName : getOptionName + id}
                                 selected={value === defValue}
                             >{name}
                             </option>
@@ -65,7 +66,8 @@ export const CommunitySelect = ({ title, id, required, value, defValue, valueId,
                             return (
                                 <option
                                     key={id}
-                                    value={id}
+                                    // value={id}
+                                    value={id === 1 ? '' : id}
                                     selected={streetData?.streetId === id}
                                 >{am}
                                 </option>

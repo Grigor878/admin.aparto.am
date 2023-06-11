@@ -4,6 +4,7 @@ import { setKeyword } from '../../../../../store/slices/propertySlice'
 import { removeKeyword } from '../../../../svgs/svgs'
 import { error } from '../../../../../components/swal/swal'
 import './Keywords.scss'
+import '../inputs/Styles.scss'
 
 export const Keywords = ({ title, style, value }) => {
     const [keywords, setKeywords] = useState(value ? value : [])
@@ -35,14 +36,14 @@ export const Keywords = ({ title, style, value }) => {
 
     return (
         <div className='keywords'>
-            <label className='addproperties__card-text'>
+            <label className='cardText'>
                 {title}
                 <input
                     type="text"
                     placeholder="Մուտքագրեք բանալի բառեր"
                     onKeyDown={handleKeyDown}
                     style={{ width: style }}
-                    className='addproperties__card-text-full'
+                    className='cardText-full'
                 />
             </label>
 
