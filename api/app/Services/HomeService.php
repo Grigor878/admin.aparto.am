@@ -469,11 +469,15 @@ class HomeService
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
 
                 if (array_key_exists('street', $item)) {
-                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
-                  $addresses = ConfigAddress::findorFail($item['street']);
-                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
-                  $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
-                  $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                  $addresses = ConfigAddress::find($item['street']);
+                  if($addresses) {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                  } else {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = 0;
+                  }
                 }
               }
             }
@@ -571,10 +575,12 @@ class HomeService
             }
             if ($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect") {
               if ($key === $globalVal->key) {
-                $employe = Employe::findorFail($value);
-                $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
-                $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
-                $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                $employe = Employe::find($value);
+                if($employe){
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                }
               }
             }
             if ($globalVal->type == 'multiselect') {
@@ -722,11 +728,15 @@ class HomeService
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
 
                 if (array_key_exists('street', $item)) {
-                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
-                  $addresses = ConfigAddress::findorFail($item['street']);
-                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
-                  $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
-                  $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                  $addresses = ConfigAddress::find($item['street']);
+                  if($addresses){
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                  } else {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = 0;
+                  }
                 }
               }
             }
@@ -817,10 +827,12 @@ class HomeService
             }
             if ($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect") {
               if ($key === $globalVal->key) {
-                $employe = Employe::findorFail($value);
-                $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
-                $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
-                $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                $employe = Employe::find($value);
+                if($employe) {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                }
               }
             }
             if ($globalVal->type == 'multiselect') {

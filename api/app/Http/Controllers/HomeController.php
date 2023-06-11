@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Home;
 use App\Services\HomeService;
+use Illuminate\Support\Facades\File;
 
 
 class HomeController extends Controller
@@ -47,6 +48,17 @@ class HomeController extends Controller
         return response()->json($home->id);
     }
 
+    public function removeUselessImages() {
+        dd('half done');
+        $photoPath = public_path('images');
+        if (File::isDirectory($photoPath)) {
+            $files = File::files($photoPath);
+            $allPhotoNames = array_map(function ($file) {
+                return $file->getFilename();
+            }, $files);
+        } 
+    }
+
     public function editKeyword($id, Request $request){
         $data = $request->all();
         $home = Home::findorFail($id);
@@ -60,23 +72,74 @@ class HomeController extends Controller
     }
 
     public function editMultyPhoto($id, Request $request){
-        return true;
         $data = $request->all();
-        dd($data);
+        if($data) {
+            $home = Home::findorFail($id);
+            $photoName = array_fill(0, count($data), '');
+            foreach ($data as $key => $photo) {
+                $indexArray = (int)mb_substr($key, -1);
+                if(gettype($photo) == 'string') {
+                    if(is_numeric(strpos($key, 'visible'))) 
+                    {
+                        $info = [
+                        'name' => $photo,
+                        'visible' => 'true'
+                        ];
+                    } 
+                    else 
+                    {
+                        $info = [
+                        'name' => $photo,
+                        'visible' => 'false'
+                        ];
+                    }
+                    $photoName[$indexArray] = $info;
+                }
+                if(gettype($photo) == 'object') {
+                    $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+                    $photo->move(public_path('images'), $fileName);
+                
+                    if(is_numeric(strpos($key, 'visible'))) {
+                    $info = [
+                        'name' => $fileName,
+                        'visible' => 'true'
+                    ];
+                    } else {
+                    $info = [
+                        'name' => $fileName,
+                        'visible' => 'false'
+                    ];
+                    }
+                    $photoName[$indexArray] = $info;
+                }
+            
+            }
+            $home->photo = json_encode($photoName);
+            $home->save();
+        }
+        return true;
     }
+    
     public function editDocumentUpload($id, Request $request){
         $data = $request->all();
-        $home = Home::findorFail($id);
-        $fileNameArray = [];
-        foreach ($data as $key => $file) {
-            $fileName = round(microtime(true) * 1000).'.'.$file->extension();
-            $file->move(public_path('files'), $fileName);
-            $fileNameArray[] = $fileName;
-          }
-          $home->file = json_encode($fileNameArray);
-          $home->save();
-        \Log::info('documentUpload'.$id, $fileNameArray);
-        dd($data);
+        if($data) {
+            $home = Home::find($id);
+            $fileNameArray = [];
+
+            foreach ($data as $key => $file) { 
+                if(gettype($file) == 'string') {
+                    $fileNameArray[] = $file;
+                }
+                if(gettype($file) == 'object') { 
+                    $fileName = round(microtime(true) * 1000).'.'.$file->extension();
+                    $file->move(public_path('files'), $fileName);
+                    $fileNameArray[] = $fileName;
+                }
+                $home->file = json_encode($fileNameArray);
+                $home->save();
+            }
+
+        }
         return true;
     }
 
@@ -169,8 +232,6 @@ class HomeController extends Controller
         
         return true;
     }
-
-    
 
     
 }
