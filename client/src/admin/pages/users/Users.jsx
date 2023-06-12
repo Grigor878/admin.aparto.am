@@ -33,7 +33,7 @@ const Users = () => {
           ? <Table
             Data={role === "admin" ? users : approvedUsers}
             Columns={role === "admin" ? userAdminColumns : userCustomColumns}
-            type='users'
+            // type='users'
           />
           : null}
       </div>

@@ -241,8 +241,10 @@ const structureSlice = createSlice({
       })
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
-        success("Property added!");
-        window.location = `${APP_BASE_URL}/dashboard/properties`;
+        success("Գույքն ավելացված է։");
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
         // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
@@ -251,10 +253,11 @@ const structureSlice = createSlice({
       })
       .addCase(editPropertyKeyword.fulfilled, (state) => {
         state.postEditLoading = false;
-        // success("Property edited!");
-        // window.location = `${APP_BASE_URL}/dashboard/properties`;
+        success("Գույքը փոփոխված է!");
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
       });
-      
   },
 });
 

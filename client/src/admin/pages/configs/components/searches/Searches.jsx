@@ -49,7 +49,7 @@ export const Searches = () => {
                 <Table
                     Data={searches}
                     Columns={searchColumns}
-                    type="searches"
+                    // type="searches"
                 />
             </div>
         </section>
