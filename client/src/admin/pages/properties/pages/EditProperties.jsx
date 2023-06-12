@@ -35,7 +35,7 @@ const EditProperties = () => {
         dispatch(getPropertyData())
     }, [dispatch])
 
-    const { propertyData, postEditLoading } = useSelector((state) => state.property)
+    const { propertyData } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
 
@@ -93,6 +93,8 @@ const EditProperties = () => {
         })
     }
     // console.log("edit", editProperty)//
+    // console.log(uploadPhoto.entries().next().done)//
+    // console.log(uploadFile.entries().next().done)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
