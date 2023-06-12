@@ -73,8 +73,12 @@ class HomeController extends Controller
 
     public function editMultyPhoto($id, Request $request){
         $data = $request->all();
-
-        if($data) {
+        if(!$data) { 
+            $home = Home::find($id);
+            if($home) {
+                $home->update(['photo' =>'']);
+           }
+        } else {
             $home = Home::findorFail($id);
             $photoName = array_fill(0, count($data), '');
             foreach ($data as $key => $photo) {
@@ -124,7 +128,12 @@ class HomeController extends Controller
 
     public function editDocumentUpload($id, Request $request){
         $data = $request->all();
-        if($data) {
+        if(!$data) { 
+            $home = Home::find($id);
+            if($home) {
+                $home->update(['file' =>'']);
+           }
+        } else {
             $home = Home::find($id);
             $fileNameArray = [];
 

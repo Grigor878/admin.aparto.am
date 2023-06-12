@@ -13,6 +13,7 @@ class Home extends Model
     protected $fillable = [
         'role_id',
         'photo',
+        'file',
         'status',
         'am',
         'ru',
