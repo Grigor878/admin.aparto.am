@@ -106,40 +106,40 @@ class GarbageController extends Controller
                 "allAnswers" => [],
                 "option" => []
               ],
-            [
-              "key" => "announcementType",
-              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
-              "type" => "select",
-              "style" => "306px",
-              "required" => true,
-              "value" => '',
-              "option" => [
-                [
-                  "id"=> 1,
-                  "name"=> "Ընտրեք տեսակը",
-                  "value" => "",
-                  "getOptionName" => ""
-                ],
-                [
-                  "id"=> 2,
-                  "name"=> "Հասարակ",
-                  "value" => "Հասարակ",
-                  "getOptionName" => "simple"
-                ],
-                [
-                  "id"=> 3,
-                  "name"=> "Տոպ",
-                  "value" => "Տոպ",
-                  "getOptionName" => "top"
-                ],
-                [
-                  "id"=> 4,
-                  "name"=> "Շտապ",
-                  "value" => "Շտապ",
-                  "getOptionName" => "urgent"
-                ],
-              ]
-            ],
+              [
+                "key" => "announcementType",
+                "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՏԵՍԱԿ*",
+                "type" => "select",
+                "style" => "306px",
+                "required" => true,
+                "value" => '',
+                "option" => [
+                  [
+                    "id"=> 1,
+                    "name"=> "Ընտրեք տեսակը",
+                    "value" => "",
+                    "getOptionName" => ""
+                  ],
+                  [
+                    "id"=> 2,
+                    "name"=> "Հասարակ",
+                    "value" => "Հասարակ",
+                    "getOptionName" => "simple"
+                  ],
+                  [
+                    "id"=> 3,
+                    "name"=> "Տոպ",
+                    "value" => "Տոպ",
+                    "getOptionName" => "top"
+                  ],
+                  [
+                    "id"=> 4,
+                    "name"=> "Շտապ",
+                    "value" => "Շտապ",
+                    "getOptionName" => "urgent"
+                  ],
+                ]
+              ],
             ]
           ],
           [
@@ -1375,36 +1375,6 @@ class GarbageController extends Controller
                   ],
                 ],
               ],
-              // [
-              //   "key" => "owner2",
-              //   "title" => "Սեփականատեր 2*",
-              //   "placeholder" => "Գրեք սեփականատիրոջ անունը",
-              //   "type" => "inputText",
-              //   "style" => "412px",
-              //   "value" => '',
-              // ],
-              // [
-              //   "key" => "ownerTel2",
-              //   "title" => "Սեփականատիրոջ Հեռախոսահամար*",
-              //   "type" => "inputNumber",
-              //   "style" => "412px",
-              //   "value" => '',
-              // ],
-              // [
-              //   "key" => "owner3",
-              //   "title" => "Սեփականատեր 3*",
-              //   "placeholder" => "Գրեք սեփականատիրոջ անունը",
-              //   "type" => "inputText",
-              //   "style" => "412px",
-              //   "value" => '',
-              // ],
-              // [
-              //   "key" => "ownerTel3",
-              //   "title" => "Սեփականատիրոջ Հեռախոսահամար*",
-              //   "type" => "inputNumber",
-              //   "style" => "412px",
-              //   "value" => '',
-              // ],
             ],
           ],
           [

@@ -158,6 +158,7 @@ class HomeController extends Controller
         $allHome = Home::orderByRaw("status = 'moderation' DESC")
         ->select('id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status')
         ->get();
+
         foreach ($allHome as $key => $home) {
            $home->am = json_decode($home->am);
            $home->ru = json_decode($home->ru);
@@ -169,6 +170,45 @@ class HomeController extends Controller
             array_push($searchAllProperty, $home->ru[0]->fields[2]->value);
             array_push($searchAllProperty, $home->en[0]->fields[2]->value);
            }
+
+           if(isset($home->am[1]->fields[0]->value)){
+            array_push($searchAllProperty, $home->am[1]->fields[0]->value);
+            array_push($searchAllProperty, $home->ru[1]->fields[0]->value);
+            array_push($searchAllProperty, $home->en[1]->fields[0]->value);
+           }
+
+           if(isset($home->am[9]->fields[1]->value)){ 
+            array_push($searchAllProperty, $home->am[9]->fields[1]->value);
+           }
+
+           if(isset( $home->am[9]->fields[2]->option[1])){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[1]);
+           }
+          
+           if(isset( $home->am[9]->fields[2]->option[3])){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]);
+           }
+
+           if(isset($home->am[11]->fields[0]->value)){ 
+            array_push($searchAllProperty, $home->am[11]->fields[0]->value);
+           }
+           if(isset($home->ru[11]->fields[0]->value)){ 
+            array_push($searchAllProperty, $home->ru[11]->fields[0]->value);
+           }
+           if(isset($home->en[11]->fields[0]->value)){ 
+            array_push($searchAllProperty, $home->en[11]->fields[0]->value);
+           }
+
+           if(isset($home->am[11]->fields[1]->value)){ 
+            array_push($searchAllProperty, $home->am[11]->fields[1]->value);
+           }
+           if(isset($home->ru[11]->fields[1]->value)){ 
+            array_push($searchAllProperty, $home->ru[11]->fields[1]->value);
+           }
+           if(isset($home->en[11]->fields[1]->value)){ 
+            array_push($searchAllProperty, $home->en[11]->fields[1]->value);
+           }
+           
            array_push($searchAllProperty, $home->id);
            
            $home->searchAllProperty = $searchAllProperty;
