@@ -14,7 +14,11 @@ export const List = () => {
                 : filteredData === null
                     ? propertyData?.map(({ id, selectedTransationType, }) => {
                         return (
-                            <div key={id} className="propertyList__item">
+                            <Link
+                                key={id}
+                                to={`${id}`}
+                                className="propertyList__item"
+                            >
                                 <div className='propertyList__slide'>
                                     <p>ID - {id}</p>
                                     <p>Type - {selectedTransationType}</p>
@@ -22,12 +26,16 @@ export const List = () => {
                                 <div className='propertyList__info'>
                                     <Link to={`edit/${id}`}> Edit Page</Link>
                                 </div>
-                            </div>
+                            </Link>
                         )
                     })
                     : filteredData?.map(({ id, selectedTransationType, }) => {
                         return (
-                            <div key={id} className="propertyList__item">
+                            <Link
+                                key={id}
+                                to={`${id}`}
+                                className="propertyList__item"
+                            >
                                 <div className='propertyList__slide'>
                                     <p>ID - {id}</p>
                                     <p>Type - {selectedTransationType}</p>
@@ -35,7 +43,7 @@ export const List = () => {
                                 <div className='propertyList__info'>
                                     <Link to={`edit/${id}`}> Edit Page</Link>
                                 </div>
-                            </div>
+                            </Link>
                         )
                     })
             }
