@@ -171,22 +171,22 @@ class HomeController extends Controller
             array_push($searchAllProperty, $home->en[0]->fields[2]->value);
            }
 
-           if(isset($home->am[1]->fields[0]->value)){
-            array_push($searchAllProperty, $home->am[1]->fields[0]->value);
-            array_push($searchAllProperty, $home->ru[1]->fields[0]->value);
-            array_push($searchAllProperty, $home->en[1]->fields[0]->value);
+           if(isset($home->am[1]->fields[0]->communityStreet->value)){
+                array_push($searchAllProperty, $home->am[1]->fields[0]->communityStreet->value);
+                array_push($searchAllProperty, $home->ru[1]->fields[0]->communityStreet->value);
+                array_push($searchAllProperty, $home->en[1]->fields[0]->communityStreet->value);
            }
 
            if(isset($home->am[9]->fields[1]->value)){ 
             array_push($searchAllProperty, $home->am[9]->fields[1]->value);
            }
 
-           if(isset( $home->am[9]->fields[2]->option[1])){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[1]);
+           if(isset( $home->am[9]->fields[2]->option[1]->value)){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[1]->value);
            }
           
-           if(isset( $home->am[9]->fields[2]->option[3])){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]);
+           if(isset( $home->am[9]->fields[2]->option[3]->value)){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]->value);
            }
 
            if(isset($home->am[11]->fields[0]->value)){ 
@@ -198,7 +198,6 @@ class HomeController extends Controller
            if(isset($home->en[11]->fields[0]->value)){ 
             array_push($searchAllProperty, $home->en[11]->fields[0]->value);
            }
-
            if(isset($home->am[11]->fields[1]->value)){ 
             array_push($searchAllProperty, $home->am[11]->fields[1]->value);
            }

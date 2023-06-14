@@ -76,8 +76,8 @@ class GeneralFormService
     public function removeGeneralField ($data) {
         $form = GlobalForm::findorFail(1);
         $form->am = json_decode($form->am);
-        // $form->ru = json_decode($form->ru);
-        // $form->en = json_decode($form->en);
+        $form->ru = json_decode($form->ru);
+        $form->en = json_decode($form->en);
         $key = current(array_keys($data));
 
         if($form->am){
@@ -89,17 +89,39 @@ class GeneralFormService
                         unset($value->added[$idx]);
                         $value->added = array_values($value->added);
                       }
-                      // $keys = array_keys(get_object_vars($field));
-                      // if($keys[0] == $data['am']['id']) {
-                      //   unset($value->added[$idx]);
-                      //   $value->added = array_values($value->added);
-                      // }
-                     
                     }
                   }
                 }
             };
         }
-          GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am)]);
+        if($form->ru){
+          foreach ($form->ru as $key => $value) {
+              if($data['ru']['name'] == $value->name){
+                if(isset($value->added)){
+                  foreach ($value->added as $idx => $field) {
+                    if($field->key == $data['ru']['id']){
+                      unset($value->added[$idx]);
+                      $value->added = array_values($value->added);
+                    }
+                  }
+                }
+              }
+          };
+      }
+      if($form->en){
+        foreach ($form->en as $key => $value) {
+            if($data['en']['name'] == $value->name){
+              if(isset($value->added)){
+                foreach ($value->added as $idx => $field) {
+                  if($field->key == $data['en']['id']){
+                    unset($value->added[$idx]);
+                    $value->added = array_values($value->added);
+                  }
+                }
+              }
+            }
+        };
+    }
+          GlobalForm::findorFail(1)->update(['am'=> json_encode($form->am), 'ru'=> json_encode($form->ru), 'en'=> json_encode($form->en)]);
     }
 }

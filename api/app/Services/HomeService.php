@@ -641,7 +641,7 @@ class HomeService
                 $homeRu[1]['fields'][4]->value = $data;
             }
             if($homeEn[1]->name == 'location'){
-                $homeEn[1] = (array) $homeRu[1];
+                $homeEn[1] = (array) $homeEn[1];
                 $homeEn[1]['fields'][4]->value = $data;
             }
 
