@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { editPropertyData, getPropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
@@ -26,8 +26,8 @@ import { NumSelector } from '../components/inputs/NumSelector'
 import './Styles.scss'
 
 const EditProperties = () => {
-    const params = useParams()
-    const propertyId = Number(params.id)
+    const { id } = useParams()
+    const propertyId = Number(id)
 
     const dispatch = useDispatch()
 
@@ -38,6 +38,7 @@ const EditProperties = () => {
     const { propertyData } = useSelector((state) => state.property)
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
+    // console.log(currentProperty)//
 
     let currentPropertyData = currentProperty?.am
     const currentPropertyKeywords = currentProperty?.keywords

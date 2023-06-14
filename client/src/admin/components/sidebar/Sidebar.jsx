@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from '../../../assets/imgs/logo.png'
 import Paths from './components/paths/Paths'
 import User from './components/user/User'
 import './Sidebar.scss'
@@ -6,7 +7,7 @@ import './Sidebar.scss'
 const Sidebar = () => {
   return (
     <div className='sidebar'>
-      <h1>Logo</h1>
+      <img src={logo} alt="Logo" width="200px" />
 
       <nav className='sidebar__nav'>
         <Paths />

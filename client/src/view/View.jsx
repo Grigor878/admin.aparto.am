@@ -4,17 +4,18 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
-const Home = lazy(() => import('../pages/home/Home'))
-const Rent = lazy(() => import('../pages/rent/Rent'))
-const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
-const Sale = lazy(() => import('../pages/sale/Sale'))
-const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
-const Services = lazy(() => import('../pages/services/Services'))
-const Contact = lazy(() => import('../pages/contact/Contact'))
+// const Home = lazy(() => import('../pages/home/Home'))
+// const Rent = lazy(() => import('../pages/rent/Rent'))
+// const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
+// const Sale = lazy(() => import('../pages/sale/Sale'))
+// const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
+// const Services = lazy(() => import('../pages/services/Services'))
+// const Contact = lazy(() => import('../pages/contact/Contact'))
 const NotFound = lazy(() => import('../pages/404/NotFound'))
 const Login = lazy(() => import('../admin/pages/login/Login'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
+const SingleProperty = lazy(() => import('../admin/pages/properties/pages/SingleProperty'))
 const AddProperties = lazy(() => import('../admin/pages/properties/pages/AddProperties'))
 const EditProperties = lazy(() => import('../admin/pages/properties/pages/EditProperties'))
 const Structure = lazy(() => import('../admin/pages/structure/Structure'))
@@ -52,6 +53,7 @@ const View = () => {
                         element={isLoggedIn && token ? <LayoutDash /> : <Navigate to="/login" />}
                     >
                         <Route index path="properties" element={<Properties />} />
+                        <Route path="properties/:id" element={<SingleProperty />} />
                         <Route path="properties/add" element={<AddProperties />} />
                         <Route path="properties/edit/:id" element={<EditProperties />} />
                         <Route path="profile" element={<Profile />} />
