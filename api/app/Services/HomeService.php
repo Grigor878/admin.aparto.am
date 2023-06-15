@@ -391,6 +391,11 @@ class HomeService
         'en' => 'Suspended',
         'ru' => 'Подвесной',
       ],
+      '' => [
+        'am' => '',
+        'en' => '',
+        'ru' => '',
+      ],
     ];
     return $allSelect;
   }
@@ -698,8 +703,8 @@ class HomeService
           foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
             if ($globalVal->type == 'select') {
               if ($key === $globalVal->key) {
-                  $lang = $allSelect[$value];
-                  if ($globalVal->key == 'transactionType') {
+                    $lang = $allSelect[$value];
+                    if ($globalVal->key == 'transactionType') {
                     $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
                     $assocCopyFormRu[$idx]->fields[$globKey]->selectedOptionName = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->selectedOptionName = $value;
