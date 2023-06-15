@@ -446,7 +446,6 @@ class HomeService
           foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
             if ($globalVal->type == 'select') {
               if ($key === $globalVal->key) {
-                if ($value) {
                   $lang = $allSelect[$value];
                   if ($globalVal->key == 'transactionType') {
                     $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
@@ -456,8 +455,6 @@ class HomeService
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
-                }
-                ;
               }
             }
             if ($globalVal->type == 'communitySelect') {
@@ -510,21 +507,17 @@ class HomeService
 
             if ($globalVal->type == "map") {
               if ($key === $globalVal->key) {
-                if ($value) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
-                }
               }
             }
 
             if ($globalVal->type == "inputText") {
               if ($key === $globalVal->key) {
-                if ($value) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
-                }
               }
             }
             if (array_key_exists('juridical', $data)) {
@@ -626,7 +619,7 @@ class HomeService
 
   public function addEditYandexLocation($id, $data) {
       if($data){
-        $home = Home::findorFail($id);
+        $home = Home::find($id);
         if($home) {
             $homeAm = json_decode($home->am);
             $homeRu = json_decode($home->ru);
@@ -705,7 +698,6 @@ class HomeService
           foreach ($assocCopyFormAm[$idx]->fields as $globKey => $globalVal) {
             if ($globalVal->type == 'select') {
               if ($key === $globalVal->key) {
-                if ($value) {
                   $lang = $allSelect[$value];
                   if ($globalVal->key == 'transactionType') {
                     $assocCopyFormAm[$idx]->fields[$globKey]->selectedOptionName = $value;
@@ -715,8 +707,6 @@ class HomeService
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
-                }
-                ;
               }
             }
             if ($globalVal->type == 'communitySelect') {
@@ -770,11 +760,9 @@ class HomeService
             }
             if ($globalVal->type == "inputText") {
               if ($key === $globalVal->key) {
-                if ($value) {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
-                }
               }
             }
             if (array_key_exists('juridical', $data)) {
