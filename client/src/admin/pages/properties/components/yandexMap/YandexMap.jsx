@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { YMaps, Map, ZoomControl, Placemark } from "react-yandex-maps";
-import { useDispatch } from "react-redux";
-import { setYandex } from "../../../../../store/slices/propertySlice";
+import React, { useEffect, useRef, useState } from "react"
+import { YMaps, Map, ZoomControl, Placemark } from "react-yandex-maps"
+import { useDispatch } from "react-redux"
+import { setYandex } from "../../../../../store/slices/propertySlice"
 import './YandexMap.scss'
-// import '../../../../components/inputs/Inputs.scss';
 
 const mapOptions = {
     modules: ["geocode", "SuggestView"],

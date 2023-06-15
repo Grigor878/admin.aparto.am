@@ -14,7 +14,7 @@ const Properties = () => {
     }, [dispatch])
 
     const { propertyData, filteredData } = useSelector((state) => state.property)
-
+    
     return (
         <article className='properties'>
             <TopPart

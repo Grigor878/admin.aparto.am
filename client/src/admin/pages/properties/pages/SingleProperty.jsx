@@ -2,7 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Loader } from '../../../../components/loader/Loader'
-import { balcony, buildingType, buildingYear, floor, idShevron, kitchenType, location, orentation, propertyType, square } from '../../../svgs/svgs'
+import { balcony, buildingType, buildingYear, checked, floor, idShevron, kitchenType, location, orentation, propertyType, square } from '../../../svgs/svgs'
+import { YMap } from '../components/yandexMap/YMap'
 import './Styles.scss'
 
 const SingleProperty = () => {
@@ -17,7 +18,12 @@ const SingleProperty = () => {
     // const currentPropertyKeywords = currentProperty?.keywords
     // const currentPropertyFiles = currentProperty?.file
     // const currentPropertyImgs = currentProperty?.photo
-    // console.log()//
+
+    // console.log(currentPropertyData[7].fields[1].value)//
+
+    let url = currentPropertyData[7]?.fields[1]?.value
+    let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
+    let embedURL = "https://www.youtube.com/embed/" + videoID
 
     return (
         !currentProperty && !currentPropertyData
@@ -29,6 +35,7 @@ const SingleProperty = () => {
                 </div>
 
                 <div className='singleProperty__content'>
+                    {/* Left */}
                     <div className='singleProperty__content-left'>
                         <div className='singleProperty__content-left-title'>
                             <div className='singleProperty__content-left-title-left'>
@@ -37,9 +44,13 @@ const SingleProperty = () => {
                                 </h2>
                                 <p>
                                     {location.icon}
-                                    {currentPropertyData[1].fields[0].value},
                                     {currentPropertyData[1].fields[0].communityStreet.value}
-
+                                    {" "}
+                                    {currentPropertyData[1].fields[1].value},
+                                    {" "}
+                                    {currentPropertyData[1].fields[3].value}
+                                    {"բն., "}
+                                    {currentPropertyData[1].fields[0].value}
                                     <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>Տեսնել քարտեզի վրա</span>
                                 </p>
                             </div>
@@ -86,7 +97,7 @@ const SingleProperty = () => {
                         </div>
 
                         <div className='singleProperty__content-left-desc'>
-                            <h2 className='singleProperty__subtitle'>Տան Նկարագիր</h2>
+                            <h3 className='singleProperty__subtitle'>Տան Նկարագիր</h3>
 
                             <div className='singleProperty__content-left-desc-info'>
                                 <p>Սենյակների քանակ - <span>{currentPropertyData[3].fields[2].value}</span></p>
@@ -98,14 +109,78 @@ const SingleProperty = () => {
                             </div>
 
                             <p className='singleProperty__content-left-desc-text'>
-                            {currentPropertyData[0].fields[3].value}
+                                {currentPropertyData[0].fields[3].value}
                             </p>
+                        </div>
+
+                        <div className='singleProperty__content-left-facility'>
+                            <h3 className='singleProperty__subtitle'>Կոմունալ Հարմարություններ</h3>
+
+                            <div className='singleProperty__content-left-facility-card'>
+                                {currentPropertyData[5].fields?.map(({ key, title }) => {
+                                    return (
+                                        <p key={key}>{checked.icon} {title}</p>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-left-otherFacility'>
+                            <h3 className='singleProperty__subtitle'>Այլ Հարմարություններ</h3>
+
+                            <div className='singleProperty__content-left-otherFacility-card'>
+                                {currentPropertyData[6].fields?.map(({ key, title }) => {
+                                    return (
+                                        <p key={key}>{checked.icon} {title}</p>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-left-video'>
+                            <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
+
+                            <div className='singleProperty__content-left-video-card'>
+                                <iframe
+                                    width="853"
+                                    height="480"
+                                    src={embedURL}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title="Embedded youtube"
+                                />
+
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-left-location'>
+                            <p>
+                                {location.icon}
+                                {currentPropertyData[1].fields[0].communityStreet.value}
+                                {" "}
+                                {currentPropertyData[1].fields[1].value},
+                                {" "}
+                                {currentPropertyData[1].fields[3].value}
+                                {"բն., "}
+                                {currentPropertyData[1].fields[0].value}
+                            </p>
+
+                            <div className='singleProperty__content-left-location-map'>
+                                <YMap
+                                    width="100%"
+                                    height="395px"
+                                    value={currentPropertyData[1].fields[4].value}
+                                // value={}
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    <div className='singleProperty__content-right'>
+                    {/* Right */}
+                    {/* <div className='singleProperty__content-right'>
 
-                    </div>
+                    </div> */}
                 </div>
             </article >
     )

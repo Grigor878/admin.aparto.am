@@ -220,9 +220,79 @@
           color: $text;
         }
       }
+
+      &-facility {
+        padding: 48px 0 52px 0;
+
+        &-card {
+          @include flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          padding-top: 24px;
+
+          p {
+            @include flex;
+            gap: 10px;
+            width: 321px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: $textSub;
+          }
+        }
+      }
+
+      &-otherFacility {
+        &-card {
+          @include flex;
+          flex-wrap: wrap;
+          gap: 32px;
+          padding-top: 24px;
+
+          p {
+            @include flex;
+            gap: 9px;
+            width: 228px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: $textSub;
+          }
+        }
+      }
+
+      &-video {
+        padding: 48px 0 52px 0;
+
+        &-card {
+          margin-top: 20px;
+          width: 100%;
+          height: 100%;
+
+          iframe {
+            width: 100%;
+            height: 432px;
+          }
+        }
+      }
+
+      &-location {
+        p {
+          @include flex;
+          gap: 6px;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 20px;
+          color: $text;
+        }
+
+        &-map {
+          margin-top: 12px;
+        }
+      }
     }
 
-    &-right {
-    }
+    // &-right {
+    // }
   }
 }
