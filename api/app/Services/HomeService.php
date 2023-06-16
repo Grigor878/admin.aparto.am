@@ -469,7 +469,6 @@ class HomeService
                 $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                 $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
-
                 if (array_key_exists('street', $item)) {
                   $addresses = ConfigAddress::find($item['street']);
                   if($addresses) {
@@ -714,6 +713,7 @@ class HomeService
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
               }
             }
+
             if ($globalVal->type == 'communitySelect') {
               if ($key === $globalVal->key) {
                 $lang = $allSelect[$value];
@@ -721,20 +721,21 @@ class HomeService
                 $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
                 $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+              }
 
-                if (array_key_exists('street', $item)) {
-                  $addresses = ConfigAddress::find($item['street']);
-                  if($addresses){
-                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
-                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
-                    $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
-                    $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
-                  } else {
-                    $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = 0;
-                  }
+              if (array_key_exists('street', $item)) {
+                $addresses = ConfigAddress::find($item['street']);
+                if($addresses){
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->value = $addresses->am;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->communityStreet->value = $addresses->ru;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->communityStreet->value = $addresses->en;
+                } else {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = 0;
                 }
               }
             }
+
             if ($globalVal->type == "text") {
               if ($key === $globalVal->key) {
                 $valueCopy = (array) $assocCopyFormAm[$idx]->fields[$globKey]->allAnswers;
