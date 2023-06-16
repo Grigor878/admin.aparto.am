@@ -63,6 +63,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     
 });
 
-// Route::group(['middleware' => 'authcheck'], function ($router) {
-
-// });
+Route::group(['middleware' => 'authcheck'], function ($router) {
+    Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
+});

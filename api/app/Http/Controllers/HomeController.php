@@ -283,5 +283,25 @@ class HomeController extends Controller
         return true;
     }
 
+    public function getProperties($id) {
+        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status')
+        ->find($id);
+        if($home) {
+            $home->am = json_decode($home->am);
+            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+            $home->photo = json_decode($home->photo);
+            $home->file = json_decode($home->file);
+            $home->keywords = json_decode($home->keywords);
+            return response()->json($home);
+
+        }
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Home not found"
+        ], 422);
+    }
+
+    
+
     
 }
