@@ -1,39 +1,117 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
-import { balcony, buildingType, buildingYear, checked, floor, idShevron, kitchenType, location, orentation, propertyType, square } from '../../../svgs/svgs'
+import { moneyFormater } from '../../../../helpers/formatters';
+import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
+import { API_BASE_URL } from '../../../../apis/config'
+import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
+import user from '../../../../assets/imgs/user.webp'
+import telegram from '../../../../assets/imgs/telegram.png'
+import whatsapp from '../../../../assets/imgs/whatsapp.png'
+import viber from '../../../../assets/imgs/viber.png'
 import './Styles.scss'
 
 const SingleProperty = () => {
     const { id } = useParams()
-    const propertyId = Number(id)
-    const { propertyData } = useSelector((state) => state.property)
+    const imgsRef = useRef()
 
-    let currentProperty = propertyData?.find(item => item.id === propertyId)
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState([])
+    const [open, setOpen] = useState(false)
+    
+    const fetchSinglePropertyData = async () => {
+        try {
+          const { data } = await baseApi.get(`/api/getProperties/${id}`)
+          setData(data)
+        } catch (error) {
+          console.log(`Error: ${error.message}`)
+        } finally {
+          setLoading(true)
+        }
+    }
+    
+    useEffect(() => {
+        fetchSinglePropertyData()
+      // eslint-disable-next-line react-hooks/exhaustive-deps, no-use-before-define
+    }, [id])
+    
+    const currentPropertyData = data?.am
+    // console.log(currentPropertyData)//
+    const currentPropertyKeywords = data?.keywords
+    const currentPropertyFiles = data?.file
+    
+    if(loading) {
+        let url = currentPropertyData[7]?.fields[1]?.value
+        let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
+        var embedURL = "https://www.youtube.com/embed/" + videoID
+    }
 
-    const currentPropertyData = currentProperty?.am
-    console.log(currentPropertyData)//
-    // const currentPropertyKeywords = currentProperty?.keywords
-    // const currentPropertyFiles = currentProperty?.file
-    // const currentPropertyImgs = currentProperty?.photo
+    const currentPropertyImgs = data?.photo
+    const modifiedData = currentPropertyImgs?.map((item) => ({
+        img: `http://127.0.0.1:8000/images/${item.name}`,
+        alt : item.name
+    }))
 
-    // console.log(currentPropertyData[7].fields[1].value)//
-
-    let url = currentPropertyData[7]?.fields[1]?.value
-    let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
-    let embedURL = "https://www.youtube.com/embed/" + videoID
+    useEffect(() => {
+        let prevScrollpos = window.scrollY
+        window.onscroll = function () {
+            const currentScrollPos = window.scrollY
+            const imgs = imgsRef.current
+            if (prevScrollpos > currentScrollPos) {
+                imgs.style.top = "0"
+            } else {
+                imgs.style.top = "-444px"
+            }
+            prevScrollpos = currentScrollPos
+        }
+    }, [])
 
     return (
-        !currentProperty && !currentPropertyData
+        !loading
             ? <Loader />
             : <article className='singleProperty'>
-                {/* <h1>SingleProperty page {id}</h1>
-            <button onClick={() => navigate(-1)}>Back</button> */}
-                <div className='singleProperty__imgs'>
-                </div>
+                {!open 
+                ? <div className='singleProperty__imgs' ref={imgsRef}>
+                    <div className='singleProperty__imgs-left' style={{height:"100%"}}>
+                     {currentPropertyImgs?.length > 0 &&
+                        <img
+                            src={API_BASE_URL + `/images/` + currentPropertyImgs[0].name}
+                            loading='lazy'
+                            alt={currentPropertyImgs[0].name}
+                            // onClick={()=> setOpen(true)}
+                        />
+                    }
+                    </div>
 
+                    <div className='singleProperty__imgs-right'>
+                        {currentPropertyImgs?.slice(1,5).map(({ name,visible }) => {
+                            return (
+                                visible === "true" && 
+                                <img
+                                    key={name}
+                                    src={API_BASE_URL + `/images/` + name}
+                                    loading='lazy'
+                                    alt={name}
+                                    // onClick={()=> setOpen(true)}
+                                />
+                            )
+                        })}
+                        <button
+                            onClick={()=> setOpen(true)}
+                        >
+                            {seeAllImgs.icon} Տեսնել բոլոր նկարները
+                        </button>
+                    </div>
+                </div>
+                : <ReactFullscreenCarousel
+                    slides={modifiedData}
+                    handleClose={() => setOpen(false)}
+                    startSlideIndex={0}
+                />
+            }
+                
                 <div className='singleProperty__content'>
                     {/* Left */}
                     <div className='singleProperty__content-left'>
@@ -56,8 +134,8 @@ const SingleProperty = () => {
                             </div>
 
                             <div className='singleProperty__content-left-title-right'>
-                                <span>{idShevron.icon} {currentProperty.id}</span>
-                                <p>{currentProperty.selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
+                                <span>{idShevron.icon} {id}</span>
+                                <p>{data?.selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
                             </div>
                         </div>
 
@@ -137,22 +215,23 @@ const SingleProperty = () => {
                             </div>
                         </div>
 
-                        <div className='singleProperty__content-left-video'>
-                            <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
+                        {currentPropertyData[7]?.fields[1]?.value?.length &&
+                            <div className='singleProperty__content-left-video'>
+                                <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
 
-                            <div className='singleProperty__content-left-video-card'>
-                                <iframe
-                                    width="853"
-                                    height="480"
-                                    src={embedURL}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    title="Embedded youtube"
-                                />
+                                <div className='singleProperty__content-left-video-card'>
+                                    <iframe
+                                        width="853"
+                                        height="480"
+                                        src={embedURL}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title="Embedded youtube"
+                                    />
 
-                            </div>
-                        </div>
+                                </div>
+                            </div>}
 
                         <div className='singleProperty__content-left-location'>
                             <p>
@@ -171,22 +250,262 @@ const SingleProperty = () => {
                                     width="100%"
                                     height="395px"
                                     value={currentPropertyData[1].fields[4].value}
-                                // value={}
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Right */}
-                    {/* <div className='singleProperty__content-right'>
+                    <div className='singleProperty__content-right'>
+                        <div className='singleProperty__content-right-price'>
+                            <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+                            
+                            <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>
+                            <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>
+                            {/* <select>
+                                <option>Գնի պատմություն ։</option>
+                                <option><p>$130,000</p><p>13 May 2023</p></option>
+                                <option><p>$128,000</p><p>06 May 2023</p></option>
+                                <option><p>$135,000</p><p>29 April 2023</p></option>
+                            </select> */}
+                            <hr />
+                           
+                            <p>Վճարման կարգ։
+                            {currentPropertyData[2]?.fields[4]?.value.includes(",") 
+                                ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
+                                        <span key={index}>{item.trim()}</span>
+                                    ))}
+                                </span>
+                                : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
+                            }  
+                            </p>
+                           
+                            <p>Նախընտրած բանկ։ 
+                            {currentPropertyData[2]?.fields[5]?.value.includes(",") 
+                                ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {currentPropertyData[2]?.fields[5]?.value.split(',').map((item, index) => (
+                                        <span key={index}>{item.trim()}</span>
+                                    ))}
+                                </span>
+                                : <span>{currentPropertyData[2]?.fields[5]?.value}</span>
+                            }    
+                            </p>
+                            <hr />
+                            <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>
+                            <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>
+                        </div>
 
-                    </div> */}
+                        <div className='singleProperty__content-right-contact'>
+                            <h5>Կապ մեզ հետ</h5>
+
+                            <div className='singleProperty__content-right-contact-social'>
+                                <div className='singleProperty__content-right-contact-social-card'>
+                                    <span>{mail.icon} Էլ. փոստ</span>
+                                    <p>info@aparto.am</p>
+                                </div>
+
+                                <div className='singleProperty__content-right-contact-social-bottom'>
+                                    <div className='singleProperty__content-right-contact-social-card'>
+                                        <span>{tel.icon} Բջջ. Հեռ.</span>
+                                        <p>+374 99 090909</p>
+                                    </div>
+                                    <div className='singleProperty__content-right-contact-social-card'>
+                                        <div style={{display:"flex", gap:"16px"}}>
+                                            <img src={telegram} alt="telegram" />
+                                            <img src={whatsapp} alt="whatsapp" />
+                                            <img src={viber} alt="viber" />
+                                        </div>
+                                        <p>+374 99 090909</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='singleProperty__content-right-contact-info'>
+                                <img src={user} alt="img" />
+                                
+                                <div className='singleProperty__content-right-contact-info-name'>
+                                    <p>Արման Հակոբյան</p>
+                                    <span>Ապարտո գործակալ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-right-specialists'>
+                            <h5>Իրավաբանական</h5>
+
+                            <div className='singleProperty__content-right-specialists-fields'>
+                                <label>
+                                    Սեփականատեր 1
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[0]?.value}
+                                    />
+                                </label>
+                                <label>
+                                    Սեփականատիրոջ հեռախոսահամար
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[1]?.value}
+                                    />
+                                </label>
+
+                                {currentPropertyData[9]?.fields[2]?.option[0]?.value.length &&
+                                currentPropertyData[9]?.fields[2]?.option[1]?.value.length ?
+                                <>
+                                 <label>
+                                    Սեփականատեր 2
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
+                                    />
+                                </label>
+                                <label>
+                                    Սեփականատիրոջ հեռախոսահամար
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
+                                    />
+                                </label>
+                                </>:null}
+
+                                {currentPropertyData[9]?.fields[2]?.option[2]?.value.length &&
+                                currentPropertyData[9]?.fields[2]?.option[3]?.value.length ?
+                                <>
+                                 <label>
+                                    Սեփականատեր 2
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
+                                    />
+                                </label>
+                                <label>
+                                    Սեփականատիրոջ հեռախոսահամար
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
+                                    />
+                                </label>
+                                </>:null}
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-right-info'>
+                            <h5>Լրացուցիչ Ինֆորմացիա</h5>
+
+                            <textarea
+                               rows="14"
+                               cols="10"
+                               wrap="soft"
+                               disabled
+                            >
+                                {currentPropertyData[10]?.fields[0]?.value?.length 
+                                ?currentPropertyData[10]?.fields[0]?.value
+                                : "Նախընտրած ինֆորմացիա"}
+                            </textarea>
+
+                            <div className='singleProperty__content-right-info-uploads'>
+                                    {currentPropertyFiles?.map((el)=>{
+                                        return(
+                                            // eslint-disable-next-line jsx-a11y/anchor-has-content
+                                            <div key={el} className='singleProperty__content-right-info-uploads-file'>
+                                                {file.icon}
+                                                <a target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">{el}</a>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-right-specialists'>
+                            <h5>Կից Մասնագետներ</h5>
+
+                            <div className='singleProperty__content-right-specialists-fields'>
+                                <label>
+                                    Գործակալ
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[11]?.fields[0]?.value}
+                                    />
+                                </label>
+                                <label>
+                                    Մենեջեր
+                                    <input
+                                        type="text"
+                                        disabled
+                                        value={currentPropertyData[11]?.fields[1]?.value}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-right-keywords'>
+                            <h5>Բանալի բառեր</h5>
+
+                            <div className='singleProperty__content-right-keywords-list'>
+                                {currentPropertyKeywords?.map((el)=>{
+                                    return(
+                                        <p key={el}>{el}</p>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div className='singleProperty__content-right-dates'>
+                            <p>Ավելացված է՝ 02/02/2023</p>
+                            <p>Փոփոխված է՝ 10/02/2023</p>
+                        </div>
+                    </div>
                 </div>
             </article >
     )
 }
 
 export default SingleProperty
+
+// if its not work do with react-image-gallery
+
+// import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper"
+// import { Swiper, SwiperSlide } from "swiper/react"
+// import "swiper/scss"
+// import "swiper/scss/navigation"
+// import "swiper/scss/pagination"
+
+    // < div className = 'singleProperty__imgs' >
+    //     <Swiper
+    //         slidesPerView={3}
+    //         spaceBetween={12}
+    //         navigation={true}
+    //         pagination={{
+    //             type: "fraction",
+    //         }}
+    //         loop={true}
+    //         autoplay={{ delay: 3000, disableOnInteraction: true }}
+    //         scrollbar={{ draggable: true }}
+    //         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+
+    //     // 
+    //     >
+    //         {currentPropertyImgs?.map(({ name, visible }) => {
+    //             if (visible === 'true') {
+    //                 return (
+    //                     <SwiperSlide key={name}>
+    //                         <img src={API_BASE_URL + '/images/' + name} loading='lazy' alt={name} />
+    //                     </SwiperSlide>
+    //                 );
+    //             }
+    //             return null; // Ensure a consistent number of slides
+    //         })}
+    //     </Swiper>
+    //             </ >
 
 
 // for scroll best performance
