@@ -4,7 +4,7 @@ import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
 import { moneyFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
-import { API_BASE_URL } from '../../../../apis/config'
+import { API_BASE_URL, getAxiosConfig } from '../../../../apis/config'
 import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import user from '../../../../assets/imgs/user.webp'
@@ -21,16 +21,27 @@ const SingleProperty = () => {
     const [data, setData] = useState([])
     const [open, setOpen] = useState(false)
     
+    // const fetchSinglePropertyData = async () => {
+    //     try {
+    //       const { data } = await baseApi.get(`/api/getProperties/${id}`)
+    //       setData(data)
+    //     } catch (error) {
+    //       console.log(`Error: ${error.message}`)
+    //     } finally {
+    //       setLoading(true)
+    //     }
+    // }
     const fetchSinglePropertyData = async () => {
         try {
-          const { data } = await baseApi.get(`/api/getProperties/${id}`)
+          const axiosConfig = getAxiosConfig()
+          const { data } = await baseApi.get(`/api/getProperties/${id}`, axiosConfig)
           setData(data)
         } catch (error) {
           console.log(`Error: ${error.message}`)
         } finally {
           setLoading(true)
         }
-    }
+      };
     
     useEffect(() => {
         fetchSinglePropertyData()
