@@ -33,8 +33,7 @@ const SingleProperty = () => {
     // }
     const fetchSinglePropertyData = async () => {
         try {
-          const axiosConfig = getAxiosConfig()
-          const { data } = await baseApi.get(`/api/getProperties/${id}`, axiosConfig)
+          const { data } = await baseApi.get(`/api/getProperties/${id}`, getAxiosConfig())
           setData(data)
         } catch (error) {
           console.log(`Error: ${error.message}`)
@@ -53,7 +52,7 @@ const SingleProperty = () => {
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
     
-    if(loading) {
+    if(loading && currentPropertyData[7]?.fields[1]?.value?.length) {
         let url = currentPropertyData[7]?.fields[1]?.value
         let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
         var embedURL = "https://www.youtube.com/embed/" + videoID
@@ -97,7 +96,7 @@ const SingleProperty = () => {
                     </div>
 
                     <div className='singleProperty__imgs-right'>
-                        {currentPropertyImgs?.slice(1,5).map(({ name,visible }) => {
+                        {currentPropertyImgs?.slice(1,5)?.map(({ name,visible }) => {
                             return (
                                 visible === "true" && 
                                 <img
@@ -129,17 +128,17 @@ const SingleProperty = () => {
                         <div className='singleProperty__content-left-title'>
                             <div className='singleProperty__content-left-title-left'>
                                 <h2 className='singleProperty__title'>
-                                    {currentPropertyData[0].fields[2].value}
+                                    {currentPropertyData[0]?.fields[2]?.value}
                                 </h2>
                                 <p>
                                     {location.icon}
-                                    {currentPropertyData[1].fields[0].communityStreet.value}
+                                    {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
                                     {" "}
-                                    {currentPropertyData[1].fields[1].value},
+                                    {currentPropertyData[1]?.fields[1]?.value},
                                     {" "}
-                                    {currentPropertyData[1].fields[3].value}
+                                    {currentPropertyData[1]?.fields[3]?.value}
                                     {"բն., "}
-                                    {currentPropertyData[1].fields[0].value}
+                                    {currentPropertyData[1]?.fields[0]?.value}
                                     <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>Տեսնել քարտեզի վրա</span>
                                 </p>
                             </div>
@@ -153,35 +152,35 @@ const SingleProperty = () => {
                         <div className='singleProperty__content-left-options'>
                             <div>
                                 {propertyType.icon}
-                                Գույքի տիպ  -<p>{currentPropertyData[0].fields[1].value}</p>
+                                Գույքի տիպ  -<p>{currentPropertyData[0]?.fields[1]?.value}</p>
                             </div>
                             <div>
                                 {square.icon}
-                                <p>{currentPropertyData[3].fields[0].value} մ<sup>2</sup></p>
+                                <p>{currentPropertyData[3]?.fields[0]?.value} մ<sup>2</sup></p>
                             </div>
                             <div>
                                 {floor.icon}
-                                <p>{currentPropertyData[3].fields[8].value} / {currentPropertyData[4].fields[1].value}</p>
+                                <p>{currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
                             </div>
                             <div>
                                 {balcony.icon}
-                                <p>{Number(currentPropertyData[3].fields[5].value) + Number(currentPropertyData[3].fields[6].value)}</p> պատշգամբ
+                                <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> պատշգամբ
                             </div>
                             <div>
                                 {buildingType.icon}
-                                Շինության տիպ -<p>{currentPropertyData[4].fields[0].value}</p>
+                                Շինության տիպ -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
                             </div>
                             <div>
                                 {buildingYear.icon}
-                                Կառուցված -<p>{currentPropertyData[4].fields[3].value}</p>
+                                Կառուցված -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
                             </div>
                             <div>
                                 {kitchenType.icon}
-                                Խոհանոցի տիպ -<p>{currentPropertyData[3].fields[11].value}</p>
+                                Խոհանոցի տիպ -<p>{currentPropertyData[3]?.fields[11]?.value}</p>
                             </div>
                             <div>
                                 {orentation.icon}
-                                Կողմնորոշում -<p>{currentPropertyData[4].fields[4].value}</p>
+                                Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
                             </div>
                         </div>
 
@@ -189,16 +188,16 @@ const SingleProperty = () => {
                             <h3 className='singleProperty__subtitle'>Տան Նկարագիր</h3>
 
                             <div className='singleProperty__content-left-desc-info'>
-                                <p>Սենյակների քանակ - <span>{currentPropertyData[3].fields[2].value}</span></p>
-                                <p>Ննջասենյակների քանակ - <span>{currentPropertyData[3].fields[3].value}</span></p>
-                                <p>Սանհանգույցների քանակ - <span>{currentPropertyData[3].fields[4].value}</span></p>
-                                <p>Փակ պատշգամբների քանակ - <span>{currentPropertyData[3].fields[6].value}</span></p>
-                                <p>Բաց պատշգամբների քանակ - <span>{currentPropertyData[3].fields[5].value}</span></p>
-                                <p>Առաստաղի բարձրություն - <span>{currentPropertyData[3].fields[1].value} մ</span></p>
+                                <p>Սենյակների քանակ - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
+                                <p>Ննջասենյակների քանակ - <span>{currentPropertyData[3]?.fields[3]?.value}</span></p>
+                                <p>Սանհանգույցների քանակ - <span>{currentPropertyData[3]?.fields[4]?.value}</span></p>
+                                <p>Փակ պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[6]?.value}</span></p>
+                                <p>Բաց պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[5]?.value}</span></p>
+                                <p>Առաստաղի բարձրություն - <span>{currentPropertyData[3]?.fields[1]?.value} մ</span></p>
                             </div>
 
                             <p className='singleProperty__content-left-desc-text'>
-                                {currentPropertyData[0].fields[3].value}
+                                {currentPropertyData[0]?.fields[3]?.value}
                             </p>
                         </div>
 
@@ -206,7 +205,7 @@ const SingleProperty = () => {
                             <h3 className='singleProperty__subtitle'>Կոմունալ Հարմարություններ</h3>
 
                             <div className='singleProperty__content-left-facility-card'>
-                                {currentPropertyData[5].fields?.map(({ key, title }) => {
+                                {currentPropertyData[5]?.fields?.map(({ key, title }) => {
                                     return (
                                         <p key={key}>{checked.icon} {title}</p>
                                     )
@@ -218,7 +217,7 @@ const SingleProperty = () => {
                             <h3 className='singleProperty__subtitle'>Այլ Հարմարություններ</h3>
 
                             <div className='singleProperty__content-left-otherFacility-card'>
-                                {currentPropertyData[6].fields?.map(({ key, title }) => {
+                                {currentPropertyData[6]?.fields?.map(({ key, title }) => {
                                     return (
                                         <p key={key}>{checked.icon} {title}</p>
                                     )
@@ -226,8 +225,8 @@ const SingleProperty = () => {
                             </div>
                         </div>
 
-                        {currentPropertyData[7]?.fields[1]?.value?.length &&
-                            <div className='singleProperty__content-left-video'>
+                        {currentPropertyData[7]?.fields[1]?.value?.length 
+                        ?   <div className='singleProperty__content-left-video'>
                                 <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
 
                                 <div className='singleProperty__content-left-video-card'>
@@ -242,25 +241,26 @@ const SingleProperty = () => {
                                     />
 
                                 </div>
-                            </div>}
+                            </div>
+                            :null}
 
                         <div className='singleProperty__content-left-location'>
                             <p>
                                 {location.icon}
-                                {currentPropertyData[1].fields[0].communityStreet.value}
+                                {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
                                 {" "}
-                                {currentPropertyData[1].fields[1].value},
+                                {currentPropertyData[1]?.fields[1]?.value},
                                 {" "}
-                                {currentPropertyData[1].fields[3].value}
+                                {currentPropertyData[1]?.fields[3]?.value}
                                 {"բն., "}
-                                {currentPropertyData[1].fields[0].value}
+                                {currentPropertyData[1]?.fields[0]?.value}
                             </p>
 
                             <div className='singleProperty__content-left-location-map'>
                                 <YMap
                                     width="100%"
                                     height="395px"
-                                    value={currentPropertyData[1].fields[4].value}
+                                    value={currentPropertyData[1]?.fields[4]?.value}
                                 />
                             </div>
                         </div>
@@ -295,7 +295,7 @@ const SingleProperty = () => {
                             <p>Նախընտրած բանկ։ 
                             {currentPropertyData[2]?.fields[5]?.value.includes(",") 
                                 ? <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {currentPropertyData[2]?.fields[5]?.value.split(',').map((item, index) => (
+                                    {currentPropertyData[2]?.fields[5]?.value?.split(',')?.map((item, index) => (
                                         <span key={index}>{item.trim()}</span>
                                     ))}
                                 </span>
@@ -363,8 +363,8 @@ const SingleProperty = () => {
                                     />
                                 </label>
 
-                                {currentPropertyData[9]?.fields[2]?.option[0]?.value.length &&
-                                currentPropertyData[9]?.fields[2]?.option[1]?.value.length ?
+                                {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
+                                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
                                 <>
                                  <label>
                                     Սեփականատեր 2
@@ -384,8 +384,8 @@ const SingleProperty = () => {
                                 </label>
                                 </>:null}
 
-                                {currentPropertyData[9]?.fields[2]?.option[2]?.value.length &&
-                                currentPropertyData[9]?.fields[2]?.option[3]?.value.length ?
+                                {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
+                                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
                                 <>
                                  <label>
                                     Սեփականատեր 2

@@ -60,9 +60,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/editYandexLocation/{id}',  [HomeController::class, 'editYandexLocation']);
     Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
     Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
-    Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
 });
 
 Route::group(['middleware' => 'authcheck'], function ($router) {
-    // Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
+    Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
 });
