@@ -60,7 +60,7 @@ const SingleProperty = () => {
 
     const currentPropertyImgs = data?.photo
     const modifiedData = currentPropertyImgs?.map((item) => ({
-        img: `http://127.0.0.1:8000/images/${item.name}`,
+        img: `${API_BASE_URL}/images/${item.name}`,
         alt : item.name
     }))
 
@@ -82,21 +82,24 @@ const SingleProperty = () => {
         !loading
             ? <Loader />
             : <article className='singleProperty'>
-                {!open 
-                ? <div className='singleProperty__imgs' ref={imgsRef}>
+                {!open
+                ? <div
+                    className='singleProperty__imgs'
+                    ref={imgsRef}
+                    style={{display : !currentPropertyImgs ? "none" : "flex"}}
+                  >
                     <div className='singleProperty__imgs-left' style={{height:"100%"}}>
                      {currentPropertyImgs?.length > 0 &&
                         <img
                             src={API_BASE_URL + `/images/` + currentPropertyImgs[0].name}
                             loading='lazy'
                             alt={currentPropertyImgs[0].name}
-                            // onClick={()=> setOpen(true)}
                         />
                     }
                     </div>
 
                     <div className='singleProperty__imgs-right'>
-                        {currentPropertyImgs?.slice(1,5)?.map(({ name,visible }) => {
+                        {currentPropertyImgs?.slice(1,5)?.map(({ name, visible }) => {
                             return (
                                 visible === "true" && 
                                 <img
@@ -104,7 +107,6 @@ const SingleProperty = () => {
                                     src={API_BASE_URL + `/images/` + name}
                                     loading='lazy'
                                     alt={name}
-                                    // onClick={()=> setOpen(true)}
                                 />
                             )
                         })}
@@ -120,7 +122,7 @@ const SingleProperty = () => {
                     handleClose={() => setOpen(false)}
                     startSlideIndex={0}
                 />
-            }
+                }
                 
                 <div className='singleProperty__content'>
                     {/* Left */}
@@ -166,22 +168,28 @@ const SingleProperty = () => {
                                 {balcony.icon}
                                 <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> պատշգամբ
                             </div>
+
                             <div>
                                 {buildingType.icon}
                                 Շինության տիպ -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
                             </div>
+
+                            {currentPropertyData[4]?.fields[3]?.value &&
                             <div>
                                 {buildingYear.icon}
                                 Կառուցված -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
-                            </div>
-                            <div>
+                            </div>}
+
+                           <div>
                                 {kitchenType.icon}
                                 Խոհանոցի տիպ -<p>{currentPropertyData[3]?.fields[11]?.value}</p>
                             </div>
+
+                            {currentPropertyData[4]?.fields[4]?.value &&
                             <div>
                                 {orentation.icon}
                                 Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
-                            </div>
+                            </div>}
                         </div>
 
                         <div className='singleProperty__content-left-desc'>
@@ -272,13 +280,14 @@ const SingleProperty = () => {
                             <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
                             
                             <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>
-                            <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>
-                            {/* <select>
+                            {currentPropertyData[2]?.fields[1]?.value && 
+                            <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
+                            <select>
                                 <option>Գնի պատմություն ։</option>
-                                <option><p>$130,000</p><p>13 May 2023</p></option>
-                                <option><p>$128,000</p><p>06 May 2023</p></option>
-                                <option><p>$135,000</p><p>29 April 2023</p></option>
-                            </select> */}
+                                <option>$130,000 - 13 May 2023</option>
+                                <option>$128,000 - 06 May 2023</option>
+                                <option>$135,000 - 29 April 2023</option>
+                            </select>
                             <hr />
                            
                             <p>Վճարման կարգ։
@@ -292,6 +301,7 @@ const SingleProperty = () => {
                             }  
                             </p>
                            
+                            {currentPropertyData[2]?.fields[5]?.value && 
                             <p>Նախընտրած բանկ։ 
                             {currentPropertyData[2]?.fields[5]?.value.includes(",") 
                                 ? <span style={{ display: 'flex', flexDirection: 'column' }}>
@@ -301,10 +311,12 @@ const SingleProperty = () => {
                                 </span>
                                 : <span>{currentPropertyData[2]?.fields[5]?.value}</span>
                             }    
-                            </p>
+                            </p>}
                             <hr />
-                            <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>
-                            <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>
+                            {currentPropertyData[4]?.fields[5]?.value &&
+                            <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
+                            {currentPropertyData[4]?.fields[6]?.value &&
+                            <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
                         </div>
 
                         <div className='singleProperty__content-right-contact'>
@@ -388,7 +400,7 @@ const SingleProperty = () => {
                                 currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
                                 <>
                                  <label>
-                                    Սեփականատեր 2
+                                    Սեփականատեր 3
                                     <input
                                         type="text"
                                         disabled
@@ -417,7 +429,7 @@ const SingleProperty = () => {
                                disabled
                             >
                                 {currentPropertyData[10]?.fields[0]?.value?.length 
-                                ?currentPropertyData[10]?.fields[0]?.value
+                                ? currentPropertyData[10]?.fields[0]?.value
                                 : "Նախընտրած ինֆորմացիա"}
                             </textarea>
 
@@ -447,6 +459,7 @@ const SingleProperty = () => {
                                         value={currentPropertyData[11]?.fields[0]?.value}
                                     />
                                 </label>
+                                {currentPropertyData[11]?.fields[1]?.value && 
                                 <label>
                                     Մենեջեր
                                     <input
@@ -454,10 +467,11 @@ const SingleProperty = () => {
                                         disabled
                                         value={currentPropertyData[11]?.fields[1]?.value}
                                     />
-                                </label>
+                                </label>}
                             </div>
                         </div>
 
+                        {currentPropertyKeywords.length ?
                         <div className='singleProperty__content-right-keywords'>
                             <h5>Բանալի բառեր</h5>
 
@@ -469,6 +483,7 @@ const SingleProperty = () => {
                                 })}
                             </div>
                         </div>
+                        :null}
 
                         <div className='singleProperty__content-right-dates'>
                             <p>Ավելացված է՝ 02/02/2023</p>
