@@ -577,6 +577,10 @@ class HomeService
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                } else {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = "";
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = "";
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = "";
                 }
               }
             }
@@ -617,8 +621,8 @@ class HomeService
 
     $normalArrayAm = array_values($assocCopyFormAm);
     $normalArrayRu = array_values($assocCopyFormRu);
-    $assocCopyFormEn = array_values($assocCopyFormEn);
-    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $assocCopyFormEn];
+    $normalArrayEn = array_values($assocCopyFormEn);
+    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn];
   }
 
   public function addEditYandexLocation($id, $data) {
@@ -655,6 +659,7 @@ class HomeService
   public function homeLanguageContsructorEdit($id, $data)
   {
     $allSelect = $this->getAllSelect();
+    $editHomeStatus = false;
     $keysAm = [];
     $keysRu = [];
     $keysEn = [];
@@ -724,6 +729,7 @@ class HomeService
               }
 
               if (array_key_exists('street', $item)) {
+                $editHomeStatus = true;
                 $addresses = ConfigAddress::find($item['street']);
                 if($addresses){
                   $assocCopyFormAm[$idx]->fields[$globKey]->communityStreet->streetId = $item['street'];
@@ -814,6 +820,9 @@ class HomeService
             }
             if ($globalVal->type == "inputNumberSymbol") {
               if ($key === $globalVal->key) {
+                if($key === "surface"){
+                  $editHomeStatus = true;
+                }
                 $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                 $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
@@ -822,10 +831,14 @@ class HomeService
             if ($globalVal->type == "agentSelect" || $globalVal->type == "managerSelect") {
               if ($key === $globalVal->key) {
                 $employe = Employe::find($value);
-                if($employe) {
+                if($employe){
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                } else {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = "";
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = "";
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = "";
                 }
               }
             }
@@ -863,11 +876,10 @@ class HomeService
         }
       }
     }
-
     $normalArrayAm = array_values($assocCopyFormAm);
     $normalArrayRu = array_values($assocCopyFormRu);
-    $assocCopyFormEn = array_values($assocCopyFormEn);
-    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $assocCopyFormEn];
+    $normalArrayEn = array_values($assocCopyFormEn);
+    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn,  'editStatus' => $editHomeStatus];
   }
 
 }

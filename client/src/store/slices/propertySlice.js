@@ -146,7 +146,7 @@ export const editPropertyImgs = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadPhoto = state.property.uploadPhoto;
-      await baseApi.post(`/api/editMultyPhoto/${propertyId}`, uploadPhoto);
+      await baseApi.post(`/api/editMultyPhoto/${propertyId}`, uploadPhoto, getAxiosConfig());
       thunkAPI.dispatch(editPropertyFiles(propertyId));
     } catch (err) {
       console.log(`Edit Property Imgs Sending Error: ${err.message}`);
