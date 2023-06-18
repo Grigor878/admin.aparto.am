@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Home;
 use App\Services\HomeService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 
@@ -24,9 +25,9 @@ class HomeController extends Controller
             $home = new Home();
             $home->employee_id = $employee->id;
             $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
-            $home->photo = '';
-            $home->file = '';
-            $home->keywords = '';
+            $home->photo = json_encode([]);
+            $home->file = json_encode([]);
+            $home->keywords = json_encode([]);
             $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
             $home->am =json_encode($homeLanguageContsructor['am']);
             $home->ru =json_encode($homeLanguageContsructor['ru']);
@@ -78,7 +79,7 @@ class HomeController extends Controller
         if(!$data) { 
             $home = Home::find($id);
             if($home) {
-                $home->update(['photo' =>'']);
+                $home->update(['photo' => json_encode([])]);
            }
         } else {
             $home = Home::find($id);
@@ -140,7 +141,7 @@ class HomeController extends Controller
         if(!$data) { 
             $home = Home::find($id);
             if($home) {
-                $home->update(['file' =>'']);
+                $home->update(['file' =>json_encode([])]);
            }
         } else {
             $home = Home::find($id);
@@ -165,7 +166,7 @@ class HomeController extends Controller
 
     public function getHome() {
         $allHome = Home::orderByRaw("status = 'moderation' DESC")
-        ->select('id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status')
+        ->select('id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get();
 
         foreach ($allHome as $key => $home) {
@@ -216,16 +217,17 @@ class HomeController extends Controller
            if(isset($home->en[11]->fields[1]->value)){ 
             array_push($searchAllProperty, $home->en[11]->fields[1]->value);
            }
-           
+
            array_push($searchAllProperty, $home->id);
-           
            $home->searchAllProperty = $searchAllProperty;
            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
            $home->photo = json_decode($home->photo);
            $home->file = json_decode($home->file);
+           $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+           $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+           
            $home->keywords = json_decode($home->keywords);
         }
-
         return response()->json($allHome);
     }
 
@@ -293,13 +295,15 @@ class HomeController extends Controller
     }
 
     public function getProperties($id) {
-        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status')
+        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->find($id);
         if($home) {
             $home->am = json_decode($home->am);
             $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->photo = json_decode($home->photo);
             $home->file = json_decode($home->file);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
             $home->keywords = json_decode($home->keywords);
             return response()->json($home);
 
