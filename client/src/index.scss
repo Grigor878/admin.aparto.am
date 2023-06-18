@@ -27,19 +27,19 @@ body {
   font-style: normal;
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 1440px;
-  padding: 0 120px;
+// .container {
+//   margin: 0 auto;
+//   max-width: 1440px;
+//   padding: 0 120px;
 
-  @media screen and (max-width: 1280px) {
-    padding: 0 50px;
-  }
+//   @media screen and (max-width: 1280px) {
+//     padding: 0 50px;
+//   }
 
-  @media screen and (max-width: 768px) {
-    padding: 0 32px;
-  }
-}
+//   @media screen and (max-width: 768px) {
+//     padding: 0 32px;
+//   }
+// }
 
 .loading {
   z-index: 99;

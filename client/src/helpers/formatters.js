@@ -10,3 +10,16 @@ export function splitBefore(str) {
 export function splitAfter(str) {
   return str.split("/")[1];
 }
+// money formater
+export function moneyFormater(num) {
+  let usd = Intl.NumberFormat("en-US");
+  let formated = "$ " + usd.format(num);
+  return formated;
+}
+
+// money formater without $ symbol
+export function moneyFormaterNoUsd(num) {
+  let usd = Intl.NumberFormat("en-US");
+  let formated = usd.format(num);
+  return formated;
+}
