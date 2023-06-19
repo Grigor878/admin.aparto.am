@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
@@ -15,7 +15,7 @@ import './Styles.scss'
 
 const SingleProperty = () => {
     const { id } = useParams()
-    const imgsRef = useRef()
+    // const imgsRef = useRef()
 
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
@@ -48,7 +48,7 @@ const SingleProperty = () => {
     }, [id])
     
     const currentPropertyData = data?.am
-    // console.log(currentPropertyData)//
+    console.log(data)//
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
     
@@ -59,24 +59,25 @@ const SingleProperty = () => {
     }
 
     const currentPropertyImgs = data?.photo
-    const modifiedData = currentPropertyImgs?.map((item) => ({
+
+    const modifiedData = currentPropertyImgs?.filter(el => el.visible === "true")?.map((item) => ({
         img: `${API_BASE_URL}/images/${item.name}`,
         alt : item.name
     }))
 
-    useEffect(() => {
-        let prevScrollpos = window.scrollY
-        window.onscroll = function () {
-            const currentScrollPos = window.scrollY
-            const imgs = imgsRef.current
-            if (prevScrollpos > currentScrollPos) {
-                imgs.style.top = "0"
-            } else {
-                imgs.style.top = "-444px"
-            }
-            prevScrollpos = currentScrollPos
-        }
-    }, [])
+    // useEffect(() => {
+    //     let prevScrollpos = window.scrollY
+    //     window.onscroll = function () {
+    //         const currentScrollPos = window.scrollY
+    //         const imgs = imgsRef?.current
+    //         if (prevScrollpos > currentScrollPos) {
+    //             imgs.style.top = "0"
+    //         } else {
+    //             imgs.style.top = "-444px"
+    //         }
+    //         prevScrollpos = currentScrollPos
+    //     }
+    // }, [])
 
     return (
         !loading
@@ -85,28 +86,27 @@ const SingleProperty = () => {
                 {!open
                 ? <div
                     className='singleProperty__imgs'
-                    ref={imgsRef}
-                    style={{display : !currentPropertyImgs ? "none" : "flex"}}
+                    // ref={imgsRef}
+                    style={{display : !currentPropertyImgs || currentPropertyImgs?.length === 0 ? "none" : "flex"}}
                   >
                     <div className='singleProperty__imgs-left' style={{height:"100%"}}>
-                     {currentPropertyImgs?.length > 0 &&
+                     {currentPropertyImgs?.length !== 0 && modifiedData &&
                         <img
-                            src={API_BASE_URL + `/images/` + currentPropertyImgs[0].name}
+                            src={modifiedData[0].img}
                             loading='lazy'
-                            alt={currentPropertyImgs[0].name}
+                            alt={modifiedData[0].alt}
                         />
                     }
                     </div>
 
                     <div className='singleProperty__imgs-right'>
-                        {currentPropertyImgs?.slice(1,5)?.map(({ name, visible }) => {
+                        {currentPropertyImgs?.length !== 0 && modifiedData?.slice(1,5)?.map(({ img, alt }) => {
                             return (
-                                visible === "true" && 
                                 <img
-                                    key={name}
-                                    src={API_BASE_URL + `/images/` + name}
+                                    key={alt}
+                                    src={img}
                                     loading='lazy'
-                                    alt={name}
+                                    alt={alt}
                                 />
                             )
                         })}
@@ -214,6 +214,9 @@ const SingleProperty = () => {
 
                             <div className='singleProperty__content-left-facility-card'>
                                 {currentPropertyData[5]?.fields?.map(({ key, title }) => {
+                                    // if (title.endsWith('*')) {
+                                    //     title = title.slice(0, -1);
+                                    // }
                                     return (
                                         <p key={key}>{checked.icon} {title}</p>
                                     )
@@ -279,7 +282,8 @@ const SingleProperty = () => {
                         <div className='singleProperty__content-right-price'>
                             <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
                             
-                            <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>
+                            {currentPropertyData[2]?.fields[2]?.value &&
+                            <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
                             {currentPropertyData[2]?.fields[1]?.value && 
                             <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
                             <select>
@@ -436,7 +440,6 @@ const SingleProperty = () => {
                             <div className='singleProperty__content-right-info-uploads'>
                                     {currentPropertyFiles?.map((el)=>{
                                         return(
-                                            // eslint-disable-next-line jsx-a11y/anchor-has-content
                                             <div key={el} className='singleProperty__content-right-info-uploads-file'>
                                                 {file.icon}
                                                 <a target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">{el}</a>
@@ -486,8 +489,8 @@ const SingleProperty = () => {
                         :null}
 
                         <div className='singleProperty__content-right-dates'>
-                            <p>Ավելացված է՝ 02/02/2023</p>
-                            <p>Փոփոխված է՝ 10/02/2023</p>
+                            <p>Ավելացված է՝ {data?.createdAt}</p>
+                            <p>Փոփոխված է՝ {data?.updatedAt}</p>
                         </div>
                     </div>
                 </div>
