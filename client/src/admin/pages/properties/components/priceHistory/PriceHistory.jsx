@@ -16,17 +16,24 @@ export const PriceHistory = ({ data }) => {
             </p>
 
             <div className={price ? 'singleProperty__content-right-price-history-list' : 'singleProperty__content-right-price-history-listActive'}>
-                {data?.map(({ price, date }) => {
-                    return (
-                        <div
-                            className='singleProperty__content-right-price-history-listActive-view'
-                            key={date + price}
-                        >
-                            <p>{moneyFormater(price)} </p>
-                            <p>{date}</p>
-                        </div>
-                    )
-                })}
+                {data.length === 0
+                    ? <div
+                        className='singleProperty__content-right-price-history-listActive-view'
+                    >
+                        <p>Փոփոխություններ չեն կատարվել:</p>
+                    </div>
+                    : data?.map(({ price, date }) => {
+                        return (
+                            <div
+                                className='singleProperty__content-right-price-history-listActive-view'
+                                key={date + price}
+                            >
+                                <p>{moneyFormater(price)} </p>
+                                <p>{date}</p>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
