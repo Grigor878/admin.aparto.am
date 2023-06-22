@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Loader } from '../../../../../components/loader/Loader'
-import { Link } from 'react-router-dom'
-import './List.scss'
+import { Item } from './Item'
+import './Styles.scss'
 
 export const List = () => {
     const { propertyData, filteredData } = useSelector((state) => state.property)
@@ -12,40 +12,8 @@ export const List = () => {
             {!propertyData && !filteredData
                 ? <Loader />
                 : filteredData === null
-                    ? propertyData?.map(({ id, selectedTransationType, }) => {
-                        return (
-                            <Link
-                                key={id}
-                                to={`${id}`}
-                                className="propertyList__item"
-                            >
-                                <div className='propertyList__slide'>
-                                    <p>ID - {id}</p>
-                                    <p>Type - {selectedTransationType}</p>
-                                </div>
-                                <div className='propertyList__info'>
-                                    <Link to={`edit/${id}`}> Edit Page</Link>
-                                </div>
-                            </Link>
-                        )
-                    })
-                    : filteredData?.map(({ id, selectedTransationType, }) => {
-                        return (
-                            <Link
-                                key={id}
-                                to={`${id}`}
-                                className="propertyList__item"
-                            >
-                                <div className='propertyList__slide'>
-                                    <p>ID - {id}</p>
-                                    <p>Type - {selectedTransationType}</p>
-                                </div>
-                                <div className='propertyList__info'>
-                                    <Link to={`edit/${id}`}> Edit Page</Link>
-                                </div>
-                            </Link>
-                        )
-                    })
+                    ? <Item data={propertyData} />
+                    : <Item data={filteredData} />
             }
         </div>
     )

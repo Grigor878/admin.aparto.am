@@ -48,7 +48,7 @@ const SingleProperty = () => {
     }, [id])
     
     const currentPropertyData = data?.am
-    console.log(data)//
+    // console.log(data)//
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
     
@@ -158,7 +158,7 @@ const SingleProperty = () => {
                             </div>
                             <div>
                                 {square.icon}
-                                <p>{currentPropertyData[3]?.fields[0]?.value} մ<sup>2</sup></p>
+                                <p>{currentPropertyData[3]?.fields[0]?.value} ք.մ</p>
                             </div>
                             <div>
                                 {floor.icon}
@@ -431,10 +431,10 @@ const SingleProperty = () => {
                                cols="10"
                                wrap="soft"
                                disabled
-                            >
-                                {currentPropertyData[10]?.fields[0]?.value?.length 
+                               value={currentPropertyData[10]?.fields[0]?.value?.length 
                                 ? currentPropertyData[10]?.fields[0]?.value
                                 : "Նախընտրած ինֆորմացիա"}
+                            >
                             </textarea>
 
                             <div className='singleProperty__content-right-info-uploads'>
