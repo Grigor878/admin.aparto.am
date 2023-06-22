@@ -55,7 +55,7 @@ export const SearchBox = () => {
                 />
                 <AdvancedBtn
                     status={active}
-                    onClick={() => active ? setActive(false) : setActive(true)}
+                    onClick={() => setActive(!active)}
                 />
             </div>
 

@@ -182,6 +182,33 @@
         z-index: 3;
       }
     }
+
+    span {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      color: $bgSub;
+      padding: 4px 8px;
+    }
+
+    &-url {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      @include flex;
+      gap: 10px;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+      color: $blue;
+      padding: 8px 20px;
+      background: $bgSub;
+      border-radius: 31px;
+    }
   }
 
   &__content {
@@ -413,7 +440,7 @@
           }
         }
 
-        select {
+        &-history {
           width: 100%;
           padding: 8px 12px;
           background: $bg;
@@ -421,10 +448,37 @@
           border: 1px solid $advancedBack;
           border-radius: 6px;
           margin: 16px 0 12px 0;
+          cursor: pointer;
 
-          option{
+          p {
             @include flex;
             justify-content: space-between;
+            margin: 0;
+          }
+
+          &-listActive {
+            @include flexCol;
+            @include transition;
+
+            &-view {
+              @include flex;
+              justify-content: space-between;
+              padding: 16px 0;
+
+              &:first-child {
+                margin-top: 16px;
+                border-top: 1px solid $advancedBack;
+              }
+
+              &:not(:last-child) {
+                border-bottom: 1px solid $advancedBack;
+              }
+            }
+          }
+
+          &-list {
+            display: none;
+            @include transition;
           }
         }
 
