@@ -246,6 +246,18 @@ class HomeController extends Controller
             array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]->value);
            }
 
+           if(isset($home->am[9]->fields[0]->value)){ 
+            array_push($searchAllProperty, $home->am[9]->fields[0]->value);
+           }
+
+           if(isset( $home->am[9]->fields[2]->option[0]->value)){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[0]->value);
+           }
+          
+           if(isset( $home->am[9]->fields[2]->option[2]->value)){ 
+            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[2]->value);
+           }
+
            if(isset($home->am[11]->fields[0]->value)){ 
             array_push($searchAllProperty, $home->am[11]->fields[0]->value);
            }
@@ -284,6 +296,7 @@ class HomeController extends Controller
         $photoName = [];
         foreach ($data as $key => $photo) {
           $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+          \Log::info($fileName);
           $photo->move(public_path('images'), $fileName);
          
           if(is_numeric(strpos($key, 'visible'))) {
