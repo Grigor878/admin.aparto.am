@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\GeneralFormController;
 
 /*
@@ -60,6 +61,10 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/editYandexLocation/{id}',  [HomeController::class, 'editYandexLocation']);
     Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
     Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
+
+    //Exchange amount
+    Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
+    Route::get('/getExchange',  [ExchangeController::class, 'getExchange']);
 });
 
 Route::group(['middleware' => 'authcheck'], function ($router) {

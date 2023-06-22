@@ -29,6 +29,28 @@ class HomeController extends Controller
             $home->file = json_encode([]);
             $home->keywords = json_encode([]);
             $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
+            if($homeLanguageContsructor['priceHistory']){
+                if($home->price_history){
+                    \Log::info(222);
+                    \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
+                    $prices = json_decode($home->price_history);
+                    array_push($prices, [
+                        "price" => $homeLanguageContsructor['priceHistory'],
+                        "date" => Carbon::now()->addHours(4)->format('d/m/Y'),
+                    ]);
+                    $home->price_history = json_encode($prices);
+                }else {
+                    \Log::info(111);
+                    \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
+                    $priceDate =[];
+                    array_push($priceDate, [
+                        "price" => $homeLanguageContsructor['priceHistory'],
+                        "date" => Carbon::now()->addHours(4)->format('d/m/Y'),
+                    ]);
+    
+                    $home->price_history = json_encode($priceDate);
+                }
+            }
             $home->am =json_encode($homeLanguageContsructor['am']);
             $home->ru =json_encode($homeLanguageContsructor['ru']);
             $home->en =json_encode($homeLanguageContsructor['en']);
@@ -43,6 +65,31 @@ class HomeController extends Controller
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
         if($homeLanguageContsructor['editStatus']) {
             $home->status = auth()->user()->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+        }
+        if($homeLanguageContsructor['priceHistory']){
+            if($home->price_history){
+                \Log::info(333);
+                \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
+
+                $prices = json_decode($home->price_history, true);
+                array_push($prices, [
+                    "price" => $homeLanguageContsructor['priceHistory'],
+                    "date" => Carbon::now()->addHours(4)->format('d/m/Y'),
+                ]);
+                $home->price_history = json_encode($prices);
+            }else {
+                \Log::info(444);
+                \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
+                
+
+                $priceDate =[];
+                array_push($priceDate, [
+                    "price" => $homeLanguageContsructor['priceHistory'],
+                    "date" => Carbon::now()->addHours(4)->format('d/m/Y'),
+                ]);
+
+                $home->price_history = json_encode($priceDate);
+            }
         }
         $home->am =json_encode($homeLanguageContsructor['am']);
         $home->ru =json_encode($homeLanguageContsructor['ru']);
@@ -165,7 +212,7 @@ class HomeController extends Controller
     }
 
     public function getHome() {
-        $allHome = Home::orderByRaw("status = 'moderation' DESC")
+        $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived')")
         ->select('id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get();
 

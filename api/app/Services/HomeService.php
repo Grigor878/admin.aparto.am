@@ -410,6 +410,7 @@ class HomeService
     $copyGeneralFormAm = json_decode($generalForm->am);
     $copyGeneralFormRu = json_decode($generalForm->ru);
     $copyGeneralFormEn = json_decode($generalForm->en);
+    $priceHistory = 0;
 
     foreach ($copyGeneralFormAm as $key => $item) {
       $keysAm[] = $item->name;
@@ -550,6 +551,8 @@ class HomeService
               if ($key === $globalVal->key) {
                 if ($assocCopyFormAm[$idx]->name == 'price' && $assocCopyFormAm[$idx]->fields[$globKey]->key == "totalPrice") {
                   if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] !== "on")) {
+                    $priceHistory = $value;
+
                     $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
@@ -622,7 +625,7 @@ class HomeService
     $normalArrayAm = array_values($assocCopyFormAm);
     $normalArrayRu = array_values($assocCopyFormRu);
     $normalArrayEn = array_values($assocCopyFormEn);
-    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn];
+    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn, 'priceHistory' => $priceHistory];
   }
 
   public function addEditYandexLocation($id, $data) {
@@ -667,6 +670,7 @@ class HomeService
     $copyGeneralFormAm = json_decode($generalForm->am);
     $copyGeneralFormRu = json_decode($generalForm->ru);
     $copyGeneralFormEn = json_decode($generalForm->en);
+    $priceHistory = 0;
 
     foreach ($copyGeneralFormAm as $key => $item) {
       $keysAm[] = $item->name;
@@ -803,6 +807,8 @@ class HomeService
               if ($key === $globalVal->key) {
                 if ($assocCopyFormAm[$idx]->name == 'price') {
                   if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] != "on")) {
+                    $priceHistory = $value;
+
                     $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
@@ -879,7 +885,7 @@ class HomeService
     $normalArrayAm = array_values($assocCopyFormAm);
     $normalArrayRu = array_values($assocCopyFormRu);
     $normalArrayEn = array_values($assocCopyFormEn);
-    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn,  'editStatus' => $editHomeStatus];
+    return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn,  'editStatus' => $editHomeStatus, 'priceHistory' => $priceHistory];
   }
 
 }

@@ -18,12 +18,14 @@ class Home extends Model
         'am',
         'ru',
         'en',
+        'price_history',
 
     ];
 
     const 
         STATUS_MODERATION = 'moderation',
         STATUS_APPROVED = 'approved',
-        STATUS_ARCHIVED = 'archived';
+        STATUS_ARCHIVED = 'archived',
+        STATUS_INACTIVE = 'inactive';
 
 }
