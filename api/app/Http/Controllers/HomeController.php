@@ -342,7 +342,7 @@ class HomeController extends Controller
     }
 
     public function getProperties($id) {
-        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
         ->find($id);
         if($home) {
             $home->am = json_decode($home->am);
@@ -352,6 +352,7 @@ class HomeController extends Controller
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
             $home->keywords = json_decode($home->keywords);
+            $home->priceHistory = json_decode($home->price_history);
             return response()->json($home);
 
         }
