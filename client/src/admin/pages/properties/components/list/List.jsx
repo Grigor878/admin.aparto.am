@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Loader } from '../../../../../components/loader/Loader'
-import { Item } from './Item'
+import { Item } from './components/Item'
 import './Styles.scss'
 
 export const List = () => {

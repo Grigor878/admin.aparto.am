@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { API_BASE_URL, APP_BASE_URL } from '../../../../../apis/config'
-import { moneyFormater } from '../../../../../helpers/formatters'
-import { bathrooms, floor, height, more, rooms, square, top, url } from '../../../../svgs/svgs'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
+import { Type } from './Type'
+import { moneyFormater } from '../../../../../../helpers/formatters'
+import { bathrooms, floor, height, rooms, square, top, url } from '../../../../../svgs/svgs'
 import { Btn } from './Btn'
-import './Styles.scss'
+import { More } from './More'
+import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    // console.log(data)//
+    console.log(data)//
     let navigate = useNavigate()
-
-    const [active, setActive] = useState(false)
 
     return (
         data?.map(({ id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
@@ -27,7 +27,7 @@ export const Item = ({ data }) => {
 
                         <div className='propertyList__item-view-types'>
                             <span>{selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
-                            <span>{am[0].fields[4].value}</span>
+                            <Type data={am[0].fields[4].value} />
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@ export const Item = ({ data }) => {
                                         />
                                         <button
                                             type='button'
-                                            onClick={() => alert("top")}
+                                            onClick={() => alert("Cooming Soon :)")}
                                         >
                                             {top.icon}
                                         </button>
@@ -114,57 +114,10 @@ export const Item = ({ data }) => {
                             </div>
                         </div>
 
-                        <div className='propertyList__item-right-more'>
-                            <div
-                                className='propertyList__item-right-more-icon'
-                                onClick={() => !active ? setActive(true) : setActive(false)}
-                            >
-                                {more.icon}
-                            </div>
-
-                            <div className={!active ? 'propertyList__item-right-more-menuClose' : 'propertyList__item-right-more-menu'}>
-                                <Link
-                                    className='propertyList__item-right-more-menu-link'
-                                    to={`edit/${id}`}
-                                >
-                                    Փոփոխել
-                                </Link>
-                                {status === "approved"
-                                    ? <button
-                                        className='propertyList__item-right-more-menu-item'
-                                        onClick={() => alert("Cooming Soon :)")}
-                                    >
-                                        Ապաակտիվացնել
-                                    </button>
-                                    : status === "deactive"
-                                        ? <button
-                                            className='propertyList__item-right-more-menu-item'
-                                            onClick={() => alert("Cooming Soon :)")}
-                                        >
-                                            Ակտիվացնել
-                                        </button>
-                                        : null
-                                }
-                                <button
-                                    style={{ color: "#D34545" }}
-                                    className='propertyList__item-right-more-menu-item'
-                                    onClick={() => alert("Cooming Soon :)")}
-                                >
-                                    Արխիվացնել
-                                </button>
-                            </div>
-                        </div>
+                        <More id={id} status={status} />
                     </div>
                 </div>
             )
         })
     )
 }
-
-// {/* <div className='propertyList__slide'>
-//                 <p>ID - {id}</p>
-//                 <p>Type - {selectedTransationType}</p>
-//             </div>
-//             <div className='propertyList__info'>
-//                 <Link to={`edit/${id}`}> Edit Page</Link>
-//             </div> */}

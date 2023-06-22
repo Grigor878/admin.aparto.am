@@ -4,9 +4,10 @@ import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
 import { moneyFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
-import { API_BASE_URL, getAxiosConfig } from '../../../../apis/config'
-import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../../svgs/svgs'
+import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
+import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
+import { PriceHistory } from '../components/priceHistory/PriceHistory';
 import user from '../../../../assets/imgs/user.webp'
 import telegram from '../../../../assets/imgs/telegram.png'
 import whatsapp from '../../../../assets/imgs/whatsapp.png'
@@ -21,16 +22,6 @@ const SingleProperty = () => {
     const [data, setData] = useState([])
     const [open, setOpen] = useState(false)
     
-    // const fetchSinglePropertyData = async () => {
-    //     try {
-    //       const { data } = await baseApi.get(`/api/getProperties/${id}`)
-    //       setData(data)
-    //     } catch (error) {
-    //       console.log(`Error: ${error.message}`)
-    //     } finally {
-    //       setLoading(true)
-    //     }
-    // }
     const fetchSinglePropertyData = async () => {
         try {
           const { data } = await baseApi.get(`/api/getProperties/${id}`, getAxiosConfig())
@@ -49,6 +40,8 @@ const SingleProperty = () => {
     
     const currentPropertyData = data?.am
     // console.log(data)//
+    const selectedTransationType = data?.selectedTransationType
+    const currentPropertyPrice = data?.priceHistory
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
     
@@ -116,6 +109,24 @@ const SingleProperty = () => {
                             {seeAllImgs.icon} Տեսնել բոլոր նկարները
                         </button>
                     </div>
+
+                    <span
+                        style={{
+                            display: currentPropertyData[0]?.fields[4].value === "Հասարակ" ? "none" : "block",
+                            background: currentPropertyData[0]?.fields[4].value === "Տոպ"
+                            ? "#2eaa50"
+                            : currentPropertyData[0]?.fields[4].value === "Շտապ"
+                            ? "#4a46f1" : "#e7e9f0"
+                        }}
+                    >{currentPropertyData[0]?.fields[4].value}
+                    </span>
+
+                    <button
+                     className='singleProperty__imgs-url'
+                     onClick={() => alert(`${APP_BASE_URL}/${selectedTransationType}/${id}`)}
+                     >
+                        {url.icon}Հղում կայքին
+                    </button>
                 </div>
                 : <ReactFullscreenCarousel
                     slides={modifiedData}
@@ -286,12 +297,9 @@ const SingleProperty = () => {
                             <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
                             {currentPropertyData[2]?.fields[1]?.value && 
                             <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
-                            <select>
-                                <option>Գնի պատմություն ։</option>
-                                <option>$130,000 - 13 May 2023</option>
-                                <option>$128,000 - 06 May 2023</option>
-                                <option>$135,000 - 29 April 2023</option>
-                            </select>
+                            
+                            <PriceHistory data={currentPropertyPrice}/>
+                            
                             <hr />
                            
                             <p>Վճարման կարգ։
