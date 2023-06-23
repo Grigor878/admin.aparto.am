@@ -48,10 +48,10 @@ class UserController extends Controller
             $user->phone = json_encode($userInfo->phone);
             $user->role = $userInfo->role?$userInfo->role:$user->role;
             $user->save();
-            return response()->json(['status' => 'User successfuly edited', "user" => $user], 200);
+            return response()->json(['status' => 'Օգտատերը հաջողությամբ խմբագրված է։', "user" => $user], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['message' => 'Something went wrong.'], 500);
+            return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
         }
     
      }
@@ -63,13 +63,13 @@ class UserController extends Controller
             $employe = Employe::findOrFail($employeId);
             if (Hash::check($data['oldPassword'], $employe['password'])) { 
                 $employe->update(['password' => Hash::make($data['newPassword'])]);
-                return response()->json(['message' => "Password changed succesfully"]);
+                return response()->json(['message' => "Գաղտնաբառը հաջողությամբ փոփոխված է"]);
             }
            
-            return response()->json(['message' => "Incorrect old password"], 422);
+            return response()->json(['message' => "Հին գաղտնաբառը սխալ է մուտքագրված"], 422);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['message' => 'Something went wrong.'], 500);
+            return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
         }
      }
 
@@ -95,10 +95,10 @@ class UserController extends Controller
             $data = $request->all();
             $employe = Employe::where('id', $data['id'])->update(['status' => $data['status']]);
 
-            return response()->json(['message' => "Status changed"]);
+            return response()->json(['message' => "Կարգավիճակը փոփոխված է"]);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['message' => 'Something went wrong.'], 500);
+            return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
         }
      }
 
@@ -123,7 +123,7 @@ class UserController extends Controller
             return response()->json(['status' => 'success', 'password' => $password], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['message' => 'Something went wrong.'], 500);
+            return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
         }
      }
 }
