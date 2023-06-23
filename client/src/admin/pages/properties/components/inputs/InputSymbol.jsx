@@ -2,7 +2,7 @@ import React from 'react'
 import { dollar } from '../../../../../assets/svgs/svgs'
 import './Styles.scss'
 
-export const InputSymbol = ({ id, type, placeholder, name, onChange, width }) => {
+export const InputSymbol = ({ id, type, placeholder, name, onChange, width, value }) => {
     return (
         <label className="inputSymbol">
             <input
@@ -12,6 +12,7 @@ export const InputSymbol = ({ id, type, placeholder, name, onChange, width }) =>
                 name={name}
                 onChange={onChange}
                 style={{ width: width }}
+                value={value}
             />
             {name === "price" ? <p>{dollar.icon}</p> : <p>ք.մ.</p>}
         </label>

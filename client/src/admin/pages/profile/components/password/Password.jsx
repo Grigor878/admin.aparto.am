@@ -15,13 +15,10 @@ export const Password = () => {
         let retryPassword = e.target.userRetryPassword.value
 
         if (!oldPassword.length || !newPassword.length || !retryPassword.length) {
-            // setRetryError('Complete all fields!')
-            error('Complete all fields!');
+            error('Լրացրեք բոլոր դաշտերը!');
         } else if (oldPassword === newPassword && oldPassword === retryPassword) {
-            // setRetryError('There is no changes!')
-            error('There is no changes!');
+            error('Փոփոխություններ չկան!');
         } else if (newPassword === retryPassword) {
-            // setRetryError(null)
 
             baseApi.post('/api/changePassword', { oldPassword, newPassword }, getAxiosConfig())
                 .then(res => success(res.data.message))
@@ -31,8 +28,7 @@ export const Password = () => {
             e.target.userNewPassword.value = ""
             e.target.userRetryPassword.value = ""
         } else {
-            // setRetryError('Passwords are not same!')
-            error('Passwords are not same!')
+            error('Կրկնության սխալ!')
         }
     }
 

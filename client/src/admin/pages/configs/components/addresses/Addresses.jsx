@@ -16,17 +16,17 @@ export const Addresses = () => {
   const [search, setSearch] = useState("")
   const [open, setOpen] = useState(false)
 
-  const { data, added, removed } = useSelector((state) => state.configs)
+  const { address, addedAddress, removedAddress } = useSelector((state) => state.configs)
 
-  const [filteredData, setFilteredData] = useState(data)
+  const [filteredData, setFilteredData] = useState(address)
 
   useEffect(() => {
     dispatch(getConfigsAddresses())
-  }, [dispatch, added, removed])
+  }, [dispatch, addedAddress, removedAddress])
 
   useEffect(() => {
-    if (data) {
-      const filtered = data.filter(row => {
+    if (address) {
+      const filtered = address.filter(row => {
         const addressAM = row.am.toLowerCase()
         const addressEN = row.en.toLowerCase()
         const addressRU = row.ru.toLowerCase()
@@ -38,7 +38,7 @@ export const Addresses = () => {
       })
       setFilteredData(filtered)
     }
-  }, [data, search])
+  }, [address, search])
 
   const postRemovedAddress = (e) => {
     let removedAddress = { id: e }

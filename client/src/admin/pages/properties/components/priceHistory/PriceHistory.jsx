@@ -16,7 +16,7 @@ export const PriceHistory = ({ data }) => {
             </p>
 
             <div className={price ? 'singleProperty__content-right-price-history-list' : 'singleProperty__content-right-price-history-listActive'}>
-                {data.length === 0
+                {!data || data?.length === 0
                     ? <div
                         className='singleProperty__content-right-price-history-listActive-view'
                     >

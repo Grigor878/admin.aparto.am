@@ -2,12 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 
 const initialState = {
-  loading: false,
-  data: null,
-  added: false,
-  removed: false,
+  loadingAddress: false,
+  address: null,
+  addedAddress: false,
+  removedAddress: false,
+  loadingExchange: false,
+  exchange: null,
 };
 
+// Addresses
 export const getConfigsAddresses = createAsyncThunk("configs", async () => {
   try {
     const { data } = await baseApi.get("/api/getAddress");
@@ -39,32 +42,63 @@ export const removeConfigsAddress = createAsyncThunk(
   }
 );
 
+// Exchanges
+export const getExchangeData = createAsyncThunk(
+  "configs/getExchange",
+  async () => {
+    try {
+      const { data } = await baseApi.get("/api/getExchange");
+      return data;
+    } catch (err) {
+      console.log(`Get Exchange Data Error: ${err.message}`);
+    }
+  }
+);
+
+export const setExchangeData = createAsyncThunk(
+  "configs/setExchange",
+  async ({ ex }) => {
+    try {
+      await baseApi.post("/api/setExchange", ex);
+    } catch (err) {
+      console.log(`Set Exchange Data Error: ${err.message}`);
+    }
+  }
+);
+
 const structureSlice = createSlice({
   name: "configAddresses",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // Address
       .addCase(getConfigsAddresses.pending, (state) => {
-        state.loading = true;
+        state.loadingAddress = true;
       })
       .addCase(getConfigsAddresses.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
+        state.loadingAddress = false;
+        state.address = action.payload;
       })
-
       .addCase(addConfigsAddress.pending, (state) => {
-        state.added = false;
+        state.addedAddress = false;
       })
       .addCase(addConfigsAddress.fulfilled, (state) => {
-        state.added = true;
+        state.addedAddress = true;
       })
-
       .addCase(removeConfigsAddress.pending, (state) => {
-        state.removed = false;
+        state.removedAddress = false;
       })
       .addCase(removeConfigsAddress.fulfilled, (state) => {
-        state.removed = true;
+        state.removedAddress = true;
+      })
+      // Exchnage
+      .addCase(getExchangeData.pending, (state) => {
+        state.loadingExchange = true;
+      })
+      .addCase(getExchangeData.fulfilled, (state, action) => {
+        state.loadingExchange = false;
+        state.exchange = action.payload;
       });
   },
 });

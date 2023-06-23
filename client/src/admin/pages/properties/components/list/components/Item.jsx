@@ -9,8 +9,7 @@ import { More } from './More'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    console.log(data)//
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     return (
         data?.map(({ id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
