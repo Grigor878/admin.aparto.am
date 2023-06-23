@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getConfigsAddresses, removeConfigsAddress } from '../../../../../store/slices/configsSlice'
+import { Loader } from '../../../../../components/loader/Loader'
+import Table from '../../../../components/table/Table'
 import { Search } from '../../../../components/inputs/Search'
 import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { Modal } from '../modal/Modal'
-import { Loader } from '../../../../../components/loader/Loader'
-import Table from '../../../../components/table/Table'
+import { DeleteModal } from '../modal/DeleteModal'
 import { remove } from '../../../../svgs/svgs'
 import { success } from '../../../../../components/swal/swal'
 import './Addresses.scss'
@@ -15,6 +16,8 @@ export const Addresses = () => {
 
   const [search, setSearch] = useState("")
   const [open, setOpen] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [rowData, setRowData] = useState()
 
   const { address, addedAddress, removedAddress } = useSelector((state) => state.configs)
 
@@ -40,12 +43,19 @@ export const Addresses = () => {
     }
   }, [address, search])
 
+  const openDeleteModal = (e) => {
+    setRowData(e)
+    setModal(true)
+  }
+
   const postRemovedAddress = (e) => {
     let removedAddress = { id: e }
 
     dispatch(removeConfigsAddress({ removedAddress }))
-    success('Address removed !')
+    setModal(false)
+    success('Հասցեն հեռացված Է։')
   }
+
 
   const adressColumns = [
     {
@@ -66,7 +76,7 @@ export const Addresses = () => {
       name: "",
       cell: (row) => (
         <button
-          onClick={() => postRemovedAddress(row.id)}
+          onClick={() => openDeleteModal(row)}
           className='columnDelete'
         >{remove.icon}
         </button>
@@ -90,6 +100,12 @@ export const Addresses = () => {
           open={open}
           setOpen={setOpen}
         />
+        <DeleteModal
+          modal={modal}
+          setModal={setModal}
+          rowData={rowData}
+          onClick={() => postRemovedAddress(rowData.id)}
+        />
       </div>
 
       <div className='addresses__bottom'>
@@ -98,7 +114,7 @@ export const Addresses = () => {
           : <Table
             Data={filteredData}
             Columns={adressColumns}
-            // type='addresses'
+          // type='addresses'
           />
         }
       </div>

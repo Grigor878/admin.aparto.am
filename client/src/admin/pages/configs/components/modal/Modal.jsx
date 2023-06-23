@@ -47,12 +47,11 @@ export const Modal = ({ open, setOpen }) => {
             setSelectId('')
 
             const addedAddress = { am, en, ru }
-            // console.log(addedAddress)//
             setOpen(false)
             dispatch(addConfigsAddress({ addedAddress }))
-            success('Address added !')
+            success('Հասցեն ավելացված է։')
         } else {
-            error("Complete all fields !")
+            error("Լրացրեք բոլոր դաշտերը!")
         }
     }
 

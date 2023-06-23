@@ -99,10 +99,10 @@ const AddProperties = () => {
         const areAllLanguagesCompleted = Object.values(isCompleted).every((value) => value === true)
 
         if (!areAllLanguagesCompleted) {
-            error('Լրացրեք բոլոր լեզուները:')
+            error('Լրացրեք բոլոր լեզուները!')
             setLoading(false)
         } else if (!yandex.length) {
-            error('Նշեք Yandex-ի վրա գտնվելու վայրը:')
+            error('Նշեք Yandex-ի վրա գտնվելու վայրը!')
             setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))

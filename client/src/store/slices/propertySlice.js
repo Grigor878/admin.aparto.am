@@ -253,7 +253,7 @@ const structureSlice = createSlice({
       })
       .addCase(editPropertyKeyword.fulfilled, (state) => {
         state.postEditLoading = false;
-        success("Գույքը փոփոխված է!");
+        success("Գույքը փոփոխված է:");
         setTimeout(() => {
           window.location = `${APP_BASE_URL}/dashboard/properties`;
         }, 1000);

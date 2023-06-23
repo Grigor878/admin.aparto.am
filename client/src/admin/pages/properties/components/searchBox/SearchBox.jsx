@@ -44,7 +44,7 @@ export const SearchBox = () => {
         e.preventDefault()
         console.log(properties)
     }
-    // AddUsersi pes data ov anel
+
     return (
         <div className="propertiySearchbox">
             <div className="propertiySearchbox__top">
@@ -155,6 +155,7 @@ export const SearchBox = () => {
                     <BtnCustom
                         form="propertiesSearch"
                         text="Փնտրել"
+                        onClick={() => alert('Cooming Soon :)')}
                     />
                 </div>
             </form>

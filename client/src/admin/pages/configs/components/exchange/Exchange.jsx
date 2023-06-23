@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
+import { getExchangeData, setExchangeData } from '../../../../../store/slices/configsSlice'
 import { InputSymbol } from '../../../properties/components/inputs/InputSymbol'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import { error, success } from '../../../../../components/swal/swal'
 import './Exchange.scss'
-import { getExchangeData, setExchangeData } from '../../../../../store/slices/configsSlice'
 
 export const Exchange = () => {
     const dispatch = useDispatch()

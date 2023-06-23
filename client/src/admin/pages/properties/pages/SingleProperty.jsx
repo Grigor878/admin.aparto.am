@@ -39,7 +39,6 @@ const SingleProperty = () => {
     }, [id])
     
     const currentPropertyData = data?.am
-    // console.log(data)//
     const selectedTransationType = data?.selectedTransationType
     const currentPropertyPrice = data?.priceHistory
     const currentPropertyKeywords = data?.keywords
