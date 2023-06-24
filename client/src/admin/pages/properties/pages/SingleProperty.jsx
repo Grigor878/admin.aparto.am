@@ -12,6 +12,7 @@ import user from '../../../../assets/imgs/user.webp'
 import telegram from '../../../../assets/imgs/telegram.png'
 import whatsapp from '../../../../assets/imgs/whatsapp.png'
 import viber from '../../../../assets/imgs/viber.png'
+import {success} from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const SingleProperty = () => {
@@ -21,6 +22,7 @@ const SingleProperty = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [open, setOpen] = useState(false)
+
     
     const fetchSinglePropertyData = async () => {
         try {
@@ -56,6 +58,12 @@ const SingleProperty = () => {
         img: `${API_BASE_URL}/images/${item.name}`,
         alt : item.name
     }))
+
+    const copyToClipboard = async () => {
+        let clipboard = `${APP_BASE_URL}/${selectedTransationType}/${id}`
+        await navigator.clipboard.writeText(clipboard)
+        success("Հասցեն պատճենված է։")
+    }
 
     // useEffect(() => {
     //     let prevScrollpos = window.scrollY
@@ -122,7 +130,7 @@ const SingleProperty = () => {
 
                     <button
                      className='singleProperty__imgs-url'
-                     onClick={() => alert(`${APP_BASE_URL}/${selectedTransationType}/${id}`)}
+                     onClick={copyToClipboard}
                      >
                         {url.icon}Հղում կայքին
                     </button>

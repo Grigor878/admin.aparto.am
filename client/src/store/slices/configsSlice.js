@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
+import { success } from "../../components/swal/swal";
 
 const initialState = {
   loadingAddress: false,
@@ -99,6 +100,12 @@ const structureSlice = createSlice({
       .addCase(getExchangeData.fulfilled, (state, action) => {
         state.loadingExchange = false;
         state.exchange = action.payload;
+      })
+      .addCase(setExchangeData.fulfilled, () => {
+        success(`Դոլարի կուրսը փոփոխված է։`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       });
   },
 });

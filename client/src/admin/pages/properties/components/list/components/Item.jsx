@@ -6,10 +6,18 @@ import { moneyFormater } from '../../../../../../helpers/formatters'
 import { bathrooms, floor, height, rooms, square, top, url } from '../../../../../svgs/svgs'
 import { Btn } from './Btn'
 import { More } from './More'
+import { success } from '../../../../../../components/swal/swal'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
     const navigate = useNavigate()
+
+    const copyToClipboard = async (id, type) => {
+        let clipboard = `${APP_BASE_URL}/${type}/${id}`
+
+        await navigator.clipboard.writeText(clipboard)
+        success("Հասցեն պատճենված է։")
+    }
 
     return (
         data?.map(({ id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
@@ -95,7 +103,7 @@ export const Item = ({ data }) => {
                                         </button>
                                         <button
                                             type='button'
-                                            onClick={() => alert(`${APP_BASE_URL}/${selectedTransationType}/${id}`)}
+                                            onClick={() => copyToClipboard(id, selectedTransationType)}
                                         >
                                             {url.icon}
                                         </button>
