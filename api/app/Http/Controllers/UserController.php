@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Employe;
+use App\Jobs\SendEmailJob;
 
 class UserController extends Controller
 {
@@ -108,6 +109,8 @@ class UserController extends Controller
             $fileName = null;
             $password =  Str::random(10);
             $userInfo = json_decode($data['userInfo']);
+            $userEmail = $userInfo->email;
+            SendEmailJob::dispatch($userEmail, $password);
             if($request->file) {
                 $fileName = time().'.'.$request->file->extension();
                 $request->file->move(public_path('images'), $fileName);
