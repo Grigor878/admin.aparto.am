@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getExchangeData, setExchangeData } from '../../../../../store/slices/configsSlice'
 import { InputSymbol } from '../../../properties/components/inputs/InputSymbol'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
-import { error, success } from '../../../../../components/swal/swal'
+import { error } from '../../../../../components/swal/swal'
 import './Exchange.scss'
 
 export const Exchange = () => {
@@ -14,20 +14,19 @@ export const Exchange = () => {
     }, [dispatch])
 
     const { exchange } = useSelector((state) => state.configs)
-    // console.log(exchange)//
 
     const [value, setValue] = useState('')
 
     const addExchange = () => {
         if (value.length < 3 && value.length !== 0) {
             error("Գրեք իրական կուրսը!")
+        } else if (Number(value) === exchange?.amount) {
+            error("Փոփոխություն չկա!")
         } else if (value.length >= 3) {
             let ex = {
                 exchange: value
             }
-
             dispatch(setExchangeData({ ex }))
-            success(`Դոլարի կուրսը փոփոխված է։`)
             setValue('')
         } else {
             error("Լրացրեք դոլարի կուրսը!")
@@ -36,7 +35,12 @@ export const Exchange = () => {
 
     return (
         <section className='exchange'>
-            <h6>դոլարի կուրս {value.length ? `- 1 USD = ${value} AMD` : null}</h6>
+            {exchange && 
+            <h6>դոլարի կուրս {exchange.amount ? `- 1 USD = ${exchange.amount} AMD` : null}
+            <br/>
+            <br/>
+            վերջին թարմացում - {exchange.date}
+            </h6>}
 
             <div className='exchange__form'>
                 <InputSymbol
