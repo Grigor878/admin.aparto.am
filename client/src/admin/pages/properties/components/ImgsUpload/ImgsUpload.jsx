@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config';
-// import JSZip from 'jszip';
+import { error } from '../../../../../components/swal/swal';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
@@ -12,17 +12,27 @@ export const ImgsUpload = ({ style, value }) => {
     const [images, setImages] = useState(value ? names : [])
     const [previewImages, setPreviewImages] = useState(value ? value : [])
     const [visibleImages, setVisibleImages] = useState(value ? value.map(image => image.visible === "true") : [])
-
+    const [newUploads, setNewUploads] = useState(0)
 
     const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
+        const totalUploads = newUploads + files.length;
+
+        if (totalUploads > 20) {
+            error('Ավելացնել մինչև 20 նկար։')
+            return
+        }
+
+        setNewUploads((prevUploads) => prevUploads + files.length)
         setImages((prevImages) => [...prevImages, ...files])
         setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
         setVisibleImages((prevVisible) => [...prevVisible, ...Array(files.length).fill(true)])
     }
 
     const handleImageDelete = (index) => {
+        setNewUploads((prevUploads) => prevUploads - 1)
+
         setImages((prevImages) => {
             const updatedImages = [...prevImages]
             updatedImages.splice(index, 1)
@@ -89,47 +99,13 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData()
-    //     images.forEach((image, index) => {
-    //         sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-    //     })
-    //     dispatch(setUploadPhoto(sortedFormData))
-    // }
-
     const updateUploadPhoto = () => {
-        const batchSize = 5; 
-        const totalImages = images.length;
-        let batchCount = Math.ceil(totalImages / batchSize);
-      
-        for (let batchIndex = 0; batchIndex < batchCount; batchIndex++) {
-          const start = batchIndex * batchSize;
-          const end = Math.min(start + batchSize, totalImages); 
-          const batchImages = images.slice(start, end);
-          const batchData = [];
-      
-          batchImages.forEach((image, index) => {
-            const imageIndex = start + index;
-            const imageData = {
-              key: visibleImages[imageIndex] ? `visible-${imageIndex}` : `hidden-${imageIndex}`,
-              image: image
-            };
-            batchData.push(imageData);
-          });
-      
-          dispatch(setUploadPhoto(batchData));
-        }
-      };
-
-    // const updateUploadPhoto = async () => {
-    //     const sortedFormData = new FormData();
-
-    //     const zippedFile = await createZipFile(images);
-
-    //     sortedFormData.append('file', zippedFile, 'images.zip');
-
-    //     dispatch(setUploadPhoto(sortedFormData))
-    // };
+        const sortedFormData = new FormData()
+        images.forEach((image, index) => {
+            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+        })
+        dispatch(setUploadPhoto(sortedFormData))
+    }
 
     useEffect(() => {
         updateUploadPhoto()
@@ -144,6 +120,7 @@ export const ImgsUpload = ({ style, value }) => {
                     <input
                         type="file"
                         multiple
+                        // maxLength="20"
                         accept='image/png , image/jpeg , image/jpg , image.webp'
                         onChange={handleImageUpload} />
                 </label>
@@ -151,9 +128,6 @@ export const ImgsUpload = ({ style, value }) => {
                     <div
                         key={index}
                         className='imgsUpload__card-main'
-                        // draggable={visibleImages[index] ? true : false}
-                        // onDragStart={() => dragItem.current = index}
-                        // onDragEnter={() => dragOverItem.current = index}
                         draggable={visibleImages[index]}
                         onDragStart={(e) => {
                             if (!visibleImages[index]) {
