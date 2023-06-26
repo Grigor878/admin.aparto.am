@@ -57,12 +57,12 @@ const View = () => {
                         <Route path="properties/add" element={<AddProperties />} />
                         <Route path="properties/edit/:id" element={<EditProperties />} />
                         <Route path="profile" element={<Profile />} />
-                        <Route path="form-structure" element={<Structure />} />
                         <Route path="users" element={<Users />} />
                         <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
                         {role === "admin"
                             ? <>
+                                <Route path="form-structure" element={<Structure />} />
                                 <Route path="web-configs" element={<Configs />} />
                                 <Route path="crm" element={<Crm />} />
                             </>

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config';
+import JSZip from 'jszip';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
@@ -88,13 +89,30 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     images.forEach((image, index) => {
+    //         sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+    //     })
+    //     dispatch(setUploadPhoto(sortedFormData))
+    // }
+
     const updateUploadPhoto = () => {
+        const zip = new JSZip()
         const sortedFormData = new FormData()
+
         images.forEach((image, index) => {
             sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+            if (visibleImages[index]) {
+                zip.file(image.name, image)
+            }
         })
-        // console.log(sortedFormData)
-        dispatch(setUploadPhoto(sortedFormData))
+
+        zip.generateAsync({ type: 'blob' }).then((zipFile) => {
+            sortedFormData.append('zipFile', zipFile, 'images.zip')
+            console.log(zipFile)//
+            dispatch(setUploadPhoto(sortedFormData))
+        })
     }
 
     useEffect(() => {

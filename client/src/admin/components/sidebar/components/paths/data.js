@@ -48,12 +48,6 @@ export const dashboardRoutes = [
   },
   {
     id: "2",
-    name: "Form Structure",
-    path: "form-structure",
-    img: structure,
-  },
-  {
-    id: "3",
     name: "Users",
     path: "users",
     img: users,
