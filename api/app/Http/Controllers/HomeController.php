@@ -213,7 +213,7 @@ class HomeController extends Controller
 
     public function getHome() {
         $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived')")
-        ->select('id', 'homeId', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+        ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get();
 
         foreach ($allHome as $key => $home) {

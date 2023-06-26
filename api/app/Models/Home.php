@@ -12,6 +12,7 @@ class Home extends Model
     protected $collection = 'homes';
     protected $fillable = [
         'role_id',
+        'home_id',
         'photo',
         'file',
         'status',
