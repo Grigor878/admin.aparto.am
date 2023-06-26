@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
+import { useDispatch } from 'react-redux'
+import { setUploadPhoto, setUploadPhotoReserve } from '../../../../../store/slices/propertySlice'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
-import { API_BASE_URL } from '../../../../../apis/config';
-import { error } from '../../../../../components/swal/swal';
+import { API_BASE_URL } from '../../../../../apis/config'
+import { error } from '../../../../../components/swal/swal'
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
@@ -19,8 +19,8 @@ export const ImgsUpload = ({ style, value }) => {
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
         const totalUploads = newUploads + files.length;
 
-        if (totalUploads > 20) {
-            error('Ավելացնել մինչև 20 նկար։')
+        if (totalUploads > 40) {
+            error('Ավելացնել մինչև 40 նկար։')
             return
         }
 
@@ -99,13 +99,70 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     images.forEach((image, index) => {
+    //         sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+    //     })
+    //     dispatch(setUploadPhoto(sortedFormData))
+    //     dispatch(setUploadPhotoReserve())
+    // }
+
     const updateUploadPhoto = () => {
-        const sortedFormData = new FormData()
-        images.forEach((image, index) => {
-            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-        })
-        dispatch(setUploadPhoto(sortedFormData))
-    }
+        const sortedFormData = new FormData();
+        let reserveFormData = new FormData();
+        console.log(images.length);
+
+
+        if (images.length > 20) {
+            const remainingImages = images.slice(20);
+
+            remainingImages.forEach((image, index) => {
+                reserveFormData.append(
+                    visibleImages[index + 20]
+                        ? `visible-${index + 20}`
+                        : `hidden-${index + 20}`,
+                    image
+                );
+            });
+        }
+
+        images.slice(0, 20).forEach((image, index) => {
+            sortedFormData.append(
+                visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
+                image
+            );
+        });
+
+        dispatch(setUploadPhoto(sortedFormData));
+        dispatch(setUploadPhotoReserve(reserveFormData));
+    };
+
+    // const updateUploadPhoto = () => {
+    //     const maxImagesPerRequest = 20;
+
+    //     const firstBatch = images.slice(0, maxImagesPerRequest);
+    //     const remainingImages = images.slice(maxImagesPerRequest);
+
+    //     const firstFormData = new FormData();
+    //     const secondFormData = new FormData();
+
+    //     firstBatch.forEach((image, index) => {
+    //         const imageIndex = index + 1;
+    //         firstFormData.append(visibleImages[index] ? `visible-${imageIndex}` : `hidden-${imageIndex}`, image);
+    //     });
+
+    //     remainingImages.forEach((image, index) => {
+    //         const imageIndex = index + 1;
+    //         secondFormData.append(visibleImages[index + maxImagesPerRequest] ? `visible-${imageIndex}` : `hidden-${imageIndex}`, image);
+    //     });
+
+    //     dispatch(setUploadPhoto(firstFormData)); // First dispatch for the first batch of images
+
+    //     if (remainingImages.length > 0) {
+    //         dispatch(setUploadPhoto(secondFormData)); // Second dispatch for the remaining images
+    //     }
+    // };
 
     useEffect(() => {
         updateUploadPhoto()
