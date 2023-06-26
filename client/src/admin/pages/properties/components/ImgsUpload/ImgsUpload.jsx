@@ -89,30 +89,26 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData()
-    //     images.forEach((image, index) => {
-    //         sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-    //     })
-    //     dispatch(setUploadPhoto(sortedFormData))
-    // }
-
-    const updateUploadPhoto = () => {
-        const zip = new JSZip()
-        const sortedFormData = new FormData()
+    const createZipFile = async (images, visibleImages) => {
+        const zip = new JSZip();
 
         images.forEach((image, index) => {
-            sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-            if (visibleImages[index]) {
-                zip.file(image.name, image)
-            }
-        })
+            const fileName = `image-${index}.jpg`;
+            const visibilityPrefix = visibleImages[index] ? 'visible' : 'hidden';
+            zip.file(`${visibilityPrefix}-${fileName}`, image);
+        });
 
-        zip.generateAsync({ type: 'blob' }).then((zipFile) => {
-            sortedFormData.append('zipFile', zipFile, 'images.zip')
-            console.log(zipFile)//
-            dispatch(setUploadPhoto(sortedFormData))
-        })
+        const zippedContent = await zip.generateAsync({ type: 'arraybuffer' });
+        return zippedContent;
+    };
+
+    const updateUploadPhoto = async () => {
+        // const sortedFormData = new FormData()
+        // images.forEach((image, index) => {
+        //     sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+        // })
+        const zippedFile = await createZipFile(images);
+        dispatch(setUploadPhoto(zippedFile))
     }
 
     useEffect(() => {
