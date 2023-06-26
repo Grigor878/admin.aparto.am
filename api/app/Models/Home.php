@@ -22,6 +22,16 @@ class Home extends Model
 
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            $model->home_id = $model->id + 44000;
+            $model->save();
+        });
+    }
+
     const 
         STATUS_MODERATION = 'moderation',
         STATUS_APPROVED = 'approved',

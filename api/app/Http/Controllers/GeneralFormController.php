@@ -17,13 +17,13 @@ class GeneralFormController extends Controller
         $this->generalFormService = $generalFormService;
     }
     
-    public function addGlobalForm(Request $request) {
-        $data = $request->all();
-        $formAm = new GlobalForm();
-        $formAm->am = json_encode($data);
-        $formAm->save();
+    // public function addGlobalForm(Request $request) {
+    //     $data = $request->all();
+    //     $formAm = new GlobalForm();
+    //     $formAm->am = json_encode($data);
+    //     $formAm->save();
 
-    }
+    // }
 
     public function getAddedFields () {
         $form = GlobalForm::findorFail(1);

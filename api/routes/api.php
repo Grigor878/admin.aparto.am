@@ -35,7 +35,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getAdminModerator', [UserController::class, 'getAdminModerator']);
 
     //General form routes
-    Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
+    // Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
     Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
     Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
     Route::get('/getFormStructure', [GeneralFormController::class, 'getFormStructure']);
