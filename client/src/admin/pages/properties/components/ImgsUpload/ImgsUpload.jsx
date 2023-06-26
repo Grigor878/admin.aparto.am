@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setUploadPhoto } from '../../../../../store/slices/propertySlice';
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config';
-import JSZip from 'jszip';
+// import JSZip from 'jszip';
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
@@ -89,27 +89,47 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
-    const createZipFile = async (images, visibleImages) => {
-        const zip = new JSZip();
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     images.forEach((image, index) => {
+    //         sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
+    //     })
+    //     dispatch(setUploadPhoto(sortedFormData))
+    // }
 
-        images.forEach((image, index) => {
-            const fileName = `image-${index}.jpg`;
-            const visibilityPrefix = visibleImages[index] ? 'visible' : 'hidden';
-            zip.file(`${visibilityPrefix}-${fileName}`, image);
-        });
+    const updateUploadPhoto = () => {
+        const batchSize = 5; 
+        const totalImages = images.length;
+        let batchCount = Math.ceil(totalImages / batchSize);
+      
+        for (let batchIndex = 0; batchIndex < batchCount; batchIndex++) {
+          const start = batchIndex * batchSize;
+          const end = Math.min(start + batchSize, totalImages); 
+          const batchImages = images.slice(start, end);
+          const batchData = [];
+      
+          batchImages.forEach((image, index) => {
+            const imageIndex = start + index;
+            const imageData = {
+              key: visibleImages[imageIndex] ? `visible-${imageIndex}` : `hidden-${imageIndex}`,
+              image: image
+            };
+            batchData.push(imageData);
+          });
+      
+          dispatch(setUploadPhoto(batchData));
+        }
+      };
 
-        const zippedContent = await zip.generateAsync({ type: 'arraybuffer' });
-        return zippedContent;
-    };
+    // const updateUploadPhoto = async () => {
+    //     const sortedFormData = new FormData();
 
-    const updateUploadPhoto = async () => {
-        // const sortedFormData = new FormData()
-        // images.forEach((image, index) => {
-        //     sortedFormData.append(visibleImages[index] ? `visible-${index}` : `hidden-${index}`, image)
-        // })
-        const zippedFile = await createZipFile(images);
-        dispatch(setUploadPhoto(zippedFile))
-    }
+    //     const zippedFile = await createZipFile(images);
+
+    //     sortedFormData.append('file', zippedFile, 'images.zip');
+
+    //     dispatch(setUploadPhoto(sortedFormData))
+    // };
 
     useEffect(() => {
         updateUploadPhoto()
