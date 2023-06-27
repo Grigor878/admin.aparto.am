@@ -12,6 +12,7 @@ const initialState = {
   filteredData: null,
   postAddLoading: false,
   uploadPhoto: {},
+  uploadPhotoReserve: {},
   uploadFile: {},
   yandex: [],
   keyword: [],
@@ -67,10 +68,39 @@ export const addPropertyImgs = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadPhoto = state.property.uploadPhoto;
+      let uploadPhotoReserve = state.property.uploadPhotoReserve;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
-      thunkAPI.dispatch(addPropertyFiles(id));
+      thunkAPI.dispatch(
+        uploadPhotoReserve.entries().next().done
+          ? addPropertyFiles(id)
+          : addPropertyImgsReserve(id)
+      );
     } catch (err) {
       console.log(`Add Property Imgs Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// post added imgs reserve
+export const addPropertyImgsReserve = createAsyncThunk(
+  "property/addPropertyImgsReserve",
+  async (id, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      let uploadPhotoReserve = state.property.uploadPhotoReserve;
+
+      if (uploadPhotoReserve && uploadPhotoReserve.entries().next().done) {
+        return;
+      }
+
+      await baseApi.post(
+        `/api/multyPhoto/${id}`,
+        uploadPhotoReserve,
+        getAxiosConfig()
+      );
+      thunkAPI.dispatch(addPropertyFiles(id));
+    } catch (err) {
+      console.log(`Add Property Imgs Reserve Sending Error: ${err.message}`);
     }
   }
 );
@@ -146,7 +176,11 @@ export const editPropertyImgs = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadPhoto = state.property.uploadPhoto;
-      await baseApi.post(`/api/editMultyPhoto/${propertyId}`, uploadPhoto, getAxiosConfig());
+      await baseApi.post(
+        `/api/editMultyPhoto/${propertyId}`,
+        uploadPhoto,
+        getAxiosConfig()
+      );
       thunkAPI.dispatch(editPropertyFiles(propertyId));
     } catch (err) {
       console.log(`Edit Property Imgs Sending Error: ${err.message}`);
@@ -205,6 +239,9 @@ const structureSlice = createSlice({
     setUploadPhoto: (state, action) => {
       state.uploadPhoto = action.payload;
     },
+    setUploadPhotoReserve: (state, action) => {
+      state.uploadPhotoReserve = action.payload;
+    },
     setUploadFile: (state, action) => {
       state.uploadFile = action.payload;
     },
@@ -242,9 +279,9 @@ const structureSlice = createSlice({
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
         success("Գույքն ավելացված է։");
-        setTimeout(() => {
-          window.location = `${APP_BASE_URL}/dashboard/properties`;
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
         // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
@@ -263,6 +300,7 @@ const structureSlice = createSlice({
 
 export const {
   setUploadPhoto,
+  setUploadPhotoReserve,
   setUploadFile,
   setYandex,
   setKeyword,
