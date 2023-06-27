@@ -109,11 +109,11 @@ export const ImgsUpload = ({ style, value }) => {
     // }
 
     const updateUploadPhoto = () => {
-        const sortedFormData = new FormData();
-        let reserveFormData = new FormData();
+        const sortedFormData = new FormData()
+        const reserveFormData = new FormData()
 
         if (images.length > 20) {
-            const remainingImages = images.slice(20);
+            const remainingImages = images.slice(20)
 
             remainingImages.forEach((image, index) => {
                 reserveFormData.append(
@@ -121,19 +121,19 @@ export const ImgsUpload = ({ style, value }) => {
                         ? `visible-${index + 20}`
                         : `hidden-${index + 20}`,
                     image
-                );
-            });
+                )
+            })
         }
 
         images.slice(0, 20).forEach((image, index) => {
             sortedFormData.append(
                 visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
                 image
-            );
-        });
+            )
+        })
 
-        dispatch(setUploadPhoto(sortedFormData));
-        dispatch(setUploadPhotoReserve(reserveFormData));
+        dispatch(setUploadPhoto(sortedFormData))
+        dispatch(setUploadPhotoReserve(reserveFormData))
     };
 
     useEffect(() => {
