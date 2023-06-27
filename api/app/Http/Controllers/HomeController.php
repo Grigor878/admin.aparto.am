@@ -24,7 +24,7 @@ class HomeController extends Controller
         if($employee) {
             $home = new Home();
             $home->employee_id = $employee->id;
-            $home->status = $employee->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+            $home->status = $employee->role == "admin" || $employee->role == "moderator" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
             $home->photo = json_encode([]);
             $home->file = json_encode([]);
             $home->keywords = json_encode([]);
@@ -64,7 +64,7 @@ class HomeController extends Controller
         $home = Home::findorFail($id);
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
         if($homeLanguageContsructor['editStatus']) {
-            $home->status = auth()->user()->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+            $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
         }
         if($homeLanguageContsructor['priceHistory']){
             if($home->price_history){
@@ -155,7 +155,7 @@ class HomeController extends Controller
                     } 
                     if(gettype($photo) == 'object') {
                         if($condition){
-                            $home->status = auth()->user()->role == "admin" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+                            $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
                             $condition = false;
                         }
                         $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
