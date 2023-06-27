@@ -70,37 +70,14 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
-      thunkAPI.dispatch(
-        uploadPhotoReserve.entries().next().done
-          ? addPropertyFiles(id)
-          : addPropertyImgsReserve(id)
-      );
-    } catch (err) {
-      console.log(`Add Property Imgs Sending Error: ${err.message}`);
-    }
-  }
-);
 
-// post added imgs reserve
-export const addPropertyImgsReserve = createAsyncThunk(
-  "property/addPropertyImgsReserve",
-  async (id, thunkAPI) => {
-    try {
-      const state = thunkAPI.getState();
-      let uploadPhotoReserve = state.property.uploadPhotoReserve;
-
-      if (uploadPhotoReserve && uploadPhotoReserve.entries().next().done) {
-        return;
+      if(!uploadPhotoReserve.entries().next().done){
+        await baseApi.post(`/api/addReservPhoto/${id}`, uploadPhotoReserve);
       }
 
-      await baseApi.post(
-        `/api/multyPhoto/${id}`,
-        uploadPhotoReserve,
-        getAxiosConfig()
-      );
       thunkAPI.dispatch(addPropertyFiles(id));
     } catch (err) {
-      console.log(`Add Property Imgs Reserve Sending Error: ${err.message}`);
+      console.log(`Add Property Imgs Sending Error: ${err.message}`);
     }
   }
 );
