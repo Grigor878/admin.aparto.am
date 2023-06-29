@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
+import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
 import { moneyFormater } from '../../../../../../helpers/formatters'
 import { bathrooms, floor, height, rooms, square, top, url } from '../../../../../svgs/svgs'
@@ -20,7 +21,7 @@ export const Item = ({ data }) => {
     }
 
     return (
-        data?.map(({ id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
+        data?.map(({ id, home_id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
             return (
                 <div
                     key={id}
@@ -30,7 +31,10 @@ export const Item = ({ data }) => {
                         className='propertyList__item-view'
                         onClick={() => navigate(`${id}`)}
                     >
-                        {photo.length !== 0 && <img src={`${API_BASE_URL}/images/${photo[0].name}`} alt="propertyImg" loading='lazy' />}
+                        {photo.length !== 0
+                            ? <img src={`${API_BASE_URL}/images/${photo[0].name}`} alt="propertyImg" loading='lazy' />
+                            : <img src={noImg} alt="No Img" loading='lazy' />
+                        }
 
                         <div className='propertyList__item-view-types'>
                             <span>{selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
@@ -53,7 +57,7 @@ export const Item = ({ data }) => {
                             </div>
 
                             <div className='propertyList__item-right-main-global'>
-                                <p>{"# "}{id}</p>
+                                <p>{"# "}{home_id}</p>
                                 <p>{moneyFormater(am[2].fields[0].value)}</p>
                             </div>
                         </div>

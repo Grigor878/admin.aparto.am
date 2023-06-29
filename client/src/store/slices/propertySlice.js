@@ -256,9 +256,9 @@ const structureSlice = createSlice({
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
         success("Գույքն ավելացված է։");
-        // setTimeout(() => {
-        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
-        // }, 1000);
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
         // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property

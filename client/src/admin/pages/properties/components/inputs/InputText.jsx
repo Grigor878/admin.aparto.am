@@ -5,15 +5,18 @@ export const InputText = ({ title, value, id, style, required, height, placehold
     return (
         <label className='cardText'>
             {title}
-            <input
+            <textarea
                 id={id}
                 defaultValue={value ? value : null}
                 required={required}
                 type="text"
                 placeholder={placeholder}
                 className='cardText-full'
-                style={{ width: style, height: height }}
+                style={{ width: style, height: height ? height : "42px" }}
                 onChange={onChange}
+                rows="14"
+                cols="10"
+                wrap="soft"
             />
         </label>
     )

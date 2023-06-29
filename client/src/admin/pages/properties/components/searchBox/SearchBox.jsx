@@ -4,7 +4,7 @@ import { setFilteredData } from '../../../../../store/slices/propertySlice'
 import { Search } from '../../../../components/inputs/Search'
 import { AdvancedBtn } from '../inputs/AdvancedBtn'
 import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
-import { SaleRent, EstateType, Community, Rooms, BuildingType, Floor, Taxation, Situation, Status } from './data'
+import { SaleRent, EstateType, Community, Rooms, BuildingType, Situation, Status } from './data'
 import { InputSymbol } from '../inputs/InputSymbol'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
 import './SearchBox.scss'
@@ -62,13 +62,13 @@ export const SearchBox = () => {
             <form id="propertiesSearch" onSubmit={submitSearch} className='propertiySearchbox__form'>
                 <div className={"propertiySearchbox__form-open"}>
                     <Drowpdown
-                        id='prop_salerent'
+                        id='prop_transactionType'
                         onChange={propertiesSearch}
                         data={SaleRent}
                         width="200px"
                     />
                     <Drowpdown
-                        id='prop_estate'
+                        id='prop_propertyType'
                         onChange={propertiesSearch}
                         data={EstateType}
                         width="200px"
@@ -79,9 +79,8 @@ export const SearchBox = () => {
                         data={Community}
                         width="200px"
                     />
-                    {/* Zerov grel rooms u harkanutyun*/}
                     <Drowpdown
-                        id='prop_rooms'
+                        id='prop_numberOfRooms'
                         onChange={propertiesSearch}
                         data={Rooms}
                         width="200px"
@@ -105,28 +104,30 @@ export const SearchBox = () => {
                 </div>
                 <div className={active ? "propertiySearchbox__form-close" : "propertiySearchbox__form-open"}>
                     <Drowpdown
-                        id='prop_buildType'
+                        id='prop_buildingType'
                         onChange={propertiesSearch}
                         data={BuildingType}
                         width="200px"
                     />
-                    <Drowpdown
+                    <InputSymbol
                         id='prop_floor'
+                        type="number"
+                        placeholder="Հարկը"
                         onChange={propertiesSearch}
-                        data={Floor}
                         width="160px"
                     />
-                    <Drowpdown
-                        id='prop_tax'
+                    <InputSymbol
+                        id='prop_statement'
+                        type="number"
+                        placeholder="Հարկայնություն"
                         onChange={propertiesSearch}
-                        data={Taxation}
-                        width="160px"
+                        width="180px"
                     />
                     <Drowpdown
-                        id='prop_situation'
+                        id='prop_houseCondition'
                         onChange={propertiesSearch}
                         data={Situation}
-                        width="220px"
+                        width="200px"
                     />
                     <InputSymbol
                         id='prop_minSquare'
@@ -151,13 +152,10 @@ export const SearchBox = () => {
                         width="200px"
                     />
                 </div>
-                <div>
-                    <BtnCustom
-                        form="propertiesSearch"
-                        text="Փնտրել"
-                        onClick={() => alert('Cooming Soon :)')}
-                    />
-                </div>
+                <BtnCustom
+                    form="propertiesSearch"
+                    text="Փնտրել"
+                />
             </form>
         </div>
     )

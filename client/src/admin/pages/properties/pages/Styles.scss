@@ -103,7 +103,7 @@
     font-size: 32px;
     line-height: 36px;
     color: $text;
-    width: 658px;
+    // width: 658px;
   }
 
   &__subtitle {
@@ -227,6 +227,7 @@
         &-left {
           @include flexCol;
           gap: 16px;
+          width: 100%;
 
           p {
             @include flex;

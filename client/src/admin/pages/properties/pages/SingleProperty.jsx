@@ -12,7 +12,7 @@ import user from '../../../../assets/imgs/user.webp'
 import telegram from '../../../../assets/imgs/telegram.png'
 import whatsapp from '../../../../assets/imgs/whatsapp.png'
 import viber from '../../../../assets/imgs/viber.png'
-import {success} from '../../../../components/swal/swal'
+import { success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
 const SingleProperty = () => {
@@ -23,30 +23,29 @@ const SingleProperty = () => {
     const [data, setData] = useState([])
     const [open, setOpen] = useState(false)
 
-    
     const fetchSinglePropertyData = async () => {
         try {
-          const { data } = await baseApi.get(`/api/getProperties/${id}`, getAxiosConfig())
-          setData(data)
+            const { data } = await baseApi.get(`/api/getProperties/${id}`, getAxiosConfig())
+            setData(data)
         } catch (error) {
-          console.log(`Error: ${error.message}`)
+            console.log(`Error: ${error.message}`)
         } finally {
-          setLoading(true)
+            setLoading(true)
         }
-      };
-    
+    }
+
     useEffect(() => {
         fetchSinglePropertyData()
-      // eslint-disable-next-line react-hooks/exhaustive-deps, no-use-before-define
+        // eslint-disable-next-line react-hooks/exhaustive-deps, no-use-before-define
     }, [id])
-    
+
     const currentPropertyData = data?.am
     const selectedTransationType = data?.selectedTransationType
     const currentPropertyPrice = data?.priceHistory
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
-    
-    if(loading && currentPropertyData[7]?.fields[1]?.value?.length) {
+
+    if (loading && currentPropertyData[7]?.fields[1]?.value?.length) {
         let url = currentPropertyData[7]?.fields[1]?.value
         let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
         var embedURL = "https://www.youtube.com/embed/" + videoID
@@ -54,9 +53,9 @@ const SingleProperty = () => {
 
     const currentPropertyImgs = data?.photo
 
-    const modifiedData = currentPropertyImgs?.filter(el => el.visible === "true")?.map((item) => ({
+    const modifiedData = currentPropertyImgs?.map((item) => ({
         img: `${API_BASE_URL}/images/${item.name}`,
-        alt : item.name
+        alt: item.name
     }))
 
     const copyToClipboard = async () => {
@@ -84,64 +83,64 @@ const SingleProperty = () => {
             ? <Loader />
             : <article className='singleProperty'>
                 {!open
-                ? <div
-                    className='singleProperty__imgs'
-                    // ref={imgsRef}
-                    style={{display : !currentPropertyImgs || currentPropertyImgs?.length === 0 ? "none" : "flex"}}
-                  >
-                    <div className='singleProperty__imgs-left' style={{height:"100%"}}>
-                     {currentPropertyImgs?.length !== 0 && modifiedData &&
-                        <img
-                            src={modifiedData[0].img}
-                            loading='lazy'
-                            alt={modifiedData[0].alt}
-                        />
-                    }
-                    </div>
-
-                    <div className='singleProperty__imgs-right'>
-                        {currentPropertyImgs?.length !== 0 && modifiedData?.slice(1,5)?.map(({ img, alt }) => {
-                            return (
+                    ? <div
+                        className='singleProperty__imgs'
+                        // ref={imgsRef}
+                        style={{ display: !currentPropertyImgs || currentPropertyImgs?.length === 0 ? "none" : "flex" }}
+                    >
+                        <div className='singleProperty__imgs-left' style={{ height: "100%" }}>
+                            {currentPropertyImgs?.length !== 0 && modifiedData &&
                                 <img
-                                    key={alt}
-                                    src={img}
+                                    src={modifiedData[0].img}
                                     loading='lazy'
-                                    alt={alt}
+                                    alt={modifiedData[0].alt}
                                 />
-                            )
-                        })}
+                            }
+                        </div>
+
+                        <div className='singleProperty__imgs-right'>
+                            {currentPropertyImgs?.length !== 0 && modifiedData?.slice(1, 5)?.map(({ img, alt }) => {
+                                return (
+                                    <img
+                                        key={alt}
+                                        src={img}
+                                        loading='lazy'
+                                        alt={alt}
+                                    />
+                                )
+                            })}
+                            <button
+                                onClick={() => setOpen(true)}
+                            >
+                                {seeAllImgs.icon} Տեսնել բոլոր նկարները
+                            </button>
+                        </div>
+
+                        <span
+                            style={{
+                                display: currentPropertyData[0]?.fields[4].value === "Հասարակ" ? "none" : "block",
+                                background: currentPropertyData[0]?.fields[4].value === "Տոպ"
+                                    ? "#2eaa50"
+                                    : currentPropertyData[0]?.fields[4].value === "Շտապ"
+                                        ? "#4a46f1" : "#e7e9f0"
+                            }}
+                        >{currentPropertyData[0]?.fields[4].value}
+                        </span>
+
                         <button
-                            onClick={()=> setOpen(true)}
+                            className='singleProperty__imgs-url'
+                            onClick={copyToClipboard}
                         >
-                            {seeAllImgs.icon} Տեսնել բոլոր նկարները
+                            {url.icon}Հղում կայքին
                         </button>
                     </div>
-
-                    <span
-                        style={{
-                            display: currentPropertyData[0]?.fields[4].value === "Հասարակ" ? "none" : "block",
-                            background: currentPropertyData[0]?.fields[4].value === "Տոպ"
-                            ? "#2eaa50"
-                            : currentPropertyData[0]?.fields[4].value === "Շտապ"
-                            ? "#4a46f1" : "#e7e9f0"
-                        }}
-                    >{currentPropertyData[0]?.fields[4].value}
-                    </span>
-
-                    <button
-                     className='singleProperty__imgs-url'
-                     onClick={copyToClipboard}
-                     >
-                        {url.icon}Հղում կայքին
-                    </button>
-                </div>
-                : <ReactFullscreenCarousel
-                    slides={modifiedData}
-                    handleClose={() => setOpen(false)}
-                    startSlideIndex={0}
-                />
+                    : <ReactFullscreenCarousel
+                        slides={modifiedData}
+                        handleClose={() => setOpen(false)}
+                        startSlideIndex={0}
+                    />
                 }
-                
+
                 <div className='singleProperty__content'>
                     {/* Left */}
                     <div className='singleProperty__content-left'>
@@ -164,7 +163,7 @@ const SingleProperty = () => {
                             </div>
 
                             <div className='singleProperty__content-left-title-right'>
-                                <span>{idShevron.icon} {id}</span>
+                                <span>{idShevron.icon} {data?.home_id}</span>
                                 <p>{data?.selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
                             </div>
                         </div>
@@ -193,21 +192,21 @@ const SingleProperty = () => {
                             </div>
 
                             {currentPropertyData[4]?.fields[3]?.value &&
-                            <div>
-                                {buildingYear.icon}
-                                Կառուցված -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
-                            </div>}
+                                <div>
+                                    {buildingYear.icon}
+                                    Կառուցված -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
+                                </div>}
 
-                           <div>
+                            <div>
                                 {kitchenType.icon}
                                 Խոհանոցի տիպ -<p>{currentPropertyData[3]?.fields[11]?.value}</p>
                             </div>
 
                             {currentPropertyData[4]?.fields[4]?.value &&
-                            <div>
-                                {orentation.icon}
-                                Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
-                            </div>}
+                                <div>
+                                    {orentation.icon}
+                                    Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
+                                </div>}
                         </div>
 
                         <div className='singleProperty__content-left-desc'>
@@ -254,8 +253,8 @@ const SingleProperty = () => {
                             </div>
                         </div>
 
-                        {currentPropertyData[7]?.fields[1]?.value?.length 
-                        ?   <div className='singleProperty__content-left-video'>
+                        {currentPropertyData[7]?.fields[1]?.value?.length
+                            ? <div className='singleProperty__content-left-video'>
                                 <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
 
                                 <div className='singleProperty__content-left-video-card'>
@@ -271,7 +270,7 @@ const SingleProperty = () => {
 
                                 </div>
                             </div>
-                            :null}
+                            : null}
 
                         <div className='singleProperty__content-left-location'>
                             <p>
@@ -299,43 +298,43 @@ const SingleProperty = () => {
                     <div className='singleProperty__content-right'>
                         <div className='singleProperty__content-right-price'>
                             <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
-                            
+
                             {currentPropertyData[2]?.fields[2]?.value &&
-                            <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
-                            {currentPropertyData[2]?.fields[1]?.value && 
-                            <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
-                            
-                            <PriceHistory data={currentPropertyPrice}/>
-                            
+                                <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
+                            {currentPropertyData[2]?.fields[1]?.value &&
+                                <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
+
+                            <PriceHistory data={currentPropertyPrice} />
+
                             <hr />
-                           
+
                             <p>Վճարման կարգ։
-                            {currentPropertyData[2]?.fields[4]?.value.includes(",") 
-                                ? <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
-                                        <span key={index}>{item.trim()}</span>
-                                    ))}
-                                </span>
-                                : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
-                            }  
+                                {currentPropertyData[2]?.fields[4]?.value.includes(",")
+                                    ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                        {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
+                                            <span key={index}>{item.trim()}</span>
+                                        ))}
+                                    </span>
+                                    : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
+                                }
                             </p>
-                           
-                            {currentPropertyData[2]?.fields[5]?.value && 
-                            <p>Նախընտրած բանկ։ 
-                            {currentPropertyData[2]?.fields[5]?.value.includes(",") 
-                                ? <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {currentPropertyData[2]?.fields[5]?.value?.split(',')?.map((item, index) => (
-                                        <span key={index}>{item.trim()}</span>
-                                    ))}
-                                </span>
-                                : <span>{currentPropertyData[2]?.fields[5]?.value}</span>
-                            }    
-                            </p>}
+
+                            {currentPropertyData[2]?.fields[5]?.value &&
+                                <p>Նախընտրած բանկ։
+                                    {currentPropertyData[2]?.fields[5]?.value.includes(",")
+                                        ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                            {currentPropertyData[2]?.fields[5]?.value?.split(',')?.map((item, index) => (
+                                                <span key={index}>{item.trim()}</span>
+                                            ))}
+                                        </span>
+                                        : <span>{currentPropertyData[2]?.fields[5]?.value}</span>
+                                    }
+                                </p>}
                             <hr />
                             {currentPropertyData[4]?.fields[5]?.value &&
-                            <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
+                                <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
                             {currentPropertyData[4]?.fields[6]?.value &&
-                            <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
+                                <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
                         </div>
 
                         <div className='singleProperty__content-right-contact'>
@@ -353,7 +352,7 @@ const SingleProperty = () => {
                                         <p>+374 99 090909</p>
                                     </div>
                                     <div className='singleProperty__content-right-contact-social-card'>
-                                        <div style={{display:"flex", gap:"16px"}}>
+                                        <div style={{ display: "flex", gap: "16px" }}>
                                             <img src={telegram} alt="telegram" />
                                             <img src={whatsapp} alt="whatsapp" />
                                             <img src={viber} alt="viber" />
@@ -365,7 +364,7 @@ const SingleProperty = () => {
 
                             <div className='singleProperty__content-right-contact-info'>
                                 <img src={user} alt="img" />
-                                
+
                                 <div className='singleProperty__content-right-contact-info-name'>
                                     <p>Արման Հակոբյան</p>
                                     <span>Ապարտո գործակալ</span>
@@ -395,46 +394,46 @@ const SingleProperty = () => {
                                 </label>
 
                                 {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
-                                <>
-                                 <label>
-                                    Սեփականատեր 2
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
-                                    />
-                                </label>
-                                <label>
-                                    Սեփականատիրոջ հեռախոսահամար
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
-                                    />
-                                </label>
-                                </>:null}
+                                    currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
+                                    <>
+                                        <label>
+                                            Սեփականատեր 2
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
+                                            />
+                                        </label>
+                                        <label>
+                                            Սեփականատիրոջ հեռախոսահամար
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
+                                            />
+                                        </label>
+                                    </> : null}
 
                                 {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
-                                <>
-                                 <label>
-                                    Սեփականատեր 3
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
-                                    />
-                                </label>
-                                <label>
-                                    Սեփականատիրոջ հեռախոսահամար
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
-                                    />
-                                </label>
-                                </>:null}
+                                    currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
+                                    <>
+                                        <label>
+                                            Սեփականատեր 3
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
+                                            />
+                                        </label>
+                                        <label>
+                                            Սեփականատիրոջ հեռախոսահամար
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
+                                            />
+                                        </label>
+                                    </> : null}
                             </div>
                         </div>
 
@@ -442,25 +441,25 @@ const SingleProperty = () => {
                             <h5>Լրացուցիչ Ինֆորմացիա</h5>
 
                             <textarea
-                               rows="14"
-                               cols="10"
-                               wrap="soft"
-                               disabled
-                               value={currentPropertyData[10]?.fields[0]?.value?.length 
-                                ? currentPropertyData[10]?.fields[0]?.value
-                                : "Նախընտրած ինֆորմացիա"}
+                                rows="14"
+                                cols="10"
+                                wrap="soft"
+                                disabled
+                                value={currentPropertyData[10]?.fields[0]?.value?.length
+                                    ? currentPropertyData[10]?.fields[0]?.value
+                                    : "Նախընտրած ինֆորմացիա"}
                             >
                             </textarea>
 
                             <div className='singleProperty__content-right-info-uploads'>
-                                    {currentPropertyFiles?.map((el)=>{
-                                        return(
-                                            <div key={el} className='singleProperty__content-right-info-uploads-file'>
-                                                {file.icon}
-                                                <a target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">{el}</a>
-                                            </div>
-                                        )
-                                    })
+                                {currentPropertyFiles?.map((el) => {
+                                    return (
+                                        <div key={el} className='singleProperty__content-right-info-uploads-file'>
+                                            {file.icon}
+                                            <a target='_blank' href={API_BASE_URL + `/files/` + el} rel="noreferrer">{el}</a>
+                                        </div>
+                                    )
+                                })
                                 }
                             </div>
                         </div>
@@ -477,31 +476,31 @@ const SingleProperty = () => {
                                         value={currentPropertyData[11]?.fields[0]?.value}
                                     />
                                 </label>
-                                {currentPropertyData[11]?.fields[1]?.value && 
-                                <label>
-                                    Մենեջեր
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[11]?.fields[1]?.value}
-                                    />
-                                </label>}
+                                {currentPropertyData[11]?.fields[1]?.value &&
+                                    <label>
+                                        Մենեջեր
+                                        <input
+                                            type="text"
+                                            disabled
+                                            value={currentPropertyData[11]?.fields[1]?.value}
+                                        />
+                                    </label>}
                             </div>
                         </div>
 
                         {currentPropertyKeywords.length ?
-                        <div className='singleProperty__content-right-keywords'>
-                            <h5>Բանալի բառեր</h5>
+                            <div className='singleProperty__content-right-keywords'>
+                                <h5>Բանալի բառեր</h5>
 
-                            <div className='singleProperty__content-right-keywords-list'>
-                                {currentPropertyKeywords?.map((el)=>{
-                                    return(
-                                        <p key={el}>{el}</p>
-                                    )
-                                })}
+                                <div className='singleProperty__content-right-keywords-list'>
+                                    {currentPropertyKeywords?.map((el) => {
+                                        return (
+                                            <p key={el}>{el}</p>
+                                        )
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                        :null}
+                            : null}
 
                         <div className='singleProperty__content-right-dates'>
                             <p>Ավելացված է՝ {data?.createdAt}</p>
@@ -515,42 +514,6 @@ const SingleProperty = () => {
 
 export default SingleProperty
 
-// if its not work do with react-image-gallery
-
-// import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper"
-// import { Swiper, SwiperSlide } from "swiper/react"
-// import "swiper/scss"
-// import "swiper/scss/navigation"
-// import "swiper/scss/pagination"
-
-    // < div className = 'singleProperty__imgs' >
-    //     <Swiper
-    //         slidesPerView={3}
-    //         spaceBetween={12}
-    //         navigation={true}
-    //         pagination={{
-    //             type: "fraction",
-    //         }}
-    //         loop={true}
-    //         autoplay={{ delay: 3000, disableOnInteraction: true }}
-    //         scrollbar={{ draggable: true }}
-    //         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-
-    //     // 
-    //     >
-    //         {currentPropertyImgs?.map(({ name, visible }) => {
-    //             if (visible === 'true') {
-    //                 return (
-    //                     <SwiperSlide key={name}>
-    //                         <img src={API_BASE_URL + '/images/' + name} loading='lazy' alt={name} />
-    //                     </SwiperSlide>
-    //                 );
-    //             }
-    //             return null; // Ensure a consistent number of slides
-    //         })}
-    //     </Swiper>
-    //             </ >
-
 
 // for scroll best performance
 // if (typeof window.scrollTo === 'function') {
@@ -558,3 +521,8 @@ export default SingleProperty
 // } else {
 //     window.scrollTo(0, document.documentElement.scrollHeight);
 // }
+
+// const modifiedData = currentPropertyImgs?.filter(el => el.visible === "true")?.map((item) => ({
+//     img: `${API_BASE_URL}/images/${item.name}`,
+//     alt : item.name
+// }))
