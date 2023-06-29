@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('home_id')->nullable()->after('id');
         });
 
-        DB::statement('UPDATE homes SET home_id = id + 44000');
+        DB::statement('UPDATE homes SET home_id = id + 10000');
         
     }
 

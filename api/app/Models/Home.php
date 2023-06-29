@@ -28,7 +28,7 @@ class Home extends Model
         parent::boot();
 
         static::created(function ($model) {
-            $model->home_id = $model->id + 44000;
+            $model->home_id = $model->id + 10000;
             $model->save();
         });
     }

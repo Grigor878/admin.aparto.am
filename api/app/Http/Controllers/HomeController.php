@@ -241,7 +241,7 @@ class HomeController extends Controller
     }
 
     public function getHome() {
-        $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived')")
+        $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), updated_at DESC")
         ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get();
 
@@ -384,7 +384,7 @@ class HomeController extends Controller
     }
 
     public function getProperties($id) {
-        $home = Home::select('id', 'am', 'photo', 'file', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
+        $home = Home::select('id', 'home_id', 'am', 'photo', 'file', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
         ->find($id);
         if($home) {
             $home->am = json_decode($home->am);
