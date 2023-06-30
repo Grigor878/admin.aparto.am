@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { Loader } from '../../../../../components/loading/Loader'
 import { logout } from '../../../../../store/slices/authSlice'
 import { logOut } from '../../../../svgs/svgs'
-import userImg from '../../../../../assets/imgs/user.webp'
+import userImg from '../../../../../assets/imgs/user.png'
 import { API_BASE_URL } from '../../../../../apis/config'
 import { DisabledInput } from '../../../../components/inputs/DisabledInput'
 

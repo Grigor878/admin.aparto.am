@@ -14,7 +14,7 @@ export const InputSymbol = ({ id, type, placeholder, name, onChange, width, valu
                 style={{ width: width }}
                 value={value}
             />
-            {name === "price" ? <p>{dollar.icon}</p> : <p>ք.մ.</p>}
+            {name === "price" ? <p>{dollar.icon}</p> : name === "square" ? <p>ք.մ.</p> : null}
         </label>
     )
 }

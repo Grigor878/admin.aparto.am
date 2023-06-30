@@ -49,14 +49,13 @@
 
 // Dropdown
 .dash__input-dropdown {
-  // width: 200px;
   background: $bgSub;
+  // color: $textBtn;
   border: 1px solid $inputBorder;
   border-radius: 8px;
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
-  color: $textBtn;
   padding: 12px 16px;
   // indicatior
   appearance: none;
@@ -65,7 +64,7 @@
   background-position: right 1rem center;
   background-size: 1em;
   cursor: pointer;
-  
+
   &-options {
     color: $text;
   }

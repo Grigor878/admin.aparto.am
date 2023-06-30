@@ -25,6 +25,23 @@ body {
   height: 100%;
   font-family: "Archivo";
   font-style: normal;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: $advancedBack;;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: $blue;
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: darken($blue, 3%);
+  }
 }
 
 // .container {

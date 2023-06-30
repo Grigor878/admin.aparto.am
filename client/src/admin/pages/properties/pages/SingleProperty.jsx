@@ -8,7 +8,7 @@ import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/con
 import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';
-import user from '../../../../assets/imgs/user.webp'
+import user from '../../../../assets/imgs/user.png'
 import telegram from '../../../../assets/imgs/telegram.png'
 import whatsapp from '../../../../assets/imgs/whatsapp.png'
 import viber from '../../../../assets/imgs/viber.png'

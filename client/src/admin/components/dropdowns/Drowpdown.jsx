@@ -15,7 +15,7 @@ export const Drowpdown = ({ id, value, onChange, data, width }) => {
                     <option
                         className="dash__input-dropdown-options"
                         key={el.name}
-                        value={el.value}
+                        value={el.name}
                     >
                         {el.name}
                     </option>

@@ -121,18 +121,19 @@ export const SearchBox = () => {
                         type="number"
                         placeholder="Հարկայնություն"
                         onChange={propertiesSearch}
-                        width="180px"
+                        width="160px"
                     />
                     <Drowpdown
                         id='prop_houseCondition'
                         onChange={propertiesSearch}
                         data={Situation}
-                        width="200px"
+                        width="220px"
                     />
                     <InputSymbol
                         id='prop_minSquare'
                         type="text"
                         placeholder="Մակերես մին."
+                        name="square"
                         onChange={propertiesSearch}
                         width="175px"
                     />
@@ -140,6 +141,7 @@ export const SearchBox = () => {
                         id='prop_maxSquare'
                         type="text"
                         placeholder="Մակերես մաքս."
+                        name="square"
                         onChange={propertiesSearch}
                         width="175px"
                     />
