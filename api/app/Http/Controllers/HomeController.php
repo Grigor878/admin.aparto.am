@@ -240,82 +240,89 @@ class HomeController extends Controller
         return true;
     }
 
-    public function getHome() {
+    public function getHome(Request $request) {
+        $data = $request->all();
+
         $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), updated_at DESC")
         ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
-        ->get();
+        ->get() ;
 
-        foreach ($allHome as $key => $home) {
-           $home->am = json_decode($home->am);
-           $home->ru = json_decode($home->ru);
-           $home->en = json_decode($home->en);
+        if($data){
+            $allHome =  $this->homeService->getFilteredHomes($allHome, $data);            
+        } else {
+            foreach ($allHome as $key => $home) {
+            $home->am = json_decode($home->am);
+            $home->ru = json_decode($home->ru);
+            $home->en = json_decode($home->en);
 
-           $searchAllProperty = [];
-           if(isset($home->am[0]->fields[2]->value)){
-            array_push($searchAllProperty, $home->am[0]->fields[2]->value);
-            array_push($searchAllProperty, $home->ru[0]->fields[2]->value);
-            array_push($searchAllProperty, $home->en[0]->fields[2]->value);
-           }
+            $searchAllProperty = [];
+            if(isset($home->am[0]->fields[2]->value)){
+                array_push($searchAllProperty, $home->am[0]->fields[2]->value);
+                array_push($searchAllProperty, $home->ru[0]->fields[2]->value);
+                array_push($searchAllProperty, $home->en[0]->fields[2]->value);
+            }
 
-           if(isset($home->am[1]->fields[0]->communityStreet->value)){
-                array_push($searchAllProperty, $home->am[1]->fields[0]->communityStreet->value);
-                array_push($searchAllProperty, $home->ru[1]->fields[0]->communityStreet->value);
-                array_push($searchAllProperty, $home->en[1]->fields[0]->communityStreet->value);
-           }
+            if(isset($home->am[1]->fields[0]->communityStreet->value)){
+                    array_push($searchAllProperty, $home->am[1]->fields[0]->communityStreet->value);
+                    array_push($searchAllProperty, $home->ru[1]->fields[0]->communityStreet->value);
+                    array_push($searchAllProperty, $home->en[1]->fields[0]->communityStreet->value);
+            }
 
-           if(isset($home->am[9]->fields[1]->value)){ 
-            array_push($searchAllProperty, $home->am[9]->fields[1]->value);
-           }
+            if(isset($home->am[9]->fields[1]->value)){ 
+                array_push($searchAllProperty, $home->am[9]->fields[1]->value);
+            }
 
-           if(isset( $home->am[9]->fields[2]->option[1]->value)){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[1]->value);
-           }
-          
-           if(isset( $home->am[9]->fields[2]->option[3]->value)){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]->value);
-           }
+            if(isset( $home->am[9]->fields[2]->option[1]->value)){ 
+                array_push($searchAllProperty,  $home->am[9]->fields[2]->option[1]->value);
+            }
+            
+            if(isset( $home->am[9]->fields[2]->option[3]->value)){ 
+                array_push($searchAllProperty,  $home->am[9]->fields[2]->option[3]->value);
+            }
 
-           if(isset($home->am[9]->fields[0]->value)){ 
-            array_push($searchAllProperty, $home->am[9]->fields[0]->value);
-           }
+            if(isset($home->am[9]->fields[0]->value)){ 
+                array_push($searchAllProperty, $home->am[9]->fields[0]->value);
+            }
 
-           if(isset( $home->am[9]->fields[2]->option[0]->value)){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[0]->value);
-           }
-          
-           if(isset( $home->am[9]->fields[2]->option[2]->value)){ 
-            array_push($searchAllProperty,  $home->am[9]->fields[2]->option[2]->value);
-           }
+            if(isset( $home->am[9]->fields[2]->option[0]->value)){ 
+                array_push($searchAllProperty,  $home->am[9]->fields[2]->option[0]->value);
+            }
+            
+            if(isset( $home->am[9]->fields[2]->option[2]->value)){ 
+                array_push($searchAllProperty,  $home->am[9]->fields[2]->option[2]->value);
+            }
 
-           if(isset($home->am[11]->fields[0]->value)){ 
-            array_push($searchAllProperty, $home->am[11]->fields[0]->value);
-           }
-           if(isset($home->ru[11]->fields[0]->value)){ 
-            array_push($searchAllProperty, $home->ru[11]->fields[0]->value);
-           }
-           if(isset($home->en[11]->fields[0]->value)){ 
-            array_push($searchAllProperty, $home->en[11]->fields[0]->value);
-           }
-           if(isset($home->am[11]->fields[1]->value)){ 
-            array_push($searchAllProperty, $home->am[11]->fields[1]->value);
-           }
-           if(isset($home->ru[11]->fields[1]->value)){ 
-            array_push($searchAllProperty, $home->ru[11]->fields[1]->value);
-           }
-           if(isset($home->en[11]->fields[1]->value)){ 
-            array_push($searchAllProperty, $home->en[11]->fields[1]->value);
-           }
+            if(isset($home->am[11]->fields[0]->value)){ 
+                array_push($searchAllProperty, $home->am[11]->fields[0]->value);
+            }
+            if(isset($home->ru[11]->fields[0]->value)){ 
+                array_push($searchAllProperty, $home->ru[11]->fields[0]->value);
+            }
+            if(isset($home->en[11]->fields[0]->value)){ 
+                array_push($searchAllProperty, $home->en[11]->fields[0]->value);
+            }
+            if(isset($home->am[11]->fields[1]->value)){ 
+                array_push($searchAllProperty, $home->am[11]->fields[1]->value);
+            }
+            if(isset($home->ru[11]->fields[1]->value)){ 
+                array_push($searchAllProperty, $home->ru[11]->fields[1]->value);
+            }
+            if(isset($home->en[11]->fields[1]->value)){ 
+                array_push($searchAllProperty, $home->en[11]->fields[1]->value);
+            }
 
-           array_push($searchAllProperty, $home->id);
-           $home->searchAllProperty = $searchAllProperty;
-           $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
-           $home->photo = json_decode($home->photo);
-           $home->file = json_decode($home->file);
-           $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
-           $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-           
-           $home->keywords = json_decode($home->keywords);
+            array_push($searchAllProperty, $home->id);
+            $home->searchAllProperty = $searchAllProperty;
+            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+            $home->photo = json_decode($home->photo);
+            $home->file = json_decode($home->file);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+            
+            $home->keywords = json_decode($home->keywords);
+            }
         }
+
         return response()->json($allHome);
     }
 

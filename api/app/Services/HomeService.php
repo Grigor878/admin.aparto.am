@@ -5,6 +5,7 @@ use App\Models\GlobalForm;
 use App\Models\ConfigAddress;
 use App\Models\Employe;
 use App\Models\Home;
+use Carbon\Carbon;
 
 
 class HomeService
@@ -628,13 +629,211 @@ class HomeService
     return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn, 'priceHistory' => $priceHistory];
   }
 
+  // public function removeFilteredKeyStart($filters){
+  //   $newArray = array_combine(
+  //     array_map(function ($key) {
+  //         return str_replace("prop_", "", $key);
+  //     }, array_keys($filters)),
+  //     $filters
+  // );
+  // return $newArray;
+  // }
+
+  public function getStatusFilter($status) {
+    if($status){
+      if($status == "Ակտիվ"){
+        return 'approved';
+      }
+      elseif($status == "Ապաակտիվացված") {
+        return 'inactive';
+      }
+      elseif($status == "Ապաակտիվացված") {
+        return 'inactive';
+      }
+      elseif($status == "Վերանայման") {
+        return 'moderation';
+      }
+      elseif($status == "Արխիվացված") {
+        return 'archived';
+      }
+      else {
+        return '';
+      }
+    }
+  }
+  
+
+  public function getFilteredHomes($allHome, $data) {
+    $filteredHome = $allHome->filter(function ($home) use ($data){
+      $am = json_decode($home->am);
+      $ru = json_decode($home->ru);
+      $en = json_decode($home->en);
+      $isMatched = true;
+      if(array_key_exists('prop_transactionType', $data)){
+        if( $data['prop_transactionType'] != 'Վաճառք / վարձ.'){
+          if($am[0]->fields[0]->value != $data['prop_transactionType']) {
+            $isMatched = false;
+          };
+        }
+      } 
+      if(array_key_exists('prop_propertyType', $data)){
+        if($data['prop_propertyType'] != "Գույքի տիպ"){
+          if($am[0]->fields[1]->value != $data['prop_propertyType']){
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_community', $data)){
+        if($data['prop_community'] != "Համայնք"){
+          if($am[1]->fields[0]->value != $data['prop_community']) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_numberOfRooms', $data)){
+        if($data['prop_numberOfRooms'] != "Սենյակներ"){
+          if($am[3]->fields[2]->value != $data['prop_numberOfRooms']) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_minPrice', $data) || array_key_exists('prop_maxPrice', $data) ||  (array_key_exists('prop_minPrice', $data) && array_key_exists('prop_maxPrice', $data))){ 
+        $minPrice = (array_key_exists('prop_minPrice', $data) && $data['prop_minPrice'])?(int)$data['prop_minPrice']:0;
+        $maxPrice = (array_key_exists('prop_maxPrice', $data) && $data['prop_maxPrice'])?(int)$data['prop_maxPrice']:1000000000;
+        $totalPrice = (int) $am[2]->fields[0]->value;
+        $isMatched = false;
+
+        if($totalPrice) {
+          if($totalPrice >= $minPrice && $totalPrice <= $maxPrice) {
+              $isMatched = true;
+            };
+          }
+      } 
+      if(array_key_exists('prop_buildingType', $data)){
+        if($data['prop_buildingType'] != "Շինության տիպ"){
+          if($am[4]->fields[0]->value != $data['prop_buildingType']){
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_houseCondition', $data)){
+        if($data['prop_houseCondition'] != "Վիճակ"){
+          if($am[3]->fields[9]->value != $data['prop_houseCondition']) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_floor', $data)){
+        if($data['prop_floor']){
+          if($am[3]->fields[8]->value != $data['prop_floor']) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_statement', $data)){
+        if($data['prop_statement']){
+          if($am[4]->fields[1]->value!= $data['prop_statement']) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_status', $data)){
+        if($data['prop_status'] != "Ստատուս"){
+          if($home->status != $this->getStatusFilter($data['prop_status'])) {
+            $isMatched = false;
+          };
+        }
+      }
+      if(array_key_exists('prop_minSquare', $data) || array_key_exists('prop_maxSquare', $data) ||  (array_key_exists('prop_minSquare', $data) && array_key_exists('prop_maxSquare', $data))){ 
+        $minSquare = (array_key_exists('prop_minSquare', $data) && $data['prop_minSquare'])?(int)$data['prop_minSquare']:0;
+        $maxSquare = (array_key_exists('prop_maxSquare', $data) && $data['prop_maxSquare'])?(int)$data['prop_maxSquare']:1000000000;
+        $surface = (int) $am[3]->fields[0]->value;
+        $isMatched = false;
+        if($surface) {
+          if($surface >= $minSquare && $surface <= $maxSquare) {
+            $isMatched = true;
+          }
+        } 
+      }
+
+
+      $searchAllProperty = [];
+      if(isset($am[0]->fields[2]->value)){
+       array_push($searchAllProperty, $am[0]->fields[2]->value);
+       array_push($searchAllProperty, $ru[0]->fields[2]->value);
+       array_push($searchAllProperty, $en[0]->fields[2]->value);
+      }
+      if(isset($am[1]->fields[0]->communityStreet->value)){
+           array_push($searchAllProperty, $am[1]->fields[0]->communityStreet->value);
+           array_push($searchAllProperty, $ru[1]->fields[0]->communityStreet->value);
+           array_push($searchAllProperty, $en[1]->fields[0]->communityStreet->value);
+      }
+
+      if(isset($am[9]->fields[1]->value)){ 
+       array_push($searchAllProperty, $am[9]->fields[1]->value);
+      }
+
+      if(isset( $am[9]->fields[2]->option[1]->value)){ 
+       array_push($searchAllProperty,  $am[9]->fields[2]->option[1]->value);
+      }
+     
+      if(isset( $am[9]->fields[2]->option[3]->value)){ 
+       array_push($searchAllProperty,  $am[9]->fields[2]->option[3]->value);
+      }
+
+      if(isset($am[9]->fields[0]->value)){ 
+       array_push($searchAllProperty, $am[9]->fields[0]->value);
+      }
+
+      if(isset( $am[9]->fields[2]->option[0]->value)){ 
+       array_push($searchAllProperty,  $am[9]->fields[2]->option[0]->value);
+      }
+     
+      if(isset( $am[9]->fields[2]->option[2]->value)){ 
+       array_push($searchAllProperty,  $am[9]->fields[2]->option[2]->value);
+      }
+
+      if(isset($am[11]->fields[0]->value)){ 
+       array_push($searchAllProperty, $am[11]->fields[0]->value);
+      }
+      if(isset($ru[11]->fields[0]->value)){ 
+       array_push($searchAllProperty, $ru[11]->fields[0]->value);
+      }
+      if(isset($en[11]->fields[0]->value)){ 
+       array_push($searchAllProperty, $en[11]->fields[0]->value);
+      }
+      if(isset($am[11]->fields[1]->value)){ 
+       array_push($searchAllProperty, $am[11]->fields[1]->value);
+      }
+      if(isset($ru[11]->fields[1]->value)){ 
+       array_push($searchAllProperty, $ru[11]->fields[1]->value);
+      }
+      if(isset($en[11]->fields[1]->value)){ 
+       array_push($searchAllProperty, $en[11]->fields[1]->value);
+      }
+
+      array_push($searchAllProperty, $home->id);
+      $home->searchAllProperty = $searchAllProperty;
+      $home->selectedTransationType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
+      $home->photo = json_decode($home->photo);
+      $home->file = json_decode($home->file);
+      $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+      $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+      
+      $home->keywords = json_decode($home->keywords);
+
+      return $isMatched;
+    });
+      return $filteredHome;
+  }
+
   public function addEditYandexLocation($id, $data) {
       if($data){
         $home = Home::find($id);
         if($home) {
-            $homeAm = json_decode($home->am);
-            $homeRu = json_decode($home->ru);
-            $homeEn = json_decode($home->en);
+            $homeAm = json_decode($am);
+            $homeRu = json_decode($ru);
+            $homeEn = json_decode($en);
 
             if($homeAm[1]->name == 'location'){
                 $homeAm[1] = (array) $homeAm[1];
@@ -649,9 +848,9 @@ class HomeService
                 $homeEn[1]['fields'][4]->value = $data;
             }
 
-            $home->am = json_encode($homeAm);
-            $home->ru = json_encode($homeRu);
-            $home->en = json_encode($homeEn);
+            $am = json_encode($homeAm);
+            $ru = json_encode($homeRu);
+            $en = json_encode($homeEn);
 
             $home->save();
         }

@@ -46,7 +46,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
     Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
     Route::get('/getAllAddresses/{id}', [GeneralFormController::class, 'getAllAddresses']);
-    Route::get('/getHome',  [HomeController::class, 'getHome']);
+    Route::post('/getHome',  [HomeController::class, 'getHome']);
 
  //HomeController form routes
     Route::post('/addHome',  [HomeController::class, 'addHome']);
