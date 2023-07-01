@@ -47,6 +47,8 @@ export const SearchBox = () => {
         dispatch(getPropertyData({ properties }))
     }
 
+    console.log(propertyData)//
+
     return (
         <div className="propertiySearchbox">
             <div className="propertiySearchbox__top">

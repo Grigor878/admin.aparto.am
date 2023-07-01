@@ -9,12 +9,12 @@ import './Properties.scss'
 const Properties = () => {
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getPropertyData())
-    }, [dispatch])
+    const { filteredProperty, propertyData, filteredData } = useSelector((state) => state.property)
 
-    const { propertyData, filteredData } = useSelector((state) => state.property)
-    
+    useEffect(() => {
+        dispatch(getPropertyData({ filteredProperty }))
+    }, [dispatch, filteredProperty])
+
     return (
         <article className='properties'>
             <TopPart

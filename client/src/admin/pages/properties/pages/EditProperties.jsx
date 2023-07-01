@@ -31,11 +31,12 @@ const EditProperties = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getPropertyData())
-    }, [dispatch])
+    const { filteredProperty, propertyData } = useSelector((state) => state.property)
 
-    const { propertyData } = useSelector((state) => state.property)
+    useEffect(() => {
+        dispatch(getPropertyData({ filteredProperty }))
+    }, [dispatch, filteredProperty])
+
 
     let currentProperty = propertyData?.find(item => item.id === propertyId)
     // console.log(currentProperty)//
