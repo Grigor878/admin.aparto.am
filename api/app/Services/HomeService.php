@@ -701,13 +701,11 @@ class HomeService
         $minPrice = (array_key_exists('prop_minPrice', $data) && $data['prop_minPrice'])?(int)$data['prop_minPrice']:0;
         $maxPrice = (array_key_exists('prop_maxPrice', $data) && $data['prop_maxPrice'])?(int)$data['prop_maxPrice']:1000000000;
         $totalPrice = (int) $am[2]->fields[0]->value;
-        $isMatched = false;
-
-        if($totalPrice) {
-          if($totalPrice >= $minPrice && $totalPrice <= $maxPrice) {
-              $isMatched = true;
-            };
+        if((array_key_exists('prop_minPrice', $data) && $data['prop_minPrice']) || (array_key_exists('prop_maxPrice', $data) && $data['prop_maxPrice'])) {
+          if ($totalPrice < $minPrice || $totalPrice > $maxPrice) {
+              $isMatched = false;
           }
+        }
       } 
       if(array_key_exists('prop_buildingType', $data)){
         if($data['prop_buildingType'] != "Շինության տիպ"){
@@ -748,12 +746,12 @@ class HomeService
         $minSquare = (array_key_exists('prop_minSquare', $data) && $data['prop_minSquare'])?(int)$data['prop_minSquare']:0;
         $maxSquare = (array_key_exists('prop_maxSquare', $data) && $data['prop_maxSquare'])?(int)$data['prop_maxSquare']:1000000000;
         $surface = (int) $am[3]->fields[0]->value;
-        $isMatched = false;
-        if($surface) {
-          if($surface >= $minSquare && $surface <= $maxSquare) {
-            $isMatched = true;
+        if((array_key_exists('prop_minSquare', $data) && $data['prop_minSquare']) || (array_key_exists('prop_maxSquare', $data) && $data['prop_maxSquare'])) {
+          if ($surface < $minSquare || $surface > $maxSquare) {
+              $isMatched = false;
           }
-        } 
+        }
+
       }
 
 
@@ -826,7 +824,7 @@ class HomeService
       $home->keywords = json_decode($home->keywords);
 
       return $isMatched;
-    })->toArray();
+    })->values();
       return $filteredHome;
   }
 
