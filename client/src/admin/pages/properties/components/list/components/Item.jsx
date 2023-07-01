@@ -107,7 +107,7 @@ export const Item = ({ data }) => {
                                         </button>
                                         <button
                                             type='button'
-                                            onClick={() => copyToClipboard(id, selectedTransationType)}
+                                            onClick={() => copyToClipboard(home_id, selectedTransationType)}
                                         >
                                             {url.icon}
                                         </button>

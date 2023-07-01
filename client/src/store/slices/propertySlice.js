@@ -32,9 +32,10 @@ export const getPropertyStructure = createAsyncThunk("property", async () => {
 // get property data
 export const getPropertyData = createAsyncThunk(
   "property/getPropertyData",
-  async () => {
+  async ({ properties }) => {
     try {
-      const { data } = await baseApi.get("/api/getHome");
+      const { data } = await baseApi.post("/api/getHome",properties);
+      // console.log(properties);
       return data;
     } catch (err) {
       console.log(`Get Property Data Error: ${err.message}`);
@@ -71,7 +72,7 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
 
-      if(!uploadPhotoReserve.entries().next().done){
+      if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(`/api/addReservPhoto/${id}`, uploadPhotoReserve);
       }
 
@@ -228,7 +229,7 @@ const structureSlice = createSlice({
     setKeyword: (state, action) => {
       state.keyword = action.payload;
     },
-    // Filter propertyData by search
+    // Filter propertyData by text search
     setFilteredData: (state, action) => {
       state.filteredData = action.payload;
     },

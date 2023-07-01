@@ -8,10 +8,11 @@ import { capitalize } from '../../../../../helpers/formatters'
 import './User.scss'
 
 const User = () => {
-    const { userGlobal, loading } = useSelector((state => state.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
+    // const { userGlobal, loading } = useSelector((state => state.userGlobal))
 
     return (
-        loading
+        !userGlobal
             ? <Loader />
             : <Link to='/dashboard/profile' className='user'>
                 <div className='user__info'>

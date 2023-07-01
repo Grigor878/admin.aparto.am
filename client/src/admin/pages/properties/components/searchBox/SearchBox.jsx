@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setFilteredData } from '../../../../../store/slices/propertySlice'
+import { getPropertyData, setFilteredData } from '../../../../../store/slices/propertySlice'
 import { Search } from '../../../../components/inputs/Search'
 import { AdvancedBtn } from '../inputs/AdvancedBtn'
 import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
@@ -42,7 +42,9 @@ export const SearchBox = () => {
 
     const submitSearch = (e) => {
         e.preventDefault()
-        console.log(properties)
+        // console.log(properties)
+        setSearch('')
+        dispatch(getPropertyData({ properties }))
     }
 
     return (
