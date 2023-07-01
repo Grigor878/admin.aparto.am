@@ -311,7 +311,7 @@ class HomeController extends Controller
                 array_push($searchAllProperty, $home->en[11]->fields[1]->value);
             }
 
-            array_push($searchAllProperty, $home->id);
+            array_push($searchAllProperty, $home->home_id);
             $home->searchAllProperty = $searchAllProperty;
             $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->photo = json_decode($home->photo);

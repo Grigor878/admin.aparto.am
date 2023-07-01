@@ -810,7 +810,7 @@ class HomeService
        array_push($searchAllProperty, $en[11]->fields[1]->value);
       }
 
-      array_push($searchAllProperty, $home->id);
+      array_push($searchAllProperty, $home->home_id);
       $home->searchAllProperty = $searchAllProperty;
       $home->am = json_decode($home->am);
       $home->ru = json_decode($home->ru);
