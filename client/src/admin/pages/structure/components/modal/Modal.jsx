@@ -20,19 +20,19 @@ export const Modal = ({ title, active, setActive, name }) => {
     const postAddedField = () => {
         if (arm && rus && eng) {
 
-            let uniqueId = name + capitalize(eng.toLowerCase().split(' ').join('')) + 'Added'
+            const uniqueId = name + capitalize(eng.toLowerCase().split(' ').join('')) + 'Added'
 
-            let am = {
+            const am = {
                 name: name,
                 key: uniqueId,
                 title: arm
             }
-            let ru = {
+            const ru = {
                 name: name,
                 key: uniqueId,
                 title: rus
             }
-            let en = {
+            const en = {
                 name: name,
                 key: uniqueId,
                 title: eng
@@ -44,12 +44,12 @@ export const Modal = ({ title, active, setActive, name }) => {
             setActiveFlag('am')
 
             const addedField = { am, en, ru }
-            console.log(addedField)//
+            // console.log(addedField)//
             dispatch(addStructureField({ addedField }))
             setActive(true)
-            success('Field added !')
+            success('Դաշտն ավելացվեց:')
         } else {
-            error("Complete all fields !")
+            error("Լրացրեք բոլոր լեզուները!")
         }
     }
 

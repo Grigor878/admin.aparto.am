@@ -16,21 +16,21 @@ export const Card = ({ title, name, fields, added, search }) => {
     const dispatch = useDispatch()
 
     const postRemovedField = (key) => {
-        let am = {
+        const am = {
             name: name,
             id: key,
         }
-        let ru = {
+        const ru = {
             name: name,
             id: key,
         }
-        let en = {
+        const en = {
             name: name,
             id: key,
         }
         const removedField = { am, en, ru }
         dispatch(removeStructureField({ removedField }))
-        success('Field removed !')
+        success('Դաշտը հեռացվեց:')
     }
 
     return (
