@@ -30,7 +30,7 @@ const EditUsers = () => {
     const params = useParams()
     const userId = Number(params.id)
 
-    const currentUser = users.find(item => item.id === userId)
+    const currentUser = users?.find(item => item.id === userId)
 
     const email = currentUser?.email
     const [avatar, setAvatar] = useState(currentUser?.photo)

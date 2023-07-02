@@ -17,7 +17,7 @@ const Users = () => {
   const { role } = useSelector((state => state.userGlobal.userGlobal))
   const { users, loading, error } = useSelector((state => state.users))
 
-  const approvedUsers = users.filter(item => item.status === 'approved')
+  const approvedUsers = users?.filter(item => item.status === 'approved')
 
   return (
     <article className='users'>
@@ -29,7 +29,7 @@ const Users = () => {
       <div className="users__table">
         {loading && <Loader />}
         {!loading && error ? <p>Error:{error}</p> : null}
-        {!loading && users.length
+        {!loading && users?.length
           ? <Table
             Data={role === "admin" ? users : approvedUsers}
             Columns={role === "admin" ? userAdminColumns : userCustomColumns}
