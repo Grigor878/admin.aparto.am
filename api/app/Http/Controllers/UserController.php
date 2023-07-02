@@ -51,6 +51,10 @@ class UserController extends Controller
             $user->phone = json_encode($userInfo->phone);
             $user->role = $userInfo->role?$userInfo->role:$user->role;
             $user->save();
+
+            $user->full_name = json_decode($user['full_name'], true);
+            $user->phone = json_decode($user['phone'], true);
+
             return response()->json(['status' => 'Օգտատերը հաջողությամբ խմբագրված է։', "user" => $user], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
