@@ -7,7 +7,7 @@ import { APP_BASE_URL } from "../../apis/config";
 const initialState = {
   structureLoading: false,
   structure: null,
-  filteredProperty: null,
+  filteredProperty: null, // for geting properties
   propertyLoading: false,
   propertyData: null,
   filteredData: null,
@@ -36,7 +36,6 @@ export const getPropertyData = createAsyncThunk(
   async ({ properties }) => {
     try {
       const { data } = await baseApi.post("/api/getHome", properties);
-      // console.log(properties);
       return data;
     } catch (err) {
       console.log(`Get Property Data Error: ${err.message}`);

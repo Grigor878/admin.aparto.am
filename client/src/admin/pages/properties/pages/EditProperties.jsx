@@ -38,15 +38,13 @@ const EditProperties = () => {
     }, [dispatch, filteredProperty])
 
 
-    let currentProperty = propertyData?.find(item => item.id === propertyId)
+    const currentProperty = propertyData?.find(item => item.id === propertyId)
     // console.log(currentProperty)//
 
-    let currentPropertyData = currentProperty?.am
+    const currentPropertyData = currentProperty?.am
     const currentPropertyKeywords = currentProperty?.keywords
     const currentPropertyFiles = currentProperty?.file
     const currentPropertyImgs = currentProperty?.photo
-
-    // console.log(currentPropertyData)//
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
@@ -65,7 +63,7 @@ const EditProperties = () => {
     }
 
     const editProp = (e, name, type) => {
-        let { id, value, checked } = e.target
+        const { id, value, checked } = e.target
 
         setEditProperty((prev) => {
             let obj = {}

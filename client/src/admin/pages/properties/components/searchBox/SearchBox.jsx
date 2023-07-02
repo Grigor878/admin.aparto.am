@@ -42,7 +42,6 @@ export const SearchBox = () => {
 
     const submitSearch = (e) => {
         e.preventDefault()
-        // console.log(properties)
         setSearch('')
         dispatch(getPropertyData({ properties }))
     }
