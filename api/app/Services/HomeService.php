@@ -613,9 +613,16 @@ class HomeService
             }
             if ($globalVal->type == "numSelect") {
               if ($key === $globalVal->key) {
-                $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-                $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-                $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                if($value == "Studio"){
+                  $lang = $allSelect[strtolower($value)];
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                } else {
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                }
               }
             }
           }
@@ -829,35 +836,35 @@ class HomeService
   }
 
   public function addEditYandexLocation($id, $data) {
-      if($data){
-        $home = Home::find($id);
-        if($home) {
-            $homeAm = json_decode($am);
-            $homeRu = json_decode($ru);
-            $homeEn = json_decode($en);
+    if($data){
+      $home = Home::find($id);
+      if($home) {
+          $homeAm = json_decode($home->am);
+          $homeRu = json_decode($home->ru);
+          $homeEn = json_decode($home->en);
 
-            if($homeAm[1]->name == 'location'){
-                $homeAm[1] = (array) $homeAm[1];
-                $homeAm[1]['fields'][4]->value = $data;
-            }
-            if($homeRu[1]->name == 'location'){
-                $homeRu[1] = (array) $homeRu[1];
-                $homeRu[1]['fields'][4]->value = $data;
-            }
-            if($homeEn[1]->name == 'location'){
-                $homeEn[1] = (array) $homeEn[1];
-                $homeEn[1]['fields'][4]->value = $data;
-            }
+          if($homeAm[1]->name == 'location'){
+              $homeAm[1] = (array) $homeAm[1];
+              $homeAm[1]['fields'][4]->value = $data;
+          }
+          if($homeRu[1]->name == 'location'){
+              $homeRu[1] = (array) $homeRu[1];
+              $homeRu[1]['fields'][4]->value = $data;
+          }
+          if($homeEn[1]->name == 'location'){
+              $homeEn[1] = (array) $homeEn[1];
+              $homeEn[1]['fields'][4]->value = $data;
+          }
 
-            $am = json_encode($homeAm);
-            $ru = json_encode($homeRu);
-            $en = json_encode($homeEn);
+          $home->am = json_encode($homeAm);
+          $home->ru = json_encode($homeRu);
+          $home->en = json_encode($homeEn);
 
-            $home->save();
-        }
-    }
-    return true;
+          $home->save();
+      }
   }
+  return true;
+}
 
   public function homeLanguageContsructorEdit($id, $data)
   {
