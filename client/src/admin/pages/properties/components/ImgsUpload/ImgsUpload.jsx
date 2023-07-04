@@ -99,43 +99,12 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
-    const updateUploadPhoto = () => {
-        const sortedFormData = new FormData()
-        const reserveFormData = new FormData()
-
-        if (images.length > 20) {
-            const remainingImages = images.slice(20)
-
-            remainingImages.forEach((image, index) => {
-                reserveFormData.append(
-                    visibleImages[index + 20]
-                        ? `visible-${index + 20}`
-                        : `hidden-${index + 20}`,
-                    image
-                )
-            })
-        }
-
-        images.slice(0, 20).forEach((image, index) => {
-            sortedFormData.append(
-                visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
-                image
-            )
-        })
-
-        console.log(sortedFormData)//
-        console.log(reserveFormData)//
-
-        dispatch(setUploadPhoto(sortedFormData))
-        dispatch(setUploadPhotoReserve(reserveFormData))
-    };
-
     // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData();
-    //     const reserveFormData = new FormData();
+    //     const sortedFormData = new FormData()
+    //     const reserveFormData = new FormData()
 
     //     if (images.length > 20) {
-    //         const remainingImages = images.slice(20);
+    //         const remainingImages = images.slice(20)
 
     //         remainingImages.forEach((image, index) => {
     //             reserveFormData.append(
@@ -143,29 +112,53 @@ export const ImgsUpload = ({ style, value }) => {
     //                     ? `visible-${index + 20}`
     //                     : `hidden-${index + 20}`,
     //                 image
-    //             );
-    //         });
+    //             )
+    //         })
     //     }
 
     //     images.slice(0, 20).forEach((image, index) => {
     //         sortedFormData.append(
     //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
     //             image
-    //         );
-    //     });
+    //         )
+    //     })
 
-    //     if (value) {
-    //         const sortedFormDataJson = JSON.stringify(Object.fromEntries(sortedFormData));
-    //         const reserveFormDataJson = JSON.stringify(Object.fromEntries(reserveFormData));
-    //         console.log(sortedFormDataJson);
-    //         console.log(sortedFormDataJson);
-    //         dispatch(setUploadPhoto(sortedFormDataJson));
-    //         dispatch(setUploadPhotoReserve(reserveFormDataJson));
-    //     } else {
-    //         dispatch(setUploadPhoto(sortedFormData));
-    //         dispatch(setUploadPhotoReserve(reserveFormData));
-    //     }
+    //     dispatch(setUploadPhoto(sortedFormData))
+    //     dispatch(setUploadPhotoReserve(reserveFormData))
     // };
+
+    const updateUploadPhoto = () => {
+        const sortedFormData = new FormData();
+        const reserveFormData = new FormData();
+
+        if (images.length > 20) {
+            const remainingImages = images.slice(20);
+
+            remainingImages.forEach((image, index) => {
+                reserveFormData.append(
+                    visibleImages[index + 20]
+                        ? `visible-${index + 20}`
+                        : `hidden-${index + 20}`,
+                    image
+                );
+            });
+        }
+
+        images.slice(0, 20).forEach((image, index) => {
+            const key = visibleImages[index] ? `visible-${index}` : `hidden-${index}`;
+            const value = JSON.stringify(image);
+            sortedFormData.append(key, value);
+        });
+
+        if (sortedFormData.entries().next().value) {
+            const sortedFormDataJson = JSON.stringify(Object.fromEntries(sortedFormData));
+            console.log(sortedFormData);
+            dispatch(setUploadPhoto(sortedFormDataJson));
+        } else {
+            dispatch(setUploadPhoto(sortedFormData));
+            dispatch(setUploadPhotoReserve(reserveFormData));
+        }
+    };
 
     useEffect(() => {
         updateUploadPhoto()
