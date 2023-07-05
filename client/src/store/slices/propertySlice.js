@@ -14,6 +14,7 @@ const initialState = {
   postAddLoading: false,
   uploadPhoto: {},
   uploadPhotoReserve: {},
+  uploadPhotoReserveTwo: {},
   uploadFile: {},
   yandex: [],
   keyword: [],
@@ -70,6 +71,7 @@ export const addPropertyImgs = createAsyncThunk(
       const state = thunkAPI.getState();
       let uploadPhoto = state.property.uploadPhoto;
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
+
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
 
       if (!uploadPhotoReserve.entries().next().done) {
@@ -154,11 +156,29 @@ export const editPropertyImgs = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadPhoto = state.property.uploadPhoto;
+      let uploadPhotoReserve = state.property.uploadPhotoReserve;
+      let uploadPhotoReserveTwo = state.property.uploadPhotoReserveTwo;
+
       await baseApi.post(
         `/api/editMultyPhoto/${propertyId}`,
         uploadPhoto,
         getAxiosConfig()
       );
+
+      if (!uploadPhotoReserve.entries().next().done) {
+        await baseApi.post(
+          `/api/addReservPhoto/${propertyId}`,
+          uploadPhotoReserve
+        );
+      }
+
+      if (!uploadPhotoReserveTwo.entries().next().done) {
+        await baseApi.post(
+          `/api/addReservPhoto/${propertyId}`, // apin pti lini addReservPhotoTwo 
+          uploadPhotoReserveTwo
+        );
+      }
+
       thunkAPI.dispatch(editPropertyFiles(propertyId));
     } catch (err) {
       console.log(`Edit Property Imgs Sending Error: ${err.message}`);
@@ -220,6 +240,9 @@ const structureSlice = createSlice({
     setUploadPhotoReserve: (state, action) => {
       state.uploadPhotoReserve = action.payload;
     },
+    setUploadPhotoReserveTwo: (state, action) => {
+      state.uploadPhotoReserveTwo = action.payload;
+    },
     setUploadFile: (state, action) => {
       state.uploadFile = action.payload;
     },
@@ -279,6 +302,7 @@ const structureSlice = createSlice({
 export const {
   setUploadPhoto,
   setUploadPhotoReserve,
+  setUploadPhotoReserveTwo,
   setUploadFile,
   setYandex,
   setKeyword,
