@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUploadPhoto, setUploadPhotoReserve } from '../../../../../store/slices/propertySlice'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config'
@@ -99,41 +99,65 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
+    // const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     const reserveFormData = new FormData()
+
+    //     if (images.length > 20) {
+    //         const remainingImages = images.slice(20)
+
+    //         remainingImages.forEach((image, index) => {
+    //             reserveFormData.append(
+    //                 visibleImages[index + 20]
+    //                     ? `visible-${index + 20}`
+    //                     : `hidden-${index + 20}`,
+    //                 image
+    //             )
+    //         })
+    //     }
+
+    //     images.slice(0, 20).forEach((image, index) => {
+    //         sortedFormData.append(
+    //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
+    //             image
+    //         )
+    //     })
+
+    //     dispatch(setUploadPhoto(sortedFormData))
+    //     dispatch(setUploadPhotoReserve(reserveFormData))
+    // };
+
     const updateUploadPhoto = () => {
         const sortedFormData = new FormData()
-        const reserveFormData = new FormData()
 
-        if (images.length > 20) {
-            const remainingImages = images.slice(20)
+        images.forEach((image, index) => {
+            const key = visibleImages[index] ? `visible-${index}` : `hidden-${index}`
+            // const value = JSON.stringify(image)
+            sortedFormData.append(key, image)
+        });
 
-            remainingImages.forEach((image, index) => {
-                reserveFormData.append(
-                    visibleImages[index + 20]
-                        ? `visible-${index + 20}`
-                        : `hidden-${index + 20}`,
-                    image
-                )
-            })
-        }
 
-        images.slice(0, 20).forEach((image, index) => {
-            sortedFormData.append(
-                visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
-                image
-            )
-        })
+        // console.log(images)
+        const sortedFormDataJson = JSON.stringify(Object.fromEntries(sortedFormData))
+        // console.log("JSON", sortedFormDataJson)
+        // let parsed = JSON.parse(sortedFormDataJson)
+        // console.log("PARSE", parsed);
 
-        dispatch(setUploadPhoto(sortedFormData))
-        dispatch(setUploadPhotoReserve(reserveFormData))
-    };
+        dispatch(setUploadPhoto(sortedFormDataJson))
+    }
+
+    // const { uploadPhoto } = useSelector((state) => state.property)
+    // useEffect(() => {
+    //     console.log(uploadPhoto)// esi et sortedFormDataJson na nuyn 
+    // }, [uploadPhoto])
 
     // const updateUploadPhoto = () => {
     //     const sortedFormData = new FormData();
     //     const reserveFormData = new FormData();
-    
+
     //     if (images.length > 20) {
     //         const remainingImages = images.slice(20);
-    
+
     //         remainingImages.forEach((image, index) => {
     //             reserveFormData.append(
     //                 visibleImages[index + 20]
@@ -143,15 +167,16 @@ export const ImgsUpload = ({ style, value }) => {
     //             );
     //         });
     //     }
-    
+
     //     images.slice(0, 20).forEach((image, index) => {
     //         const key = visibleImages[index] ? `visible-${index}` : `hidden-${index}`;
-    //         const value = JSON.stringify(image);
-    //         sortedFormData.append(key, value);
+    //         // const value = JSON.stringify(image);
+    //         sortedFormData.append(key, image);
     //     });
-    
+
     //     if (sortedFormData.entries().next().value) {
     //         const sortedFormDataJson = JSON.stringify(Object.fromEntries(sortedFormData));
+    //         console.log(sortedFormDataJson);
     //         dispatch(setUploadPhoto(sortedFormDataJson));
     //     } else {
     //         dispatch(setUploadPhoto(sortedFormData));
