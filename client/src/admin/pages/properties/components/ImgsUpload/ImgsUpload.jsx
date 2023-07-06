@@ -9,6 +9,8 @@ import './ImgsUpload.scss'
 export const ImgsUpload = ({ style, value }) => {
     const names = value?.map((item) => item.name)
 
+    // console.log(value)//
+
     const [images, setImages] = useState(value ? names : [])
     const [previewImages, setPreviewImages] = useState(value ? value : [])
     const [visibleImages, setVisibleImages] = useState(value ? value.map(image => image.visible === "true") : [])
@@ -20,16 +22,16 @@ export const ImgsUpload = ({ style, value }) => {
 
         const totalUploads = newUploads + files.length
 
-        if (!value && totalUploads > 40) {
-            error('Ավելացնել մինչև 40 նկար։')
-            return
-        } else if (value && totalUploads > 20) {
-            error('Ավելացնել մինչև 20 նկար։')
-            return
-        } else if (value?.length === 60) {
-            error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
-            return
-        }
+        // if (!value && totalUploads > 40) {
+        //     error('Ավելացնել մինչև 40 նկար։')
+        //     return
+        // } else if (value && totalUploads > 20) {
+        //     error('Ավելացնել մինչև 20 նկար։')
+        //     return
+        // } else if (value?.length === 60) {
+        //     error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
+        //     return
+        // }
 
         setNewUploads((prevUploads) => prevUploads + files.length)
         setImages((prevImages) => [...prevImages, ...files])
@@ -139,43 +141,72 @@ export const ImgsUpload = ({ style, value }) => {
         const reserveFormData = new FormData();
         const reserveTwoFormData = new FormData();
 
-        if (images.length > 40) {
-            const remainingImages = images.slice(40);
-            console.log(remainingImages)//
+        const first = images.slice(0, 20)
+        const second = images.slice(20, 40)
+        const third = images.slice(40, 60)
 
-            remainingImages.forEach((image, index) => {
-                reserveTwoFormData.append(
-                    visibleImages[index + 40]
-                        ? `visible-${index + 40}`
-                        : `hidden-${index + 40}`,
-                    image
-                );
-            });
-        }
-
-        if (images.length > 20 && images.length <= 40) {
-            const remainingImages = images.slice(20, 40);
-
-            remainingImages.forEach((image, index) => {
-                reserveFormData.append(
-                    visibleImages[index + 20]
-                        ? `visible-${index + 20}`
-                        : `hidden-${index + 20}`,
-                    image
-                );
-            });
-        }
-
-        images.slice(0, 20).forEach((image, index) => {
+        first.forEach((image, index) => {
             sortedFormData.append(
                 visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
                 image
-            );
-        });
+            )
+        })
+        second.forEach((image, index) => {
+            reserveFormData.append(
+                visibleImages[index] ? `visible-${index + 20}` : `hidden-${index + 20}`,
+                image
+            )
+        })
+        third.forEach((image, index) => {
+            reserveTwoFormData.append(
+                visibleImages[index] ? `visible-${index + 40}` : `hidden-${index + 40}`,
+                image
+            )
+        })
 
-        // console.log(sortedFormData);
-        // console.log(sortedFormData);
-        // console.log(reserveTwoFormData);
+        // for (const pair of sortedFormData.entries()) {
+        //     console.log(pair)
+        // }
+        // for (const pair of reserveFormData.entries()) {
+        //     console.log(pair)
+        // }
+        // for (const pair of reserveTwoFormData.entries()) {
+        //     console.log(pair)
+        // }
+
+        // if (images.length > 40) {
+        //     const remainingImages = images.slice(40);
+        //     console.log(remainingImages)//
+
+        //     remainingImages.forEach((image, index) => {
+        //         reserveTwoFormData.append(
+        //             visibleImages[index + 40]
+        //                 ? `visible-${index + 40}`
+        //                 : `hidden-${index + 40}`,
+        //             image
+        //         );
+        //     });
+        // }
+
+        // if (images.length > 20 && images.length <= 40) {
+        //     const remainingImages = images.slice(20, 40);
+
+        //     remainingImages.forEach((image, index) => {
+        //         reserveFormData.append(
+        //             visibleImages[index + 20]
+        //                 ? `visible-${index + 20}`
+        //                 : `hidden-${index + 20}`,
+        //             image
+        //         );
+        //     });
+        // }
+
+        // images.slice(0, 20).forEach((image, index) => {
+        //     sortedFormData.append(
+        //         visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
+        //         image
+        //     );
+        // });
 
         dispatch(setUploadPhoto(sortedFormData));
         dispatch(setUploadPhotoReserve(reserveFormData));
@@ -298,3 +329,68 @@ export const ImgsUpload = ({ style, value }) => {
 
     //     dispatch(setUploadPhoto(sortedFormData));
     // };
+
+
+//     Firacode
+
+// const updateUploadPhoto = () => {
+//   const sortedFormData = new FormData();
+//   const reserveFormData = new FormData();
+//   const reserveTwoFormData = new FormData();
+
+//   const totalImages = images.length;
+//   const maxImagesPerRequest = 20;
+//   const maxTotalImages = 60;
+
+//   for (let i = 0; i < totalImages; i++) {
+//     const image = images[i];
+//     const index = i % maxTotalImages;
+
+//     const formData = index < 20 ? sortedFormData : index < 40 ? reserveFormData : reserveTwoFormData;
+//     const visibilityIndex = index < 20 ? index : index < 40 ? index - 20 : index - 40;
+
+//     formData.append(
+//       visibleImages[i] ? `visible-${visibilityIndex}` : `hidden-${visibilityIndex}`,
+//       image
+//     );
+//   }
+
+//   dispatch(setUploadPhoto(sortedFormData));
+//   dispatch(setUploadPhotoReserve(reserveFormData));
+//   dispatch(setUploadPhotoReserveTwo(reserveTwoFormData));
+// };
+
+
+// const updateUploadPhoto = () => {
+//   const sortedFormData = new FormData();
+//   const reserveFormData = new FormData();
+//   const reserveTwoFormData = new FormData();
+
+//   const totalImages = images.length;
+//   const maxImagesPerRequest = 20;
+//   let currentFormData;
+
+//   for (let i = 0; i < totalImages; i++) {
+//     const image = images[i];
+//     const visibilityIndex = i % maxImagesPerRequest;
+
+//     if (visibilityIndex === 0) {
+//       if (i < maxImagesPerRequest) {
+//         currentFormData = sortedFormData;
+//       } else if (i < maxImagesPerRequest * 2) {
+//         currentFormData = reserveFormData;
+//       } else {
+//         currentFormData = reserveTwoFormData;
+//       }
+//     }
+
+//     currentFormData.append(
+//       visibleImages[i] ? `visible-${visibilityIndex}` : `hidden-${visibilityIndex}`,
+//       image
+//     );
+//   }
+
+//   dispatch(setUploadPhoto(sortedFormData));
+//   dispatch(setUploadPhotoReserve(reserveFormData));
+//   dispatch(setUploadPhotoReserveTwo(reserveTwoFormData));
+// };
