@@ -175,16 +175,18 @@ export const editPropertyImgs = createAsyncThunk(
 
       if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(
-          `/api/addReservPhoto/${propertyId}`,
-          uploadPhotoReserve
+          `/api/addEditReservPhoto/${propertyId}`,
+          uploadPhotoReserve,
+          getAxiosConfig()
         );
         console.log("editImgs2"); //
       }
 
       if (!uploadPhotoReserveTwo.entries().next().done) {
         await baseApi.post(
-          `/api/addReservPhotoTwo/${propertyId}`,
-          uploadPhotoReserveTwo
+          `/api/addEditReservPhoto/${propertyId}`,
+          uploadPhotoReserveTwo,
+          getAxiosConfig()
         );
         console.log("editImgs3"); //
       }

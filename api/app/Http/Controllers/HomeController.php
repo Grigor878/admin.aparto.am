@@ -150,31 +150,67 @@ class HomeController extends Controller
         return true;
     }
 
-    public function addReservPhotoTwo($id, Request $request){
+    public function addEditReservPhoto($id, Request $request){
         $data = $request->all();
-        $home = Home::find($id);
-        if($home) {
-            $photoName = json_decode($home->photo);
-            foreach ($data as $key => $photo) {
-                preg_match_all('/\d+/', $key, $matches);
-                $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
-                $photo->move(public_path('images'), $fileName);
-            
-                if(is_numeric(strpos($key, 'visible'))) {
-                $info = [
-                    'name' => $fileName,
-                    'visible' => 'true'
-                ];
-                } else {
-                $info = [
-                    'name' => $fileName,
-                    'visible' => 'false'
-                ];
+        if(!$data) { 
+            $home = Home::find($id);
+            if($home) {
+                $home->update(['photo' => json_encode([])]);
+           }
+        } else {
+            $home = Home::find($id);
+            if($home) {
+                $photoName = json_decode($home->photo);
+                for ($i = 0; $i < count($data); $i++) {
+                    $photoName[] = "";
                 }
-                $photoName[] = $info;
+                $condition = true;
+                foreach ($data as $key => $photo) {
+                    preg_match_all('/\d+/', $key, $matches);
+                    $indexArray = (int) $matches[0][0];
+                    if(gettype($photo) == 'string') {
+                        if(is_numeric(strpos($key, 'visible'))) 
+                        {
+                            $info = [
+                            'name' => $photo,
+                            'visible' => 'true'
+                            ];
+                        } 
+                        else 
+                        {
+                            $info = [
+                            'name' => $photo,
+                            'visible' => 'false'
+                            ];
+                        }
+                        $photoName[$indexArray] = $info;
+                    } 
+                    if(gettype($photo) == 'object') {
+                        if($condition){
+                            $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
+                            $condition = false;
+                        }
+                        $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+                        $photo->move(public_path('images'), $fileName);
+                    
+                        if(is_numeric(strpos($key, 'visible'))) {
+                        $info = [
+                            'name' => $fileName,
+                            'visible' => 'true'
+                        ];
+                        } else {
+                        $info = [
+                            'name' => $fileName,
+                            'visible' => 'false'
+                        ];
+                        }
+                        $photoName[$indexArray] = $info;
+                    }
+    
+                }
+                $home->photo = json_encode($photoName);
+                $home->save();
             }
-            $home->photo = json_encode($photoName);
-            $home->save();
         }
         return true;
     }
