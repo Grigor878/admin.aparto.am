@@ -150,6 +150,37 @@ class HomeController extends Controller
         return true;
     }
 
+    public function addReservPhotoTwo($id, Request $request){
+        $data = $request->all();
+        $home = Home::find($id);
+        if($home) {
+            $photoName = json_decode($home->photo);
+            foreach ($data as $key => $photo) {
+                preg_match_all('/\d+/', $key, $matches);
+                $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
+                $photo->move(public_path('images'), $fileName);
+            
+                if(is_numeric(strpos($key, 'visible'))) {
+                $info = [
+                    'name' => $fileName,
+                    'visible' => 'true'
+                ];
+                } else {
+                $info = [
+                    'name' => $fileName,
+                    'visible' => 'false'
+                ];
+                }
+                $photoName[] = $info;
+            }
+            $home->photo = json_encode($photoName);
+            $home->save();
+        }
+        return true;
+    }
+
+    
+
     public function editMultyPhoto($id, Request $request){
         $data = $request->all();
         if(!$data) { 

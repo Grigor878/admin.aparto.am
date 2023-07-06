@@ -174,7 +174,7 @@ export const editPropertyImgs = createAsyncThunk(
 
       if (!uploadPhotoReserveTwo.entries().next().done) {
         await baseApi.post(
-          `/api/addReservPhoto/${propertyId}`, // apin pti lini addReservPhotoTwo 
+          `/api/addReservPhotoTwo/${propertyId}`, // apin pti lini addReservPhotoTwo 
           uploadPhotoReserveTwo
         );
       }
@@ -260,14 +260,14 @@ const structureSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPropertyStructure.pending, (state) => {
-        state.structureLoading = true;
+        state.structureLoading = false;
       })
       .addCase(getPropertyStructure.fulfilled, (state, action) => {
         state.structureLoading = false;
         state.structure = action.payload;
       })
       .addCase(getPropertyData.pending, (state) => {
-        state.propertyLoading = true;
+        state.propertyLoading = false;
       })
       .addCase(getPropertyData.fulfilled, (state, action) => {
         state.propertyLoading = false;
@@ -275,14 +275,14 @@ const structureSlice = createSlice({
       })
       // add property
       .addCase(addPropertyData.pending, (state) => {
-        state.postAddLoading = true;
+        state.postAddLoading = false;
       })
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
         success("Գույքն ավելացված է։");
-        setTimeout(() => {
-          window.location = `${APP_BASE_URL}/dashboard/properties`;
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
         // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
@@ -292,9 +292,9 @@ const structureSlice = createSlice({
       .addCase(editPropertyKeyword.fulfilled, (state) => {
         state.postEditLoading = false;
         success("Գույքը փոփոխված է:");
-        setTimeout(() => {
-          window.location = `${APP_BASE_URL}/dashboard/properties`;
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
       });
   },
 });
