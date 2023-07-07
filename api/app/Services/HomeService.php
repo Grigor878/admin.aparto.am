@@ -152,6 +152,11 @@ class HomeService
         'en' => 'Mortgage',
         'ru' => 'Ипотечный заем',
       ],
+      'installments' => [
+        'am' => 'Տարաժամկետ',
+        'en' => 'Installments',
+        'ru' => 'Рассрочка',
+      ],
       'ameriaBank' => [
         'am' => 'Ամերիա բանկ',
         'en' => 'Ameria Bank',

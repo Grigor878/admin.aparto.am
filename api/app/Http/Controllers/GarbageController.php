@@ -4,9 +4,110 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GlobalForm;
+use App\Models\Home;
 
 class GarbageController extends Controller
 {
+  public function changeFloor() {
+
+    try {
+      \DB::beginTransaction();
+  
+      $homes = Home::all();
+  
+      foreach ($homes as $key => $home) {
+          $am = json_decode($home->am, true);
+          $ru = json_decode($home->ru, true);
+          $en = json_decode($home->en, true);
+  
+          if ($am[3]['fields'][8]['key'] == "floor") {
+              $am[3]['fields'][8]['title'] = "Հարկը";
+              $am[3]['fields'][8]['required'] = false;
+          }
+  
+          if ($ru[3]['fields'][8]['key'] == "floor") {
+              $ru[3]['fields'][8]['title'] = "Этаж";
+              $ru[3]['fields'][8]['required'] = false;
+          }
+  
+          if ($en[3]['fields'][8]['key'] == "floor") {
+              $en[3]['fields'][8]['title'] = "Floor";
+              $en[3]['fields'][8]['required'] = false;
+          }
+  
+          $home->am = json_encode($am);
+          $home->ru = json_encode($ru);
+          $home->en = json_encode($en);
+  
+          $home->save();
+      }
+  
+      \DB::commit();
+  } catch (Throwable $e) {
+      \Log::info($e);
+      \DB::rollBack();
+  }
+  }
+
+  public function changeInstallments() {
+
+    try {
+      \DB::beginTransaction();
+  
+      $homes = Home::all();
+  
+      foreach ($homes as $key => $home) {
+          $am = json_decode($home->am, true);
+  
+          if ($am[2]['fields'][4]['key'] == "paymentMethod") {
+            $am[2]['fields'][4]['option'] = [
+              [
+                "label"=> "Բանկային փոխանցում",
+                "value" => "bankTransfer"
+              ],
+              [
+                "label"=> "Հիպոթեքային վարկ",
+                "value" => "mortgageLoan"
+              ],
+              [
+                "label"=> "Տարաժամկետ",
+                "value" => "installments"
+              ],
+              [
+                "label"=> "Այլ",
+                "value" => "other"
+              ],
+            ];
+
+          }
+  
+  
+          $home->am = json_encode($am);
+          $home->save();
+      }
+  
+      \DB::commit();
+  } catch (Throwable $e) {
+      \Log::info($e);
+      \DB::rollBack();
+  }
+  }
+
+  public function changeHomeRoom(){
+    $homes = Home::all();
+  
+      foreach ($homes as $key => $home) {
+          $am = json_decode($home->am, true);
+          if ($am[3]['fields'][3]['option'][6]['value'] == "7+") {
+            $am[3]['fields'][3]['option'][6]['value'] = "studio";
+          }
+  
+          $home->am = json_encode($am);
+          $home->save();
+      }
+  }
+    
+     
     public function addNow() {
 
 
@@ -365,6 +466,10 @@ class GarbageController extends Controller
                   "value" => "mortgageLoan"
                 ],
                 [
+                  "label"=> "Տարաժամկետ",
+                  "value" => "installments"
+                ],
+                [
                   "label"=> "Այլ",
                   "value" => "other"
                 ],
@@ -696,10 +801,10 @@ class GarbageController extends Controller
               ],
               [
                 "key" => "floor",
-                "title" => "Հարկը*",
+                "title" => "Հարկը",
                 "type" => "inputNumber",
                 "style" => "306px",
-                "required" => true,
+                "required" => false,
                 "value" => '',
                 "option" => []
               ],
@@ -1671,7 +1776,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "floor",
-                "title" => "Этаж*",
+                "title" => "Этаж",
                 "type" => "inputNumber",
                 "style" => "306px",
                 "value" => '',
@@ -2428,7 +2533,7 @@ class GarbageController extends Controller
                 ],
                 [
                 "key" => "floor",
-                "title" => "Floor*",
+                "title" => "Floor",
                 "type" => "inputNumber",
                 "style" => "306px",
                 "value" => '',
