@@ -618,9 +618,10 @@ class HomeService
             }
             if ($globalVal->type == "numSelect") {
               if ($key === $globalVal->key) {
-                if($value == "Studio"){
+                if($value == "studio"){
                   $lang = $allSelect[strtolower($value)];
-                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $lang['am'];
+                  $langAm = 'studio';
+                  $assocCopyFormAm[$idx]->fields[$globKey]->value = $langAm;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
                 } else {
@@ -1084,10 +1085,18 @@ class HomeService
               }
             }
             if ($globalVal->type == "numSelect") {
-              if ($key === $globalVal->key) {
-                $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
-                $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
-                $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                if ($key === $globalVal->key) {
+                  if($value == "studio"){
+                    $lang = $allSelect[strtolower($value)];
+                    $langAm = 'studio';
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $langAm;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $lang['ru'];
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $lang['en'];
+                  } else {
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  }
               }
             }
           }

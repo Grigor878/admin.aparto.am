@@ -672,7 +672,7 @@ class GarbageController extends Controller
                   ],
                   [
                     "id"=> "numberOfBedrooms",
-                    "value" => "Studio"
+                    "value" => "studio"
                   ],
                 ]
               ],
