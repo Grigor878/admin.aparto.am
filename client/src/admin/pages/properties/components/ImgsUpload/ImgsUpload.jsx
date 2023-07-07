@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUploadPhoto, setUploadPhotoReserve, setUploadPhotoReserveTwo } from '../../../../../store/slices/propertySlice'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config'
@@ -9,11 +9,9 @@ import './ImgsUpload.scss'
 export const ImgsUpload = ({ style, value }) => {
     const names = value?.map((item) => item.name)
 
-    // console.log(value)//
-
     const [images, setImages] = useState(value ? names : [])
     const [previewImages, setPreviewImages] = useState(value ? value : [])
-    const [visibleImages, setVisibleImages] = useState(value ? value.map(image => image.visible === "true") : [])
+    const [visibleImages, setVisibleImages] = useState(value ? value?.map(image => image.visible === "true") : [])
     const [newUploads, setNewUploads] = useState(0)
 
     const handleImageUpload = (e) => {
@@ -22,16 +20,16 @@ export const ImgsUpload = ({ style, value }) => {
 
         const totalUploads = newUploads + files.length
 
-        // if (!value && totalUploads > 40) {
-        //     error('Ավելացնել մինչև 40 նկար։')
-        //     return
-        // } else if (value && totalUploads > 20) {
-        //     error('Ավելացնել մինչև 20 նկար։')
-        //     return
-        // } else if (value?.length === 60) {
-        //     error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
-        //     return
-        // }
+        if (!value && totalUploads > 40) {
+            error('Ավելացնել մինչև 40 նկար։')
+            return
+        } else if (value && totalUploads > 20) {
+            error('Ավելացնել մինչև 20 նկար։')
+            return
+        } else if (images?.length === 60) {
+            error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
+            return
+        }
 
         setNewUploads((prevUploads) => prevUploads + files.length)
         setImages((prevImages) => [...prevImages, ...files])
@@ -108,105 +106,31 @@ export const ImgsUpload = ({ style, value }) => {
 
     const dispatch = useDispatch()
 
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData()
-    //     const reserveFormData = new FormData()
-
-    //     if (images.length > 20) {
-    //         const remainingImages = images.slice(20)
-
-    //         remainingImages.forEach((image, index) => {
-    //             reserveFormData.append(
-    //                 visibleImages[index + 20]
-    //                     ? `visible-${index + 20}`
-    //                     : `hidden-${index + 20}`,
-    //                 image
-    //             )
-    //         })
-    //     }
-
-    //     images.slice(0, 20).forEach((image, index) => {
-    //         sortedFormData.append(
-    //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
-    //             image
-    //         )
-    //     })
-
-    //     dispatch(setUploadPhoto(sortedFormData))
-    //     dispatch(setUploadPhotoReserve(reserveFormData))
-    // }
-
     const updateUploadPhoto = () => {
         const sortedFormData = new FormData();
-        const reserveFormData = new FormData();
-        const reserveTwoFormData = new FormData();
-
         const first = images.slice(0, 20)
-        const second = images.slice(20, 40)
-        const third = images.slice(40, 60)
-
         first.forEach((image, index) => {
             sortedFormData.append(
                 visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
                 image
             )
         })
+        const second = images.slice(20, 40)
+        const reserveFormData = new FormData();
         second.forEach((image, index) => {
             reserveFormData.append(
-                visibleImages[index] ? `visible-${index + 20}` : `hidden-${index + 20}`,
+                visibleImages[index + 20] ? `visible-${index + 20}` : `hidden-${index + 20}`,
                 image
             )
         })
+        const third = images.slice(40, 60)
+        const reserveTwoFormData = new FormData();
         third.forEach((image, index) => {
             reserveTwoFormData.append(
-                visibleImages[index] ? `visible-${index + 40}` : `hidden-${index + 40}`,
+                visibleImages[index + 40] ? `visible-${index + 40}` : `hidden-${index + 40}`,
                 image
             )
         })
-
-        // for (const pair of sortedFormData.entries()) {
-        //     console.log(pair)
-        // }
-        // for (const pair of reserveFormData.entries()) {
-        //     console.log(pair)
-        // }
-        // for (const pair of reserveTwoFormData.entries()) {
-        //     console.log(pair)
-        // }
-
-        // if (images.length > 40) {
-        //     const remainingImages = images.slice(40);
-        //     console.log(remainingImages)//
-
-        //     remainingImages.forEach((image, index) => {
-        //         reserveTwoFormData.append(
-        //             visibleImages[index + 40]
-        //                 ? `visible-${index + 40}`
-        //                 : `hidden-${index + 40}`,
-        //             image
-        //         );
-        //     });
-        // }
-
-        // if (images.length > 20 && images.length <= 40) {
-        //     const remainingImages = images.slice(20, 40);
-
-        //     remainingImages.forEach((image, index) => {
-        //         reserveFormData.append(
-        //             visibleImages[index + 20]
-        //                 ? `visible-${index + 20}`
-        //                 : `hidden-${index + 20}`,
-        //             image
-        //         );
-        //     });
-        // }
-
-        // images.slice(0, 20).forEach((image, index) => {
-        //     sortedFormData.append(
-        //         visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
-        //         image
-        //     );
-        // });
 
         dispatch(setUploadPhoto(sortedFormData));
         dispatch(setUploadPhotoReserve(reserveFormData));
@@ -284,6 +208,39 @@ export const ImgsUpload = ({ style, value }) => {
         </div>
     );
 };
+
+// const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     const reserveFormData = new FormData()
+
+    //     if (images.length > 20) {
+    //         const remainingImages = images.slice(20)
+
+    //         remainingImages.forEach((image, index) => {
+    //             reserveFormData.append(
+    //                 visibleImages[index + 20]
+    //                     ? `visible-${index + 20}`
+    //                     : `hidden-${index + 20}`,
+    //                 image
+    //             )
+    //         })
+    //     }
+
+    //     images.slice(0, 20).forEach((image, index) => {
+    //         sortedFormData.append(
+    //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
+    //             image
+    //         )
+    //     })
+
+    //     dispatch(setUploadPhoto(sortedFormData))
+    //     dispatch(setUploadPhotoReserve(reserveFormData))
+    // }
+
+
+// for (const pair of sortedFormData.entries()) {
+//     console.log(pair)
+// }
 
 // const { uploadPhoto } = useSelector((state) => state.property)
 // useEffect(() => {
