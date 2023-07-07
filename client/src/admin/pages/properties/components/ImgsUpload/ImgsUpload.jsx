@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUploadPhoto, setUploadPhotoReserve, setUploadPhotoReserveTwo } from '../../../../../store/slices/propertySlice'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
 import { API_BASE_URL } from '../../../../../apis/config'
@@ -7,10 +7,7 @@ import { error } from '../../../../../components/swal/swal'
 import './ImgsUpload.scss'
 
 export const ImgsUpload = ({ style, value }) => {
-    console.log(value);
     const names = value?.map((item) => item.name)
-
-    // console.log(value)//
 
     const [images, setImages] = useState(value ? names : [])
     const [previewImages, setPreviewImages] = useState(value ? value : [])
@@ -108,34 +105,6 @@ export const ImgsUpload = ({ style, value }) => {
     }
 
     const dispatch = useDispatch()
-
-    // const updateUploadPhoto = () => {
-    //     const sortedFormData = new FormData()
-    //     const reserveFormData = new FormData()
-
-    //     if (images.length > 20) {
-    //         const remainingImages = images.slice(20)
-
-    //         remainingImages.forEach((image, index) => {
-    //             reserveFormData.append(
-    //                 visibleImages[index + 20]
-    //                     ? `visible-${index + 20}`
-    //                     : `hidden-${index + 20}`,
-    //                 image
-    //             )
-    //         })
-    //     }
-
-    //     images.slice(0, 20).forEach((image, index) => {
-    //         sortedFormData.append(
-    //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
-    //             image
-    //         )
-    //     })
-
-    //     dispatch(setUploadPhoto(sortedFormData))
-    //     dispatch(setUploadPhotoReserve(reserveFormData))
-    // }
 
     const updateUploadPhoto = () => {
         const sortedFormData = new FormData();
@@ -239,6 +208,34 @@ export const ImgsUpload = ({ style, value }) => {
         </div>
     );
 };
+
+// const updateUploadPhoto = () => {
+    //     const sortedFormData = new FormData()
+    //     const reserveFormData = new FormData()
+
+    //     if (images.length > 20) {
+    //         const remainingImages = images.slice(20)
+
+    //         remainingImages.forEach((image, index) => {
+    //             reserveFormData.append(
+    //                 visibleImages[index + 20]
+    //                     ? `visible-${index + 20}`
+    //                     : `hidden-${index + 20}`,
+    //                 image
+    //             )
+    //         })
+    //     }
+
+    //     images.slice(0, 20).forEach((image, index) => {
+    //         sortedFormData.append(
+    //             visibleImages[index] ? `visible-${index}` : `hidden-${index}`,
+    //             image
+    //         )
+    //     })
+
+    //     dispatch(setUploadPhoto(sortedFormData))
+    //     dispatch(setUploadPhotoReserve(reserveFormData))
+    // }
 
 
 // for (const pair of sortedFormData.entries()) {
