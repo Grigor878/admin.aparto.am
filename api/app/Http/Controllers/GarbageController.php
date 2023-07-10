@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GlobalForm;
 use App\Models\Home;
+use Illuminate\Support\Facades\File;
 
 class GarbageController extends Controller
 {
@@ -105,6 +106,32 @@ class GarbageController extends Controller
           $home->am = json_encode($am);
           $home->save();
       }
+  }
+
+  public function checkImage(){
+    $homes = Home::all();
+    $array = [];
+    $photoPath = public_path('images');
+    if (File::isDirectory($photoPath)) {
+        $files = File::files($photoPath);
+        $allPhotoNames = array_map(function ($file) {
+            return $file->getFilename();
+        }, $files);
+    } 
+   
+    foreach ($homes as $key => $home) {
+
+      $photo = json_decode($home->photo, true);
+      foreach ($photo as $key => $ph) {
+        if(!is_numeric(array_search($ph['name'], $allPhotoNames))){
+          $array[] = $home->home_id;
+
+          
+        }
+      }
+
+  }
+    dd(count($array), array_unique($array));
   }
     
      

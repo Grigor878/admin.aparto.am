@@ -17,6 +17,7 @@ use App\Http\Controllers\GarbageController;
 
 
 Route::get('/', [GarbageController::class, 'addNow']);
-Route::get('/changeFloor', [GarbageController::class, 'changeFloor']);
-Route::get('/changeInstallments', [GarbageController::class, 'changeInstallments']);
-Route::get('/changeHomeRoom', [GarbageController::class, 'changeHomeRoom']);
+// Route::get('/changeFloor', [GarbageController::class, 'changeFloor']);
+// Route::get('/changeInstallments', [GarbageController::class, 'changeInstallments']);
+// Route::get('/changeHomeRoom', [GarbageController::class, 'changeHomeRoom']);
+// Route::get('/checkImage', [GarbageController::class, 'checkImage']);

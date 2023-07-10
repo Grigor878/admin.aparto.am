@@ -310,7 +310,7 @@ class HomeController extends Controller
     public function getHome(Request $request) {
         $data = $request->all();
 
-        $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), updated_at DESC")
+        $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
         ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get() ;
 
@@ -476,6 +476,12 @@ class HomeController extends Controller
             'status' => 'error',
             'errors' => "Home not found"
         ], 422);
+    }
+
+    public function updateHomeDate($id) {
+        dd($id);
+        $home = Home::findorfail($id);
+        dd($home);
     }
 
     

@@ -29,6 +29,7 @@ class Home extends Model
 
         static::created(function ($model) {
             $model->home_id = $model->id + 10000;
+            $model->update_top_at = $model->created_at;
             $model->save();
         });
     }
