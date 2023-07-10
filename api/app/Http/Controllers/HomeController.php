@@ -479,9 +479,18 @@ class HomeController extends Controller
     }
 
     public function updateHomeDate($id) {
-        dd($id);
-        $home = Home::findorfail($id);
-        dd($home);
+        $home = Home::find($id);
+        if($home) {
+            $dateNow = Carbon::now()->format('Y-m-d H:i:s');
+            $home->update(['update_top_at' => $dateNow]);
+            return response()->json([
+                'success' => "Գույքը թարմացված է"
+            ], 200);
+        }
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Գույքը չի գտնվել"
+        ], 404);
     }
 
     public function addInactiveHome($id, Request $request){
