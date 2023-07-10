@@ -484,6 +484,10 @@ class HomeController extends Controller
         dd($home);
     }
 
+    public function addInactiveHome($id, Request $request){
+        dd($id, $request->all());
+    }
+
     
 
     
