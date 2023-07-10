@@ -54,7 +54,6 @@ export const addPropertyData = createAsyncThunk(
         addProperty,
         getAxiosConfig()
       );
-      console.log("addData"); //
       thunkAPI.dispatch(addPropertyImgs(response.data));
       return response.data;
     } catch (err) {
@@ -74,11 +73,9 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
 
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
-      console.log("addImgs1"); //
 
       if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(`/api/addReservPhoto/${id}`, uploadPhotoReserve);
-        console.log("addImgs2"); //
       }
 
       thunkAPI.dispatch(addPropertyFiles(id));
@@ -96,7 +93,6 @@ export const addPropertyFiles = createAsyncThunk(
       const state = thunkAPI.getState();
       let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
-      console.log("addFiles"); //
       thunkAPI.dispatch(addPropertyYandex(id));
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
@@ -112,7 +108,6 @@ export const addPropertyYandex = createAsyncThunk(
       const state = thunkAPI.getState();
       let yandex = state.property.yandex;
       await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
-      console.log("addYandex"); //
       thunkAPI.dispatch(addPropertyKeyword(id));
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
@@ -128,7 +123,6 @@ export const addPropertyKeyword = createAsyncThunk(
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
       const response = await baseApi.post(`/api/addKeyword/${id}`, keyword);
-      console.log("addKeyword"); //
       return response.status;
     } catch (err) {
       console.log(`Add Property Keyword Sending Error: ${err.message}`);
@@ -146,7 +140,6 @@ export const editPropertyData = createAsyncThunk(
         editProperty,
         getAxiosConfig()
       );
-      console.log("editData"); //
       dispatch(editPropertyImgs(response.data));
       return response.data;
     } catch (err) {
@@ -171,7 +164,6 @@ export const editPropertyImgs = createAsyncThunk(
         uploadPhoto,
         getAxiosConfig()
       );
-      console.log("editImgs1"); //
 
       if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(
@@ -179,7 +171,6 @@ export const editPropertyImgs = createAsyncThunk(
           uploadPhotoReserve,
           getAxiosConfig()
         );
-        console.log("editImgs2"); //
       }
 
       if (!uploadPhotoReserveTwo.entries().next().done) {
@@ -188,9 +179,7 @@ export const editPropertyImgs = createAsyncThunk(
           uploadPhotoReserveTwo,
           getAxiosConfig()
         );
-        console.log("editImgs3"); //
       }
-      console.log("editImgs");
       thunkAPI.dispatch(editPropertyFiles(propertyId));
     } catch (err) {
       console.log(`Edit Property Imgs Sending Error: ${err.message}`);
@@ -206,7 +195,6 @@ export const editPropertyFiles = createAsyncThunk(
       const state = thunkAPI.getState();
       let uploadFile = state.property.uploadFile;
       await baseApi.post(`/api/editDocumentUpload/${propertyId}`, uploadFile);
-      console.log("editFiles"); //
       thunkAPI.dispatch(editPropertyYandex(propertyId));
     } catch (err) {
       console.log(`Edit Property Files Sending Error: ${err.message}`);
@@ -222,7 +210,6 @@ export const editPropertyYandex = createAsyncThunk(
       const state = thunkAPI.getState();
       let yandex = state.property.yandex;
       await baseApi.post(`/api/editYandexLocation/${propertyId}`, yandex);
-      console.log("editYandex"); //
       thunkAPI.dispatch(editPropertyKeyword(propertyId));
     } catch (err) {
       console.log(`Edit Property Yandex Data Sending Error: ${err.message}`);
@@ -238,9 +225,20 @@ export const editPropertyKeyword = createAsyncThunk(
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
       await baseApi.post(`/api/editKeyword/${propertyId}`, keyword);
-      console.log("editKeyword"); //
     } catch (err) {
       console.log(`Edit Property Keyword Sending Error: ${err.message}`);
+    }
+  }
+);
+
+// update home
+export const updateHome = createAsyncThunk(
+  "property/updateHome",
+  async (id) => {
+    try {
+      await baseApi.get(`/api/updateHomeDate/${id}`, getAxiosConfig());
+    } catch (err) {
+      console.log(`Home Update Error: ${err.message}`);
     }
   }
 );
@@ -290,7 +288,7 @@ const structureSlice = createSlice({
       })
       // add property
       .addCase(addPropertyData.pending, (state) => {
-        state.postAddLoading = false;
+        state.postAddLoading = true;
       })
       .addCase(addPropertyKeyword.fulfilled, (state) => {
         state.postAddLoading = false;
@@ -310,6 +308,13 @@ const structureSlice = createSlice({
         setTimeout(() => {
           window.location = `${APP_BASE_URL}/dashboard/properties`;
         }, 1000);
+      })
+      .addCase(updateHome.fulfilled, () => {
+        // success("Գույքը թարմացված է:");
+        alert("Done")
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
       });
   },
 });

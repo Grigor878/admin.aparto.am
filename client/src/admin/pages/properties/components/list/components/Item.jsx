@@ -9,9 +9,12 @@ import { Btn } from './Btn'
 import { More } from './More'
 import { success } from '../../../../../../components/swal/swal'
 import '../Styles.scss'
+import { useDispatch } from 'react-redux'
+import { updateHome } from '../../../../../../store/slices/propertySlice'
 
 export const Item = ({ data }) => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const copyToClipboard = async (id, type) => {
         const clipboard = `${APP_BASE_URL}/${type}/${id}`
@@ -101,7 +104,7 @@ export const Item = ({ data }) => {
                                         />
                                         <button
                                             type='button'
-                                            onClick={() => alert("Cooming Soon :)")}
+                                            onClick={() => dispatch(updateHome(id))}
                                         >
                                             {top.icon}
                                         </button>
@@ -117,10 +120,15 @@ export const Item = ({ data }) => {
                                             status="moderation"
                                             text="Վերանայման"
                                         />
-                                        : <Btn
-                                            status="deactive"
-                                            text="Ապաակտիվացված"
-                                        />
+                                        : status === "archived"
+                                            ? <Btn
+                                                status="archived"
+                                                text="Արխիվացված"
+                                            />
+                                            : <Btn
+                                                status="deactive"
+                                                text="Ապաակտիվացված"
+                                            />
                                 }
                             </div>
                         </div>

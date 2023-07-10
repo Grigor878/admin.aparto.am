@@ -15,7 +15,7 @@ export const NumSelector = ({ id, title, data, value, style, onChange }) => {
                         key={el.value}
                         id={el.id}
                         value={el.value}
-                        onClick={(e) => { onChange(e); setState(el.value) }}
+                        onClick={(e) => { onChange(e); setState(el.value)}}
                         className='cardText-numSelector'
                         style={{ backgroundColor: state === el.value ? "#cfd1da" : "#f3f4f8" }}
                     >

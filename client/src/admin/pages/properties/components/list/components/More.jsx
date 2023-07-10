@@ -16,12 +16,15 @@ export const More = ({ id, status }) => {
             </div>
 
             <div className={!active ? 'propertyList__item-right-more-menuClose' : 'propertyList__item-right-more-menu'}>
-                <Link
-                    className='propertyList__item-right-more-menu-link'
-                    to={`edit/${id}`}
-                >
-                    Փոփոխել
-                </Link>
+                {status !== "archived" ?
+                    <Link
+                        className='propertyList__item-right-more-menu-link'
+                        to={`edit/${id}`}
+                    >
+                        Փոփոխել
+                    </Link>
+                    : null
+                }
                 {status === "approved"
                     ? <button
                         className='propertyList__item-right-more-menu-item'
@@ -38,13 +41,22 @@ export const More = ({ id, status }) => {
                         </button>
                         : null
                 }
-                <button
-                    style={{ color: "#D34545" }}
-                    className='propertyList__item-right-more-menu-item'
-                    onClick={() => alert("Cooming Soon :)")}
-                >
-                    Արխիվացնել
-                </button>
+                {status === "archived"
+                    ? <button
+                        style={{ color: "#D34545" }}
+                        className='propertyList__item-right-more-menu-item'
+                        onClick={() => alert("Cooming Soon :)")}
+                    >
+                        Ապաարխիվացնել
+                    </button>
+                    : <button
+                        style={{ color: "#D34545" }}
+                        className='propertyList__item-right-more-menu-item'
+                        onClick={() => alert("Cooming Soon :)")}
+                    >
+                        Արխիվացնել
+                    </button>
+                }
             </div>
         </div>
     )

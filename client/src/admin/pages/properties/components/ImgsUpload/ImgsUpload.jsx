@@ -14,28 +14,28 @@ export const ImgsUpload = ({ style, value }) => {
     const [visibleImages, setVisibleImages] = useState(value ? value?.map(image => image.visible === "true") : [])
     const [newUploads, setNewUploads] = useState(0)
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload = async (e) => {
         const files = Array.from(e?.target?.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
 
         const totalUploads = newUploads + files.length
 
-        if (!value && totalUploads > 40) {
-            error('Ավելացնել մինչև 40 նկար։')
-            return
-        } else if (value && totalUploads > 20) {
-            error('Ավելացնել մինչև 20 նկար։')
-            return
-        } else if (images?.length === 60) {
-            error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
-            return
+        if (!value.length && totalUploads > 40) {
+            return error('Ավելացնել մինչև 40 նկար։')
+        } else if (value.length && totalUploads > 20) {
+            return error('Ավելացնել մինչև 20 նկար։')
+        } else if (images?.length >= 60 || files?.length + images.length > 60) {
+            return error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
         }
 
-        setNewUploads((prevUploads) => prevUploads + files.length)
         setImages((prevImages) => [...prevImages, ...files])
         setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
         setVisibleImages((prevVisible) => [...prevVisible, ...Array(files.length).fill(true)])
+        setNewUploads((prevUploads) => prevUploads + files.length)
     }
+
+    console.log(images?.length)//
+    console.log(value?.length)//
 
     const handleImageDelete = (index) => {
         setNewUploads((prevUploads) => prevUploads - 1)
@@ -151,7 +151,6 @@ export const ImgsUpload = ({ style, value }) => {
                     <input
                         type="file"
                         multiple
-                        // maxLength="20"
                         accept='image/png , image/jpeg , image/jpg , image.webp'
                         onChange={handleImageUpload} />
                 </label>
@@ -177,8 +176,6 @@ export const ImgsUpload = ({ style, value }) => {
 
                     >
                         <img
-                            // src={preview}
-                            // add i jamanak preview,editi jamanak myusy
                             src={!preview.name ? preview : API_BASE_URL + `/images/` + preview.name}
                             loading='lazy'
                             alt={`Preview ${index}`}

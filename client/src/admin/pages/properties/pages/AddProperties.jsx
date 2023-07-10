@@ -33,7 +33,7 @@ const AddProperties = () => {
         dispatch(getPropertyStructure())
     }, [dispatch])
 
-    const { structure, yandex, postAddLoading } = useSelector((state) => state.property)
+    const { structure, yandex } = useSelector((state) => state.property)
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
@@ -106,12 +106,11 @@ const AddProperties = () => {
             setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))
-            setLoading(false)
         }
     }
 
     return (
-        (loading && !postAddLoading) || (!loading && postAddLoading)
+        loading
             ? <Loader />
             : <article className='addproperties'>
                 <AddPart type="addProperties" />

@@ -6,7 +6,7 @@ export const Btn = ({ status, text }) => {
             type='button'
             disabled={true}
             style={{
-                background: status === "approved" ? "#4BC76D" : status === "moderation" ? "#DBBA45" : "#4B7CC7",
+                background: status === "approved" ? "#4BC76D" : status === "moderation" ? "#DBBA45" : status === "archived" ? "#61636B" : "#4B7CC7",
                 width: status === "approved" ? "97px" : "100%",
                 color: "white",
                 padding: "4px",
