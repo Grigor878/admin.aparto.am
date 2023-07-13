@@ -11,14 +11,14 @@ import './Modal.scss'
 
 export const Modal = ({ id, open, setOpen }) => {
     const [date, setDate] = useState(new Date())
-    // console.log(date);
     const dispatch = useDispatch();
 
     const handleDeactivateHome = () => {
         const formattedDate = formatDateString(date);
-        dispatch(deactivateHome({ id, date: formattedDate })).then(() => {
-            setOpen(false)
-        })
+        dispatch(deactivateHome({ id, date: formattedDate }))
+        // .then(() => {
+        //     setOpen(false)
+        // })
     };
 
     return (
