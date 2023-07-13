@@ -66,6 +66,11 @@ class HomeController extends Controller
         if($homeLanguageContsructor['editStatus']) {
             $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED: Home::STATUS_MODERATION;
         }
+
+        if(auth()->user()->role == "admin" || auth()->user()->role == "moderator"){
+            $home->status =  Home::STATUS_APPROVED;
+        }
+
         if($homeLanguageContsructor['priceHistory']){
             if($home->price_history){
                 \Log::info(333);
