@@ -126,6 +126,14 @@ class HomeController extends Controller
         return true;
     }
 
+    public function activateHomeStatus($id) {
+        dd($id);
+    }
+
+    public function archiveHomeStatus($id) {
+        dd($id);
+    }
+
     public function addReservPhoto($id, Request $request){
         $data = $request->all();
         $home = Home::find($id);

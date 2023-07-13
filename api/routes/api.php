@@ -75,4 +75,6 @@ Route::group(['middleware' => 'authcheck'], function ($router) {
     Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
     Route::get('/updateHomeDate/{id}',  [HomeController::class, 'updateHomeDate']);
     Route::post('/addInactiveHome/{id}',  [HomeController::class, 'addInactiveHome']);
+    Route::post('/activateHomeStatus/{id}',  [HomeController::class, 'activateHomeStatus']);
+    Route::post('/archiveHomeStatus/{id}',  [HomeController::class, 'archiveHomeStatus']);
 });
