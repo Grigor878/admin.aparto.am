@@ -16,7 +16,9 @@ export const Modal = ({ id, open, setOpen }) => {
 
     const handleDeactivateHome = () => {
         const formattedDate = formatDateString(date);
-        dispatch(deactivateHome({ id, date: formattedDate }));
+        dispatch(deactivateHome({ id, date: formattedDate })).then(() => {
+            setOpen(false)
+        })
     };
 
     return (
