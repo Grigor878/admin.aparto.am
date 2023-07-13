@@ -39,6 +39,7 @@ export const Searches = () => {
                         onChange={(date) => setDate(date)}
                         disabledKeyboardNavigation
                         placeholderText="Date Range"
+                        dateFormat="dd/MM/yyyy"
                         withPortal
                     />
                     <span>{calendar.icon}</span>

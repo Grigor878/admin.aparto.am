@@ -14,17 +14,17 @@ export const ImgsUpload = ({ style, value }) => {
     const [visibleImages, setVisibleImages] = useState(value ? value?.map(image => image.visible === "true") : [])
     const [newUploads, setNewUploads] = useState(0)
 
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = (e) => {
         const files = Array.from(e?.target?.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
 
         const totalUploads = newUploads + files.length
 
-        if (!value.length && totalUploads > 40) {
+        if (!value && totalUploads > 40) {
             return error('Ավելացնել մինչև 40 նկար։')
-        } else if (value.length && totalUploads > 20) {
+        } else if (value && totalUploads > 20) {
             return error('Ավելացնել մինչև 20 նկար։')
-        } else if (images?.length >= 60 || files?.length + images.length > 60) {
+        } else if (images?.length >= 60 || files?.length + images?.length > 60) {
             return error('Ավելացված Է մաքսիմալ 60 հատ նկար։')
         }
 
@@ -34,8 +34,8 @@ export const ImgsUpload = ({ style, value }) => {
         setNewUploads((prevUploads) => prevUploads + files.length)
     }
 
-    console.log(images?.length)//
-    console.log(value?.length)//
+    // console.log(images?.length)//
+    // console.log(value?.length)//
 
     const handleImageDelete = (index) => {
         setNewUploads((prevUploads) => prevUploads - 1)

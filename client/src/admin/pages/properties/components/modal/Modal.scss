@@ -1,0 +1,60 @@
+@import "../../../../../variables";
+
+.modal {
+  &__input {
+    position: relative;
+
+    &-picker {
+      width: 328px;
+      background: $bgSub;
+      border: 1.5px solid $inputBorder;
+      border-radius: 8px;
+      padding: 11px 0 11px 16px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      color: $textSub;
+      margin: 20px 0;
+    }
+
+    span {
+      position: absolute;
+      top: 13px;
+      right: 16px;
+    }
+  }
+}
+
+.react-datepicker__navigation-icon {
+  top: 4px !important;
+}
+
+.react-datepicker__navigation--previous {
+  left: 44px !important;
+}
+
+.react-datepicker__navigation-icon--previous::before {
+  right: -12px !important;
+}
+
+.react-datepicker__navigation--next {
+  right: 24px !important;
+}
+
+.react-datepicker__navigation-icon--next::before {
+  left: 0px !important;
+}
+
+.react-datepicker__day--today {
+  background: $blue !important;
+  border-radius: 8px !important;
+  color: $bgSub !important;
+  font-size: 16px !important;
+}
+
+.react-datepicker__day--selected {
+  background: $green !important;
+  border-radius: 8px !important;
+  color: $bgSub !important;
+  font-size: 16px !important;
+}

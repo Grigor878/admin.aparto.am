@@ -243,6 +243,42 @@ export const updateHome = createAsyncThunk(
   }
 );
 
+// deactivate home
+export const deactivateHome = createAsyncThunk(
+  "property/deactivateHome",
+  async ({ id, date }) => {
+    try {
+      await baseApi.get(`/api/addInactiveHome/${id}`, date, getAxiosConfig());
+    } catch (err) {
+      console.log(`Home Deactivation Error: ${err.message}`);
+    }
+  }
+);
+
+// activate home
+export const activateHome = createAsyncThunk(
+  "property/activateHome",
+  async (id) => {
+    try {
+      await baseApi.get(`/api/activateHomeStatus/${id}`, getAxiosConfig());
+    } catch (err) {
+      console.log(`Home Activation Error: ${err.message}`);
+    }
+  }
+);
+
+// archive home
+export const archiveHome = createAsyncThunk(
+  "property/archiveHome",
+  async (id) => {
+    try {
+      await baseApi.get(`/api/archiveHomeStatus/${id}`, getAxiosConfig());
+    } catch (err) {
+      console.log(`Home Activation Error: ${err.message}`);
+    }
+  }
+);
+
 const structureSlice = createSlice({
   name: "property",
   initialState,
@@ -309,9 +345,30 @@ const structureSlice = createSlice({
           window.location = `${APP_BASE_URL}/dashboard/properties`;
         }, 1000);
       })
+      // update home
       .addCase(updateHome.fulfilled, () => {
-        // success("Գույքը թարմացված է:");
-        alert("Done")
+        success("Գույքը թարմացված է:");
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
+      })
+      // deactivate home
+      .addCase(deactivateHome.fulfilled, () => {
+        success("Գույքը Ապաակտիվացված է:");
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
+      })
+      // activate home
+      .addCase(activateHome.fulfilled, () => {
+        success("Գույքը Ակտիվացված է:");
+        // setTimeout(() => {
+        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
+        // }, 1000);
+      })
+      // activate home
+      .addCase(archiveHome.fulfilled, () => {
+        success("Գույքը Արխիիվացված է:");
         // setTimeout(() => {
         //   window.location = `${APP_BASE_URL}/dashboard/properties`;
         // }, 1000);

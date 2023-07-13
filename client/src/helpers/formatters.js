@@ -23,3 +23,10 @@ export function moneyFormaterNoUsd(num) {
   let formated = usd.format(num);
   return formated;
 }
+
+// date formatter for deactivate home
+export function formatDateString(date) {
+  const isoString = date.toISOString();
+  const formattedDate = isoString.replace("T", " ").split(".")[0];
+  return formattedDate;
+}
