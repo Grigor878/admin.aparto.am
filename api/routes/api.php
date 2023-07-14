@@ -69,12 +69,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     //Exchange amount
     Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
     Route::get('/getExchange',  [ExchangeController::class, 'getExchange']);
-});
 
-Route::group(['middleware' => 'authcheck'], function ($router) {
-    Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
-    Route::get('/updateHomeDate/{id}',  [HomeController::class, 'updateHomeDate']);
-    Route::post('/addInactiveHome/{id}',  [HomeController::class, 'addInactiveHome']);
-    Route::post('/activateHomeStatus/{id}',  [HomeController::class, 'activateHomeStatus']);
-    Route::post('/archiveHomeStatus/{id}',  [HomeController::class, 'archiveHomeStatus']);
+    
+    Route::group(['middleware' => 'authcheck'], function ($router) {
+        Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
+        Route::get('/updateHomeDate/{id}',  [HomeController::class, 'updateHomeDate']);
+        Route::post('/addInactiveHome/{id}',  [HomeController::class, 'addInactiveHome']);
+        Route::get('/activateHomeStatus/{id}',  [HomeController::class, 'activateHomeStatus']);
+        Route::get('/archiveHomeStatus/{id}',  [HomeController::class, 'archiveHomeStatus']);
+    });
 });

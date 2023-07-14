@@ -127,11 +127,33 @@ class HomeController extends Controller
     }
 
     public function activateHomeStatus($id) {
-        dd($id);
+        $home = Home::find($id);
+        if($home) {
+            $home->update(['status' => Home::STATUS_APPROVED]);
+            return response()->json([
+                'success' => "Ստատուսը թարմացված է"
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Գույքը չի գտնվել"
+        ], 404);
     }
 
     public function archiveHomeStatus($id) {
-        dd($id);
+        $home = Home::find($id);
+        if($home) {
+            $home->update(['status' => Home::STATUS_ARCHIVED]);
+            return response()->json([
+                'success' => "Ստատուսը թարմացված է"
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Գույքը չի գտնվել"
+        ], 404);
     }
 
     public function addReservPhoto($id, Request $request){
@@ -507,7 +529,18 @@ class HomeController extends Controller
     }
 
     public function addInactiveHome($id, Request $request){
-        dd($id, $request->all());
+        $data = $request->all();
+        $home = Home::find($id);
+        if($home) {
+            $home->update(['status'=> Home::STATUS_INACTIVE, 'inactive_at' => Carbon::parse($data['date'])->format('Y-m-d')]);
+            return response()->json([
+                'success' => "Գույքը թարմացված է"
+            ], 200);
+        }
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Գույքը չի գտնվել"
+        ], 404);
     }
 
     

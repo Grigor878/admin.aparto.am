@@ -248,7 +248,7 @@ export const deactivateHome = createAsyncThunk(
   "property/deactivateHome",
   async ({ id, date }) => {
     try {
-      await baseApi.get(`/api/addInactiveHome/${id}`, date, getAxiosConfig());
+      await baseApi.post(`/api/addInactiveHome/${id}`, {date}, getAxiosConfig());
     } catch (err) {
       console.log(`Home Deactivation Error: ${err.message}`);
     }

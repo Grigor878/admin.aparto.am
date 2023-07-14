@@ -20,7 +20,8 @@ class Home extends Model
         'ru',
         'en',
         'price_history',
-        'update_top_at'
+        'update_top_at',
+        'inactive_at'
 
     ];
 
