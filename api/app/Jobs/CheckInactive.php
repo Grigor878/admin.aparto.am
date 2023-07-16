@@ -32,7 +32,9 @@ class CheckInactive implements ShouldQueue
      */
     public function handle()
     {
+        \Log::info(Carbon::now());
         $dateNow = Carbon::now()->format('Y-m-d');
+        \Log::info(Home::whereDate('inactive_at', $dateNow)->select('id')->get());
         Home::whereDate('inactive_at', $dateNow)->update(['status' => Home::STATUS_APPROVED]);
         return true;
     }

@@ -131,7 +131,7 @@ class HomeController extends Controller
         if($home) {
             $home->update(['status' => Home::STATUS_APPROVED]);
             return response()->json([
-                'success' => "Ստատուսը թարմացված է"
+                'success' => "Գույքը Ակտիվացված է:"
             ], 200);
         }
 
@@ -146,7 +146,7 @@ class HomeController extends Controller
         if($home) {
             $home->update(['status' => Home::STATUS_ARCHIVED]);
             return response()->json([
-                'success' => "Ստատուսը թարմացված է"
+                'success' => "Գույքը Ապաակտիվացված է:"
             ], 200);
         }
 
