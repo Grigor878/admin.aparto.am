@@ -371,9 +371,9 @@ const structureSlice = createSlice({
       // deactivate home
       .addCase(deactivateHome.fulfilled, () => {
         success("Գույքը Ապաակտիվացված է:");
-        // setTimeout(() => {
-        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
-        // }, 1000);
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
       })
       // activate home
       .addCase(activateHome.fulfilled, (state, action) => {

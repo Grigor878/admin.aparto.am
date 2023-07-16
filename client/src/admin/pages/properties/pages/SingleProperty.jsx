@@ -45,9 +45,12 @@ const SingleProperty = () => {
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
 
-    if (loading && currentPropertyData[7]?.fields[1]?.value?.length) {
-        let url = currentPropertyData[7]?.fields[1]?.value
-        let videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
+    if (loading
+        && currentPropertyData[7]?.fields[1]?.value?.length
+        && currentPropertyData[7]?.fields[1]?.value?.includes("https://www.youtube.com/")
+    ) {
+        const url = currentPropertyData[7]?.fields[1]?.value
+        const videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
         var embedURL = "https://www.youtube.com/embed/" + videoID
     }
 
@@ -177,14 +180,21 @@ const SingleProperty = () => {
                                 {square.icon}
                                 <p>{currentPropertyData[3]?.fields[0]?.value} ք.մ</p>
                             </div>
-                            <div>
-                                {floor.icon}
-                                <p>{currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
-                            </div>
-                            <div>
-                                {balcony.icon}
-                                <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> պատշգամբ
-                            </div>
+
+                            {currentPropertyData[3]?.fields[8]?.value &&
+                                currentPropertyData[3]?.fields[8]?.value !== 0 &&
+                                currentPropertyData[4]?.fields[1]?.value &&
+                                currentPropertyData[4]?.fields[1]?.value !== 0 &&
+                                <div>
+                                    {floor.icon}
+                                    <p> {currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
+                                </div>}
+
+                            {Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value) !== 0 &&
+                                <div>
+                                    {balcony.icon}
+                                    <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> պատշգամբ
+                                </div>}
 
                             <div>
                                 {buildingType.icon}
@@ -213,11 +223,26 @@ const SingleProperty = () => {
                             <h3 className='singleProperty__subtitle'>Տան Նկարագիր</h3>
 
                             <div className='singleProperty__content-left-desc-info'>
-                                <p>Սենյակների քանակ - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
-                                <p>Ննջասենյակների քանակ - <span>{currentPropertyData[3]?.fields[3]?.value}</span></p>
-                                <p>Սանհանգույցների քանակ - <span>{currentPropertyData[3]?.fields[4]?.value}</span></p>
-                                <p>Փակ պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[6]?.value}</span></p>
-                                <p>Բաց պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[5]?.value}</span></p>
+                                {Number(currentPropertyData[3]?.fields[2]?.value) &&
+                                    <p>Սենյակների քանակ - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
+                                }
+
+                                {currentPropertyData[3]?.fields[3]?.value &&
+                                    <p>Ննջասենյակների քանակ - <span>{currentPropertyData[3]?.fields[3]?.value}</span></p>
+                                }
+
+                                {currentPropertyData[3]?.fields[4]?.value &&
+                                    <p>Սանհանգույցների քանակ - <span>{currentPropertyData[3]?.fields[4]?.value}</span></p>
+                                }
+
+                                {Number(currentPropertyData[3]?.fields[6]?.value) !== 0 &&
+                                    <p>Փակ պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[6]?.value}</span></p>
+                                }
+
+                                {Number(currentPropertyData[3]?.fields[5]?.value) !== 0 &&
+                                    <p>Բաց պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[5]?.value}</span></p>
+                                }
+
                                 <p>Առաստաղի բարձրություն - <span>{currentPropertyData[3]?.fields[1]?.value} մ</span></p>
                             </div>
 
@@ -226,34 +251,48 @@ const SingleProperty = () => {
                             </p>
                         </div>
 
-                        <div className='singleProperty__content-left-facility'>
-                            <h3 className='singleProperty__subtitle'>Կոմունալ Հարմարություններ</h3>
+                        {currentPropertyData[5]?.fields
+                            ?.filter(el => el.value === true)
+                            ?.length > 0 ?
+                            <div className='singleProperty__content-left-facility'>
+                                <h3 className='singleProperty__subtitle'>Կոմունալ Հարմարություններ</h3>
 
-                            <div className='singleProperty__content-left-facility-card'>
-                                {currentPropertyData[5]?.fields?.map(({ key, title }) => {
-                                    // if (title.endsWith('*')) {
-                                    //     title = title.slice(0, -1);
-                                    // }
-                                    return (
-                                        <p key={key}>{checked.icon} {title}</p>
-                                    )
-                                })}
+                                <div className='singleProperty__content-left-facility-card'>
+                                    {currentPropertyData[5]?.fields
+                                        ?.filter(el => el.value === true)
+                                        ?.map(({ key, title }) => {
+                                            // if (title.endsWith('*')) {
+                                            //     title = title.slice(0, -1);
+                                            // }
+                                            return (
+                                                <p key={key}>{checked.icon} {title}</p>
+                                            )
+                                        })}
+                                </div>
                             </div>
-                        </div>
+                            : null}
 
-                        <div className='singleProperty__content-left-otherFacility'>
-                            <h3 className='singleProperty__subtitle'>Այլ Հարմարություններ</h3>
 
-                            <div className='singleProperty__content-left-otherFacility-card'>
-                                {currentPropertyData[6]?.fields?.map(({ key, title }) => {
-                                    return (
-                                        <p key={key}>{checked.icon} {title}</p>
-                                    )
-                                })}
+                        {currentPropertyData[6]?.fields
+                            ?.filter(el => el.value === true)
+                            ?.length > 0 ?
+                            <div className='singleProperty__content-left-otherFacility'>
+                                <h3 className='singleProperty__subtitle'>Այլ Հարմարություններ</h3>
+
+                                <div className='singleProperty__content-left-otherFacility-card'>
+                                    {currentPropertyData[6]?.fields
+                                        ?.filter(el => el.value === true)
+                                        ?.map(({ key, title }) => {
+                                            return (
+                                                <p key={key}>{checked.icon} {title}</p>
+                                            )
+                                        })}
+                                </div>
                             </div>
-                        </div>
+                            : null}
 
                         {currentPropertyData[7]?.fields[1]?.value?.length
+                            && currentPropertyData[7]?.fields[1]?.value?.includes("https://www.youtube.com/")
                             ? <div className='singleProperty__content-left-video'>
                                 <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
 
@@ -507,7 +546,7 @@ const SingleProperty = () => {
                             <p>Փոփոխված է՝ {data?.updatedAt}</p>
                         </div>
                     </div>
-                </div>
+                </div >
             </article >
     )
 }

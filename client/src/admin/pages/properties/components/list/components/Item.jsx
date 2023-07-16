@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
 import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
@@ -8,12 +8,12 @@ import { bathrooms, floor, height, rooms, square, top, url } from '../../../../.
 import { Btn } from './Btn'
 import { More } from './More'
 import { success } from '../../../../../../components/swal/swal'
-import '../Styles.scss'
 import { useDispatch } from 'react-redux'
 import { updateHome } from '../../../../../../store/slices/propertySlice'
+import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const copyToClipboard = async (id, type) => {
@@ -30,9 +30,11 @@ export const Item = ({ data }) => {
                     key={id}
                     className="propertyList__item"
                 >
-                    <div
+                    <Link
+                        to={`${id}`}
+                        target={"_blank"}
                         className='propertyList__item-view'
-                        onClick={() => navigate(`${id}`)}
+                    // onClick={() => navigate(`${id}`)}
                     >
                         {photo.length !== 0
                             ? <img src={`${API_BASE_URL}/images/${photo[0].name}`} alt="propertyImg" loading='lazy' />
@@ -43,7 +45,7 @@ export const Item = ({ data }) => {
                             <span>{selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
                             <Type data={am[0].fields[4].value} />
                         </div>
-                    </div>
+                    </Link>
 
                     <div className='propertyList__item-right'>
                         <div className="propertyList__item-right-main">
@@ -51,11 +53,11 @@ export const Item = ({ data }) => {
 
                             <div className="propertyList__item-right-main-address">
                                 <p>{am[1].fields[0].value}</p>
-                                <h4>{am[1].fields[0].communityStreet.value} {am[1].fields[1]?.value},</h4>
+                                <h4>{am[1].fields[0].communityStreet.value} {am[1].fields[1]?.value}</h4>
                                 <span>
-                                    մուտք {am[1].fields[2]?.value},
-                                    հարկ {am[3].fields[8].value},
-                                    բնակարան {am[1].fields[3]?.value}
+                                    {am[1].fields[2]?.value && `մուտք ${am[1].fields[2].value}, `}
+                                    {am[3].fields[8].value && `հարկ ${am[3].fields[8].value}, `}
+                                    {am[1].fields[3]?.value && `բնակարան ${am[1].fields[3].value}`}
                                 </span>
                             </div>
 
@@ -66,11 +68,22 @@ export const Item = ({ data }) => {
                         </div>
 
                         <div className='propertyList__item-right-characters'>
-                            <p>{rooms.icon} {am[3].fields[2].value} սենյակ</p>
-                            <p>{bathrooms.icon}{am[3].fields[4].value} սանհանգույց</p>
-                            <p>{square.icon}{am[3].fields[0].value} ք.մ</p>
-                            <p>{floor.icon}{am[3].fields[8].value}/{am[4].fields[1].value} հարկ</p>
-                            <p>{height.icon}{am[3].fields[1].value} մ</p>
+                            {am[3].fields[2].value && am[3].fields[2].value !== 0 && (
+                                <p>{rooms.icon} {am[3].fields[2].value} սենյակ</p>
+                            )}
+                            {am[3].fields[4].value && am[3].fields[4].value !== 0 && (
+                                <p>{bathrooms.icon}{am[3].fields[4].value} սանհանգույց</p>
+                            )}
+                            {am[3].fields[0].value && am[3].fields[0].value !== 0 && (
+                                <p>{square.icon}{am[3].fields[0].value} ք.մ</p>
+                            )}
+                            {am[3].fields[8].value && am[4].fields[1].value && am[3].fields[8].value !== 0 && (
+                                <p>{floor.icon}{am[3].fields[8].value}/{am[4].fields[1].value} հարկ</p>
+                            )}
+                            {am[3].fields[1].value && am[3].fields[1].value !== 0 && (
+                                <p>{height.icon}{am[3].fields[1].value} մ</p>
+                            )}
+
                         </div>
 
                         <div className='propertyList__item-right-facality'>
