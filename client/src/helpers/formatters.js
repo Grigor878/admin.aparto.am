@@ -30,3 +30,14 @@ export function formatDateString(date) {
   const formattedDate = isoString.replace("T", " ").split(".")[0];
   return formattedDate;
 }
+
+// export function formatDateString(date) {
+//   const isoString = date.toISOString();
+//   const formattedDate = isoString.replace("T", " ").split(".")[0];
+
+//   const armenianTimeZoneOffset = "+04:00";
+//   const formattedDateWithTimeZone =
+//     formattedDate + " " + armenianTimeZoneOffset;
+
+//   return formattedDateWithTimeZone;
+// }

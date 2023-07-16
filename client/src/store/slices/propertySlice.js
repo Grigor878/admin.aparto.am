@@ -236,7 +236,11 @@ export const updateHome = createAsyncThunk(
   "property/updateHome",
   async (id) => {
     try {
-      await baseApi.get(`/api/updateHomeDate/${id}`, getAxiosConfig());
+      const { data } = await baseApi.get(
+        `/api/updateHomeDate/${id}`,
+        getAxiosConfig()
+      );
+      return data;
     } catch (err) {
       console.log(`Home Update Error: ${err.message}`);
     }
@@ -248,7 +252,11 @@ export const deactivateHome = createAsyncThunk(
   "property/deactivateHome",
   async ({ id, date }) => {
     try {
-      await baseApi.post(`/api/addInactiveHome/${id}`, {date}, getAxiosConfig());
+      await baseApi.post(
+        `/api/addInactiveHome/${id}`,
+        { date },
+        getAxiosConfig()
+      );
     } catch (err) {
       console.log(`Home Deactivation Error: ${err.message}`);
     }
@@ -260,7 +268,11 @@ export const activateHome = createAsyncThunk(
   "property/activateHome",
   async (id) => {
     try {
-      await baseApi.get(`/api/activateHomeStatus/${id}`, getAxiosConfig());
+      const { data } = await baseApi.get(
+        `/api/activateHomeStatus/${id}`,
+        getAxiosConfig()
+      );
+      return data;
     } catch (err) {
       console.log(`Home Activation Error: ${err.message}`);
     }
@@ -272,7 +284,11 @@ export const archiveHome = createAsyncThunk(
   "property/archiveHome",
   async (id) => {
     try {
-      await baseApi.get(`/api/archiveHomeStatus/${id}`, getAxiosConfig());
+      const { data } = await baseApi.get(
+        `/api/archiveHomeStatus/${id}`,
+        getAxiosConfig()
+      );
+      return data;
     } catch (err) {
       console.log(`Home Activation Error: ${err.message}`);
     }
@@ -346,8 +362,8 @@ const structureSlice = createSlice({
         }, 1000);
       })
       // update home
-      .addCase(updateHome.fulfilled, () => {
-        success("Գույքը թարմացված է:");
+      .addCase(updateHome.fulfilled, (state, action) => {
+        success(action.payload.success);
         setTimeout(() => {
           window.location = `${APP_BASE_URL}/dashboard/properties`;
         }, 1000);
@@ -360,18 +376,18 @@ const structureSlice = createSlice({
         // }, 1000);
       })
       // activate home
-      .addCase(activateHome.fulfilled, () => {
-        success("Գույքը Ակտիվացված է:");
-        // setTimeout(() => {
-        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
-        // }, 1000);
+      .addCase(activateHome.fulfilled, (state, action) => {
+        success(action.payload.success);
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
       })
-      // activate home
-      .addCase(archiveHome.fulfilled, () => {
-        success("Գույքը Արխիիվացված է:");
-        // setTimeout(() => {
-        //   window.location = `${APP_BASE_URL}/dashboard/properties`;
-        // }, 1000);
+      // archive home
+      .addCase(archiveHome.fulfilled, (state, action) => {
+        success(action.payload.success);
+        setTimeout(() => {
+          window.location = `${APP_BASE_URL}/dashboard/properties`;
+        }, 1000);
       });
   },
 });
