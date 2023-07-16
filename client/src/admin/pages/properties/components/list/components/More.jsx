@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { more } from '../../../../../svgs/svgs'
 import { Link } from 'react-router-dom'
 import { Modal } from '../../modal/Modal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { activateHome, archiveHome } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
@@ -16,6 +16,7 @@ export const More = ({ id, status }) => {
 
     const dispatch = useDispatch();
 
+    const { role } = useSelector((state => state.userGlobal.userGlobal))
 
     return (
         <div className='propertyList__item-right-more'>
@@ -36,14 +37,14 @@ export const More = ({ id, status }) => {
                     </Link>
                     : null
                 }
-                {status === "approved"
+                {status === "approved" && role !== "agent"
                     ? <button
                         className='propertyList__item-right-more-menu-item'
                         onClick={() => setOpen(true)}
                     >
                         Ապաակտիվացնել
                     </button>
-                    : status === "inactive" || status === "moderation"
+                    : (status === "inactive" || status === "moderation") && role !== "agent"
                         ? <button
                             className='propertyList__item-right-more-menu-item'
                             onClick={() => dispatch(activateHome(id))}
@@ -52,7 +53,7 @@ export const More = ({ id, status }) => {
                         </button>
                         : null
                 }
-                {status === "archived"
+                {status === "archived" && role !== "agent"
                     ? <button
                         style={{ color: "#D34545" }}
                         className='propertyList__item-right-more-menu-item'
