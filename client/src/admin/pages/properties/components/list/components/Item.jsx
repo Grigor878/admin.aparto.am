@@ -126,7 +126,7 @@ export const Item = ({ data }) => {
                                                 text="Արխիվացված"
                                             />
                                             : <Btn
-                                                status="deactive"
+                                                status="inactive"
                                                 text="Ապաակտիվացված"
                                             />
                                 }

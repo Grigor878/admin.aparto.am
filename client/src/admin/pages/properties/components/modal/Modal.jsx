@@ -11,10 +11,12 @@ import './Modal.scss'
 
 export const Modal = ({ id, open, setOpen }) => {
     const [date, setDate] = useState(new Date())
+    // const [date, setDate] = useState("dd/MM/yyyy")
     const dispatch = useDispatch();
 
     const handleDeactivateHome = () => {
         const formattedDate = formatDateString(date);
+        console.log(formattedDate)//
         dispatch(deactivateHome({ id, date: formattedDate }))
         // .then(() => {
         //     setOpen(false)
@@ -37,6 +39,7 @@ export const Modal = ({ id, open, setOpen }) => {
                         placeholderText={date}
                         dateFormat="dd/MM/yyyy"
                         withPortal
+                        minDate={new Date()}
                     />
                     <span>{calendar.icon}</span>
                 </div>

@@ -43,7 +43,7 @@ export const More = ({ id, status }) => {
                     >
                         Ապաակտիվացնել
                     </button>
-                    : status === "deactive" || status === "moderation"
+                    : status === "inactive" || status === "moderation"
                         ? <button
                             className='propertyList__item-right-more-menu-item'
                             onClick={() => dispatch(activateHome(id))}
