@@ -8,12 +8,11 @@ import { bathrooms, floor, height, rooms, square, top, url } from '../../../../.
 import { Btn } from './Btn'
 import { More } from './More'
 import { success } from '../../../../../../components/swal/swal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateHome } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    // const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const copyToClipboard = async (id, type) => {
@@ -22,6 +21,8 @@ export const Item = ({ data }) => {
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
     }
+
+    const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
 
     return (
         data?.map(({ id, home_id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
@@ -34,7 +35,6 @@ export const Item = ({ data }) => {
                         to={`${id}`}
                         target={"_blank"}
                         className='propertyList__item-view'
-                    // onClick={() => navigate(`${id}`)}
                     >
                         {photo.length !== 0
                             ? <img src={`${API_BASE_URL}/images/${photo[0].name}`} alt="propertyImg" loading='lazy' />
@@ -115,12 +115,22 @@ export const Item = ({ data }) => {
                                             status="approved"
                                             text="Ակտիվ"
                                         />
-                                        <button
-                                            type='button'
-                                            onClick={() => dispatch(updateHome(id))}
-                                        >
-                                            {top.icon}
-                                        </button>
+                                        {role === "agent" && full_name.am === am[11]?.fields[0]?.value
+                                            ? <button
+                                                type='button'
+                                                onClick={() => dispatch(updateHome(id))}
+                                            >
+                                                {top.icon}
+                                            </button>
+                                            : role !== "agent" ?
+                                                <button
+                                                    type='button'
+                                                    onClick={() => dispatch(updateHome(id))}
+                                                >
+                                                    {top.icon}
+                                                </button>
+                                                : null
+                                        }
                                         <button
                                             type='button'
                                             onClick={() => copyToClipboard(home_id, selectedTransationType)}
@@ -146,7 +156,7 @@ export const Item = ({ data }) => {
                             </div>
                         </div>
 
-                        <More id={id} status={status} />
+                        <More id={id} status={status} agentName={am[11]?.fields[0]?.value} />
                     </div>
                 </div>
             )
