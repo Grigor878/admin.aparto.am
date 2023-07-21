@@ -6,30 +6,19 @@ import "./Size.scss"
 const Size = () => {
     const sizeRef = useRef()
     const [openSize, setOpenSize] = useState(false)
-    const [selectedSize, setSelectedSize] = useState(<p className='size__unit'>m<sup>2</sup></p>)
-
+    const [selectedSize, setSelectedSize] = useState({
+        id: 1,
+        icon: <p className='size__unit'>m<sup>2</sup></p>
+    });
     const handleOpenSize = () => {
         setOpenSize(!openSize);
     }
 
-    const handleChangeSize = (name) => {
+    const handleChangeSize = (id, icon,) => {
         setOpenSize(false)
-        setSelectedSize(name)
+        setSelectedSize({ id: id, icon: icon })
         // cookies.set("sizeUnit", name)
     };
-
-    // const handleChangeSize = useCallback((name) => {
-    //     setOpenSize(false)
-    //     setSelectedSize(name)
-    //     // cookies.set("sizeUnit", name)
-    // }, [])
-
-    // error er talis
-    // const handleChangeSize = useMemo((name) => {
-    //     setOpenSize(false)
-    //     setSelectedSize(name)
-    //     // cookies.set("sizeUnit", name)
-    // }, [])
 
     useEffect(() => {
         const checkIfClickedOutside = (e) => {
@@ -44,23 +33,21 @@ const Size = () => {
         }
     }, [openSize])
 
-    // console.log(selectedSize);
-
     return (
         <div className='size' ref={sizeRef}>
             <div
                 className="size__choose"
                 onClick={handleOpenSize}
             >
-                {selectedSize}
+                {selectedSize.icon}
             </div>
 
             <ul className={!openSize ? "size__dropdown" : "size__dropdown-active"}>
-                {sizeData.map(({ id, name }) => (
+                {sizeData.filter((el) => el.id !== selectedSize.id).map(({ id, icon }) => (
                     <li
                         key={id}
-                        onClick={() => handleChangeSize(name)}
-                    >{name}
+                        onClick={() => handleChangeSize(id, icon)}
+                    >{icon}
                     </li>
                 ))}
             </ul>

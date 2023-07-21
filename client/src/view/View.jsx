@@ -4,13 +4,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
-// const Home = lazy(() => import('../pages/home/Home'))
-// const Rent = lazy(() => import('../pages/rent/Rent'))
-// const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
-// const Sale = lazy(() => import('../pages/sale/Sale'))
-// const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
-// const Services = lazy(() => import('../pages/services/Services'))
-// const Contact = lazy(() => import('../pages/contact/Contact'))
+import AutoScroll from "../helpers/autoScroll"
+const Home = lazy(() => import('../pages/home/Home'))
+const Rent = lazy(() => import('../pages/rent/Rent'))
+const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
+const Sale = lazy(() => import('../pages/sale/Sale'))
+const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
 const NotFound = lazy(() => import('../pages/404/NotFound'))
 const Login = lazy(() => import('../admin/pages/login/Login'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
@@ -32,15 +31,14 @@ const View = () => {
     return (
         <Router>
             <Suspense fallback={<p></p>}>
+                <AutoScroll />
                 <Routes>
                     <Route path="/" element={<LayoutMain />}>
-                        {/* <Route index element={<Home />} />
+                        <Route index element={<Home />} />
                         <Route path="for-rent" element={<Rent />} />
                         <Route path="for-rent/:id" element={<SubRent />} />
                         <Route path="for-sale" element={<Sale />} />
                         <Route path="for-sale/:id" element={<SubSale />} />
-                        <Route path="our-services" element={<Services />} />
-                        <Route path="contact-us" element={<Contact />} /> */}
                         <Route path="*" element={<NotFound />} />
                     </Route>
 

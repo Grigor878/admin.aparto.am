@@ -4,7 +4,7 @@ import './NotFound.scss'
 const NotFound = () => {
   return (
     <section className='notFound'>
-      <div className="container">
+      <div className="contain">
         <h1>Page Not Found</h1>
       </div>
     </section>
