@@ -50,6 +50,42 @@ class GarbageController extends Controller
   }
   }
 
+  public function changeHouseDescriptionRooms() {
+
+    try {
+      \DB::beginTransaction();
+  
+      $homes = Home::all();
+  
+      foreach ($homes as $key => $home) {
+          $am = json_decode($home->am, true);
+          $ru = json_decode($home->ru, true);
+          $en = json_decode($home->en, true);
+          if($am[3]['fields'][3]['value'] == '6') {
+            
+            $am[3]['fields'][3]['value'] = '6+';
+            $ru[3]['fields'][3]['value'] = '6+';
+            $en[3]['fields'][3]['value'] = '6+';
+          }
+          
+          if ($am[3]['fields'][3]['key'] == "numberOfBedrooms") {
+              $am[3]['fields'][3]['option'][5]['value'] = "6+";
+          }
+  
+          $home->am = json_encode($am);
+          $home->ru = json_encode($ru);
+          $home->en = json_encode($en);
+  
+          $home->save();
+      }
+  
+      \DB::commit();
+  } catch (Throwable $e) {
+      \Log::info($e);
+      \DB::rollBack();
+  }
+  }
+
   public function changeInstallments() {
 
     try {
@@ -695,7 +731,7 @@ class GarbageController extends Controller
                   ],
                   [
                     "id"=> "numberOfBedrooms",
-                    "value" => "6"
+                    "value" => "6+"
                   ],
                   [
                     "id"=> "numberOfBedrooms",
