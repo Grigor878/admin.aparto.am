@@ -4,7 +4,7 @@ import './Rent.scss'
 const Rent = () => {
     return (
         <section>
-            <div className="container">
+            <div className="contain">
                 <h1>Rent</h1>
             </div>
         </section>

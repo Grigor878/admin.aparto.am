@@ -4,7 +4,7 @@ import './Sale.scss'
 const Sale = () => {
     return (
         <section>
-            <div className="container">
+            <div className="contain">
                 <h1>Sale</h1>
             </div>
         </section>

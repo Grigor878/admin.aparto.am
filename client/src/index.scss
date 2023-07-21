@@ -23,7 +23,9 @@ html,
 body {
   width: 100%;
   height: 100%;
-  font-family: "Archivo";
+  // font-family: "Archivo";
+  // font-style: normal;
+  font-family: "Noto Sans Armenian";
   font-style: normal;
 
   ::-webkit-scrollbar {
@@ -44,19 +46,19 @@ body {
   }
 }
 
-// .container {
-//   margin: 0 auto;
-//   max-width: 1440px;
-//   padding: 0 120px;
+.contain {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 120px;
 
-//   @media screen and (max-width: 1280px) {
-//     padding: 0 50px;
-//   }
+  @media screen and (max-width: 1280px) {
+    padding: 0 50px;
+  }
 
-//   @media screen and (max-width: 768px) {
-//     padding: 0 32px;
-//   }
-// }
+  @media screen and (max-width: 768px) {
+    padding: 0 32px;
+  }
+}
 
 .loading {
   z-index: 99;

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../../assets/imgs/logo.png'
+import logo from '../../../assets/imgs/logoAdmin.png'
 import Paths from './components/paths/Paths'
 import User from './components/user/User'
 import './Sidebar.scss'
