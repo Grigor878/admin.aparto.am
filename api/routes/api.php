@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InterfaceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -64,12 +65,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
     Route::post('/addEditReservPhoto/{id}',  [HomeController::class, 'addEditReservPhoto']);
 
-    
-
     //Exchange amount
     Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
     Route::get('/getExchange',  [ExchangeController::class, 'getExchange']);
 
+    //interFaceController
+    Route::get('/getSaleHomes',  [InterfaceController::class, 'getSaleHomes']);
+    Route::get('/getRentHomes',  [InterfaceController::class, 'getRentHomes']);
     
     Route::group(['middleware' => 'authcheck'], function ($router) {
         Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
