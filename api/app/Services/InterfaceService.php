@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Employe;
 use App\Models\Home;
 
 class InterFaceService
@@ -30,6 +31,11 @@ class InterFaceService
 
             return false;
         })->values();
+    }
+
+    public function getGeneralAdmin()
+    {
+        return Employe::where('email', 'babajanian.alex@gmail.com')->first();
     }
 
 

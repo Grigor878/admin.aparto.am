@@ -26,4 +26,16 @@ class InterfaceController extends Controller
         $homes = $this->interfaceService->getRentHomes();
         return response()->json($homes);
     }
+
+    public function getGeneralAdmin()
+    {
+        $generalAdmin = $this->interfaceService->getGeneralAdmin();
+        return response()->json($generalAdmin);
+    }
+
+    public function addRecentSearch(Request $request)
+    {
+        dd($request->all());
+    }
+    
 }

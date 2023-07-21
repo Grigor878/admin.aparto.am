@@ -377,11 +377,6 @@ class HomeService
         'en' => 'Baghdad',
         'ru' => 'Багдад',
       ],
-      'concrete' => [
-        'am' => 'Բետոն',
-        'en' => 'Concrete',
-        'ru' => 'Бетон',
-      ],
       'panelCover' => [
         'am' => 'Պանել',
         'en' => 'Panel',
