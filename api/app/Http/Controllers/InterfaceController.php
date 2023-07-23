@@ -37,5 +37,11 @@ class InterfaceController extends Controller
     {
         dd($request->all());
     }
+
+    public function getSearchAttributes($lang)
+    {
+        $searchList = $this->interfaceService->getSearchAttributes($lang);
+        return response()->json($searchList);
+    }
     
 }

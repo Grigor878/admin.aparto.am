@@ -74,6 +74,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getRentHomes',  [InterfaceController::class, 'getRentHomes']);
     Route::get('/getGeneralAdmin',  [InterfaceController::class, 'getGeneralAdmin']);
     Route::post('/addRecentSearch',  [InterfaceController::class, 'addRecentSearch']);
+    Route::get('/getSearchAttributes/{lang}',  [InterfaceController::class, 'getSearchAttributes']);
+
     
     Route::group(['middleware' => 'authcheck'], function ($router) {
         Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
