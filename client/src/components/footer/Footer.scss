@@ -1,19 +1,27 @@
 @import "../../variables";
 
-footer {
-  background: #222222;
-  padding: 48px 0;
-}
+.footer{
+  background: #3f60a0;
+  // background: $blue;
+  z-index: 101;
+  padding: 12px 0;
 
-.footer {
-  display: flex;
-  align-items: baseline;
-  gap: 131px;
+  &__context {
+    @include flex;
+    justify-content: space-between;
 
-  h1 {
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 35px;
-    color: $text;
+    p {
+      color: $bgSub;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    span {
+      color: $bgSub;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16px;
+    }
   }
 }

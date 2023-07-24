@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react"
 // import { Loader } from "../components/loader/Loader"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+// import { Loader } from "../components/loader/Loader"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
@@ -30,7 +31,7 @@ const View = () => {
 
     return (
         <Router>
-            <Suspense fallback={<p></p>}>
+            <Suspense fallback={null}>
                 <AutoScroll />
                 <Routes>
                     <Route path="/" element={<LayoutMain />}>

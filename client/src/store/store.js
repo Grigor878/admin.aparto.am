@@ -5,6 +5,7 @@ import userGlobalSlice from "./slices/userGlobalSlice";
 import structureSlice from "./slices/structureSlice";
 import usersSlice from "./slices/usersSlice";
 import configsSlice from "./slices/configsSlice";
+import homeSlice from "./slices/homeSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
@@ -12,9 +13,7 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "userGlobal", "users"],
-  // whitelist: ["userGlobal", "users"],
-  // storageSession,
+  whitelist: ["auth", "userGlobal", "users","home"],
 };
 
 const rootReducer = combineReducers({
@@ -24,6 +23,8 @@ const rootReducer = combineReducers({
   structure: structureSlice,
   users: usersSlice,
   configs: configsSlice,
+
+  home:homeSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

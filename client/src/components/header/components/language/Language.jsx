@@ -9,7 +9,8 @@ const Language = () => {
     const { i18n } = useTranslation()
     const lngRef = useRef()
     const [openLng, setOpenLng] = useState(false)
-    const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "gb")
+    const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "am")
+    // add dispatch for PdfSwitcher
 
     const handleOpenLng = () => {
         setOpenLng(!openLng);

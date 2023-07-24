@@ -1,13 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { getCurrentYear } from '../../helpers/utils'
 import './Footer.scss'
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="contain">
-        <div className='footer'>
-  
+    <footer id='contact'>
+      <div className='footer'>
+        <div className="contain">
+          <div className="footer__context">
+            <p>ⓒ Aparto {getCurrentYear()} | All Rights Reserved</p>
+
+            <p>Website design & development by <span>Shark Innovations</span></p>
+          </div>
         </div>
       </div>
     </footer >

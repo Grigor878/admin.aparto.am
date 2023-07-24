@@ -1,0 +1,38 @@
+@import "../../../../variables";
+
+.searches {
+  &__row {
+    @include flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__col {
+    @include flex;
+    gap: 12px;
+    padding: 14px 24px;
+    height: 70px;
+    border-radius: 8px;
+    border: 1.5px solid $inputBorder;
+    @include hoverEffect;
+
+    &-context {
+      @include flexCol;
+      gap: 5px;
+
+      p {
+        color: $text;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+
+      span {
+        color: $textSub;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+      }
+    }
+  }
+}

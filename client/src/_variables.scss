@@ -12,7 +12,7 @@ $green: #2eaa50;
 $greenSub: #e5f8ea;
 $border: #d7daf7;
 $inputBorder: #cfd1da;
-$advancedBack: #e7e9f0; 
+$advancedBack: #e7e9f0;
 $red: #bb3434;
 
 @mixin flex {
@@ -44,4 +44,13 @@ $red: #bb3434;
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
+}
+
+@mixin hoverEffect {
+  @include transition;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 }
