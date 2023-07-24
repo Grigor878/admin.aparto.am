@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\ConfigAddress;
 use App\Models\Employe;
 use App\Models\Home;
+use Carbon\Carbon;
 
 class InterFaceService
 {
@@ -57,9 +58,17 @@ class InterFaceService
     public function getSaleHomes()
     {
         return Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) {
-            $am = json_decode($home->am);
+            $home->am = json_decode($home->am);
+            $home->ru = json_decode($home->ru);
+            $home->en = json_decode($home->en);
+            $home->photo = json_decode($home->photo);
+            $home->file = json_decode($home->file);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+            
+            $home->keywords = json_decode($home->keywords);
 
-            if ($am[0]->fields[0]->selectedOptionName == "sale" && $am[0]->fields[4]->value == "Տոպ") {
+            if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
                 return true;
             }
             return false;
@@ -70,9 +79,17 @@ class InterFaceService
     public function getRentHomes()
     {
         return Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) {
-            $am = json_decode($home->am);
+            $home->am = json_decode($home->am);
+            $home->ru = json_decode($home->ru);
+            $home->en = json_decode($home->en);
+            $home->photo = json_decode($home->photo);
+            $home->file = json_decode($home->file);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+            
+            $home->keywords = json_decode($home->keywords);
 
-            if ($am[0]->fields[0]->selectedOptionName == "rent" && $am[0]->fields[4]->value == "Տոպ") {
+            if ($home->am[0]->fields[0]->selectedOptionName == "rent" && $home->am[0]->fields[4]->value == "Տոպ") {
                 return true;
             }
 
@@ -82,7 +99,11 @@ class InterFaceService
 
     public function getGeneralAdmin()
     {
-        return Employe::where('email', 'babajanian.alex@gmail.com')->first();
+        $admin = Employe::where('email', 'babajanian.alex@gmail.com')->first();
+        $admin->full_name = json_decode($admin['full_name'], true);
+        $admin->phone = json_decode($admin['phone'], true);
+
+        return $admin;
     }
 
     public function getSearchAttributes($lang)
