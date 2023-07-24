@@ -1,0 +1,7 @@
+@import "../../variables";
+
+.home {
+  @include flexCol;
+  gap: 120px;
+  padding: 120px 0;
+}

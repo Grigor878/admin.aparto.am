@@ -1,0 +1,37 @@
+@import "../../../../variables";
+
+.service {
+  &__row {
+    @include flex;
+    justify-content: space-between;
+  }
+
+  &__col {
+    @include flexColCenter;
+    text-align: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #111624;
+    background: #fafafc;
+    padding: 20px 40px;
+    width: 384px;
+    height: 286px;
+    @include hoverEffect;
+
+
+    h4 {
+      color: $text;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 28px;
+      padding-top: 10px;
+    }
+
+    p {
+      color: $textSub;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+  }
+}

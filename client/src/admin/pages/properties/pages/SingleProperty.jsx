@@ -9,9 +9,9 @@ import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, k
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';
 import user from '../../../../assets/imgs/user.png'
-import telegram from '../../../../assets/imgs/telegram.png'
-import whatsapp from '../../../../assets/imgs/whatsapp.png'
-import viber from '../../../../assets/imgs/viber.png'
+import telegram from '../../../../assets/icons/telegram.png'
+import whatsapp from '../../../../assets/icons/whatsapp.png'
+import viber from '../../../../assets/icons/viber.png'
 import { success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
@@ -223,7 +223,7 @@ const SingleProperty = () => {
                             <h3 className='singleProperty__subtitle'>Տան Նկարագիր</h3>
 
                             <div className='singleProperty__content-left-desc-info'>
-                                {Number(currentPropertyData[3]?.fields[2]?.value) &&
+                                {currentPropertyData[3]?.fields[2]?.value &&
                                     <p>Սենյակների քանակ - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
                                 }
 

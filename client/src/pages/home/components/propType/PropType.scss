@@ -1,0 +1,30 @@
+@import "../../../../variables";
+
+.propType {
+  @include flexCol;
+  gap: 48px;
+
+  &__top {
+    @include flex;
+    justify-content: space-between;
+
+    h2 {
+      padding-bottom: 0 !important;
+    }
+
+    &-seeAll {
+      @include flex;
+      gap: 5px; //
+      color: #0f5bed;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 21px;
+      @include hoverEffect;
+    }
+  }
+
+  &__cards {
+    @include flex;
+    justify-content: space-between;
+  }
+}
