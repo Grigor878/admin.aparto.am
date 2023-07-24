@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminData } from '../../../../store/slices/homeSlice';
 import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
 import { moneyFormater } from '../../../../helpers/formatters';
@@ -17,7 +19,8 @@ import './Styles.scss'
 
 const SingleProperty = () => {
     const { id } = useParams()
-    // const imgsRef = useRef()
+
+    const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
 
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
@@ -67,19 +70,17 @@ const SingleProperty = () => {
         success("Հասցեն պատճենված է։")
     }
 
-    // useEffect(() => {
-    //     let prevScrollpos = window.scrollY
-    //     window.onscroll = function () {
-    //         const currentScrollPos = window.scrollY
-    //         const imgs = imgsRef?.current
-    //         if (prevScrollpos > currentScrollPos) {
-    //             imgs.style.top = "0"
-    //         } else {
-    //             imgs.style.top = "-444px"
-    //         }
-    //         prevScrollpos = currentScrollPos
-    //     }
-    // }, [])
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAdminData())
+    }, [dispatch])
+
+    const { admin } = useSelector((state => state.home))
+
+    const adminTel = admin?.phone?.tel1
+
+    // console.log(currentPropertyData[11]?.fields[0]?.value);
 
     return (
         !loading
@@ -388,7 +389,7 @@ const SingleProperty = () => {
                                 <div className='singleProperty__content-right-contact-social-bottom'>
                                     <div className='singleProperty__content-right-contact-social-card'>
                                         <span>{tel.icon} Բջջ. Հեռ.</span>
-                                        <p>+374 99 090909</p>
+                                        {adminTel && <p>{adminTel}</p>}
                                     </div>
                                     <div className='singleProperty__content-right-contact-social-card'>
                                         <div style={{ display: "flex", gap: "16px" }}>
@@ -396,7 +397,7 @@ const SingleProperty = () => {
                                             <img src={whatsapp} alt="whatsapp" />
                                             <img src={viber} alt="viber" />
                                         </div>
-                                        <p>+374 99 090909</p>
+                                        {adminTel && <p>{adminTel}</p>}
                                     </div>
                                 </div>
                             </div>
@@ -406,75 +407,143 @@ const SingleProperty = () => {
 
                                 <div className='singleProperty__content-right-contact-info-name'>
                                     <p>Արման Հակոբյան</p>
-                                    <span>Ապարտո գործակալ</span>
+                                    <span>Գործակալ</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='singleProperty__content-right-specialists'>
-                            <h5>Իրավաբանական</h5>
+                        {role === "agent" && full_name?.am === currentPropertyData[11]?.fields[0]?.value ?
+                            <div className='singleProperty__content-right-specialists'>
+                                <h5>Իրավաբանական</h5>
 
-                            <div className='singleProperty__content-right-specialists-fields'>
-                                <label>
-                                    Սեփականատեր 1
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[0]?.value}
-                                    />
-                                </label>
-                                <label>
-                                    Սեփականատիրոջ հեռախոսահամար
-                                    <input
-                                        type="text"
-                                        disabled
-                                        value={currentPropertyData[9]?.fields[1]?.value}
-                                    />
-                                </label>
+                                <div className='singleProperty__content-right-specialists-fields'>
+                                    <label>
+                                        Սեփականատեր 1
+                                        <input
+                                            type="text"
+                                            disabled
+                                            value={currentPropertyData[9]?.fields[0]?.value}
+                                        />
+                                    </label>
+                                    <label>
+                                        Սեփականատիրոջ հեռախոսահամար
+                                        <input
+                                            type="text"
+                                            disabled
+                                            value={currentPropertyData[9]?.fields[1]?.value}
+                                        />
+                                    </label>
 
-                                {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                                    currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
-                                    <>
-                                        <label>
-                                            Սեփականատեր 2
-                                            <input
-                                                type="text"
-                                                disabled
-                                                value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
-                                            />
-                                        </label>
-                                        <label>
-                                            Սեփականատիրոջ հեռախոսահամար
-                                            <input
-                                                type="text"
-                                                disabled
-                                                value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
-                                            />
-                                        </label>
-                                    </> : null}
+                                    {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
+                                        currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
+                                        <>
+                                            <label>
+                                                Սեփականատեր 2
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
+                                                />
+                                            </label>
+                                            <label>
+                                                Սեփականատիրոջ հեռախոսահամար
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
+                                                />
+                                            </label>
+                                        </> : null}
 
-                                {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                                    currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
-                                    <>
-                                        <label>
-                                            Սեփականատեր 3
-                                            <input
-                                                type="text"
-                                                disabled
-                                                value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
-                                            />
-                                        </label>
-                                        <label>
-                                            Սեփականատիրոջ հեռախոսահամար
-                                            <input
-                                                type="text"
-                                                disabled
-                                                value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
-                                            />
-                                        </label>
-                                    </> : null}
+                                    {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
+                                        currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
+                                        <>
+                                            <label>
+                                                Սեփականատեր 3
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
+                                                />
+                                            </label>
+                                            <label>
+                                                Սեփականատիրոջ հեռախոսահամար
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
+                                                />
+                                            </label>
+                                        </> : null}
+                                </div>
                             </div>
-                        </div>
+                            : role !== "agent" ?
+                                <div className='singleProperty__content-right-specialists'>
+                                    <h5>Իրավաբանական</h5>
+
+                                    <div className='singleProperty__content-right-specialists-fields'>
+                                        <label>
+                                            Սեփականատեր 1
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[0]?.value}
+                                            />
+                                        </label>
+                                        <label>
+                                            Սեփականատիրոջ հեռախոսահամար
+                                            <input
+                                                type="text"
+                                                disabled
+                                                value={currentPropertyData[9]?.fields[1]?.value}
+                                            />
+                                        </label>
+
+                                        {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
+                                            currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ?
+                                            <>
+                                                <label>
+                                                    Սեփականատեր 2
+                                                    <input
+                                                        type="text"
+                                                        disabled
+                                                        value={currentPropertyData[9]?.fields[2]?.option[0]?.value}
+                                                    />
+                                                </label>
+                                                <label>
+                                                    Սեփականատիրոջ հեռախոսահամար
+                                                    <input
+                                                        type="text"
+                                                        disabled
+                                                        value={currentPropertyData[9]?.fields[2]?.option[1]?.value}
+                                                    />
+                                                </label>
+                                            </> : null}
+
+                                        {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
+                                            currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ?
+                                            <>
+                                                <label>
+                                                    Սեփականատեր 3
+                                                    <input
+                                                        type="text"
+                                                        disabled
+                                                        value={currentPropertyData[9]?.fields[2]?.option[2]?.value}
+                                                    />
+                                                </label>
+                                                <label>
+                                                    Սեփականատիրոջ հեռախոսահամար
+                                                    <input
+                                                        type="text"
+                                                        disabled
+                                                        value={currentPropertyData[9]?.fields[2]?.option[3]?.value}
+                                                    />
+                                                </label>
+                                            </> : null}
+                                    </div>
+                                </div>
+                                : null
+                        }
 
                         <div className='singleProperty__content-right-info'>
                             <h5>Լրացուցիչ Ինֆորմացիա</h5>

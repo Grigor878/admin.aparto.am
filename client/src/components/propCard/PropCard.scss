@@ -1,5 +1,72 @@
-@import '../../variables';
+@import "../../variables";
 
-.propertyCard{
+.propCard {
+  @include flex;
+  justify-content: space-between;
 
+  &__card {
+    border-radius: 12px;
+
+    img {
+    }
+
+    &-main {
+      &-top {
+        @include flex;
+        justify-content: space-between;
+
+        p {
+          color: $text;
+          font-family: "Archivo";
+          font-size: 20px;
+          font-weight: 800;
+          line-height: 28px;
+        }
+
+        span {
+          color: $textSub;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 16px;
+          text-transform: uppercase;
+        }
+      }
+
+      &-center {
+        @include flexCol;
+
+        h5 {
+          color: $text;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+        }
+
+        &-geo {
+          @include flex;
+
+          p {
+            color: $textBtn;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+      }
+
+      &-bottom {
+        @include flex;
+        justify-content: space-between;
+
+        span {
+          @include flex;
+          gap: 10px;
+          color: $textSub;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 16px;
+        }
+      }
+    }
+  }
 }

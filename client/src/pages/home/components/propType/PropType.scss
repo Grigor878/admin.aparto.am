@@ -22,9 +22,4 @@
       @include hoverEffect;
     }
   }
-
-  &__cards {
-    @include flex;
-    justify-content: space-between;
-  }
 }

@@ -1,26 +1,30 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAdminData, getTopHomes } from '../../store/slices/homeSlice'
 import Searches from './components/searches/Searches'
 import Services from './components/services/Services'
 import Contracts from './components/contracts/Contracts'
 import Contact from './components/contact/Contact'
 import PropType from './components/propType/PropType'
 import './Home.scss'
-import { getSale } from '../../store/slices/homeSlice'
 
 const Home = () => {
     const dispatch = useDispatch()
 
-    dispatch(getSale())
-    dispatch(getSale())
+    useEffect(() => {
+        dispatch(getTopHomes())
+        dispatch(getAdminData())
+    }, [dispatch])
 
+    const { sale, rent } = useSelector((state => state.home))
+    
     return (
         <section>
             <div className="contain">
                 <div className='home'>
                     <Searches />
-                    <PropType type="sale" />
-                    <PropType type="rent" />
+                    <PropType type="sale" data={sale} />
+                    <PropType type="rent" data={rent} />
                     <Services />
                     <Contracts />
                 </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import cookies from 'js-cookie'
-import { lngs, pdfAm, pdfEn, pdfRu, pdfs } from './data'
+import { lngs, pdfAm, pdfEn, pdfRu } from './data'
 import { pdf } from '../../../../../assets/svgs/svgs'
 import './PdfSwitcher.scss'
 
@@ -32,16 +32,16 @@ export const PdfSwitcher = () => {
                 <div className="pdfSwitcher__main-pdfs">
                     {active === "am" ? pdfAm.map(({ id, name, file }) => {
                         return (
-                            <a key={id} href={file}>{pdf.icon}{name}</a>
+                            <a key={id} href={file} target='/blank'>{pdf.icon}{name}</a>
                         )
                     })
                         : active === "en" ? pdfEn.map(({ id, name, file }) => {
                             return (
-                                <a key={id} href={file}>{pdf.icon}{name}</a>
+                                <a key={id} href={file} target='/blank'>{pdf.icon}{name}</a>
                             )
                         }) : pdfRu.map(({ id, name, file }) => {
                             return (
-                                <a key={id} href={file}>{pdf.icon}{name}</a>
+                                <a key={id} href={file} target='/blank'>{pdf.icon}{name}</a>
                             )
                         })
                     }

@@ -98,10 +98,18 @@ export const Item = ({ data }) => {
                         </div>
 
                         <div className='propertyList__item-right-info'>
-                            <div className='propertyList__item-right-info-owner'>
-                                <p>{am[9].fields[0].value}</p>
-                                <p>{am[9].fields[1].value}</p>
-                            </div>
+                            {role === "agent" && full_name?.am === am[11]?.fields[0]?.value ?
+                                <div className='propertyList__item-right-info-owner'>
+                                    <p>{am[9].fields[0].value}</p>
+                                    <p>{am[9].fields[1].value}</p>
+                                </div>
+                                : role !== "agent" ?
+                                    <div className='propertyList__item-right-info-owner'>
+                                        <p>{am[9].fields[0].value}</p>
+                                        <p>{am[9].fields[1].value}</p>
+                                    </div>
+                                    : null
+                            }
 
                             <div className='propertyList__item-right-info-agent'>
                                 <p>{am[11].fields[0].value}</p>
