@@ -6,6 +6,7 @@ import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
+
 const Home = lazy(() => import('../pages/home/Home'))
 const Rent = lazy(() => import('../pages/rent/Rent'))
 const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))

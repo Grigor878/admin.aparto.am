@@ -6,6 +6,7 @@ import Services from './components/services/Services'
 import Contracts from './components/contracts/Contracts'
 import Contact from './components/contact/Contact'
 import PropType from './components/propType/PropType'
+import Faq from './components/faq/Faq'
 import './Home.scss'
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
     }, [dispatch])
 
     const { sale, rent } = useSelector((state => state.home))
-    
+
     return (
         <section>
             <div className="contain">
@@ -27,6 +28,7 @@ const Home = () => {
                     <PropType type="rent" data={rent} />
                     <Services />
                     <Contracts />
+                    <Faq />
                 </div>
             </div>
             <Contact />

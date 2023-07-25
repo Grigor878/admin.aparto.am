@@ -9,8 +9,11 @@
   "seeAll": "See All",
 
   "contracts_title": "Have a Property for Sale or Rent?",
-  "contracts_btn":"Contact Us",
-  "contracts_pdfTitle":"Document Examples",
+  "contracts_btn": "Contact Us",
+  "contracts_pdfTitle": "Document Examples",
+
+  "faq_title": "Frequently Asked Questions",
+  "faq_text": "Find the answers to the questions you are interested in here. In case of other questions,",
 
   "contact_map": "19/1 Sayat Nova avenue, Yerevan, Armenia"
 }

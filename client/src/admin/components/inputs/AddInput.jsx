@@ -6,10 +6,6 @@ import './Inputs.scss'
 export const AddInput = ({ id, type, placeholder, name, onChange }) => {
     return (
         <label className='dash__label'>
-            {/* For English */}
-            {/* {type === 'tel'
-                ? name + ' (+374)' : type === 'password'
-                    ? name + ' password' : name} */}
             {type === 'tel' ? name + ' (+374)' : name}
             <input
                 id={id}
@@ -19,7 +15,7 @@ export const AddInput = ({ id, type, placeholder, name, onChange }) => {
                 className="dash__input"
                 minLength={type === 'text' ? "3" : null}
                 pattern={type === 'tel'
-                    ? "[\\+]374(4[134]|55|77|88|9[134689])\\d{6}"
+                    ? "[\\+]374(4[134]|55|77|88|9[1345689])\\d{6}"
                     : type === 'email'
                         ? "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
                         : type === "password" ? ".{6,}"

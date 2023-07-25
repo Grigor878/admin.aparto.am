@@ -14,7 +14,7 @@ const PropType = ({ type, data }) => {
                 <h2 className='title'>{t(type)}</h2>
                 <Link className='propType__top-seeAll' to={"/for-" + type}>{t("seeAll")}{seeAll.icon}</Link>
             </div>
-            <PropCard data={data} />
+            <PropCard type={type} data={data} />
         </div>
     )
 }
