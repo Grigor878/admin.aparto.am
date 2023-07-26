@@ -65,7 +65,7 @@ class InterFaceService
             $home->file = json_decode($home->file);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-            
+
             $home->keywords = json_decode($home->keywords);
 
             if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
@@ -86,7 +86,7 @@ class InterFaceService
             $home->file = json_decode($home->file);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-            
+
             $home->keywords = json_decode($home->keywords);
 
             if ($home->am[0]->fields[0]->selectedOptionName == "rent" && $home->am[0]->fields[4]->value == "Տոպ") {
@@ -108,23 +108,31 @@ class InterFaceService
 
     public function getSearchAttributes($lang)
     {
+        $homeKeywords = Home::select('keywords')->get();
+        $readyKeywords = [];
+
+        foreach ($homeKeywords as $key => $home) {
+            if (json_decode($home['keywords'])) {
+                $readyKeywords = array_unique(array_merge($readyKeywords, json_decode($home['keywords'])));
+            }
+        }
+
         if ($lang == "am") {
             $address = ConfigAddress::pluck('am')->toArray();
             $readyResult = array_merge($address, $this->communityAm);
-            return $readyResult;
         }
 
         if ($lang == "ru") {
             $address = ConfigAddress::pluck('ru')->toArray();
             $readyResult = array_merge($address, $this->communityRu);
-            return $readyResult;
         }
 
         if ($lang == "en") {
             $address = ConfigAddress::pluck('en')->toArray();
             $readyResult = array_merge($address, $this->communityEn);
-            return $readyResult;
         }
+        
+        return array_unique(array_merge($readyKeywords, $readyResult));
     }
 
 
