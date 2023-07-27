@@ -23,10 +23,11 @@ class ExchangeController extends Controller
     {
         $exchange = Exchange::latest()->first();
         if($exchange){
-            $readyExchange = [
-                "amount" => $exchange->amount,
-                "date" => Carbon::createFromFormat('Y-m-d',  $exchange->added_date)->format('d/m/Y'),
-            ];
+            // $readyExchange = [
+            //     "amount" => $exchange->amount,
+            //     "date" => Carbon::createFromFormat('Y-m-d',  $exchange->added_date)->format('d/m/Y'),
+            // ];
+            $readyExchange = $exchange->amount;
             return response()->json($readyExchange);
         };
         return response()->json(['status' => 'success', 'message' => 'Չկա նշված գումար'], 200);
