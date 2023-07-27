@@ -135,5 +135,10 @@ class InterFaceService
         return array_unique(array_merge($readyKeywords, $readyResult));
     }
 
+    public function getSearchData($data)
+    {
+        dd($data);
+    }
+
 
 }

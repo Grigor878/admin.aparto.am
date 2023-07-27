@@ -75,6 +75,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getGeneralAdmin',  [InterfaceController::class, 'getGeneralAdmin']);
     Route::post('/addRecentSearch',  [InterfaceController::class, 'addRecentSearch']);
     Route::get('/getSearchAttributes/{lang}',  [InterfaceController::class, 'getSearchAttributes']);
+    Route::post('/getSearchData',  [InterfaceController::class, 'getSearchData']);
+
 
     
     Route::group(['middleware' => 'authcheck'], function ($router) {
