@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaDollarSign } from 'react-icons/fa';
 import { headerExchange } from './data';
+import useOutsideClick from '../../../../hooks/useOutsideClick';
 import './Exchange.scss';
 
 const Exchange = () => {
@@ -20,18 +21,7 @@ const Exchange = () => {
         setSelectedex({ id, symbol });
     };
 
-    useEffect(() => {
-        const checkIfClickedOutside = (e) => {
-            if (openEx && exRef.current && !exRef.current.contains(e.target)) {
-                setOpenEx(false);
-            }
-        };
-        document.addEventListener('mousedown', checkIfClickedOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', checkIfClickedOutside);
-        };
-    }, [openEx]);
+    useOutsideClick(exRef, openEx, setOpenEx);
 
     return (
         <div className='exchange' ref={exRef}>

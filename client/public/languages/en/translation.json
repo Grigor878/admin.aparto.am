@@ -2,11 +2,22 @@
   "header_service": "Our Services",
   "header_contact": "Contact Us",
 
+  "main_title": "Discover Property to <span>Buy</span> or <span>Rent</span>",
+
+  "search": "Search",
+
   "searches": "Recent Searches",
 
   "sale": "Properties for Sale",
   "rent": "Properties for Rent",
   "seeAll": "See All",
+
+  "service_title1": "Sell real estate",
+  "service_desc1": "Buy or sell your real estate with Aparto real estate agency",
+  "service_title2": "Rent real estate",
+  "service_desc2": "Lease or rent an apartment in Yerevan",
+  "service_title3": "Real estate management",
+  "service_desc3": "Hand over your property management to us and forget about landlord responsibilities",
 
   "contracts_title": "Have a Property for Sale or Rent?",
   "contracts_btn": "Contact Us",

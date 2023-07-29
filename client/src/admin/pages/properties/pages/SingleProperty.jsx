@@ -79,6 +79,7 @@ const SingleProperty = () => {
     const { admin } = useSelector((state => state.home))
 
     const adminTel = admin?.phone?.tel1
+    const adminSocial = admin?.phone?.messengers
 
     // console.log(currentPropertyData[11]?.fields[0]?.value);
 
@@ -397,7 +398,7 @@ const SingleProperty = () => {
                                             <img src={whatsapp} alt="whatsapp" />
                                             <img src={viber} alt="viber" />
                                         </div>
-                                        {adminTel && <p>{adminTel}</p>}
+                                        {adminSocial && <p>{adminSocial}</p>}
                                     </div>
                                 </div>
                             </div>

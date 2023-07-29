@@ -5,6 +5,7 @@ const initialState = {
   sale: null,
   rent: null,
   admin: null,
+  searchData: null,
 };
 
 // get top homes
@@ -35,6 +36,35 @@ export const getAdminData = createAsyncThunk("home/adminData", async () => {
   }
 });
 
+// get search data
+export const getSearchData = createAsyncThunk(
+  "home/getSearchData",
+  async (lang) => {
+    try {
+      const { data } = await baseApi.get(`/api/getSearchAttributes/${lang}`);
+      return data;
+    } catch (err) {
+      console.log(`Get Search Data Error: ${err.message}`);
+    }
+  }
+);
+
+// post search data
+export const postSearchData = createAsyncThunk(
+  "home/postSearchData",
+  async ({ searchData, lang }) => {
+    try {
+      const { data } = await baseApi.post(`api/getSearchData`, {
+        searchData,
+        lang,
+      });
+      return data;
+    } catch (err) {
+      console.log(`Post Search Data Error: ${err.message}`);
+    }
+  }
+);
+
 const homeSlice = createSlice({
   name: "home",
   initialState,
@@ -46,6 +76,9 @@ const homeSlice = createSlice({
     });
     builder.addCase(getAdminData.fulfilled, (state, action) => {
       state.admin = action.payload;
+    });
+    builder.addCase(getSearchData.fulfilled, (state, action) => {
+      state.searchData = action.payload;
     });
   },
 });

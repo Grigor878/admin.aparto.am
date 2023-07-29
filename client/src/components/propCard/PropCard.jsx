@@ -6,7 +6,7 @@ import { rooms, buildingType, square } from '../../admin/svgs/svgs'
 import './PropCard.scss'
 
 export const PropCard = ({ type, data }) => {
-    console.log(data)//
+    // console.log(data)//
 
     const navigate = useNavigate()
 

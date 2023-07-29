@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { sizeData } from './data'
-// import cookies from 'js-cookie'
+import useOutsideClick from '../../../../hooks/useOutsideClick'
 import "./Size.scss"
+// import cookies from 'js-cookie'
 
 const Size = () => {
     const sizeRef = useRef()
@@ -20,18 +21,7 @@ const Size = () => {
         // cookies.set("sizeUnit", name)
     };
 
-    useEffect(() => {
-        const checkIfClickedOutside = (e) => {
-            if (openSize && sizeRef.current && !sizeRef.current.contains(e.target)) {
-                setOpenSize(false)
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-
-        return () => {
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-    }, [openSize])
+    useOutsideClick(sizeRef, openSize, setOpenSize);
 
     return (
         <div className='size' ref={sizeRef}>

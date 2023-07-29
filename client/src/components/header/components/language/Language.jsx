@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { languageData } from './data'
+import useOutsideClick from '../../../../hooks/useOutsideClick'
 import cookies from 'js-cookie'
 import Flag from 'react-world-flags'
 import './Language.scss'
@@ -21,23 +22,10 @@ const Language = () => {
         i18n.changeLanguage(code)
         code === "en" ? setSelectedLng("gb") : setSelectedLng(code)
         code === "en" ? cookies.set("lngFlag", "gb") : cookies.set("lngFlag", code)
-        cookies.set('lng', code)
+        cookies.set('i18next', code)
     };
 
-    useEffect(() => {
-        const checkIfClickedOutside = (e) => {
-            if (openLng && lngRef.current && !lngRef.current.contains(e.target)) {
-                setOpenLng(false)
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-
-        return () => {
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-    }, [openLng])
-
-    // console.log(selectedLng);
+    useOutsideClick(lngRef, openLng, setOpenLng);
 
     return (
         <div className="language" ref={lngRef}>

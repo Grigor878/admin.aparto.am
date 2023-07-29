@@ -8,7 +8,7 @@ import './PdfSwitcher.scss'
 export const PdfSwitcher = () => {
     const { t } = useTranslation()
 
-    const [active, setActive] = useState(cookies.get("lng") || "am")
+    const [active, setActive] = useState(cookies.get("i18next") || "am")
     // after adding dispatch in Header use it for async
 
     return (
