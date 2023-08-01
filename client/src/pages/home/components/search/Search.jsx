@@ -22,7 +22,7 @@ export const Search = () => {
 
     const { searchData } = useSelector((state => state.home))
 
-    const [active, setActive] = useSessionState("sale", "search")
+    const [active, setActive] = useSessionState("sale", "homeSearch")
     const [price, setPrice] = useState(0)
     const [community, setCommunity] = useState([])
     const [type, setType] = useState([])
@@ -46,7 +46,7 @@ export const Search = () => {
                 price: price
             }
         ]
-        // console.log(searchData);
+        console.log(searchData);
 
         dispatch(postSearchData({ searchData, lang }))
     }

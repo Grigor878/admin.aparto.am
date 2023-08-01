@@ -2,15 +2,21 @@ import React from 'react'
 import Select from 'react-select'
 
 export const DropdownModified = ({ data, width, placeholder, onChange }) => {
+    // console.log(data);
+
+    if (!data || typeof data !== 'object') {
+        data = {}
+    }
 
     let technologyList = [];
-    data?.forEach(function (element) {
-        technologyList.push({ label: element, value: element })
-    })
+
+    Object.keys(data)?.map(key => {
+        return technologyList.push({ label: data[key], value: data[key] })
+    });
 
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map(option => option.value)
-        onChange(selectedValues);
+        onChange(selectedValues)
     }
 
     return (

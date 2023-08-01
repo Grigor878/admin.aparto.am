@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-export const Dropdown= ({ data, width, placeholder, onChange }) => {
+export const Dropdown = ({ data, width, placeholder, onChange }) => {
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions.map(option => option.value)
         onChange(selectedValues);
