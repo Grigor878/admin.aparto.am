@@ -22,8 +22,6 @@
       @include flex;
       gap: 8px;
       background: none;
-      font-family: "Noto Sans Armenian";
-      font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 20px;
@@ -45,8 +43,6 @@
     &-deactivate {
       background: transparent;
       color: $red;
-      font-family: "Noto Sans Armenian";
-      font-style: normal;
       font-weight: 600;
       font-size: 16px;
       line-height: 18px;

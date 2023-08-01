@@ -23,8 +23,6 @@ html,
 body {
   width: 100%;
   height: 100%;
-  // font-family: "Archivo";
-  // font-style: normal;
   font-family: "Noto Sans Armenian";
   font-style: normal;
 
@@ -106,18 +104,14 @@ img {
 // Dashboard all pages
 .dashboard__layout {
   display: flex;
-  font-family: "Noto Sans Armenian";
-  font-style: normal;
 }
 
 article {
   background: $bgAdmin;
   width: 100%;
 
+  // dashboardi bolor ejeri titlenery u voj miayn
   h3 {
-    // dashboardi bolor ejeri titlenery u voj miayn
-    font-family: "Noto Sans Armenian";
-    font-style: normal;
     font-weight: 600;
     font-size: 20px;
     line-height: 28px;

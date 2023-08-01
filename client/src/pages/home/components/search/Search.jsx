@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
-import { propertyType, roomsNum } from './data'
+import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
 import { getSearchData, postSearchData } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
@@ -71,26 +71,26 @@ export const Search = () => {
                     data={searchData}
                     onChange={(e) => setCommunity(e)}
                     width="262px"
-                    placeholder="Համայնք/Փողոց/Բանալի"
+                    placeholder={t("search")}
                 />
                 <Dropdown
-                    data={propertyType}
+                    data={lang === "am" ? propertyTypeAm : lang === "en" ? propertyTypeEn : propertyTypeRu}
                     onChange={(e) => setType(e)}
                     width="100%"
-                    placeholder="Գույքի տիպ"
+                    placeholder={t("property_type")}
                 />
                 <Dropdown
-                    data={roomsNum}
+                    data={lang === "en" ? bedroomsNum : roomsNum}
                     onChange={(e) => setRomms(e)}
                     width="100%"
-                    placeholder="Սենյակներ"
+                    placeholder={t("rooms")}
                 />
                 <input
-                    placeholder='Մաքս. գին - $'
+                    placeholder={t("max_price")}
                     type="number"
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <button onClick={handleSearch}>{t("search")}</button>
+                <button onClick={handleSearch}>{t("search_btn")}</button>
             </div>
         </div>
     )

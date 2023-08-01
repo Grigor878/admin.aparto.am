@@ -13,18 +13,19 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "userGlobal", "users","home"],
+  whitelist: ["auth", "userGlobal", "users", "home"],
 };
 
 const rootReducer = combineReducers({
+  // admin
   auth: authSlice,
   property: propertySlice,
   userGlobal: userGlobalSlice,
   structure: structureSlice,
   users: usersSlice,
   configs: configsSlice,
-
-  home:homeSlice
+  // websie
+  home: homeSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

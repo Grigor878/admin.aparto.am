@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { getExchange } from '../../store/slices/homeSlice'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/imgs/logo.png'
 import Size from './components/size/Size'
@@ -9,6 +11,14 @@ import './Header.scss'
 
 const Header = () => {
   const { t } = useTranslation()
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getExchange())
+  }, [dispatch])
+
+  const { exchange } = useSelector((state => state.home))
 
   return (
     <header className='header'>
@@ -24,7 +34,7 @@ const Header = () => {
             <a href='#service' className="header__service">{t("header_service")}</a>
             <a href='#contact' className="header__contact">{t("header_contact")}</a>
             <Size />
-            <Exchange />
+            <Exchange exchange={exchange} />
             <Language />
           </div>
         </nav>

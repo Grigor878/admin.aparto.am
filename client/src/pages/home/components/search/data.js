@@ -1,4 +1,4 @@
-export const propertyType = [
+export const propertyTypeAm = [
   {
     label: "Բնակարան",
     value: "house",
@@ -9,6 +9,36 @@ export const propertyType = [
   },
   {
     label: "Կոմերցիոն",
+    value: "commercial",
+  },
+];
+
+export const propertyTypeEn= [
+  {
+    label: "Apartment",
+    value: "house",
+  },
+  {
+    label: "House",
+    value: "privateHouse",
+  },
+  {
+    label: "Commercial",
+    value: "commercial",
+  },
+];
+
+export const propertyTypeRu= [
+  {
+    label: "Квартира",
+    value: "house",
+  },
+  {
+    label: "Дом",
+    value: "privateHouse",
+  },
+  {
+    label: "Коммерческая",
     value: "commercial",
   },
 ];
@@ -42,4 +72,35 @@ export const roomsNum = [
         label:"7+",
         value:"7+",
     },
+];
+
+export const bedroomsNum = [
+  {
+      label:"1",
+      value:"1",
+  },
+  {
+      label:"2",
+      value:"2",
+  },
+  {
+      label:"3",
+      value:"3",
+  },
+  {
+      label:"4",
+      value:"4",
+  },
+  {
+      label:"5",
+      value:"5",
+  },
+  {
+      label:"6+",
+      value:"6+",
+  },
+  {
+      label:"studio",
+      value:"studio",
+  },
 ];

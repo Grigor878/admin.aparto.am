@@ -4,7 +4,9 @@ import { headerExchange } from './data';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import './Exchange.scss';
 
-const Exchange = () => {
+const Exchange = ({ exchange }) => {
+    console.log(exchange)//
+    
     const exRef = useRef();
     const [openEx, setOpenEx] = useState(false);
     const [selectedEx, setSelectedex] = useState({

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 
 const initialState = {
+  exchange: null,
   sale: null,
   rent: null,
   admin: null,
@@ -23,6 +24,16 @@ export const getTopHomes = createAsyncThunk("home", async () => {
   } catch (err) {
     console.log(`Get Top Sale/Rent Homes Error: ${err.message}`);
     throw err;
+  }
+});
+
+// get exchange data
+export const getExchange = createAsyncThunk("home/exchange", async () => {
+  try {
+    const { data } = await baseApi.get("/api/getExchange");
+    return data;
+  } catch (err) {
+    console.log(`Get Exchange Data Error: ${err.message}`);
   }
 });
 
@@ -70,6 +81,9 @@ const homeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getExchange.fulfilled, (state, action) => {
+      state.exchange = action.payload;
+    });
     builder.addCase(getTopHomes.fulfilled, (state, action) => {
       state.sale = action.payload.sale;
       state.rent = action.payload.rent;

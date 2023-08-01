@@ -4,7 +4,14 @@
 
   "main_title": "Discover Property to <span>Buy</span> or <span>Rent</span>",
 
-  "search": "Search",
+  "search":"Search",
+  "property_type":"Property Type",
+  "rooms":"Bedrooms",
+  "max_price":"Max. Price - $",
+  "search_btn": "Search",
+
+  "registered_properties":"Registered <1/> properties",
+  "happy_customers":"Happy <1/> customers",
 
   "searches": "Recent Searches",
 
@@ -18,10 +25,6 @@
   "service_desc2": "Lease or rent an apartment in Yerevan",
   "service_title3": "Real estate management",
   "service_desc3": "Hand over your property management to us and forget about landlord responsibilities",
-
-  "contracts_title": "Have a Property for Sale or Rent?",
-  "contracts_btn": "Contact Us",
-  "contracts_pdfTitle": "Document Examples",
 
   "faq_title": "Frequently Asked Questions",
   "faq_text": "Find the answers to the questions you are interested in here. In case of other questions,",
@@ -38,6 +41,10 @@
   "faq_text5": "- Yes, our specialists can help you buy property under a lien by organizing the whole process in the notary, cadastral bodies and the bank.",
   "faq_title6": "- Under what conditions is property management (re-leasing) performed?",
   "faq_text6": "- Aparto real estate agency has a property management service, through which you can hand over your real estate to us by signing a property management agreement with us. In this case, by handing over your property for a long-term lease, we assume the responsibility for all the matters related to property management until the management contract expires. Property management is especially suitable for people who have bought investment properties in Yerevan and are unable to manage them due to workload or other reasons.",
+
+  "contracts_title": "Have a Property for Sale or Rent?",
+  "contracts_btn": "Contact Us",
+  "contracts_pdfTitle": "Document Examples",
 
   "contact_map": "19/1 Sayat Nova avenue, Yerevan, Armenia"
 }
