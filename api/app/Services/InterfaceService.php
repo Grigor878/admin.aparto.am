@@ -55,6 +55,24 @@ class InterFaceService
         'Vahagni',
     ];
 
+    public function getPropertyType($typeNames)
+    {
+        $allSelect = [
+            'house' => 'Квартира',
+            'privateHouse' => 'Дом',
+            'commercial' => 'Коммерческая площадь'
+        ];
+
+        $readyName = [];
+
+        foreach ($typeNames as $key => $type) {
+            $readyName[] = $allSelect[$type];
+        }
+
+        return $readyName;
+
+    }
+
     public function getSaleHomes()
     {
         return Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) {
@@ -131,13 +149,84 @@ class InterFaceService
             $address = ConfigAddress::pluck('en')->toArray();
             $readyResult = array_merge($address, $this->communityEn);
         }
-        
-        return array_unique(array_merge($readyKeywords, $readyResult));
+
+        return array_unique(array_merge($readyResult, $readyKeywords));
     }
 
     public function getSearchData($data)
     {
-        dd($data);
+        $searchHomes = Home::get()->filter(function ($home) use ($data) {
+            $am = json_decode($home->am);
+            $ru = json_decode($home->ru);
+            $en = json_decode($home->en);
+            $isMatched = true;
+
+            if ($data['searchData'][0]['type']) {
+                if ($am[0]->fields[0]->selectedOptionName != $data['searchData'][0]['type']) {
+                    $isMatched = false;
+                };
+            }
+
+            if ($data['searchData'][1]['community']) {
+                $communityData = $data['searchData'][1]['community'];
+                $ourDate = [];
+                if ($data['lang'] == "en") {
+                    array_push($ourDate, strtolower($en[1]->fields[0]->value), $en[1]->fields[0]->communityStreet->value);
+                } elseif ($data['lang'] == "ru"){
+                    array_push($ourDate, strtolower($ru[1]->fields[0]->value), $ru[1]->fields[0]->communityStreet->value);
+                } else {
+                    array_push($ourDate, strtolower($am[1]->fields[0]->value), $am[1]->fields[0]->communityStreet->value);
+                }
+                $mergedArray = array_merge($ourDate, json_decode($home->keywords));
+                $intersection = array_intersect($mergedArray, $communityData);
+
+                if (empty($intersection)) {
+                    $isMatched = false;
+                }
+            }
+
+            if ($data['searchData'][2]['propertyType']) {
+                $readyType = $this->getPropertyType($data['searchData'][2]['propertyType']);
+                if (!(in_array($ru[0]->fields[1]->value, $readyType))) {
+                    $isMatched = false;
+                }
+            }
+
+            if ($data['searchData'][3]['rooms']) {
+                $rooms = $data['searchData'][3]['rooms'];
+                if ($data['lang'] == "en") {
+                    if (!(in_array($am[3]->fields[3]->value, $rooms))) {
+                        $isMatched = false;
+                    }
+                } else {
+                    if (!(in_array($am[3]->fields[2]->value, $rooms))) {
+                        $isMatched = false;
+                    }
+                }
+            }
+
+            if ((int) $data['searchData'][4]['price'] != 0) {
+                $maxPrice = (int) $data['searchData'][4]['price'];
+                $totalPrice = (int) $am[2]->fields[0]->value;
+
+                if ($totalPrice > $maxPrice) {
+                    $isMatched = false;
+                }
+            }
+
+            $home->am = json_decode($home->am);
+            $home->ru = json_decode($home->ru);
+            $home->en = json_decode($home->en);
+            $home->photo = json_decode($home->photo);
+            $home->file = json_decode($home->file);
+            $home->keywords = json_decode($home->keywords);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+
+            return $isMatched;
+        })->values();
+        
+        return $searchHomes;
     }
 
 

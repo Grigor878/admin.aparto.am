@@ -655,9 +655,6 @@ class HomeService
       elseif($status == "Ապաակտիվացված") {
         return 'inactive';
       }
-      elseif($status == "Ապաակտիվացված") {
-        return 'inactive';
-      }
       elseif($status == "Վերանայման") {
         return 'moderation';
       }

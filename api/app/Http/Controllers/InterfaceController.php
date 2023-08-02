@@ -49,8 +49,7 @@ class InterfaceController extends Controller
         $data = $request->all();
         $generalSearchList = $this->interfaceService->getSearchData($data);
 
-        dd(333);
-        // return response()->json($generalSearchList);
+        return response()->json($generalSearchList);
     }
     
 }

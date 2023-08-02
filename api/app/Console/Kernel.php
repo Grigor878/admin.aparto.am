@@ -14,11 +14,11 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->job(new CheckInactive)->dailyAt('5:00');
-        // $schedule->command('inspire')->hourly();
-    }
+    
+     protected function schedule(Schedule $schedule)
+     {
+          $schedule->job(new CheckInactive)->cron('0 1 * * *');
+     }
 
     /**
      * Register the commands for the application.
