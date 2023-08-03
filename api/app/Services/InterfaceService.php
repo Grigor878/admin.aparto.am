@@ -83,7 +83,7 @@ class InterFaceService
             $home->file = json_decode($home->file);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-
+            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->keywords = json_decode($home->keywords);
 
             if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
@@ -106,6 +106,7 @@ class InterFaceService
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
 
             $home->keywords = json_decode($home->keywords);
+            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
 
             if ($home->am[0]->fields[0]->selectedOptionName == "rent" && $home->am[0]->fields[4]->value == "Տոպ") {
                 return true;
@@ -214,7 +215,7 @@ class InterFaceService
                 }
             }
             
-            $home->selectedTransationType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
+            $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
             $home->am = json_decode($home->am);
             $home->ru = json_decode($home->ru);
             $home->en = json_decode($home->en);

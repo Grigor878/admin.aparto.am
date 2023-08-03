@@ -415,7 +415,7 @@ class HomeController extends Controller
 
             array_push($searchAllProperty, $home->home_id);
             $home->searchAllProperty = $searchAllProperty;
-            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->photo = json_decode($home->photo);
             $home->file = json_decode($home->file);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
@@ -497,7 +497,7 @@ class HomeController extends Controller
         ->find($id);
         if($home) {
             $home->am = json_decode($home->am);
-            $home->selectedTransationType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->photo = json_decode($home->photo);
             $home->file = json_decode($home->file);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');

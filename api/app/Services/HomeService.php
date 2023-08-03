@@ -820,7 +820,7 @@ class HomeService
       $home->am = json_decode($home->am);
       $home->ru = json_decode($home->ru);
       $home->en = json_decode($home->en);
-      $home->selectedTransationType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
+      $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
       $home->photo = json_decode($home->photo);
       $home->file = json_decode($home->file);
       $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
