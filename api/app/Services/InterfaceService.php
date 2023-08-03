@@ -213,7 +213,8 @@ class InterFaceService
                     $isMatched = false;
                 }
             }
-
+            
+            $home->selectedTransationType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
             $home->am = json_decode($home->am);
             $home->ru = json_decode($home->ru);
             $home->en = json_decode($home->en);
