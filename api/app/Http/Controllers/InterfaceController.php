@@ -55,10 +55,17 @@ class InterfaceController extends Controller
     public function getSeeMoreHomes(Request $request)
     {
         $data = $request->all();
-        dd($data);
-        // $getSeeMoreHomeData = $this->interfaceService->getSeeMoreHomes($data);
+        $getSeeMoreHomeData = $this->interfaceService->getSeeMoreHomes($data);
 
-        // return response()->json($getSeeMoreHomeData);
+        return response()->json($getSeeMoreHomeData);
+    }
+
+    public function getCommunitySearch(Request $request, $lang)
+    {
+        $data = $request->all();
+        $getCommunitySearchData = $this->interfaceService->getCommunitySearch($data, $lang);
+
+        return response()->json($getCommunitySearchData);
     }
     
 }

@@ -77,6 +77,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getSearchAttributes/{lang}',  [InterfaceController::class, 'getSearchAttributes']);
     Route::post('/getSearchData',  [InterfaceController::class, 'getSearchData']);
     Route::post('/getSeeMoreHomes',  [InterfaceController::class, 'getSeeMoreHomes']);
+    Route::post('/getCommunitySearch/{lang}',  [InterfaceController::class, 'getCommunitySearch']);
 
 
     

@@ -37,7 +37,7 @@ class InterFaceService
         'Нор Норк',
         'Нубарашен',
         'Шенгавит',
-        'Ваганы',
+        'Ваагни',
     ];
     public $communityEn = [
         'Ajapnyak',
@@ -75,45 +75,72 @@ class InterFaceService
 
     public function getSaleHomes()
     {
-        return Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) {
-            $home->am = json_decode($home->am);
-            $home->ru = json_decode($home->ru);
-            $home->en = json_decode($home->en);
-            $home->photo = json_decode($home->photo);
-            $home->file = json_decode($home->file);
-            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
-            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
-            $home->keywords = json_decode($home->keywords);
+        return Home::select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+            ->where('status', Home::STATUS_APPROVED)
+            ->get()
+            ->filter(function ($home) {
+                $am = json_decode($home->am);
+                $ru = json_decode($home->ru);
+                $en = json_decode($home->en);
+                $home->photo = json_decode($home->photo);
+                $home->file = json_decode($home->file);
+                $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+                $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+                $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
+                $home->keywords = json_decode($home->keywords);
+                $am[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $am[9]->fields = [];
+                $ru[9]->fields = [];
+                $en[9]->fields = [];
 
-            if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
-                return true;
-            }
-            return false;
-        })->values();
+                $home->am = $am;
+                $home->ru = $ru;
+                $home->en = $en;
+
+
+                if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
+                    return true;
+                }
+                return false;
+            })->values();
 
     }
 
     public function getRentHomes()
     {
-        return Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) {
-            $home->am = json_decode($home->am);
-            $home->ru = json_decode($home->ru);
-            $home->en = json_decode($home->en);
-            $home->photo = json_decode($home->photo);
-            $home->file = json_decode($home->file);
-            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
-            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+        return Home::select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+            ->where('status', Home::STATUS_APPROVED)
+            ->get()
+            ->filter(function ($home) {
+                $am = json_decode($home->am);
+                $ru = json_decode($home->ru);
+                $en = json_decode($home->en);
+                $home->photo = json_decode($home->photo);
+                $home->file = json_decode($home->file);
+                $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+                $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+                $am[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $am[9]->fields = [];
+                $ru[9]->fields = [];
+                $en[9]->fields = [];
 
-            $home->keywords = json_decode($home->keywords);
-            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+                $home->am = $am;
+                $home->ru = $ru;
+                $home->en = $en;
 
-            if ($home->am[0]->fields[0]->selectedOptionName == "rent" && $home->am[0]->fields[4]->value == "Տոպ") {
-                return true;
-            }
+                $home->keywords = json_decode($home->keywords);
+                $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
 
-            return false;
-        })->values();
+                if ($home->am[0]->fields[0]->selectedOptionName == "rent" && $home->am[0]->fields[4]->value == "Տոպ") {
+                    return true;
+                }
+
+                return false;
+            })->values();
     }
 
     public function getGeneralAdmin()
@@ -173,7 +200,7 @@ class InterFaceService
                 $ourDate = [];
                 if ($data['lang'] == "en") {
                     array_push($ourDate, strtolower($en[1]->fields[0]->value), $en[1]->fields[0]->communityStreet->value);
-                } elseif ($data['lang'] == "ru"){
+                } elseif ($data['lang'] == "ru") {
                     array_push($ourDate, strtolower($ru[1]->fields[0]->value), $ru[1]->fields[0]->communityStreet->value);
                 } else {
                     array_push($ourDate, strtolower($am[1]->fields[0]->value), $am[1]->fields[0]->communityStreet->value);
@@ -214,11 +241,19 @@ class InterFaceService
                     $isMatched = false;
                 }
             }
-            
-            $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
-            $home->am = json_decode($home->am);
-            $home->ru = json_decode($home->ru);
-            $home->en = json_decode($home->en);
+
+            $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName) ? $am[0]->fields[0]->selectedOptionName : '';
+            $am[1]->fields[5] = [];
+            $ru[1]->fields[5] = [];
+            $ru[1]->fields[5] = [];
+            $am[9]->fields = [];
+            $ru[9]->fields = [];
+            $en[9]->fields = [];
+
+            $home->am = $am;
+            $home->ru = $ru;
+            $home->en = $en;
+
             $home->photo = json_decode($home->photo);
             $home->file = json_decode($home->file);
             $home->keywords = json_decode($home->keywords);
@@ -227,13 +262,54 @@ class InterFaceService
 
             return $isMatched;
         })->values();
-        
+
         return $searchHomes;
     }
 
     public function getSeeMoreHomes($data)
     {
-        dd($data);
+        return Home::select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+            ->where('status', Home::STATUS_APPROVED)
+            ->get()
+            ->filter(function ($home) use ($data) {
+                $am = json_decode($home->am);
+                $ru = json_decode($home->ru);
+                $en = json_decode($home->en);
+                $home->photo = json_decode($home->photo);
+                $home->file = json_decode($home->file);
+                $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+                $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+                $am[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $ru[1]->fields[5] = [];
+                $am[9]->fields = [];
+                $ru[9]->fields = [];
+                $en[9]->fields = [];
+
+                $home->am = $am;
+                $home->ru = $ru;
+                $home->en = $en;
+
+                $home->keywords = json_decode($home->keywords);
+                $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
+
+                if ($home->am[0]->fields[0]->selectedOptionName == $data['type']) {
+                    return true;
+                }
+
+                return false;
+            })->values();
+    }
+
+    public function getCommunitySearch($data, $lang)
+    {
+        if($data['ids']) {
+          $address = ConfigAddress::select($lang, 'id')->whereIn('communityId', $data['ids'])->get();
+        }else {
+          $address = ConfigAddress::select($lang, 'id')->get();
+        }
+        
+        return $address;
     }
 
 

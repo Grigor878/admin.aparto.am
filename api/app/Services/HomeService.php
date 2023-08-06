@@ -134,7 +134,7 @@ class HomeService
       'vahagni14' => [
         'am' => 'Վահագնի թաղամաս',
         'en' => 'Vahagni',
-        'ru' => 'Ваганы',
+        'ru' => 'Ваагни',
         'id' => 15
       ],
       'other' => [
