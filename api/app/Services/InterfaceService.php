@@ -231,5 +231,10 @@ class InterFaceService
         return $searchHomes;
     }
 
+    public function getSeeMoreHomes($data)
+    {
+        dd($data);
+    }
+
 
 }
