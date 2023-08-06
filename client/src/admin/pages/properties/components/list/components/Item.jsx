@@ -15,8 +15,8 @@ import '../Styles.scss'
 export const Item = ({ data }) => {
     const dispatch = useDispatch()
 
-    const copyToClipboard = async (id, type) => {
-        const clipboard = `${APP_BASE_URL}/${type}/${id}`
+    const copyToClipboard = async (id) => {
+        const clipboard = `${APP_BASE_URL}/result/${id}`
 
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
@@ -25,7 +25,7 @@ export const Item = ({ data }) => {
     const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
 
     return (
-        data?.map(({ id, home_id, photo, selectedTransationType, am, updatedAt, createdAt, status }) => {
+        data?.map(({ id, home_id, photo, selectedTranscationType, am, updatedAt, createdAt, status }) => {
             return (
                 <div
                     key={id}
@@ -42,7 +42,7 @@ export const Item = ({ data }) => {
                         }
 
                         <div className='propertyList__item-view-types'>
-                            <span>{selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
+                            <span>{selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
                             <Type data={am[0].fields[4].value} />
                         </div>
                     </Link>
@@ -141,7 +141,7 @@ export const Item = ({ data }) => {
                                         }
                                         <button
                                             type='button'
-                                            onClick={() => copyToClipboard(home_id, selectedTransationType)}
+                                            onClick={() => copyToClipboard(id)}
                                         >
                                             {url.icon}
                                         </button>

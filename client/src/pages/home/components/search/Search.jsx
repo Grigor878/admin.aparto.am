@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import cookies from "js-cookie";
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { useTranslation } from 'react-i18next'
@@ -20,13 +21,16 @@ export const Search = () => {
         dispatch(getSearchData(lang))
     }, [dispatch, lang])
 
-    const { searchData } = useSelector((state => state.home))
+    const { searchData, searchResult } = useSelector((state => state.home))
+    // console.log(searchResult)//
 
     const [active, setActive] = useSessionState("sale", "homeSearch")
-    const [price, setPrice] = useState(0)
     const [community, setCommunity] = useState([])
     const [type, setType] = useState([])
     const [rooms, setRomms] = useState([])
+    const [price, setPrice] = useState(null)
+
+    const navigate = useNavigate()
 
     const handleSearch = () => {
         const searchData = [
@@ -46,9 +50,13 @@ export const Search = () => {
                 price: price
             }
         ]
-        console.log(searchData);
 
-        dispatch(postSearchData({ searchData, lang }))
+        dispatch(postSearchData({ searchData, lang })).then(() => {
+            if (searchResult) {
+                navigate("/result")
+            }
+        })
+
     }
 
     return (

@@ -1,18 +1,17 @@
 import React, { lazy, Suspense } from "react"
 // import { Loader } from "../components/loader/Loader"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
-// import { Loader } from "../components/loader/Loader"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
 
 const Home = lazy(() => import('../pages/home/Home'))
-const Rent = lazy(() => import('../pages/rent/Rent'))
-const SubRent = lazy(() => import('../pages/rent/subRent/SubRent'))
-const Sale = lazy(() => import('../pages/sale/Sale'))
-const SubSale = lazy(() => import('../pages/sale/subSale/SubSale'))
+const Result = lazy(() => import('../pages/result/Result'))
+const ResultById = lazy(() => import('../pages/result/ResultById'))
+
 const NotFound = lazy(() => import('../pages/404/NotFound'))
+
 const Login = lazy(() => import('../admin/pages/login/Login'))
 const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
@@ -37,10 +36,8 @@ const View = () => {
                 <Routes>
                     <Route path="/" element={<LayoutMain />}>
                         <Route index element={<Home />} />
-                        <Route path="for-rent" element={<Rent />} />
-                        <Route path="for-rent/:id" element={<SubRent />} />
-                        <Route path="for-sale" element={<Sale />} />
-                        <Route path="for-sale/:id" element={<SubSale />} />
+                        <Route path="result" element={<Result />} />
+                        <Route path="result/:id" element={<ResultById />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
 

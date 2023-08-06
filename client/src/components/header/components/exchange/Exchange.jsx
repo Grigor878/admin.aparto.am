@@ -1,12 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExchange } from '../../../../store/slices/homeSlice';
 import { FaDollarSign } from 'react-icons/fa';
 import { headerExchange } from './data';
 import useOutsideClick from '../../../../hooks/useOutsideClick';
 import './Exchange.scss';
 
-const Exchange = ({ exchange }) => {
-    console.log(exchange)//
-    
+const Exchange = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getExchange())
+    }, [dispatch])
+
+    const { exchange } = useSelector((state => state.home))
+    // console.log(exchange)//
+
     const exRef = useRef();
     const [openEx, setOpenEx] = useState(false);
     const [selectedEx, setSelectedex] = useState({

@@ -43,10 +43,12 @@ const SingleProperty = () => {
     }, [id])
 
     const currentPropertyData = data?.am
-    const selectedTransationType = data?.selectedTransationType
+    // const selectedTranscationType = data?.selectedTranscationType
     const currentPropertyPrice = data?.priceHistory
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
+
+    let embedURL = "";
 
     if (loading
         && currentPropertyData[7]?.fields[1]?.value?.length
@@ -54,7 +56,7 @@ const SingleProperty = () => {
     ) {
         const url = currentPropertyData[7]?.fields[1]?.value
         const videoID = url?.match(/(\?|&)v=([^&#]+)/)[2]
-        var embedURL = "https://www.youtube.com/embed/" + videoID
+        embedURL = "https://www.youtube.com/embed/" + videoID
     }
 
     const currentPropertyImgs = data?.photo
@@ -65,7 +67,7 @@ const SingleProperty = () => {
     }))
 
     const copyToClipboard = async () => {
-        let clipboard = `${APP_BASE_URL}/${selectedTransationType}/${id}`
+        let clipboard = `${APP_BASE_URL}/result/${id}`
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
     }
@@ -169,7 +171,7 @@ const SingleProperty = () => {
 
                             <div className='singleProperty__content-left-title-right'>
                                 <span>{idShevron.icon} {data?.home_id}</span>
-                                <p>{data?.selectedTransationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
+                                <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
                             </div>
                         </div>
 

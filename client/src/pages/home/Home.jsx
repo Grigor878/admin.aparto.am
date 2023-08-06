@@ -14,14 +14,6 @@ import './Home.scss'
 const Home = () => {
     const dispatch = useDispatch()
 
-    // const lang = cookies.get("i18next")
-    
-    // useEffect(() => {
-    //     dispatch(getSearchData(lang))
-    //     console.log(lang);
-    // }, [dispatch, lang])
-
-
     useEffect(() => {
         dispatch(getTopHomes())
         dispatch(getAdminData())

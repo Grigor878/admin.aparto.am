@@ -7,6 +7,8 @@ const initialState = {
   rent: null,
   admin: null,
   searchData: null,
+  searchResult: null,
+  allPropertiesByTYpe: null,
 };
 
 // get top homes
@@ -76,10 +78,28 @@ export const postSearchData = createAsyncThunk(
   }
 );
 
+// see all properties by type
+export const getAllPropertiesByType = createAsyncThunk(
+  "home/getAllPropertiesByType",
+  async ({ props }) => {
+    try {
+      const { data } = await baseApi.post(`api/getSeeMoreHomes`, props);
+      return data;
+    } catch (err) {
+      console.log(`Get All Properties Data Error: ${err.message}`);
+    }
+  }
+);
+
 const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
+  reducers: {
+    // clear search result & redirect to viewAll with new fetched data
+    clearSearchResult: (state) => {
+      state.searchResult = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getExchange.fulfilled, (state, action) => {
       state.exchange = action.payload;
@@ -94,7 +114,14 @@ const homeSlice = createSlice({
     builder.addCase(getSearchData.fulfilled, (state, action) => {
       state.searchData = action.payload;
     });
+    builder.addCase(postSearchData.fulfilled, (state, action) => {
+      state.searchResult = action.payload;
+    });
+    builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
+      state.allPropertiesByTYpe = action.payload;
+    });
   },
 });
 
+export const { clearSearchResult } = homeSlice.actions;
 export default homeSlice.reducer;

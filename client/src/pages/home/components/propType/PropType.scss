@@ -13,6 +13,7 @@
     }
 
     &-seeAll {
+      background: none;
       @include flex;
       gap: 5px; //
       color: #0f5bed;

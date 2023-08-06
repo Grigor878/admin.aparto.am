@@ -5,7 +5,7 @@ import noImg from '../../assets/imgs/noImg.png'
 import { rooms, buildingType, square } from '../../admin/svgs/svgs'
 import './PropCard.scss'
 
-export const PropCard = ({ type, data }) => {
+export const PropCard = ({ data }) => {
     // console.log(data)//
 
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ export const PropCard = ({ type, data }) => {
         data && <div className='propCard'>
             {data?.map(({ id, home_id, photo, am }) => {
                 return (
-                    <div key={id} className='propCard__card' onClick={() => navigate(`/for-${type}/${id}`)}>
+                    <div key={id} className='propCard__card' onClick={() => navigate(`/result/${id}`)}>
                         <img src={photo[0]?.name ? `${API_BASE_URL}/images/${photo[0]?.name} ` : noImg} alt="HomeImg" />
 
                         <div className='propCard__card-main'>

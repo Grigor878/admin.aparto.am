@@ -13,7 +13,9 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "userGlobal", "users", "home"],
+  // home y meca u xndoira talis
+  // whitelist: ["auth", "userGlobal", "users", "home"],
+  whitelist: ["auth", "userGlobal", "users"],
 };
 
 const rootReducer = combineReducers({
