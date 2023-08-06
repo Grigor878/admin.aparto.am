@@ -14,13 +14,10 @@ const PropType = ({ type, data }) => {
 
     const navigate = useNavigate()
 
-    const hanldeSeeById = () => {
-        const props = {
-            "type": type
-        }
 
+    const hanldeSeeById = () => {
         dispatch(clearSearchResult())
-        dispatch(getAllPropertiesByType({ props }))
+        dispatch(getAllPropertiesByType({ "type": type }))
         navigate('/result')
     }
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 // import cookies from "js-cookie";
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminData, getSearchData, getTopHomes } from '../../store/slices/homeSlice'
+import { getAdminData, getTopHomes } from '../../store/slices/homeSlice'
 import Main from './components/main/Main'
 import Searches from './components/searches/Searches'
 import Services from './components/services/Services'
@@ -13,13 +13,13 @@ import './Home.scss'
 
 const Home = () => {
     const dispatch = useDispatch()
-
+    
+    const { sale, rent } = useSelector((state => state.home))
+    
     useEffect(() => {
         dispatch(getTopHomes())
         dispatch(getAdminData())
     }, [dispatch])
-
-    const { sale, rent } = useSelector((state => state.home))
 
     return (
         <section>
