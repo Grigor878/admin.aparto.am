@@ -14,8 +14,8 @@ const persistConfig = {
   key: "root",
   storage,
   // home y meca u xndoira talis
-  // whitelist: ["auth", "userGlobal", "users", "home"],
-  whitelist: ["auth", "userGlobal", "users"],
+  whitelist: ["auth", "userGlobal", "users", "home"],
+  // whitelist: ["auth", "userGlobal", "users"],
 };
 
 const rootReducer = combineReducers({

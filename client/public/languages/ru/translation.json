@@ -6,7 +6,6 @@
   
   "search":"Поиск",
   "property_type":"Тип недвижимости",
-  "rooms":"Команты",
   "max_price":"Максимальная цена - $",
   "search_btn": "Поиск",
 
@@ -46,5 +45,21 @@
   "contracts_btn": "Свяжитесь с нами",
   "contracts_pdfTitle": "Договоры",
 
-  "contact_map": "Проспект Саят-Нова 19/1, Ереван, Армения"
+  "contact_map": "Проспект Саят-Нова 19/1, Ереван, Армения",
+
+  "result":"результат",
+  "map":"Карта",
+  "filters":"Фильтры",
+  "clear":"",
+  "transactionType":"",
+  "propertyType":"",
+  "community":"",
+  "rooms":"Команты",
+  "square":"",
+  "price":"",
+  "building_type":"",
+  "property_condition":"",
+  "floor":"",
+  "other_description":"",
+  "id":""
 }
