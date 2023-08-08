@@ -46,8 +46,11 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
   // selected id
   const [id, setId] = useState(null)
 
-  let data = {
-    language:lang,
+  // get search result data
+  const [data, setData] = useState([])
+  console.log(data);
+
+  const searchData = {
     type: radio,
     propertyType: propType,
     community: community,
@@ -64,10 +67,19 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
     description: description,
     id: id
   }
-  console.log(data)//
+  // console.log(searchData)//
 
+  // post search to back
   useEffect(() => {
-    // fetch streets by community
+    baseApi.post(`api/getResultPageData/${lang}`, { "searchData": searchData })
+      .then(res => {
+        setData(res.data);
+      })
+      .catch(err => console.log(err.message))
+  }, [searchData, lang])
+
+  // fetch streets by community
+  useEffect(() => {
     baseApi.post(`api/getCommunitySearch/${lang}`, { "ids": community })
       .then(res => {
         setStreetData(res.data);
