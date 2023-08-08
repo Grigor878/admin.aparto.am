@@ -53,13 +53,18 @@
   "clear":"Clear",
   "transactionType":"",
   "propertyType":"",
-  "community":"",
+  "community":"Community",
+  "street":"Street",
   "rooms":"Bedrooms",
-  "square":"",
-  "price":"",
+  "square":"Square",
+  "square_symbol":"m2",
+  "price":"Price",
   "building_type":"",
+  "new_build":"New-build",
   "property_condition":"",
   "floor":"",
   "other_description":"",
-  "id":""
+  "id":"ID code",
+  "min":" min.",
+  "max":" max."
 }

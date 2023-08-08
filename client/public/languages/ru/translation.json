@@ -2,15 +2,15 @@
   "header_service": "Наши Услуги",
   "header_contact": "Свяжитесь с нами",
 
-  "main_title":"Поиск <span>недвижимости</span> для <span>продажи</span> или аренды",
-  
-  "search":"Поиск",
-  "property_type":"Тип недвижимости",
-  "max_price":"Максимальная цена - $",
+  "main_title": "Поиск <span>недвижимости</span> для <span>продажи</span> или аренды",
+
+  "search": "Поиск",
+  "property_type": "Тип недвижимости",
+  "max_price": "Максимальная цена - $",
   "search_btn": "Поиск",
 
-  "registered_properties":"Зарегистрированных <1/> объектов",
-  "happy_customers":"Счастливых  <1/> клиентов",
+  "registered_properties": "Зарегистрированных <1/> объектов",
+  "happy_customers": "Счастливых  <1/> клиентов",
 
   "searches": "Недавние поиски",
 
@@ -24,7 +24,7 @@
   "service_desc2": "Сдать в аренду или арендовать квартиру в Ереване",
   "service_title3": "Управление недвижимостью",
   "service_desc3": "Доверьте управление недвижимостью нам и забудьте об обязанностях арендодателя",
-  
+
   "faq_title": "Часто задаваемые вопросы",
   "faq_text": "Найдите ответы на интересующие вас вопросы здесь, на остальные вопросы:",
 
@@ -47,19 +47,24 @@
 
   "contact_map": "Проспект Саят-Нова 19/1, Ереван, Армения",
 
-  "result":"результат",
-  "map":"Карта",
-  "filters":"Фильтры",
-  "clear":"",
-  "transactionType":"",
-  "propertyType":"",
-  "community":"",
-  "rooms":"Команты",
-  "square":"",
-  "price":"",
-  "building_type":"",
-  "property_condition":"",
-  "floor":"",
-  "other_description":"",
-  "id":""
+  "result": "результат",
+  "map": "Карта",
+  "filters": "Фильтры",
+  "clear": "",
+  "transactionType": "",
+  "propertyType": "",
+  "community": "",
+  "street": "Улица",
+  "rooms": "Команты",
+  "square": "Квадрат",
+  "square_symbol": "кв.м",
+  "price": "",
+  "building_type": "",
+  "new_build":"Новостройка",
+  "property_condition": "",
+  "floor": "",
+  "other_description": "",
+  "id": "ID код",
+  "мин": " мин.",
+  "макс": " макс."
 }
