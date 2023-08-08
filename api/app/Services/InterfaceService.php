@@ -308,5 +308,26 @@ class InterFaceService
         return $address;
     }
 
+    public function getInterfaceProperties($id)
+    {
+        $home = Home::select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
+        ->find($id);
+        if($home) {
+            $home->am = json_decode($home->am);
+            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+            $home->photo = json_decode($home->photo);
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+            $home->keywords = json_decode($home->keywords);
+            $home->priceHistory = json_decode($home->price_history);
+            return response()->json($home);
+
+        }
+        return response()->json([
+            'status' => 'error',
+            'errors' => "Home not found"
+        ], 422);
+    }
+
 
 }

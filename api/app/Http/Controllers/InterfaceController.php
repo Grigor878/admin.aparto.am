@@ -67,5 +67,17 @@ class InterfaceController extends Controller
 
         return response()->json($getCommunitySearchData);
     }
+
+    public function getInterfaceProperties($id)
+    {
+        $home = $this->interfaceService->getInterfaceProperties($id);
+
+        return response()->json($home);
+    }
+
+    public function getResultPageData(Request $request, $lang)
+    {
+        dd($request->all(), $lang);
+    }
     
 }
