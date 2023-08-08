@@ -8,6 +8,32 @@ use Carbon\Carbon;
 
 class InterFaceService
 {
+
+    private function processHomeData($home) {
+        $am = json_decode($home->am);
+        $ru = json_decode($home->ru);
+        $en = json_decode($home->en);
+        
+        
+        $am[1]->fields[5] = [];
+        $ru[1]->fields[5] = [];
+        $ru[1]->fields[5] = [];
+        $am[9]->fields = [];
+        $ru[9]->fields = [];
+        $en[9]->fields = [];
+        $am[10] = [];
+        $ru[10] = [];
+        $en[10] = [];
+        
+        $home->am = $am;
+        $home->ru = $ru;
+        $home->en = $en;
+        $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+        $home->photo = json_decode($home->photo);
+
+        
+        return $home;
+    }
     public $communityAm = [
         "Աջափնյակ",
         "Արաբկիր",
@@ -93,6 +119,9 @@ class InterFaceService
                 $am[9]->fields = [];
                 $ru[9]->fields = [];
                 $en[9]->fields = [];
+                $am[10] = [];
+                $ru[10] = [];
+                $en[10] = [];
 
                 $home->am = $am;
                 $home->ru = $ru;
@@ -125,6 +154,9 @@ class InterFaceService
                 $am[9]->fields = [];
                 $ru[9]->fields = [];
                 $en[9]->fields = [];
+                $am[10] = [];
+                $ru[10] = [];
+                $en[10] = [];
 
                 $home->am = $am;
                 $home->ru = $ru;
@@ -247,6 +279,9 @@ class InterFaceService
             $am[9]->fields = [];
             $ru[9]->fields = [];
             $en[9]->fields = [];
+            $am[10] = [];
+            $ru[10] = [];
+            $en[10] = [];
 
             $home->am = $am;
             $home->ru = $ru;
@@ -269,25 +304,10 @@ class InterFaceService
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($data) {
-                $am = json_decode($home->am);
-                $ru = json_decode($home->ru);
-                $en = json_decode($home->en);
-                $home->photo = json_decode($home->photo);
+                $home = $this->processHomeData($home);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-                $am[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $am[9]->fields = [];
-                $ru[9]->fields = [];
-                $en[9]->fields = [];
-
-                $home->am = $am;
-                $home->ru = $ru;
-                $home->en = $en;
-
                 $home->keywords = json_decode($home->keywords);
-                $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
 
                 if ($home->am[0]->fields[0]->selectedOptionName == $data['type']) {
                     return true;
@@ -310,15 +330,10 @@ class InterFaceService
 
     public function getInterfaceProperties($id)
     {
-        $home = Home::select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
+        $home = Home::select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
         ->find($id);
         if($home) {
-            $home->am = json_decode($home->am);
-            $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
-            $home->photo = json_decode($home->photo);
-            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
-            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-            $home->keywords = json_decode($home->keywords);
+            $home = $this->processHomeData($home);
             $home->priceHistory = json_decode($home->price_history);
             return response()->json($home);
 
