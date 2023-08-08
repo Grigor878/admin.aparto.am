@@ -83,7 +83,6 @@ class InterFaceService
                 $ru = json_decode($home->ru);
                 $en = json_decode($home->en);
                 $home->photo = json_decode($home->photo);
-                $home->file = json_decode($home->file);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
                 $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
@@ -118,7 +117,6 @@ class InterFaceService
                 $ru = json_decode($home->ru);
                 $en = json_decode($home->en);
                 $home->photo = json_decode($home->photo);
-                $home->file = json_decode($home->file);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
                 $am[1]->fields[5] = [];
@@ -255,7 +253,6 @@ class InterFaceService
             $home->en = $en;
 
             $home->photo = json_decode($home->photo);
-            $home->file = json_decode($home->file);
             $home->keywords = json_decode($home->keywords);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
@@ -276,7 +273,6 @@ class InterFaceService
                 $ru = json_decode($home->ru);
                 $en = json_decode($home->en);
                 $home->photo = json_decode($home->photo);
-                $home->file = json_decode($home->file);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
                 $am[1]->fields[5] = [];
