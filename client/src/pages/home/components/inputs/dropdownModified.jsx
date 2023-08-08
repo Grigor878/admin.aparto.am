@@ -2,8 +2,6 @@ import React from 'react'
 import Select from 'react-select'
 
 export const DropdownModified = ({ data, width, placeholder, onChange }) => {
-    // console.log(data);
-
     if (!data || typeof data !== 'object') {
         data = {}
     }

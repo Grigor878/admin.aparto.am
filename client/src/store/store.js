@@ -9,12 +9,13 @@ import homeSlice from "./slices/homeSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
+import viewSlice from "./slices/viewSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  // home y meca u xndoira talis
-  whitelist: ["auth", "userGlobal", "users", "home"],
+  // home y meca u xndira talis
+  whitelist: ["auth", "userGlobal", "users", "home", "view"],
   // whitelist: ["auth", "userGlobal", "users"],
 };
 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   configs: configsSlice,
   // websie
   home: homeSlice,
+  view: viewSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

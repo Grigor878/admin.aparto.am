@@ -1,19 +1,19 @@
 import React from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { API_BASE_URL } from '../../apis/config'
 import noImg from '../../assets/imgs/noImg.png'
 import { rooms, buildingType, square } from '../../admin/svgs/svgs'
 import './PropCard.scss'
 
 export const PropCard = ({ data }) => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     return (
         data && <div className='propCard'>
             {data?.map(({ id, home_id, photo, am }) => {
                 return (
-                    // <div key={id} className='propCard__card' onClick={() => navigate(`/result/${id}`)}>
-                    <div key={id} className='propCard__card'>
+                    <div key={id} className='propCard__card' onClick={() => navigate(`/result/${id}`)}>
+                    {/* <div key={id} className='propCard__card'> */}
                         <img src={photo[0]?.name ? `${API_BASE_URL}/images/${photo[0]?.name} ` : noImg} alt="HomeImg" />
 
                         <div className='propCard__card-main'>

@@ -177,3 +177,117 @@ export const communityRu = [
     value: "Шенгавит",
   },
 ];
+
+export const buildTypeAm = [
+  {
+    id: "stateCondition",
+    value: "Պետական վիճակ",
+  },
+  {
+    id: "good",
+    value: "Լավ",
+  },
+  {
+    id: "renovated",
+    value: "Վերանորոգված",
+  },
+  {
+    id: "zero",
+    value: "Զրոյական",
+  },
+]
+
+export const buildTypeEn = [
+  {
+    id: "stateCondition",
+    value: "State condition",
+  },
+  {
+    id: "good",
+    value: "Good",
+  },
+  {
+    id: "renovated",
+    value: "Renovated",
+  },
+  {
+    id: "zero",
+    value: "Zero",
+  },
+]
+
+export const buildTypeRu = [
+  {
+    id: "stateCondition",
+    value: "Гос. состояние",
+  },
+  {
+    id: "good",
+    value: "Хороший",
+  },
+  {
+    id: "renovated",
+    value: "Отремонтировано",
+  },
+  {
+    id: "zero",
+    value: "Нулевое",
+  },
+]
+
+export const propConditionAm = [
+  {
+    id: "monolith",
+    value: "Մոնոլիտ",
+  },
+  {
+    id: "stone",
+    value: "Քարե",
+  },
+  {
+    id: "panel",
+    value: "Պանելային",
+  },
+  {
+    id: "other",
+    value: "Այլ",
+  },
+]
+
+export const propConditionEn = [
+  {
+    id: "monolith",
+    value: "Monolithic",
+  },
+  {
+    id: "stone",
+    value: "Stone",
+  },
+  {
+    id: "panel",
+    value: "Panel building",
+  },
+  {
+    id: "other",
+    value: "Other",
+  },
+]
+
+export const propConditionRu = [
+  {
+    id: "monolith",
+    value: "Монолитный",
+  },
+  {
+    id: "stone",
+    value: "Камень",
+  },
+  {
+    id: "panel",
+    value: "Панельный",
+  },
+  {
+    id: "other",
+    value: "Другой",
+  },
+]
