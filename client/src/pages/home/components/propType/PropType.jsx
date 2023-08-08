@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
 import { useDispatch } from 'react-redux'
 import { clearSearchResult, getAllPropertiesByType } from '../../../../store/slices/homeSlice'
@@ -14,11 +14,11 @@ const PropType = ({ type, data }) => {
 
     const navigate = useNavigate()
 
-
     const hanldeSeeById = () => {
         dispatch(clearSearchResult())
-        dispatch(getAllPropertiesByType({ "type": type }))
-        navigate('/result')
+        dispatch(getAllPropertiesByType({ "type": type })).then(() => {
+            navigate('/result')
+        })
     }
 
     return (
@@ -28,7 +28,6 @@ const PropType = ({ type, data }) => {
                 <button
                     className='propType__top-seeAll'
                     onClick={hanldeSeeById}
-                // to="/result"
                 >
                     {t("seeAll")}{seeAll.icon}
                 </button>

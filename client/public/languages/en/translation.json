@@ -6,7 +6,6 @@
 
   "search":"Search",
   "property_type":"Property Type",
-  "rooms":"Bedrooms",
   "max_price":"Max. Price - $",
   "search_btn": "Search",
 
@@ -46,5 +45,21 @@
   "contracts_btn": "Contact Us",
   "contracts_pdfTitle": "Document Examples",
 
-  "contact_map": "19/1 Sayat Nova avenue, Yerevan, Armenia"
+  "contact_map": "19/1 Sayat Nova avenue, Yerevan, Armenia",
+
+  "result":"result",
+  "map":"Map",
+  "filters":"Filters",
+  "clear":"Clear",
+  "transactionType":"",
+  "propertyType":"",
+  "community":"",
+  "rooms":"Bedrooms",
+  "square":"",
+  "price":"",
+  "building_type":"",
+  "property_condition":"",
+  "floor":"",
+  "other_description":"",
+  "id":""
 }

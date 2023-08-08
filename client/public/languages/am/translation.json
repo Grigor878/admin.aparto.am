@@ -6,7 +6,6 @@
 
   "search": "Որոնում",
   "property_type": "Գույքի տիպ",
-  "rooms": "Սենյակներ",
   "max_price": "Մաքս. գին - $",
   "search_btn": "Որոնել",
 
@@ -46,5 +45,25 @@
   "contracts_btn": "Դիմեք Մեզ",
   "contracts_pdfTitle": "Պայմանագրերի օրինակներ",
 
-  "contact_map": "Սայաթ Նովայի պողոտա 19/1, Երևան, ՀՀ"
+  "contact_map": "Սայաթ Նովայի պողոտա 19/1, Երևան, ՀՀ",
+
+  "result":"արդյունք",
+  "map":"Քարտեզ",
+  "filters":"Ֆիլտրեր",
+  "clear":"Մաքրել",
+  "transactionType":"Գործարքի Տեսակ",
+  "propertyType":"Գույքի Տեսակ",
+  "community":"Համայնք",
+  "rooms": "Սենյակներ",
+  "square":"Մակերես",
+  "price":"Գին",
+  "building_type":"Շինության Տիպ",
+  "property_condition":"Գույքի Վիճակ",
+  "floor":"Հարկ",
+  "other_description":"Այլ Նկարագիր",
+  "id":"ID կոդ",
+
+  "house":"Բնակարան",
+  "private_house":"Առանձնատուն",
+  "commertial":"Կոմերցիոն"
 }

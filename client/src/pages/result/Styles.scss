@@ -1,5 +1,38 @@
-@import '../../variables';
+@import "../../variables";
 
-.rwesult{
-    
+.result {
+  display: flex;
+  // justify-content: space-between;
+
+  &__center {
+    background: $bgAdmin;
+    padding: 24px;
+
+    &-top {
+      @include flex;
+      justify-content: space-between;
+      padding-bottom: 37px;
+
+      &-right {
+        @include flex;
+        gap: 24px;
+
+        h2 {
+          color: $text;
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 28px;
+        }
+      }
+
+      button {
+        @include flex;
+        gap: 4px;
+        padding: 11px;
+        border-radius: 6px;
+        border: 1.5px solid $textSub;
+        background: $bgSub;
+      }
+    }
+  }
 }
