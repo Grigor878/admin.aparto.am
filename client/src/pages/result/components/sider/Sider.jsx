@@ -35,7 +35,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
   // selected buildingType
   const [buildType, setBuildType] = useState([])
   // selected newBuild
-  const [newBuild, setNewBuild] = useState(false)
+  const [newBuild, setNewBuild] = useState("on")
   // selected propCondition
   const [propCondition, setPropCondition] = useState([])
   // selected square
@@ -45,34 +45,6 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
   const [description, setDescription] = useState(null)
   // selected id
   const [id, setId] = useState(null)
-
-  const searchData = {
-    type: radio,
-    propertyType: propType,
-    community: community,
-    streets: streets,
-    rooms: rooms,
-    squareMin: squareMin,
-    squareMax: squareMax,
-    priceMin: priceMin,
-    priceMax: priceMax,
-    buildingType: buildType,
-    propertyCondition: propCondition,
-    floorMin: floorMin,
-    floorMax: floorMax,
-    description: description,
-    id: id
-  }
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getResultPageData({ lang, searchData }))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, lang, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, propCondition, floorMin, floorMax, description, id])
-
-  const { resultData } = useSelector((state => state.view))
-  console.log(resultData);
 
   const handleCommunity = (e, id) => {
     if (e.target.checked) {
@@ -105,7 +77,35 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
       setPropCondition((prev) => prev.filter((item) => item !== id));
     }
   };
-  // console.log(newBuild);
+
+  const searchData = {
+    type: radio,
+    propertyType: propType,
+    community: community,
+    streets: streets,
+    rooms: rooms,
+    squareMin: squareMin,
+    squareMax: squareMax,
+    priceMin: priceMin,
+    priceMax: priceMax,
+    buildingType: buildType,
+    newBuild: newBuild,
+    propertyCondition: propCondition,
+    floorMin: floorMin,
+    floorMax: floorMax,
+    description: description,
+    id: id
+  }
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getResultPageData({ lang, searchData }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, lang, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, newBuild, propCondition, floorMin, floorMax, description, id])
+
+  // const { resultData } = useSelector((state => state.view))
+  // console.log(resultData);
 
   return (
     open &&
@@ -291,7 +291,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
 
         <div className="sider__block">
           <Checkbox
-            onChange={() => setNewBuild(!newBuild)}
+            onChange={(e) => setNewBuild(e.target.checked ? true : 'on')}
             text={t("new_build")}
           />
         </div>

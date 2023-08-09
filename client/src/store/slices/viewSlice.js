@@ -48,15 +48,6 @@ export const getResultPageData = createAsyncThunk(
   }
 );
 
-// post search to back
-// useEffect(() => {
-//   baseApi.post(`api/getResultPageData/${lang}`, { "searchData": searchData })
-//     .then(res => {
-//       setData(res.data);
-//     })
-//     .catch(err => console.log(err.message))
-// }, [searchData, lang])
-
 const viewSlice = createSlice({
   name: "view",
   initialState,
