@@ -77,7 +77,10 @@ class InterfaceController extends Controller
 
     public function getResultPageData(Request $request, $lang)
     {
-        dd($request->all(), $lang);
+        $data = $request->all();
+        $homes = $this->interfaceService->getResultPageData($data, $lang);
+
+        return response()->json($homes);
     }
     
 }

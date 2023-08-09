@@ -9,12 +9,13 @@ use Carbon\Carbon;
 class InterFaceService
 {
 
-    private function processHomeData($home) {
+    private function processHomeData($home)
+    {
         $am = json_decode($home->am);
         $ru = json_decode($home->ru);
         $en = json_decode($home->en);
-        
-        
+
+
         $am[1]->fields[5] = [];
         $ru[1]->fields[5] = [];
         $ru[1]->fields[5] = [];
@@ -24,16 +25,61 @@ class InterFaceService
         $am[10] = [];
         $ru[10] = [];
         $en[10] = [];
-        
+
         $home->am = $am;
         $home->ru = $ru;
         $home->en = $en;
-        $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
+        $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
         $home->photo = json_decode($home->photo);
 
-        
+
         return $home;
     }
+
+
+    private $multiType = [
+        'stateCondition' => [
+            'am' => 'Պետական վիճակ',
+            'en' => 'State condition',
+            'ru' => 'Гос. состояние',
+        ],
+        'good' => [
+            'am' => 'Լավ',
+            'en' => 'Good',
+            'ru' => 'Хороший',
+        ],
+        'zero' => [
+            'am' => 'Զրոյական',
+            'en' => 'Zero',
+            'ru' => 'Нулевое',
+        ],
+        'renovated' => [
+            'am' => 'Վերանորոգված',
+            'en' => 'Renovated',
+            'ru' => 'Отремонтировано',
+        ],
+        'monolith' => [
+            'am' => 'Մոնոլիտ',
+            'en' => 'Monolithic',
+            'ru' => 'Монолитный',
+        ],
+        'panel' => [
+            'am' => 'Պանելային',
+            'en' => 'Panel building',
+            'ru' => 'Панельный',
+        ],
+        'stone' => [
+            'am' => 'Քարե',
+            'en' => 'Stone',
+            'ru' => 'Камень',
+        ],
+        'other' => [
+            'am' => 'Այլ',
+            'en' => 'Other',
+            'ru' => 'Другой',
+        ],
+    ];
+
     public $communityAm = [
         "Աջափնյակ",
         "Արաբկիր",
@@ -105,28 +151,10 @@ class InterFaceService
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) {
-                $am = json_decode($home->am);
-                $ru = json_decode($home->ru);
-                $en = json_decode($home->en);
-                $home->photo = json_decode($home->photo);
+                $home = $this->processHomeData($home);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-                $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
                 $home->keywords = json_decode($home->keywords);
-                $am[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $am[9]->fields = [];
-                $ru[9]->fields = [];
-                $en[9]->fields = [];
-                $am[10] = [];
-                $ru[10] = [];
-                $en[10] = [];
-
-                $home->am = $am;
-                $home->ru = $ru;
-                $home->en = $en;
-
 
                 if ($home->am[0]->fields[0]->selectedOptionName == "sale" && $home->am[0]->fields[4]->value == "Տոպ") {
                     return true;
@@ -142,26 +170,9 @@ class InterFaceService
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) {
-                $am = json_decode($home->am);
-                $ru = json_decode($home->ru);
-                $en = json_decode($home->en);
-                $home->photo = json_decode($home->photo);
+                $home = $this->processHomeData($home);
                 $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
-                $am[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $ru[1]->fields[5] = [];
-                $am[9]->fields = [];
-                $ru[9]->fields = [];
-                $en[9]->fields = [];
-                $am[10] = [];
-                $ru[10] = [];
-                $en[10] = [];
-
-                $home->am = $am;
-                $home->ru = $ru;
-                $home->en = $en;
-
                 $home->keywords = json_decode($home->keywords);
                 $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
 
@@ -272,22 +283,7 @@ class InterFaceService
                 }
             }
 
-            $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName) ? $am[0]->fields[0]->selectedOptionName : '';
-            $am[1]->fields[5] = [];
-            $ru[1]->fields[5] = [];
-            $ru[1]->fields[5] = [];
-            $am[9]->fields = [];
-            $ru[9]->fields = [];
-            $en[9]->fields = [];
-            $am[10] = [];
-            $ru[10] = [];
-            $en[10] = [];
-
-            $home->am = $am;
-            $home->ru = $ru;
-            $home->en = $en;
-
-            $home->photo = json_decode($home->photo);
+            $home = $this->processHomeData($home);
             $home->keywords = json_decode($home->keywords);
             $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
@@ -319,20 +315,20 @@ class InterFaceService
 
     public function getCommunitySearch($data, $lang)
     {
-        if($data['ids']) {
-          $address = ConfigAddress::select($lang, 'id')->whereIn('communityId', $data['ids'])->get();
-        }else {
-          $address = ConfigAddress::select($lang, 'id')->get();
+        if ($data['ids']) {
+            $address = ConfigAddress::select($lang, 'id')->whereIn('communityId', $data['ids'])->get();
+        } else {
+            $address = ConfigAddress::select($lang, 'id')->get();
         }
-        
+
         return $address;
     }
 
     public function getInterfaceProperties($id)
     {
         $home = Home::select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
-        ->find($id);
-        if($home) {
+            ->find($id);
+        if ($home) {
             $home = $this->processHomeData($home);
             $home->priceHistory = json_decode($home->price_history);
             return response()->json($home);
@@ -342,6 +338,142 @@ class InterFaceService
             'status' => 'error',
             'errors' => "Home not found"
         ], 422);
+    }
+
+    public function getResultPageData($data, $lang)
+    {
+        $searchHomes = Home::get()->filter(function ($home) use ($data, $lang) {
+            $home = $this->processHomeData($home);
+            $home->keywords = json_decode($home->keywords);
+
+            $isMatched = true;
+
+            if ($data['searchData']['type']) {
+                if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData']['type']) {
+                    $isMatched = false;
+                };
+            }
+
+            if ($data['searchData']['propertyType']) {
+                $readyType = $this->getPropertyType($data['searchData']['propertyType']);
+                if (!(in_array($home->ru[0]->fields[1]->value, $readyType))) {
+                    $isMatched = false;
+                }
+            }
+
+            if ($data['searchData']['community']) {
+                $communityData = $data['searchData']['community'];
+                if ($home->am[1]->fields[0]->communityId) {
+                    $ourCommunityId = $home->am[1]->fields[0]->communityId;
+                    $resultCommunity = array_search($ourCommunityId, $communityData);
+                    if (!is_numeric($resultCommunity)) {
+                        $isMatched = false;
+                    }
+                }
+            }
+
+            if ($data['searchData']['streets']) {
+                $streetData = $data['searchData']['streets'];
+                if ($home->am[1]->fields[0]->communityStreet->streetId) {
+                    $ourStreetId = $home->am[1]->fields[0]->communityStreet->streetId;
+                    $resultStreet = array_search($ourStreetId, $streetData);
+                    if (!is_numeric($resultStreet)) {
+                        $isMatched = false;
+                    }
+                }
+            }
+
+            if ($data['searchData']['rooms']) {
+                $rooms = $data['searchData']['rooms'];
+                $rooms = [1, 6, 8];
+                if ($lang == "en") {
+                    if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
+                        $isMatched = false;
+                    }
+                } else {
+                    if (!(in_array($home->am[3]->fields[2]->value, $rooms))) {
+                        $isMatched = false;
+                    }
+                }
+            }
+
+            if ($data['searchData']['squareMin'] || $data['searchData']['squareMax']) {
+                $minSquare = $data['searchData']['squareMin'] ? (int) $data['searchData']['squareMin'] : 0;
+                $maxSquare = ($data['searchData']['squareMax']) ? (int) $data['searchData']['squareMax'] : 1000000000;
+                $surface = (int) $home->am[3]->fields[0]->value;
+                if ($surface < $minSquare || $surface > $maxSquare) {
+                    $isMatched = false;
+                }
+            }
+
+            if($data['searchData']['priceMin'] || $data['searchData']['priceMax']){ 
+                $minPrice = $data['searchData']['priceMin'] ? (int) $data['searchData']['priceMin'] : 0;
+                $maxPrice = ($data['searchData']['priceMax']) ? (int) $data['searchData']['priceMax'] : 1000000000;
+                $homePrice = (int) $home->am[2]->fields[0]->value;
+                if ($homePrice < $minPrice || $homePrice > $maxPrice) {
+                    $isMatched = false;
+                }
+            }
+
+            if($data['searchData']['buildingType']){
+                $buildingType = [];
+                foreach ($data['searchData']['buildingType'] as $key => $type) {
+                    $buildingType[] = $this->multiType[$type][$lang];
+                }
+                $result = array_search($home->am[3]->fields[0]->value, $buildingType);
+                if (!is_numeric($result)) {
+                    $isMatched = false;
+                }
+            }
+
+            if($data['searchData']['propertyCondition']){
+                $conditionType = [];
+                foreach ($data['searchData']['propertyCondition'] as $key => $type) {
+                    $conditionType[] = $this->multiType[$type][$lang];
+                }
+                $result = array_search($home->am[3]->fields[9]->value, $conditionType);
+                if (!is_numeric($result)) {
+                    $isMatched = false;
+                }
+            }
+
+            if($data['searchData']['floorMin'] || $data['searchData']['floorMax']){ 
+                $minFloor = $data['searchData']['floorMin'] ? (int) $data['searchData']['floorMin'] : 0;
+                $maxFloor = $data['searchData']['floorMax'] ? (int) $data['searchData']['floorMax'] : 10000;
+                $homeFloor = (int) $home->am[3]->fields[8]->value;
+                if ($homeFloor < $minFloor || $homeFloor > $maxFloor) {
+                    $isMatched = false;
+                }
+            }
+
+            if($data['searchData']['description']){
+                $wordsArr = explode("/", $data['searchData']['description']);
+                $trimArr = array_map('trim', $wordsArr);
+                if($trimArr) {
+                    $intersection = array_intersect($trimArr, $home->keywords);
+
+                    if (empty($intersection)) {
+                        $isMatched = false;
+                    }
+                    
+                }
+            }
+
+            if($data['searchData']['id']){
+                $length = strlen($data['searchData']['id']);
+                if(substr((string)$home->home_id, 0, $length) != $data['searchData']['id']) {
+                    $isMatched = false;
+                }
+            }
+
+            $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+            $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+
+            return $isMatched;
+        })->values();
+
+        return $searchHomes;
+
     }
 
 
