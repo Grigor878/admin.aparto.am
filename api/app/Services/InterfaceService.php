@@ -347,7 +347,7 @@ class InterFaceService
             $home->keywords = json_decode($home->keywords);
 
             $isMatched = true;
-
+            
             if ($data['searchData']['type']) {
                 if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData']['type']) {
                     $isMatched = false;
@@ -361,6 +361,12 @@ class InterFaceService
                 }
             }
 
+            if(array_key_exists($data['searchData']['newBuild'], $data)){
+                if( $home->am[4]->fields[2]->value !== $data['searchData']['newBuild']){
+                    $isMatched = false;
+                }
+            }
+            
             if ($data['searchData']['community']) {
                 $communityData = $data['searchData']['community'];
                 if ($home->am[1]->fields[0]->communityId) {
