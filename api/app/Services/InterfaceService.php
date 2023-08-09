@@ -361,7 +361,7 @@ class InterFaceService
                 }
             }
 
-            if(array_key_exists($data['searchData']['newBuild'], $data)){
+            if($data['searchData']['newBuild']){
                 if( $home->am[4]->fields[2]->value !== $data['searchData']['newBuild']){
                     $isMatched = false;
                 }
