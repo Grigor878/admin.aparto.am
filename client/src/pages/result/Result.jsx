@@ -12,6 +12,8 @@ const Result = () => {
   const { t } = useTranslation()
 
   const { propertyType, loading, searchResult, allPropertiesByType } = useSelector((state => state.home))
+  const { resultData } = useSelector((state => state.view))
+  console.log(resultData);
 
   const dispatch = useDispatch()
 
@@ -41,13 +43,13 @@ const Result = () => {
                 <button onClick={() => setOpen(true)}>
                   {filterOpen.icon}
                 </button>}
-              <h2>{searchResult ? searchResult?.length : allPropertiesByType?.length} {t("result")}</h2>
+              <h2>{resultData ? resultData?.length : searchResult ? searchResult?.length : allPropertiesByType?.length} {t("result")}</h2>
             </div>
 
             <button onClick={() => alert("Coming soon!")}>{openMap.icon} {t("map")}</button>
           </div>
 
-          <PropCard data={searchResult ? searchResult : allPropertiesByType} />
+          <PropCard data={resultData ? resultData : searchResult ? searchResult : allPropertiesByType} />
         </div>
       </div>
   )

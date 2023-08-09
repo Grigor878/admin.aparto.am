@@ -8,9 +8,10 @@ const initialState = {
   admin: null,
   propertyType: null,
   searchData: null,
+
   searchResult: null,
   allPropertiesByType: null,
-  loading: false, // for searchResult & propertiesByType
+  loading: false, 
 };
 
 // get top homes
