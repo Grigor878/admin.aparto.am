@@ -157,7 +157,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
               text={t("private_house")}
             />
             <Checkbox
-              onChange={(e) => handlePropType(e, "commertial")}
+              onChange={(e) => handlePropType(e, "commercial")}
               text={t("commertial")}
             />
           </div>
