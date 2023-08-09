@@ -153,7 +153,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
               text={t("house")}
             />
             <Checkbox
-              onChange={(e) => handlePropType(e, "private_house")}
+              onChange={(e) => handlePropType(e, "privateHouse")}
               text={t("private_house")}
             />
             <Checkbox
@@ -197,7 +197,6 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           </div>
           <MultiSelect
             community={community}
-            // data={streetData}
             placeholder={t("street")}
             onChange={(e) => setStreets(e)}
           />
