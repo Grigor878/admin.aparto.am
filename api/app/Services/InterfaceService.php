@@ -342,7 +342,7 @@ class InterFaceService
 
     public function getResultPageData($data, $lang)
     {
-        $searchHomes = Home::get()->filter(function ($home) use ($data, $lang) {
+        $searchHomes = Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang) {
             $home = $this->processHomeData($home);
             $home->keywords = json_decode($home->keywords);
 
