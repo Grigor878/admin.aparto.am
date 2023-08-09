@@ -178,7 +178,7 @@ export const communityRu = [
   },
 ];
 
-export const buildTypeAm = [
+export const propConditionAm = [
   {
     id: "stateCondition",
     value: "Պետական վիճակ",
@@ -195,9 +195,9 @@ export const buildTypeAm = [
     id: "zero",
     value: "Զրոյական",
   },
-]
+];
 
-export const buildTypeEn = [
+export const propConditionEn = [
   {
     id: "stateCondition",
     value: "State condition",
@@ -214,9 +214,9 @@ export const buildTypeEn = [
     id: "zero",
     value: "Zero",
   },
-]
+];
 
-export const buildTypeRu = [
+export const propConditionRu = [
   {
     id: "stateCondition",
     value: "Гос. состояние",
@@ -233,9 +233,9 @@ export const buildTypeRu = [
     id: "zero",
     value: "Нулевое",
   },
-]
+];
 
-export const propConditionAm = [
+export const buildTypeAm = [
   {
     id: "monolith",
     value: "Մոնոլիտ",
@@ -252,9 +252,9 @@ export const propConditionAm = [
     id: "other",
     value: "Այլ",
   },
-]
+];
 
-export const propConditionEn = [
+export const buildTypeEn = [
   {
     id: "monolith",
     value: "Monolithic",
@@ -271,9 +271,9 @@ export const propConditionEn = [
     id: "other",
     value: "Other",
   },
-]
+];
 
-export const propConditionRu = [
+export const buildTypeRu = [
   {
     id: "monolith",
     value: "Монолитный",
@@ -290,4 +290,4 @@ export const propConditionRu = [
     id: "other",
     value: "Другой",
   },
-]
+];
