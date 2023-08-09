@@ -426,7 +426,7 @@ class InterFaceService
                 foreach ($data['searchData']['buildingType'] as $key => $type) {
                     $buildingType[] = $this->multiType[$type][$lang];
                 }
-                $result = array_search($home->am[3]->fields[0]->value, $buildingType);
+                $result = array_search($home->am[4]->fields[0]->value, $buildingType);
                 if (!is_numeric($result)) {
                     $isMatched = false;
                 }
