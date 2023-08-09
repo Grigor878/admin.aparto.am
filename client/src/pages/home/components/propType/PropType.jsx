@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
 import { useDispatch } from 'react-redux'
-import { clearSearchResult, getAllPropertiesByType } from '../../../../store/slices/homeSlice'
+import { addPropertyType, clearSearchResult } from '../../../../store/slices/homeSlice'
 import { PropCard } from '../../../../components/propCard/PropCard'
 import './PropType.scss'
 
@@ -16,9 +16,8 @@ const PropType = ({ type, data }) => {
 
     const hanldeSeeById = () => {
         dispatch(clearSearchResult())
-        dispatch(getAllPropertiesByType({ "type": type })).then(() => {
-            navigate('/result')
-        })
+        dispatch(addPropertyType(type))
+        navigate('/result')
     }
 
     return (

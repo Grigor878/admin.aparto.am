@@ -6,9 +6,11 @@ const initialState = {
   sale: null,
   rent: null,
   admin: null,
+  propertyType: null,
   searchData: null,
   searchResult: null,
-  allPropertiesByTYpe: null,
+  allPropertiesByType: null,
+  loading: false, // for searchResult & propertiesByType
 };
 
 // get top homes
@@ -81,7 +83,7 @@ export const postSearchData = createAsyncThunk(
 // see all properties by type
 export const getAllPropertiesByType = createAsyncThunk(
   "home/getAllPropertiesByType",
-  async ( type ) => {
+  async (type) => {
     try {
       const { data } = await baseApi.post(`api/getSeeMoreHomes`, type);
       return data;
@@ -99,6 +101,10 @@ const homeSlice = createSlice({
     clearSearchResult: (state) => {
       state.searchResult = null;
     },
+    // add global type for property
+    addPropertyType: (state, action) => {
+      state.propertyType = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getExchange.fulfilled, (state, action) => {
@@ -114,14 +120,24 @@ const homeSlice = createSlice({
     builder.addCase(getSearchData.fulfilled, (state, action) => {
       state.searchData = action.payload;
     });
+    //
+    builder.addCase(postSearchData.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(postSearchData.fulfilled, (state, action) => {
       state.searchResult = action.payload;
+      state.loading = false;
+    });
+    //
+    builder.addCase(getAllPropertiesByType.pending, (state) => {
+      state.loading = true;
     });
     builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
-      state.allPropertiesByTYpe = action.payload;
+      state.allPropertiesByType = action.payload;
+      state.loading = false;
     });
   },
 });
 
-export const { clearSearchResult } = homeSlice.actions;
+export const { clearSearchResult, addPropertyType } = homeSlice.actions;
 export default homeSlice.reducer;

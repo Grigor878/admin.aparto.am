@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import cookies from "js-cookie";
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import { getCommunityData } from '../../../../store/slices/viewSlice';
 
-export const MultiSelect = ({ data, placeholder, onChange }) => {
-    if (!Array.isArray(data)) {
-        data = [];
-    }
+export const MultiSelect = ({ community, placeholder, onChange }) => {
+    const lang = cookies.get("i18next")
 
-    const technologyList = data.map(item => ({
-        label: item.am,
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCommunityData({ lang, community }))
+    }, [dispatch, lang, community])
+
+    const { streetData } = useSelector((state => state.view))
+
+    // if (!Array.isArray(data)) {
+    //     data = [];
+    // }
+
+    const technologyList = streetData?.map(item => ({
+        label: item[lang],
         value: item.id
     }));
 
     const handleChange = (selectedOptions) => {
-        const selectedValues = selectedOptions.map(option => option.value);
+        const selectedValues = selectedOptions?.map(option => option.value);
         onChange(selectedValues);
     };
 
@@ -26,7 +39,7 @@ export const MultiSelect = ({ data, placeholder, onChange }) => {
             styles={{
                 control: (baseStyles) => ({
                     ...baseStyles,
-                    width:"100%",
+                    width: "100%",
                     fontWeight: "400",
                     fontSize: "14px",
                     lineHeight: "16px",
@@ -35,7 +48,7 @@ export const MultiSelect = ({ data, placeholder, onChange }) => {
                     border: "1.5px solid  #9DA0A9",
                     background: "#F3F4F8",
                     boxShadow: "0px 4px 54px 0px rgba(200, 200, 208, 0.20)",
-                    padding:"10px 20px"
+                    padding: "10px 20px"
                 }),
             }}
         />

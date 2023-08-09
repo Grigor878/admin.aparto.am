@@ -5,11 +5,12 @@ import { filterClose } from '../../../../assets/svgs/svgs'
 import { Radio } from '../inputs/radio'
 import { Checkbox } from '../inputs/checkbox'
 import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, communityRu, propConditionAm, propConditionEn, propConditionRu } from './data'
-import baseApi from '../../../../apis/baseApi';
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { bedroomsNum, roomsNum } from '../../../home/components/search/data';
 import { Input } from '../inputs/input';
+import { getResultPageData } from '../../../../store/slices/viewSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
 
 export const Sider = ({ open, setOpen, radio, setRadio }) => {
@@ -17,7 +18,6 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
 
   const lang = cookies.get("i18next")
 
-  const [streetData, setStreetData] = useState([])
   // selected communities
   const [community, setCommunity] = useState([])
   // selected streets
@@ -46,10 +46,6 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
   // selected id
   const [id, setId] = useState(null)
 
-  // get search result data
-  const [data, setData] = useState([])
-  console.log(data);
-
   const searchData = {
     type: radio,
     propertyType: propType,
@@ -67,25 +63,16 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
     description: description,
     id: id
   }
-  // console.log(searchData)//
 
-  // post search to back
-  useEffect(() => {
-    baseApi.post(`api/getResultPageData/${lang}`, { "searchData": searchData })
-      .then(res => {
-        setData(res.data);
-      })
-      .catch(err => console.log(err.message))
-  }, [searchData, lang])
+  const dispatch = useDispatch()
 
-  // fetch streets by community
   useEffect(() => {
-    baseApi.post(`api/getCommunitySearch/${lang}`, { "ids": community })
-      .then(res => {
-        setStreetData(res.data);
-      })
-      .catch(err => console.log(err.message))
-  }, [lang, community])
+    dispatch(getResultPageData({ lang, searchData }))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, lang, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, propCondition, floorMin, floorMax, description, id])
+
+  const { resultData } = useSelector((state => state.view))
+  console.log(resultData);
 
   const handleCommunity = (e, id) => {
     if (e.target.checked) {
@@ -209,7 +196,8 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
                 })}
           </div>
           <MultiSelect
-            data={streetData}
+            community={community}
+            // data={streetData}
             placeholder={t("street")}
             onChange={(e) => setStreets(e)}
           />

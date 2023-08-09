@@ -1,48 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { filterOpen, openMap } from '../../assets/svgs/svgs'
-import { useSessionState } from '../../hooks/useSessionState'
 import { Sider } from './components/sider/Sider'
 import { PropCard } from '../../components/propCard/PropCard'
 import './Styles.scss'
+import { getAllPropertiesByType } from '../../store/slices/homeSlice'
+import { Loader } from '../../components/loader/Loader'
 
 const Result = () => {
   const { t } = useTranslation()
 
-  const { searchResult, allPropertiesByTYpe } = useSelector((state => state.home))
-  // console.log("searchRes", searchResult)//
-  // console.log("allProperties", allPropertiesByTYpe)//
+  const { propertyType, loading, searchResult, allPropertiesByType } = useSelector((state => state.home))
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllPropertiesByType({ "type": propertyType }))
+  }, [dispatch, propertyType])
 
   const [open, setOpen] = useState(true)
-  const [radio, setRadio] = useSessionState("sale", "result_radio")
+  const [radio, setRadio] = useState(propertyType)
 
   return (
-    <div className='result'>
-      <Sider
-        open={open}
-        setOpen={setOpen}
-        radio={radio}
-        setRadio={setRadio}
-      />
+    loading
+      ? <Loader />
+      : <div className='result'>
+        <Sider
+          open={open}
+          setOpen={setOpen}
+          radio={radio}
+          setRadio={setRadio}
+        />
 
-      {/* article */}
-      <div className='result__center' >
-        <div className='result__center-top'>
-          <div className='result__center-top-right'>
-            {!open &&
-              <button onClick={() => setOpen(true)}>
-                {filterOpen.icon}
-              </button>}
-            <h2>{searchResult ? searchResult?.length : allPropertiesByTYpe?.length} {t("result")}</h2>
+        {/* article */}
+        <div className='result__center' >
+          <div className='result__center-top'>
+            <div className='result__center-top-right'>
+              {!open &&
+                <button onClick={() => setOpen(true)}>
+                  {filterOpen.icon}
+                </button>}
+              <h2>{searchResult ? searchResult?.length : allPropertiesByType?.length} {t("result")}</h2>
+            </div>
+
+            <button onClick={() => alert("Coming soon!")}>{openMap.icon} {t("map")}</button>
           </div>
 
-          <button onClick={() => alert("Coming soon!")}>{openMap.icon} {t("map")}</button>
+          <PropCard data={searchResult ? searchResult : allPropertiesByType} />
         </div>
-
-        <PropCard data={searchResult ? searchResult : allPropertiesByTYpe} />
       </div>
-    </div>
   )
 }
 
