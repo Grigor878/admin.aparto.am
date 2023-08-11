@@ -332,7 +332,8 @@ class InterFaceService
         if ($home) {
             $home = $this->processHomeData($home);
             $home->priceHistory = json_decode($home->price_history);
-            return response()->json($home);
+            
+            return $home;
 
         }
         return response()->json([
