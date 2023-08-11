@@ -6,23 +6,28 @@ import Header from '../header/Header'
 import HelmetAsync from '../helmetAsync/HelmetAsync'
 import { Loader } from "../loader/Loader"
 import Footer from '../footer/Footer'
-// import Soon from "../../pages/soon/Soon"
 
 const LayoutMain = () => {
   useEffect(() => {
     AOS.init()
   }, [])
 
+  // const [lang, setLang] = useState(cookies.get("i18next"));
+
+  // const handleLanguageChange = (newLang) => {
+  //   setLang(newLang);
+  // };
+
   return (
-    <>
-      {/* <Soon/> */}
+    <div>
+      {/* <Header onLanguageChange={handleLanguageChange} /> */}
       <Header />
       <HelmetAsync />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense >
       <Footer />
-    </>
+    </div>
   )
 }
 

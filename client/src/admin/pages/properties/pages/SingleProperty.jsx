@@ -171,7 +171,7 @@ const SingleProperty = () => {
 
                             <div className='singleProperty__content-left-title-right'>
                                 <span>{idShevron.icon} {data?.home_id}</span>
-                                <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
+                                <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալություն"}</p>
                             </div>
                         </div>
 

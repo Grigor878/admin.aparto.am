@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import cookies from "js-cookie";
 import { filterClose } from '../../../../assets/svgs/svgs'
 import { Radio } from '../inputs/radio'
 import { Checkbox } from '../inputs/checkbox'
@@ -16,7 +15,9 @@ import './Sider.scss'
 export const Sider = ({ open, setOpen, radio, setRadio }) => {
   const { t } = useTranslation()
 
-  const lang = cookies.get("i18next")
+  const { language } = useSelector((state => state.home))
+
+  const dispatch = useDispatch()
 
   // selected communities
   const [community, setCommunity] = useState([])
@@ -97,12 +98,17 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
     id: id
   }
 
-  const dispatch = useDispatch()
+  const { searchResult, allPropertiesByType } = useSelector((state => state.home))
+  console.log(searchResult);
+  console.log(allPropertiesByType);
 
   useEffect(() => {
-    dispatch(getResultPageData({ lang, searchData }))
+    if (searchResult === null) {
+      dispatch(getResultPageData({ language, searchData }))
+      console.log("error");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, lang, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, newBuild, propCondition, floorMin, floorMax, description, id])
+  }, [dispatch, language, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, newBuild, propCondition, floorMin, floorMax, description, id])
 
   // const { resultData } = useSelector((state => state.view))
   // console.log(resultData);
@@ -167,7 +173,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           <h5>{t("community")}</h5>
 
           <div className='sider__community-checkboxes'>
-            {lang === "am" ? communityAm.map(({ id, value }) => {
+            {language === "am" ? communityAm.map(({ id, value }) => {
               return (
                 <Checkbox
                   onChange={(e) => handleCommunity(e, id)}
@@ -176,7 +182,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
                 />
               )
             })
-              : lang === "en" ? communityEn.map(({ id, value }) => {
+              : language === "en" ? communityEn.map(({ id, value }) => {
                 return (
                   <Checkbox
                     onChange={(e) => handleCommunity(e, id)}
@@ -206,7 +212,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           <h5>{t("rooms")}</h5>
 
           <RoomSelect
-            data={lang === "en" ? bedroomsNum : roomsNum}
+            data={language === "en" ? bedroomsNum : roomsNum}
             onChange={(e) => setRooms(e)}
             rooms={rooms}
           />
@@ -258,7 +264,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           <h5>{t("building_type")}</h5>
 
           <div className='sider__property-checkboxes'>
-            {lang === "am" ? buildTypeAm.map(({ id, value }) => {
+            {language === "am" ? buildTypeAm.map(({ id, value }) => {
               return (
                 <Checkbox
                   onChange={(e) => handleBuildType(e, id)}
@@ -267,7 +273,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
                 />
               )
             })
-              : lang === "en" ? buildTypeEn.map(({ id, value }) => {
+              : language === "en" ? buildTypeEn.map(({ id, value }) => {
                 return (
                   <Checkbox
                     onChange={(e) => handleBuildType(e, id)}
@@ -300,7 +306,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           <h5>{t("property_condition")}</h5>
 
           <div className='sider__property-checkboxes'>
-            {lang === "am" ? propConditionAm.map(({ id, value }) => {
+            {language === "am" ? propConditionAm.map(({ id, value }) => {
               return (
                 <Checkbox
                   onChange={(e) => handlePropCondition(e, id)}
@@ -309,7 +315,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
                 />
               )
             })
-              : lang === "en" ? propConditionEn.map(({ id, value }) => {
+              : language === "en" ? propConditionEn.map(({ id, value }) => {
                 return (
                   <Checkbox
                     onChange={(e) => handlePropCondition(e, id)}

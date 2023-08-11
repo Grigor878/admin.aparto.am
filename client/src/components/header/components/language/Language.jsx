@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { setLanguage } from '../../../../store/slices/homeSlice'
 import { languageData } from './data'
 import useOutsideClick from '../../../../hooks/useOutsideClick'
 import cookies from 'js-cookie'
@@ -8,7 +10,11 @@ import './Language.scss'
 
 const Language = () => {
     const { i18n } = useTranslation()
+
     const lngRef = useRef()
+
+    const dispatch = useDispatch()
+
     const [openLng, setOpenLng] = useState(false)
     const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "am")
     // add dispatch for PdfSwitcher
@@ -23,6 +29,7 @@ const Language = () => {
         code === "en" ? setSelectedLng("gb") : setSelectedLng(code)
         code === "en" ? cookies.set("lngFlag", "gb") : cookies.set("lngFlag", code)
         cookies.set('i18next', code)
+        dispatch(setLanguage(code)) // 12.08 - add global language,in feature needs to remove cookies
     };
 
     useOutsideClick(lngRef, openLng, setOpenLng);

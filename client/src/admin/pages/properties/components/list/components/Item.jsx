@@ -42,7 +42,7 @@ export const Item = ({ data }) => {
                         }
 
                         <div className='propertyList__item-view-types'>
-                            <span>{selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</span>
+                            <span>{selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալություն"}</span>
                             <Type data={am[0].fields[4].value} />
                         </div>
                     </Link>

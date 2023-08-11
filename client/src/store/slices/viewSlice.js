@@ -3,7 +3,7 @@ import baseApi from "../../apis/baseApi";
 
 const initialState = {
   loading: false,
-  data: null,
+  data: [],
   streetData: null,
   resultData: null,
 };
@@ -21,9 +21,9 @@ export const getViewData = createAsyncThunk("view", async (id) => {
 // get streets by community
 export const getCommunityData = createAsyncThunk(
   "view/communities",
-  async ({ lang, community }) => {
+  async ({ language, community }) => {
     try {
-      const { data } = await baseApi.post(`api/getCommunitySearch/${lang}`, {
+      const { data } = await baseApi.post(`api/getCommunitySearch/${language}`, {
         ids: community,
       });
       return data;
@@ -36,9 +36,9 @@ export const getCommunityData = createAsyncThunk(
 // get search result data
 export const getResultPageData = createAsyncThunk(
   "view/search",
-  async ({ lang, searchData }) => {
+  async ({ language, searchData }) => {
     try {
-      const { data } = await baseApi.post(`api/getResultPageData/${lang}`, {
+      const { data } = await baseApi.post(`api/getResultPageData/${language}`, {
         searchData: searchData,
       });
       return data;
@@ -66,11 +66,11 @@ const viewSlice = createSlice({
     });
     //
     builder.addCase(getResultPageData.pending, (state) => {
-      state.loading = true;
+      state.load = true;
     });
     builder.addCase(getResultPageData.fulfilled, (state, action) => {
       state.resultData = action.payload;
-      state.loading = false;
+      state.load = false;
     });
   },
 });

@@ -12,6 +12,13 @@ const Header = () => {
 
   return (
     <header className='header'>
+
+      <div className="top__header" style={{ background: "white" }}>
+        <div className="conatin">
+          <p style={{ marginBottom: "27px", padding: "9px", color: "#4a46f1", textAlign: "center", fontSize: "22px" }}>{t("remont")}</p>
+        </div>
+      </div>
+
       <div className="contain">
         <nav className='header__nav'>
           <div className='header__left'>

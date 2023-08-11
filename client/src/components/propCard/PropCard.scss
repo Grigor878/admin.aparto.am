@@ -2,9 +2,9 @@
 
 .propCard {
   @include flex;
-  // justify-content: space-between;
+  justify-content: space-between;
   // justify-content: flex-start;
-  gap: 24px;
+  // gap: 24px;
   flex-wrap: wrap;
   
   &__card {

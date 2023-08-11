@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import cookies from "js-cookie";
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
-import { getSearchData, postSearchData } from '../../../../store/slices/homeSlice';
+import { addPropertyType, clearPropertiesByType, getSearchData, postSearchData } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
 export const Search = () => {
@@ -15,14 +14,13 @@ export const Search = () => {
 
     const dispatch = useDispatch()
 
-    const lang = cookies.get("i18next")
+    const { language } = useSelector((state => state.home))
 
     useEffect(() => {
-        dispatch(getSearchData(lang))
-    }, [dispatch, lang])
+        dispatch(getSearchData(language))
+    }, [dispatch, language])
 
-    const { searchData, searchResult } = useSelector((state => state.home))
-    // console.log(searchResult)//
+    const { searchData } = useSelector((state => state.home))
 
     const [active, setActive] = useSessionState("sale", "homeSearch")
     const [community, setCommunity] = useState([])
@@ -51,13 +49,14 @@ export const Search = () => {
             }
         ]
 
-        dispatch(postSearchData({ searchData, lang })).then(() => {
-            if (searchResult) {
+        dispatch(clearPropertiesByType())
+        dispatch(addPropertyType(active))
+        dispatch(postSearchData({ searchData, language }))
+            .then(() => {
                 navigate("/result")
-            }
-        })
-
+            })
     }
+
 
     return (
         <div className='search'>
@@ -82,13 +81,13 @@ export const Search = () => {
                     placeholder={t("search")}
                 />
                 <Dropdown
-                    data={lang === "am" ? propertyTypeAm : lang === "en" ? propertyTypeEn : propertyTypeRu}
+                    data={language === "am" ? propertyTypeAm : language === "en" ? propertyTypeEn : propertyTypeRu}
                     onChange={(e) => setType(e)}
                     width="100%"
                     placeholder={t("property_type")}
                 />
                 <Dropdown
-                    data={lang === "en" ? bedroomsNum : roomsNum}
+                    data={language === "en" ? bedroomsNum : roomsNum}
                     onChange={(e) => setRomms(e)}
                     width="100%"
                     placeholder={t("rooms")}

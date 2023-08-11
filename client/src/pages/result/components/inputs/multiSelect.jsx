@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import cookies from "js-cookie";
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getCommunityData } from '../../../../store/slices/viewSlice';
 
 export const MultiSelect = ({ community, placeholder, onChange }) => {
-    const lang = cookies.get("i18next")
+    const { language } = useSelector((state => state.home))
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getCommunityData({ lang, community }))
-    }, [dispatch, lang, community])
+        dispatch(getCommunityData({ language, community }))
+    }, [dispatch, language, community])
 
     const { streetData } = useSelector((state => state.view))
 
@@ -20,7 +19,7 @@ export const MultiSelect = ({ community, placeholder, onChange }) => {
     // }
 
     const technologyList = streetData?.map(item => ({
-        label: item[lang],
+        label: item[language],
         value: item.id
     }));
 

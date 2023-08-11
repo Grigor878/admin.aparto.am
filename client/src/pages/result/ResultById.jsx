@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
-import cookies from "js-cookie"
 import { API_BASE_URL, APP_BASE_URL } from '../../apis/config'
 import { success } from '../../components/swal/swal'
 import { balcony, buildingType, buildingYear, checked, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../admin/svgs/svgs'
@@ -10,17 +10,20 @@ import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
 import { moneyFormater } from '../../helpers/formatters'
 import { PriceHistory } from '../../admin/pages/properties/components/priceHistory/PriceHistory'
-
 import user from '../../assets/imgs/user.png'
 import telegram from '../../assets/icons/telegram.png'
 import whatsapp from '../../assets/icons/whatsapp.png'
 import viber from '../../assets/icons/viber.png'
 import { Loader } from '../../components/loader/Loader'
-
 // import '../../admin/pages/properties/pages/Styles.scss'
 
 const ResultById = () => {
+  const { t } = useTranslation()
+
   const { id } = useParams()
+
+  const { language } = useSelector((state => state.home))
+  console.log(language);
 
   const dispatch = useDispatch()
 
@@ -29,18 +32,17 @@ const ResultById = () => {
   }, [dispatch, id])
 
   const { data, loading } = useSelector((state => state.view))
-  console.log(data);
-
-  // const lang = cookies.get("i18next")
 
   const [open, setOpen] = useState(false)
 
-  const currentPropertyData = data?.original.am
-  const currentPropertyPrice = data?.original.priceHistory
+  const currentPropertyData = data[language]
+
+  const currentPropertyPrice = data?.priceHistory
 
   let embedURL = "";
 
-  if (loading
+  if (currentPropertyData
+    && currentPropertyData?.length !== 0
     && currentPropertyData[7]?.fields[1]?.value?.length
     && currentPropertyData[7]?.fields[1]?.value?.includes("https://www.youtube.com/")
   ) {
@@ -49,7 +51,7 @@ const ResultById = () => {
     embedURL = "https://www.youtube.com/embed/" + videoID
   }
 
-  const currentPropertyImgs = data?.original.photo
+  const currentPropertyImgs = data?.photo
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,
@@ -59,31 +61,31 @@ const ResultById = () => {
   const copyToClipboard = async () => {
     let clipboard = `${APP_BASE_URL}/result/${id}`
     await navigator.clipboard.writeText(clipboard)
-    success("Հասցեն պատճենված է։")
+    success(t("clipboard_done"))
   }
 
   const { admin } = useSelector((state => state.home))
 
   const adminTel = admin?.phone?.tel1
+
   const adminSocial = admin?.phone?.messengers
 
   return (
     loading
       ? <Loader />
-      : <article className='singleProperty'>
+      : currentPropertyData && currentPropertyData?.length !== 0 && <article className='singleProperty'>
         {/* <div className="contain"> */}
         {!open
           ? <div
             className='singleProperty__imgs'
-            // ref={imgsRef}
             style={{ display: !currentPropertyImgs || currentPropertyImgs?.length === 0 ? "none" : "flex" }}
           >
             <div className='singleProperty__imgs-left' style={{ height: "100%" }}>
               {currentPropertyImgs?.length !== 0 && modifiedData &&
                 <img
-                  src={modifiedData[0].img}
+                  src={modifiedData[0]?.img}
                   loading='lazy'
-                  alt={modifiedData[0].alt}
+                  alt={modifiedData[0]?.alt}
                 />
               }
             </div>
@@ -102,26 +104,26 @@ const ResultById = () => {
               <button
                 onClick={() => setOpen(true)}
               >
-                {seeAllImgs.icon} Տեսնել բոլոր նկարները
+                {seeAllImgs.icon} {t('see_all_images')}
               </button>
             </div>
 
             <span
               style={{
-                display: currentPropertyData[0]?.fields[4].value === "Հասարակ" ? "none" : "block",
-                background: currentPropertyData[0]?.fields[4].value === "Տոպ"
+                display: currentPropertyData[0]?.fields[4]?.value === t("regular") ? "none" : "block",
+                background: currentPropertyData[0]?.fields[4]?.value === t("top")
                   ? "#2eaa50"
-                  : currentPropertyData[0]?.fields[4].value === "Շտապ"
+                  : currentPropertyData[0]?.fields[4]?.value === t("urgent")
                     ? "#4a46f1" : "#e7e9f0"
               }}
-            >{currentPropertyData[0]?.fields[4].value}
+            >{currentPropertyData[0]?.fields[4]?.value}
             </span>
 
             <button
               className='singleProperty__imgs-url'
               onClick={copyToClipboard}
             >
-              {url.icon}Հղում կայքին
+              {url.icon} {t('clipboard')}
             </button>
           </div>
           : <ReactFullscreenCarousel
@@ -148,24 +150,24 @@ const ResultById = () => {
                   {currentPropertyData[1]?.fields[3]?.value}
                   {"բն., "}
                   {currentPropertyData[1]?.fields[0]?.value}
-                  <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>Տեսնել քարտեզի վրա</span>
+                  <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>{t('see_on_map')}</span>
                 </p>
               </div>
 
               <div className='singleProperty__content-left-title-right'>
-                <span>{idShevron.icon} {data?.original.home_id}</span>
-                <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալութուն"}</p>
+                <span>{idShevron.icon} {data?.home_id}</span>
+                <p>{data?.selectedTranscationType === "sale" ? t("sale") : t("rent")}</p>
               </div>
             </div>
 
             <div className='singleProperty__content-left-options'>
               <div>
                 {propertyType.icon}
-                Գույքի տիպ  -<p>{currentPropertyData[0]?.fields[1]?.value}</p>
+                {t('property_type')} -<p>{currentPropertyData[0]?.fields[1]?.value}</p>
               </div>
               <div>
                 {square.icon}
-                <p>{currentPropertyData[3]?.fields[0]?.value} ք.մ</p>
+                <p>{currentPropertyData[3]?.fields[0]?.value} {t('square_symbol')}</p>
               </div>
 
               {currentPropertyData[3]?.fields[8]?.value &&
@@ -180,57 +182,57 @@ const ResultById = () => {
               {Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value) !== 0 &&
                 <div>
                   {balcony.icon}
-                  <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> պատշգամբ
+                  <p>{Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value)}</p> {t('balcony')}
                 </div>}
 
               <div>
                 {buildingType.icon}
-                Շինության տիպ -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
+                {t('building_type')} -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
               </div>
 
               {currentPropertyData[4]?.fields[3]?.value &&
                 <div>
                   {buildingYear.icon}
-                  Կառուցված -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
+                  {t('builded')} -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
                 </div>}
 
               <div>
                 {kitchenType.icon}
-                Խոհանոցի տիպ -<p>{currentPropertyData[3]?.fields[11]?.value}</p>
+                {t('kitchen_type')} -<p>{currentPropertyData[3]?.fields[11]?.value}</p>
               </div>
 
               {currentPropertyData[4]?.fields[4]?.value &&
                 <div>
                   {orentation.icon}
-                  Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
+                  {t("orentation")} -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
                 </div>}
             </div>
 
             <div className='singleProperty__content-left-desc'>
-              <h3 className='singleProperty__subtitle'>Տան Նկարագիր</h3>
+              <h3 className='singleProperty__subtitle'>{t("house_description")}</h3>
 
               <div className='singleProperty__content-left-desc-info'>
                 {currentPropertyData[3]?.fields[2]?.value &&
-                  <p>Սենյակների քանակ - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
+                  <p>{t('number_of_rooms')} - <span>{currentPropertyData[3]?.fields[2]?.value}</span></p>
                 }
 
                 {currentPropertyData[3]?.fields[3]?.value &&
-                  <p>Ննջասենյակների քանակ - <span>{currentPropertyData[3]?.fields[3]?.value}</span></p>
+                  <p>{t('number_of_bedrooms')} - <span>{currentPropertyData[3]?.fields[3]?.value}</span></p>
                 }
 
                 {currentPropertyData[3]?.fields[4]?.value &&
-                  <p>Սանհանգույցների քանակ - <span>{currentPropertyData[3]?.fields[4]?.value}</span></p>
+                  <p>{t("number_of_bathrooms")} - <span>{currentPropertyData[3]?.fields[4]?.value}</span></p>
                 }
 
                 {Number(currentPropertyData[3]?.fields[6]?.value) !== 0 &&
-                  <p>Փակ պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[6]?.value}</span></p>
+                  <p>{t('number_of_closebalcony')} - <span>{currentPropertyData[3]?.fields[6]?.value}</span></p>
                 }
 
                 {Number(currentPropertyData[3]?.fields[5]?.value) !== 0 &&
-                  <p>Բաց պատշգամբների քանակ - <span>{currentPropertyData[3]?.fields[5]?.value}</span></p>
+                  <p>{t('number_of_openbalcony')} - <span>{currentPropertyData[3]?.fields[5]?.value}</span></p>
                 }
 
-                <p>Առաստաղի բարձրություն - <span>{currentPropertyData[3]?.fields[1]?.value} մ</span></p>
+                <p>{t('ceiling_height')} - <span>{currentPropertyData[3]?.fields[1]?.value} {t("meter")}</span></p>
               </div>
 
               <p className='singleProperty__content-left-desc-text'>
@@ -242,7 +244,7 @@ const ResultById = () => {
               ?.filter(el => el.value === true)
               ?.length > 0 ?
               <div className='singleProperty__content-left-facility'>
-                <h3 className='singleProperty__subtitle'>Կոմունալ Հարմարություններ</h3>
+                <h3 className='singleProperty__subtitle'>{t("facilities")}</h3>
 
                 <div className='singleProperty__content-left-facility-card'>
                   {currentPropertyData[5]?.fields
@@ -264,7 +266,7 @@ const ResultById = () => {
               ?.filter(el => el.value === true)
               ?.length > 0 ?
               <div className='singleProperty__content-left-otherFacility'>
-                <h3 className='singleProperty__subtitle'>Այլ Հարմարություններ</h3>
+                <h3 className='singleProperty__subtitle'>{t("other_facilities")}</h3>
 
                 <div className='singleProperty__content-left-otherFacility-card'>
                   {currentPropertyData[6]?.fields
@@ -281,7 +283,7 @@ const ResultById = () => {
             {currentPropertyData[7]?.fields[1]?.value?.length
               && currentPropertyData[7]?.fields[1]?.value?.includes("https://www.youtube.com/")
               ? <div className='singleProperty__content-left-video'>
-                <h3 className='singleProperty__subtitle'>Տան Տեսահոլովակ</h3>
+                <h3 className='singleProperty__subtitle'>{t("home_video")}</h3>
 
                 <div className='singleProperty__content-left-video-card'>
                   <iframe
@@ -323,18 +325,18 @@ const ResultById = () => {
           {/* Right */}
           <div className='singleProperty__content-right'>
             <div className='singleProperty__content-right-price'>
-              <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+              <h4>{t("price")}։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
 
               {currentPropertyData[2]?.fields[2]?.value &&
-                <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
+                <p>{t("first_pay")}:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
               {currentPropertyData[2]?.fields[1]?.value &&
-                <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
+                <p>{t("sqm_price")} :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
 
               <PriceHistory data={currentPropertyPrice} />
 
               <hr />
 
-              <p>Վճարման կարգ։
+              <p>{t("payment_type")}։
                 {currentPropertyData[2]?.fields[4]?.value.includes(",")
                   ? <span style={{ display: 'flex', flexDirection: 'column' }}>
                     {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
@@ -346,7 +348,7 @@ const ResultById = () => {
               </p>
 
               {currentPropertyData[2]?.fields[5]?.value &&
-                <p>Նախընտրած բանկ։
+                <p>{t("preferred_bank")}։
                   {currentPropertyData[2]?.fields[5]?.value.includes(",")
                     ? <span style={{ display: 'flex', flexDirection: 'column' }}>
                       {currentPropertyData[2]?.fields[5]?.value?.split(',')?.map((item, index) => (
@@ -358,23 +360,23 @@ const ResultById = () => {
                 </p>}
               <hr />
               {currentPropertyData[4]?.fields[5]?.value &&
-                <p>Տարեկան գույքահարկ։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
+                <p>{t("tax_yearly")}։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
               {currentPropertyData[4]?.fields[6]?.value &&
-                <p>Ամսական սպասարկման վճար։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
+                <p>{t("tax_monthly")}։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
             </div>
 
             <div className='singleProperty__content-right-contact'>
-              <h5>Կապ մեզ հետ</h5>
+              <h5>{t("contact_us")}</h5>
 
               <div className='singleProperty__content-right-contact-social'>
                 <div className='singleProperty__content-right-contact-social-card'>
-                  <span>{mail.icon} Էլ. փոստ</span>
+                  <span>{mail.icon} {t("email")}</span>
                   <p>info@aparto.am</p>
                 </div>
 
                 <div className='singleProperty__content-right-contact-social-bottom'>
                   <div className='singleProperty__content-right-contact-social-card'>
-                    <span>{tel.icon} Բջջ. Հեռ.</span>
+                    <span>{tel.icon} {t("tel_number")}</span>
                     {adminTel && <p>{adminTel}</p>}
                   </div>
                   <div className='singleProperty__content-right-contact-social-card'>
@@ -392,16 +394,17 @@ const ResultById = () => {
                 <img src={user} alt="img" />
 
                 <div className='singleProperty__content-right-contact-info-name'>
-                  <p>Արման Հակոբյան</p>
-                  <span>Գործակալ</span>
+                  <p>{t("name_surname")}</p>
+                  <span>{t("agent")}</span>
                 </div>
               </div>
             </div>
           </div>
         </div >
-      {/* </div> */}
+        {/* </div> */}
       </article >
   )
 }
 
 export default ResultById
+

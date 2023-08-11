@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 
 const initialState = {
+  language: "am",
   exchange: null,
   sale: null,
   rent: null,
@@ -11,7 +12,7 @@ const initialState = {
 
   searchResult: null,
   allPropertiesByType: null,
-  loading: false, 
+  loading: false,
 };
 
 // get top homes
@@ -55,9 +56,9 @@ export const getAdminData = createAsyncThunk("home/adminData", async () => {
 // get search data
 export const getSearchData = createAsyncThunk(
   "home/getSearchData",
-  async (lang) => {
+  async (language) => {
     try {
-      const { data } = await baseApi.get(`/api/getSearchAttributes/${lang}`);
+      const { data } = await baseApi.get(`/api/getSearchAttributes/${language}`);
       return data;
     } catch (err) {
       console.log(`Get Search Data Error: ${err.message}`);
@@ -68,11 +69,11 @@ export const getSearchData = createAsyncThunk(
 // post search data
 export const postSearchData = createAsyncThunk(
   "home/postSearchData",
-  async ({ searchData, lang }) => {
+  async ({ searchData, language }) => {
     try {
       const { data } = await baseApi.post(`api/getSearchData`, {
         searchData,
-        lang,
+        language,
       });
       return data;
     } catch (err) {
@@ -98,14 +99,23 @@ const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    // clear search result & redirect to viewAll with new fetched data
+    // set global language
+    setLanguage: (state, action) => {
+      state.language = action.payload;
+    },
+    // clear search result data
     clearSearchResult: (state) => {
       state.searchResult = null;
+    },
+    // clear properties by title data
+    clearPropertiesByType: (state) => {
+      state.allPropertiesByType = null;
     },
     // add global type for property
     addPropertyType: (state, action) => {
       state.propertyType = action.payload;
     },
+    //
   },
   extraReducers: (builder) => {
     builder.addCase(getExchange.fulfilled, (state, action) => {
@@ -140,5 +150,10 @@ const homeSlice = createSlice({
   },
 });
 
-export const { clearSearchResult, addPropertyType } = homeSlice.actions;
+export const {
+  setLanguage,
+  clearSearchResult,
+  addPropertyType,
+  clearPropertiesByType,
+} = homeSlice.actions;
 export default homeSlice.reducer;
