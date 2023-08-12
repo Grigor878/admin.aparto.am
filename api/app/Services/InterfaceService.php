@@ -175,7 +175,7 @@ class InterFaceService
                 $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
                 $home->keywords = json_decode($home->keywords);
 
-                if ($home->am[0]->fields[0]->selectedOptionName == "rent" ) {
+                if ($home->am[0]->fields[0]->selectedOptionName == "rent") {
                     return true;
                 }
 
@@ -332,7 +332,7 @@ class InterFaceService
         if ($home) {
             $home = $this->processHomeData($home);
             $home->priceHistory = json_decode($home->price_history);
-            
+
             return $home;
 
         }
@@ -393,7 +393,7 @@ class InterFaceService
 
             if ($data['searchData']['rooms']) {
                 $rooms = $data['searchData']['rooms'];
-                $rooms = [1, 6, 8];
+                
                 if ($lang == "en") {
                     if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
                         $isMatched = false;
