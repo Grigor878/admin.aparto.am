@@ -1,4 +1,4 @@
-import { FaDollarSign, FaRubleSign } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
 import { TbCurrencyDram } from "react-icons/tb";
 
 export const headerExchange = [
@@ -12,9 +12,9 @@ export const headerExchange = [
     symbol: <TbCurrencyDram className="exchange__flag" />,
     value: "TbCurrencyDram",
   },
-  {
-    id: 3,
-    symbol: <FaRubleSign className="exchange__flag" />,
-    value: "FaRubleSign",
-  },
+  // {
+  //   id: 3,
+  //   symbol: <FaRubleSign className="exchange__flag" />,
+  //   value: "FaRubleSign",
+  // },
 ];

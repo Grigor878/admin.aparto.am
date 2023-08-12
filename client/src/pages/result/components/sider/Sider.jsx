@@ -6,16 +6,17 @@ import { Checkbox } from '../inputs/checkbox'
 import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, communityRu, propConditionAm, propConditionEn, propConditionRu } from './data'
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
-import { bedroomsNum, roomsNum } from '../../../home/components/search/data';
 import { Input } from '../inputs/input';
 import { getResultPageData } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
 
-export const Sider = ({ open, setOpen, radio, setRadio }) => {
+export const Sider = ({ open, setOpen, radio, setRadio, language }) => {
   const { t } = useTranslation()
 
-  const { language } = useSelector((state => state.home))
+  const { searchResult, allPropertiesByType } = useSelector((state => state.home))
+  // console.log(searchResult);
+  // console.log(allPropertiesByType);
 
   const dispatch = useDispatch()
 
@@ -26,7 +27,7 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
   // selected propType
   const [propType, setPropType] = useState([])
   // selected rooms
-  const [rooms, setRooms] = useState(null)
+  const [rooms, setRooms] = useState([])
   // selected square
   const [squareMin, setSquareMin] = useState(null)
   const [squareMax, setSquareMax] = useState(null)
@@ -97,21 +98,13 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
     description: description,
     id: id
   }
-
-  const { searchResult, allPropertiesByType } = useSelector((state => state.home))
-  console.log(searchResult);
-  console.log(allPropertiesByType);
-
   useEffect(() => {
     if (searchResult === null) {
       dispatch(getResultPageData({ language, searchData }))
-      console.log("error");
+      // console.log("error");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, language, radio, propType, community, streets, rooms, squareMin, squareMax, priceMin, priceMax, buildType, newBuild, propCondition, floorMin, floorMax, description, id])
-
-  // const { resultData } = useSelector((state => state.view))
-  // console.log(resultData);
 
   return (
     open &&
@@ -212,10 +205,12 @@ export const Sider = ({ open, setOpen, radio, setRadio }) => {
           <h5>{t("rooms")}</h5>
 
           <RoomSelect
-            data={language === "en" ? bedroomsNum : roomsNum}
-            onChange={(e) => setRooms(e)}
-            rooms={rooms}
+            language={language}
+            // data={language === "en" ? bedroomsNum : roomsNum}
+            onChange={(selectedRooms) => setRooms(selectedRooms)}
+            selectedRooms={rooms}
           />
+
         </div>
 
         <div className='sider__square sider__block'>

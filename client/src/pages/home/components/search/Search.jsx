@@ -12,9 +12,9 @@ import './Search.scss'
 export const Search = () => {
     const { t } = useTranslation()
 
-    const dispatch = useDispatch()
-
     const { language } = useSelector((state => state.home))
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getSearchData(language))
@@ -22,6 +22,7 @@ export const Search = () => {
 
     const { searchData } = useSelector((state => state.home))
 
+    const [disable, setDisable] = useState(false)
     const [active, setActive] = useSessionState("sale", "homeSearch")
     const [community, setCommunity] = useState([])
     const [type, setType] = useState([])
@@ -31,6 +32,8 @@ export const Search = () => {
     const navigate = useNavigate()
 
     const handleSearch = () => {
+        setDisable(true)
+
         const searchData = [
             {
                 type: active,
@@ -56,7 +59,6 @@ export const Search = () => {
                 navigate("/result")
             })
     }
-
 
     return (
         <div className='search'>
@@ -97,7 +99,7 @@ export const Search = () => {
                     type="number"
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <button onClick={handleSearch}>{t("search_btn")}</button>
+                <button onClick={!disable ? handleSearch : null} >{!disable ? t("search_btn") : t("loading")}</button>
             </div>
         </div>
     )

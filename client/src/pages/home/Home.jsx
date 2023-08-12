@@ -26,7 +26,7 @@ const Home = () => {
             <Main />
             <div className="contain">
                 <div className='home'>
-                    <Searches />
+                    {/* <Searches /> */}
                     <PropType type="sale" data={sale} />
                     <PropType type="rent" data={rent} />
                     <Services />

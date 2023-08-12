@@ -11,7 +11,7 @@ import { Loader } from '../../components/loader/Loader'
 const Result = () => {
   const { t } = useTranslation()
 
-  const { propertyType, loading, searchResult, allPropertiesByType } = useSelector((state => state.home))
+  const { language, propertyType, loading, searchResult, allPropertiesByType } = useSelector((state => state.home))
   const { resultData } = useSelector((state => state.view))
   // console.log(resultData);
 
@@ -27,7 +27,7 @@ const Result = () => {
   const [radio, setRadio] = useState(propertyType)
 
   return (
-    loading 
+    loading
       ? <Loader />
       : <div className='result'>
         <Sider
@@ -35,6 +35,7 @@ const Result = () => {
           setOpen={setOpen}
           radio={radio}
           setRadio={setRadio}
+          language={language}
         />
 
         {/* article */}

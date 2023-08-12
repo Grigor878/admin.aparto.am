@@ -22,7 +22,7 @@ export const PropCard = ({ data }) => {
                             <div className='propCard__card-main'>
                                 <div className='propCard__card-main-top'>
                                     <p>$ {am[2]?.fields[0]?.value}</p>
-                                    <span># {home_id}</span>
+                                    <span>ID {home_id}</span>
                                 </div>
 
                                 <div className='propCard__card-main-center'>
@@ -51,7 +51,7 @@ export const PropCard = ({ data }) => {
                             <div className='propCard__card-main'>
                                 <div className='propCard__card-main-top'>
                                     <p>$ {am[2]?.fields[0]?.value}</p>
-                                    <span># {home_id}</span>
+                                    <span>ID {home_id}</span>
                                 </div>
 
                                 <div className='propCard__card-main-center'>

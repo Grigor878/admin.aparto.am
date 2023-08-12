@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import cookies from "js-cookie";
 import baseApi from "../../apis/baseApi";
 
 const initialState = {
-  language: "am",
+  language: cookies.get("i18next") || "am",
   exchange: null,
   sale: null,
   rent: null,
@@ -58,7 +59,9 @@ export const getSearchData = createAsyncThunk(
   "home/getSearchData",
   async (language) => {
     try {
-      const { data } = await baseApi.get(`/api/getSearchAttributes/${language}`);
+      const { data } = await baseApi.get(
+        `/api/getSearchAttributes/${language}`
+      );
       return data;
     } catch (err) {
       console.log(`Get Search Data Error: ${err.message}`);

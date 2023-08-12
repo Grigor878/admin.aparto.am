@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getExchange } from '../../../../store/slices/homeSlice';
 import { FaDollarSign } from 'react-icons/fa';
 import { headerExchange } from './data';
@@ -13,7 +13,7 @@ const Exchange = () => {
         dispatch(getExchange())
     }, [dispatch])
 
-    const { exchange } = useSelector((state => state.home))
+    // const { exchange } = useSelector((state => state.home))
     // console.log(exchange)//
 
     const exRef = useRef();
