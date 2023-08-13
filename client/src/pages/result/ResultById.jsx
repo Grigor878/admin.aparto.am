@@ -15,7 +15,7 @@ import telegram from '../../assets/icons/telegram.png'
 import whatsapp from '../../assets/icons/whatsapp.png'
 import viber from '../../assets/icons/viber.png'
 import { Loader } from '../../components/loader/Loader'
-// import '../../admin/pages/properties/pages/Styles.scss'
+import '../../admin/pages/properties/pages/Styles.scss'
 
 const ResultById = () => {
   const { t } = useTranslation()
