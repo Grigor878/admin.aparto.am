@@ -80,10 +80,10 @@ body {
   @include flexCenter;
   margin: 0 auto;
 
-  img {
-    width: 77px;
-    height: 77px;
-  }
+  // img {
+  //   width: 77px;
+  //   height: 77px;
+  // }
 
   @media screen and (max-width: 768px) {
     width: 55px;

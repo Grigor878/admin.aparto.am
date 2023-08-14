@@ -1,29 +1,29 @@
 import React, { lazy, Suspense } from "react"
-// import { Loader } from "../components/loader/Loader"
+import pMinDelay from 'p-min-delay';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
 
-const Home = lazy(() => import('../pages/home/Home'))
-const Result = lazy(() => import('../pages/result/Result'))
-const ResultById = lazy(() => import('../pages/result/ResultById'))
+const Home = lazy(() => pMinDelay(import('../pages/home/Home'),1500))
+const Result = lazy(() => pMinDelay(import('../pages/result/Result'),500))
+const ResultById = lazy(() => pMinDelay(import('../pages/result/ResultById'),500))
 
-const NotFound = lazy(() => import('../pages/404/NotFound'))
+const NotFound = lazy(() => pMinDelay(import('../pages/404/NotFound'),500))
 
-const Login = lazy(() => import('../admin/pages/login/Login'))
-const Profile = lazy(() => import('../admin/pages/profile/Profile'))
-const Properties = lazy(() => import('../admin/pages/properties/Properties'))
-const SingleProperty = lazy(() => import('../admin/pages/properties/pages/SingleProperty'))
-const AddProperties = lazy(() => import('../admin/pages/properties/pages/AddProperties'))
-const EditProperties = lazy(() => import('../admin/pages/properties/pages/EditProperties'))
-const Structure = lazy(() => import('../admin/pages/structure/Structure'))
-const Users = lazy(() => import('../admin/pages/users/Users'))
-const AddUsers = lazy(() => import('../admin/pages/users/pages/AddUsers'))
-const EditUsers = lazy(() => import('../admin/pages/users/pages/EditUsers'))
-const Configs = lazy(() => import('../admin/pages/configs/Configs'))
-const Crm = lazy(() => import('../admin/pages/crm/Crm'))
+const Login = lazy(() => pMinDelay(import('../admin/pages/login/Login'),500))
+const Profile = lazy(() => pMinDelay(import('../admin/pages/profile/Profile'),500))
+const Properties = lazy(() => pMinDelay(import('../admin/pages/properties/Properties'),500))
+const SingleProperty = lazy(() => pMinDelay(import('../admin/pages/properties/pages/SingleProperty'),500))
+const AddProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/AddProperties'),500))
+const EditProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/EditProperties'),500))
+const Structure = lazy(() => pMinDelay(import('../admin/pages/structure/Structure'),500))
+const Users = lazy(() => pMinDelay(import('../admin/pages/users/Users'),500))
+const AddUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/AddUsers'),500))
+const EditUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/EditUsers'),500))
+const Configs = lazy(() => pMinDelay(import('../admin/pages/configs/Configs'),500))
+const Crm = lazy(() => pMinDelay(import('../admin/pages/crm/Crm'),500))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
