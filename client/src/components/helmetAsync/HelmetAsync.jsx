@@ -18,7 +18,7 @@ const HelmetAsync = () => {
     <HelmetProvider>
       <Helmet>
         <title>Aparto {newPath}</title>
-        <link rel="canonical" href={pathname !== "/" ? `https://x.com${pathname}` : "https://x.com"} />
+        <link rel="canonical" href={pathname !== "/" ? `https://aparto.am${pathname}` : "https://aparto.am"} />
         <meta name="description" content={pathname !== "/" ? `x ${pathname.substring(1)} page.` : "x."} />
       </Helmet>
     </HelmetProvider>
