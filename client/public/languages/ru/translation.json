@@ -52,6 +52,7 @@
 
   "result": "результат",
   "map": "Карта",
+  "close_map": "Закрыть Карту >",
   "filters": "Фильтры",
   "clear": "",
   "transactionType": "",

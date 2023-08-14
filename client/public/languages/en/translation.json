@@ -52,6 +52,7 @@
 
   "result": "result",
   "map": "Map",
+  "close_map": "Close Map >",
   "filters": "Filters",
   "clear": "Clear",
   "transactionType": "",

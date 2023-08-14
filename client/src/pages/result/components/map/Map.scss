@@ -1,0 +1,19 @@
+@import "../../../../variables";
+
+.map {
+  width: 100%;
+  height: 822px;
+  background: red;
+  padding: 28px;
+
+  &__close {
+    border-radius: 6px;
+    border: 1.5px solid $textSub;
+    background: $bgSub;
+    padding: 12px;
+    color: $textSub;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+  }
+}
