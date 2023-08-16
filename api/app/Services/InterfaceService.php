@@ -240,9 +240,9 @@ class InterFaceService
                 if ($data['searchData'][1]['community']) {
                     $communityData = $data['searchData'][1]['community'];
                     $ourDate = [];
-                    if ($data['lang'] == "en") {
+                    if ($data['language'] == "en") {
                         array_push($ourDate, strtolower($en[1]->fields[0]->value), $en[1]->fields[0]->communityStreet->value);
-                    } elseif ($data['lang'] == "ru") {
+                    } elseif ($data['language'] == "ru") {
                         array_push($ourDate, strtolower($ru[1]->fields[0]->value), $ru[1]->fields[0]->communityStreet->value);
                     } else {
                         array_push($ourDate, strtolower($am[1]->fields[0]->value), $am[1]->fields[0]->communityStreet->value);
@@ -264,7 +264,7 @@ class InterFaceService
 
                 if ($data['searchData'][3]['rooms']) {
                     $rooms = $data['searchData'][3]['rooms'];
-                    if ($data['lang'] == "en") {
+                    if ($data['language'] == "en") {
                         if (!(in_array($am[3]->fields[3]->value, $rooms))) {
                             $isMatched = false;
                         }
