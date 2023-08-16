@@ -12,9 +12,4 @@ export const headerExchange = [
     symbol: <TbCurrencyDram className="exchange__flag" />,
     value: "TbCurrencyDram",
   },
-  // {
-  //   id: 3,
-  //   symbol: <FaRubleSign className="exchange__flag" />,
-  //   value: "FaRubleSign",
-  // },
 ];

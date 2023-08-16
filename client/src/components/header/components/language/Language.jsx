@@ -17,7 +17,6 @@ const Language = () => {
 
     const [openLng, setOpenLng] = useState(false)
     const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "am")
-    // add dispatch for PdfSwitcher
 
     const handleOpenLng = () => {
         setOpenLng(!openLng);
@@ -29,7 +28,7 @@ const Language = () => {
         code === "en" ? setSelectedLng("gb") : setSelectedLng(code)
         code === "en" ? cookies.set("lngFlag", "gb") : cookies.set("lngFlag", code)
         cookies.set('i18next', code)
-        dispatch(setLanguage(code)) // 12.08 - add global language,in feature needs to remove cookies
+        dispatch(setLanguage(code))
     };
 
     useOutsideClick(lngRef, openLng, setOpenLng);

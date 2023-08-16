@@ -52,6 +52,7 @@
 
   "result": "արդյունք",
   "map": "Քարտեզ",
+  "close_map": "Փակել Քարտեզը >",
   "filters": "Ֆիլտրեր",
   "clear": "Մաքրել",
   "transactionType": "Գործարքի Տեսակ",
@@ -73,7 +74,7 @@
 
   "house": "Բնակարան",
   "private_house": "Առանձնատուն",
-  "commertial": "Կոմերցիոն",
+  "commercial": "Կոմերցիոն",
 
   "top": "Տոպ",
   "regular": "Հասարակ",

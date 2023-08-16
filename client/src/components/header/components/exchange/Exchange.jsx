@@ -1,54 +1,71 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getExchange } from '../../../../store/slices/homeSlice';
-import { FaDollarSign } from 'react-icons/fa';
-import { headerExchange } from './data';
-import useOutsideClick from '../../../../hooks/useOutsideClick';
-import './Exchange.scss';
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getExchange } from "../../../../store/slices/homeSlice";
+import { FaDollarSign } from "react-icons/fa";
+import { TbCurrencyDram } from "react-icons/tb";
+import { headerExchange } from "./data";
+import cookies from "js-cookie";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
+import "./Exchange.scss";
 
 const Exchange = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getExchange())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(getExchange());
+  }, [dispatch]);
 
-    // const { exchange } = useSelector((state => state.home))
-    // console.log(exchange)//
+  // const { exchange } = useSelector((state => state.home))
+  // console.log(exchange)//
 
-    const exRef = useRef();
-    const [openEx, setOpenEx] = useState(false);
-    const [selectedEx, setSelectedex] = useState({
-        id: 1,
-        symbol: <FaDollarSign className='exchange__flag' />
-    });
+  const cache = parseInt(cookies.get("exchange"));
 
-    const handleOpenEx = () => {
-        setOpenEx(!openEx);
-    };
+  const exRef = useRef();
+  const [openEx, setOpenEx] = useState(false);
+  const [selectedEx, setSelectedex] = useState(
+    cache !== 2
+      ? {
+          id: 1,
+          symbol: <FaDollarSign className="exchange__flag" />,
+        }
+      : {
+          id: 2,
+          symbol: <TbCurrencyDram className="exchange__flag" />,
+          value: "TbCurrencyDram",
+        }
+  );
 
-    const handleChangeEx = (id, symbol) => {
-        setOpenEx(false);
-        setSelectedex({ id, symbol });
-    };
+  const handleOpenEx = () => {
+    setOpenEx(!openEx);
+  };
 
-    useOutsideClick(exRef, openEx, setOpenEx);
+  const handleChangeEx = (id, symbol) => {
+    setOpenEx(false);
+    setSelectedex({ id, symbol });
+    cookies.set("exchange", id);
+  };
 
-    return (
-        <div className='exchange' ref={exRef}>
-            <div className='exchange__choose' onClick={handleOpenEx}>
-                {selectedEx.symbol}
-            </div>
+  useOutsideClick(exRef, openEx, setOpenEx);
 
-            <ul className={!openEx ? 'exchange__dropdown' : 'exchange__dropdown-active'}>
-                {headerExchange.filter((el) => el.id !== selectedEx.id).map(({ id, symbol }) => (
-                    <li key={id} onClick={() => handleChangeEx(id, symbol)}>
-                        {symbol}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div className="exchange" ref={exRef}>
+      <div className="exchange__choose" onClick={handleOpenEx}>
+        {selectedEx.symbol}
+      </div>
+
+      <ul
+        className={!openEx ? "exchange__dropdown" : "exchange__dropdown-active"}
+      >
+        {headerExchange
+          .filter((el) => el.id !== selectedEx.id)
+          .map(({ id, symbol }) => (
+            <li key={id} onClick={() => handleChangeEx(id, symbol)}>
+              {symbol}
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Exchange;

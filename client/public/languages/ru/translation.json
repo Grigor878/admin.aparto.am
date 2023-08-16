@@ -52,6 +52,7 @@
 
   "result": "результат",
   "map": "Карта",
+  "close_map": "Закрыть Карту >",
   "filters": "Фильтры",
   "clear": "",
   "transactionType": "",
@@ -71,9 +72,9 @@
   "min": " мин.",
   "max": " макс.",
 
-  "house":"Բնակարան",
-  "private_house":"Առանձնատուն",
-  "commertial":"Կոմերցիոն",
+  "house":"Квартира",
+  "private_house":"Дом",
+  "commercial":"Коммерческая",
 
   "top":"Топ",
   "regular":"Обычный",

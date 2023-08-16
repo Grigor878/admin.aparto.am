@@ -1,9 +1,11 @@
 @import "../../variables";
 
 .header {
-  background: $bg;
+  background: $bgSub;
+  // background: $bg;
   // padding: 27px 0;
   padding-bottom: 27px;
+  border-bottom: 1px solid $advancedBack;
 
   position: sticky;
   top: 0;

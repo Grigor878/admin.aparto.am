@@ -11,7 +11,7 @@ import { getResultPageData } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
 
-export const Sider = ({ open, setOpen, radio, setRadio, language }) => {
+export const Sider = ({ open, setOpen, map,radio, setRadio, language }) => {
   const { t } = useTranslation()
 
   const { searchResult, allPropertiesByType } = useSelector((state => state.home))
@@ -156,8 +156,8 @@ export const Sider = ({ open, setOpen, radio, setRadio, language }) => {
               text={t("private_house")}
             />
             <Checkbox
-              onChange={(e) => handlePropType(e, "commercial")}
-              text={t("commertial")}
+              onChange={(e) => handlePropType(e, "commertial")}
+              text={t("commercial")}
             />
           </div>
         </div>
