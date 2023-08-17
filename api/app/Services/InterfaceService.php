@@ -338,7 +338,7 @@ class InterFaceService
             "rooms" => $home->am[3]->fields[2]->value,
             "buildingType" => $home->am[4]->fields[0]->value,
             "surface" =>$home->am[3]->fields[0]->value,
-
+            "locate" =>$home->am[1]->fields[4]->value,
         ];
 
         return $mapDetails;
