@@ -143,11 +143,11 @@ const ResultById = () => {
                 <p>
                   {location.icon}
                   {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
+                  {/* {" "} */}
+                  {/* {currentPropertyData[1]?.fields[1]?.value}, */}
                   {" "}
-                  {currentPropertyData[1]?.fields[1]?.value},
-                  {" "}
-                  {currentPropertyData[1]?.fields[3]?.value}
-                  {"բն., "}
+                  {/* {currentPropertyData[1]?.fields[3]?.value}
+                  {"բն., "} */}
                   {currentPropertyData[1]?.fields[0]?.value}
                   <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>{t('see_on_map')}</span>
                 </p>

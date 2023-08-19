@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { filterOpen, openMap } from "../../assets/svgs/svgs";
 import { Sider } from "./components/sider/Sider";
 import { PropCard } from "../../components/propCard/PropCard";
-// import { getAllPropertiesByType } from "../../store/slices/viewSlice";
 import { Loader } from "../../components/loader/Loader";
 import { Map } from "./components/map/Map";
 import "./Styles.scss";
@@ -15,7 +14,6 @@ const Result = () => {
   const { loading, resultData, siderData } = useSelector((state) => state.view);
 
   const [sider, setSider] = useState(true);
-  // const [radio, setRadio] = useState(propertyType);
   const [map, setMap] = useState(false);
 
   useEffect(() => {
@@ -36,9 +34,6 @@ const Result = () => {
       <Sider
         open={sider}
         setOpen={setSider}
-        map={map}
-        // radio={radio}
-        // setRadio={setRadio}
       />
 
       {siderLoading 

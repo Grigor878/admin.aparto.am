@@ -13,11 +13,11 @@ const initialState = {
 };
 
 // get top homes
-export const getTopHomes = createAsyncThunk("home", async () => {
+export const getTopHomes = createAsyncThunk("home", async (language) => {
   try {
     const [saleData, rentData] = await Promise.all([
-      baseApi.get("/api/getSaleHomes"),
-      baseApi.get("/api/getRentHomes"),
+      baseApi.get(`/api/getSaleHomes/${language}`),
+      baseApi.get(`/api/getRentHomes/${language}`),
     ]);
 
     return {

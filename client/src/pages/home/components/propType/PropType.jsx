@@ -13,13 +13,14 @@ const PropType = ({ type, data }) => {
 
     const dispatch = useDispatch()
 
+    const { language } = useSelector((state => state.home))
     const { loading } = useSelector((state) => state.view);
 
     const navigate = useNavigate()
 
     const hanldeSeeById = () => {
         dispatch(addPropertyType(type))
-        dispatch(getAllPropertiesByType({ type }))
+        dispatch(getAllPropertiesByType(language, type))
             .then(() => {
                 navigate('/result')
             })

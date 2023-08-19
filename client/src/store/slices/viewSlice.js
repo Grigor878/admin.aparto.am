@@ -45,9 +45,8 @@ export const postSearchData = createAsyncThunk(
   "home/postSearchData",
   async ({ searchData, language }) => {
     try {
-      const { data } = await baseApi.post(`api/getSearchData`, {
+      const { data } = await baseApi.post(`api/getSearchData/${language}`, {
         searchData,
-        language,
       });
       return data;
     } catch (err) {
@@ -59,9 +58,9 @@ export const postSearchData = createAsyncThunk(
 // see all properties by type
 export const getAllPropertiesByType = createAsyncThunk(
   "home/getAllPropertiesByType",
-  async (type) => {
+  async (language,type) => {
     try {
-      const { data } = await baseApi.post(`api/getSeeMoreHomes`, type);
+      const { data } = await baseApi.post(`api/getSeeMoreHomes/${language}`, type);
       return data;
     } catch (err) {
       console.log(`Get All Properties Data Error: ${err.message}`);

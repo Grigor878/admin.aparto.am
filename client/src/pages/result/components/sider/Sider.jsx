@@ -11,7 +11,7 @@ import { changeToHome, changeToResult, clearResultData, getResultPageData } from
 import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
 
-export const Sider = ({ open, setOpen, map }) => {
+export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
 
   const dispatch = useDispatch()

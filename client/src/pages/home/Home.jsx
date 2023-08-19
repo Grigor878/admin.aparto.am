@@ -13,12 +13,12 @@ import './Home.scss'
 
 const Home = () => {
     const dispatch = useDispatch()
-    const { sale, rent } = useSelector((state => state.home))
+    const { language, sale, rent } = useSelector((state => state.home))
 
     useEffect(() => {
-        dispatch(getTopHomes())
+        dispatch(getTopHomes(language))
         dispatch(getAdminData())
-    }, [dispatch])
+    }, [dispatch, language])
 
     return (
         <section>
