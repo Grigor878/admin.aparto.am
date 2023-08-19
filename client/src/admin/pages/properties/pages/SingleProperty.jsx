@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAdminData } from '../../../../store/slices/homeSlice';
 import baseApi from '../../../../apis/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
-import { moneyFormater } from '../../../../helpers/formatters';
+import { usdFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
 import { balcony, buildType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
@@ -340,27 +340,30 @@ const SingleProperty = () => {
                     {/* Right */}
                     <div className='singleProperty__content-right'>
                         <div className='singleProperty__content-right-price'>
-                            <h4>Գին։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+                            <h4>Գին։<span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
 
                             {currentPropertyData[2]?.fields[2]?.value &&
-                                <p>Նախավճարի չափ:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
+                                <p>Նախավճարի չափ:<span>{usdFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
                             {currentPropertyData[2]?.fields[1]?.value &&
-                                <p>Գինը 1ք.մ :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
+                                <p>Գինը 1ք.մ :<span>{usdFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
 
                             <PriceHistory data={currentPropertyPrice} />
 
-                            <hr />
-
-                            <p>Վճարման կարգ։
-                                {currentPropertyData[2]?.fields[4]?.value.includes(",")
-                                    ? <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                        {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
-                                            <span key={index}>{item.trim()}</span>
-                                        ))}
-                                    </span>
-                                    : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
-                                }
-                            </p>
+                            {currentPropertyData[2]?.fields[4]?.value &&
+                                <>
+                                    <hr />
+                                    <p>Վճարման կարգ։
+                                        {currentPropertyData[2]?.fields[4]?.value.includes(",")
+                                            ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                                {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
+                                                    <span key={index}>{item.trim()}</span>
+                                                ))}
+                                            </span>
+                                            : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
+                                        }
+                                    </p>
+                                </>
+                            }
 
                             {currentPropertyData[2]?.fields[5]?.value &&
                                 <p>Նախընտրած բանկ։

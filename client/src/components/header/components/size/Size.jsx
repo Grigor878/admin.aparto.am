@@ -1,17 +1,21 @@
 import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSize } from "../../../../store/slices/homeSlice";
 import { sizeData } from "./data";
 import cookies from "js-cookie";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import "./Size.scss";
 
 const Size = () => {
+  const dispatch = useDispatch();
+
   const sizeRef = useRef();
 
-  const cache = parseInt(cookies.get("sizeUnit"));
+  const { size } = useSelector((state => state.home))
 
   const [openSize, setOpenSize] = useState(false);
   const [selectedSize, setSelectedSize] = useState(
-    cache !== 2
+    size !== 2
       ? {
           id: 1,
           icon: (
@@ -34,6 +38,7 @@ const Size = () => {
     setOpenSize(false);
     setSelectedSize({ id: id, icon: icon });
     cookies.set("sizeUnit", id);
+    dispatch(setSize(id))
   };
 
   useOutsideClick(sizeRef, openSize, setOpenSize);

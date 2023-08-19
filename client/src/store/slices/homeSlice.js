@@ -4,7 +4,9 @@ import baseApi from "../../apis/baseApi";
 
 const initialState = {
   language: cookies.get("i18next") || "am",
-  exchange: null,
+  exchange: cookies.get("exchange") || 1,
+  exchangeValue: null,
+  size: cookies.get("sizeUnit") || 1,
   sale: null,
   rent: null,
   admin: null,
@@ -73,6 +75,14 @@ const homeSlice = createSlice({
     setLanguage: (state, action) => {
       state.language = action.payload;
     },
+    // set global exchange
+    setExchange: (state, action) => {
+      state.exchange = action.payload;
+    },
+    // set global size
+    setSize: (state, action) => {
+      state.size = action.payload;
+    },
     // add global type for property
     addPropertyType: (state, action) => {
       state.propertyType = action.payload;
@@ -81,7 +91,7 @@ const homeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getExchange.fulfilled, (state, action) => {
-      state.exchange = action.payload;
+      state.exchangeValue = action.payload;
     });
     builder.addCase(getTopHomes.fulfilled, (state, action) => {
       state.sale = action.payload.sale;
@@ -96,5 +106,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const { setLanguage, addPropertyType } = homeSlice.actions;
+export const { setLanguage, setExchange, setSize, addPropertyType } =
+  homeSlice.actions;
 export default homeSlice.reducer;

@@ -4,30 +4,30 @@
   @include flex;
   justify-content: space-between;
   // justify-content: flex-start;
-  gap: 16px;
+  gap: 24px;
   flex-wrap: wrap;
 
+  // global for 2 types
+  &__cardResult,
   &__card {
     border-radius: 12px;
     border: 1.5px solid $advancedBack;
     @include hoverEffect;
 
     img {
-      // width: 384px;
-      // height: 286px;
-      // width: 325px;
-      // height: 231px;
       border-radius: 12px 12px 0px 0px;
       border-bottom: 1px solid $advancedBack;
     }
+  }
 
-    &-imgSmall {
-      width: 325px;
-      height: 231px;
-    }
+  // home page card
+  &__card {
+    @include flexCol;
+    width: 384px;
+    height: 440px;
 
-    &-imgLarg {
-      width: 384px;
+    &-img {
+      width: 383px;
       height: 286px;
     }
 
@@ -37,7 +37,6 @@
       background: $bgSub;
       padding: 16px;
       border-radius: 0px 0px 12px 12px;
-      // border-top: 1.5px solid $advancedBack;
 
       &-top {
         @include flex;
@@ -96,6 +95,90 @@
         span {
           @include flex;
           gap: 10px;
+          color: $textSub;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+
+  // result page card
+  &__cardResult {
+    @include flexCol;
+    width: 325px;
+    // height: 380px;
+
+    &-img {
+      width: 324px;
+      height: 231px;
+    }
+
+    &-main {
+      @include flexCol;
+      gap: 8px;
+      background: $bgSub;
+      padding: 12px;
+      border-radius: 0px 0px 12px 12px;
+
+      &-top {
+        @include flex;
+        justify-content: space-between;
+
+        p {
+          color: $text;
+          font-family: "Archivo";
+          font-size: 20px;
+          font-weight: 800;
+          line-height: 28px;
+        }
+
+        span {
+          color: $textSmall;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 16px;
+          text-transform: uppercase;
+        }
+      }
+
+      &-center {
+        @include flexCol;
+        gap: 8px;
+
+        h5 {
+          color: $text;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+        }
+
+        &-geo {
+          @include flex;
+          gap: 4px;
+
+          p {
+            color: $textBtn;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16px;
+
+            &:first-child:after {
+              content: " |";
+            }
+          }
+        }
+      }
+
+      &-bottom {
+        @include flex;
+        justify-content: space-between;
+        padding-top: 14px;
+
+        span {
+          @include flex;
+          gap: 3px;
           color: $textSub;
           font-size: 14px;
           font-weight: 400;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { moneyFormater } from '../../../../../helpers/formatters'
+import { usdFormater } from '../../../../../helpers/formatters'
 import { down, up } from '../../../../svgs/svgs'
 import '../../pages/Styles.scss'
 
@@ -28,7 +28,7 @@ export const PriceHistory = ({ data }) => {
                                 className='singleProperty__content-right-price-history-listActive-view'
                                 key={date + price}
                             >
-                                <p>{moneyFormater(price)} </p>
+                                <p>{usdFormater(price)} </p>
                                 <p>{date}</p>
                             </div>
                         )

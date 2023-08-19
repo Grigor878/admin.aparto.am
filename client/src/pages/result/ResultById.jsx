@@ -8,7 +8,7 @@ import { success } from '../../components/swal/swal'
 import { balcony, buildType, buildingYear, checked, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
-import { moneyFormater } from '../../helpers/formatters'
+import { usdFormater } from '../../helpers/formatters'
 import { PriceHistory } from '../../admin/pages/properties/components/priceHistory/PriceHistory'
 import user from '../../assets/imgs/user.png'
 import telegram from '../../assets/icons/telegram.png'
@@ -143,11 +143,7 @@ const ResultById = () => {
                 <p>
                   {location.icon}
                   {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
-                  {/* {" "} */}
-                  {/* {currentPropertyData[1]?.fields[1]?.value}, */}
-                  {" "}
-                  {/* {currentPropertyData[1]?.fields[3]?.value}
-                  {"բն., "} */}
+                  {", "}
                   {currentPropertyData[1]?.fields[0]?.value}
                   <span onClick={() => window.scrollTo(0, document.body.scrollHeight)}>{t('see_on_map')}</span>
                 </p>
@@ -303,12 +299,6 @@ const ResultById = () => {
               <p>
                 {location.icon}
                 {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
-                {" "}
-                {currentPropertyData[1]?.fields[1]?.value},
-                {" "}
-                {currentPropertyData[1]?.fields[3]?.value}
-                {"բն., "}
-                {currentPropertyData[1]?.fields[0]?.value}
               </p>
 
               <div className='singleProperty__content-left-location-map'>
@@ -324,27 +314,30 @@ const ResultById = () => {
           {/* Right */}
           <div className='singleProperty__content-right'>
             <div className='singleProperty__content-right-price'>
-              <h4>{t("price")}։<span>{moneyFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+              <h4>{t("price")}։<span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
 
               {currentPropertyData[2]?.fields[2]?.value &&
-                <p>{t("first_pay")}:<span>{moneyFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
+                <p>{t("first_pay")}:<span>{usdFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}
               {currentPropertyData[2]?.fields[1]?.value &&
-                <p>{t("sqm_price")} :<span>{moneyFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
+                <p>{t("sqm_price")} :<span>{usdFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>}
 
               <PriceHistory data={currentPropertyPrice} />
 
-              <hr />
-
-              <p>{t("payment_type")}։
-                {currentPropertyData[2]?.fields[4]?.value.includes(",")
-                  ? <span style={{ display: 'flex', flexDirection: 'column' }}>
-                    {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
-                      <span key={index}>{item.trim()}</span>
-                    ))}
-                  </span>
-                  : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
-                }
-              </p>
+              {currentPropertyData[2]?.fields[4]?.value &&
+                <>
+                  <hr />
+                  <p>{t("payment_type")}։
+                    {currentPropertyData[2]?.fields[4]?.value.includes(",")
+                      ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                        {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
+                          <span key={index}>{item.trim()}</span>
+                        ))}
+                      </span>
+                      : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
+                    }
+                  </p>
+                </>
+              }
 
               {currentPropertyData[2]?.fields[5]?.value &&
                 <p>{t("preferred_bank")}։

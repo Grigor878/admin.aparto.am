@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getExchange } from "../../../../store/slices/homeSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getExchange, setExchange } from "../../../../store/slices/homeSlice";
 import { FaDollarSign } from "react-icons/fa";
 import { TbCurrencyDram } from "react-icons/tb";
 import { headerExchange } from "./data";
@@ -10,26 +10,27 @@ import "./Exchange.scss";
 
 const Exchange = () => {
   const dispatch = useDispatch();
+  
+  const exRef = useRef();
 
   useEffect(() => {
     dispatch(getExchange());
   }, [dispatch]);
 
-  const cache = parseInt(cookies.get("exchange"));
+  const { exchange } = useSelector((state => state.home))
 
-  const exRef = useRef();
   const [openEx, setOpenEx] = useState(false);
   const [selectedEx, setSelectedex] = useState(
-    cache !== 2
+    exchange !== 2
       ? {
-          id: 1,
-          symbol: <FaDollarSign className="exchange__flag" />,
-        }
+        id: 1,
+        symbol: <FaDollarSign className="exchange__flag" />,
+      }
       : {
-          id: 2,
-          symbol: <TbCurrencyDram className="exchange__flag" />,
-          value: "TbCurrencyDram",
-        }
+        id: 2,
+        symbol: <TbCurrencyDram className="exchange__flag" />,
+        value: "TbCurrencyDram",
+      }
   );
 
   const handleOpenEx = () => {
@@ -40,6 +41,7 @@ const Exchange = () => {
     setOpenEx(false);
     setSelectedex({ id, symbol });
     cookies.set("exchange", id);
+    dispatch(setExchange(id))
   };
 
   useOutsideClick(exRef, openEx, setOpenEx);

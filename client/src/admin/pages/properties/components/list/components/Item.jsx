@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
 import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
-import { moneyFormater } from '../../../../../../helpers/formatters'
+import { usdFormater } from '../../../../../../helpers/formatters'
 import { bathrooms, floor, height, room, square, top, url } from '../../../../../svgs/svgs'
 import { Btn } from './Btn'
 import { More } from './More'
@@ -63,7 +63,7 @@ export const Item = ({ data }) => {
 
                             <div className='propertyList__item-right-main-global'>
                                 <p>{"# "}{home_id}</p>
-                                <p>{moneyFormater(am[2].fields[0].value)}</p>
+                                <p>{usdFormater(am[2].fields[0].value)}</p>
                             </div>
                         </div>
 
