@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
-import { room, buildingType, square } from "../../admin/svgs/svgs";
+import { room, buildType, square } from "../../admin/svgs/svgs";
 import "./PropCard.scss";
 // import { useSelector } from "react-redux";
 
@@ -57,7 +57,7 @@ export const PropCard = ({ data }) => {
                     <span>
                       {room.icon} {rooms}
                     </span>
-                    <span>{buildingType.icon} {buildingType}</span>
+                    <span>{buildType.icon} {buildingType}</span>
                     <span>{square.icon} {surface}</span>
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export const PropCard = ({ data }) => {
                     <span>
                       {room.icon} {rooms}
                     </span>
-                    <span>{buildingType.icon} {buildingType}</span>
+                    <span>{buildType.icon} {buildingType}</span>
                     <span>{square.icon} {surface}</span>
                   </div>
                 </div>

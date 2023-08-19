@@ -398,7 +398,7 @@ export const balcony = {
   ),
 };
 
-export const buildingType = {
+export const buildType = {
   icon: (
     <svg
       width="24"

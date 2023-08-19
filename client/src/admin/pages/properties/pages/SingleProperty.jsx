@@ -7,7 +7,7 @@ import { Loader } from '../../../../components/loader/Loader'
 import { moneyFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
-import { balcony, buildingType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
+import { balcony, buildType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';
 import user from '../../../../assets/imgs/user.png'
@@ -201,7 +201,7 @@ const SingleProperty = () => {
                                 </div>}
 
                             <div>
-                                {buildingType.icon}
+                                {buildType.icon}
                                 Շինության տիպ -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
                             </div>
 

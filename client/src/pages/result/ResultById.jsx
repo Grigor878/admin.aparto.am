@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
 import { API_BASE_URL, APP_BASE_URL } from '../../apis/config'
 import { success } from '../../components/swal/swal'
-import { balcony, buildingType, buildingYear, checked, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../admin/svgs/svgs'
+import { balcony, buildType, buildingYear, checked, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
 import { moneyFormater } from '../../helpers/formatters'
@@ -185,7 +185,7 @@ const ResultById = () => {
                 </div>}
 
               <div>
-                {buildingType.icon}
+                {buildType.icon}
                 {t('building_type')} -<p>{currentPropertyData[4]?.fields[0]?.value}</p>
               </div>
 
