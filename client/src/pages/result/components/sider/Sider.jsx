@@ -10,46 +10,32 @@ import { Input } from '../inputs/input';
 import { changeToHome, changeToResult, clearResultData, getResultPageData } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
+import { useSessionState } from '../../../../hooks/useSessionState'
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
 
   const dispatch = useDispatch()
 
-  // const { resultData } = useSelector((state) => state.view);
-
-  const { propertyType, language } = useSelector((state) => state.home);
+  const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   // const { page } = useSelector((state) => state.view);
 
-  // selected radio
-  const [radio, setRadio] = useState(propertyType);
-  // selected communities
-  const [community, setCommunity] = useState([])
-  // selected streets
-  const [streets, setStreets] = useState([])
-  // selected propType
-  const [propType, setPropType] = useState([])
-  // selected rooms
-  const [rooms, setRooms] = useState([])
-  // selected square
-  const [squareMin, setSquareMin] = useState(null)
-  const [squareMax, setSquareMax] = useState(null)
-  // selected price
-  const [priceMin, setPriceMin] = useState(null)
-  const [priceMax, setPriceMax] = useState(null)
-  // selected buildingType
-  const [buildType, setBuildType] = useState([])
-  // selected newBuild
-  const [newBuild, setNewBuild] = useState("on")
-  // selected propCondition
-  const [propCondition, setPropCondition] = useState([])
-  // selected square
-  const [floorMin, setFloorMin] = useState(null)
-  const [floorMax, setFloorMax] = useState(null)
-  // selected descriotion
-  const [description, setDescription] = useState(null)
-  // selected id
-  const [id, setId] = useState(null)
+  const [radio, setRadio] = useState(transactionType)//done
+  const [community, setCommunity] = useState([])////////
+  const [streets, setStreets] = useState([])////////
+  const [propType, setPropType] = useState(propertyType)//done
+  const [rooms, setRooms] = useState(room)//done
+  const [squareMin, setSquareMin] = useSessionState(null, "siderSqMin")
+  const [squareMax, setSquareMax] = useSessionState("", "siderSqMax")
+  const [priceMin, setPriceMin] = useSessionState(null, "siderPriceMin")
+  const [priceMax, setPriceMax] = useState(price)//done
+  const [buildType, setBuildType] = useSessionState([], "siderBuildType")
+  const [newBuild, setNewBuild] = useSessionState("on", "siderNewBuild")
+  const [propCondition, setPropCondition] = useSessionState([], "siderPropCondition")
+  const [floorMin, setFloorMin] = useSessionState(null, "siderFloorMin")
+  const [floorMax, setFloorMax] = useSessionState(null, "siderFloorMax")
+  const [description, setDescription] = useSessionState(null, "siderDesc")
+  const [id, setId] = useSessionState(null, "siderId")
 
   const handleCommunity = (e, id) => {
     if (e.target.checked) {
@@ -83,37 +69,35 @@ export const Sider = ({ open, setOpen }) => {
     }
   };
 
-  // if (community.length !== 0 || description) {
-  //   dispatch(changeToResult("result"));
-  // } else{
-  //   dispatch(changeToHome("home"))
-  // }
-
   useEffect(() => {
-    // if (page === "result") {
-      const searchData = {
-        type: radio,
-        propertyType: propType,
-        community: community,
-        streets: streets,
-        rooms: rooms,
-        squareMin: squareMin,
-        squareMax: squareMax,
-        priceMin: priceMin,
-        priceMax: priceMax,
-        buildingType: buildType,
-        newBuild: newBuild,
-        propertyCondition: propCondition,
-        floorMin: floorMin,
-        floorMax: floorMax,
-        description: description,
-        id: id
-      }
-      // console.log("sider request");
-      dispatch(clearResultData())
-      dispatch(getResultPageData({ language, searchData }))
-    // }
+    const searchData = {
+      type: radio,
+      propertyType: propType,
+      community: community,
+      streets: streets,
+      rooms: rooms,
+      squareMin: squareMin,
+      squareMax: squareMax,
+      priceMin: priceMin,
+      priceMax: priceMax,
+      buildingType: buildType,
+      newBuild: newBuild,
+      propertyCondition: propCondition,
+      floorMin: floorMin,
+      floorMax: floorMax,
+      description: description,
+      id: id
+    }
+    console.log(searchData);
+    dispatch(clearResultData())
+    dispatch(getResultPageData({ language, searchData }))
   }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets])
+
+  const clearSearch = () => {
+    setPropType([])
+    setRooms([])
+    setPriceMax(null)
+  }
 
   return (
     open &&
@@ -123,7 +107,7 @@ export const Sider = ({ open, setOpen }) => {
           <h6>{t("filters")}</h6>
 
           <div className='sider__title-btns'>
-            <button onClick={() => alert("Clear!")}>
+            <button onClick={() => clearSearch()}>
               {t("clear")}
             </button>
 
@@ -159,14 +143,17 @@ export const Sider = ({ open, setOpen }) => {
             <Checkbox
               onChange={(e) => handlePropType(e, "house")}
               text={t("house")}
+              checked={propType.includes("house")}
             />
             <Checkbox
               onChange={(e) => handlePropType(e, "privateHouse")}
               text={t("private_house")}
+              checked={propType.includes("privateHouse")}
             />
             <Checkbox
               onChange={(e) => handlePropType(e, "commertial")}
               text={t("commercial")}
+              checked={propType.includes("commertial")}
             />
           </div>
         </div>
@@ -232,6 +219,7 @@ export const Sider = ({ open, setOpen }) => {
               placeholder={t("square") + t("min")}
               onChange={(e) => setSquareMin(e)}
               symbol={t("square_symbol")}
+              value={squareMin}
             />
             <Input
               className='inputSmall'
@@ -239,6 +227,7 @@ export const Sider = ({ open, setOpen }) => {
               placeholder={t("square") + t("max")}
               onChange={(e) => setSquareMax(e)}
               symbol={t("square_symbol")}
+              value={squareMax}
             />
           </div>
         </div>
@@ -253,6 +242,7 @@ export const Sider = ({ open, setOpen }) => {
               placeholder={t("price") + t("min")}
               onChange={(e) => setPriceMin(e)}
               symbol="$"
+              value={priceMin}
             />
             <Input
               className='inputSmall'
@@ -260,6 +250,7 @@ export const Sider = ({ open, setOpen }) => {
               placeholder={t("price") + t("max")}
               onChange={(e) => setPriceMax(e)}
               symbol="$"
+              value={priceMax}
             />
           </div>
         </div>
@@ -274,6 +265,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handleBuildType(e, id)}
                   key={id}
                   text={value}
+                  checked={buildType.includes(id)}
                 />
               )
             })
@@ -283,6 +275,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handleBuildType(e, id)}
                     key={id}
                     text={value}
+                    checked={buildType.includes(id)}
                   />
                 )
               })
@@ -292,6 +285,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handleBuildType(e, id)}
                       key={id}
                       text={value}
+                      checked={buildType.includes(id)}
                     />
                   )
                 })
@@ -303,6 +297,7 @@ export const Sider = ({ open, setOpen }) => {
           <Checkbox
             onChange={(e) => setNewBuild(e.target.checked ? true : 'on')}
             text={t("new_build")}
+            checked={newBuild === true}
           />
         </div>
 
@@ -316,6 +311,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handlePropCondition(e, id)}
                   key={id}
                   text={value}
+                  checked={propCondition.includes(id)}
                 />
               )
             })
@@ -325,6 +321,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handlePropCondition(e, id)}
                     key={id}
                     text={value}
+                    checked={propCondition.includes(id)}
                   />
                 )
               })
@@ -334,6 +331,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handlePropCondition(e, id)}
                       key={id}
                       text={value}
+                      checked={propCondition.includes(id)}
                     />
                   )
                 })
@@ -350,12 +348,14 @@ export const Sider = ({ open, setOpen }) => {
               type="number"
               placeholder={t("floor") + t("min")}
               onChange={(e) => setFloorMin(e)}
+              value={floorMin}
             />
             <Input
               className='inputSmall'
               type="number"
               placeholder={t("floor") + t("max")}
               onChange={(e) => setFloorMax(e)}
+              value={floorMax}
             />
           </div>
         </div>
@@ -369,6 +369,7 @@ export const Sider = ({ open, setOpen }) => {
               type="text"
               placeholder={t("other_description")}
               onChange={(e) => setDescription(e)}
+              value={description}
             />
           </div>
         </div>
@@ -382,6 +383,7 @@ export const Sider = ({ open, setOpen }) => {
               type="number"
               placeholder={t("id") + " ` 12345"}
               onChange={(e) => setId(e)}
+              value={id}
             />
           </div>
         </div>

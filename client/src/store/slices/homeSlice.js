@@ -7,10 +7,14 @@ const initialState = {
   exchange: cookies.get("exchange") || 1,
   exchangeValue: null,
   size: cookies.get("sizeUnit") || 1,
+  userSearches: cookies.get("userSearches") || null,
   sale: null,
   rent: null,
   admin: null,
+  transactionType: null,
   propertyType: null,
+  room: null,
+  price: null,
   searchData: null,
 };
 
@@ -84,8 +88,20 @@ const homeSlice = createSlice({
       state.size = action.payload;
     },
     // add global type for property
+    addTransactionType: (state, action) => {
+      state.transactionType = action.payload;
+    },
+    // add global type for property
     addPropertyType: (state, action) => {
       state.propertyType = action.payload;
+    },
+    // add global type for room
+    addRooms: (state, action) => {
+      state.room = action.payload;
+    },
+    // add global type for room
+    addPrice: (state, action) => {
+      state.price = action.payload;
     },
     //
   },
@@ -106,6 +122,13 @@ const homeSlice = createSlice({
   },
 });
 
-export const { setLanguage, setExchange, setSize, addPropertyType } =
-  homeSlice.actions;
+export const {
+  setLanguage,
+  setExchange,
+  setSize,
+  addTransactionType,
+  addPropertyType,
+  addRooms,
+  addPrice,
+} = homeSlice.actions;
 export default homeSlice.reducer;

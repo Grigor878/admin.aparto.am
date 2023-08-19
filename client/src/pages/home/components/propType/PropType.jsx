@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
-import { addPropertyType } from '../../../../store/slices/homeSlice'
+import { addTransactionType } from '../../../../store/slices/homeSlice'
 import { PropCard } from '../../../../components/propCard/PropCard'
 import { getAllPropertiesByType } from '../../../../store/slices/viewSlice'
 import './PropType.scss'
@@ -19,7 +19,7 @@ const PropType = ({ type, data }) => {
     const navigate = useNavigate()
 
     const hanldeSeeById = () => {
-        dispatch(addPropertyType(type))
+        dispatch(addTransactionType(type))
         dispatch(getAllPropertiesByType({ language, type }))
             .then(() => {
                 navigate('/result')

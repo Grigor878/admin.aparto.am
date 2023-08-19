@@ -299,6 +299,8 @@ const ResultById = () => {
               <p>
                 {location.icon}
                 {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
+                {", "}
+                {currentPropertyData[1]?.fields[0]?.value}
               </p>
 
               <div className='singleProperty__content-left-location-map'>

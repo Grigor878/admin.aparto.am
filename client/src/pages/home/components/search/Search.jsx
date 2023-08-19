@@ -7,7 +7,7 @@ import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
 import { postSearchData } from '../../../../store/slices/viewSlice'
-import { addPropertyType, getSearchData } from '../../../../store/slices/homeSlice';
+import { addPropertyType, addTransactionType, addRooms, addPrice, getSearchData } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
 export const Search = () => {
@@ -24,11 +24,11 @@ export const Search = () => {
     const { searchData } = useSelector((state => state.home))
 
     const [disable, setDisable] = useState(false)
-    const [active, setActive] = useSessionState("sale", "homeSearch")
-    const [community, setCommunity] = useState([])
-    const [type, setType] = useState([])
-    const [rooms, setRomms] = useState([])
-    const [price, setPrice] = useState(null)
+    const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
+    const [community, setCommunity] = useState([])////////
+    const [propType, setPropType] = useState([])//done
+    const [rooms, setRomms] = useState([])//done
+    const [price, setPrice] = useState(null)//done
 
     const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ export const Search = () => {
                 community: community
             },
             {
-                propertyType: type
+                propertyType: propType
             },
             {
                 rooms: rooms
@@ -53,7 +53,10 @@ export const Search = () => {
             }
         ]
 
-        dispatch(addPropertyType(active))
+        dispatch(addTransactionType(active))
+        dispatch(addPropertyType(propType))
+        dispatch(addRooms(rooms))
+        dispatch(addPrice(price))
         dispatch(postSearchData({ searchData, language }))
             .then(() => {
                 navigate("/result")
@@ -84,7 +87,7 @@ export const Search = () => {
                 />
                 <Dropdown
                     data={language === "am" ? propertyTypeAm : language === "en" ? propertyTypeEn : propertyTypeRu}
-                    onChange={(e) => setType(e)}
+                    onChange={(e) => setPropType(e)}
                     width="100%"
                     placeholder={t("property_type")}
                 />

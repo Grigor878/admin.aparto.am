@@ -8,8 +8,6 @@ const initialState = {
   resultData: null,
   siderData: null,
   siderLoading: false,
-  page: "home",
-  // resultFilteredData: null,
 };
 
 // get single property data
@@ -119,8 +117,17 @@ const viewSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(postSearchData.fulfilled, (state, action) => {
+      sessionStorage.removeItem("siderSqMin");
+      sessionStorage.removeItem("siderSqMax");
+      sessionStorage.removeItem("siderPriceMin");
+      sessionStorage.removeItem("siderBuildType");
+      sessionStorage.removeItem("siderNewBuild");
+      sessionStorage.removeItem("siderPropCondition");
+      sessionStorage.removeItem("siderFloorMin");
+      sessionStorage.removeItem("siderFloorMax");
+      sessionStorage.removeItem("siderDesc");
+      sessionStorage.removeItem("siderId");
       state.resultData = action.payload;
-      // state.page = "home";
       state.loading = false;
     });
     //
@@ -128,8 +135,17 @@ const viewSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
+      sessionStorage.removeItem("siderSqMin");
+      sessionStorage.removeItem("siderSqMax");
+      sessionStorage.removeItem("siderPriceMin");
+      sessionStorage.removeItem("siderBuildType");
+      sessionStorage.removeItem("siderNewBuild");
+      sessionStorage.removeItem("siderPropCondition");
+      sessionStorage.removeItem("siderFloorMin");
+      sessionStorage.removeItem("siderFloorMax");
+      sessionStorage.removeItem("siderDesc");
+      sessionStorage.removeItem("siderId");
       state.resultData = action.payload;
-      // state.page = "home";
       state.loading = false;
     });
     //
