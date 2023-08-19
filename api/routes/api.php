@@ -70,13 +70,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getExchange',  [ExchangeController::class, 'getExchange']);
 
     //interFaceController
-    Route::get('/getSaleHomes',  [InterfaceController::class, 'getSaleHomes']);
-    Route::get('/getRentHomes',  [InterfaceController::class, 'getRentHomes']);
+    Route::get('/getSaleHomes/{lang}',  [InterfaceController::class, 'getSaleHomes']);
+    Route::get('/getRentHomes/{lang}',  [InterfaceController::class, 'getRentHomes']);
     Route::get('/getGeneralAdmin',  [InterfaceController::class, 'getGeneralAdmin']);
     Route::post('/addRecentSearch',  [InterfaceController::class, 'addRecentSearch']);
     Route::get('/getSearchAttributes/{lang}',  [InterfaceController::class, 'getSearchAttributes']);
-    Route::post('/getSearchData',  [InterfaceController::class, 'getSearchData']);
-    Route::post('/getSeeMoreHomes',  [InterfaceController::class, 'getSeeMoreHomes']);
+    Route::post('/getSearchData/{lang}',  [InterfaceController::class, 'getSearchData']);
+    Route::post('/getSeeMoreHomes/{lang}',  [InterfaceController::class, 'getSeeMoreHomes']);
     Route::post('/getCommunitySearch/{lang}',  [InterfaceController::class, 'getCommunitySearch']);
     Route::get('/getInterfaceProperties/{id}',  [InterfaceController::class, 'getInterfaceProperties']);
     Route::post('/getResultPageData/{lang}',  [InterfaceController::class, 'getResultPageData']);

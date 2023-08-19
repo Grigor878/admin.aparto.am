@@ -15,15 +15,15 @@ class InterfaceController extends Controller
     {
         $this->interfaceService = $interfaceService;
     }
-    public function getSaleHomes()
+    public function getSaleHomes($lang)
     {
-        $homes = $this->interfaceService->getSaleHomes();
+        $homes = $this->interfaceService->getSaleHomes($lang);
         return response()->json($homes);
     }
 
-    public function getRentHomes()
+    public function getRentHomes($lang)
     {
-        $homes = $this->interfaceService->getRentHomes();
+        $homes = $this->interfaceService->getRentHomes($lang);
         return response()->json($homes);
     }
 
@@ -44,18 +44,18 @@ class InterfaceController extends Controller
         return response()->json($searchList);
     }
 
-    public function getSearchData(Request $request)
+    public function getSearchData(Request $request, $lang)
     {
         $data = $request->all();
-        $generalSearchList = $this->interfaceService->getSearchData($data);
+        $generalSearchList = $this->interfaceService->getSearchData($data, $lang);
 
         return response()->json($generalSearchList);
     }
 
-    public function getSeeMoreHomes(Request $request)
+    public function getSeeMoreHomes(Request $request, $lang)
     {
         $data = $request->all();
-        $getSeeMoreHomeData = $this->interfaceService->getSeeMoreHomes($data);
+        $getSeeMoreHomeData = $this->interfaceService->getSeeMoreHomes($data, $lang);
 
         return response()->json($getSeeMoreHomeData);
     }
