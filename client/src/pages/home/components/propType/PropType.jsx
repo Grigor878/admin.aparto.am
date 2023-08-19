@@ -20,7 +20,7 @@ const PropType = ({ type, data }) => {
 
     const hanldeSeeById = () => {
         dispatch(addPropertyType(type))
-        dispatch(getAllPropertiesByType(language, type))
+        dispatch(getAllPropertiesByType({ language, type }))
             .then(() => {
                 navigate('/result')
             })

@@ -1,15 +1,16 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { room, buildType, square } from "../../admin/svgs/svgs";
 import "./PropCard.scss";
-// import { useSelector } from "react-redux";
 
 export const PropCard = ({ data }) => {
   const { pathname } = useLocation();
 
-  // const { language } = useSelector((state => state.home))
+  const { language, exchange } = useSelector((state => state.home))
+  console.log(exchange)//
 
   return (
     data && (
@@ -37,7 +38,10 @@ export const PropCard = ({ data }) => {
 
                 <div className="propCard__card-main">
                   <div className="propCard__card-main-top">
-                    <p>$ {price}</p>
+                    {language === "am"
+                      ? <p>&#1423; {price * exchange}</p>
+                      : <p>$ {price}</p>
+                    }
                     <span>ID {home_id}</span>
                   </div>
 

@@ -58,12 +58,11 @@ export const postSearchData = createAsyncThunk(
 // see all properties by type
 export const getAllPropertiesByType = createAsyncThunk(
   "home/getAllPropertiesByType",
-  async (language, type) => {
+  async ({ language, type }) => {
     try {
-      const { data } = await baseApi.post(
-        `api/getSeeMoreHomes/${language}`,
-        type
-      );
+      const { data } = await baseApi.post(`api/getSeeMoreHomes/${language}`, {
+        type,
+      });
       return data;
     } catch (err) {
       console.log(`Get All Properties Data Error: ${err.message}`);

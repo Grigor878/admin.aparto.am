@@ -15,9 +15,6 @@ const Exchange = () => {
     dispatch(getExchange());
   }, [dispatch]);
 
-  // const { exchange } = useSelector((state => state.home))
-  // console.log(exchange)//
-
   const cache = parseInt(cookies.get("exchange"));
 
   const exRef = useRef();
