@@ -4,7 +4,7 @@ import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
 import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
 import { moneyFormater } from '../../../../../../helpers/formatters'
-import { bathrooms, floor, height, rooms, square, top, url } from '../../../../../svgs/svgs'
+import { bathrooms, floor, height, room, square, top, url } from '../../../../../svgs/svgs'
 import { Btn } from './Btn'
 import { More } from './More'
 import { success } from '../../../../../../components/swal/swal'
@@ -69,7 +69,7 @@ export const Item = ({ data }) => {
 
                         <div className='propertyList__item-right-characters'>
                             {am[3].fields[2].value && am[3].fields[2].value !== 0 && (
-                                <p>{rooms.icon} {am[3].fields[2].value} սենյակ</p>
+                                <p>{room.icon} {am[3].fields[2].value} սենյակ</p>
                             )}
                             {am[3].fields[4].value && am[3].fields[4].value !== 0 && (
                                 <p>{bathrooms.icon}{am[3].fields[4].value} սանհանգույց</p>
