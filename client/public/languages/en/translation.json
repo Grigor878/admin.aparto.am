@@ -17,8 +17,8 @@
 
   "searches": "Recent Searches",
 
-  "sale": "Properties for Sale",
-  "rent": "Properties for Rent",
+  "sale": "For Sale",
+  "rent": "For Rent",
   "seeAll": "See All",
 
   "service_title1": "Sell real estate",
@@ -64,7 +64,7 @@
   "square_symbol": "m2",
   "price": "Price",
   "building_type": "",
-  "new_build": "New-build",
+  "new_build": "New-building",
   "property_condition": "",
   "floor": "",
   "other_description": "",

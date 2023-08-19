@@ -11,3 +11,14 @@ export function random(num) {
 export function getCurrentYear() {
   return new Date().getFullYear();
 }
+
+// debounce
+export function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}

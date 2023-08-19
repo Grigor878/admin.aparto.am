@@ -280,7 +280,7 @@ export const buildTypeRu = [
   },
   {
     id: "stone",
-    value: "Камень",
+    value: "Каменный",
   },
   {
     id: "panel",
@@ -288,6 +288,6 @@ export const buildTypeRu = [
   },
   {
     id: "other",
-    value: "Другой",
+    value: "Другие",
   },
 ];

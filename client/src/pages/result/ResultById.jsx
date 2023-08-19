@@ -23,7 +23,6 @@ const ResultById = () => {
   const { id } = useParams()
 
   const { language } = useSelector((state => state.home))
-  console.log(language);
 
   const dispatch = useDispatch()
 

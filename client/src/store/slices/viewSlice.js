@@ -6,6 +6,9 @@ const initialState = {
   data: [],
   streetData: null,
   resultData: null,
+  siderData: null,
+  siderLoading: false,
+  // resultFilteredData: null,
 };
 
 // get single property data
@@ -23,12 +26,44 @@ export const getCommunityData = createAsyncThunk(
   "view/communities",
   async ({ language, community }) => {
     try {
-      const { data } = await baseApi.post(`api/getCommunitySearch/${language}`, {
-        ids: community,
-      });
+      const { data } = await baseApi.post(
+        `api/getCommunitySearch/${language}`,
+        {
+          ids: community,
+        }
+      );
       return data;
     } catch (err) {
       console.log(`Get Community Data Error: ${err.message}`);
+    }
+  }
+);
+
+// home page search
+export const postSearchData = createAsyncThunk(
+  "home/postSearchData",
+  async ({ searchData, language }) => {
+    try {
+      const { data } = await baseApi.post(`api/getSearchData`, {
+        searchData,
+        language,
+      });
+      return data;
+    } catch (err) {
+      console.log(`Post Search Data Error: ${err.message}`);
+    }
+  }
+);
+
+// see all properties by type
+export const getAllPropertiesByType = createAsyncThunk(
+  "home/getAllPropertiesByType",
+  async (type) => {
+    try {
+      const { data } = await baseApi.post(`api/getSeeMoreHomes`, type);
+      return data;
+    } catch (err) {
+      console.log(`Get All Properties Data Error: ${err.message}`);
     }
   }
 );
@@ -51,7 +86,12 @@ export const getResultPageData = createAsyncThunk(
 const viewSlice = createSlice({
   name: "view",
   initialState,
-  reducers: {},
+  reducers: {
+    // clear resultData
+    clearResultData: (state) => {
+      state.resultData = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getViewData.pending, (state) => {
       state.loading = true;
@@ -64,15 +104,34 @@ const viewSlice = createSlice({
     builder.addCase(getCommunityData.fulfilled, (state, action) => {
       state.streetData = action.payload;
     });
+    ////// get all datas with one resultData and load
+    builder.addCase(postSearchData.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(postSearchData.fulfilled, (state, action) => {
+      state.resultData = action.payload;
+      state.loading = false;
+    });
+    //
+    builder.addCase(getAllPropertiesByType.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
+      state.resultData = action.payload;
+      state.loading = false;
+    });
     //
     builder.addCase(getResultPageData.pending, (state) => {
-      state.load = true;
+      state.siderLoading = true;
     });
     builder.addCase(getResultPageData.fulfilled, (state, action) => {
-      state.resultData = action.payload;
-      state.load = false;
+      // state.siderData = action.payload?.homes;
+      console.log(action.payload);
+      state.siderLoading = false;
     });
   },
 });
+
+export const { clearResultData } = viewSlice.actions;
 
 export default viewSlice.reducer;

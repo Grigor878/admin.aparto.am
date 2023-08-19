@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminData, getTopHomes } from '../../store/slices/homeSlice'
 import Main from './components/main/Main'
-import Searches from './components/searches/Searches'
+// import Searches from './components/searches/Searches'
 import Services from './components/services/Services'
 import Contracts from './components/contracts/Contracts'
 import Contact from './components/contact/Contact'
@@ -13,9 +13,8 @@ import './Home.scss'
 
 const Home = () => {
     const dispatch = useDispatch()
-    
     const { sale, rent } = useSelector((state => state.home))
-    
+
     useEffect(() => {
         dispatch(getTopHomes())
         dispatch(getAdminData())

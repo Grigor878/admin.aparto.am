@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
-import { addPropertyType, clearPropertiesByType, getSearchData, postSearchData } from '../../../../store/slices/homeSlice';
+import { postSearchData } from '../../../../store/slices/viewSlice'
+import { addPropertyType, getSearchData } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
 export const Search = () => {
@@ -52,7 +53,6 @@ export const Search = () => {
             }
         ]
 
-        dispatch(clearPropertiesByType())
         dispatch(addPropertyType(active))
         dispatch(postSearchData({ searchData, language }))
             .then(() => {

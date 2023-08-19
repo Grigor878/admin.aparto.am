@@ -10,10 +10,6 @@ const initialState = {
   admin: null,
   propertyType: null,
   searchData: null,
-
-  searchResult: null,
-  allPropertiesByType: null,
-  loading: false,
 };
 
 // get top homes
@@ -69,35 +65,6 @@ export const getSearchData = createAsyncThunk(
   }
 );
 
-// post search data
-export const postSearchData = createAsyncThunk(
-  "home/postSearchData",
-  async ({ searchData, language }) => {
-    try {
-      const { data } = await baseApi.post(`api/getSearchData`, {
-        searchData,
-        language,
-      });
-      return data;
-    } catch (err) {
-      console.log(`Post Search Data Error: ${err.message}`);
-    }
-  }
-);
-
-// see all properties by type
-export const getAllPropertiesByType = createAsyncThunk(
-  "home/getAllPropertiesByType",
-  async (type) => {
-    try {
-      const { data } = await baseApi.post(`api/getSeeMoreHomes`, type);
-      return data;
-    } catch (err) {
-      console.log(`Get All Properties Data Error: ${err.message}`);
-    }
-  }
-);
-
 const homeSlice = createSlice({
   name: "home",
   initialState,
@@ -105,14 +72,6 @@ const homeSlice = createSlice({
     // set global language
     setLanguage: (state, action) => {
       state.language = action.payload;
-    },
-    // clear search result data
-    clearSearchResult: (state) => {
-      state.searchResult = null;
-    },
-    // clear properties by title data
-    clearPropertiesByType: (state) => {
-      state.allPropertiesByType = null;
     },
     // add global type for property
     addPropertyType: (state, action) => {
@@ -134,29 +93,8 @@ const homeSlice = createSlice({
     builder.addCase(getSearchData.fulfilled, (state, action) => {
       state.searchData = action.payload;
     });
-    //
-    builder.addCase(postSearchData.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(postSearchData.fulfilled, (state, action) => {
-      state.searchResult = action.payload;
-      state.loading = false;
-    });
-    //
-    builder.addCase(getAllPropertiesByType.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
-      state.allPropertiesByType = action.payload;
-      state.loading = false;
-    });
   },
 });
 
-export const {
-  setLanguage,
-  clearSearchResult,
-  addPropertyType,
-  clearPropertiesByType,
-} = homeSlice.actions;
+export const { setLanguage, addPropertyType } = homeSlice.actions;
 export default homeSlice.reducer;

@@ -1,7 +1,12 @@
-export const API_BASE_URL = "http://127.0.0.1:8000"
-export const APP_BASE_URL = "http://localhost:3000"
-// export const API_BASE_URL = "https://aparto.am/api/public"
-// export const APP_BASE_URL = "https://aparto.am"
+export const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_BASE_API_DEV
+    : process.env.REACT_APP_BASE_API_RELEASE;
+
+export const APP_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_BASE_URL_DEV
+    : process.env.REACT_APP_BASE_URL_RELEASE;
 
 export const getAxiosConfig = () => {
   const token = localStorage.getItem("token")
@@ -12,6 +17,3 @@ export const getAxiosConfig = () => {
     headers: { Authorization: "Bearer " + token },
   };
 };
-
-
-// export const APP_BASE_URL = "https://aparto.am/" hin
