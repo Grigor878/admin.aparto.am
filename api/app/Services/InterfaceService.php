@@ -345,7 +345,7 @@ class InterFaceService
 
     }
 
-    public function mapSearchHomeDetail($home)
+    public function mapSearchHomeDetail($home, $lang)
     {
         $filteredPhoto = \Arr::map($home->photo, function ($value, $key) {
            if($value->visible == "true"){
@@ -353,19 +353,50 @@ class InterFaceService
            }
         });
 
-        $mapDetails = [
-            "id" => $home->id,
-            "home_id" => $home->home_id,
-            "photo" => $filteredPhoto,
-            "price" => $home->am[2]->fields[0]->value,
-            "title" => $home->am[0]->fields[2]->value,
-            "community" => $home->am[1]->fields[0]->value,
-            "street" => $home->am[1]->fields[0]->communityStreet->value,
-            "rooms" => $home->am[3]->fields[2]->value,
-            "buildingType" => $home->am[4]->fields[0]->value,
-            "surface" =>$home->am[3]->fields[0]->value,
-            "locate" =>$home->am[1]->fields[4]->value,
-        ];
+        if($lang == "am"){
+            $mapDetails = [
+                "id" => $home->id,
+                "home_id" => $home->home_id,
+                "photo" => $filteredPhoto,
+                "price" => $home->am[2]->fields[0]->value,
+                "title" => $home->am[0]->fields[2]->value,
+                "community" => $home->am[1]->fields[0]->value,
+                "street" => $home->am[1]->fields[0]->communityStreet->value,
+                "rooms" => $home->am[3]->fields[2]->value,
+                "buildingType" => $home->am[4]->fields[0]->value,
+                "surface" =>$home->am[3]->fields[0]->value,
+                "locate" =>$home->am[1]->fields[4]->value,
+            ];
+        } elseif ($lang == "ru") {
+            $mapDetails = [
+                "id" => $home->id,
+                "home_id" => $home->home_id,
+                "photo" => $filteredPhoto,
+                "price" => $home->ru[2]->fields[0]->value,
+                "title" => $home->ru[0]->fields[2]->value,
+                "community" => $home->ru[1]->fields[0]->value,
+                "street" => $home->ru[1]->fields[0]->communityStreet->value,
+                "rooms" => $home->ru[3]->fields[2]->value,
+                "buildingType" => $home->ru[4]->fields[0]->value,
+                "surface" =>$home->ru[3]->fields[0]->value,
+                "locate" =>$home->ru[1]->fields[4]->value,
+            ];
+        }elseif ($lang == "en") {
+            $mapDetails = [
+                "id" => $home->id,
+                "home_id" => $home->home_id,
+                "photo" => $filteredPhoto,
+                "price" => $home->en[2]->fields[0]->value,
+                "title" => $home->en[0]->fields[2]->value,
+                "community" => $home->en[1]->fields[0]->value,
+                "street" => $home->en[1]->fields[0]->communityStreet->value,
+                "rooms" => $home->en[3]->fields[3]->value,
+                "buildingType" => $home->en[4]->fields[0]->value,
+                "surface" =>$home->en[3]->fields[0]->value,
+                "locate" =>$home->en[1]->fields[4]->value,
+            ];
+        }
+        
 
         return $mapDetails;
     }
@@ -400,14 +431,12 @@ class InterFaceService
 
     public function getResultPageData($data, $lang)
     {
-        $mapArray = [];
         $searchHomeArray = [];
 
-        $searchHomes = Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang, &$mapArray, &$searchHomeArray) {
+        $searchHomes = Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
             $home = $this->processHomeData($home);
             $home->keywords = json_decode($home->keywords);
-            $mapArray[] = $this->mapDetail($home);
-            $searchHomeArray[] = $this->mapSearchHomeDetail($home);
+            $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
 
             $isMatched = true;
 
@@ -541,7 +570,9 @@ class InterFaceService
             return $isMatched;
         })->values();
 
-        return ['homes' => $searchHomeArray, 'mapArray' => $mapArray];
+        return $searchHomeArray;
+
+        // return  Crypt::encrypt(json_encode($searchHomeArray)); 
 
     }
 
