@@ -12,11 +12,10 @@ import "./Styles.scss";
 const Result = () => {
   const { t } = useTranslation();
 
-  const { propertyType } = useSelector((state) => state.home);
   const { loading, resultData, siderData } = useSelector((state) => state.view);
 
   const [sider, setSider] = useState(true);
-  const [radio, setRadio] = useState(propertyType);
+  // const [radio, setRadio] = useState(propertyType);
   const [map, setMap] = useState(false);
 
   useEffect(() => {
@@ -38,8 +37,8 @@ const Result = () => {
         open={sider}
         setOpen={setSider}
         map={map}
-        radio={radio}
-        setRadio={setRadio}
+        // radio={radio}
+        // setRadio={setRadio}
       />
 
       {siderLoading 

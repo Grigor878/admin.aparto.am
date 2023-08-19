@@ -8,6 +8,7 @@ const initialState = {
   resultData: null,
   siderData: null,
   siderLoading: false,
+  page: "home",
   // resultFilteredData: null,
 };
 
@@ -91,6 +92,14 @@ const viewSlice = createSlice({
     clearResultData: (state) => {
       state.resultData = null;
     },
+    // change to result
+    changeToResult: (state) => {
+      state.page = "result";
+    },
+    // change to home
+    changeToHome: (state) => {
+      state.page = "home";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getViewData.pending, (state) => {
@@ -110,6 +119,7 @@ const viewSlice = createSlice({
     });
     builder.addCase(postSearchData.fulfilled, (state, action) => {
       state.resultData = action.payload;
+      // state.page = "home";
       state.loading = false;
     });
     //
@@ -118,6 +128,7 @@ const viewSlice = createSlice({
     });
     builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
       state.resultData = action.payload;
+      // state.page = "home";
       state.loading = false;
     });
     //
@@ -125,13 +136,14 @@ const viewSlice = createSlice({
       state.siderLoading = true;
     });
     builder.addCase(getResultPageData.fulfilled, (state, action) => {
-      // state.siderData = action.payload?.homes;
+      // state.siderData = action.payload;
       console.log(action.payload);
       state.siderLoading = false;
     });
   },
 });
 
-export const { clearResultData } = viewSlice.actions;
+export const { clearResultData, changeToResult, changeToHome } =
+  viewSlice.actions;
 
 export default viewSlice.reducer;

@@ -245,7 +245,7 @@ export const location = {
   ),
 };
 
-export const rooms = {
+export const room = {
   icon: (
     <svg
       width="24"
