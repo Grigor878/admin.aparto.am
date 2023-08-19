@@ -27,8 +27,8 @@ export const PropCard = ({ data }) => {
                 {/* <div key={id} className='propCard__card'> */}
                 <img
                   src={
-                    photo[0]?.name
-                      ? `${API_BASE_URL}/images/${photo[0]?.name} `
+                    photo[0]
+                      ? `${API_BASE_URL}/images/${photo[0]} `
                       : noImg
                   }
                   className="propCard__card-imgSmall"
@@ -76,8 +76,8 @@ export const PropCard = ({ data }) => {
                 {/* <div key={id} className='propCard__card'> */}
                 <img
                   src={
-                    photo[0]?.name
-                      ? `${API_BASE_URL}/images/${photo[0]?.name} `
+                    photo
+                      ? `${API_BASE_URL}/images/${photo[0]} `
                       : noImg
                   }
                   className="propCard__card-imgSmall"

@@ -54,8 +54,8 @@ const Result = () => {
           )}
         </div>
 
-        {/* <PropCard data={siderData ? siderData : resultData} /> */}
-        <PropCard data={resultData} />
+        <PropCard data={siderData ? siderData : resultData} />
+        {/* <PropCard data={resultData} /> */}
       </div>}
 
       <Map map={map} setMap={setMap} />
