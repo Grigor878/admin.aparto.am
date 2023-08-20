@@ -7,7 +7,7 @@ import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, commun
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
-import { changeToHome, changeToResult, clearResultData, getResultPageData } from '../../../../store/slices/viewSlice';
+import { clearResultData, getResultPageData } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './Sider.scss'
 import { useSessionState } from '../../../../hooks/useSessionState'
@@ -88,7 +88,7 @@ export const Sider = ({ open, setOpen }) => {
       description: description,
       id: id
     }
-    console.log(searchData);
+    // console.log(searchData);
     dispatch(clearResultData())
     dispatch(getResultPageData({ language, searchData }))
   }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets])
@@ -143,17 +143,17 @@ export const Sider = ({ open, setOpen }) => {
             <Checkbox
               onChange={(e) => handlePropType(e, "house")}
               text={t("house")}
-              checked={propType.includes("house")}
+              checked={propType?.includes("house")}
             />
             <Checkbox
               onChange={(e) => handlePropType(e, "privateHouse")}
               text={t("private_house")}
-              checked={propType.includes("privateHouse")}
+              checked={propType?.includes("privateHouse")}
             />
             <Checkbox
               onChange={(e) => handlePropType(e, "commertial")}
               text={t("commercial")}
-              checked={propType.includes("commertial")}
+              checked={propType?.includes("commertial")}
             />
           </div>
         </div>
@@ -265,7 +265,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handleBuildType(e, id)}
                   key={id}
                   text={value}
-                  checked={buildType.includes(id)}
+                  checked={buildType?.includes(id)}
                 />
               )
             })
@@ -275,7 +275,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handleBuildType(e, id)}
                     key={id}
                     text={value}
-                    checked={buildType.includes(id)}
+                    checked={buildType?.includes(id)}
                   />
                 )
               })
@@ -285,7 +285,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handleBuildType(e, id)}
                       key={id}
                       text={value}
-                      checked={buildType.includes(id)}
+                      checked={buildType?.includes(id)}
                     />
                   )
                 })
@@ -311,7 +311,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handlePropCondition(e, id)}
                   key={id}
                   text={value}
-                  checked={propCondition.includes(id)}
+                  checked={propCondition?.includes(id)}
                 />
               )
             })
@@ -321,7 +321,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handlePropCondition(e, id)}
                     key={id}
                     text={value}
-                    checked={propCondition.includes(id)}
+                    checked={propCondition?.includes(id)}
                   />
                 )
               })
@@ -331,7 +331,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handlePropCondition(e, id)}
                       key={id}
                       text={value}
-                      checked={propCondition.includes(id)}
+                      checked={propCondition?.includes(id)}
                     />
                   )
                 })

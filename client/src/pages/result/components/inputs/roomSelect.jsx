@@ -23,7 +23,7 @@ export const RoomSelect = ({ language, onChange, selectedRooms = [] }) => {
                     onClick={() => handleRoomClick(el.value)}
                     className='roomsSelector__btn'
                     style={{
-                        backgroundColor: selectedRooms.includes(el.value) ? "#cfd1da" : "#f3f4f8",
+                        backgroundColor: selectedRooms?.includes(el.value) ? "#cfd1da" : "#f3f4f8",
                     }}
                 >
                     {el.value}

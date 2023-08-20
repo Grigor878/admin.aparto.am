@@ -30,7 +30,7 @@ export const PropCard = ({ data }) => {
               >
                 <img
                   src={
-                    photo[0]
+                    photo
                       ? `${API_BASE_URL}/images/${photo[0]} `
                       : noImg
                   }
@@ -49,8 +49,8 @@ export const PropCard = ({ data }) => {
 
                   <div className="propCard__card-main-center">
                     <h5>
-                      {title?.length >= 31
-                        ? cutText(title, 31)
+                      {title?.length >= 29
+                        ? cutText(title, 29)
                         : title}
                     </h5>
                     <div className="propCard__card-main-center-geo">

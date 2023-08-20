@@ -103,6 +103,18 @@ const homeSlice = createSlice({
     addPrice: (state, action) => {
       state.price = action.payload;
     },
+    // clear global type for property
+    clearPropertyType: (state, action) => {
+      state.propertyType = null;
+    },
+    // clear global type for room
+    clearRooms: (state, action) => {
+      state.room = null;
+    },
+    // clear global type for room
+    clearPrice: (state, action) => {
+      state.price = null;
+    },
     //
   },
   extraReducers: (builder) => {
@@ -130,5 +142,8 @@ export const {
   addPropertyType,
   addRooms,
   addPrice,
+  clearPropertyType,
+  clearRooms,
+  clearPrice,
 } = homeSlice.actions;
 export default homeSlice.reducer;
