@@ -25,9 +25,9 @@ export const Sider = ({ open, setOpen }) => {
   const [streets, setStreets] = useState([])////////
   const [propType, setPropType] = useState(propertyType)//done
   const [rooms, setRooms] = useState(room)//done
-  const [squareMin, setSquareMin] = useSessionState(null, "siderSqMin")
+  const [squareMin, setSquareMin] = useSessionState("", "siderSqMin")
   const [squareMax, setSquareMax] = useSessionState("", "siderSqMax")
-  const [priceMin, setPriceMin] = useSessionState(null, "siderPriceMin")
+  const [priceMin, setPriceMin] = useSessionState("", "siderPriceMin")
   const [priceMax, setPriceMax] = useState(price)//done
   const [buildType, setBuildType] = useSessionState([], "siderBuildType")
   const [newBuild, setNewBuild] = useSessionState("on", "siderNewBuild")

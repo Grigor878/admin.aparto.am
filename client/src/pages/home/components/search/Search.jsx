@@ -28,7 +28,7 @@ export const Search = () => {
     const [community, setCommunity] = useState([])////////
     const [propType, setPropType] = useState([])//done
     const [rooms, setRomms] = useState([])//done
-    const [price, setPrice] = useState(null)//done
+    const [price, setPrice] = useState("")//done
 
     const navigate = useNavigate()
 

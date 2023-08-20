@@ -11,10 +11,10 @@ const initialState = {
   sale: null,
   rent: null,
   admin: null,
-  transactionType: null,
-  propertyType: null,
-  room: null,
-  price: null,
+  transactionType: "",
+  propertyType: [],
+  room: [],
+  price: "",
   searchData: null,
 };
 
@@ -105,15 +105,15 @@ const homeSlice = createSlice({
     },
     // clear global type for property
     clearPropertyType: (state, action) => {
-      state.propertyType = null;
+      state.propertyType = [];
     },
     // clear global type for room
     clearRooms: (state, action) => {
-      state.room = null;
+      state.room = [];
     },
     // clear global type for room
     clearPrice: (state, action) => {
-      state.price = null;
+      state.price = "";
     },
     //
   },

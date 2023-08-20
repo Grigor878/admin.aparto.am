@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from 'react-i18next'
-
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../../apis/config";
@@ -30,7 +29,7 @@ export const PropCard = ({ data }) => {
               >
                 <img
                   src={
-                    photo
+                    photo?.length
                       ? `${API_BASE_URL}/images/${photo[0]} `
                       : noImg
                   }
@@ -81,7 +80,7 @@ export const PropCard = ({ data }) => {
               >
                 <img
                   src={
-                    photo
+                    photo?.length
                       ? `${API_BASE_URL}/images/${photo[0]} `
                       : noImg
                   }
