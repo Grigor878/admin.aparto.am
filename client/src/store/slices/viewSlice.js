@@ -91,13 +91,9 @@ const viewSlice = createSlice({
     clearResultData: (state) => {
       state.resultData = null;
     },
-    // change to result
-    changeToResult: (state) => {
-      state.page = "result";
-    },
-    // change to home
-    changeToHome: (state) => {
-      state.page = "home";
+    // clear siderData
+    clearSidertData: (state) => {
+      state.siderData = null;
     },
   },
   extraReducers: (builder) => {
@@ -159,7 +155,6 @@ const viewSlice = createSlice({
   },
 });
 
-export const { clearResultData, changeToResult, changeToHome } =
-  viewSlice.actions;
+export const { clearResultData, clearSidertData } = viewSlice.actions;
 
 export default viewSlice.reducer;

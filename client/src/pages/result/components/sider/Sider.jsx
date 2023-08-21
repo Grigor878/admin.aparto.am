@@ -20,6 +20,8 @@ export const Sider = ({ open, setOpen }) => {
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   // const { page } = useSelector((state) => state.view);
 
+  const [searchActive, setSearchActive] = useState(false)
+
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
   const [streets, setStreets] = useState([])////////
@@ -32,41 +34,29 @@ export const Sider = ({ open, setOpen }) => {
   const [buildType, setBuildType] = useSessionState([], "siderBuildType")
   const [newBuild, setNewBuild] = useSessionState("on", "siderNewBuild")
   const [propCondition, setPropCondition] = useSessionState([], "siderPropCondition")
-  const [floorMin, setFloorMin] = useSessionState(null, "siderFloorMin")
-  const [floorMax, setFloorMax] = useSessionState(null, "siderFloorMax")
-  const [description, setDescription] = useSessionState(null, "siderDesc")
-  const [id, setId] = useSessionState(null, "siderId")
+  const [floorMin, setFloorMin] = useSessionState("", "siderFloorMin")
+  const [floorMax, setFloorMax] = useSessionState("", "siderFloorMax")
+  const [description, setDescription] = useSessionState("", "siderDesc")
+  const [id, setId] = useSessionState("", "siderId")
 
-  const handleCommunity = (e, id) => {
+  // community, propType, buildType, propCondition
+  const handleUpdate = (e, setState, id) => {
+    setTimeout(() => {
+      setSearchActive(true)
+    }, 700)
     if (e.target.checked) {
-      setCommunity((prev) => [...prev, id]);
+      setState((prev) => [...prev, id])
     } else {
-      setCommunity((prev) => prev.filter((item) => item !== id));
+      setState((prev) => prev.filter((item) => item !== id))
     }
-  };
+  }
 
-  const handlePropType = (e, id) => {
-    if (e.target.checked) {
-      setPropType((prev) => [...prev, id]);
-    } else {
-      setPropType((prev) => prev.filter((item) => item !== id));
-    }
-  };
-
-  const handleBuildType = (e, id) => {
-    if (e.target.checked) {
-      setBuildType((prev) => [...prev, id]);
-    } else {
-      setBuildType((prev) => prev.filter((item) => item !== id));
-    }
-  };
-
-  const handlePropCondition = (e, id) => {
-    if (e.target.checked) {
-      setPropCondition((prev) => [...prev, id]);
-    } else {
-      setPropCondition((prev) => prev.filter((item) => item !== id));
-    }
+  // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
+  const handleSetState = (setState, value) => {
+    setTimeout(() => {
+      setSearchActive(true)
+    }, 700)
+    setState(value)
   };
 
   useEffect(() => {
@@ -88,15 +78,32 @@ export const Sider = ({ open, setOpen }) => {
       description: description,
       id: id
     }
-    // console.log(searchData);
-    dispatch(clearResultData())
-    dispatch(getResultPageData({ language, searchData }))
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets])
+    console.log(searchData)//
+
+    if (!searchActive) {
+      return
+    } else {
+      dispatch(clearResultData())
+      dispatch(getResultPageData({ language, searchData }))
+      setSearchActive(false)
+    }
+
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, searchActive])
 
   const clearSearch = () => {
     setPropType([])
     setRooms([])
     setPriceMax(null)
+    // sessionStorage.removeItem("siderSqMin");
+    // sessionStorage.removeItem("siderSqMax");
+    // sessionStorage.removeItem("siderPriceMin");
+    // sessionStorage.removeItem("siderBuildType");
+    // sessionStorage.removeItem("siderNewBuild");
+    // sessionStorage.removeItem("siderPropCondition");
+    // sessionStorage.removeItem("siderFloorMin");
+    // sessionStorage.removeItem("siderFloorMax");
+    // sessionStorage.removeItem("siderDesc");
+    // sessionStorage.removeItem("siderId");
   }
 
   return (
@@ -125,13 +132,13 @@ export const Sider = ({ open, setOpen }) => {
               id="result_radio"
               text={t("sale")}
               checked={radio === "sale"}
-              onChange={() => setRadio("sale")}
+              onChange={() => handleSetState(setRadio, "sale")}
             />
             <Radio
               id="result_radio"
               text={t("rent")}
               checked={radio === "rent"}
-              onChange={() => setRadio("rent")}
+              onChange={() => handleSetState(setRadio, "rent")}
             />
           </div>
         </div>
@@ -141,19 +148,19 @@ export const Sider = ({ open, setOpen }) => {
 
           <div className='sider__property-checkboxes'>
             <Checkbox
-              onChange={(e) => handlePropType(e, "house")}
+              onChange={(e) => handleUpdate(e, setPropType, "house")}
               text={t("house")}
               checked={propType?.includes("house")}
             />
             <Checkbox
-              onChange={(e) => handlePropType(e, "privateHouse")}
+              onChange={(e) => handleUpdate(e, setPropType, "privateHouse")}
               text={t("private_house")}
               checked={propType?.includes("privateHouse")}
             />
             <Checkbox
-              onChange={(e) => handlePropType(e, "commertial")}
+              onChange={(e) => handleUpdate(e, setPropType, "commercial")}
               text={t("commercial")}
-              checked={propType?.includes("commertial")}
+              checked={propType?.includes("commercial")}
             />
           </div>
         </div>
@@ -165,7 +172,7 @@ export const Sider = ({ open, setOpen }) => {
             {language === "am" ? communityAm.map(({ id, value }) => {
               return (
                 <Checkbox
-                  onChange={(e) => handleCommunity(e, id)}
+                  onChange={(e) => handleUpdate(e, setCommunity, id)}
                   key={id}
                   text={value}
                 />
@@ -174,7 +181,7 @@ export const Sider = ({ open, setOpen }) => {
               : language === "en" ? communityEn.map(({ id, value }) => {
                 return (
                   <Checkbox
-                    onChange={(e) => handleCommunity(e, id)}
+                    onChange={(e) => handleUpdate(e, setCommunity, id)}
                     key={id}
                     text={value}
                   />
@@ -183,7 +190,7 @@ export const Sider = ({ open, setOpen }) => {
                 : communityRu.map(({ id, value }) => {
                   return (
                     <Checkbox
-                      onChange={(e) => handleCommunity(e, id)}
+                      onChange={(e) => handleUpdate(e, setCommunity, id)}
                       key={id}
                       text={value}
                     />
@@ -193,7 +200,7 @@ export const Sider = ({ open, setOpen }) => {
           <MultiSelect
             community={community}
             placeholder={t("street")}
-            onChange={(e) => setStreets(e)}
+            onChange={(e) => handleSetState(setStreets, e)}
           />
         </div>
 
@@ -203,10 +210,9 @@ export const Sider = ({ open, setOpen }) => {
           <RoomSelect
             language={language}
             // data={language === "en" ? bedroomsNum : roomsNum}
-            onChange={(selectedRooms) => setRooms(selectedRooms)}
+            onChange={(selectedRooms) => handleSetState(setRooms, selectedRooms)}
             selectedRooms={rooms}
           />
-
         </div>
 
         <div className='sider__square sider__block'>
@@ -217,7 +223,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputSmall'
               type="number"
               placeholder={t("square") + t("min")}
-              onChange={(e) => setSquareMin(e)}
+              onChange={(e) => handleSetState(setSquareMin, e)}
               symbol={t("square_symbol")}
               value={squareMin}
             />
@@ -225,7 +231,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputSmall'
               type="number"
               placeholder={t("square") + t("max")}
-              onChange={(e) => setSquareMax(e)}
+              onChange={(e) => handleSetState(setSquareMax, e)}
               symbol={t("square_symbol")}
               value={squareMax}
             />
@@ -240,7 +246,8 @@ export const Sider = ({ open, setOpen }) => {
               className='inputSmall'
               type="number"
               placeholder={t("price") + t("min")}
-              onChange={(e) => setPriceMin(e)}
+              onChange={(e) => handleSetState(setPriceMin, e)}
+
               symbol="$"
               value={priceMin}
             />
@@ -248,7 +255,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputSmall'
               type="number"
               placeholder={t("price") + t("max")}
-              onChange={(e) => setPriceMax(e)}
+              onChange={(e) => handleSetState(setPriceMax, e)}
               symbol="$"
               value={priceMax}
             />
@@ -262,7 +269,7 @@ export const Sider = ({ open, setOpen }) => {
             {language === "am" ? buildTypeAm.map(({ id, value }) => {
               return (
                 <Checkbox
-                  onChange={(e) => handleBuildType(e, id)}
+                  onChange={(e) => handleUpdate(e, setBuildType, id)}
                   key={id}
                   text={value}
                   checked={buildType?.includes(id)}
@@ -272,7 +279,7 @@ export const Sider = ({ open, setOpen }) => {
               : language === "en" ? buildTypeEn.map(({ id, value }) => {
                 return (
                   <Checkbox
-                    onChange={(e) => handleBuildType(e, id)}
+                    onChange={(e) => handleUpdate(e, setBuildType, id)}
                     key={id}
                     text={value}
                     checked={buildType?.includes(id)}
@@ -282,7 +289,7 @@ export const Sider = ({ open, setOpen }) => {
                 : buildTypeRu.map(({ id, value }) => {
                   return (
                     <Checkbox
-                      onChange={(e) => handleBuildType(e, id)}
+                      onChange={(e) => handleUpdate(e, setBuildType, id)}
                       key={id}
                       text={value}
                       checked={buildType?.includes(id)}
@@ -295,7 +302,12 @@ export const Sider = ({ open, setOpen }) => {
 
         <div className="sider__block">
           <Checkbox
-            onChange={(e) => setNewBuild(e.target.checked ? true : 'on')}
+            onChange={(e) => {
+              setNewBuild(e.target.checked ? true : 'on');
+              setTimeout(() => {
+                setSearchActive(true)
+              }, 1000)
+            }}
             text={t("new_build")}
             checked={newBuild === true}
           />
@@ -308,7 +320,7 @@ export const Sider = ({ open, setOpen }) => {
             {language === "am" ? propConditionAm.map(({ id, value }) => {
               return (
                 <Checkbox
-                  onChange={(e) => handlePropCondition(e, id)}
+                  onChange={(e) => handleUpdate(e, setPropCondition, id)}
                   key={id}
                   text={value}
                   checked={propCondition?.includes(id)}
@@ -318,7 +330,7 @@ export const Sider = ({ open, setOpen }) => {
               : language === "en" ? propConditionEn.map(({ id, value }) => {
                 return (
                   <Checkbox
-                    onChange={(e) => handlePropCondition(e, id)}
+                    onChange={(e) => handleUpdate(e, setPropCondition, id)}
                     key={id}
                     text={value}
                     checked={propCondition?.includes(id)}
@@ -328,7 +340,7 @@ export const Sider = ({ open, setOpen }) => {
                 : propConditionRu.map(({ id, value }) => {
                   return (
                     <Checkbox
-                      onChange={(e) => handlePropCondition(e, id)}
+                      onChange={(e) => handleUpdate(e, setPropCondition, id)}
                       key={id}
                       text={value}
                       checked={propCondition?.includes(id)}
@@ -347,14 +359,14 @@ export const Sider = ({ open, setOpen }) => {
               className='inputSmall'
               type="number"
               placeholder={t("floor") + t("min")}
-              onChange={(e) => setFloorMin(e)}
+              onChange={(e) => handleSetState(setFloorMin, e)}
               value={floorMin}
             />
             <Input
               className='inputSmall'
               type="number"
               placeholder={t("floor") + t("max")}
-              onChange={(e) => setFloorMax(e)}
+              onChange={(e) => handleSetState(setFloorMax, e)}
               value={floorMax}
             />
           </div>
@@ -368,7 +380,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputLarg'
               type="text"
               placeholder={t("other_description")}
-              onChange={(e) => setDescription(e)}
+              onChange={(e) => handleSetState(setDescription, e)}
               value={description}
             />
           </div>
@@ -382,7 +394,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputLarg'
               type="number"
               placeholder={t("id") + " ` 12345"}
-              onChange={(e) => setId(e)}
+              onChange={(e) => handleSetState(setId, e)}
               value={id}
             />
           </div>
@@ -393,7 +405,34 @@ export const Sider = ({ open, setOpen }) => {
   )
 }
 
+  // const handleCommunity = (e, id) => {
+  //   if (e.target.checked) {
+  //     setCommunity((prev) => [...prev, id]);
+  //   } else {
+  //     setCommunity((prev) => prev.filter((item) => item !== id));
+  //   }
+  // };
 
-// if (community.length !== 0) {
-//   dispatch(changeToResult("result"))
-// }
+  // const handlePropType = (e, id) => {
+  //   if (e.target.checked) {
+  //     setPropType((prev) => [...prev, id]);
+  //   } else {
+  //     setPropType((prev) => prev.filter((item) => item !== id));
+  //   }
+  // };
+
+  // const handleBuildType = (e, id) => {
+  //   if (e.target.checked) {
+  //     setBuildType((prev) => [...prev, id]);
+  //   } else {
+  //     setBuildType((prev) => prev.filter((item) => item !== id));
+  //   }
+  // };
+
+  // const handlePropCondition = (e, id) => {
+  //   if (e.target.checked) {
+  //     setPropCondition((prev) => [...prev, id]);
+  //   } else {
+  //     setPropCondition((prev) => prev.filter((item) => item !== id));
+  //   }
+  // };

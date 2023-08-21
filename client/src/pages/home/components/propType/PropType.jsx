@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
 import { addTransactionType, clearPrice, clearPropertyType, clearRooms } from '../../../../store/slices/homeSlice'
 import { PropCard } from '../../../../components/propCard/PropCard'
-import { getAllPropertiesByType } from '../../../../store/slices/viewSlice'
+import { clearSidertData, getAllPropertiesByType } from '../../../../store/slices/viewSlice'
 import './PropType.scss'
 
 const PropType = ({ type, data }) => {
@@ -23,6 +23,7 @@ const PropType = ({ type, data }) => {
         dispatch(clearPropertyType())
         dispatch(clearRooms())
         dispatch(clearPrice())
+        dispatch(clearSidertData())
         dispatch(getAllPropertiesByType({ language, type }))
             .then(() => {
                 navigate('/result')

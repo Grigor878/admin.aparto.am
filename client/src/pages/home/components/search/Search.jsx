@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
-import { postSearchData } from '../../../../store/slices/viewSlice'
+import { clearSidertData, postSearchData } from '../../../../store/slices/viewSlice'
 import { addPropertyType, addTransactionType, addRooms, addPrice, getSearchData } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
@@ -57,6 +57,7 @@ export const Search = () => {
         dispatch(addPropertyType(propType))
         dispatch(addRooms(rooms))
         dispatch(addPrice(price))
+        dispatch(clearSidertData())
         dispatch(postSearchData({ searchData, language }))
             .then(() => {
                 navigate("/result")
