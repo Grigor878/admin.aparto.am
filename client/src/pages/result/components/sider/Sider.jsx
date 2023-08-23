@@ -9,8 +9,8 @@ import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
 import { clearResultData, getResultPageData } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import './Sider.scss'
 import { useSessionState } from '../../../../hooks/useSessionState'
+import './Sider.scss'
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
@@ -20,7 +20,7 @@ export const Sider = ({ open, setOpen }) => {
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   // const { page } = useSelector((state) => state.view);
 
-  const [searchActive, setSearchActive] = useState(false)
+  // const [searchActive, setSearchActive] = useState(false)
 
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
@@ -41,9 +41,9 @@ export const Sider = ({ open, setOpen }) => {
 
   // community, propType, buildType, propCondition
   const handleUpdate = (e, setState, id) => {
-    setTimeout(() => {
-      setSearchActive(true)
-    }, 700)
+    // setTimeout(() => {
+    //   setSearchActive(true)
+    // }, 700)
     if (e.target.checked) {
       setState((prev) => [...prev, id])
     } else {
@@ -53,9 +53,9 @@ export const Sider = ({ open, setOpen }) => {
 
   // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
   const handleSetState = (setState, value) => {
-    setTimeout(() => {
-      setSearchActive(true)
-    }, 700)
+    // setTimeout(() => {
+    //   setSearchActive(true)
+    // }, 700)
     setState(value)
   };
 
@@ -80,15 +80,15 @@ export const Sider = ({ open, setOpen }) => {
     }
     console.log(searchData)//
 
-    if (!searchActive) {
-      return
-    } else {
-      dispatch(clearResultData())
-      dispatch(getResultPageData({ language, searchData }))
-      setSearchActive(false)
-    }
+    // if (!searchActive) {
+    //   return
+    // } else {
+    dispatch(clearResultData())
+    dispatch(getResultPageData({ language, searchData }))
+    // setSearchActive(false)
+    // }
 
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, searchActive])
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets])
 
   const clearSearch = () => {
     setPropType([])
@@ -302,12 +302,7 @@ export const Sider = ({ open, setOpen }) => {
 
         <div className="sider__block">
           <Checkbox
-            onChange={(e) => {
-              setNewBuild(e.target.checked ? true : 'on');
-              setTimeout(() => {
-                setSearchActive(true)
-              }, 1000)
-            }}
+            onChange={(e) => setNewBuild(e.target.checked ? true : 'on')}
             text={t("new_build")}
             checked={newBuild === true}
           />

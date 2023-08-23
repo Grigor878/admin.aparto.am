@@ -9,8 +9,8 @@ export const APP_BASE_URL =
     : process.env.REACT_APP_BASE_URL_RELEASE;
 
 export const getAxiosConfig = () => {
-  const token = localStorage.getItem("token")
-    ? localStorage.getItem("token")
+  const token = sessionStorage.getItem("token")
+    ? sessionStorage.getItem("token")
     : "";
 
   return {

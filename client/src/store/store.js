@@ -6,15 +6,14 @@ import structureSlice from "./slices/structureSlice";
 import usersSlice from "./slices/usersSlice";
 import configsSlice from "./slices/configsSlice";
 import homeSlice from "./slices/homeSlice";
-import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import viewSlice from "./slices/viewSlice";
 
 const persistConfig = {
-  key: "root",
-  storage,
-  // home y meca u xndira talis
+  key: "aparto",
+  storage: storageSession,
   whitelist: ["auth", "userGlobal", "users", "home", "view"],
   // whitelist: ["auth", "userGlobal", "users"],
 };

@@ -3,9 +3,9 @@ import baseApi from "../../apis/baseApi";
 import { error, success } from "../../components/swal/swal";
 
 const initialState = {
-  isLoggedIn: !!localStorage.getItem("token"), // Check if token exists in local storage
+  isLoggedIn: !!sessionStorage.getItem("token"), // Check if token exists in local storage
   loading: false,
-  token: localStorage.getItem("token") || null,
+  token: sessionStorage.getItem("token") || null,
 };
 
 export const login = createAsyncThunk("auth", async ({ email, password }) => {
@@ -23,7 +23,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -39,7 +39,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.loading = false;
         state.token = action.payload.access_token;
-        localStorage.setItem("token", action.payload.access_token);
+        sessionStorage.setItem("token", action.payload.access_token);
         success("Բարի գալուստ");
       });
   },
