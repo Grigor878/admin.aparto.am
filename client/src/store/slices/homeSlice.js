@@ -12,6 +12,7 @@ const initialState = {
   rent: null,
   admin: null,
   transactionType: "",
+  streetList: [],
   propertyType: [],
   room: [],
   price: "",
@@ -57,12 +58,28 @@ export const getAdminData = createAsyncThunk("home/adminData", async () => {
 });
 
 // get search data
+// export const getSearchData = createAsyncThunk(
+//   "home/getSearchData",
+//   async (language) => {
+//     try {
+//       const { data } = await baseApi.get(
+//         `/api/getSearchAttributes/${language}`
+//       );
+//       return data;
+//     } catch (err) {
+//       console.log(`Get Search Data Error: ${err.message}`);
+//     }
+//   }
+// );
 export const getSearchData = createAsyncThunk(
   "home/getSearchData",
-  async (language) => {
+  async ({language,community}) => {
     try {
-      const { data } = await baseApi.get(
-        `/api/getSearchAttributes/${language}`
+      const { data } = await baseApi.post(
+        `api/getCommunitySearch/${language}`,
+        {
+          ids: community,
+        }
       );
       return data;
     } catch (err) {
@@ -87,9 +104,13 @@ const homeSlice = createSlice({
     setSize: (state, action) => {
       state.size = action.payload;
     },
-    // add global type for property
+    // add global type for transaction type
     addTransactionType: (state, action) => {
       state.transactionType = action.payload;
+    },
+    // add global type for streets
+    addStreets: (state, action) => {
+      state.streetList = action.payload;
     },
     // add global type for property
     addPropertyType: (state, action) => {
@@ -102,6 +123,10 @@ const homeSlice = createSlice({
     // add global type for room
     addPrice: (state, action) => {
       state.price = action.payload;
+    },
+    // clear global type for streets
+    clearStreets: (state, action) => {
+      state.streetList = [];
     },
     // clear global type for property
     clearPropertyType: (state, action) => {
@@ -139,9 +164,11 @@ export const {
   setExchange,
   setSize,
   addTransactionType,
+  addStreets,
   addPropertyType,
   addRooms,
   addPrice,
+  clearStreets,
   clearPropertyType,
   clearRooms,
   clearPrice,

@@ -3,20 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getCommunityData } from '../../../../store/slices/viewSlice';
 
-export const MultiSelect = ({ community, placeholder, onChange }) => {
+export const MultiSelect = ({ streets, community, placeholder, onChange }) => {
     const { language } = useSelector((state => state.home))
-
+    console.log(streets)
+    // console.log(community)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getCommunityData({ language, community }))
-    }, [dispatch, language, community])
+        if (!streets.length) {
+            dispatch(getCommunityData({ language, community }))
+        }
+    }, [dispatch, streets, language, community])
 
     const { streetData } = useSelector((state => state.view))
-
-    // if (!Array.isArray(data)) {
-    //     data = [];
-    // }
 
     const technologyList = streetData?.map(item => ({
         label: item[language],

@@ -11,7 +11,8 @@ export const Searches = () => {
     const [search, setSearch] = useState("")
     const [date, setDate] = useState(null)
     const [select, setSelect] = useState("Որոնման տեսակ")
-
+    // console.log(date)//
+    // console.log(select)//
     return (
         <section className='searches'>
             <div className='searches__top'>
@@ -50,7 +51,7 @@ export const Searches = () => {
                 <Table
                     Data={searches}
                     Columns={searchColumns}
-                    // type="searches"
+                // type="searches"
                 />
             </div>
         </section>

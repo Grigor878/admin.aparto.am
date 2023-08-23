@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
-import { addTransactionType, clearPrice, clearPropertyType, clearRooms } from '../../../../store/slices/homeSlice'
+import { addTransactionType, clearStreets, clearPrice, clearPropertyType, clearRooms } from '../../../../store/slices/homeSlice'
 import { PropCard } from '../../../../components/propCard/PropCard'
-import { clearSidertData, getAllPropertiesByType } from '../../../../store/slices/viewSlice'
+// import { clearSidertData } from '../../../../store/slices/viewSlice'
 import './PropType.scss'
 
 const PropType = ({ type, data }) => {
@@ -13,28 +13,39 @@ const PropType = ({ type, data }) => {
 
     const dispatch = useDispatch()
 
-    const { language } = useSelector((state => state.home))
-    const { loading } = useSelector((state) => state.view);
+    // const { language } = useSelector((state => state.home))
+    // const { loading } = useSelector((state) => state.view);
 
     const navigate = useNavigate()
 
     const hanldeSeeById = () => {
         dispatch(addTransactionType(type))
+        dispatch(clearStreets())
         dispatch(clearPropertyType())
         dispatch(clearRooms())
         dispatch(clearPrice())
-        dispatch(clearSidertData())
-        dispatch(getAllPropertiesByType({ language, type }))
-            .then(() => {
-                navigate('/result')
-            })
+        // dispatch(clearSidertData())
+        sessionStorage.removeItem("siderSqMin");
+        sessionStorage.removeItem("siderSqMax");
+        sessionStorage.removeItem("siderPriceMin");
+        sessionStorage.removeItem("siderBuildType");
+        sessionStorage.removeItem("siderNewBuild");
+        sessionStorage.removeItem("siderPropCondition");
+        sessionStorage.removeItem("siderFloorMin");
+        sessionStorage.removeItem("siderFloorMax");
+        sessionStorage.removeItem("siderDesc");
+        sessionStorage.removeItem("siderId");
+        // dispatch(getAllPropertiesByType({ language, type }))
+        // .then(() => {
+        navigate('/result')
+        // })
     }
 
     return (
         <div className='propType'>
             <div className='propType__top'>
                 <h2 className='title'>{t(type)}</h2>
-                {!loading
+                {/* {!loading
                     ? <button
                         className='propType__top-seeAll'
                         onClick={hanldeSeeById}
@@ -46,7 +57,13 @@ const PropType = ({ type, data }) => {
                     >
                         {t("loading")}
                     </button>
-                }
+                } */}
+                <button
+                    className='propType__top-seeAll'
+                    onClick={hanldeSeeById}
+                >
+                    {t("seeAll")}{seeAll.icon}
+                </button>
             </div>
             <PropCard data={data} />
         </div >

@@ -7,7 +7,7 @@ import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
 import { clearSidertData, postSearchData } from '../../../../store/slices/viewSlice'
-import { addPropertyType, addTransactionType, addRooms, addPrice, getSearchData } from '../../../../store/slices/homeSlice';
+import { addPropertyType, addTransactionType, addRooms, addPrice, getSearchData, addStreets } from '../../../../store/slices/homeSlice';
 import './Search.scss'
 
 export const Search = () => {
@@ -16,52 +16,64 @@ export const Search = () => {
     const { language } = useSelector((state => state.home))
 
     const dispatch = useDispatch()
+    let community = []
 
     useEffect(() => {
-        dispatch(getSearchData(language))
+        dispatch(getSearchData({ language, community }))
     }, [dispatch, language])
 
     const { searchData } = useSelector((state => state.home))
 
     const [disable, setDisable] = useState(false)
     const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
-    const [community, setCommunity] = useState([])////////
+    const [streets, setStreets] = useState([])////////
     const [propType, setPropType] = useState([])//done
     const [rooms, setRomms] = useState([])//done
     const [price, setPrice] = useState("")//done
-
+    // console.log(streets)//
     const navigate = useNavigate()
 
     const handleSearch = () => {
         setDisable(true)
 
-        const searchData = [
-            {
-                type: active,
-            },
-            {
-                community: community
-            },
-            {
-                propertyType: propType
-            },
-            {
-                rooms: rooms
-            },
-            {
-                price: price
-            }
-        ]
+        // const searchData = [
+        //     {
+        //         type: active,
+        //     },
+        //     {
+        //         community: community
+        //     },
+        //     {
+        //         propertyType: propType
+        //     },
+        //     {
+        //         rooms: rooms
+        //     },
+        //     {
+        //         price: price
+        //     }
+        // ]
 
         dispatch(addTransactionType(active))
+        dispatch(addStreets(streets))
         dispatch(addPropertyType(propType))
         dispatch(addRooms(rooms))
         dispatch(addPrice(price))
-        dispatch(clearSidertData())
-        dispatch(postSearchData({ searchData, language }))
-            .then(() => {
-                navigate("/result")
-            })
+        // dispatch(clearSidertData())
+        sessionStorage.removeItem("siderSqMin");
+        sessionStorage.removeItem("siderSqMax");
+        sessionStorage.removeItem("siderPriceMin");
+        sessionStorage.removeItem("siderBuildType");
+        sessionStorage.removeItem("siderNewBuild");
+        sessionStorage.removeItem("siderPropCondition");
+        sessionStorage.removeItem("siderFloorMin");
+        sessionStorage.removeItem("siderFloorMax");
+        sessionStorage.removeItem("siderDesc");
+        sessionStorage.removeItem("siderId");
+        // dispatch(postSearchData({ searchData, language }))
+        // .then(() => {
+        navigate("/result")
+        // })
     }
 
     return (
@@ -82,7 +94,7 @@ export const Search = () => {
             <div className='search__inputs'>
                 <DropdownModified
                     data={searchData}
-                    onChange={(e) => setCommunity(e)}
+                    onChange={(e) => setStreets(e)}
                     width="262px"
                     placeholder={t("search")}
                 />
