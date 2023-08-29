@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
+import { useMediaQuery } from 'react-responsive';
 
 export const DropdownModified = ({ data, width, placeholder, onChange }) => {
     if (!data || typeof data !== 'object') {
@@ -17,6 +18,8 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
         onChange(selectedValues)
     }
 
+    const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+
     return (
         <Select
             isMulti
@@ -29,7 +32,7 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
                     ...baseStyles,
                     width: width,
                     fontWeight: "400",
-                    fontSize: "16px",
+                    fontSize: laptopSmall ? "13px" : "16px",
                     textTransform: "capitalize",
                     lineHeight: "20px",
                     borderColor: 'transparent',

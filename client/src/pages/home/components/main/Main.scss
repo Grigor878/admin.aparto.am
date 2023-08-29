@@ -5,6 +5,10 @@
   background: $bg;
   padding-top: 70px;
 
+  @media screen and (max-width: 1122px) {
+    padding-top: 40px;
+  }
+
   &__context {
     background-image: url("../../../../assets/imgs/homeMain.png");
     background-position: right;
@@ -14,11 +18,15 @@
 
     h1 {
       color: $text;
-      //   color: #0f5bed;
       font-size: 60px;
       font-weight: 800;
       line-height: 65.5px;
       width: 770px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 50px;
+        width: 616px;
+      }
     }
 
     span {
@@ -37,6 +45,10 @@
         line-height: 36px;
         @include flex;
         gap: 12px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 26px;
+        }
       }
 
       span {
@@ -44,6 +56,10 @@
         font-size: 16px;
         font-weight: 400;
         line-height: 20px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 15px;
+        }
       }
     }
   }

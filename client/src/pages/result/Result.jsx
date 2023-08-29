@@ -5,7 +5,7 @@ import { filterOpen, openMap } from "../../assets/svgs/svgs";
 import { Sider } from "./components/sider/Sider";
 import { PropCard } from "../../components/propCard/PropCard";
 import { Loader } from "../../components/loader/Loader";
-import { Map } from "./components/map/Map";
+import { MapMulty } from "./components/map/MapMulty";
 import "./Styles.scss";
 
 const Result = () => {
@@ -17,15 +17,20 @@ const Result = () => {
   const [map, setMap] = useState(false);
 
   useEffect(() => {
-    if(map){
+    if (map) {
       setSider(false)
     }
-    // map ? setSider(false) : setSider(true);
+    else {
+      setSider(true)
+    }
   }, [map]);
 
   const { siderLoading } = useSelector((state) => state.view);
 
-  // console.log(siderData);
+  const handleOpen = () => {
+    setMap(!map)
+    window.scroll(0, 0)
+  }
 
   return loading ? (
     <Loader />
@@ -36,29 +41,28 @@ const Result = () => {
         setOpen={setSider}
       />
 
-      {siderLoading 
-      ? <Loader/>
-      : <div className="result__center">
-        <div className="result__center-top">
-          <div className="result__center-top-right">
-            {!sider && (
-              <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
+      {siderLoading
+        ? <Loader />
+        : <div className="result__center">
+          <div className="result__center-top">
+            <div className="result__center-top-right">
+              {!sider && (
+                <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
+              )}
+              <h2>{siderData ? siderData?.length : resultData?.length} {t("result")}</h2>
+            </div>
+
+            {!map && (
+              <button onClick={handleOpen}>
+                {openMap.icon} {t("map")}
+              </button>
             )}
-            <h2>{siderData ? siderData?.length : resultData?.length} {t("result")}</h2>
           </div>
 
-          {!map && (
-            <button onClick={() => setMap(!map)}>
-              {openMap.icon} {t("map")}
-            </button>
-          )}
-        </div>
+          <PropCard data={siderData ? siderData : resultData} />
+        </div>}
 
-        <PropCard data={siderData ? siderData : resultData} />
-        {/* <PropCard data={resultData} /> */}
-      </div>}
-
-      <Map map={map} setMap={setMap} />
+      <MapMulty map={map} setMap={setMap} data={siderData ? siderData : resultData} />
     </div>
   );
 };

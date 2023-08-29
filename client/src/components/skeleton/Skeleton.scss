@@ -1,6 +1,6 @@
-@import '../../variables';
+@import "../../variables";
 
-$skeleton: rgb(243, 243, 243);
+$skeleton: #f8f8fa;
 $animaiton: skeleton 0.5s ease infinite alternate;
 
 @keyframes skeleton {
@@ -9,16 +9,22 @@ $animaiton: skeleton 0.5s ease infinite alternate;
   }
 }
 
-.skeleton{
-    &__card{
-        // width: px;
-        // height: px;
-        background: $skeleton;
-        animation: $animaiton;
-    
-        @media screen and (max-width: 768px) {
-        //   width: px;
-        //   height: px;
-        }
+.skeleton {
+  &__homeCard {
+    width: 384px;
+    height: 440px;
+    border-radius: 12px;
+    background: $skeleton;
+    animation: $animaiton;
+
+    @media screen and (max-width: 1280px) {
+      width: 333px;
+      height: 382px;
     }
+
+    @media screen and (max-width: 1122px) {
+      width: 303px;
+      height: 348px;
+    }
+  }
 }

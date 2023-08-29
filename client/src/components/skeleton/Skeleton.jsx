@@ -1,13 +1,17 @@
 import './Skeleton.scss'
 
 export default function Skeleton({ type }) {
-    const skeletonTest = 15;
+    const homeItems = 3;
 
-    const SkeletonTest = () => (
-        <div className="skeleton__card">
+    const SkeletonHome = () => <div className="skeleton__homeCard"></div>;
 
-        </div >
-    );
+    if (type === "home") {
+        const skeletons = Array.from({ length: homeItems }, (_, index) => (
+            <SkeletonHome key={index} />
+        ));
 
-    if (type === "test") return Array(skeletonTest).fill(<SkeletonTest />);
+        return skeletons;
+    }
+
+    return null;
 }

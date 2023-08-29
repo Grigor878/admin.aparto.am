@@ -7,10 +7,12 @@ import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, commun
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
-import { clearResultData, getResultPageData } from '../../../../store/slices/viewSlice';
+import { clearResultData, getResultPageData, setPage } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSessionState } from '../../../../hooks/useSessionState'
 import './Sider.scss'
+//
+import debounce from 'lodash/debounce';
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
@@ -18,9 +20,7 @@ export const Sider = ({ open, setOpen }) => {
   const dispatch = useDispatch()
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
-  // const { page } = useSelector((state) => state.view);
-
-  // const [searchActive, setSearchActive] = useState(false)
+  const { page } = useSelector((state) => state.view);
 
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
@@ -41,9 +41,7 @@ export const Sider = ({ open, setOpen }) => {
 
   // community, propType, buildType, propCondition
   const handleUpdate = (e, setState, id) => {
-    // setTimeout(() => {
-    //   setSearchActive(true)
-    // }, 700)
+    dispatch(setPage("result"))//
     if (e.target.checked) {
       setState((prev) => [...prev, id])
     } else {
@@ -53,13 +51,16 @@ export const Sider = ({ open, setOpen }) => {
 
   // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
   const handleSetState = (setState, value) => {
-    // setTimeout(() => {
-    //   setSearchActive(true)
-    // }, 700)
+    dispatch(setPage("result"))//
     setState(value)
   };
 
   useEffect(() => {
+    const debouncedSearch = debounce((searchData) => {
+      dispatch(clearResultData());
+      dispatch(getResultPageData({ language, searchData }));
+    }, 1000);
+
     const searchData = {
       type: radio,
       propertyType: propType,
@@ -78,32 +79,47 @@ export const Sider = ({ open, setOpen }) => {
       description: description,
       id: id
     }
-    console.log(searchData)//
+    // console.log(searchData)//
+    if (page === "home") {
+      return
+    }
+    // dispatch(clearResultData())
+    // dispatch(getResultPageData({ language, searchData }))
+    debouncedSearch(searchData);
 
-    // if (!searchActive) {
-    //   return
-    // } else {
-    dispatch(clearResultData())
-    dispatch(getResultPageData({ language, searchData }))
-    // setSearchActive(false)
-    // }
+    return () => {
+      debouncedSearch.cancel();
+    };
 
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets])
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page])
 
   const clearSearch = () => {
+    sessionStorage.removeItem("siderSqMin");
+    sessionStorage.removeItem("siderSqMax");
+    sessionStorage.removeItem("siderPriceMax");
+    sessionStorage.removeItem("siderPriceMin");
+    sessionStorage.removeItem("siderBuildType");
+    sessionStorage.removeItem("siderNewBuild");
+    sessionStorage.removeItem("siderPropCondition");
+    sessionStorage.removeItem("siderFloorMin");
+    sessionStorage.removeItem("siderFloorMax");
+    sessionStorage.removeItem("siderDesc");
+    sessionStorage.removeItem("siderId");
+    setCommunity([])
+    setStreets([])
     setPropType([])
     setRooms([])
+    setSquareMin("")
+    setSquareMax("")
+    setPriceMin(null)
     setPriceMax(null)
-    // sessionStorage.removeItem("siderSqMin");
-    // sessionStorage.removeItem("siderSqMax");
-    // sessionStorage.removeItem("siderPriceMin");
-    // sessionStorage.removeItem("siderBuildType");
-    // sessionStorage.removeItem("siderNewBuild");
-    // sessionStorage.removeItem("siderPropCondition");
-    // sessionStorage.removeItem("siderFloorMin");
-    // sessionStorage.removeItem("siderFloorMax");
-    // sessionStorage.removeItem("siderDesc");
-    // sessionStorage.removeItem("siderId");
+    setBuildType([])
+    setNewBuild("on")
+    setPropCondition([])
+    setFloorMin("")
+    setFloorMax("")
+    setDescription("")
+    setId("")
   }
 
   return (
@@ -302,7 +318,9 @@ export const Sider = ({ open, setOpen }) => {
 
         <div className="sider__block">
           <Checkbox
-            onChange={(e) => setNewBuild(e.target.checked ? true : 'on')}
+            onChange={(e) => {
+              setNewBuild(e.target.checked ? true : 'on'); dispatch(setPage("result"))//
+            }}
             text={t("new_build")}
             checked={newBuild === true}
           />

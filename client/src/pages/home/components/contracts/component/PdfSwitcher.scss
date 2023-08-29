@@ -9,12 +9,20 @@
   background: $bgSub;
   box-shadow: 0px 2px 23px 0px rgba(0, 0, 0, 0.15);
 
+  @media screen and (max-width: 1122px) {
+    padding: 30px;
+  }
+
   h4 {
     width: 266px;
     color: $text;
     font-size: 24px;
     font-weight: 700;
     line-height: 28px;
+
+    @media screen and (max-width: 1122px) {
+      font-size: 22px;
+    }
   }
 
   &__main {
@@ -36,6 +44,11 @@
         line-height: 20px;
         border-radius: 16.5px;
         padding: 7px 20px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 15px;
+          padding: 5px 17px;
+        }
       }
 
       &-btnActive {
@@ -59,6 +72,11 @@
         font-weight: 600;
         line-height: 16px;
         text-decoration-line: underline;
+
+        @media screen and (max-width: 1122px) {
+          gap: 9px;
+          font-size: 13px;
+        }
       }
     }
   }

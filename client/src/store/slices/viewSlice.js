@@ -8,6 +8,7 @@ const initialState = {
   resultData: null,
   siderData: null,
   siderLoading: false,
+  page: "result",
 };
 
 // get single property data
@@ -54,19 +55,19 @@ export const postSearchData = createAsyncThunk(
 );
 
 // see all properties by type
-export const getAllPropertiesByType = createAsyncThunk(
-  "home/getAllPropertiesByType",
-  async ({ language, type }) => {
-    try {
-      const { data } = await baseApi.post(`api/getSeeMoreHomes/${language}`, {
-        type,
-      });
-      return data;
-    } catch (err) {
-      console.log(`Get All Properties Data Error: ${err.message}`);
-    }
-  }
-);
+// export const getAllPropertiesByType = createAsyncThunk(
+//   "home/getAllPropertiesByType",
+//   async ({ language, type }) => {
+//     try {
+//       const { data } = await baseApi.post(`api/getSeeMoreHomes/${language}`, {
+//         type,
+//       });
+//       return data;
+//     } catch (err) {
+//       console.log(`Get All Properties Data Error: ${err.message}`);
+//     }
+//   }
+// );
 
 // get search result data
 export const getResultPageData = createAsyncThunk(
@@ -94,6 +95,10 @@ const viewSlice = createSlice({
     // clear siderData
     clearSidertData: (state) => {
       state.siderData = null;
+    },
+    // set page vor search optimizing
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -127,23 +132,23 @@ const viewSlice = createSlice({
       state.loading = false;
     });
     //
-    builder.addCase(getAllPropertiesByType.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
-      sessionStorage.removeItem("siderSqMin");
-      sessionStorage.removeItem("siderSqMax");
-      sessionStorage.removeItem("siderPriceMin");
-      sessionStorage.removeItem("siderBuildType");
-      sessionStorage.removeItem("siderNewBuild");
-      sessionStorage.removeItem("siderPropCondition");
-      sessionStorage.removeItem("siderFloorMin");
-      sessionStorage.removeItem("siderFloorMax");
-      sessionStorage.removeItem("siderDesc");
-      sessionStorage.removeItem("siderId");
-      state.resultData = action.payload;
-      state.loading = false;
-    });
+    // builder.addCase(getAllPropertiesByType.pending, (state) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
+    //   sessionStorage.removeItem("siderSqMin");
+    //   sessionStorage.removeItem("siderSqMax");
+    //   sessionStorage.removeItem("siderPriceMin");
+    //   sessionStorage.removeItem("siderBuildType");
+    //   sessionStorage.removeItem("siderNewBuild");
+    //   sessionStorage.removeItem("siderPropCondition");
+    //   sessionStorage.removeItem("siderFloorMin");
+    //   sessionStorage.removeItem("siderFloorMax");
+    //   sessionStorage.removeItem("siderDesc");
+    //   sessionStorage.removeItem("siderId");
+    //   state.resultData = action.payload;
+    //   state.loading = false;
+    // });
     //
     builder.addCase(getResultPageData.pending, (state) => {
       state.siderLoading = true;
@@ -155,6 +160,6 @@ const viewSlice = createSlice({
   },
 });
 
-export const { clearResultData, clearSidertData } = viewSlice.actions;
+export const { clearResultData, clearSidertData, setPage } = viewSlice.actions;
 
 export default viewSlice.reducer;

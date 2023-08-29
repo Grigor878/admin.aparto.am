@@ -1,15 +1,24 @@
 @import "../../variables";
 
 .header {
-  background: $bgSub;
-  // background: $bg;
-  // padding: 27px 0;
-  padding-bottom: 27px;
-  border-bottom: 1px solid $advancedBack;
+  background: $bg;
+}
 
+.header2 {
+  background: $bgSub !important;
+  border-bottom: 1px solid $advancedBack !important;
+}
+
+.header,
+.header2 {
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 27px 0;
+
+  @media screen and (max-width: 1122px) {
+    padding: 22px 0;
+  }
 
   &__nav {
     @include flex;
@@ -17,14 +26,14 @@
   }
 
   &__left {
-    @include flex;
-    gap: 40px;
+    &-link {
+      @include flexCenter;
 
-    h1 {
-      font-weight: 600;
-      font-size: 32px;
-      line-height: 35px;
-      color: $text;
+      img {
+        @media screen and (max-width: 1122px) {
+          width: 134px;
+        }
+      }
     }
   }
 
@@ -39,6 +48,10 @@
     line-height: 20px;
     color: $text;
     margin-right: 24px;
+
+    @media screen and (max-width: 1122px) {
+      font-size: 15px;
+    }
   }
 
   &__contact {
@@ -47,5 +60,9 @@
     line-height: 20px;
     color: $blue;
     margin-right: 24px;
+
+    @media screen and (max-width: 1122px) {
+      font-size: 15px;
+    }
   }
 }

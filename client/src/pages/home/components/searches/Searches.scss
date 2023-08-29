@@ -28,10 +28,17 @@
       }
 
       span {
+        @include flex;
         color: $textSub;
         font-size: 14px;
         font-weight: 400;
         line-height: 16px;
+
+        div{
+          &:not(:last-child)::after{
+            content: ", ";
+          }
+        }
       }
     }
   }

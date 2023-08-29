@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { usdFormater } from '../../../../../helpers/formatters'
+import { amdFormater, usdFormater } from '../../../../../helpers/formatters'
 import { down, up } from '../../../../svgs/svgs'
 import '../../pages/Styles.scss'
+import { useSelector } from 'react-redux'
 
 export const PriceHistory = ({ data }) => {
     const [price, setPrice] = useState(true)
+
+    const { exchange, exchangeValue } = useSelector((state => state.home))
 
     return (
         <div
@@ -28,7 +31,8 @@ export const PriceHistory = ({ data }) => {
                                 className='singleProperty__content-right-price-history-listActive-view'
                                 key={date + price}
                             >
-                                <p>{usdFormater(price)} </p>
+                                {exchange === 1 && <p>{usdFormater(price)} </p>}
+                                {exchange === 2 && <p>&#1423; {amdFormater(price, exchangeValue)} </p>}
                                 <p>{date}</p>
                             </div>
                         )

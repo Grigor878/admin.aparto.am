@@ -32,13 +32,8 @@ const View = () => {
         console.log("web caches removed");
     }
 
-    if (localStorage.getItem("token")) {
-        localStorage.removeItem("token")
-        console.log("dashboard caches removed");
-    }
-
     const { isLoggedIn, token } = useSelector((state) => state.auth)
-    const { role } = useSelector((state => state.userGlobal.userGlobal))
+    const { role } = useSelector((state => state?.userGlobal?.userGlobal))
 
     return (
         <Router>

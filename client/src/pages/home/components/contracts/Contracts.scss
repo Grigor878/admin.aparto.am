@@ -23,6 +23,10 @@
       font-size: 40px;
       font-weight: 800;
       line-height: 44px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 32px;
+      }
     }
 
     a {
@@ -35,6 +39,10 @@
       border-radius: 8px;
       background: $bgSub;
       @include hoverEffect;
+
+      @media screen and (max-width: 1122px) {
+        padding: 9px 21px;
+      }
     }
   }
 }

@@ -1,66 +1,93 @@
-@import '../../../../variables';
+@import "../../../../variables";
 
 .contact {
-    background: #222222;
-    z-index: 100;
-    padding: 90px 0;
-  
-    &__main {
-      display: flex;
-      justify-content: space-between;
-  
-      &-right {
+  background: #222222;
+  z-index: 100;
+  padding: 90px 0;
+
+  @media screen and (max-width: 1122px) {
+    padding: 60px 0;
+  }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+
+    &-right {
+      @include flexCol;
+      gap: 70px;
+
+      h2 {
+        color: $bgSub;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 44px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 33px;
+        }
+      }
+
+      &-info {
         @include flexCol;
-        gap: 70px;
-  
-        h2 {
-          color: $bgSub;
-          font-size: 40px;
-          font-weight: 800;
-          line-height: 44px;
-        }
-  
-        &-info {
-          @include flexCol;
-          gap: 18px;
-  
-          a {
-            @include flex;
-            color: $bgSub;
-            gap: 21px;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 28px;
-          }
-        }
-  
-        &-social {
+        gap: 18px;
+
+        a {
           @include flex;
-          gap: 24px;
-          
-          a {
-            @include hoverEffect;
+          color: $bgSub;
+          gap: 21px;
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 28px;
+
+          @media screen and (max-width: 1122px) {
+            gap: 19px;
+            font-size: 22px;
           }
         }
       }
-  
-      &-left {
-        @include flexCol;
-        gap: 18px;
-  
-        &-map {
-          width: 760px;
-          height: 327px;
+
+      &-social {
+        @include flex;
+        gap: 24px;
+
+        a {
+          @include hoverEffect;
         }
-  
-        h5 {
-          @include flex;
-          gap: 21px;
-          color: $bgSub;
-          font-size: 20px;
-          font-weight: 400;
-          line-height: 28px;
+      }
+    }
+
+    &-left {
+      @include flexCol;
+      gap: 18px;
+
+      &-map {
+        width: 760px;
+        height: 327px;
+
+        @media screen and (max-width: 1280px) {
+          width: 700px;
+        }
+
+        @media screen and (max-width: 1122px) {
+          width: 525px;
+          height: 303px;
+        }
+      }
+
+      h5 {
+        @include flex;
+        gap: 21px;
+        color: $bgSub;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+
+        @media screen and (max-width: 1122px) {
+          gap: 19px;
+          font-size: 18px;
         }
       }
     }
   }
+}

@@ -2,12 +2,17 @@
 
 .sider {
   background: $bgSub;
-  // position: fixed;
-  
+
   &__main {
+    background: $bgSub;
+    position: sticky;
+    top: 95px;
     width: 359px;
     padding: 0 28px;
-    // overflow-y: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    padding-bottom: 111px;
   }
 
   &__block {
@@ -39,7 +44,7 @@
 
     &-btns {
       @include flex;
-      gap: 6px;
+      gap: 14px;
 
       button {
         background: transparent;
@@ -90,8 +95,8 @@
     }
   }
 
-  &__square{
-    &-inputs{
+  &__square {
+    &-inputs {
       @include flex;
       justify-content: space-between;
     }

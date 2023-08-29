@@ -21,6 +21,10 @@
       font-weight: 700;
       line-height: 21px;
       @include hoverEffect;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 16px;
+      }
     }
   }
 }
