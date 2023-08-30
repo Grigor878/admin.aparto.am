@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../../apis/config";
@@ -15,9 +16,14 @@ export const PropCard = ({ data }) => {
 
   const { size, exchange, exchangeValue } = useSelector((state => state.home))
 
+  const laptop = useMediaQuery({ maxWidth: 1280 })
+  const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+
+  const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
+
   return (
     data && (
-      <div className="propCard">
+      <div className="propCard" style={{ gap: pathname !== "/" ? "24px" : "0" }}>
         {!pathname?.includes("result")
           ? data?.slice(0, 3).map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
             return (
@@ -27,15 +33,16 @@ export const PropCard = ({ data }) => {
                 to={`/result/${id}`}
                 className="propCard__card"
               >
-                <img
-                  src={
-                    photo?.length
-                      ? `${API_BASE_URL}/images/${photo[0]} `
-                      : noImg
-                  }
-                  className="propCard__card-img"
-                  alt="HomeImg"
-                />
+                <div className="propCard__card-img">
+                  <img
+                    src={
+                      photo?.length
+                        ? `${API_BASE_URL}/images/${photo[0]} `
+                        : noImg
+                    }
+                    alt="HomeImg"
+                  />
+                </div>
 
                 <div className="propCard__card-main">
                   <div className="propCard__card-main-top">
@@ -49,7 +56,7 @@ export const PropCard = ({ data }) => {
                   <div className="propCard__card-main-center">
                     <h5>
                       {title?.length >= 29
-                        ? cutText(title, 29)
+                        ? cutText(title, homeCut)
                         : title}
                     </h5>
                     <div className="propCard__card-main-center-geo">
@@ -78,15 +85,16 @@ export const PropCard = ({ data }) => {
                 to={`/result/${id}`}
                 className="propCard__cardResult"
               >
-                <img
-                  src={
-                    photo?.length
-                      ? `${API_BASE_URL}/images/${photo[0]} `
-                      : noImg
-                  }
-                  className="propCard__cardResult-img"
-                  alt="HomeImg"
-                />
+                <div className="propCard__cardResult-img" >
+                  <img
+                    src={
+                      photo?.length
+                        ? `${API_BASE_URL}/images/${photo[0]} `
+                        : noImg
+                    }
+                    alt="HomeImg"
+                  />
+                </div>
 
                 <div className="propCard__cardResult-main">
                   <div className="propCard__cardResult-main-top">

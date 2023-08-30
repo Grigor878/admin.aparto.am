@@ -1,0 +1,18 @@
+@import '../../../../variables';
+
+.pagination {
+    @include flexCenter;
+    gap: 22px;
+    width: 100%;
+
+    &__button {
+      padding: 7px;
+      border-radius: 4px;
+      color: $bgSub;
+      background: $blue;
+    }
+    
+    &__buttonActive {
+      background: $green;
+    }
+  }

@@ -1,6 +1,6 @@
 @import "../../variables";
 
-.footer{
+.footer {
   background: #3f60a0;
   // background: $blue;
   z-index: 100; // 14/08 changes from 101 to 100
@@ -15,6 +15,10 @@
       font-size: 14px;
       font-weight: 400;
       line-height: 16px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 13px;
+      }
     }
 
     span {
@@ -22,6 +26,10 @@
       font-size: 14px;
       font-weight: 600;
       line-height: 16px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 13px;
+      }
     }
   }
 }

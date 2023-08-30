@@ -1,10 +1,9 @@
 @import "../../variables";
 
-.propCard {
+.propCard,
+.skeleton__home {
   @include flex;
   justify-content: space-between;
-  // justify-content: flex-start;
-  gap: 24px;
   flex-wrap: wrap;
 
   // global for 2 types
@@ -12,9 +11,15 @@
   &__card {
     border-radius: 12px;
     border: 1.5px solid $advancedBack;
-    @include hoverEffect;
+    overflow: hidden;
+
+    &:hover img {
+      transform: scale(1.2);
+    }
 
     img {
+      width: 100%;
+      height: 100%;
       border-radius: 12px 12px 0px 0px;
       border-bottom: 1px solid $advancedBack;
     }
@@ -26,9 +31,28 @@
     width: 384px;
     height: 440px;
 
+    @media screen and (max-width: 1280px) {
+      width: 333px;
+      height: fit-content;
+    }
+
+    @media screen and (max-width: 1122px) {
+      width: 303px;
+    }
+
     &-img {
       width: 383px;
       height: 286px;
+      overflow: hidden;
+
+      @media screen and (max-width: 1280px) {
+        width: 100%;
+        height: 232px;
+      }
+
+      @media screen and (max-width: 1122px) {
+        height: 202px;
+      }
     }
 
     &-main {
@@ -37,6 +61,10 @@
       background: $bgSub;
       padding: 16px;
       border-radius: 0px 0px 12px 12px;
+
+      @media screen and (max-width: 1122px) {
+        padding: 9px;
+      }
 
       &-top {
         @include flex;
@@ -48,6 +76,10 @@
           font-size: 20px;
           font-weight: 800;
           line-height: 28px;
+
+          @media screen and (max-width: 1122px) {
+            font-size: 19px;
+          }
         }
 
         span {
@@ -68,6 +100,10 @@
           font-size: 16px;
           font-weight: 600;
           line-height: 20px;
+
+          @media screen and (max-width: 1122px) {
+            font-size: 15px;
+          }
         }
 
         &-geo {
@@ -79,6 +115,10 @@
             font-size: 14px;
             font-weight: 400;
             line-height: 16px;
+
+            @media screen and (max-width: 1122px) {
+              font-size: 13px;
+            }
 
             &:first-child:after {
               content: " |";
@@ -99,6 +139,10 @@
           font-size: 14px;
           font-weight: 400;
           line-height: 16px;
+
+          @media screen and (max-width: 1122px) {
+            font-size: 13px;
+          }
         }
       }
     }
@@ -113,6 +157,7 @@
     &-img {
       width: 324px;
       height: 231px;
+      overflow: hidden;
     }
 
     &-main {

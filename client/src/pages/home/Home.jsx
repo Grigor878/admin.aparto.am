@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-// import cookies from "js-cookie";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminData, getTopHomes } from '../../store/slices/homeSlice'
 import Main from './components/main/Main'
-// import Searches from './components/searches/Searches'
+import Searches from './components/searches/Searches'
 import Services from './components/services/Services'
 import Contracts from './components/contracts/Contracts'
 import Contact from './components/contact/Contact'
@@ -25,7 +24,7 @@ const Home = () => {
             <Main />
             <div className="contain">
                 <div className='home'>
-                    {/* <Searches /> */}
+                    <Searches />
                     <PropType type="sale" data={sale} />
                     <PropType type="rent" data={rent} />
                     <Services />

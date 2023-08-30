@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
-import { usdFormater } from '../../../../../helpers/formatters'
+import { amdFormater, usdFormater } from '../../../../../helpers/formatters'
 import { down, up } from '../../../../svgs/svgs'
 import '../../pages/Styles.scss'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 export const PriceHistory = ({ data }) => {
+    const { t } = useTranslation()
+
     const [price, setPrice] = useState(true)
+
+    const { exchange, exchangeValue } = useSelector((state => state.home))
 
     return (
         <div
@@ -12,7 +18,7 @@ export const PriceHistory = ({ data }) => {
             onClick={() => setPrice(!price)}
         >
             <p>
-                Գնի պատմություն ։  {price ? down.icon : up.icon}
+                {t("price_history")}  {price ? down.icon : up.icon}
             </p>
 
             <div className={price ? 'singleProperty__content-right-price-history-list' : 'singleProperty__content-right-price-history-listActive'}>
@@ -20,7 +26,7 @@ export const PriceHistory = ({ data }) => {
                     ? <div
                         className='singleProperty__content-right-price-history-listActive-view'
                     >
-                        <p>Փոփոխություններ չեն կատարվել:</p>
+                        <p>{t("no_changes")}</p>
                     </div>
                     : data?.map(({ price, date }) => {
                         return (
@@ -28,7 +34,8 @@ export const PriceHistory = ({ data }) => {
                                 className='singleProperty__content-right-price-history-listActive-view'
                                 key={date + price}
                             >
-                                <p>{usdFormater(price)} </p>
+                                {exchange === 1 && <p>{usdFormater(price)} </p>}
+                                {exchange === 2 && <p>&#1423; {amdFormater(price, exchangeValue)} </p>}
                                 <p>{date}</p>
                             </div>
                         )

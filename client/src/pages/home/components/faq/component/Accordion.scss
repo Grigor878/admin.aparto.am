@@ -13,6 +13,11 @@
     &:first-child {
       border-top: 1px solid $text;
     }
+
+    @media screen and (max-width: 1122px) {
+      padding: 20px 0;
+      gap: 20px;
+    }
   }
 
   &__title {
@@ -20,6 +25,10 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 22px;
+
+    @media screen and (max-width: 1122px) {
+      font-size: 16px;
+    }
   }
 
   &__content {
