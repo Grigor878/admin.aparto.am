@@ -50,6 +50,13 @@ export const Search = () => {
             },
             {
                 price: price
+            },
+            //
+            {
+                page: "1",
+            },
+            {
+                perPage: "15"
             }
         ]
 

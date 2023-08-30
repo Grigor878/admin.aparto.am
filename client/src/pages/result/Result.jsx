@@ -61,15 +61,16 @@ const Result = () => {
               {!sider && (
                 <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
               )}
-              {(siderData?.length || resultData?.length)
-                && <h2>{siderData ? siderData?.length : resultData?.length} {t("result")}</h2>}
+            
+                <h2>{siderData ? siderData?.length : resultData?.length} {t("result")}</h2>
             </div>
 
-            {!map && (
-              <button onClick={handleOpen}>
-                {openMap.icon} {t("map")}
-              </button>
-            )}
+            {!map && (siderData?.length || resultData?.length)
+              && (
+                <button onClick={handleOpen}>
+                  {openMap.icon} {t("map")}
+                </button>
+              )}
           </div>
 
           <PropCard data={siderData ? siderData?.slice(0, 14) : resultData?.slice(0, 14)} />
