@@ -23,5 +23,5 @@ Route::get('/', [GarbageController::class, 'addNow']);
 // Route::get('/changeInstallments', [GarbageController::class, 'changeInstallments']);
 // Route::get('/changeHomeRoom', [GarbageController::class, 'changeHomeRoom']);
 // Route::get('/checkImage', [GarbageController::class, 'checkImage']);
-Route::get('/changeArrayPrice', [GarbageController::class, 'changeArrayPrice']);
+// Route::get('/changeArrayPrice', [GarbageController::class, 'changeArrayPrice']);
 
