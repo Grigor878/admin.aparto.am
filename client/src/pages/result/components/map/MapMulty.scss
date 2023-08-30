@@ -1,10 +1,9 @@
 @import "../../../../variables";
 
 .map {
-  // position: fixed;
-  // top: 0;
-  // right: 0;
-  float: right;
+  position: sticky;
+  top: 90px;
+  // float: right;
   width: fit-content;
   height: 822px;
   background: $bgAdmin;
@@ -29,6 +28,6 @@
     line-height: 16px;
     position: absolute;
     z-index: 92;
-    top: 120px;
+    top: 24px;
   }
 }

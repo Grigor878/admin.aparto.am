@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { useTranslation } from "react-i18next";
 import "./MapMulty.scss";
 import { CardById } from "../cardById/CardById";
@@ -43,7 +43,8 @@ export const MapMulty = ({ map, setMap, data }) => {
                 zoom: 13,
               }}
               width="708px"
-              height="822px"
+              // height="822px"
+              height="100vh"
             >
               {data?.slice(0, 9)?.map(item => (
                 <Placemark
@@ -55,6 +56,7 @@ export const MapMulty = ({ map, setMap, data }) => {
                   }}
                 />
               ))}
+              <ZoomControl/>
             </Map>
           </YMaps>
 
