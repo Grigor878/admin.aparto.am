@@ -77,14 +77,16 @@ export const Sider = ({ open, setOpen }) => {
       floorMin: floorMin,
       floorMax: floorMax,
       description: description,
-      id: id
+      id: id,
+      //
+      page:"1",
+      perPage:"15"
     }
     // console.log(searchData)//
     if (page === "home") {
       return
     }
-    // dispatch(clearResultData())
-    // dispatch(getResultPageData({ language, searchData }))
+
     debouncedSearch(searchData);
 
     return () => {
