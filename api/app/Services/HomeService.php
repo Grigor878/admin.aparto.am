@@ -553,7 +553,12 @@ class HomeService
                 if ($assocCopyFormAm[$idx]->name == 'price' && $assocCopyFormAm[$idx]->fields[$globKey]->key == "totalPrice") {
                   if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] !== "on")) {
                     $priceHistory = $value;
-
+                   
+                    $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
+                    $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;
+                  }
+                  else {
                     $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormRu[$idx]->fields[$globKey]->value = $value;
                     $assocCopyFormEn[$idx]->fields[$globKey]->value = $value;

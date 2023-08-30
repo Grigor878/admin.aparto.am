@@ -4,17 +4,16 @@ namespace App\Services;
 use App\Models\ConfigAddress;
 use App\Models\Employe;
 use App\Models\Home;
+use App\Models\RecentSearch;
 use Carbon\Carbon;
 
 class InterFaceService
 {
-
     private function processHomeData($home)
     {
         $am = json_decode($home->am);
         $ru = json_decode($home->ru);
         $en = json_decode($home->en);
-
 
         $am[1]->fields[5] = [];
         $ru[1]->fields[5] = [];
@@ -36,12 +35,22 @@ class InterFaceService
         $home->ru = $ru;
         $home->en = $en;
         $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
-        $photo = json_decode($home->photo);
-        $filteredPhoto = \Arr::where($photo, function ($value, $key) {
-            return $value->visible == "true";
-        });
-        $home->photo = $filteredPhoto;
+        // $photo = json_decode($home->photo);
+        // $filteredPhoto = [];
+        // foreach ($photo as $key => $value) {
 
+        //     if($value->visible == 'true'){
+        //         array_push($filteredPhoto, $value->name);
+        //     }
+        // }
+        // $filteredPhoto = \Arr::map($photo, function ($value, $key) {
+        //     if ($value->visible == "true") {
+        //         return $value;
+        //     }else {
+        //         return false;
+        //     }
+        // });
+        // $home->photo = $filteredPhoto;
 
         return $home;
     }
@@ -137,6 +146,44 @@ class InterFaceService
         'Vahagni',
     ];
 
+    public function coillectSearchDataConst($lang, $key)
+    {
+        $collects = [
+            'privateHouse' => [
+                'am' => 'Առանձնատուն',
+                'en' => 'privateHouse',
+                'ru' => 'Дом',
+            ],
+            'commercial' => [
+                'am' => 'Կոմերցիոն',
+                'en' => 'Commercial',
+                'ru' => 'Коммерческая',
+            ],
+            'house' => [
+                'am' => 'Բնակարան',
+                'en' => 'Apartment',
+                'ru' => 'Квартира',
+            ],
+            'sale' => [
+                'am' => 'Վաճառք',
+                'en' => 'For Sale',
+                'ru' => 'Продается',
+            ],
+            'rent' => [
+                'am' => 'Վարձակալություն',
+                'en' => 'For Rent',
+                'ru' => 'Aрендa',
+            ],
+        ];
+
+        if ($collects[$key][$lang]) {
+            return $collects[$key][$lang];
+        }
+
+        return $key;
+
+    }
+
     public function getPropertyType($typeNames)
     {
         $allSelect = [
@@ -162,9 +209,9 @@ class InterFaceService
         Home::latest()->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
-            ->filter(function ($home) use ($lang, &$searchHomeArray){
+            ->filter(function ($home) use ($lang, &$searchHomeArray) {
                 $home = $this->processHomeData($home);
-                
+
                 if ($home->am[0]->fields[0]->selectedOptionName == "sale") {
                     $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
                     return true;
@@ -172,19 +219,19 @@ class InterFaceService
                 return false;
             })->values();
 
-            return $searchHomeArray;
+        return $searchHomeArray;
     }
 
     public function getRentHomes($lang)
     {
         $searchHomeArray = [];
 
-         Home::latest()->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::latest()->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($lang, &$searchHomeArray) {
                 $home = $this->processHomeData($home);
-                
+
                 if ($home->am[0]->fields[0]->selectedOptionName == "rent") {
                     $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
                     return true;
@@ -193,7 +240,7 @@ class InterFaceService
                 return false;
             })->values();
 
-            return $searchHomeArray;
+        return $searchHomeArray;
     }
 
     public function getGeneralAdmin()
@@ -299,12 +346,46 @@ class InterFaceService
                     }
                 }
 
-            if($isMatched){
-                $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
-            }
+                if ($isMatched) {
+                    $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
+                }
 
                 return $isMatched;
             })->values();
+
+        $searchDataType = '(' . $this->coillectSearchDataConst($lang, $data['searchData'][0]['type']) . ')';
+
+        $searchDataCommunity = '';
+        if (!empty($data['searchData'][1]['community'])) {
+            $searchDataCommunity = '(' . join(', ', $data['searchData'][1]['community']) . ')';
+        }
+
+        $searchDataPropertyType = '';
+        if (!empty($data['searchData'][2]['propertyType'])) {
+            $searchDataPropertyType = '(' . join(', ', $data['searchData'][2]['propertyType']) . ')';
+        }
+
+        $searchDataRooms = '';
+        if (!empty($data['searchData'][3]['rooms'])) {
+            $searchDataRooms = '(' . join(', ', $data['searchData'][3]['rooms']) . ')';
+        }
+
+        $searchDataPrice = '';
+        if (!empty($data['searchData'][3]['price'])) {
+            $searchDataPrice = '(' . $data['searchData'][4]['price'] . ')';
+        }
+
+        $searchInfo = $searchDataType . $searchDataCommunity . $searchDataPropertyType . $searchDataRooms . $searchDataPrice;
+
+        if ($searchInfo) {
+            RecentSearch::create([
+                'searchText' => $searchInfo,
+                'resultCount' => count($searchHomeArray),
+                'date' => Carbon::now()->addHours(4)
+            ]);
+            $data = Carbon::now()->addHours(4)->format('M d Y');
+        }
+
 
         return $searchHomeArray;
     }
@@ -326,7 +407,7 @@ class InterFaceService
                 return false;
             })->values();
 
-            return $searchHomeArray;
+        return $searchHomeArray;
 
     }
 
@@ -351,11 +432,16 @@ class InterFaceService
 
     public function mapSearchHomeDetail($home, $lang)
     {
-        $filteredPhoto = \Arr::map($home->photo, function ($value, $key) {
-            if ($value->visible == "true") {
-                return $value->name;
+        $photo = json_decode($home->photo);
+        $filteredPhoto = [];
+
+        if ($photo !== null) {
+            foreach ($photo as $key => $value) {
+                if ($value->visible == 'true') {
+                    array_push($filteredPhoto, $value->name);
+                }
             }
-        });
+        }
 
         if ($lang == "am") {
             $mapDetails = [
@@ -421,7 +507,17 @@ class InterFaceService
         $home = Home::select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
             ->find($id);
         if ($home) {
-            $home = $this->processHomeData($home);
+            $home = $this->processHomeData($home);	
+            $photo = json_decode($home->photo);	
+               $filteredPhoto = [];	
+                 if ($photo !== null) {	
+                    foreach ($photo as $key => $value) {	
+                        if($value->visible == "true"){	
+                            array_push($filteredPhoto, $value);	
+                        }	
+                    }	
+                 }	
+            $home->photo = $filteredPhoto;	
             $home->priceHistory = json_decode($home->price_history);
 
             return $home;
@@ -551,8 +647,7 @@ class InterFaceService
                 $wordsArr = explode("/", $data['searchData']['description']);
                 $trimArr = array_map('trim', $wordsArr);
                 if ($trimArr) {
-                    $intersection = array_intersect($trimArr, $home->keywords);
-
+                    $intersection = array_intersect($trimArr, json_decode($home->keywords));
                     if (empty($intersection)) {
                         $isMatched = false;
                     }
@@ -567,7 +662,7 @@ class InterFaceService
                 }
             }
 
-            if($isMatched){
+            if ($isMatched) {
                 $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
             }
 

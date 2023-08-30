@@ -12,6 +12,7 @@ class RecentSearch extends Model
     protected $collection = 'recent_searches';
     protected $fillable = [
         'searchText',
-        'resultCount'
+        'resultCount',
+        'date'
     ];
 }
