@@ -1,14 +1,60 @@
 @import "../../variables";
 
+.scrollablePropCard {
+  position: relative;
+  @include flex;
+
+  .scrollLeft {
+    z-index: 99;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 30px;
+    background: transparent;
+    color: $text;
+    border: 1px solid $border;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: -50px;
+    transform: translateY(-50%, 50%);
+  }
+  .scrollRight {
+    z-index: 99;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 30px;
+    background: transparent;
+    color: $text;
+    border: 1px solid $border;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: -50px;
+    transform: translateY(-50%, 50%);
+  }
+}
+
 .propCard,
 .skeleton__home {
   @include flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  gap: 24px;
+  // flex-wrap: wrap;
+  overflow-x: auto;
+  width: 100%;
+  @include transition;
 
-  // global for 2 types
-  &__cardResult,
+  &::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+  }
+
   &__card {
+    @include flexCol;
+    min-width: 384px; //
+    height: 440px;
     border-radius: 12px;
     border: 1.5px solid $advancedBack;
     overflow: hidden;
@@ -23,21 +69,14 @@
       border-radius: 12px 12px 0px 0px;
       border-bottom: 1px solid $advancedBack;
     }
-  }
-
-  // home page card
-  &__card {
-    @include flexCol;
-    width: 384px;
-    height: 440px;
 
     @media screen and (max-width: 1280px) {
-      width: 333px;
+      min-width: 333px;
       height: fit-content;
     }
 
     @media screen and (max-width: 1122px) {
-      width: 303px;
+      min-width: 303px;
     }
 
     &-img {
@@ -147,12 +186,32 @@
       }
     }
   }
+}
 
-  // result page card
-  &__cardResult {
+.propCardResult {
+  @include flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  &__card {
     @include flexCol;
     width: 325px;
+    border-radius: 12px;
+    border: 1.5px solid $advancedBack;
+    overflow: hidden;
     // height: 380px;
+
+    &:hover img {
+      transform: scale(1.2);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px 12px 0px 0px;
+      border-bottom: 1px solid $advancedBack;
+    }
 
     &-img {
       width: 324px;

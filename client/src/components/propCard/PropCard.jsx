@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useTranslation } from 'react-i18next'
-import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
+import { useMediaQuery } from 'react-responsive';
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { room, buildType, square } from "../../admin/svgs/svgs";
@@ -21,71 +22,93 @@ export const PropCard = ({ data }) => {
 
   const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
 
+  const scrollableDivRef = useRef(null)
+  const scrollableDiv = scrollableDivRef.current
+
+  const scrollLeft = () => {
+
+    if (scrollableDiv) {
+      scrollableDiv.scrollLeft -= 384
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollableDiv) {
+      scrollableDiv.scrollLeft += 384
+    }
+  }
+
   return (
     data && (
-      <div className="propCard" style={{ gap: pathname !== "/" ? "24px" : "0" }}>
-        {!pathname?.includes("result")
-          ? data?.slice(0, 3).map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
-            return (
-              <Link
-                key={id}
-                target={"_blank"}
-                to={`/result/${id}`}
-                className="propCard__card"
-              >
-                <div className="propCard__card-img">
-                  <img
-                    src={
-                      photo?.length
-                        ? `${API_BASE_URL}/images/${photo[0]} `
-                        : noImg
-                    }
-                    alt="HomeImg"
-                  />
-                </div>
-
-                <div className="propCard__card-main">
-                  <div className="propCard__card-main-top">
-                    {exchange === 2
-                      ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
-                      : <p>{usdFormater(price)}</p>
-                    }
-                    <span>ID {home_id}</span>
+      !pathname?.includes("result")
+        ? <div className="scrollablePropCard">
+            <AiOutlineArrowLeft className="scrollLeft" onClick={scrollLeft} />
+          <div className="propCard" ref={scrollableDivRef}>
+            {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
+              return (
+                <Link
+                  key={id}
+                  target={"_blank"}
+                  to={`/result/${id}`}
+                  className="propCard__card"
+                >
+                  <div className="propCard__card-img">
+                    <img
+                      src={
+                        photo?.length
+                          ? `${API_BASE_URL}/images/${photo[0]} `
+                          : noImg
+                      }
+                      alt="HomeImg"
+                    />
                   </div>
 
-                  <div className="propCard__card-main-center">
-                    <h5>
-                      {title?.length >= 29
-                        ? cutText(title, homeCut)
-                        : title}
-                    </h5>
-                    <div className="propCard__card-main-center-geo">
-                      <p>{cutCommunity(street)}</p>
-                      <p>{community}</p>
+                  <div className="propCard__card-main">
+                    <div className="propCard__card-main-top">
+                      {exchange === 2
+                        ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
+                        : <p>{usdFormater(price)}</p>
+                      }
+                      <span>ID {home_id}</span>
+                    </div>
+
+                    <div className="propCard__card-main-center">
+                      <h5>
+                        {title?.length >= 29
+                          ? cutText(title, homeCut)
+                          : title}
+                      </h5>
+                      <div className="propCard__card-main-center-geo">
+                        <p>{cutCommunity(street)}</p>
+                        <p>{community}</p>
+                      </div>
+                    </div>
+
+                    <div className="propCard__card-main-bottom">
+                      <span>{room.icon} {rooms} {t("room")}</span>
+                      <span>{buildType.icon} {buildingType}</span>
+                      {size === 1
+                        ? <span>{square.icon} {surface} {t("square_symbol")}</span>
+                        : <span>{square.icon} {sqmToFt2(surface)} {t("ft_symbol")}</span>
+                      }
                     </div>
                   </div>
-
-                  <div className="propCard__card-main-bottom">
-                    <span>{room.icon} {rooms} {t("room")}</span>
-                    <span>{buildType.icon} {buildingType}</span>
-                    {size === 1
-                      ? <span>{square.icon} {surface} {t("square_symbol")}</span>
-                      : <span>{square.icon} {sqmToFt2(surface)} {t("ft_symbol")}</span>
-                    }
-                  </div>
-                </div>
-              </Link>
-            );
-          })
-          : data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
+                </Link>
+              );
+            })}
+          </div>
+          <AiOutlineArrowRight className="scrollRight" onClick={scrollRight} />
+        </div>
+        : <div className="propCardResult">
+          {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
             return (
               <Link
                 key={id}
                 target={"_blank"}
                 to={`/result/${id}`}
-                className="propCard__cardResult"
+                className="propCardResult__card"
               >
-                <div className="propCard__cardResult-img" >
+                <div className="propCardResult__card-img" >
                   <img
                     src={
                       photo?.length
@@ -96,8 +119,8 @@ export const PropCard = ({ data }) => {
                   />
                 </div>
 
-                <div className="propCard__cardResult-main">
-                  <div className="propCard__cardResult-main-top">
+                <div className="propCardResult__card-main">
+                  <div className="propCardResult__card-main-top">
                     {exchange === 2
                       ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
                       : <p>{usdFormater(price)}</p>
@@ -105,19 +128,19 @@ export const PropCard = ({ data }) => {
                     <span>ID {home_id}</span>
                   </div>
 
-                  <div className="propCard__cardResult-main-center">
+                  <div className="propCardResult__card-main-center">
                     <h5>
                       {title?.length >= 25
                         ? cutText(title, 25)
                         : title}
                     </h5>
-                    <div className="propCard__cardResult-main-center-geo">
+                    <div className="propCardResult__card-main-center-geo">
                       <p>{cutCommunity(street)}</p>
                       <p>{community}</p>
                     </div>
                   </div>
 
-                  <div className="propCard__cardResult-main-bottom">
+                  <div className="propCardResult__card-main-bottom">
                     <span>{room.icon} {rooms} {t("room")}</span>
                     <span>{buildType.icon} {buildingType}</span>
                     {size === 1
@@ -129,7 +152,31 @@ export const PropCard = ({ data }) => {
               </Link>
             );
           })}
-      </div>
+        </div>
     )
   );
 };
+
+
+
+// const [showScrollLeft, setShowScrollLeft] = useState(false);
+
+// useEffect(() => {
+//   const scrollableDiv = scrollableDivRef.current;
+
+//   const handleScroll = () => {
+//     if (scrollableDiv) {
+//       setShowScrollLeft(scrollableDiv.scrollLeft > 0);
+//     }
+//   };
+
+//   if (scrollableDiv) {
+//     scrollableDiv.addEventListener('scroll', handleScroll);
+//   }
+
+//   return () => {
+//     if (scrollableDiv) {
+//       scrollableDiv.removeEventListener('scroll', handleScroll);
+//     }
+//   };
+// }, []);

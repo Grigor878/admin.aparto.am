@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { API_BASE_URL } from '../../../../apis/config';
 import noImg from "../../../../assets/imgs/noImg.png";
 import { amdFormater, cutCommunity, cutText, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
@@ -13,11 +13,28 @@ export const CardById = ({ selectedItem, closeCard }) => {
 
     const { size, exchange, exchangeValue } = useSelector((state => state.home))
 
+    const cardRef = useRef()
+
+    useEffect(() => {
+        const checkIfClickedOutside = (e) => {
+            if (cardRef.current && !cardRef.current.contains(e.target)) {
+                closeCard()
+            }
+        };
+
+        document.addEventListener("mousedown", checkIfClickedOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", checkIfClickedOutside);
+        };
+    }, [cardRef, closeCard]);
+
     return (
-        <div
+        <Link
+            ref={cardRef}
             key={selectedItem?.id}
-            // target={"_blank"}
-            // to={`/result/${selectedItem?.id}`}
+            target={"_blank"}
+            to={`/result/${selectedItem?.id}`}
             className="cardResult"
         >
             <img
@@ -61,9 +78,9 @@ export const CardById = ({ selectedItem, closeCard }) => {
                 </div>
             </div>
 
-            <button className="cardResult-closeMap" onClick={closeCard}>
+            {/* <button className="cardResult-closeMap"  onClick={closeCard}>
                 X
-            </button>
-        </div>
+            </button> */}
+        </Link>
     )
 }

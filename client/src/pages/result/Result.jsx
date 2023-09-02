@@ -8,8 +8,8 @@ import { PropCard } from "../../components/propCard/PropCard";
 import { Loader } from "../../components/loader/Loader";
 import { MapMulty } from "./components/map/MapMulty";
 import { Pagination } from "./components/pagination/Pagination";
-import "./Styles.scss";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
+import "./Styles.scss";
 
 const Result = () => {
   const { t } = useTranslation();
