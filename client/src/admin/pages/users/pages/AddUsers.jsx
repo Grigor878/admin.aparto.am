@@ -11,6 +11,7 @@ import baseApi from '../../../../apis/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import { addUserInputs } from '../data'
 import './Styles.scss'
+import { getAxiosConfig } from '../../../../apis/config'
 
 const AddUsers = () => {
     const [loading, setLoading] = useState(false)
@@ -62,7 +63,7 @@ const AddUsers = () => {
 
         formData.append('userInfo', JSON.stringify(userInfo))
 
-        baseApi.post('/api/addUser', formData)
+        baseApi.post('/api/addUser', formData, getAxiosConfig())
             .then(res => {
                 goodJob(`Password is - ${res.data.password}`)
                 navigate(-1)

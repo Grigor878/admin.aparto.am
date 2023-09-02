@@ -24,7 +24,10 @@ const initialState = {
 // get property structure
 export const getPropertyStructure = createAsyncThunk("property", async () => {
   try {
-    const { data } = await baseApi.get("/api/getAllStructure");
+    const { data } = await baseApi.get(
+      "/api/getAllStructure",
+      getAxiosConfig()
+    );
     return data;
   } catch (err) {
     console.log(`Get Property Structure Error: ${err.message}`);
@@ -36,7 +39,11 @@ export const getPropertyData = createAsyncThunk(
   "property/getPropertyData",
   async ({ properties }) => {
     try {
-      const { data } = await baseApi.post("/api/getHome", properties);
+      const { data } = await baseApi.post(
+        "/api/getHome",
+        properties,
+        getAxiosConfig()
+      );
       return data;
     } catch (err) {
       console.log(`Get Property Data Error: ${err.message}`);
@@ -75,7 +82,11 @@ export const addPropertyImgs = createAsyncThunk(
       await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
 
       if (!uploadPhotoReserve.entries().next().done) {
-        await baseApi.post(`/api/addReservPhoto/${id}`, uploadPhotoReserve);
+        await baseApi.post(
+          `/api/addReservPhoto/${id}`,
+          uploadPhotoReserve,
+          getAxiosConfig()
+        );
       }
 
       thunkAPI.dispatch(addPropertyFiles(id));
@@ -92,7 +103,11 @@ export const addPropertyFiles = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadFile = state.property.uploadFile;
-      await baseApi.post(`/api/documentUpload/${id}`, uploadFile);
+      await baseApi.post(
+        `/api/documentUpload/${id}`,
+        uploadFile,
+        getAxiosConfig()
+      );
       thunkAPI.dispatch(addPropertyYandex(id));
     } catch (err) {
       console.log(`Add Property Files Sending Error: ${err.message}`);
@@ -107,7 +122,11 @@ export const addPropertyYandex = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let yandex = state.property.yandex;
-      await baseApi.post(`/api/addYandexLocation/${id}`, yandex);
+      await baseApi.post(
+        `/api/addYandexLocation/${id}`,
+        yandex,
+        getAxiosConfig()
+      );
       thunkAPI.dispatch(addPropertyKeyword(id));
     } catch (err) {
       console.log(`Add Property Yandex Data Sending Error: ${err.message}`);
@@ -122,7 +141,11 @@ export const addPropertyKeyword = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
-      const response = await baseApi.post(`/api/addKeyword/${id}`, keyword);
+      const response = await baseApi.post(
+        `/api/addKeyword/${id}`,
+        keyword,
+        getAxiosConfig()
+      );
       return response.status;
     } catch (err) {
       console.log(`Add Property Keyword Sending Error: ${err.message}`);
@@ -194,7 +217,11 @@ export const editPropertyFiles = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let uploadFile = state.property.uploadFile;
-      await baseApi.post(`/api/editDocumentUpload/${propertyId}`, uploadFile);
+      await baseApi.post(
+        `/api/editDocumentUpload/${propertyId}`,
+        uploadFile,
+        getAxiosConfig()
+      );
       thunkAPI.dispatch(editPropertyYandex(propertyId));
     } catch (err) {
       console.log(`Edit Property Files Sending Error: ${err.message}`);
@@ -209,7 +236,11 @@ export const editPropertyYandex = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let yandex = state.property.yandex;
-      await baseApi.post(`/api/editYandexLocation/${propertyId}`, yandex);
+      await baseApi.post(
+        `/api/editYandexLocation/${propertyId}`,
+        yandex,
+        getAxiosConfig()
+      );
       thunkAPI.dispatch(editPropertyKeyword(propertyId));
     } catch (err) {
       console.log(`Edit Property Yandex Data Sending Error: ${err.message}`);
@@ -224,7 +255,11 @@ export const editPropertyKeyword = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       let keyword = state.property.keyword;
-      await baseApi.post(`/api/editKeyword/${propertyId}`, keyword);
+      await baseApi.post(
+        `/api/editKeyword/${propertyId}`,
+        keyword,
+        getAxiosConfig()
+      );
     } catch (err) {
       console.log(`Edit Property Keyword Sending Error: ${err.message}`);
     }

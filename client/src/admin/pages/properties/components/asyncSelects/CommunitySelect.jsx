@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
+import { getAxiosConfig } from '../../../../../apis/config'
 
 export const CommunitySelect = ({ title, id, required, value, defValue, valueId, streetData, onChange, onStreetChange, data, style }) => {
     const [streets, setStreets] = useState([])
@@ -7,7 +8,7 @@ export const CommunitySelect = ({ title, id, required, value, defValue, valueId,
 
     const getStreetsByCommunityId = async () => {
         try {
-            const { data } = await baseApi.get(`/api/getAllAddresses/${communityId}`)
+            const { data } = await baseApi.get(`/api/getAllAddresses/${communityId}`, getAxiosConfig())
             setStreets(data)
         } catch (error) {
             console.log(`Error: ${error.message}`)

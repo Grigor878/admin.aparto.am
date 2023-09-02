@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
+import { getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   loading: false,
@@ -10,7 +11,10 @@ const initialState = {
 
 export const getStructureInfo = createAsyncThunk("structure", async () => {
   try {
-    const { data } = await baseApi.get("/api/getFormStructure");
+    const { data } = await baseApi.get(
+      "/api/getFormStructure",
+      getAxiosConfig()
+    );
     return data;
   } catch (err) {
     console.log(`Get Structure Info Error: ${err.message}`);
@@ -21,7 +25,11 @@ export const removeStructureField = createAsyncThunk(
   "structure/removeField",
   async ({ removedField }) => {
     try {
-      await baseApi.post("/api/removeGlobalFormField", removedField);
+      await baseApi.post(
+        "/api/removeGlobalFormField",
+        removedField,
+        getAxiosConfig()
+      );
     } catch (err) {
       console.log(`Remove Field Error: ${err.message}`);
     }
@@ -32,7 +40,11 @@ export const addStructureField = createAsyncThunk(
   "structure/addField",
   async ({ addedField }) => {
     try {
-      await baseApi.post("/api/addGlobalFormField", addedField);
+      await baseApi.post(
+        "/api/addGlobalFormField",
+        addedField,
+        getAxiosConfig()
+      );
     } catch (err) {
       console.log(`Add Field Error: ${err.message}`);
     }

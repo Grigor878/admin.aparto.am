@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
+import { getAxiosConfig } from '../../../../../apis/config'
 
 export const ManagerSelect = ({ title, value, id, onChange, style, required }) => {
   const [data, setData] = useState([])
 
   const getManagers = async () => {
     try {
-      const { data } = await baseApi.get('/api/getAdminModerator')
+      const { data } = await baseApi.get('/api/getAdminModerator', getAxiosConfig())
       setData(data)
     } catch (error) {
       console.log(`Error: ${error.message}`)

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { success } from "../../components/swal/swal";
+import { getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   loadingAddress: false,
@@ -14,7 +15,7 @@ const initialState = {
 // Addresses
 export const getConfigsAddresses = createAsyncThunk("configs", async () => {
   try {
-    const { data } = await baseApi.get("/api/getAddress");
+    const { data } = await baseApi.get("/api/getAddress", getAxiosConfig());
     return data;
   } catch (err) {
     console.log(`Get Configs Adresses Error: ${err.message}`);
@@ -25,7 +26,7 @@ export const addConfigsAddress = createAsyncThunk(
   "configs/addAddress",
   async ({ addedAddress }) => {
     try {
-      await baseApi.post("/api/createAddress", addedAddress);
+      await baseApi.post("/api/createAddress", addedAddress, getAxiosConfig());
     } catch (err) {
       console.log(`Add Address Error: ${err.message}`);
     }
@@ -36,7 +37,11 @@ export const removeConfigsAddress = createAsyncThunk(
   "configs/removeAddress",
   async ({ removedAddress }) => {
     try {
-      await baseApi.post("/api/deleteAddress", removedAddress);
+      await baseApi.post(
+        "/api/deleteAddress",
+        removedAddress,
+        getAxiosConfig()
+      );
     } catch (err) {
       console.log(`Remove Address Error: ${err.message}`);
     }
@@ -60,7 +65,7 @@ export const setExchangeData = createAsyncThunk(
   "configs/setExchange",
   async ({ ex }) => {
     try {
-      await baseApi.post("/api/setExchange", ex);
+      await baseApi.post("/api/setExchange", ex, getAxiosConfig());
     } catch (err) {
       console.log(`Set Exchange Data Error: ${err.message}`);
     }

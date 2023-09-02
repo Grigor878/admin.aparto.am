@@ -11,7 +11,7 @@ import { EditInput } from '../../../components/inputs/EditInput'
 import { DisabledInput } from '../../../components/inputs/DisabledInput'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
 import baseApi from '../../../../apis/baseApi'
-import { API_BASE_URL } from '../../../../apis/config'
+import { API_BASE_URL, getAxiosConfig } from '../../../../apis/config'
 import { error, success } from '../../../../components/swal/swal'
 import './Styles.scss'
 
@@ -73,7 +73,7 @@ const EditUsers = () => {
             status: currentUser?.status === "approved" ? "deactivated" : "approved"
         }
 
-        baseApi.post('/api/changeStatus', statusChangeInfo)
+        baseApi.post('/api/changeStatus', statusChangeInfo, getAxiosConfig())
             .then(res => {
                 success(res.data.message)
                 navigate(-1)
@@ -109,7 +109,7 @@ const EditUsers = () => {
         formData.append('avatarChangeStatus', statusPhoto)
         formData.append('userEditedInfo', JSON.stringify(userInfo))
 
-        baseApi.post('/api/editUser', formData)
+        baseApi.post('/api/editUser', formData, getAxiosConfig())
             .then((res) => {
                 success(res.data.status)
                 dispatch(getUserGlobal())

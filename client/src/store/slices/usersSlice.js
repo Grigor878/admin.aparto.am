@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
+import { getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   loading: false,
@@ -8,7 +9,7 @@ const initialState = {
 
 export const getUsers = createAsyncThunk("users", async () => {
   try {
-    const { data } = await baseApi.get("/api/getUsers");
+    const { data } = await baseApi.get("/api/getUsers", getAxiosConfig());
     return data;
   } catch (err) {
     console.log(`Get Users Error: ${err.message}`);

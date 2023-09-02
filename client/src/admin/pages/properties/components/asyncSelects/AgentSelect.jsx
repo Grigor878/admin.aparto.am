@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import baseApi from '../../../../../apis/baseApi'
 import './Styles.scss'
+import { getAxiosConfig } from '../../../../../apis/config'
 
 export const AgentSelect = ({ title, value, id, onChange, style, required }) => {
     const { role } = useSelector((state => state.userGlobal.userGlobal))
@@ -10,7 +11,7 @@ export const AgentSelect = ({ title, value, id, onChange, style, required }) => 
 
     const getAgents = async () => {
         try {
-            const { data } = await baseApi.get('/api/getAgent')
+            const { data } = await baseApi.get('/api/getAgent', getAxiosConfig())
             setData(data)
         } catch (error) {
             console.log(`Error: ${error.message}`)
