@@ -397,7 +397,8 @@ const ResultById = () => {
                     <img src={user} alt="img" />
 
                     <div className='singleProperty__content-right-contact-info-name'>
-                      <p>{t("name_surname")}</p>
+                      {/* <p>{t("name_surname")}</p> */}
+                      <p>{currentPropertyData[11]?.fields[0]?.value}</p>
                       <span>{t("agent")}</span>
                     </div>
                   </div>
