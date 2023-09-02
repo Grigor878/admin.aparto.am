@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from '../../../../apis/config';
 import noImg from "../../../../assets/imgs/noImg.png";
 import { amdFormater, cutCommunity, cutText, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
 import { buildType, room, square } from '../../../../admin/svgs/svgs';
 import './CardById.scss'
-import { useSelector } from 'react-redux';
 
 export const CardById = ({ selectedItem, closeCard }) => {
     const { t } = useTranslation()

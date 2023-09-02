@@ -65,7 +65,9 @@ const Result = () => {
                 <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
               )}
 
-              {paginateData?.total ? <h2>{paginateData?.total} {t("result")}</h2> : null}
+              {paginateData?.total 
+              ? <h2>{paginateData?.total} {t("result")}</h2> 
+              : <h2>{data?.length} {t("result")}</h2> }
             </div>
 
             {!map && data?.length
