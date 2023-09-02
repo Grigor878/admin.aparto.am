@@ -22,6 +22,7 @@ export const Search = () => {
     }, [dispatch, language])
 
     const { searchData } = useSelector((state => state.home))
+    const { paginatePage, perPage } = useSelector((state => state.view))
 
     const [disable, setDisable] = useState(false)
     const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
@@ -53,10 +54,10 @@ export const Search = () => {
             },
             //
             {
-                page: "1",
+                page: paginatePage,
             },
             {
-                perPage: "15"
+                perPage: perPage
             }
         ]
 

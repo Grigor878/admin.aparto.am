@@ -119,7 +119,7 @@ const homeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getExchange.fulfilled, (state, action) => {
-      state.exchangeValue = action.payload;
+      state.exchangeValue = action.payload?.amount;
     });
     builder.addCase(getTopHomes.fulfilled, (state, action) => {
       state.sale = action.payload.sale;

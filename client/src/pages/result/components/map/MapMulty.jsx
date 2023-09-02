@@ -46,7 +46,7 @@ export const MapMulty = ({ map, setMap, data }) => {
               // height="822px"
               height="100vh"
             >
-              {data?.slice(0, 9)?.map(item => (
+              {data?.map(item => (
                 <Placemark
                   key={item.id}
                   geometry={item.locate}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { filterClose } from '../../../../assets/svgs/svgs'
 import { Radio } from '../inputs/radio'
@@ -7,20 +8,23 @@ import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, commun
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
-import { clearResultData, getResultPageData, setPage } from '../../../../store/slices/viewSlice';
+import { clearResultData, getResultPageData, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSessionState } from '../../../../hooks/useSessionState'
-import './Sider.scss'
-//
 import debounce from 'lodash/debounce';
+import './Sider.scss'
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const dispatch = useDispatch()
 
+  const searchParams = new URLSearchParams(location.search);
+
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
-  const { page } = useSelector((state) => state.view);
+  const { page, paginatePage, perPage } = useSelector((state) => state.view);
 
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
@@ -41,7 +45,10 @@ export const Sider = ({ open, setOpen }) => {
 
   // community, propType, buildType, propCondition
   const handleUpdate = (e, setState, id) => {
-    dispatch(setPage("result"))//
+    dispatch(setPage("result"))
+    dispatch(setPaginatePage("1"))
+    navigate(location.pathname)
+    window.scrollTo(0, 0)
     if (e.target.checked) {
       setState((prev) => [...prev, id])
     } else {
@@ -51,7 +58,10 @@ export const Sider = ({ open, setOpen }) => {
 
   // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
   const handleSetState = (setState, value) => {
-    dispatch(setPage("result"))//
+    dispatch(setPage("result"))
+    dispatch(setPaginatePage("1"))
+    navigate(location.pathname)
+    window.scrollTo(0, 0)
     setState(value)
   };
 
@@ -79,8 +89,8 @@ export const Sider = ({ open, setOpen }) => {
       description: description,
       id: id,
       //
-      page:"1",
-      perPage:"15"
+      page: paginatePage,
+      perPage: perPage
     }
     // console.log(searchData)//
     if (page === "home") {
@@ -93,7 +103,7 @@ export const Sider = ({ open, setOpen }) => {
       debouncedSearch.cancel();
     };
 
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page])
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page, paginatePage, perPage])
 
   const clearSearch = () => {
     sessionStorage.removeItem("siderSqMin");
@@ -321,7 +331,11 @@ export const Sider = ({ open, setOpen }) => {
         <div className="sider__block">
           <Checkbox
             onChange={(e) => {
-              setNewBuild(e.target.checked ? true : 'on'); dispatch(setPage("result"))//
+              dispatch(setPage("result"))
+              dispatch(setPaginatePage("1"))
+              navigate(location.pathname)
+              window.scrollTo(0, 0)
+              setNewBuild(e.target.checked ? true : 'on')
             }}
             text={t("new_build")}
             checked={newBuild === true}

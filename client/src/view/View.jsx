@@ -26,12 +26,6 @@ const Configs = lazy(() => pMinDelay(import('../admin/pages/configs/Configs'), 5
 const Crm = lazy(() => pMinDelay(import('../admin/pages/crm/Crm'), 500))
 
 const View = () => {
-
-    if (localStorage.getItem("persist:root")) {
-        localStorage.removeItem("persist:root")
-        console.log("web caches removed");
-    }
-
     const { isLoggedIn, token } = useSelector((state) => state.auth)
     const { role } = useSelector((state => state?.userGlobal?.userGlobal))
 
