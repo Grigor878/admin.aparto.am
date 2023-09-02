@@ -116,7 +116,6 @@ class UserController extends Controller
             $password =  Str::random(10);
             $userInfo = json_decode($data['userInfo']);
             $userEmail = $userInfo->email;
-            Mail::send(new SendEmailPassword($userEmail, $password));
             // SendEmailJob::dispatch($userEmail, $password);
             if($request->file) {
                 $fileName = time().'.'.$request->file->extension();
@@ -130,6 +129,7 @@ class UserController extends Controller
             $user->photo = $fileName;
             $user->password = Hash::make($password);
             $user->save();
+            Mail::send(new SendEmailPassword($userEmail, $password));
             return response()->json(['status' => 'success', 'password' => $password], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

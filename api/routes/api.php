@@ -25,48 +25,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/signin', [AuthController::class, 'login']);
     Route::post('/testlanguage', [AuthController::class, 'testlanguage']);
 
-    //User/Employe routes
-    Route::get('/getUsers', [UserController::class, 'getUsers']);
-    Route::post('/editUser', [UserController::class, 'editUser']);
-    Route::post('/addUser', [UserController::class, 'addUser']);
-    Route::post('/changePassword', [UserController::class, 'changePassword']);
-    Route::post('/getGlobalUser', [UserController::class, 'getGlobalUser']);
-    Route::post('/changeStatus', [UserController::class, 'changeStatus']);
-    Route::get('/getAgent', [UserController::class, 'getAgent']);
-    Route::get('/getAdminModerator', [UserController::class, 'getAdminModerator']);
-
-    //General form routes
-    // Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
-    Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
-    Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
-    Route::get('/getFormStructure', [GeneralFormController::class, 'getFormStructure']);
-    Route::get('/getAllStructure', [GeneralFormController::class, 'getAllStructure']);
-    Route::post('/createAddress', [GeneralFormController::class, 'createAddress']);
-    Route::get('/getAddress', [GeneralFormController::class, 'getAddress']);
-    Route::get('/getAddressForStructure', [GeneralFormController::class, 'getAddressForStructure']);
-    Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
-    Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
-    Route::get('/getAllAddresses/{id}', [GeneralFormController::class, 'getAllAddresses']);
-    Route::post('/getHome',  [HomeController::class, 'getHome']);
-
- //HomeController form routes
-    Route::post('/addHome',  [HomeController::class, 'addHome']);
-    Route::post('/addKeyword/{id}',  [HomeController::class, 'addKeyword']);
-    Route::post('/addYandexLocation/{id}',  [HomeController::class, 'addYandexLocation']);
-    Route::post('/addReservPhoto/{id}',  [HomeController::class, 'addReservPhoto']);
-    Route::post('/multyPhoto/{id}',  [HomeController::class, 'multyPhoto']);
-    Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
-
-    //Home Edit apis
-    Route::post('/editHome/{id}',  [HomeController::class, 'editHome']);
-    Route::post('/editKeyword/{id}',  [HomeController::class, 'editKeyword']);
-    Route::post('/editYandexLocation/{id}',  [HomeController::class, 'editYandexLocation']);
-    Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
-    Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
-    Route::post('/addEditReservPhoto/{id}',  [HomeController::class, 'addEditReservPhoto']);
-
     //Exchange amount
-    Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
     Route::get('/getExchange',  [ExchangeController::class, 'getExchange']);
 
     //interFaceController
@@ -84,10 +43,54 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     
     Route::group(['middleware' => 'authcheck'], function ($router) {
+
+        //Home Controller
         Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
         Route::get('/updateHomeDate/{id}',  [HomeController::class, 'updateHomeDate']);
         Route::post('/addInactiveHome/{id}',  [HomeController::class, 'addInactiveHome']);
         Route::get('/activateHomeStatus/{id}',  [HomeController::class, 'activateHomeStatus']);
         Route::get('/archiveHomeStatus/{id}',  [HomeController::class, 'archiveHomeStatus']);
+        Route::post('/multyPhoto/{id}',  [HomeController::class, 'multyPhoto']);
+        Route::post('/addHome',  [HomeController::class, 'addHome']);
+        Route::post('/addKeyword/{id}',  [HomeController::class, 'addKeyword']);
+        Route::post('/addYandexLocation/{id}',  [HomeController::class, 'addYandexLocation']);
+        Route::post('/addReservPhoto/{id}',  [HomeController::class, 'addReservPhoto']);
+        Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
+
+        //Home Edit
+        Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
+        Route::post('/addEditReservPhoto/{id}',  [HomeController::class, 'addEditReservPhoto']);
+        Route::post('/editHome/{id}',  [HomeController::class, 'editHome']);
+        Route::post('/editDocumentUpload/{id}',  [HomeController::class, 'editDocumentUpload']);
+        Route::post('/editKeyword/{id}',  [HomeController::class, 'editKeyword']);
+        Route::post('/editYandexLocation/{id}',  [HomeController::class, 'editYandexLocation']);
+
+        //User Controller 
+        Route::post('/getGlobalUser', [UserController::class, 'getGlobalUser']);
+        Route::post('/changePassword', [UserController::class, 'changePassword']);
+        Route::get('/getUsers', [UserController::class, 'getUsers']);
+        Route::post('/editUser', [UserController::class, 'editUser']);
+        Route::post('/addUser', [UserController::class, 'addUser']);
+        Route::post('/changeStatus', [UserController::class, 'changeStatus']);
+        Route::get('/getAgent', [UserController::class, 'getAgent']);
+        Route::get('/getAdminModerator', [UserController::class, 'getAdminModerator']);
+
+        //General form routes
+        // Route::post('/addGlobalForm', [GeneralFormController::class, 'addGlobalForm']);
+        Route::post('/addGlobalFormField', [GeneralFormController::class, 'addGlobalFormField']);
+        Route::post('/removeGlobalFormField', [GeneralFormController::class, 'removeGlobalFormField']);
+        Route::get('/getFormStructure', [GeneralFormController::class, 'getFormStructure']);
+        Route::get('/getAllStructure', [GeneralFormController::class, 'getAllStructure']);
+        Route::post('/createAddress', [GeneralFormController::class, 'createAddress']);
+        Route::get('/getAddress', [GeneralFormController::class, 'getAddress']);
+        // Route::get('/getAddressForStructure', [GeneralFormController::class, 'getAddressForStructure']);
+        Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
+        Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
+        Route::get('/getAllAddresses/{id}', [GeneralFormController::class, 'getAllAddresses']);
+        Route::post('/getHome',  [HomeController::class, 'getHome']);
+
+        //Exchange amount
+        Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
+
     });
 });
