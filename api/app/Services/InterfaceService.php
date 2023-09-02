@@ -184,6 +184,37 @@ class InterFaceService
 
     }
 
+    public function collectSearchMultiConst($lang, $items)
+    {
+        $collects = [
+            'privateHouse' => [
+                'am' => 'Առանձնատուն',
+                'en' => 'privateHouse',
+                'ru' => 'Дом',
+            ],
+            'commercial' => [
+                'am' => 'Կոմերցիոն',
+                'en' => 'Commercial',
+                'ru' => 'Коммерческая',
+            ],
+            'house' => [
+                'am' => 'Բնակարան',
+                'en' => 'Apartment',
+                'ru' => 'Квартира',
+            ],
+        ];
+
+        $readyArr = [];
+        foreach ($items as $key => $value) {
+            if ($collects[$value][$lang]) {
+                $readyArr[] = $collects[$value][$lang];
+            }
+        }
+        
+        return $readyArr;
+
+    }
+
     public function getPropertyType($typeNames)
     {
         $allSelect = [
@@ -362,7 +393,8 @@ class InterFaceService
 
         $searchDataPropertyType = '';
         if (!empty($data['searchData'][2]['propertyType'])) {
-            $searchDataPropertyType = '(' . join(', ', $data['searchData'][2]['propertyType']) . ')';
+            $readyArr =  $this->collectSearchMultiConst($lang, $data['searchData'][2]['propertyType']);
+            $searchDataPropertyType = '(' . join(', ', $readyArr) . ')';
         }
 
         $searchDataRooms = '';
@@ -371,7 +403,7 @@ class InterFaceService
         }
 
         $searchDataPrice = '';
-        if (!empty($data['searchData'][3]['price'])) {
+        if (!empty($data['searchData'][4]['price'])) {
             $searchDataPrice = '(' . $data['searchData'][4]['price'] . ')';
         }
 
@@ -383,10 +415,15 @@ class InterFaceService
                 'resultCount' => count($searchHomeArray),
                 'date' => Carbon::now()->addHours(4)
             ]);
-            $data = Carbon::now()->addHours(4)->format('M d Y');
         }
 
-
+        if($data['searchData'][5]['page'] && $data['searchData'][6]['perPage']){
+            $page = $data['searchData'][5]['page'];
+            $perPage = $data['searchData'][6]['perPage'];
+            $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
+            $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
+            return $paginatedArray;
+        }
         return $searchHomeArray;
     }
 
@@ -668,6 +705,14 @@ class InterFaceService
 
             return $isMatched;
         })->values();
+
+        if($data['searchData']['page'] && $data['searchData']['perPage']){
+            $page = $data['searchData']['page'];
+            $perPage = $data['searchData']['perPage'];
+            $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
+            $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
+            return $paginatedArray;
+        }
 
         return $searchHomeArray;
 
