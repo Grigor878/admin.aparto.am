@@ -79,7 +79,7 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
 
-      await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto);
+      await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto,getAxiosConfig());
 
       if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(
