@@ -15,4 +15,8 @@ class RecentSearch extends Model
         'resultCount',
         'date'
     ];
+
+    protected $casts = [
+        'date' => 'date:d-m-Y',
+    ];
 }
