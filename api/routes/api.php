@@ -92,5 +92,8 @@ Route::group(['middleware' => 'api'], function ($router) {
         //Exchange amount
         Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
 
+        //Recent Search 
+        Route::get('/getRecentSearch',  [InterfaceController::class, 'getRecentSearch']);
+
     });
 });

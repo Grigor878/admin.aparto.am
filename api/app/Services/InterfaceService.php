@@ -720,5 +720,9 @@ class InterFaceService
 
     }
 
+    public function getRecentSearch()
+    {
+        return RecentSearch::select(['id', 'searchText', 'resultCount', 'date'])->get();
+    }
 
 }

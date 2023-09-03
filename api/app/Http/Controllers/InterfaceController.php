@@ -82,5 +82,12 @@ class InterfaceController extends Controller
 
         return response()->json($homes);
     }
+
+    public function getRecentSearch()
+    {
+        $search = $this->interfaceService->getRecentSearch();
+
+        return response()->json($search);
+    }
     
 }
