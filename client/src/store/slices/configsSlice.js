@@ -5,11 +5,13 @@ import { getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   loadingAddress: false,
-  address: null,
+  address: [],
   addedAddress: false,
   removedAddress: false,
+  loadingSearch: false,
+  searches: [],
   loadingExchange: false,
-  exchange: null,
+  exchange: [],
 };
 
 // Addresses
@@ -47,6 +49,19 @@ export const removeConfigsAddress = createAsyncThunk(
     }
   }
 );
+
+// Searches
+export const getSearches = createAsyncThunk("configs/searches", async () => {
+  try {
+    const { data } = await baseApi.get(
+      "/api/getRecentSearch",
+      getAxiosConfig()
+    );
+    return data;
+  } catch (err) {
+    console.log(`Get Searches Error: ${err.message}`);
+  }
+});
 
 // Exchanges
 export const getExchangeData = createAsyncThunk(
@@ -97,6 +112,14 @@ const structureSlice = createSlice({
       })
       .addCase(removeConfigsAddress.fulfilled, (state) => {
         state.removedAddress = true;
+      })
+      // Searches
+      .addCase(getSearches.pending, (state) => {
+        state.loadingSearch = true;
+      })
+      .addCase(getSearches.fulfilled, (state, action) => {
+        state.loadingSearch = false;
+        state.searches = action.payload;
       })
       // Exchnage
       .addCase(getExchangeData.pending, (state) => {

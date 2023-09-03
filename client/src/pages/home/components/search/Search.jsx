@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { useMediaQuery } from 'react-responsive'
 import { DropdownModified } from '../inputs/dropdownModified'
 import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
@@ -23,6 +24,11 @@ export const Search = () => {
 
     const { searchData } = useSelector((state => state.home))
     const { paginatePage, perPage } = useSelector((state => state.view))
+
+    const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+    const mobile = useMediaQuery({ maxWidth: 768 })
+
+    const width = mobile ? "100%" : laptopSmall ? "202px" : "262px"
 
     const [disable, setDisable] = useState(false)
     const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
@@ -92,7 +98,7 @@ export const Search = () => {
                 <DropdownModified
                     data={searchData}
                     onChange={(e) => setCommunity(e)}
-                    width="262px"
+                    width={width}
                     placeholder={t("search")}
                 />
                 <Dropdown

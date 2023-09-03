@@ -72,14 +72,12 @@ const Result = () => {
 
             {!map && data?.length
               ? (
-                // <button onClick={handleOpen}>
                 <button onClick={() => setMap(!map)}>
                   {openMap.icon} {t("map")}
                 </button>
               ) : null}
           </div>
 
-          {/* <PropCard data={siderData ? siderData : resultData} /> */}
           <PropCard data={data} />
 
           {(data?.length)

@@ -12,20 +12,35 @@
   align-items: baseline;
   justify-content: space-between;
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 64px;
+    height: fit-content;
+    padding: 24px 10px;
+  }
+
   &__context {
     @include flexCol;
     gap: 40px;
-    // padding-top: 23px;
+
+    @media screen and (max-width: 768px) {
+      word-break: break-word;
+      gap: 16px;
+    }
 
     h2 {
-      width: 467px;
+      max-width: 467px;
       color: $bgSub;
       font-size: 40px;
       font-weight: 800;
       line-height: 44px;
 
       @media screen and (max-width: 1122px) {
-        font-size: 32px;
+        font-size: 35px;
+      }
+
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
       }
     }
 

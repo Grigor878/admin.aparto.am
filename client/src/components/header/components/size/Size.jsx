@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSize } from "../../../../store/slices/homeSlice";
+import { setBurger, setOpenBurger, setSize } from "../../../../store/slices/homeSlice";
 import { sizeData } from "./data";
 import cookies from "js-cookie";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
@@ -13,35 +13,37 @@ const Size = () => {
 
   const { size } = useSelector((state => state.home))
 
-  const [openSize, setOpenSize] = useState(false);
+  const [openSize, setOpenSize] = useState(false)
   const [selectedSize, setSelectedSize] = useState(
     size !== 2
       ? {
-          id: 1,
-          icon: (
-            <p className="size__unit">
-              m<sup>2</sup>
-            </p>
-          ),
-        }
+        id: 1,
+        icon: (
+          <p className="size__unit">
+            m<sup>2</sup>
+          </p>
+        ),
+      }
       : {
-          id: 2,
-          icon: (
-            <p className="size__unit">
-              ft<sup>2</sup>
-            </p>
-          ),
-        }
-  );
+        id: 2,
+        icon: (
+          <p className="size__unit">
+            ft<sup>2</sup>
+          </p>
+        ),
+      }
+  )
 
   const handleChangeSize = (id, icon) => {
     setOpenSize(false);
     setSelectedSize({ id: id, icon: icon });
     cookies.set("sizeUnit", id);
     dispatch(setSize(id))
+    dispatch(setBurger("close"))
+    dispatch(setOpenBurger(false))
   };
 
-  useOutsideClick(sizeRef, openSize, setOpenSize);
+  useOutsideClick(sizeRef, openSize, setOpenSize)
 
   return (
     <div className="size" ref={sizeRef}>
