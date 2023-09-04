@@ -16,6 +16,8 @@ const initialState = {
   room: [],
   price: "",
   searchData: null,
+  burger: "close",
+  openBurger: false,
 };
 
 // get top homes
@@ -75,6 +77,14 @@ const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
+    // set burger
+    setBurger: (state, action) => {
+      state.burger = action.payload;
+    },
+    // set open burger
+    setOpenBurger: (state, action) => {
+      state.openBurger = action.payload;
+    },
     // set global language
     setLanguage: (state, action) => {
       state.language = action.payload;
@@ -135,6 +145,8 @@ const homeSlice = createSlice({
 });
 
 export const {
+  setBurger,
+  setOpenBurger,
   setLanguage,
   setExchange,
   setSize,

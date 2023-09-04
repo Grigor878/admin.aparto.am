@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { setLanguage } from '../../../../store/slices/homeSlice'
+import { setBurger, setLanguage, setOpenBurger } from '../../../../store/slices/homeSlice'
 import { languageData } from './data'
 import useOutsideClick from '../../../../hooks/useOutsideClick'
 import cookies from 'js-cookie'
@@ -19,7 +19,7 @@ const Language = () => {
     const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "am")
 
     const handleOpenLng = () => {
-        setOpenLng(!openLng);
+        setOpenLng(!openLng)
     }
 
     const handleChangeLng = (code) => {
@@ -29,9 +29,11 @@ const Language = () => {
         code === "en" ? cookies.set("lngFlag", "gb") : cookies.set("lngFlag", code)
         cookies.set('i18next', code)
         dispatch(setLanguage(code))
+        dispatch(setBurger("close"))
+        dispatch(setOpenBurger(false))
     };
 
-    useOutsideClick(lngRef, openLng, setOpenLng);
+    useOutsideClick(lngRef, openLng, setOpenLng)
 
     return (
         <div className="language" ref={lngRef}>

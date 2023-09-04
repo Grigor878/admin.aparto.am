@@ -6,16 +6,26 @@
   padding: 90px 0;
 
   @media screen and (max-width: 1122px) {
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   &__main {
     display: flex;
     justify-content: space-between;
 
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 25px;
+    }
+
     &-right {
       @include flexCol;
       gap: 70px;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        gap: 25px;
+      }
 
       h2 {
         color: $bgSub;
@@ -25,6 +35,10 @@
 
         @media screen and (max-width: 1122px) {
           font-size: 33px;
+        }
+
+        @media screen and (max-width: 768px) {
+          font-size: 24px;
         }
       }
 
@@ -61,6 +75,10 @@
       @include flexCol;
       gap: 18px;
 
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+
       &-map {
         width: 760px;
         height: 327px;
@@ -72,6 +90,14 @@
         @media screen and (max-width: 1122px) {
           width: 525px;
           height: 303px;
+        }
+
+        @media screen and (max-width: 878px) {
+          width: 424px; ///////////////////
+        }
+
+        @media screen and (max-width: 768px) {
+          width: 100%;
         }
       }
 

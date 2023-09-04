@@ -20,29 +20,18 @@ export const PropCard = ({ data }) => {
   const laptop = useMediaQuery({ maxWidth: 1280 })
   const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 
-  const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
-
   const scrollableDivRef = useRef(null)
   const scrollableDiv = scrollableDivRef.current
 
-  const scrollLeft = () => {
+  const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
+  const scroll = laptop ? 382 : 408
 
-    if (scrollableDiv) {
-      scrollableDiv.scrollLeft -= 384
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollableDiv) {
-      scrollableDiv.scrollLeft += 384
-    }
-  }
 
   return (
     data && (
       !pathname?.includes("result")
         ? <div className="scrollablePropCard">
-            <AiOutlineArrowLeft className="scrollLeft" onClick={scrollLeft} />
+          <AiOutlineArrowLeft className="scrollLeft" onClick={() => scrollableDiv.scrollLeft -= scroll} />
           <div className="propCard" ref={scrollableDivRef}>
             {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
               return (
@@ -97,7 +86,7 @@ export const PropCard = ({ data }) => {
               );
             })}
           </div>
-          <AiOutlineArrowRight className="scrollRight" onClick={scrollRight} />
+          <AiOutlineArrowRight className="scrollRight" onClick={() => scrollableDiv.scrollLeft += scroll} />
         </div>
         : <div className="propCardResult">
           {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {

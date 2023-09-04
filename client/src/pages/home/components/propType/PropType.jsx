@@ -56,6 +56,13 @@ const PropType = ({ type, data }) => {
                 </div>
                 : <PropCard data={data} />
             }
+
+            <button
+                className='propType__top-seeAllMobile'
+                onClick={hanldeSeeById}
+            >
+                {t("seeAll")}{seeAll.icon}
+            </button>
         </div >
     )
 }

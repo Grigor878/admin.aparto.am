@@ -11,18 +11,18 @@ export const searchTypes = [
 
 export const searches = [
   {
-    address: "opera baxramyan kaskad araratin nayi kofe dni achqs shoyi",
-    result: "5 Results",
+    searchText: "opera baxramyan kaskad araratin nayi kofe dni",
+    resultCount: 5,
     date: "May 17 2023",
   },
   {
-    address: "opera baxramyan kaskad araratin nayi kofe dni achqs shoyi",
-    result: "No Result",
+    searchText: "opera baxramyan kaskad araratin nayi kofe dni achqs",
+    resultCount: 0,
     date: "Aug 28 2023",
   },
   {
-    address: "opera baxramyan kaskad araratin nayi kofe dni achqs shoyi",
-    result: "18 Results",
+    searchText: "opera baxramyan kaskad araratin nayi kofe dni achqs shoyi",
+    resultCount: 18,
     date: "Apr 17 2023",
   },
 ];
@@ -31,16 +31,20 @@ export const searchColumns = [
   {
     name: "Որոնում",
     sortable: true,
-    selector:  row => row.result,
-    cell: (row) => <p className="columFontSize">{row.address}</p>,
+    selector: (row) => row.searchText,
+    cell: (row) => <p className="columFontSize">{row.searchText}</p>,
   },
   {
     name: "Արդյունք",
-    cell: (row) => <p className="columFontSize">{row.result}</p>,
+    sortable: true,
+    selector: (row) => row.resultCount,
+    cell: (row) => <p className="columFontSize">{row.resultCount}</p>,
     width: "250px",
   },
   {
     name: "Ամսաթիվ",
+    sortable: true,
+    selector: (row) => row.date,
     cell: (row) => <p className="columFontSize">{row.date}</p>,
     width: "170px",
   },

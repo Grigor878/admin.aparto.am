@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getExchange, setExchange } from "../../../../store/slices/homeSlice";
+import { getExchange, setBurger, setExchange, setOpenBurger } from "../../../../store/slices/homeSlice";
 import { FaDollarSign } from "react-icons/fa";
 import { TbCurrencyDram } from "react-icons/tb";
 import { headerExchange } from "./data";
@@ -34,17 +34,19 @@ const Exchange = () => {
   );
 
   const handleOpenEx = () => {
-    setOpenEx(!openEx);
+    setOpenEx(!openEx)
   };
 
   const handleChangeEx = (id, symbol) => {
-    setOpenEx(false);
-    setSelectedex({ id, symbol });
-    cookies.set("exchange", id);
+    setOpenEx(false)
+    setSelectedex({ id, symbol })
+    cookies.set("exchange", id)
     dispatch(setExchange(id))
+    dispatch(setBurger("close"))
+    dispatch(setOpenBurger(false))
   };
 
-  useOutsideClick(exRef, openEx, setOpenEx);
+  useOutsideClick(exRef, openEx, setOpenEx)
 
   return (
     <div className="exchange" ref={exRef}>

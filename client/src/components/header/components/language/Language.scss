@@ -11,6 +11,10 @@
     border: 1px solid $border;
     border-radius: 5px;
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+      width: 100px;
+    }
   }
 
   button {
@@ -36,6 +40,13 @@
 
     li {
       cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      align-items: center;
+      width: 100px;
+      padding: 12px;
+      z-index: 1;
     }
   }
 }
