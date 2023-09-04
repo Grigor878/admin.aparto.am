@@ -722,7 +722,10 @@ class InterFaceService
 
     public function getRecentSearch()
     {
-        return RecentSearch::select(['id', 'searchText', 'resultCount', 'date'])->get()->sortDesc();
+        $recentSearch = RecentSearch::select(['id', 'searchText', 'resultCount', 'date'])
+            ->orderBy('id', 'desc')
+            ->get();
+        return  $recentSearch;
     }
 
 }
