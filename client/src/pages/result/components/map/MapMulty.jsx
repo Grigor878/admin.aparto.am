@@ -40,10 +40,9 @@ export const MapMulty = ({ map, setMap, data }) => {
             <Map
               defaultState={{
                 center: [40.177200, 44.503490],
-                zoom: 13,
+                zoom: 12,
               }}
               width="708px"
-              // height="822px"
               height="100vh"
             >
               {data?.map(item => (

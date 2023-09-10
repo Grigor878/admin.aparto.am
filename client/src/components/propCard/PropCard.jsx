@@ -18,14 +18,15 @@ export const PropCard = ({ data }) => {
   const { size, exchange, exchangeValue } = useSelector((state => state.home))
 
   const laptop = useMediaQuery({ maxWidth: 1280 })
-  const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+  // const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 
   const scrollableDivRef = useRef(null)
   const scrollableDiv = scrollableDivRef.current
 
-  const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
+  const homeCut = laptop ? 27 : 30
   const scroll = laptop ? 382 : 408
 
+  const resultCut =  laptop ? 23 : 25
 
   return (
     data && (
@@ -120,7 +121,7 @@ export const PropCard = ({ data }) => {
                   <div className="propCardResult__card-main-center">
                     <h5>
                       {title?.length >= 25
-                        ? cutText(title, 25)
+                        ? cutText(title, resultCut)
                         : title}
                     </h5>
                     <div className="propCardResult__card-main-center-geo">

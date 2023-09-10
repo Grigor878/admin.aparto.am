@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSearches } from '../../../../../store/slices/configsSlice'
 import { Search } from '../../../../components/inputs/Search'
-// import DatePicker from "react-datepicker"
-// import "react-datepicker/dist/react-datepicker.css"
-// import { calendar } from '../../../../svgs/svgs'
 import Table from '../../../../components/table/Table'
-import { searchColumns, searchTypes, searches } from './data'
+import { searchColumns, searchTypes } from './data'
 import { Loader } from '../../../../../components/loader/Loader'
 import './Searches.scss'
 
@@ -23,14 +20,13 @@ export const Searches = () => {
         dispatch(getSearches())
     }, [dispatch])
 
-    // const { searches } = useSelector((state) => state.configs)
-    // console.log(searches)//
+    const { searches } = useSelector((state) => state.configs)
+
     const [filteredData, setFilteredData] = useState(searches)
 
     useEffect(() => {
         if (searches) {
-            // const filtered = searches.filter(row => {
-            const filtered = filteredData.filter(row => {
+            const filtered = searches.filter(row => {
                 const text = row?.searchText?.toLowerCase()
                 const searchValue = search.toLowerCase()
 
@@ -39,8 +35,7 @@ export const Searches = () => {
             })
             setFilteredData(filtered)
         }
-    }, [filteredData, search])
-    // }, [searches, search])
+    }, [searches, search])
 
 
     const selectResultType = (e) => {
@@ -48,10 +43,10 @@ export const Searches = () => {
         setSelect(selectedValue);
 
         if (selectedValue === 1) {
-            const filtered = searches.filter((row) => row.resultCount > 0);
+            const filtered = searches?.filter((row) => row.resultCount > 0);
             setFilteredData(filtered);
         } else if (selectedValue === 2) {
-            const filtered = searches.filter((row) => row.resultCount === 0);
+            const filtered = searches?.filter((row) => row.resultCount === 0);
             setFilteredData(filtered);
         } else {
             setFilteredData(searches);
@@ -59,18 +54,27 @@ export const Searches = () => {
     };
 
     const changeDate = (e) => {
-        const inputDate = e.target.value
-        const date = new Date(inputDate)
+        try {
+            const inputDate = e.target.value;
+            const date = new Date(inputDate)
+            const parts = inputDate.split('-');
+            if (parts.length === 3) {
+                const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                const formattedDateOld = date.toISOString().substring(0, 10)
+                setDate(formattedDateOld);
 
-        if (!isNaN(date.getTime())) {
-            const formattedDate = date.toISOString().substring(0, 10)
-            setDate(formattedDate)
-        } else {
-            setDate('Invalid Date')
+                const filtered = searches?.filter((row) => {
+                    const rowDate = row.date;
+                    return rowDate >= formattedDate;
+                });
+                setFilteredData(filtered);
+            } else {
+                setDate('Invalid Date');
+            }
+        } catch (error) {
+            setDate('Invalid Date');
         }
     };
-
-    // console.log(date);
 
     return (
         <section className='searches'>

@@ -145,7 +145,7 @@ const ResultById = () => {
 
                   <div className='singleProperty__content-left-title-right'>
                     <span>{idShevron.icon} {data?.home_id}</span>
-                    <p>{data?.selectedTranscationType === "sale" ? t("sale") : t("rent")}</p>
+                    <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
                   </div>
                 </div>
 
