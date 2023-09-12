@@ -21,11 +21,9 @@ export const Sider = ({ open, setOpen }) => {
 
   const dispatch = useDispatch()
 
-  const searchParams = new URLSearchParams(location.search);
-
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage } = useSelector((state) => state.view);
-
+  console.log(page);
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
   const [streets, setStreets] = useState([])////////
@@ -434,34 +432,34 @@ export const Sider = ({ open, setOpen }) => {
   )
 }
 
-  // const handleCommunity = (e, id) => {
-  //   if (e.target.checked) {
-  //     setCommunity((prev) => [...prev, id]);
-  //   } else {
-  //     setCommunity((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handleCommunity = (e, id) => {
+//   if (e.target.checked) {
+//     setCommunity((prev) => [...prev, id]);
+//   } else {
+//     setCommunity((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handlePropType = (e, id) => {
-  //   if (e.target.checked) {
-  //     setPropType((prev) => [...prev, id]);
-  //   } else {
-  //     setPropType((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handlePropType = (e, id) => {
+//   if (e.target.checked) {
+//     setPropType((prev) => [...prev, id]);
+//   } else {
+//     setPropType((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handleBuildType = (e, id) => {
-  //   if (e.target.checked) {
-  //     setBuildType((prev) => [...prev, id]);
-  //   } else {
-  //     setBuildType((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handleBuildType = (e, id) => {
+//   if (e.target.checked) {
+//     setBuildType((prev) => [...prev, id]);
+//   } else {
+//     setBuildType((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handlePropCondition = (e, id) => {
-  //   if (e.target.checked) {
-  //     setPropCondition((prev) => [...prev, id]);
-  //   } else {
-  //     setPropCondition((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handlePropCondition = (e, id) => {
+//   if (e.target.checked) {
+//     setPropCondition((prev) => [...prev, id]);
+//   } else {
+//     setPropCondition((prev) => prev.filter((item) => item !== id));
+//   }
+// };

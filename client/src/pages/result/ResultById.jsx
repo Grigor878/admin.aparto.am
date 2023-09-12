@@ -15,8 +15,9 @@ import whatsapp from '../../assets/icons/whatsapp.png'
 import viber from '../../assets/icons/viber.png'
 import { Loader } from '../../components/loader/Loader'
 // import '../../admin/pages/properties/pages/Styles.scss'
-import './Styles.scss'
 import { getAdminData } from '../../store/slices/homeSlice'
+import { useMediaQuery } from 'react-responsive'
+import './Styles.scss'
 
 const ResultById = () => {
   const { t } = useTranslation()
@@ -67,6 +68,11 @@ const ResultById = () => {
 
   const adminSocial = admin?.phone?.messengers
 
+  const laptop = useMediaQuery({ maxWidth: 1280 })
+  const mobile = useMediaQuery({ maxWidth: 768 })
+
+  const imgsShow = laptop ? 3 : 5
+
   return (
     loading
       ? <Loader />
@@ -74,6 +80,14 @@ const ResultById = () => {
       <article >
         <div className="contain">
           <div className='singleProperty'>
+
+            {mobile
+              ? <div className='singleProperty__content-left-title-right2'>
+                <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
+                <span>{idShevron.icon} {data?.home_id}</span>
+              </div>
+              : null}
+
             {!open
               ? <div
                 className='singleProperty__imgs'
@@ -89,23 +103,32 @@ const ResultById = () => {
                   }
                 </div>
 
-                <div className='singleProperty__imgs-right'>
-                  {currentPropertyImgs?.length !== 0 && modifiedData?.slice(1, 5)?.map(({ img, alt }) => {
-                    return (
-                      <img
-                        key={alt}
-                        src={img}
-                        loading='lazy'
-                        alt={alt}
-                      />
-                    )
-                  })}
-                  <button
-                    onClick={() => setOpen(true)}
-                  >
-                    {seeAllImgs.icon} {t('see_all_images')}
-                  </button>
-                </div>
+                {!mobile
+                  ? <div className='singleProperty__imgs-right'>
+                    {currentPropertyImgs?.length !== 0 && modifiedData?.slice(1, imgsShow)?.map(({ img, alt }) => {
+                      return (
+                        <img
+                          key={alt}
+                          src={img}
+                          loading='lazy'
+                          alt={alt}
+                        />
+                      )
+                    })}
+                    <button
+                      onClick={() => setOpen(true)}
+                    >
+                      {seeAllImgs.icon} {t('see_all_images')}
+                    </button>
+                  </div>
+                  : <div className='singleProperty__imgs-right'>
+                    <button
+                      onClick={() => setOpen(true)}
+                    >
+                      {seeAllImgs.icon} {t('see_all_images')}
+                    </button>
+                  </div>
+                }
 
                 <span
                   style={{
