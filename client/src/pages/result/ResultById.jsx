@@ -403,7 +403,8 @@ const ResultById = () => {
                     <div className='singleProperty__content-right-contact-social-bottom'>
                       <div className='singleProperty__content-right-contact-social-card'>
                         <span>{tel.icon} {t("tel_number")}</span>
-                        {adminTel && <p>{adminTel}</p>}
+                        {/* {adminTel && <p>{adminTel}</p>} */}
+                        {adminTel && <a href={`tel:${adminTel}`}><p>{adminTel}</p></a>}
                       </div>
                       <div className='singleProperty__content-right-contact-social-card'>
                         <div style={{ display: "flex", gap: "16px" }}>
@@ -411,7 +412,8 @@ const ResultById = () => {
                           <img src={whatsapp} alt="whatsapp" />
                           <img src={viber} alt="viber" />
                         </div>
-                        {adminSocial && <p>{adminSocial}</p>}
+                        {/* {adminSocial && <p>{adminSocial}</p>} */}
+                        {adminSocial && <a href={`tel:${adminSocial}`}><p>{adminSocial}</p></a>}
                       </div>
                     </div>
                   </div>

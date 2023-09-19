@@ -23,7 +23,7 @@ export const Sider = ({ open, setOpen }) => {
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage } = useSelector((state) => state.view);
-  console.log(page);
+
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
   const [streets, setStreets] = useState([])////////
@@ -121,8 +121,8 @@ export const Sider = ({ open, setOpen }) => {
     setRooms([])
     setSquareMin("")
     setSquareMax("")
-    setPriceMin(null)
-    setPriceMax(null)
+    setPriceMin("")
+    setPriceMax("")
     setBuildType([])
     setNewBuild("on")
     setPropCondition([])
@@ -130,6 +130,7 @@ export const Sider = ({ open, setOpen }) => {
     setFloorMax("")
     setDescription("")
     setId("")
+    setOpen(false)//
   }
 
   return (
