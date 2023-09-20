@@ -113,7 +113,8 @@
       padding: 16px;
       border-radius: 0px 0px 12px 12px;
 
-      @media screen and (max-width: 1122px) {
+      // @media screen and (max-width: 1122px) {
+      @media screen and (max-width: 1280px) {
         padding: 9px;
       }
 
@@ -202,7 +203,8 @@
 
 .propCardResult {
   @include flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
   flex-wrap: wrap;
 
@@ -333,6 +335,7 @@
           line-height: 16px;
 
           @media screen and (max-width: 1280px) {
+            gap: 2px;
             font-size: 13px;
           }
         }

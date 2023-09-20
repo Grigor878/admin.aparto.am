@@ -62,7 +62,7 @@ const Result = () => {
       {siderLoading
         ? <Loader />
         : <div className="result__center">
-          <div className="result__center-top">
+          <div className="result__center-top ">
             <div className="result__center-top-right">
               {!sider && (
                 <button onClick={() => setSider(true)}>{filterOpen.icon}</button>

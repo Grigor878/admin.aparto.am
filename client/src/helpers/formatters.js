@@ -26,6 +26,20 @@ export function cutCommunity(text) {
 
   return `${firstWord} ${firstLetterOfSecondWord}.`;
 }
+// format comminity rus
+export function cutCommunityRu(text) {
+  const cleanInput = text.replace(/\([^()]*\)/g, "").trim();
+  const words = cleanInput.split(/\s+/);
+
+  if (words.length < 2) {
+    return "";
+  }
+
+  const firstWord = words[0].charAt(0);
+  const remainingWords = words.slice(1).join(" ");
+
+  return `${firstWord}. ${remainingWords}`;
+}
 // Capitalize
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

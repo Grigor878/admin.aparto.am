@@ -38,6 +38,10 @@
     border: 1px solid #d7daf7;
     border-radius: 5px;
 
+    @media screen and (max-width: 768px) {
+      gap: 12px;
+    }
+
     li {
       cursor: pointer;
     }
