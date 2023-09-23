@@ -61,6 +61,7 @@ export const Sider = ({ open, setOpen }) => {
     navigate(location.pathname)
     window.scrollTo(0, 0)
     setState(value)
+    setOpen(false)
   };
 
   useEffect(() => {
@@ -175,17 +176,17 @@ export const Sider = ({ open, setOpen }) => {
 
           <div className='sider__property-checkboxes'>
             <Checkbox
-              onChange={(e) => handleUpdate(e, setPropType, "house")}
+              onChange={(e) => { handleUpdate(e, setPropType, "house"); setOpen(false) }}
               text={t("house")}
               checked={propType?.includes("house")}
             />
             <Checkbox
-              onChange={(e) => handleUpdate(e, setPropType, "privateHouse")}
+              onChange={(e) => { handleUpdate(e, setPropType, "privateHouse"); setOpen(false) }}
               text={t("private_house")}
               checked={propType?.includes("privateHouse")}
             />
             <Checkbox
-              onChange={(e) => handleUpdate(e, setPropType, "commercial")}
+              onChange={(e) => { handleUpdate(e, setPropType, "commercial"); setOpen(false) }}
               text={t("commercial")}
               checked={propType?.includes("commercial")}
             />
@@ -202,6 +203,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handleUpdate(e, setCommunity, id)}
                   key={id}
                   text={value}
+                  checked={community?.includes(id)}
                 />
               )
             })
@@ -211,6 +213,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handleUpdate(e, setCommunity, id)}
                     key={id}
                     text={value}
+                    checked={community?.includes(id)}
                   />
                 )
               })
@@ -220,6 +223,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handleUpdate(e, setCommunity, id)}
                       key={id}
                       text={value}
+                      checked={community?.includes(id)}
                     />
                   )
                 })}
@@ -228,6 +232,7 @@ export const Sider = ({ open, setOpen }) => {
             community={community}
             placeholder={t("street")}
             onChange={(e) => handleSetState(setStreets, e)}
+            selected={streets}//
           />
         </div>
 
@@ -296,7 +301,7 @@ export const Sider = ({ open, setOpen }) => {
             {language === "am" ? buildTypeAm.map(({ id, value }) => {
               return (
                 <Checkbox
-                  onChange={(e) => handleUpdate(e, setBuildType, id)}
+                  onChange={(e) => { handleUpdate(e, setBuildType, id); setOpen(false) }}
                   key={id}
                   text={value}
                   checked={buildType?.includes(id)}
@@ -306,7 +311,7 @@ export const Sider = ({ open, setOpen }) => {
               : language === "en" ? buildTypeEn.map(({ id, value }) => {
                 return (
                   <Checkbox
-                    onChange={(e) => handleUpdate(e, setBuildType, id)}
+                    onChange={(e) => { handleUpdate(e, setBuildType, id); setOpen(false) }}
                     key={id}
                     text={value}
                     checked={buildType?.includes(id)}
@@ -316,7 +321,7 @@ export const Sider = ({ open, setOpen }) => {
                 : buildTypeRu.map(({ id, value }) => {
                   return (
                     <Checkbox
-                      onChange={(e) => handleUpdate(e, setBuildType, id)}
+                      onChange={(e) => { handleUpdate(e, setBuildType, id); setOpen(false) }}
                       key={id}
                       text={value}
                       checked={buildType?.includes(id)}
@@ -348,7 +353,7 @@ export const Sider = ({ open, setOpen }) => {
             {language === "am" ? propConditionAm.map(({ id, value }) => {
               return (
                 <Checkbox
-                  onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                  onChange={(e) => { handleUpdate(e, setPropCondition, id); setOpen(false) }}
                   key={id}
                   text={value}
                   checked={propCondition?.includes(id)}
@@ -358,7 +363,7 @@ export const Sider = ({ open, setOpen }) => {
               : language === "en" ? propConditionEn.map(({ id, value }) => {
                 return (
                   <Checkbox
-                    onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                    onChange={(e) => { handleUpdate(e, setPropCondition, id); setOpen(false) }}
                     key={id}
                     text={value}
                     checked={propCondition?.includes(id)}
@@ -368,7 +373,7 @@ export const Sider = ({ open, setOpen }) => {
                 : propConditionRu.map(({ id, value }) => {
                   return (
                     <Checkbox
-                      onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                      onChange={(e) => { handleUpdate(e, setPropCondition, id); setOpen(false) }}
                       key={id}
                       text={value}
                       checked={propCondition?.includes(id)}

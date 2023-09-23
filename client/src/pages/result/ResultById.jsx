@@ -191,7 +191,7 @@ const ResultById = () => {
                     currentPropertyData[4]?.fields[1]?.value !== 0 &&
                     <div>
                       {floor.icon}
-                      <p>{t(floor)} {currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
+                      <p>{t("floor")} {currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
                     </div>}
 
                   {Number(currentPropertyData[3]?.fields[5]?.value) + Number(currentPropertyData[3]?.fields[6]?.value) !== 0 &&
