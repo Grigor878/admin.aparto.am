@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employe;
 use Illuminate\Http\Request;
 use App\Models\GlobalForm;
 use App\Models\Home;
@@ -233,6 +234,66 @@ class GarbageController extends Controller
 
     }
     dd(count($array), array_unique($array));
+  }
+
+  public function changeAgentManageId()
+  {
+
+    try {
+      \DB::beginTransaction();
+
+      $homes = Home::all();
+
+      $employee = Employe::select('id', 'full_name')->get()->toArray();
+      $employeeNormal = [];
+      foreach ($employee as $key => $emp) {
+        $employeeNormal[json_decode($emp['full_name'], true)['am']]= $emp['id'];
+      };
+
+      foreach ($homes as $key => $home) {
+        $am = json_decode($home->am, true);
+        $ru = json_decode($home->ru, true);
+        $en = json_decode($home->en, true);
+        if ($am[11]['fields']) {
+          $agentId = '';
+          $managerId = '';
+          $agentName = $am[11]['fields'][0]['value'];
+          $managerName = $am[11]['fields'][1]['value'];
+          if(isset($employeeNormal[$agentName])){
+            $agentId = $employeeNormal[$agentName];
+          }
+          if(isset($employeeNormal[$managerName])){
+            $managerId = $employeeNormal[$managerName];
+          }
+
+          $am[11]['fields'][0]['id'] = $agentId;
+          $ru[11]['fields'][0]['id'] = $agentId;
+          $en[11]['fields'][0]['id'] = $agentId;
+          $am[11]['fields'][1]['id'] = $managerId;
+          $ru[11]['fields'][1]['id'] = $managerId;
+          $en[11]['fields'][1]['id'] = $managerId;
+        }
+        
+        if($am[0]['fields'][1]['value'] === "Բնակարան"){
+          $en[0]['fields'][1]['value'] = 'Apartment';
+        }
+        elseif ($am[0]['fields'][1]['value'] === "Առանձնատուն") {
+          $en[0]['fields'][1]['value'] = 'House';
+        }
+
+
+        $home->am = json_encode($am);
+        $home->ru = json_encode($ru);
+        $home->en = json_encode($en);
+
+        $home->save();
+      }
+
+      \DB::commit();
+    } catch (Throwable $e) {
+      \Log::info($e);
+      \DB::rollBack();
+    }
   }
 
 
@@ -1649,6 +1710,7 @@ class GarbageController extends Controller
             "required" => true,
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
           [
             "key" => "meneger",
@@ -1658,6 +1720,7 @@ class GarbageController extends Controller
             "required" => false,
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
         ],
       ],
@@ -2408,6 +2471,7 @@ class GarbageController extends Controller
             "style" => "412px",
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
           [
             "key" => "meneger",
@@ -2416,6 +2480,7 @@ class GarbageController extends Controller
             "style" => "412px",
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
         ],
       ],
@@ -3165,6 +3230,7 @@ class GarbageController extends Controller
             "style" => "412px",
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
           [
             "key" => "meneger",
@@ -3173,11 +3239,12 @@ class GarbageController extends Controller
             "style" => "412px",
             "value" => '',
             "option" => [],
+            "id" => '',
           ],
         ],
       ],
     ]);
     $form->save();
-
+dd("Ready");
   }
 }

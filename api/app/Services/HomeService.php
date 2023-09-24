@@ -26,12 +26,12 @@ class HomeService
       ],
       'house' => [
         'am' => 'Բնակարան',
-        'en' => 'House',
+        'en' => 'Apartment',
         'ru' => 'Квартира',
       ],
       'privateHouse' => [
         'am' => 'Առանձնատուն',
-        'en' => 'Private House',
+        'en' => 'House',
         'ru' => 'Дом',
       ],
       'commercialHouse' => [
@@ -584,8 +584,11 @@ class HomeService
                 $employe = Employe::find($value);
                 if($employe){
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
+                  $assocCopyFormAm[$idx]->fields[$globKey]->id = $employe->id;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->id = $employe->id;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->id = $employe->id;
                 } else {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = "";
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = "";
@@ -1054,8 +1057,11 @@ class HomeService
                 $employe = Employe::find($value);
                 if($employe){
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->am;
+                  $assocCopyFormAm[$idx]->fields[$globKey]->id = $employe->id;
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->ru;
+                  $assocCopyFormRu[$idx]->fields[$globKey]->id = $employe->id;
                   $assocCopyFormEn[$idx]->fields[$globKey]->value = json_decode($employe->full_name)->en;
+                  $assocCopyFormEn[$idx]->fields[$globKey]->id = $employe->id;
                 } else {
                   $assocCopyFormAm[$idx]->fields[$globKey]->value = "";
                   $assocCopyFormRu[$idx]->fields[$globKey]->value = "";

@@ -543,6 +543,11 @@ class InterFaceService
     {
         $home = Home::select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
             ->find($id);
+
+        $am = json_decode($home->am);
+        $ru = json_decode($home->ru);
+        $en = json_decode($home->en);   
+           
         if ($home) {
             $home = $this->processHomeData($home);	
             $photo = json_decode($home->photo);	
@@ -557,6 +562,15 @@ class InterFaceService
             $home->photo = $filteredPhoto;	
             $home->priceHistory = json_decode($home->price_history);
 
+            $agentId = (int) $home['am'][11]->fields[0]->id;
+            $managerId = (int) $home['am'][11]->fields[1]->id;
+
+            $employee = Employe::get();
+            Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
+
+            $home->am = $am;
+            $home->ru = $ru;
+            $home->en = $en;
             return $home;
 
         }
