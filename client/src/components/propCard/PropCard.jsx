@@ -6,8 +6,8 @@ import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 import { useMediaQuery } from 'react-responsive';
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
-import { room, buildType, square } from "../../admin/svgs/svgs";
-import { amdFormater, cutCommunity, cutText, sqmToFt2, usdFormater } from "../../helpers/formatters";
+import { room, buildType, square } from "../../assets/svgs/svgs";
+import { amdFormater, cutCommunity, cutCommunityRu, cutText, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 
 export const PropCard = ({ data }) => {
@@ -15,17 +15,20 @@ export const PropCard = ({ data }) => {
 
   const { pathname } = useLocation()
 
-  const { size, exchange, exchangeValue } = useSelector((state => state.home))
+  const { language, size, exchange, exchangeValue } = useSelector((state => state.home))
 
   const laptop = useMediaQuery({ maxWidth: 1280 })
-  const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+  // const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 
   const scrollableDivRef = useRef(null)
   const scrollableDiv = scrollableDivRef.current
 
-  const homeCut = laptopSmall ? 23 : laptop ? 26 : 29
-  const scroll = laptop ? 382 : 408
+  // const homeCut = laptop ? 27 : 30
+  const homeCut = language === "am" ? 30 : language === "en" ? 35 : 38
+  // const resultCut = laptop ? 23 : 25
+  const resultCut = language === "am" ? 25 : language === "en" ? 30 : 33
 
+  const scroll = laptop ? 382 : 408
 
   return (
     data && (
@@ -65,10 +68,11 @@ export const PropCard = ({ data }) => {
                       <h5>
                         {title?.length >= 29
                           ? cutText(title, homeCut)
+                          // ? cutText(title, 31)
                           : title}
                       </h5>
                       <div className="propCard__card-main-center-geo">
-                        <p>{cutCommunity(street)}</p>
+                        <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p>
                         <p>{community}</p>
                       </div>
                     </div>
@@ -120,11 +124,11 @@ export const PropCard = ({ data }) => {
                   <div className="propCardResult__card-main-center">
                     <h5>
                       {title?.length >= 25
-                        ? cutText(title, 25)
+                        ? cutText(title, resultCut)
                         : title}
                     </h5>
                     <div className="propCardResult__card-main-center-geo">
-                      <p>{cutCommunity(street)}</p>
+                      <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p>
                       <p>{community}</p>
                     </div>
                   </div>

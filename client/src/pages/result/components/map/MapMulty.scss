@@ -3,14 +3,19 @@
 .map {
   position: sticky;
   top: 90px;
-  // float: right;
+  right: 0;//
   width: fit-content;
-  height: 822px;
+  // height: 822px;
+  height: 91%;
   background: $bgAdmin;
   // padding: 28px 0;
   @include flexCol;
   gap: 37px;
   z-index: 91;
+
+  @media screen and (max-width: 768px) {
+    top: 75px;
+  }
 
   &_ymap {
     position: relative;
@@ -28,6 +33,10 @@
     line-height: 16px;
     position: absolute;
     z-index: 92;
-    top: 24px;
+    top: 32px;
+
+    @media screen and (max-width: 768px) {
+      top: 26px;
+    }
   }
 }

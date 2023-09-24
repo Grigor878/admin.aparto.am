@@ -54,6 +54,8 @@
 
       @media screen and (max-width: 768px) {
         justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
       }
 
       p {
@@ -67,6 +69,7 @@
 
         @media screen and (max-width: 1122px) {
           font-size: 26px;
+          gap: 7px;
         }
       }
 

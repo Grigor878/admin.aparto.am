@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterOpen, openMap } from "../../assets/svgs/svgs";
@@ -25,7 +26,9 @@ const Result = () => {
   const data = siderData ? siderData?.data : resultData?.data
   const paginateData = siderData ? siderData : resultData
 
-  const [sider, setSider] = useState(true);
+  const mobile = useMediaQuery({ maxWidth: 768 })
+
+  const [sider, setSider] = useState(!mobile);
   const [map, setMap] = useState(false);
 
   useEffect(() => {
@@ -33,9 +36,9 @@ const Result = () => {
       setSider(false)
     }
     else {
-      setSider(true)
+      setSider(!mobile)
     }
-  }, [map]);
+  }, [map,mobile]);
 
   const { siderLoading } = useSelector((state) => state.view);
 
@@ -59,15 +62,15 @@ const Result = () => {
       {siderLoading
         ? <Loader />
         : <div className="result__center">
-          <div className="result__center-top">
+          <div className="result__center-top ">
             <div className="result__center-top-right">
               {!sider && (
                 <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
               )}
 
-              {paginateData?.total 
-              ? <h2>{paginateData?.total} {t("result")}</h2> 
-              : <h2>{data?.length} {t("result")}</h2> }
+              {paginateData?.total
+                ? <h2>{paginateData?.total} {t("result")}</h2>
+                : <h2>{data?.length} {t("result")}</h2>}
             </div>
 
             {!map && data?.length

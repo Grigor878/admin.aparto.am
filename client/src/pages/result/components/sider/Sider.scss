@@ -7,12 +7,21 @@
     background: $bgSub;
     position: sticky;
     top: 90px;
-    width: 359px;
-    padding: 0 28px;
+    width: 359px; // 04.09.2023 commented
+    padding: 0 28px 111px 28px;
     overflow-y: scroll;
     overflow-x: hidden;
     height: 100vh;
-    padding-bottom: 111px;
+    // padding-bottom: 111px;
+
+    @media screen and (max-width: 768px) {
+      top: 75px;
+    }
+
+    @media screen and (max-width: 675px) {
+      padding: 0 11px 111px 11px;
+      width: 100vw;
+    }
   }
 
   &__block {
@@ -41,6 +50,11 @@
     justify-content: space-between;
     border-bottom: 1px solid $advancedBack;
     padding: 24px 0;
+    //
+    position: sticky;
+    top: 0;
+    background: $bgSub;
+    z-index: 1;
 
     &-btns {
       @include flex;

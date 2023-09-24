@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark, ZoomControl } from 'react-yandex-maps';
 import { useTranslation } from "react-i18next";
-import "./MapMulty.scss";
 import { CardById } from "../cardById/CardById";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import "./MapMulty.scss";
 
 export const MapMulty = ({ map, setMap, data }) => {
   const { t } = useTranslation();
+
+  const mobile = useMediaQuery({ maxWidth: 768 })
 
   const { language } = useSelector((state) => state.home);
 
@@ -29,6 +32,7 @@ export const MapMulty = ({ map, setMap, data }) => {
     setMap(false)
     setSelectedItem(null)
   }, [language, setMap])
+  
 
   return (
     map && (
@@ -40,10 +44,9 @@ export const MapMulty = ({ map, setMap, data }) => {
             <Map
               defaultState={{
                 center: [40.177200, 44.503490],
-                zoom: 13,
+                zoom: 12,
               }}
-              width="708px"
-              // height="822px"
+              width={!mobile ? "708px" : "100vw"}
               height="100vh"
             >
               {data?.map(item => (
@@ -56,7 +59,7 @@ export const MapMulty = ({ map, setMap, data }) => {
                   }}
                 />
               ))}
-              <ZoomControl/>
+              <ZoomControl />
             </Map>
           </YMaps>
 

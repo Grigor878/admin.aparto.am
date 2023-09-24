@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getCommunityData } from '../../../../store/slices/viewSlice';
 
-export const MultiSelect = ({ community, placeholder, onChange }) => {
+export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
     const { language } = useSelector((state => state.home))
 
     const dispatch = useDispatch()
@@ -14,10 +14,6 @@ export const MultiSelect = ({ community, placeholder, onChange }) => {
 
     const { streetData } = useSelector((state => state.view))
 
-    // if (!Array.isArray(data)) {
-    //     data = [];
-    // }
-
     const technologyList = streetData?.map(item => ({
         label: item[language],
         value: item.id
@@ -26,6 +22,7 @@ export const MultiSelect = ({ community, placeholder, onChange }) => {
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions?.map(option => option.value);
         onChange(selectedValues);
+        console.log(selectedValues);
     };
 
     return (
@@ -50,6 +47,10 @@ export const MultiSelect = ({ community, placeholder, onChange }) => {
                     padding: "10px 20px"
                 }),
             }}
+            value={selected.map((value) => {
+                const technology = technologyList.find((item) => item.value === value);
+                return technology ? { value, label: technology.label } : null;
+            })}
         />
     );
 };

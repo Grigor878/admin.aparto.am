@@ -21,8 +21,6 @@ export const Sider = ({ open, setOpen }) => {
 
   const dispatch = useDispatch()
 
-  const searchParams = new URLSearchParams(location.search);
-
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage } = useSelector((state) => state.view);
 
@@ -69,7 +67,8 @@ export const Sider = ({ open, setOpen }) => {
     const debouncedSearch = debounce((searchData) => {
       dispatch(clearResultData());
       dispatch(getResultPageData({ language, searchData }));
-    }, 1000);
+      setOpen(false)
+    }, 1500);
 
     const searchData = {
       type: radio,
@@ -88,11 +87,10 @@ export const Sider = ({ open, setOpen }) => {
       floorMax: floorMax,
       description: description,
       id: id,
-      //
       page: paginatePage,
       perPage: perPage
     }
-    // console.log(searchData)//
+
     if (page === "home") {
       return
     }
@@ -103,7 +101,7 @@ export const Sider = ({ open, setOpen }) => {
       debouncedSearch.cancel();
     };
 
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page, paginatePage, perPage])
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page, paginatePage, perPage, setOpen])
 
   const clearSearch = () => {
     sessionStorage.removeItem("siderSqMin");
@@ -123,8 +121,8 @@ export const Sider = ({ open, setOpen }) => {
     setRooms([])
     setSquareMin("")
     setSquareMax("")
-    setPriceMin(null)
-    setPriceMax(null)
+    setPriceMin("")
+    setPriceMax("")
     setBuildType([])
     setNewBuild("on")
     setPropCondition([])
@@ -132,6 +130,7 @@ export const Sider = ({ open, setOpen }) => {
     setFloorMax("")
     setDescription("")
     setId("")
+    setOpen(false)
   }
 
   return (
@@ -203,6 +202,7 @@ export const Sider = ({ open, setOpen }) => {
                   onChange={(e) => handleUpdate(e, setCommunity, id)}
                   key={id}
                   text={value}
+                  checked={community?.includes(id)}
                 />
               )
             })
@@ -212,6 +212,7 @@ export const Sider = ({ open, setOpen }) => {
                     onChange={(e) => handleUpdate(e, setCommunity, id)}
                     key={id}
                     text={value}
+                    checked={community?.includes(id)}
                   />
                 )
               })
@@ -221,6 +222,7 @@ export const Sider = ({ open, setOpen }) => {
                       onChange={(e) => handleUpdate(e, setCommunity, id)}
                       key={id}
                       text={value}
+                      checked={community?.includes(id)}
                     />
                   )
                 })}
@@ -229,6 +231,7 @@ export const Sider = ({ open, setOpen }) => {
             community={community}
             placeholder={t("street")}
             onChange={(e) => handleSetState(setStreets, e)}
+            selected={streets}//
           />
         </div>
 
@@ -434,34 +437,34 @@ export const Sider = ({ open, setOpen }) => {
   )
 }
 
-  // const handleCommunity = (e, id) => {
-  //   if (e.target.checked) {
-  //     setCommunity((prev) => [...prev, id]);
-  //   } else {
-  //     setCommunity((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handleCommunity = (e, id) => {
+//   if (e.target.checked) {
+//     setCommunity((prev) => [...prev, id]);
+//   } else {
+//     setCommunity((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handlePropType = (e, id) => {
-  //   if (e.target.checked) {
-  //     setPropType((prev) => [...prev, id]);
-  //   } else {
-  //     setPropType((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handlePropType = (e, id) => {
+//   if (e.target.checked) {
+//     setPropType((prev) => [...prev, id]);
+//   } else {
+//     setPropType((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handleBuildType = (e, id) => {
-  //   if (e.target.checked) {
-  //     setBuildType((prev) => [...prev, id]);
-  //   } else {
-  //     setBuildType((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handleBuildType = (e, id) => {
+//   if (e.target.checked) {
+//     setBuildType((prev) => [...prev, id]);
+//   } else {
+//     setBuildType((prev) => prev.filter((item) => item !== id));
+//   }
+// };
 
-  // const handlePropCondition = (e, id) => {
-  //   if (e.target.checked) {
-  //     setPropCondition((prev) => [...prev, id]);
-  //   } else {
-  //     setPropCondition((prev) => prev.filter((item) => item !== id));
-  //   }
-  // };
+// const handlePropCondition = (e, id) => {
+//   if (e.target.checked) {
+//     setPropCondition((prev) => [...prev, id]);
+//   } else {
+//     setPropCondition((prev) => prev.filter((item) => item !== id));
+//   }
+// };

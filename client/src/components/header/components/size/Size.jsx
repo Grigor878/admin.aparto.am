@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBurger, setOpenBurger, setSize } from "../../../../store/slices/homeSlice";
 import { sizeData } from "./data";
-import cookies from "js-cookie";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import "./Size.scss";
 
@@ -15,7 +14,7 @@ const Size = () => {
 
   const [openSize, setOpenSize] = useState(false)
   const [selectedSize, setSelectedSize] = useState(
-    size !== 2
+    size === 1
       ? {
         id: 1,
         icon: (
@@ -37,7 +36,7 @@ const Size = () => {
   const handleChangeSize = (id, icon) => {
     setOpenSize(false);
     setSelectedSize({ id: id, icon: icon });
-    cookies.set("sizeUnit", id);
+    // cookies.set("sizeUnit", id);
     dispatch(setSize(id))
     dispatch(setBurger("close"))
     dispatch(setOpenBurger(false))

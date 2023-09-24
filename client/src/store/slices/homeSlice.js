@@ -6,7 +6,7 @@ const initialState = {
   language: cookies.get("i18next") || "am",
   exchange: cookies.get("exchange") || 1,
   exchangeValue: null,
-  size: cookies.get("sizeUnit") || 1,
+  size: 1,
   userSearches: cookies.get("userSearches") || null,
   sale: [],
   rent: [],

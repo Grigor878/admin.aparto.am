@@ -7,6 +7,7 @@ import useOutsideClick from '../../../../hooks/useOutsideClick'
 import cookies from 'js-cookie'
 import Flag from 'react-world-flags'
 import './Language.scss'
+import { setPage } from '../../../../store/slices/viewSlice'
 
 const Language = () => {
     const { i18n } = useTranslation()
@@ -31,6 +32,7 @@ const Language = () => {
         dispatch(setLanguage(code))
         dispatch(setBurger("close"))
         dispatch(setOpenBurger(false))
+        dispatch(setPage("result"))
     };
 
     useOutsideClick(lngRef, openLng, setOpenLng)
