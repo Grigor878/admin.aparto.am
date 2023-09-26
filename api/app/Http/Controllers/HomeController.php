@@ -360,12 +360,6 @@ class HomeController extends Controller
 
             $searchAllProperty = [];
 
-            $agentId = (int) $am[11]->fields[0]->id;
-            $managerId = (int) $am[11]->fields[1]->id;
-
-            $employee = Employe::get();
-            Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
-
             if(isset($am[0]->fields[2]->value)){
                 array_push($searchAllProperty, $am[0]->fields[2]->value);
                 array_push($searchAllProperty, $ru[0]->fields[2]->value);
@@ -508,8 +502,13 @@ class HomeController extends Controller
     public function getProperties($id) {
         $home = Home::select('id', 'home_id', 'am', 'photo', 'file', 'keywords', 'status', 'price_history', 'created_at', 'updated_at')
         ->find($id);
+    
         if($home) {
-            $home->am = json_decode($home->am);
+            $am = json_decode($home->am);
+            $agentId = (int) $am[11]->fields[0]->id;
+            $managerId = (int) $am[11]->fields[1]->id;
+            $employee = Employe::get();
+            Employe::getAgentMangerData($agentId, $managerId, $employee, $am, null, null);
             $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName)?$home->am[0]->fields[0]->selectedOptionName: '';
             $home->photo = json_decode($home->photo);
             $home->file = json_decode($home->file);
@@ -517,6 +516,7 @@ class HomeController extends Controller
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
             $home->keywords = json_decode($home->keywords);
             $home->priceHistory = json_decode($home->price_history);
+            $home->am = $am;
             return response()->json($home);
 
         }
