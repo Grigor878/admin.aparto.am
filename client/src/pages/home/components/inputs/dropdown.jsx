@@ -25,10 +25,11 @@ export const Dropdown = ({ data, width, placeholder, onChange }) => {
                     fontSize: laptopSmall ? "13px" : "16px",
                     textTransform: "capitalize",
                     lineHeight: "20px",
+                    border:"none",
                     borderColor: 'transparent',
                     boxShadow: 'none',
                     background: "#fffff",
-                    cursor: "pointer"
+                    cursor: "pointer",
                 }),
             }}
         />
