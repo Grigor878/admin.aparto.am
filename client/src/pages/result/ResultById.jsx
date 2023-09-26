@@ -419,7 +419,12 @@ const ResultById = () => {
                   </div>
 
                   <div className='singleProperty__content-right-contact-info'>
-                    <img src={user} alt="img" />
+                    <img
+                      src={currentPropertyData[11]?.fields[0]?.photo
+                        ? API_BASE_URL + '/images/' + currentPropertyData[11]?.fields[0]?.photo
+                        : user}
+                      alt="img"
+                    />
 
                     <div className='singleProperty__content-right-contact-info-name'>
                       {/* <p>{t("name_surname")}</p> */}
