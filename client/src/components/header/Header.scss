@@ -30,6 +30,8 @@
       @include flexCenter;
 
       img {
+        width: 163.299px;
+
         @media screen and (max-width: 768px) {
           width: 134px;
         }
@@ -91,7 +93,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    color: $blue;
+    color: #0F5BED;;
     margin-right: 24px;
 
     @media screen and (max-width: 1122px) {

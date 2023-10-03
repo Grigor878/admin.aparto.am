@@ -20,6 +20,19 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
 
     const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 
+    //
+    // const colourStyles = {
+    //     control: styles => ({ ...styles, backgroundColor: 'white' }),
+    //     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    //         return {
+    //             ...styles,
+    //             backgroundColor: isDisabled ? 'red' : "blue",
+    //             color: '#FFF',
+    //             cursor: isDisabled ? 'not-allowed' : 'default',
+    //       }
+    //     }
+    //   };
+
     return (
         <Select
             isMulti
@@ -28,13 +41,14 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
             placeholder={placeholder}
             onChange={handleChange}
             styles={{
-                control: (baseStyles) => ({
+                control: (baseStyles,state) => ({
                     ...baseStyles,
                     width: width,
                     fontWeight: "400",
                     fontSize: laptopSmall ? "13px" : "16px",
                     textTransform: "capitalize",
                     lineHeight: "20px",
+                    border:"none",
                     borderColor: 'transparent',
                     boxShadow: 'none',
                     background: "#fffff",

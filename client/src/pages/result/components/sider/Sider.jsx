@@ -11,11 +11,13 @@ import { Input } from '../inputs/input';
 import { clearResultData, getResultPageData, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSessionState } from '../../../../hooks/useSessionState'
+import { useMediaQuery } from 'react-responsive'
 import debounce from 'lodash/debounce';
 import './Sider.scss'
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
+  
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -23,6 +25,8 @@ export const Sider = ({ open, setOpen }) => {
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage } = useSelector((state) => state.view);
+
+  const mobile = useMediaQuery({ maxWidth: 768 })
 
   const [radio, setRadio] = useState(transactionType)//done
   const [community, setCommunity] = useState([])////////
@@ -67,7 +71,7 @@ export const Sider = ({ open, setOpen }) => {
     const debouncedSearch = debounce((searchData) => {
       dispatch(clearResultData());
       dispatch(getResultPageData({ language, searchData }));
-      setOpen(false)
+      setOpen(mobile ? false : true)
     }, 1500);
 
     const searchData = {
@@ -101,7 +105,7 @@ export const Sider = ({ open, setOpen }) => {
       debouncedSearch.cancel();
     };
 
-  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page, paginatePage, perPage, setOpen])
+  }, [dispatch, buildType, community, description, floorMax, floorMin, id, language, newBuild, priceMax, priceMin, propCondition, propType, radio, rooms, squareMax, squareMin, streets, page, paginatePage, perPage, setOpen, mobile])
 
   const clearSearch = () => {
     sessionStorage.removeItem("siderSqMin");
@@ -425,7 +429,7 @@ export const Sider = ({ open, setOpen }) => {
             <Input
               className='inputLarg'
               type="number"
-              placeholder={t("id") + " ` 12345"}
+              placeholder={language === "am" ? t("id") + " ` 12345" : t("id") + " : 12345" }
               onChange={(e) => handleSetState(setId, e)}
               value={id}
             />

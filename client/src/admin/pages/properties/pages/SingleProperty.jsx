@@ -409,11 +409,16 @@ const SingleProperty = () => {
                             </div>
 
                             <div className='singleProperty__content-right-contact-info'>
-                                <img src={user} alt="img" />
+                                <img
+                                    src={currentPropertyData[11]?.fields[0]?.photo
+                                        ? API_BASE_URL + '/images/' + currentPropertyData[11]?.fields[0]?.photo
+                                        : user}
+                                    alt="img"
+                                />
 
                                 <div className='singleProperty__content-right-contact-info-name'>
-                                    <p>Արման Հակոբյան</p>
-                                    <span>Գործակալ</span>
+                                    <p>{currentPropertyData[11]?.fields[0]?.value}</p>
+                                    <span>{currentPropertyData[11]?.fields[0]?.title?.slice(0, -1)}</span>
                                 </div>
                             </div>
                         </div>

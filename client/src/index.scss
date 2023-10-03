@@ -108,6 +108,15 @@ img {
   object-fit: cover;
 }
 
+// for removing react-select down icon
+.css-1hb7zxy-IndicatorsContainer{
+  flex-direction: row-reverse !important;
+}
+.css-1xc3v61-indicatorContainer,
+.css-15lsz6c-indicatorContainer {
+  color: transparent !important;
+}
+
 // Dashboard all pages
 .dashboard__layout {
   display: flex;
