@@ -33,72 +33,72 @@ class Employe extends Authenticatable implements JWTSubject
         return [];
     }
 
-        public static function getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en): array
-        {
-            $ids = [];
+    public static function getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en): array
+    {
+        $ids = [];
 
-            if (count($employee) > 0) {
-                foreach ($employee as $man) {
-                    if ($man["id"] == $agentId) {
-                        $ids['agent'] = $man;
-                    }
-                    if ($man["id"] == $managerId) {
-                        $ids['manager'] = $man;
-                    }
+        if (count($employee) > 0) {
+            foreach ($employee as $man) {
+                if ($man["id"] == $agentId) {
+                    $ids['agent'] = $man;
+                }
+                if ($man["id"] == $managerId) {
+                    $ids['manager'] = $man;
                 }
             }
-        
-            $agentData = [
-                'agentName' => '',
-                'agentPhoto' => ''
-            ];
-        
-            $managerData = [
-                'managerName' => '',
-                'managerPhoto' => ''
-            ];
-        
-            if (isset($ids['agent'])) {
-                $agent = $ids['agent'];
-                $agentName = json_decode($agent->full_name, true);
-                $agentData = [
-                    'agentName' => $agentName,
-                    'agentPhoto' => $agent->photo
-                ];
-            }
-        
-            if (isset($ids['manager'])) {
-                $manager = $ids['manager'];
-                $managerName = json_decode($manager->full_name, true);
-                $managerData = [
-                    'managerName' => $managerName,
-                    'managerPhoto' => $manager->photo
-                ];
-            }
-   
-            if($am){
-                $am[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['am']:'';
-                $am[11]->fields[0]->photo = $agentData['agentPhoto'];
-                $am[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['am']:'';
-                $am[11]->fields[1]->photo = $managerData['managerPhoto'];
-            }
-
-            if($en){
-                $en[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['en']:'';
-                $en[11]->fields[1]->photo = $managerData['managerPhoto'];
-                $en[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['en']:'';
-                $en[11]->fields[0]->photo = $agentData['agentPhoto'];
-            }
-          
-            if($ru){
-                $ru[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['ru']:'';
-                $ru[11]->fields[0]->photo = $agentData['agentPhoto'];
-                $ru[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['ru']:'';
-                $ru[11]->fields[1]->photo = $managerData['managerPhoto'];
-            }
-           
-
-            return ['am' => $am, 'ru' => $ru, 'en' => $en];
         }
+    
+        $agentData = [
+            'agentName' => '',
+            'agentPhoto' => ''
+        ];
+    
+        $managerData = [
+            'managerName' => '',
+            'managerPhoto' => ''
+        ];
+    
+        if (isset($ids['agent'])) {
+            $agent = $ids['agent'];
+            $agentName = json_decode($agent->full_name, true);
+            $agentData = [
+                'agentName' => $agentName,
+                'agentPhoto' => $agent->photo
+            ];
+        }
+    
+        if (isset($ids['manager'])) {
+            $manager = $ids['manager'];
+            $managerName = json_decode($manager->full_name, true);
+            $managerData = [
+                'managerName' => $managerName,
+                'managerPhoto' => $manager->photo
+            ];
+        }
+
+        if($am){
+            $am[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['am']:'';
+            $am[11]->fields[0]->photo = $agentData['agentPhoto'];
+            $am[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['am']:'';
+            $am[11]->fields[1]->photo = $managerData['managerPhoto'];
+        }
+
+        if($en){
+            $en[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['en']:'';
+            $en[11]->fields[1]->photo = $managerData['managerPhoto'];
+            $en[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['en']:'';
+            $en[11]->fields[0]->photo = $agentData['agentPhoto'];
+        }
+        
+        if($ru){
+            $ru[11]->fields[0]->value = $agentData['agentName']?$agentData['agentName']['ru']:'';
+            $ru[11]->fields[0]->photo = $agentData['agentPhoto'];
+            $ru[11]->fields[1]->value = $managerData['managerName']?$managerData['managerName']['ru']:'';
+            $ru[11]->fields[1]->photo = $managerData['managerPhoto'];
+        }
+        
+
+        return ['am' => $am, 'ru' => $ru, 'en' => $en];
+    }
 
 }

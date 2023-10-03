@@ -317,7 +317,7 @@ class InterFaceService
         $searchInfo = "";
         $searchHomeArray = [];
 
-        Home::select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
                 $home = $this->processHomeData($home);
@@ -430,7 +430,7 @@ class InterFaceService
     public function getSeeMoreHomes($data, $lang)
     {
         $searchHomeArray = [];
-        Home::select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
@@ -541,7 +541,7 @@ class InterFaceService
 
     public function getInterfaceProperties($id)
     {
-        $home = Home::select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
+        $home = Home::orderBy('created_at', 'desc')->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
             ->find($id);
 
         $am = json_decode($home->am);
@@ -584,7 +584,7 @@ class InterFaceService
     {
         $searchHomeArray = [];
 
-        $searchHomes = Home::where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
+        $searchHomes = Home::orderBy('created_at', 'desc')->where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
             $home = $this->processHomeData($home);
             // $home->keywords = json_decode($home->keywords);
 
