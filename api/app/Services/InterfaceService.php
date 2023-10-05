@@ -384,6 +384,17 @@ class InterFaceService
                 return $isMatched;
             })->values();
 
+
+            $findAddresses = [];
+            $findCommunity = [];
+            $allAddresses = ConfigAddress::whereIn($lang, $data['searchData'][1]['community'])->get();
+            foreach ($allAddresses as $key => $address) {
+               $findAddresses[]= $address->id;
+               $findCommunity[]= $address->communityId;
+            } 
+           
+                        
+
         $searchDataType = '(' . $this->coillectSearchDataConst($lang, $data['searchData'][0]['type']) . ')';
 
         $searchDataCommunity = '';
@@ -422,7 +433,9 @@ class InterFaceService
             $perPage = $data['searchData'][6]['perPage'];
             $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
             $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
-            return $paginatedArray;
+            $info = ['addresses' => $findAddresses, 'community' => array_values(array_unique($findCommunity)), 'data'=> $paginatedArray];
+            
+            return $info;
         }
         return $searchHomeArray;
     }
