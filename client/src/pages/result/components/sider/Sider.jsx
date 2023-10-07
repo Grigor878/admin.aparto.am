@@ -119,7 +119,10 @@ export const Sider = ({ open, setOpen }) => {
     sessionStorage.removeItem("siderFloorMax");
     sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
+
+    dispatch(setPage("result"))
     dispatch(clearHomeSearchInfo())
+
     setCommunity([])
     setStreets([])
     setPropType([])
