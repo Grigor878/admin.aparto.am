@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { seeAll } from '../../../../assets/svgs/svgs'
 import { addTransactionType, clearPrice, clearPropertyType, clearRooms } from '../../../../store/slices/homeSlice'
 import { PropCard } from '../../../../components/propCard/PropCard'
-import { clearSidertData, setPage } from '../../../../store/slices/viewSlice'
+import { clearHomeSearchInfo, clearSidertData, setPage } from '../../../../store/slices/viewSlice'
 import './PropType.scss'
 import Skeleton from '../../../../components/skeleton/Skeleton'
 
@@ -22,6 +22,7 @@ const PropType = ({ type, data }) => {
         dispatch(clearRooms())
         dispatch(clearPrice())
         dispatch(clearSidertData())
+        dispatch(clearHomeSearchInfo())
         dispatch(setPage("result"))//
         sessionStorage.removeItem("siderSqMin");
         sessionStorage.removeItem("siderSqMax");

@@ -6,8 +6,8 @@ const initialState = {
   data: [],
   streetData: null,
   resultData: null,
-  searchedAddresses:[],
   searchedCommunities:[],
+  searchedAddresses:[],
   siderData: null,
   siderLoading: false,
   page: "result",
@@ -86,6 +86,11 @@ const viewSlice = createSlice({
     clearSidertData: (state) => {
       state.siderData = null;
     },
+    // clear home search community-street response
+    clearHomeSearchInfo: (state) => {
+      state.searchedCommunities = [];
+      state.searchedAddresses = [];
+    },
     // set page vor search optimizing
     setPage: (state, action) => {
       state.page = action.payload;
@@ -127,10 +132,8 @@ const viewSlice = createSlice({
       sessionStorage.removeItem("siderDesc");
       sessionStorage.removeItem("siderId");
       state.resultData = action.payload.data;
-
-      state.searchedAddresses = action.payload.addresses;//
-      state.searchedCommunities = action.payload.community;//
-
+      state.searchedAddresses = action.payload.addresses;
+      state.searchedCommunities = action.payload.community;
       state.loading = false;
     });
     builder.addCase(getResultPageData.pending, (state) => {
@@ -146,6 +149,7 @@ const viewSlice = createSlice({
 export const {
   clearResultData,
   clearSidertData,
+  clearHomeSearchInfo,
   setPage,
   setPaginatePage,
   setPerPage,
