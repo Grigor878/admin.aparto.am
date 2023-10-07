@@ -53,7 +53,7 @@ export const AgentSelect = ({ title, value, id, onChange, style, required }) => 
                             <option
                                 key={id}
                                 value={id}
-                                selected={name === value}
+                                selected={name === value}//
                             >{name}
                             </option>
                         )

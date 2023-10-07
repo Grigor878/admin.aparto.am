@@ -38,7 +38,7 @@ const Result = () => {
     else {
       setSider(!mobile)
     }
-  }, [map,mobile]);
+  }, [map, mobile]);
 
   const { siderLoading } = useSelector((state) => state.view);
 

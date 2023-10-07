@@ -4,6 +4,8 @@ import Select from 'react-select';
 import { getCommunityData } from '../../../../store/slices/viewSlice';
 
 export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
+    console.log(community);
+    console.log(selected);
     const { language } = useSelector((state => state.home))
 
     const dispatch = useDispatch()

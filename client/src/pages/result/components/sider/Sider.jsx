@@ -17,20 +17,20 @@ import './Sider.scss'
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation()
-  
+
   const navigate = useNavigate()
   const location = useLocation()
 
   const dispatch = useDispatch()
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
-  const { page, paginatePage, perPage } = useSelector((state) => state.view);
+  const { page, paginatePage, perPage, searchedCommunities, searchedAddresses } = useSelector((state) => state.view);
 
   const mobile = useMediaQuery({ maxWidth: 768 })
 
   const [radio, setRadio] = useState(transactionType)//done
-  const [community, setCommunity] = useState([])////////
-  const [streets, setStreets] = useState([])////////
+  const [community, setCommunity] = useState(searchedCommunities?.length ? searchedCommunities : [])////////
+  const [streets, setStreets] = useState(searchedAddresses?.length ? searchedAddresses : [])////////
   const [propType, setPropType] = useState(propertyType)//done
   const [rooms, setRooms] = useState(room)//done
   const [squareMin, setSquareMin] = useSessionState("", "siderSqMin")
@@ -429,7 +429,7 @@ export const Sider = ({ open, setOpen }) => {
             <Input
               className='inputLarg'
               type="number"
-              placeholder={language === "am" ? t("id") + " ` 12345" : t("id") + " : 12345" }
+              placeholder={language === "am" ? t("id") + " ` 12345" : t("id") + " : 12345"}
               onChange={(e) => handleSetState(setId, e)}
               value={id}
             />

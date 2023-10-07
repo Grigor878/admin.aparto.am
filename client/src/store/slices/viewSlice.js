@@ -6,6 +6,8 @@ const initialState = {
   data: [],
   streetData: null,
   resultData: null,
+  searchedAddresses:[],
+  searchedCommunities:[],
   siderData: null,
   siderLoading: false,
   page: "result",
@@ -124,7 +126,11 @@ const viewSlice = createSlice({
       sessionStorage.removeItem("siderFloorMax");
       sessionStorage.removeItem("siderDesc");
       sessionStorage.removeItem("siderId");
-      state.resultData = action.payload;
+      state.resultData = action.payload.data;
+
+      state.searchedAddresses = action.payload.addresses;//
+      state.searchedCommunities = action.payload.community;//
+
       state.loading = false;
     });
     builder.addCase(getResultPageData.pending, (state) => {
