@@ -390,7 +390,7 @@ class InterFaceService
             $allAddresses = ConfigAddress::whereIn($lang, $data['searchData'][1]['community'])->get();
             foreach ($allAddresses as $key => $address) {
                $findAddresses[]= $address->id;
-               $findCommunity[]= $address->communityId;
+               $findCommunity[]= (int) $address->communityId;
             } 
            
                         
