@@ -387,6 +387,22 @@ class InterFaceService
 
             $findAddresses = [];
             $findCommunity = [];
+
+            foreach ($data['searchData'][1]['community'] as $key => $value) {
+                $result = false;
+                if($lang == 'am'){
+                    $result = array_search($value, $this->communityAm);
+                }elseif ($lang == 'ru') {
+                    $result = array_search($value, $this->communityRu);
+                }elseif ($lang == 'en') {
+                    $result = array_search($value, $this->communityEn);
+                }
+
+                if($result){
+                    $findCommunity[] = $result;
+                }
+            }
+
             $allAddresses = ConfigAddress::whereIn($lang, $data['searchData'][1]['community'])->get();
             foreach ($allAddresses as $key => $address) {
                $findAddresses[]= $address->id;
@@ -394,7 +410,6 @@ class InterFaceService
             } 
            
                         
-
         $searchDataType = '(' . $this->coillectSearchDataConst($lang, $data['searchData'][0]['type']) . ')';
 
         $searchDataCommunity = '';
