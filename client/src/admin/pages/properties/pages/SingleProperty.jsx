@@ -341,7 +341,7 @@ const SingleProperty = () => {
                     {/* Right */}
                     <div className='singleProperty__content-right'>
                         <div className='singleProperty__content-right-price'>
-                            {currentPropertyData[2]?.fields[0]?.value !== ""
+                            {currentPropertyData[2]?.fields[0]?.value !== "" ||currentPropertyData[2]?.fields[0]?.value === "0" 
                                 ? <h4>Գին։<span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
                                 : <h4>Գին։ <span>Պայմանագրային</span></h4>
                             }

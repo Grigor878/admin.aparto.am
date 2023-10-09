@@ -336,14 +336,14 @@ const ResultById = () => {
               {/* Right */}
               <div className='singleProperty__content-right'>
                 <div className='singleProperty__content-right-price'>
-                  {currentPropertyData[2]?.fields[0]?.value !== "" 
-                  ? <h4>{t("price")}։
-                    {exchange === 2
-                      ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
-                      : <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span>
-                    }
-                  </h4>
-                  : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
+                  {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
+                    ? <h4>{t("price")}։
+                      {exchange === 2
+                        ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
+                        : <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span>
+                      }
+                    </h4>
+                    : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
                   }
 
                   {!currentPropertyData[2]?.fields[2]?.value ? null

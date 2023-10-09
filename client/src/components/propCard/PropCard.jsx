@@ -18,14 +18,12 @@ export const PropCard = ({ data }) => {
   const { language, size, exchange, exchangeValue } = useSelector((state => state.home))
 
   const laptop = useMediaQuery({ maxWidth: 1280 })
-  // const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 
   const scrollableDivRef = useRef(null)
   const scrollableDiv = scrollableDivRef.current
 
-  // const homeCut = laptop ? 27 : 30
   const homeCut = language === "am" ? 30 : language === "en" ? 35 : 38
-  // const resultCut = laptop ? 23 : 25
+
   const resultCut = language === "am" ? 25 : language === "en" ? 30 : 33
 
   const scroll = laptop ? 382 : 408
@@ -57,9 +55,14 @@ export const PropCard = ({ data }) => {
 
                   <div className="propCard__card-main">
                     <div className="propCard__card-main-top">
-                      {exchange === 2
+                      {/* {exchange === 2
                         ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
                         : <p>{usdFormater(price)}</p>
+                      } */}
+                      {(price !== "" || price === "0") && exchange === 2
+                        ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
+                        : (price !== "" || price === "0") && exchange === 1 ? <p>{usdFormater(price)}</p>
+                          : <p>{t("contract")}</p>
                       }
                       <span>ID {home_id}</span>
                     </div>
@@ -114,9 +117,14 @@ export const PropCard = ({ data }) => {
 
                 <div className="propCardResult__card-main">
                   <div className="propCardResult__card-main-top">
-                    {exchange === 2
+                    {/* {exchange === 2
                       ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
                       : <p>{usdFormater(price)}</p>
+                    } */}
+                    {(price !== "" || price === "0") && exchange === 2
+                      ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
+                      : (price !== "" || price === "0") && exchange === 1 ? <p>{usdFormater(price)}</p>
+                        : <p>{t("contract")}</p>
                     }
                     <span>ID {home_id}</span>
                   </div>
@@ -151,6 +159,10 @@ export const PropCard = ({ data }) => {
 };
 
 
+// const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+
+// const homeCut = laptop ? 27 : 30
+// const resultCut = laptop ? 23 : 25
 
 // const [showScrollLeft, setShowScrollLeft] = useState(false);
 
