@@ -112,5 +112,6 @@
   "email": "Email",
   "tel_number": "Phone Number",
   "agent": "Agent",
-  "name_surname": "Arman Hakobyan"
+  "name_surname": "Arman Hakobyan",
+  "contract":"Negotiable"
 }

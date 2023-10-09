@@ -8,7 +8,7 @@ import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, commun
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
-import { clearResultData, getResultPageData, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
+import { clearHomeSearchInfo, clearResultData, getResultPageData, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { useMediaQuery } from 'react-responsive'
@@ -119,6 +119,10 @@ export const Sider = ({ open, setOpen }) => {
     sessionStorage.removeItem("siderFloorMax");
     sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
+
+    dispatch(setPage("result"))
+    dispatch(clearHomeSearchInfo())
+
     setCommunity([])
     setStreets([])
     setPropType([])
@@ -134,7 +138,9 @@ export const Sider = ({ open, setOpen }) => {
     setFloorMax("")
     setDescription("")
     setId("")
-    setOpen(false)
+    if (mobile) {
+      setOpen(false)
+    }
   }
 
   return (

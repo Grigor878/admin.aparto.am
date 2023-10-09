@@ -19,24 +19,11 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
     }
 
     const laptopSmall = useMediaQuery({ maxWidth: 1122 })
-
-    //
-    // const colourStyles = {
-    //     control: styles => ({ ...styles, backgroundColor: 'white' }),
-    //     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    //         return {
-    //             ...styles,
-    //             backgroundColor: isDisabled ? 'red' : "blue",
-    //             color: '#FFF',
-    //             cursor: isDisabled ? 'not-allowed' : 'default',
-    //       }
-    //     }
-    //   };
-
     return (
         <Select
             isMulti
             closeMenuOnSelect={false}
+            isClearable={false}
             options={technologyList}
             placeholder={placeholder}
             onChange={handleChange}

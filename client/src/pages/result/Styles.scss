@@ -19,7 +19,7 @@
     &-top {
       position: sticky;
       // top: 120px;
-      top: 90px;
+      top: 110px;
       background: #f8f8fa;
       @include flex;
       gap: 24px;
@@ -30,7 +30,7 @@
 
       @media screen and (max-width: 768px) {
         // top: 100px;
-        top: 75px;
+        top: 90px;
         align-items: flex-start;
       }
 

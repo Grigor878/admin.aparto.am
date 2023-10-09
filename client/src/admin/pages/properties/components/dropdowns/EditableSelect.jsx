@@ -25,6 +25,7 @@ export const EditableSelect = ({ title, id, name, data, value, style, required, 
                 //     return option.label === value;
                 // })}
                 closeMenuOnSelect={false}
+                isClearable={false}
                 options={data}
                 placeholder="Ընտրեք"
                 onChange={handleChange}

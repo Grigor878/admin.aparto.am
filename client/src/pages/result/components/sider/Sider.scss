@@ -6,7 +6,7 @@
   &__main {
     background: $bgSub;
     position: sticky;
-    top: 90px;
+    top: 110px;
     width: 359px; // 04.09.2023 commented
     padding: 0 28px 111px 28px;
     overflow-y: scroll;
@@ -15,7 +15,7 @@
     // padding-bottom: 111px;
 
     @media screen and (max-width: 768px) {
-      top: 75px;
+      top: 90px;
     }
 
     @media screen and (max-width: 675px) {

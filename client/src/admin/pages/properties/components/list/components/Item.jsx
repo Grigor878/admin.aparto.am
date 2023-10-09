@@ -63,7 +63,9 @@ export const Item = ({ data }) => {
 
                             <div className='propertyList__item-right-main-global'>
                                 <p>{"# "}{home_id}</p>
-                                <p>{usdFormater(am[2].fields[0].value)}</p>
+                                {am[2].fields[0].value !== "" || am[2].fields[0].value === "0"
+                                    ? <p>{usdFormater(am[2].fields[0].value)}</p>
+                                    : <p>Պայմանագրային</p>}
                             </div>
                         </div>
 

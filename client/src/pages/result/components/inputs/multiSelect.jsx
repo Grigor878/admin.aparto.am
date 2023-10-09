@@ -4,8 +4,6 @@ import Select from 'react-select';
 import { getCommunityData } from '../../../../store/slices/viewSlice';
 
 export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
-    console.log(community);
-    console.log(selected);
     const { language } = useSelector((state => state.home))
 
     const dispatch = useDispatch()
@@ -31,6 +29,7 @@ export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
         <Select
             isMulti
             closeMenuOnSelect={false}
+            isClearable={false}
             options={technologyList}
             placeholder={placeholder}
             onChange={handleChange}
@@ -49,8 +48,8 @@ export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
                     padding: "10px 20px"
                 }),
             }}
-            value={selected.map((value) => {
-                const technology = technologyList.find((item) => item.value === value);
+            value={selected?.map((value) => {
+                const technology = technologyList?.find((item) => item.value === value);
                 return technology ? { value, label: technology.label } : null;
             })}
         />
