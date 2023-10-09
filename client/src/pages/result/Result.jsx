@@ -43,6 +43,7 @@ const Result = () => {
   const { siderLoading } = useSelector((state) => state.view);
 
   const handlePageChange = (page) => {
+    console.log(page);
     dispatch(setPage("result"))
     dispatch(setPaginatePage(page))
     page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
