@@ -29,6 +29,7 @@ export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
         <Select
             isMulti
             closeMenuOnSelect={false}
+            isClearable={false}
             options={technologyList}
             placeholder={placeholder}
             onChange={handleChange}

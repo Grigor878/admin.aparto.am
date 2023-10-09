@@ -14,6 +14,7 @@ export const Dropdown = ({ data, width, placeholder, onChange }) => {
         <Select
             isMulti
             closeMenuOnSelect={false}
+            isClearable={false}
             options={data}
             placeholder={placeholder}
             onChange={handleChange}

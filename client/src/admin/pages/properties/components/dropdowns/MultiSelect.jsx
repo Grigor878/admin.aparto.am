@@ -22,6 +22,7 @@ export const MultiSelect = ({ title, id, name, data, style, required, onChange }
                 <Select
                     isMulti
                     closeMenuOnSelect={false}
+                    isClearable={false}
                     options={data}
                     placeholder="Ընտրեք"
                     onChange={handleChange}
