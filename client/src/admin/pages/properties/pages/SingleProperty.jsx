@@ -170,7 +170,8 @@ const SingleProperty = () => {
                             </div>
 
                             <div className='singleProperty__content-left-title-right'>
-                                <span>{idShevron.icon} {data?.home_id}</span>
+                                {/* <span>{idShevron.icon} {data?.home_id}</span> */}
+                                <span>ID {data?.home_id}</span>
                                 <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալություն"}</p>
                             </div>
                         </div>
@@ -340,7 +341,10 @@ const SingleProperty = () => {
                     {/* Right */}
                     <div className='singleProperty__content-right'>
                         <div className='singleProperty__content-right-price'>
-                            <h4>Գին։<span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+                            {currentPropertyData[2]?.fields[0]?.value !== ""
+                                ? <h4>Գին։<span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>
+                                : <h4>Գին։ <span>Պայմանագրային</span></h4>
+                            }
 
                             {currentPropertyData[2]?.fields[2]?.value &&
                                 <p>Նախավճարի չափ:<span>{usdFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>}

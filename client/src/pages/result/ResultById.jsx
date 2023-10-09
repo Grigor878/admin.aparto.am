@@ -84,7 +84,7 @@ const ResultById = () => {
             {mobile
               ? <div className='singleProperty__content-left-title-right2'>
                 <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
-                <span>{idShevron.icon} {data?.home_id}</span>
+                <span>ID {data?.home_id}</span>
               </div>
               : null}
 
@@ -167,7 +167,7 @@ const ResultById = () => {
                   </div>
 
                   <div className='singleProperty__content-left-title-right'>
-                    <span>{idShevron.icon} {data?.home_id}</span>
+                    <span>ID {data?.home_id}</span>
                     <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
                   </div>
                 </div>
@@ -336,12 +336,15 @@ const ResultById = () => {
               {/* Right */}
               <div className='singleProperty__content-right'>
                 <div className='singleProperty__content-right-price'>
-                  <h4>{t("price")}։
+                  {currentPropertyData[2]?.fields[0]?.value !== "" 
+                  ? <h4>{t("price")}։
                     {exchange === 2
                       ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
                       : <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span>
                     }
                   </h4>
+                  : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
+                  }
 
                   {!currentPropertyData[2]?.fields[2]?.value ? null
                     : exchange === 2
