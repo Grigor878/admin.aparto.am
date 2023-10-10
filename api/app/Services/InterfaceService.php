@@ -596,6 +596,11 @@ class InterFaceService
 
             $agentId = (int) $home['am'][11]->fields[0]->id;
             $managerId = (int) $home['am'][11]->fields[1]->id;
+            if($am[0]->fields[1]->value === "Կոմերցիոն (առանձնատուն)" || $am[0]->fields[1]->value === "Կոմերցիոն (բնակարան)"  ){
+                $am[0]->fields[1]->value = 'Կոմերցիոն';
+                $ru[0]->fields[1]->value = 'Коммерческая';
+                $en[0]->fields[1]->value = 'Commercial';
+            }
 
             $employee = Employe::get();
             Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
