@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
 import { API_BASE_URL } from '../../apis/config'
-import { balcony, buildType, buildingYear, checked, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
+import { balcony, buildType, buildingYear, checked, floor, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
 import { amdFormater, sqmToFt2, usdFormater } from '../../helpers/formatters'

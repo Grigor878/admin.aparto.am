@@ -7,7 +7,7 @@ import { Loader } from '../../../../components/loader/Loader'
 import { usdFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
-import { balcony, buildType, buildingYear, checked, file, floor, idShevron, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
+import { balcony, buildType, buildingYear, checked, file, floor, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';
 import user from '../../../../assets/imgs/user.png'

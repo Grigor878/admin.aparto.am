@@ -9,6 +9,7 @@ import Contact from './components/contact/Contact'
 import PropType from './components/propType/PropType'
 import Faq from './components/faq/Faq'
 import './Home.scss'
+import { setPaginatePage } from '../../store/slices/viewSlice'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -18,6 +19,10 @@ const Home = () => {
         dispatch(getTopHomes(language))
         dispatch(getAdminData())
     }, [dispatch, language])
+
+    useEffect(() => {
+        dispatch(setPaginatePage(1))
+    }, [dispatch])
 
     return (
         <section>
