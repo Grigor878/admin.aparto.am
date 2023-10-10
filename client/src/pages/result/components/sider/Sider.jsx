@@ -25,7 +25,7 @@ export const Sider = ({ open, setOpen }) => {
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage, searchedCommunities, searchedAddresses } = useSelector((state) => state.view);
-
+console.log(page)//
   const mobile = useMediaQuery({ maxWidth: 768 })
 
   const [radio, setRadio] = useState(transactionType)//done
@@ -344,7 +344,7 @@ export const Sider = ({ open, setOpen }) => {
         <div className="sider__block">
           <Checkbox
             onChange={(e) => {
-              dispatch(setPage("result"))
+              // dispatch(setPage("result"))
               dispatch(setPaginatePage("1"))
               navigate(location.pathname)
               window.scrollTo(0, 0)
