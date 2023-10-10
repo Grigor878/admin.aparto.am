@@ -17,6 +17,7 @@ use App\Http\Controllers\GarbageController;
 
 
 // Route::get('/', [GarbageController::class, 'addNow']);
+Route::get('/addCommunity', [GarbageController::class, 'addCommunity']);
 
 // Route::get('/changeAgentManageId', [GarbageController::class, 'changeAgentManageId']);
 

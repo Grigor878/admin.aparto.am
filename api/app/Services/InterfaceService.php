@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Community;
 use App\Models\ConfigAddress;
 use App\Models\Employe;
 use App\Models\Home;
@@ -388,21 +389,24 @@ class InterFaceService
             $findAddresses = [];
             $findCommunity = [];
 
-            foreach ($data['searchData'][1]['community'] as $key => $value) {
-                $result = false;
-                if($lang == 'am'){
-                    $result = array_search($value, $this->communityAm);
-                }elseif ($lang == 'ru') {
-                    $result = array_search($value, $this->communityRu);
-                }elseif ($lang == 'en') {
-                    $result = array_search($value, $this->communityEn);
-                }
+            // foreach ($data['searchData'][1]['community'] as $key => $value) {
+            //     $result = false;
+            //     if($lang == 'am'){
+            //         $result = array_search($value, $this->communityAm);
+            //     }elseif ($lang == 'ru') {
+            //         $result = array_search($value, $this->communityRu);
+            //     }elseif ($lang == 'en') {
+            //         $result = array_search($value, $this->communityEn);
+            //     }
 
-                if($result){
-                    $findCommunity[] = $result;
-                }
+            //     if($result){
+            //         $findCommunity[] = $result;
+            //     }
+            // }
+            $allCommunityes = Community::whereIn($lang, $data['searchData'][1]['community'])->get('id')->toArray();
+            foreach ($allCommunityes as $key => $community) {
+                $findCommunity[] = $community['id'];
             }
-
             $allAddresses = ConfigAddress::whereIn($lang, $data['searchData'][1]['community'])->get();
             foreach ($allAddresses as $key => $address) {
                $findAddresses[]= $address->id;
