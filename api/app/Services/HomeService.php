@@ -1019,7 +1019,7 @@ class HomeService
             if ($globalVal->type == "inputNumberSingle") {
               if ($key === $globalVal->key) {
                 if ($assocCopyFormAm[$idx]->name == 'price') {
-                  if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] !== "on")) {
+                  if (!(isset($item["priceNegotiable"]) && $item["priceNegotiable"] !== "on") && $assocCopyFormAm['price']->fields[3]->value !== true) {
                     $priceHistory = $value;
 
                     $assocCopyFormAm[$idx]->fields[$globKey]->value = $value;
@@ -1038,9 +1038,9 @@ class HomeService
               }
             }
             if (isset($item["priceNegotiable"]) && $item["priceNegotiable"] !== "on") {
-              $assocCopyFormAm['price']->fields[0]->value = "";
-              $assocCopyFormEn['price']->fields[0]->value = "";
-              $assocCopyFormAm['price']->fields[0]->value = "";
+              $assocCopyFormAm['price']->fields[0]->value = "0";
+              $assocCopyFormEn['price']->fields[0]->value = "0";
+              $assocCopyFormRu['price']->fields[0]->value = "0";
              }
             if ($globalVal->type == "inputNumberSymbol") {
               if ($key === $globalVal->key) {

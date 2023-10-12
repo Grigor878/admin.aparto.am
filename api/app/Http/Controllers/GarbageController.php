@@ -377,6 +377,28 @@ class GarbageController extends Controller
     }
   }
 
+  public function seePriceNegotiable()
+  {
+    $homes = Home::all();
+
+    foreach ($homes as $key => $home) {
+      $am = json_decode($home->am, true);
+      $ru = json_decode($home->ru, true);
+      $en = json_decode($home->en, true);
+      if($am[2]['fields'][3]['value'] === true){
+        $am[2]['fields'][0]['value'] = "0";
+        $ru[2]['fields'][0]['value'] = "0";
+        $en[2]['fields'][0]['value'] = "0";
+      }
+
+      $home->am = json_encode($am);
+      $home->ru = json_encode($ru);
+      $home->en = json_encode($en);
+
+      $home->save();
+    
+  }
+  }
 
   public function addNow()
   {
