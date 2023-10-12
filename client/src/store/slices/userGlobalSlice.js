@@ -24,7 +24,11 @@ export const getUserGlobal = createAsyncThunk("userGlobal", async () => {
 const userGlobalSlice = createSlice({
   name: "userGlobal",
   initialState,
-  reducers: {},
+  reducers: {
+    clearUserGlobal: (state) => {
+      state.userGlobal = []
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserGlobal.pending, (state) => {
@@ -41,4 +45,5 @@ const userGlobalSlice = createSlice({
   },
 });
 
+export const { clearUserGlobal } = userGlobalSlice.actions;
 export default userGlobalSlice.reducer;
