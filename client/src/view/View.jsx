@@ -14,7 +14,7 @@ const NotFound = lazy(() => pMinDelay(import('../pages/404/NotFound'), 500))
 
 const Login = lazy(() => pMinDelay(import('../admin/pages/login/Login'), 500))
 const Profile = lazy(() => pMinDelay(import('../admin/pages/profile/Profile'), 500))
-const Properties = lazy(() => pMinDelay(import('../admin/pages/properties/Properties'), 500))
+const Properties = lazy(() => import('../admin/pages/properties/Properties'))
 const SingleProperty = lazy(() => pMinDelay(import('../admin/pages/properties/pages/SingleProperty'), 500))
 const AddProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/AddProperties'), 500))
 const EditProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/EditProperties'), 500))
