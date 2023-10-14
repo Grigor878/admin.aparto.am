@@ -25,7 +25,7 @@ export const Item = ({ data }) => {
     const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
 
     return (
-        data?.map(({ id, home_id, photo, selectedTranscationType, am, updatedAt, createdAt, status }) => {
+        data?.map(({ id, home_id, photo, selectedTransactionType, am, updatedAt, createdAt, status }) => {
             return (
                 <div
                     key={id}
@@ -42,7 +42,7 @@ export const Item = ({ data }) => {
                         }
 
                         <div className='propertyList__item-view-types'>
-                            <span>{selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալություն"}</span>
+                            <span>{selectedTransactionType === "sale" ? "Վաճառք" : "Վարձակալություն"}</span>
                             <Type data={am[0].fields[4].value} />
                         </div>
                     </Link>

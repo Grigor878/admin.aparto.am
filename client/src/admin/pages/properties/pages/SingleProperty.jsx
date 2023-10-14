@@ -43,7 +43,7 @@ const SingleProperty = () => {
     }, [id])
 
     const currentPropertyData = data?.am
-    // const selectedTranscationType = data?.selectedTranscationType
+    // const selectedTransactionType = data?.selectedTransactionType
     const currentPropertyPrice = data?.priceHistory
     const currentPropertyKeywords = data?.keywords
     const currentPropertyFiles = data?.file
@@ -172,7 +172,7 @@ const SingleProperty = () => {
                             <div className='singleProperty__content-left-title-right'>
                                 {/* <span>{idShevron.icon} {data?.home_id}</span> */}
                                 <span>ID {data?.home_id}</span>
-                                <p>{data?.selectedTranscationType === "sale" ? "Վաճառք" : "Վարձակալություն"}</p>
+                                <p>{data?.selectedTransactionType === "sale" ? "Վաճառք" : "Վարձակալություն"}</p>
                             </div>
                         </div>
 
