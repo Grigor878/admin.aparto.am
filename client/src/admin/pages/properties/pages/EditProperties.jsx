@@ -39,7 +39,6 @@ const EditProperties = () => {
 
 
     const currentProperty = propertyData?.find(item => item.id === propertyId)
-    // console.log(currentProperty)//
 
     const currentPropertyData = currentProperty?.am
     const currentPropertyKeywords = currentProperty?.keywords
@@ -93,8 +92,6 @@ const EditProperties = () => {
         })
     }
     // console.log("edit", editProperty)//
-    // console.log(uploadPhoto.entries().next().done)//
-    // console.log(uploadFile.entries().next().done)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -274,7 +271,7 @@ const EditProperties = () => {
                                         key={name}
                                         title={title}
                                         width="460px"
-                                        child={fields.map(({ key, title, type, option, value, style, required, height, placeholder }) => {
+                                        child={fields.map(({ id, key, title, type, option, value, style, required, height, placeholder }) => {
                                             return (
                                                 <div key={key}>
                                                     {type === "select"
@@ -321,7 +318,7 @@ const EditProperties = () => {
                                                                             ? <AgentSelect
                                                                                 id={key}
                                                                                 title={title}
-                                                                                value={value}
+                                                                                value={id}//
                                                                                 style={style}
                                                                                 required={required}
                                                                                 onChange={(e) => editProp(e, name)}
@@ -330,7 +327,7 @@ const EditProperties = () => {
                                                                                 ? <ManagerSelect
                                                                                     id={key}
                                                                                     title={title}
-                                                                                    value={value}
+                                                                                    value={id}//
                                                                                     style={style}
                                                                                     required={required}
                                                                                     onChange={(e) => editProp(e, name)}

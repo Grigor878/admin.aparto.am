@@ -37,6 +37,8 @@ const AddProperties = () => {
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
+    const { role, id } = useSelector((state => state.userGlobal.userGlobal))
+    const agentId = id?.toString();
     const [loading, setLoading] = useState(false)
     const [addProperty, setAddProperty] = useState('')
 
@@ -87,10 +89,26 @@ const AddProperties = () => {
                 }
             }
 
+            // 15.10 - logic added for adding onChnage agent and to save meneger
+            if (role === "agent" && prev.specialists && prev.specialists.meneger) {
+                obj.specialists = {
+                    ...obj.specialists,
+                    meneger: prev.specialists.meneger,
+                };
+            }
+
+            if (role === 'agent') {
+                obj.specialists = {
+                    ...obj.specialists,
+                    agent: agentId,
+                };
+            }
+
             return { ...prev, ...obj }
         })
     }
-    // console.log("add",addProperty)//
+
+    // console.log("add", addProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -103,6 +121,18 @@ const AddProperties = () => {
             setLoading(false)
         } else if (!yandex.length) {
             error('Նշեք Yandex-ի վրա գտնվելու վայրը!')
+            setLoading(false)
+        } else if (!addProperty?.price?.paymentMethod?.length || !addProperty?.price?.paymentMethod) {
+            error('Ընտրեք վճարման կարգը!')
+            setLoading(false)
+        } else if (!addProperty?.houseDescription?.numberOfRooms) {
+            error('Ընտրեք սենյակների քանակը!')
+            setLoading(false)
+        } else if (!addProperty?.houseDescription?.numberOfBedrooms) {
+            error('Ընտրեք ննջասենյակների քանակը!')
+            setLoading(false)
+        } else if (!addProperty?.houseDescription?.numberOfBathrooms) {
+            error('Ընտրեք սանհանգույցների քանակը!')
             setLoading(false)
         } else {
             dispatch(addPropertyData({ addProperty }))
@@ -309,6 +339,7 @@ const AddProperties = () => {
                                                                             ? <AgentSelect
                                                                                 id={key}
                                                                                 title={title}
+                                                                                value={id} //
                                                                                 style={style}
                                                                                 required={required}
                                                                                 onChange={(e) => addProp(e, name)}
@@ -350,74 +381,45 @@ const AddProperties = () => {
 
 export default AddProperties
 
-    // else if (name === "location" && key === "street") {
-    //     obj = {
-    //         [name]: {
-    //             ...prev[name],
-    //             [key]: value,
-    //         },
-    //     };
-    // }
-    //  else if (type === "inputNumberSymbol" && (name === "buildingDescription" || name === "price")) {
-    //     obj = {
-    //         [name]: {
-    //             ...prev[name],
-    //             [key]: {
-    //                 ...prev[name]?.[key],
-    //                 [id]: value,
-    //             },
-    //         },
-    //     }
-    // }
+
 
 // const addProp = (e, name, type) => {
-    //     let { id, value, checked, files } = e.target;
+//     let { id, value, checked } = e.target
 
-    //     console.log(name, type);
+//     setAddProperty((prev) => {
+//         let obj = {}
 
-    //     setAddProperty((prev) => {
-    //         let obj = {
-    //             [name]: {
-    //                 ...prev[name],
-    //                 [id]: checked ? checked : value ? value : files,
-    //             },
-    //         };
-    //         return { ...prev, ...obj };
-    //     });
-    // }
+//         if (type === 'text') {
+//             const nestedKey = id.slice(0, -2);
 
-// if (!sendedImgs) {
-//     dispatch(addPropertiesImgs({ uploadPhoto }))
+//             obj = {
+//                 [name]: {
+//                     ...prev[name],
+//                     [nestedKey]: {
+//                         ...prev[name]?.[nestedKey],
+//                         [id]: value,
+//                     },
+//                 },
+//             }
+//         } else {
+//             if (name === "specialists" && role === 'agent' ) {
+//                 obj = {
+//                     [name]: {
+//                         ...prev[name],
+//                         [id]: value,
+//                         agent: agentId,
+//                     },
+//                 }
+//             } else {
+//                 obj = {
+//                     [name]: {
+//                         ...prev[name],
+//                         [id]: checked ? checked : value,
+//                     },
+//                 }
+//             }
+//         }
+
+//         return { ...prev, ...obj }
+//     })
 // }
-// if (!sendedFiles) {
-//     dispatch(addPropertiesFiles({ uploadFile }))
-// }
-// if(!sendedImgs || !sendedFiles || addProperties.length){
-//     dispatch(addPropertyData({addProperties}))
-// }
-
-
-      // if (Object.keys(addProperties).length === 0) {
-        //     alert('addProperties is empty')
-        //     return
-        // }
-
-        // if (uploadPhoto.entries().next().done) {
-        //     alert('uploadPhoto is empty')
-        //     return
-        // }
-
-        // if (uploadFile.entries().next().done) {
-        //     alert('uploadFile is empty')
-        //     return
-        // }
-
-    // old,only addeds
-    // const getStrInfo = async () => {
-    //     try {
-    //         const { data } = await baseApi.get('/api/getAddFields')
-    //         setStrInfo(data)
-    //     } catch (err) {
-    //         console.log(`Get Structure Info: ${err.message}`);
-    //     }
-    // }
