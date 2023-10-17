@@ -318,9 +318,13 @@ class InterFaceService
         $searchInfo = "";
         $searchHomeArray = [];
 
+        $allCommunities = Community::get();
+        $allStreets = ConfigAddress::get();
+        $addresses = $allStreets->pluck('communityId');
+
         Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
-            ->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
+            ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray) {
                 $home = $this->processHomeData($home);
 
                 $isMatched = true;
@@ -333,20 +337,87 @@ class InterFaceService
 
                 if ($data['searchData'][1]['community']) {
                     $communityData = $data['searchData'][1]['community'];
-                    $ourDate = [];
-                    if ($lang == "en") {
-                        array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
-                    } elseif ($lang == "ru") {
-                        array_push($ourDate, strtolower($home->ru[1]->fields[0]->value), $home->ru[1]->fields[0]->communityStreet->value);
-                    } else {
-                        array_push($ourDate, strtolower($home->am[1]->fields[0]->value), $home->am[1]->fields[0]->communityStreet->value);
-                    }
-                    $mergedArray = array_merge($ourDate, json_decode($home->keywords));
-                    $intersection = array_intersect($mergedArray, $communityData);
+                    $allCommunities = $allCommunities->whereIn($lang, $communityData);
+                    $allStreets = $allStreets->whereIn($lang, $communityData);
 
-                    if (empty($intersection)) {
-                        $isMatched = false;
+                    //add Merging for filter key word in communityData
+                    $mergedCommunityStreets = array_merge($allCommunities->pluck($lang)->toArray(), $allStreets->pluck($lang)->toArray());
+                    $getKeyWords = array_diff($communityData, $mergedCommunityStreets);
+
+                    if($getKeyWords){
+                        $homeKeyWord = json_decode($home->keywords);
+                        $intersectionKeyWord = array_intersect($homeKeyWord, $communityData);
+    
+                        if (empty($intersectionKeyWord)) {
+                            $isMatched = false;
+                        }
                     }
+
+                    $communityIds = $allCommunities->pluck('id')->toArray();
+
+                    if ($communityIds) {
+                        if ($ourCommunityId = $home->am[1]->fields[0]->communityId) {
+                            $resultCommunity = array_search($ourCommunityId, $communityIds);
+                            if (!is_numeric($resultCommunity)) {
+                                $isMatched = false;
+                            }
+                        }
+                    }
+
+                    $addressesIds = $allStreets->pluck('id')->toArray();
+        
+                    if (
+                        $addressesIds
+                    ) {
+                       if(
+                            $communityIds
+                        ){
+                            if(
+                               in_array($home->am[1]->fields[0]->communityId, $communityIds)
+                            ){
+                              foreach ($addressesIds as $key => $addres) {
+
+                                if($home->am[1]->fields[0]->communityId == $addresses[$addres]){
+                                  $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+                                  if (!$resultStreet) {
+                                    $isMatched = false;
+                                }
+                                }
+                              }
+                                
+                            }
+        
+                        }else {
+                            $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+                            if (!$resultStreet) {
+                                $isMatched = false;
+                            }
+                        }
+                    }
+
+
+
+
+                    // dd($communityIds);
+                    // dd($allCommunities->where('am', 'Կենտրոն'));
+
+
+                    // dd($communityData);
+
+                    // $ourDate = [];
+                    // if ($lang == "en") {
+                    //     array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
+                    // } elseif ($lang == "ru") {
+                    //     array_push($ourDate, strtolower($home->ru[1]->fields[0]->value), $home->ru[1]->fields[0]->communityStreet->value);
+                    // } else {
+                    //     array_push($ourDate, strtolower($home->am[1]->fields[0]->value), $home->am[1]->fields[0]->communityStreet->value);
+                    // }
+                    // $mergedArray = array_merge($ourDate, json_decode($home->keywords));
+                    // $intersection = array_intersect($mergedArray, $communityData);
+
+                    // if (empty($intersection)) {
+                    //     $isMatched = false;
+                    // }
                 }
 
                 if ($data['searchData'][2]['propertyType']) {
@@ -620,8 +691,12 @@ class InterFaceService
     public function getResultPageData($data, $lang)
     {
         $searchHomeArray = [];
+        $addresses = ConfigAddress::get()->pluck('communityId');
 
-        $searchHomes = Home::orderBy('created_at', 'desc')->where('status', Home::STATUS_APPROVED)->get()->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
+        $searchHomes = Home::orderBy('created_at', 'desc')
+            ->where('status', Home::STATUS_APPROVED)
+            ->get()
+            ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray) {
             $home = $this->processHomeData($home);
             // $home->keywords = json_decode($home->keywords);
 
@@ -648,8 +723,7 @@ class InterFaceService
 
             if ($data['searchData']['community']) {
                 $communityData = $data['searchData']['community'];
-                if ($home->am[1]->fields[0]->communityId) {
-                    $ourCommunityId = $home->am[1]->fields[0]->communityId;
+                if ($ourCommunityId = $home->am[1]->fields[0]->communityId) {
                     $resultCommunity = array_search($ourCommunityId, $communityData);
                     if (!is_numeric($resultCommunity)) {
                         $isMatched = false;
@@ -657,12 +731,29 @@ class InterFaceService
                 }
             }
 
-            if ($data['searchData']['streets']) {
-                $streetData = $data['searchData']['streets'];
-                if ($home->am[1]->fields[0]->communityStreet->streetId) {
-                    $ourStreetId = $home->am[1]->fields[0]->communityStreet->streetId;
-                    $resultStreet = array_search($ourStreetId, $streetData);
-                    if (!is_numeric($resultStreet)) {
+            if (
+                $data['searchData']['streets']
+            ) {
+               if(
+                   $data['searchData']['community']
+                ){
+                    if(
+                       in_array($home->am[1]->fields[0]->communityId, $data['searchData']['community'])
+                    ){
+                      foreach ($data['searchData']['streets'] as $key => $add) {
+                        if($home->am[1]->fields[0]->communityId == $addresses[$add]){
+                          $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $data['searchData']['streets']);
+                          if (!$resultStreet) {
+                            $isMatched = false;
+                        }
+                        }
+                      }
+                        
+                    }
+
+                }else {
+                    $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $data['searchData']['streets']);
+                    if (!$resultStreet) {
                         $isMatched = false;
                     }
                 }
