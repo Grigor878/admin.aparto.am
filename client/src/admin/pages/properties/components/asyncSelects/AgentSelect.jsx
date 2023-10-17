@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import baseApi from '../../../../../apis/baseApi'
-import './Styles.scss'
 import { getAxiosConfig } from '../../../../../apis/config'
+import './Styles.scss'
 
 export const AgentSelect = ({ title, value, id, onChange, style, required }) => {
     const { role } = useSelector((state => state.userGlobal.userGlobal))
@@ -38,37 +38,61 @@ export const AgentSelect = ({ title, value, id, onChange, style, required }) => 
     ]
 
     return (
-        role !== "agent"
-            ? <label className='addproperties__card-singleselect'>
-                {title}
-                <select
-                    id={id}
-                    required={required}
-                    onChange={onChange}
-                    style={{ width: style }}
-                    className="addproperties__card-singleselect-dropdown"
-                >
-                    {parsedNames?.map(({ id, name }) => {
-                        return (
-                            <option
-                                key={id}
-                                value={id}
-                                selected={name === value}//
-                            >{name}
-                            </option>
-                        )
-                    })}
-                </select>
-            </label>
-            : <div className='agentSelect'>
-                {title}
-                <input
-                    className='agentSelect__input'
-                    type='text'
-                    disabled
-                    value={value}
-                />
-            </div>
-
+        <label className='addproperties__card-singleselect'>
+            {title}
+            <select
+                id={id}
+                required={required}
+                onChange={onChange}
+                style={{ width: style }}
+                className="addproperties__card-singleselect-dropdown"
+            >
+                {parsedNames?.map(({ id, name }) => {
+                    return (
+                        <option
+                            key={id}
+                            value={id}
+                            disabled={role === "agent" ? true : false}
+                            selected={id === value}//
+                        >{name}
+                        </option>
+                    )
+                })}
+            </select>
+        </label>
     )
 }
+
+// role !== "agent"
+//     ?
+//     <label className='addproperties__card-singleselect'>
+//         {title}
+//         <select
+//             id={id}
+//             required={required}
+//             onChange={onChange}
+//             style={{ width: style }}
+//             className="addproperties__card-singleselect-dropdown"
+//         >
+//             {parsedNames?.map(({ id, name }) => {
+//                 return (
+//                     <option
+//                         key={id}
+//                         value={id}
+//                         disabled={role === "agent" ? true : false}
+//                         selected={id === value}//
+//                     >{name}
+//                     </option>
+//                 )
+//             })}
+//         </select>
+//     </label>
+//     : <div className='agentSelect'>
+//         {title}
+//         <input
+//             className='agentSelect__input'
+//             type='text'
+//             disabled
+//             value={value}
+//         />
+//     </div>

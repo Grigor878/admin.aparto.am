@@ -6,7 +6,7 @@ import './Styles.scss'
 
 export const List = () => {
     const { propertyData, filteredData } = useSelector((state) => state.property)
-    console.log(propertyData)//
+
     return (
         <div className="propertyList">
             {!propertyData && !filteredData
