@@ -87,13 +87,13 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::post('/deleteAddress',  [GeneralFormController::class, 'deleteAddress']);
         Route::get('/getAddFields', [GeneralFormController::class, 'getAddedFields']);
         Route::get('/getAllAddresses/{id}', [GeneralFormController::class, 'getAllAddresses']);
-        Route::post('/getHome',  [HomeController::class, 'getHome']);
-
+        
         //Exchange amount
         Route::post('/setExchange',  [ExchangeController::class, 'setExchange']);
 
         //Recent Search 
         Route::get('/getRecentSearch',  [InterfaceController::class, 'getRecentSearch']);
-
+        
     });
 });
+Route::post('/getHome',  [HomeController::class, 'getHome']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdminHomeResource;
 use App\Models\Employe;
 use Illuminate\Http\Request;
 use App\Models\Home;
@@ -415,8 +416,6 @@ class HomeController extends Controller
                 array_push($searchAllProperty, $en[11]->fields[1]->value);
             }
 
-
-
             array_push($searchAllProperty, $home->home_id);
             $home->searchAllProperty = $searchAllProperty;
             $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
@@ -429,10 +428,12 @@ class HomeController extends Controller
             $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
             
             $home->keywords = json_decode($home->keywords);
-            }
         }
+    }
+        return AdminHomeResource::collection($allHome);
+     
 
-        return response()->json($allHome);
+        // return response()->json($allHome);
     }
 
     public function multyPhoto($id, Request $request){
