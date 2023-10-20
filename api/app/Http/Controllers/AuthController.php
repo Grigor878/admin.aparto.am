@@ -78,7 +78,7 @@ class AuthController extends Controller
        }
        $mailUser = $data['email'];
        $passwordUser = $data['password'];
-       $employe = Employe::where('email', $mailUser)->first();
+       $employe = Employe::where('email', $mailUser)->where('status', '!=', Employe::STATUS_DEACTIVATE)->first();
        if($employe) {
            if (Hash::check($passwordUser, $employe['password'])) {
                if (!$token = auth()->attempt($validate->validated())) {

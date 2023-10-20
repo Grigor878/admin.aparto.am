@@ -58,9 +58,13 @@ class AdminHomeResource extends JsonResource
             'height' => $this->am[3]->fields[1]->value,
             'otherFacility' => $otherFaciliti,
             'agent' => $this->am[11]->fields[0]->value,
+            'statement' => $this->am[4]->fields[1]->value,
             'selectedTransactionType' => $this->selectedTransactionType,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'searchAllProperty' => $this->searchAllProperty,
+            'owner' => $this->am[9]->fields[0]->value,
+            'ownerTel' => $this->am[9]->fields[1]->value,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
         ];
     }
 }

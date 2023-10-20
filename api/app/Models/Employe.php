@@ -101,4 +101,7 @@ class Employe extends Authenticatable implements JWTSubject
         return ['am' => $am, 'ru' => $ru, 'en' => $en];
     }
 
+    const 
+        STATUS_DEACTIVATE = 'deactivated';
+
 }
