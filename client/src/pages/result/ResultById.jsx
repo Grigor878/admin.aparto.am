@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
 import { API_BASE_URL } from '../../apis/config'
-import { balcony, buildType, buildingYear, checked, floor, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
+import { balcony, buildType, buildingYear, checked, floorIcon, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
 import { amdFormater, sqmToFt2, usdFormater } from '../../helpers/formatters'
@@ -190,7 +190,7 @@ const ResultById = () => {
                     currentPropertyData[4]?.fields[1]?.value &&
                     currentPropertyData[4]?.fields[1]?.value !== 0 &&
                     <div>
-                      {floor.icon}
+                      {floorIcon.icon}
                       <p>{t("floor")} {currentPropertyData[3]?.fields[8]?.value} / {currentPropertyData[4]?.fields[1]?.value}</p>
                     </div>}
 

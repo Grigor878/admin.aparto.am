@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { API_BASE_URL } from '../../../../apis/config';
 import noImg from "../../../../assets/imgs/noImg.png";
 import { amdFormater, cutCommunity, cutText, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
-import { buildType, room, square } from '../../../../admin/svgs/svgs';
+import { buildType, roomIcon, square } from '../../../../admin/svgs/svgs';
 import './CardById.scss'
 
 export const CardById = ({ selectedItem, closeCard }) => {
@@ -69,7 +69,7 @@ export const CardById = ({ selectedItem, closeCard }) => {
                 </div>
 
                 <div className="cardResult-main-bottom">
-                    <span>{room.icon} {selectedItem?.rooms} {t("room")}</span>
+                    <span>{roomIcon.icon} {selectedItem?.rooms} {t("room")}</span>
                     <span>{buildType.icon} {selectedItem?.buildingType}</span>
                     {size === 1
                         ? <span>{square.icon} {selectedItem?.surface} {t("square_symbol")}</span>

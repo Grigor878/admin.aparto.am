@@ -371,7 +371,7 @@ const structureSlice = createSlice({
       })
       .addCase(getPropertyData.fulfilled, (state, action) => {
         state.propertyLoading = false;
-        state.propertyData = action.payload;
+        state.propertyData = action.payload?.data;
       })
       // add property
       .addCase(addPropertyData.pending, (state) => {

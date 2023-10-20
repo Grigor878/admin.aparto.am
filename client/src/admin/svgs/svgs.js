@@ -245,7 +245,7 @@ export const location = {
   ),
 };
 
-export const room = {
+export const roomIcon = {
   icon: (
     <svg
       width="24"
@@ -265,7 +265,7 @@ export const room = {
   ),
 };
 
-export const bathrooms = {
+export const bathroomsIcon = {
   icon: (
     <svg
       width="24"
@@ -285,7 +285,7 @@ export const bathrooms = {
   ),
 };
 
-export const height = {
+export const heightIcon = {
   icon: (
     <svg
       width="24"
@@ -358,7 +358,7 @@ export const square = {
   ),
 };
 
-export const floor = {
+export const floorIcon = {
   icon: (
     <svg
       width="24"

@@ -49,7 +49,7 @@ export const seeAll = {
   ),
 };
 
-export const room = {
+export const roomIcon = {
   icon: (
     <svg
       width="20"

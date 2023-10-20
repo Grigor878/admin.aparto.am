@@ -6,7 +6,7 @@ import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 import { useMediaQuery } from 'react-responsive';
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
-import { room, buildType, square } from "../../assets/svgs/svgs";
+import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
 import { amdFormater, cutCommunity, cutCommunityRu, cutText, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 
@@ -81,7 +81,7 @@ export const PropCard = ({ data }) => {
                     </div>
 
                     <div className="propCard__card-main-bottom">
-                      <span>{room.icon} {rooms} {t("room")}</span>
+                      <span>{roomIcon.icon} {rooms} {t("room")}</span>
                       <span>{buildType.icon} {buildingType}</span>
                       {size === 1
                         ? <span>{square.icon} {surface} {t("square_symbol")}</span>
@@ -142,7 +142,7 @@ export const PropCard = ({ data }) => {
                   </div>
 
                   <div className="propCardResult__card-main-bottom">
-                    <span>{room.icon} {rooms} {t("room")}</span>
+                    <span>{roomIcon.icon} {rooms} {t("room")}</span>
                     <span>{buildType.icon} {buildingType}</span>
                     {size === 1
                       ? <span>{square.icon} {surface} {t("square_symbol")}</span>
