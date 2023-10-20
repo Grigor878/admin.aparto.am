@@ -45,6 +45,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::group(['middleware' => 'authcheck'], function ($router) {
 
         //Home Controller
+        Route::post('/getHome',  [HomeController::class, 'getHome']);
         Route::get('/getProperties/{id}',  [HomeController::class, 'getProperties']);
         Route::get('/updateHomeDate/{id}',  [HomeController::class, 'updateHomeDate']);
         Route::post('/addInactiveHome/{id}',  [HomeController::class, 'addInactiveHome']);
@@ -96,4 +97,3 @@ Route::group(['middleware' => 'api'], function ($router) {
         
     });
 });
-Route::post('/getHome',  [HomeController::class, 'getHome']);
