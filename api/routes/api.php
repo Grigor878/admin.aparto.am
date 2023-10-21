@@ -42,7 +42,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
 
     
-    Route::group(['middleware' => 'authcheck'], function ($router) {
+    Route::middleware(['authcheck', 'checkactivated'])->group(function ($router) {
 
         //Home Controller
         Route::post('/getHome',  [HomeController::class, 'getHome']);
