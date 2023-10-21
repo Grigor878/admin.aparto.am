@@ -1117,4 +1117,22 @@ class HomeService
     return ['am' => $normalArrayAm, 'ru' => $normalArrayRu, 'en' => $normalArrayEn,  'editStatus' => $editHomeStatus, 'priceHistory' => $priceHistory];
   }
 
+  public function getEditHome($id)
+  {
+    $home = Home::query()->findOrFail($id)
+      ->select('id', 'home_id', 'am', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+      ->first();
+    $am = json_decode($home->am);
+    $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
+    $home->photo = json_decode($home->photo);
+    $home->file = json_decode($home->file);
+    $home->am = $am;
+    $home->createdAt = Carbon::parse($home->created_at)->format('d/m/Y');
+    $home->updatedAt = Carbon::parse($home->updated_at)->format('d/m/Y');
+    
+    $home->keywords = json_decode($home->keywords);
+    
+   return $home;
+  }
+
 }

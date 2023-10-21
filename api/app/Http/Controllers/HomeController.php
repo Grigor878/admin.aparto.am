@@ -557,7 +557,12 @@ class HomeController extends Controller
         ], 404);
     }
 
-    
+    public function getEditHome($id)
+    {
+        $home = $this->homeService->getEditHome($id);
+
+        return response()->json($home);
+    }
 
     
 }

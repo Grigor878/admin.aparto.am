@@ -59,6 +59,7 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::post('/documentUpload/{id}',  [HomeController::class, 'documentUpload']);
 
         //Home Edit
+        Route::get('/editHome/{id}',  [HomeController::class, 'getEditHome']);
         Route::post('/editMultyPhoto/{id}',  [HomeController::class, 'editMultyPhoto']);
         Route::post('/addEditReservPhoto/{id}',  [HomeController::class, 'addEditReservPhoto']);
         Route::post('/editHome/{id}',  [HomeController::class, 'editHome']);
