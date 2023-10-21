@@ -1119,9 +1119,8 @@ class HomeService
 
   public function getEditHome($id)
   {
-    $home = Home::query()->findOrFail($id)
-      ->select('id', 'home_id', 'am', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
-      ->first();
+    $home = Home::select('id', 'home_id', 'am', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+      ->findOrFail($id);
     $am = json_decode($home->am);
     $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
     $home->photo = json_decode($home->photo);
