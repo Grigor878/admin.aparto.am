@@ -11,6 +11,7 @@ const initialState = {
   propertyLoading: false,
   propertyData: null,
   filteredData: null,
+  editSingleData: null, // single property data for editing
   postAddLoading: false,
   uploadPhoto: {},
   uploadPhotoReserve: {},
@@ -51,6 +52,22 @@ export const getPropertyData = createAsyncThunk(
   }
 );
 
+//  single property data for editing
+export const editSinglePropertyData = createAsyncThunk(
+  "property/editSinglePropertyData",
+  async (id) => {
+    try {
+      const { data } = await baseApi.get(
+        `/api/editHome/${id}`,
+        getAxiosConfig()
+      );
+      return data;
+    } catch (err) {
+      console.log(`Get Single Property Data For Editing Error: ${err.message}`);
+    }
+  }
+);
+
 // post added data
 export const addPropertyData = createAsyncThunk(
   "property/addPropertyData",
@@ -79,7 +96,11 @@ export const addPropertyImgs = createAsyncThunk(
       let uploadPhoto = state.property.uploadPhoto;
       let uploadPhotoReserve = state.property.uploadPhotoReserve;
 
-      await baseApi.post(`/api/multyPhoto/${id}`, uploadPhoto,getAxiosConfig());
+      await baseApi.post(
+        `/api/multyPhoto/${id}`,
+        uploadPhoto,
+        getAxiosConfig()
+      );
 
       if (!uploadPhotoReserve.entries().next().done) {
         await baseApi.post(
@@ -373,6 +394,15 @@ const structureSlice = createSlice({
         state.propertyLoading = false;
         state.propertyData = action.payload?.data;
       })
+
+      // .addCase(editSinglePropertyData.pending, (state) => {
+      //   state.propertyLoading = false;
+      // })
+      .addCase(editSinglePropertyData.fulfilled, (state, action) => {
+        // state.propertyLoading = false;
+        state.editSingleData = action.payload;
+      })
+
       // add property
       .addCase(addPropertyData.pending, (state) => {
         state.postAddLoading = true;

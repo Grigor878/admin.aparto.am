@@ -13,7 +13,6 @@ import { updateHome } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    console.log(data);
     const dispatch = useDispatch()
 
     const copyToClipboard = async (id) => {

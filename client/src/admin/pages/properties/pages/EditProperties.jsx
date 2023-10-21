@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { editPropertyData, getPropertyData } from '../../../../store/slices/propertySlice'
+import { editPropertyData, editSinglePropertyData } from '../../../../store/slices/propertySlice'
 import { Loader } from '../../../../components/loader/Loader'
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../components/card/Card'
@@ -31,19 +31,17 @@ const EditProperties = () => {
 
     const dispatch = useDispatch()
 
-    const { filteredProperty, propertyData } = useSelector((state) => state.property)
+    const { editSingleData } = useSelector((state) => state.property)
 
     useEffect(() => {
-        dispatch(getPropertyData({ filteredProperty }))
-    }, [dispatch, filteredProperty])
+        dispatch(editSinglePropertyData(id))
+    }, [dispatch, id])
+    console.log(editSingleData);
 
-
-    const currentProperty = propertyData?.find(item => item.id === propertyId)
-
-    const currentPropertyData = currentProperty?.am
-    const currentPropertyKeywords = currentProperty?.keywords
-    const currentPropertyFiles = currentProperty?.file
-    const currentPropertyImgs = currentProperty?.photo
+    const currentPropertyData = editSingleData?.am
+    const currentPropertyKeywords = editSingleData?.keywords
+    const currentPropertyFiles = editSingleData?.file
+    const currentPropertyImgs = editSingleData?.photo
 
     const center = currentPropertyData?.slice(0, 9)
     const right = currentPropertyData?.slice(9, 12)
