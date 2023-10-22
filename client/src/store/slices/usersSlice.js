@@ -5,6 +5,8 @@ import { getAxiosConfig } from "../../apis/config";
 const initialState = {
   loading: false,
   users: [],
+  //
+  page: 1,
 };
 
 export const getUsers = createAsyncThunk("users", async () => {
@@ -21,7 +23,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearUsers: (state) => {
-      state.users = []
+      state.users = [];
+    },
+    // set page
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -36,5 +42,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearUsers } = userSlice.actions;
+export const { clearUsers, setPage } = userSlice.actions;
 export default userSlice.reducer;

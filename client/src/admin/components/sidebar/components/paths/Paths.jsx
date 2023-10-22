@@ -1,11 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { adminDashboardRoutes, dashboardRoutes } from './data'
+import { setPage } from '../../../../../store/slices/usersSlice'
 import "./Paths.scss"
 
 const Paths = () => {
     const { role } = useSelector((state => state.userGlobal.userGlobal))
+    const dispatch = useDispatch()
 
     return (
         <ul className='sidebar__list'>
@@ -16,6 +18,7 @@ const Paths = () => {
                             <NavLink
                                 className="sidebar__list-navlink"
                                 to={el.path}
+                                onClick={() => el.path === "properties" ? dispatch(setPage(1)) : null}
                             >
                                 {el.img.icon}
                                 {el.name}
@@ -29,6 +32,7 @@ const Paths = () => {
                             <NavLink
                                 className="sidebar__list-navlink"
                                 to={el.path}
+                                onClick={() => el.path === "properties" ? dispatch(setPage(1)) : null}
                             >
                                 {el.img.icon}
                                 {el.name}

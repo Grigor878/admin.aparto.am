@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPropertyData, setFilteredData } from '../../../../../store/slices/propertySlice'
+import { setPage } from '../../../../../store/slices/usersSlice'
 import { Search } from '../../../../components/inputs/Search'
 import { AdvancedBtn } from '../inputs/AdvancedBtn'
 import { Drowpdown } from '../../../../components/dropdowns/Drowpdown'
@@ -42,6 +43,7 @@ export const SearchBox = () => {
 
     const submitSearch = (e) => {
         e.preventDefault()
+        dispatch(setPage(1))
         setSearch('')
         dispatch(getPropertyData({ properties }))
     }
@@ -54,7 +56,7 @@ export const SearchBox = () => {
                 <Search
                     value={search}
                     placeholder='Փնտրել ըստ ID, Անուն, Փողոց, Հեռ․, Սեփականատեր կամ Գործակալ'
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => { setSearch(e.target.value); dispatch(setPage(1)) }}
                 />
                 <AdvancedBtn
                     status={active}

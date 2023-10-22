@@ -464,6 +464,6 @@ export const {
   setUploadFile,
   setYandex,
   setKeyword,
-  setFilteredData,
+  setFilteredData
 } = structureSlice.actions;
 export default structureSlice.reducer;
