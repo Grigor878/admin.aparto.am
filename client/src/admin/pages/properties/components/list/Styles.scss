@@ -232,3 +232,42 @@
     }
   }
 }
+
+.pagination {
+  @include flex;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+
+  li{
+    cursor: pointer !important;
+  }
+
+  &__button {
+    @include flex;
+    color: $text;
+    background: transparent;
+    font-family: "Archivo";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    padding: 5px 8px;
+    border-radius: 100%;
+  }
+
+  &__buttonActive {
+    @include flex;
+    background: $text;
+    color: $bgSub;
+    font-family: "Archivo";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    padding: 5px 8px;
+    border-radius: 100%;
+  }
+
+  &__linkDisabled{
+    display: none;
+  }
+}
