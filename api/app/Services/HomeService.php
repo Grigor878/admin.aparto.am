@@ -135,6 +135,12 @@ class HomeService
         'am' => 'Վահագնի թաղամաս',
         'en' => 'Vahagni',
         'ru' => 'Ваагни',
+        'id' => 14
+      ],
+      'other15' => [
+        'am' => 'Այլ',
+        'en' => 'Other',
+        'ru' => 'Другой',
         'id' => 15
       ],
       'other' => [

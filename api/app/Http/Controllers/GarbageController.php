@@ -400,6 +400,37 @@ class GarbageController extends Controller
   }
   }
 
+  public function seeCommunity()
+  {
+    $homes = Home::all();
+    foreach ($homes as $key => $home) {
+
+      $am = json_decode($home->am);
+      $ru = json_decode($home->ru);
+      $en = json_decode($home->en);
+      if($am[1]->fields[0]->communityId === 15){
+        $am[1]->fields[0]->communityId = 14; 
+        $ru[1]->fields[0]->communityId = 14; 
+        $en[1]->fields[0]->communityId = 14;
+        dump($am[1]->fields[0]);
+      }
+
+      $home->am = json_encode($am);
+      $home->ru = json_encode($ru);
+      $home->en = json_encode($en);
+
+      $home->save();
+     
+    
+      
+    }
+    Community::create([
+      'am' => 'Այլ',
+      'en' => 'Other',
+      'ru' => 'Другой',
+    ]);
+  }
+
   public function addNow()
   {
 
