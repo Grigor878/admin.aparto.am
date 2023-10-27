@@ -16,7 +16,7 @@ use App\Http\Controllers\GarbageController;
 
 
 
-Route::get('/', [GarbageController::class, 'seeCommunity']);
+// Route::get('/', [GarbageController::class, 'seeCommunity']);
 // Route::get('/addCommunity', [GarbageController::class, 'addCommunity']);
 // Route::get('/seePriceNegotiable', [GarbageController::class, 'seePriceNegotiable']);
 

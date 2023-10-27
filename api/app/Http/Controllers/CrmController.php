@@ -14,4 +14,16 @@ class CrmController extends Controller
     {
         $this->crmService = $crmService;
     }
+
+    public function addCrmUser(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function getHomesForCrm()
+    {
+        $homes = $this->crmService->getHomesForCrm();
+
+        return response()->json($homes);
+    }
 }

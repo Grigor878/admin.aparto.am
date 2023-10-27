@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CrmController;
 use App\Http\Controllers\InterfaceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +96,10 @@ Route::group(['middleware' => 'api'], function ($router) {
 
         //Recent Search 
         Route::get('/getRecentSearch',  [InterfaceController::class, 'getRecentSearch']);
+
+        //CRM Controller
+        Route::post('/addCrmUser',  [CrmController::class, 'addCrmUser']);
+        Route::get('/getHomesForCrm',  [CrmController::class, 'getHomesForCrm']);
         
     });
 });
