@@ -251,8 +251,9 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 18px;
-    padding: 5px 8px;
-    border-radius: 100%;
+    padding: 5.5px 9px;
+    // border-radius: 100%;
+    border-radius: 6px
   }
 
   &__buttonActive {
@@ -263,8 +264,8 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 18px;
-    padding: 5px 8px;
-    border-radius: 100%;
+    padding: 5.5px 9px;
+    border-radius: 6px
   }
 
   &__linkDisabled{

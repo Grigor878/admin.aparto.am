@@ -6,11 +6,11 @@ import LayoutDash from "../admin/components/layout/LayoutDash"
 import { useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
 
-const Home = lazy(() => pMinDelay(import('../pages/home/Home'), 1500))
-const Result = lazy(() => pMinDelay(import('../pages/result/Result'), 500))
+const Home = lazy(() => pMinDelay(import('../pages/home/Home'), 1000))
+const Result = lazy(() => import('../pages/result/Result'))
 const ResultById = lazy(() => pMinDelay(import('../pages/result/ResultById'), 500))
 
-const NotFound = lazy(() =>import('../pages/404/NotFound'))
+const NotFound = lazy(() => import('../pages/404/NotFound'))
 
 const Login = lazy(() => pMinDelay(import('../admin/pages/login/Login'), 500))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
@@ -24,6 +24,8 @@ const AddUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/AddUser
 const EditUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/EditUsers'), 500))
 const Configs = lazy(() => pMinDelay(import('../admin/pages/configs/Configs'), 500))
 const Crm = lazy(() => pMinDelay(import('../admin/pages/crm/Crm'), 500))
+const AddClient = lazy(() => pMinDelay(import('../admin/pages/crm/pages/AddClient'), 500))
+const EditClient = lazy(() => pMinDelay(import('../admin/pages/crm/pages/EditClient'), 500))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
@@ -62,6 +64,8 @@ const View = () => {
                                 <Route path="form-structure" element={<Structure />} />
                                 <Route path="web-configs" element={<Configs />} />
                                 <Route path="crm" element={<Crm />} />
+                                <Route path="crm/add" element={<AddClient />} />
+                                <Route path="crm/edit/:id" element={<EditClient />} />
                             </>
                             : null}
                         <Route path="*" element={<NotFound />} />

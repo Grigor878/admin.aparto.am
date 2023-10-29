@@ -5,11 +5,12 @@ import userGlobalSlice from "./slices/userGlobalSlice";
 import structureSlice from "./slices/structureSlice";
 import usersSlice from "./slices/usersSlice";
 import configsSlice from "./slices/configsSlice";
+import crmSlice from "./slices/crmSlice";
 import homeSlice from "./slices/homeSlice";
+import viewSlice from "./slices/viewSlice";
 import storageSession from "redux-persist/lib/storage/session";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
-import viewSlice from "./slices/viewSlice";
 
 const persistConfig = {
   key: "aparto",
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   structure: structureSlice,
   users: usersSlice,
   configs: configsSlice,
+  crm: crmSlice,
   // websie
   home: homeSlice,
   view: viewSlice,

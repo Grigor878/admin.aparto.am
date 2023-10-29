@@ -1,5 +1,21 @@
-@import '../../../variables';
+@import "../../../variables";
 
-.crm{
-    
+.crm {
+  @include flexCol;
+  gap: 21px;
+  padding: 24px 20px 49px;
+
+  &__top {
+    @include flexCol;
+    gap: 41px;
+
+    &-sticky {
+      @include flex;
+      justify-content: space-between;
+
+      input {
+        width: 682px;
+      }
+    }
+  }
 }

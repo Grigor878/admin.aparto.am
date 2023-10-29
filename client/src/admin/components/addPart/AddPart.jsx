@@ -18,14 +18,14 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
         <button onClick={() => navigate(-1)}>
           {back.icon}
           {/* <span>Back to All {capitalize(newPath)}</span> */}
-          <span>Վերադառնալ {newPath === "users" ? "Օգտատերեր" : "Գույք"}</span>
+          <span>Վերադառնալ {newPath === "users" ? "Օգտատերեր" : newPath === "crm" ? "CRM" : "Գույք"}</span>
         </button>
 
-        {type === "addUsers" || type === "addProperties"
+        {type === "addUsers" || type === "addProperties" || type === "addNewClient"
           // ? <h3>Add a New {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
           // : <h3>Edit {newPath === "users" ? capitalize(newPath).slice(0, -1) : capitalize(newPath).slice(0, -3) + "y"}
-          ? <h3>Ավելացնել {newPath === "users" ? "Օգտատերեր" : "Գույք"}</h3>
-          : <h3>Փոփոխել {newPath === "users" ? "Օգտատիրոջը" : "Գույքը"}</h3>}
+          ? <h3>Ավելացնել {newPath === "users" ? "Օգտատերեր" : newPath === "crm" ? "Նոր Հաճախորդ" : "Գույք"}</h3>
+          : <h3>Փոփոխել {newPath === "users" ? "Օգտատիրոջը" : newPath === "crm" ? "Հաճախորդին" : "Գույքը"}</h3>}
       </div>
 
       {/* Add/Edit Users */}
@@ -76,6 +76,28 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
           <BtnDiscard text="Չեղարկել" />
           <BtnCustom
             form="editPropertiesForm"
+            text="Պահպանել"
+          />
+        </div>
+        : null
+      }
+
+      {/* CRM Add/Edit client */}
+      {type === "addNewClient"
+        ? <div className='addpart__btns'>
+          <BtnDiscard text="Չեղարկել" />
+          <BtnCustom
+            form="addNewClientForm"
+            text="Ավելացնել"
+          />
+        </div>
+        : null
+      }
+      {type === "editClient"
+        ? <div className='addpart__btns'>
+          <BtnDiscard text="Չեղարկել" />
+          <BtnCustom
+            form="editClientForm"
             text="Պահպանել"
           />
         </div>

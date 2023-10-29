@@ -1,0 +1,22 @@
+@import "../../../../variables";
+
+.addNewClient {
+  &__main {
+    @include flex;
+    gap: 21px;
+    // justify-content: space-between;
+    align-items: flex-start;
+    padding: 28px 20px;
+  }
+
+  &__center,
+  &__right {
+    @include flexCol;
+    gap: 16px;
+  }
+
+  textarea {
+    width: 628px;
+    height: 155px;
+  }
+}
