@@ -15,9 +15,8 @@ import { addCrmUser, getHomes } from '../../../../store/slices/crmSlice';
 import { ownerAdd, remove } from '../../../svgs/svgs';
 import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
-import './styles.scss'
 import { Loader } from '../../../../components/loader/Loader';
-import { error } from '../../../../components/swal/swal';
+import './styles.scss'
 
 const AddClient = () => {
     const dispatch = useDispatch()
@@ -106,7 +105,7 @@ const AddClient = () => {
 
         dispatch(addCrmUser(formData));
     }
-
+    console.log(status);
     return (
         <article className="addNewClient">
             <AddPart type="addNewClient" />
@@ -185,7 +184,6 @@ const AddClient = () => {
                                 />
 
                                 <TextLarg
-                                    // value={arm}
                                     title="Մեկնաբանություն"
                                     placeholder="Նշեք մեկնաբանություն"
                                     required={false}
@@ -213,7 +211,6 @@ const AddClient = () => {
                                     files={files}
                                     handleUploadFile={handleUploadFile}
                                     removeFile={removeFile}
-                                // uploadFormData={uploadFormData}
                                 />
                             </>
                         }

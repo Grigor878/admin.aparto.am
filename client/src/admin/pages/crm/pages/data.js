@@ -1,5 +1,10 @@
 export const statuses = [
   {
+    id: 0,
+    name: "Ընտրեք կարգավիճակը",
+    value: "",
+  },
+  {
     id: 1,
     name: "Նոր հաճախորդ",
     value: "new-client",
