@@ -16,12 +16,13 @@ import { ownerAdd } from '../../../svgs/svgs';
 import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
 import './styles.scss'
+import { Loader } from '../../../../components/loader/Loader';
 
 const AddClient = () => {
     const dispatch = useDispatch()
 
-    const { crmHomes } = useSelector((state) => state.crm)
-    console.log(crmHomes)//
+    const { loading, crmHomes } = useSelector((state) => state.crm)
+
     useEffect(() => {
         dispatch(getHomes())
     }, [dispatch])
@@ -40,7 +41,7 @@ const AddClient = () => {
     const [specialist, setSpecialist] = useState("")
     const [status, setStatus] = useState("")
 
-    const [search, setSearch] = useState("")
+    const [homeSearch, setHomeSearch] = useState("")
 
     const handleUploadFile = (e) => {
         const filesArray = Array.from(e.target.files);
@@ -56,44 +57,47 @@ const AddClient = () => {
         setFiles((prev) => prev.filter((uploadedFile) => uploadedFile !== file));
     };
 
-    const uploadFormData = () => {
-        const formData = new FormData();
-        files.forEach((file, index) => {
-            formData.append(`file${index}`, file);
-        });
-    };
+    console.log(files)//
+
+    const filteredHomes = crmHomes?.filter((el) =>
+        JSON.stringify(el)
+            .toLowerCase()
+            .includes(homeSearch.toLowerCase())
+    );
+
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     const data = {
+    //         name, phone, email, source, deal, propertyType, room, budget, comment, contractNumber, specialist, status
+    //     }
+
+    //     console.log(data);//
+    //     dispatch(addCrmUser(data))
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('email', email);
+        formData.append('source', source);
+        formData.append('deal', JSON.stringify(deal));
+        formData.append('propertyType', JSON.stringify(propertyType));
+        formData.append('room', room);
+        formData.append('budget', budget);
+        formData.append('comment', comment);
+        formData.append('contractNumber', contractNumber);
+        formData.append('specialist', specialist);
+        formData.append('status', status);
 
-        const data = {
-            name, phone, email, source, deal, propertyType, room, budget, comment, files, contractNumber, specialist, status
-        }
+        files.forEach((file, index) => {
+            formData.append(`file-${index + 1}`, file);
+        });
 
-        // const formData = new FormData();
-        // files.forEach((file, index) => {
-        //     formData.append(`file${index}`, file);
-        // })
-
-        // const data = {
-        //     name,
-        //     phone,
-        //     email,
-        //     source,
-        //     deal,
-        //     propertyType,
-        //     room,
-        //     budget,
-        //     comment,
-        //     contractNumber,
-        //     specialist,
-        //     status,
-        //     formData
-        // };
-
-        console.log(data);//
-
-        dispatch(addCrmUser(data))
+        dispatch(addCrmUser(formData));
     }
 
     return (
@@ -202,7 +206,7 @@ const AddClient = () => {
                                     files={files}
                                     handleUploadFile={handleUploadFile}
                                     removeFile={removeFile}
-                                    uploadFormData={uploadFormData}
+                                // uploadFormData={uploadFormData}
                                 />
                             </>
                         }
@@ -231,35 +235,65 @@ const AddClient = () => {
                 </div>
             </form>
 
-            <div className='addNewClient__homelist'>
-                <h4>Գույքերի Ցուցակ</h4>
-
-                <Search
-                    value={search}
-                    placeholder="Search by ID, Property Name, Phone, Owner or Agent"
-                    onChange={(e) => setSearch(e.target.value.toLowerCase())}
-                />
-
-                <ul className='addNewClient__homelist-homes'>
-                    {crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
-                        return (
-                            <li>
-                                <div key={id}>
-                                    <p># {home_id}</p>
-                                    <p>{cutText(street,15)}</p>
-                                    {/* <p>{street}</p> */}
-                                    <p>{community}</p>
-                                    <p>{surface} ք․մ</p>
-                                    <span>{status === "approved" ? "Active" : "null"}</span>
-                                </div>
-                                <button>{ownerAdd.icon}</button>
-                            </li>
-                        )
-                    })}
-                </ul>
+            <div className='addNewClient__displaylist'>
+                <h4>Ցուցադրված գույքեր</h4>
             </div>
+
+            {loading
+                ? <Loader />
+                : <div className='addNewClient__homelist'>
+                    <h4>Գույքերի Ցուցակ</h4>
+
+                    <Search
+                        value={homeSearch}
+                        placeholder="Search by ID, Property Name, Phone, Owner or Agent"
+                        onChange={(e) => setHomeSearch(e.target.value.toLowerCase())}
+                    />
+
+                    <ul className='addNewClient__homelist-homes'>
+                        {homeSearch ?
+                            filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
+                                return (
+                                    <li>
+                                        <div key={id}>
+                                            <p># {home_id}</p>
+                                            <p>{cutText(street, 15)}</p>
+                                            {/* <p>{street}</p> */}
+                                            <p>{community}</p>
+                                            <p>{surface} ք․մ</p>
+                                            <span>{status === "approved" ? "Active" : "null"}</span>
+                                        </div>
+                                        <button>{ownerAdd.icon}</button>
+                                    </li>
+                                )
+                            })
+                            : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                                return (
+                                    <li>
+                                        <div key={id}>
+                                            <p># {home_id}</p>
+                                            <p>{cutText(street, 15)}</p>
+                                            {/* <p>{street}</p> */}
+                                            <p>{community}</p>
+                                            <p>{surface} ք․մ</p>
+                                            <span>{status === "approved" ? "Active" : "null"}</span>
+                                        </div>
+                                        <button>{ownerAdd.icon}</button>
+                                    </li>
+                                )
+                            })}
+                    </ul>
+                </div>}
         </article>
     )
 }
 
 export default AddClient
+
+
+// const uploadFormData = () => {
+//     const formData = new FormData();
+//     files.forEach((file, index) => {
+//         formData.append(`file${index}`, file);
+//     });
+// };    

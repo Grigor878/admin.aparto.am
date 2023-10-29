@@ -4,10 +4,10 @@ import { remove, file } from '../../../svgs/svgs';
 // import './Styles.scss'
 
 export const UploadFile = ({ files, handleUploadFile, removeFile, uploadFormData }) => {
-    useEffect(() => {
-        uploadFormData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [files])
+    // useEffect(() => {
+    //     uploadFormData()
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [files])
 
     return (
         <div className='fileUpload'>
