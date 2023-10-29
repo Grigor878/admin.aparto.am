@@ -12,11 +12,12 @@ import { SingleSelect } from '../components/SingleSelect';
 import { UploadFile } from '../components/UploadFile';
 import { deals, proptypes, statuses } from './data';
 import { addCrmUser, getHomes } from '../../../../store/slices/crmSlice';
-import { ownerAdd } from '../../../svgs/svgs';
+import { ownerAdd, remove } from '../../../svgs/svgs';
 import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
 import './styles.scss'
 import { Loader } from '../../../../components/loader/Loader';
+import { error } from '../../../../components/swal/swal';
 
 const AddClient = () => {
     const dispatch = useDispatch()
@@ -43,6 +44,8 @@ const AddClient = () => {
 
     const [homeSearch, setHomeSearch] = useState("")
 
+    const [displayed, setDisplayed] = useState([])
+
     const handleUploadFile = (e) => {
         const filesArray = Array.from(e.target.files);
 
@@ -57,28 +60,25 @@ const AddClient = () => {
         setFiles((prev) => prev.filter((uploadedFile) => uploadedFile !== file));
     };
 
-    console.log(files)//
-
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
             .toLowerCase()
             .includes(homeSearch.toLowerCase())
     );
 
+    const addToDisplayed = (id) => {
+        const selectedHome = crmHomes.find(home => home.id === id);
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
+        setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, selectedHome]);
+    };
 
-    //     const data = {
-    //         name, phone, email, source, deal, propertyType, room, budget, comment, contractNumber, specialist, status
-    //     }
-
-    //     console.log(data);//
-    //     dispatch(addCrmUser(data))
-    // }
+    const removeFromDisplayed = (id) => {
+        setDisplayed(prevDisplayedHomes => prevDisplayedHomes.filter(home => home.id !== id));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         const formData = new FormData();
         formData.append('name', name);
         formData.append('phone', phone);
@@ -96,6 +96,13 @@ const AddClient = () => {
         files.forEach((file, index) => {
             formData.append(`file-${index + 1}`, file);
         });
+
+        const displayedHomes = displayed?.map(home => ({
+            id: home.id,
+            date: new Date().toLocaleDateString("en-US")
+        }));
+        console.log(displayedHomes);
+        formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
         dispatch(addCrmUser(formData));
     }
@@ -235,9 +242,30 @@ const AddClient = () => {
                 </div>
             </form>
 
-            <div className='addNewClient__displaylist'>
-                <h4>Ցուցադրված գույքեր</h4>
-            </div>
+            {displayed?.length
+                ? <div className='addNewClient__displaylist'>
+                    <h4>Ցուցադրված գույքեր</h4>
+
+                    <ul className='addNewClient__displaylist-homes'>
+                        {displayed?.map(({ id, home_id, street, community, surface, status }) => {
+                            return (
+                                <li>
+                                    <div key={id}>
+                                        <p># {home_id}</p>
+                                        <p>{cutText(street, 15)}</p>
+                                        <p>{community}</p>
+                                        <p>{surface} ք․մ</p>
+                                        <span>{status === "approved" ? "Active" : "null"}</span>
+                                    </div>
+                                    <button onClick={() => removeFromDisplayed(id)}>
+                                        {remove.icon}
+                                    </button>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+                : null}
 
             {loading
                 ? <Loader />
@@ -253,32 +281,42 @@ const AddClient = () => {
                     <ul className='addNewClient__homelist-homes'>
                         {homeSearch ?
                             filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
+                                const isAdded = displayed.some(home => home.id === id);
+
                                 return (
                                     <li>
                                         <div key={id}>
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
-                                            {/* <p>{street}</p> */}
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <span>{status === "approved" ? "Active" : "null"}</span>
                                         </div>
-                                        <button>{ownerAdd.icon}</button>
+                                        {!isAdded && (
+                                            <button onClick={() => addToDisplayed(id)}>
+                                                {ownerAdd.icon}
+                                            </button>
+                                        )}
                                     </li>
                                 )
                             })
                             : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                                const isAdded = displayed.some(home => home.id === id);
+
                                 return (
                                     <li>
                                         <div key={id}>
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
-                                            {/* <p>{street}</p> */}
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <span>{status === "approved" ? "Active" : "null"}</span>
                                         </div>
-                                        <button>{ownerAdd.icon}</button>
+                                        {!isAdded && (
+                                            <button onClick={() => addToDisplayed(id)}>
+                                                {ownerAdd.icon}
+                                            </button>
+                                        )}
                                     </li>
                                 )
                             })}
@@ -289,6 +327,18 @@ const AddClient = () => {
 }
 
 export default AddClient
+
+// const addToDisplayed = (id) => {
+//     const selectedHome = crmHomes.find(home => home.id === id);
+
+//     const exists = displayed.some(home => home.id === id);
+
+//     if (exists) {
+//         error('Տունն արդեն ավելացված է!');
+//     } else {
+//         setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, selectedHome]);
+//     }
+// };
 
 
 // const uploadFormData = () => {
