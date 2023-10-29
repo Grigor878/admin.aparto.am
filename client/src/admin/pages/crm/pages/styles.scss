@@ -6,7 +6,7 @@
     gap: 21px;
     // justify-content: space-between;
     align-items: flex-start;
-    padding: 28px 20px;
+    padding: 28px 20px 0;
   }
 
   &__center,
@@ -18,5 +18,64 @@
   textarea {
     width: 628px;
     height: 155px;
+  }
+
+  &__homelist {
+    @include flexCol;
+    gap: 10px;
+    padding: 66px 20px 0;
+
+    h4 {
+      color: $text;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16px;
+    }
+
+    &-homes {
+      @include flexCol;
+      gap: 10px;
+
+      li {
+        @include flex;
+        gap: 12px;
+
+        div {
+          // width: 646px;
+          @include flex;
+          gap: 48px;
+          padding: 14px 16px;
+          background: $bgSub;
+          border-radius: 10px;
+
+          p:nth-child(2) {
+            width: 150px;
+          }
+
+          p {
+            color: $text;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+          }
+
+          span {
+            border-radius: 2px;
+            background: $green;
+            color: $bgSub;
+            padding: 4px 8px;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+
+        button {
+          background: transparent;
+        }
+      }
+    }
   }
 }

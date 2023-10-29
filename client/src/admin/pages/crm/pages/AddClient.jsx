@@ -1,6 +1,6 @@
 /* eslint-disable react/style-prop-object */
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import AddPart from '../../../components/addPart/AddPart'
 import { Card } from '../../properties/components/card/Card';
 import { InputText } from '../../properties/components/inputs/InputText';
@@ -11,11 +11,20 @@ import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelec
 import { SingleSelect } from '../components/SingleSelect';
 import { UploadFile } from '../components/UploadFile';
 import { deals, proptypes, statuses } from './data';
+import { addCrmUser, getHomes } from '../../../../store/slices/crmSlice';
+import { ownerAdd } from '../../../svgs/svgs';
+import { Search } from '../../../components/inputs/Search';
+import { cutText } from '../../../../helpers/formatters';
 import './styles.scss'
-import { addCrmUser } from '../../../../store/slices/crmSlice';
 
 const AddClient = () => {
     const dispatch = useDispatch()
+
+    const { crmHomes } = useSelector((state) => state.crm)
+    console.log(crmHomes)//
+    useEffect(() => {
+        dispatch(getHomes())
+    }, [dispatch])
 
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
@@ -30,6 +39,8 @@ const AddClient = () => {
     const [files, setFiles] = useState([])
     const [specialist, setSpecialist] = useState("")
     const [status, setStatus] = useState("")
+
+    const [search, setSearch] = useState("")
 
     const handleUploadFile = (e) => {
         const filesArray = Array.from(e.target.files);
@@ -55,36 +66,34 @@ const AddClient = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // const data = {
-        //     name, phone, email, source, deal, propertyType, room, budget, comment, files, contractNumber, specialist, status
-        // }
-
-        const formData = new FormData();
-        files.forEach((file, index) => {
-            formData.append(`file${index}`, file);
-        })
-
         const data = {
-            name,
-            phone,
-            email,
-            source,
-            deal,
-            propertyType,
-            room,
-            budget,
-            comment,
-            contractNumber,
-            specialist,
-            status,
-            formData
-        };
+            name, phone, email, source, deal, propertyType, room, budget, comment, files, contractNumber, specialist, status
+        }
+
+        // const formData = new FormData();
+        // files.forEach((file, index) => {
+        //     formData.append(`file${index}`, file);
+        // })
+
+        // const data = {
+        //     name,
+        //     phone,
+        //     email,
+        //     source,
+        //     deal,
+        //     propertyType,
+        //     room,
+        //     budget,
+        //     comment,
+        //     contractNumber,
+        //     specialist,
+        //     status,
+        //     formData
+        // };
 
         console.log(data);//
 
         dispatch(addCrmUser(data))
-
-
     }
 
     return (
@@ -221,6 +230,34 @@ const AddClient = () => {
                     />
                 </div>
             </form>
+
+            <div className='addNewClient__homelist'>
+                <h4>Գույքերի Ցուցակ</h4>
+
+                <Search
+                    value={search}
+                    placeholder="Search by ID, Property Name, Phone, Owner or Agent"
+                    onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                />
+
+                <ul className='addNewClient__homelist-homes'>
+                    {crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                        return (
+                            <li>
+                                <div key={id}>
+                                    <p># {home_id}</p>
+                                    <p>{cutText(street,15)}</p>
+                                    {/* <p>{street}</p> */}
+                                    <p>{community}</p>
+                                    <p>{surface} ք․մ</p>
+                                    <span>{status === "approved" ? "Active" : "null"}</span>
+                                </div>
+                                <button>{ownerAdd.icon}</button>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
         </article>
     )
 }

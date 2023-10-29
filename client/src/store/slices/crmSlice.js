@@ -2,10 +2,24 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 // import { success } from "../../components/swal/swal";
 import { getAxiosConfig } from "../../apis/config";
+import { success } from "../../components/swal/swal";
 
-const initialState = {};
+const initialState = {
+  loading: false,
+  crmHomes: [],
+  addLoading: false,
+};
 
-export const addCrmUser = createAsyncThunk("crm", async ( addedUser ) => {
+export const getHomes = createAsyncThunk("crm", async () => {
+  try {
+    const { data } = await baseApi.get("/api/getHomesForCrm", getAxiosConfig());
+    return data;
+  } catch (err) {
+    console.log(`Get crm homes Error: ${err.message}`);
+  }
+});
+
+export const addCrmUser = createAsyncThunk("crm/addUser", async (addedUser) => {
   try {
     const { data } = await baseApi.post(
       "/api/addCrmUser",
@@ -14,7 +28,7 @@ export const addCrmUser = createAsyncThunk("crm", async ( addedUser ) => {
     );
     return data;
   } catch (err) {
-    console.log(`: ${err.message}`);
+    console.log(`Crm add client Error: ${err.message}`);
   }
 });
 
@@ -24,12 +38,20 @@ const crmSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getHomes.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getHomes.fulfilled, (state, action) => {
+        state.loading = false;
+        state.crmHomes = action.payload;
+      })
+      //
       .addCase(addCrmUser.pending, (state) => {
-        state.loadingAddress = true;
+        state.addLoading = true;
       })
       .addCase(addCrmUser.fulfilled, (state, action) => {
-        state.loadingAddress = false;
-        state.address = action.payload;
+        state.addLoading = false;
+        success("User added successfully!")
       });
   },
 });
