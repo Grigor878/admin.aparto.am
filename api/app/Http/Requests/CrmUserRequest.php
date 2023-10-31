@@ -21,6 +21,8 @@ class CrmUserRequest extends FormRequest
             'propertyType' => 'required',
             'budget' => 'required|string',
             'room' => 'required|string',
+            'specialist' => 'required',
+            'status' => 'required',
         ];
     }
 }

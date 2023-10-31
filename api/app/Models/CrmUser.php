@@ -12,6 +12,7 @@ class CrmUser extends Model
     protected $fillable = [
         "employee_id",
         "name",
+        "contract_number",
         "email",
         "source",
         "phone",
@@ -24,6 +25,16 @@ class CrmUser extends Model
     ];
 
     protected $table = "crm_users";
+
+    public function homes()
+    {
+        return $this->hasMany(CrmUserHasHome::class, "user_id","id");
+    }
+
+    public function files()
+    {
+        return $this->hasMany(CrmUserHasHome::class);
+    }
 
 
         

@@ -4,6 +4,7 @@
 /public/storage
 /public/images
 /public/files
+/public/crmfiles
 /storage/*.key
 /vendor
 .env
