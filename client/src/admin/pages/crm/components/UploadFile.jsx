@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { API_BASE_URL } from '../../../../apis/config'
 import { remove, file } from '../../../svgs/svgs';
 // import './Styles.scss'
 
-export const UploadFile = ({ files, handleUploadFile, removeFile, uploadFormData }) => {
-    // useEffect(() => {
-    //     uploadFormData()
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [files])
-
+export const UploadFile = ({ files, handleUploadFile, removeFile }) => {
     return (
         <div className='fileUpload'>
             <label className='fileUpload__label'>
