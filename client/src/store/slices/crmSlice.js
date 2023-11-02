@@ -7,6 +7,8 @@ import { success } from "../../components/swal/swal";
 const initialState = {
   loading: false,
   crmHomes: [],
+  userLoading: false,
+  crmUsers: [],
   addLoading: false,
 };
 
@@ -19,6 +21,15 @@ export const getHomes = createAsyncThunk("crm", async () => {
   }
 });
 
+export const getCrmUsers = createAsyncThunk("crm/users", async () => {
+  try {
+    const { data } = await baseApi.get("/api/getCrmUsers", getAxiosConfig());
+    return data;
+  } catch (err) {
+    console.log(`Get crm users Error: ${err.message}`);
+  }
+});
+
 export const addCrmUser = createAsyncThunk("crm/addUser", async (addedUser) => {
   try {
     const { data } = await baseApi.post(
@@ -26,7 +37,12 @@ export const addCrmUser = createAsyncThunk("crm/addUser", async (addedUser) => {
       addedUser,
       getAxiosConfig()
     );
-    return data;
+    console.log(data);
+
+    if (data?.status === "success") {
+      success(data?.message);
+    }
+    // return data;
   } catch (err) {
     console.log(`Crm add client Error: ${err.message}`);
   }
@@ -45,13 +61,19 @@ const crmSlice = createSlice({
         state.loading = false;
         state.crmHomes = action.payload;
       })
+      .addCase(getCrmUsers.pending, (state) => {
+        state.userLoading = true;
+      })
+      .addCase(getCrmUsers.fulfilled, (state, action) => {
+        state.userLoading = false;
+        state.crmUsers = action.payload;
+      })
       //
       .addCase(addCrmUser.pending, (state) => {
         state.addLoading = true;
       })
       .addCase(addCrmUser.fulfilled, (state, action) => {
         state.addLoading = false;
-        success("User added successfully!")
       });
   },
 });

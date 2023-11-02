@@ -17,9 +17,12 @@ import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
 import { Loader } from '../../../../components/loader/Loader';
 import './styles.scss'
+import { error } from '../../../../components/swal/swal';
+import { useNavigate } from 'react-router-dom';
 
 const AddClient = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const { loading, crmHomes } = useSelector((state) => state.crm)
 
@@ -78,6 +81,14 @@ const AddClient = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (!deal?.length) {
+            return error("Նշեք գործարքի տեսակը!")
+        }
+
+        if (!propertyType?.length) {
+            return error("Նշեք գույքի տիպը!")
+        }
+
         const formData = new FormData();
         formData.append('name', name);
         formData.append('phone', phone);
@@ -103,9 +114,13 @@ const AddClient = () => {
         console.log(displayedHomes);
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
-        dispatch(addCrmUser(formData));
+        dispatch(addCrmUser(formData)).then(() => {
+            setTimeout(() => {
+                navigate(-1)
+            }, 1000)
+        });
     }
-    console.log(status);
+
     return (
         <article className="addNewClient">
             <AddPart type="addNewClient" />

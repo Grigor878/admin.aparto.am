@@ -1,7 +1,7 @@
 export const statuses = [
   {
     id: 0,
-    name: "Ընտրեք կարգավիճակը",
+    name: "Ընտրեք",
     value: "",
   },
   {
@@ -12,7 +12,7 @@ export const statuses = [
   {
     id: 2,
     name: "Պայմանագիր-ցուցադրություն",
-    value: "Contract-show",
+    value: "contract-show",
   },
   {
     id: 3,
