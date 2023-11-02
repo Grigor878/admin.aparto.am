@@ -15,14 +15,14 @@ class CrmService
 {
     public $keyToValue = [
         "new-client"=> "Նոր հաճախորդ",
-        "Contract-show"=> "Պայմանագիր-ցուցադրություն",
+        "contract-show"=> "Պայմանագիր-ցուցադրություն",
         "pay"=> "Նախավճար",
+        "apartment"=> "Բնակարան",
         "open"=> "Գործարքի բացում",
         "fail"=> "Ձախողում",
         "sucess"=> "Հաջողված գործարք",
         'privateHouse' => "Առանձնատուն",
         'commercial' => "Կոմերցիոն",
-        'house' => "Բնակարան",
         'sale' => "Վաճառք",
         'rent' => "Վարձակալություն",
         'private_house' => "Առանձնատուն",
@@ -115,7 +115,7 @@ class CrmService
 
     public function makeResoucre($users)
     {
-
+//avelacnel paymany agenti yev admini depqerum 
         $employee = Employe::all();
 
         $customResource = [];
@@ -142,7 +142,7 @@ class CrmService
             $status =  $this->keyToValue[$user->status];
             array_push($searchable, $user->name, $user->phone, $agent, $status);
 
-            $customResource = [
+            $customResource[] = [
                 'id' => $user->id,
                 'name' => $user->name,
                 'phone' => $user->phone,
