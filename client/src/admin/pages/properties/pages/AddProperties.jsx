@@ -108,8 +108,6 @@ const AddProperties = () => {
         })
     }
 
-    // console.log("add", addProperty)//
-
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)

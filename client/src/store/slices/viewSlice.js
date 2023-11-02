@@ -157,37 +157,3 @@ export const {
 
 export default viewSlice.reducer;
 
-// see all properties by type
-// export const getAllPropertiesByType = createAsyncThunk(
-//   "home/getAllPropertiesByType",
-//   async ({ language, type }) => {
-//     try {
-//       const { data } = await baseApi.post(`api/getSeeMoreHomes/${language}`, {
-//         type,
-//       });
-//       return data;
-//     } catch (err) {
-//       console.log(`Get All Properties Data Error: ${err.message}`);
-//     }
-//   }
-// );
-
-//
-// builder.addCase(getAllPropertiesByType.pending, (state) => {
-//   state.loading = true;
-// });
-// builder.addCase(getAllPropertiesByType.fulfilled, (state, action) => {
-//   sessionStorage.removeItem("siderSqMin");
-//   sessionStorage.removeItem("siderSqMax");
-//   sessionStorage.removeItem("siderPriceMin");
-//   sessionStorage.removeItem("siderBuildType");
-//   sessionStorage.removeItem("siderNewBuild");
-//   sessionStorage.removeItem("siderPropCondition");
-//   sessionStorage.removeItem("siderFloorMin");
-//   sessionStorage.removeItem("siderFloorMax");
-//   sessionStorage.removeItem("siderDesc");
-//   sessionStorage.removeItem("siderId");
-//   state.resultData = action.payload;
-//   state.loading = false;
-// });
-//

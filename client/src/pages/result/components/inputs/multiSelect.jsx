@@ -22,7 +22,6 @@ export const MultiSelect = ({ community, placeholder, onChange, selected }) => {
     const handleChange = (selectedOptions) => {
         const selectedValues = selectedOptions?.map(option => option.value);
         onChange(selectedValues);
-        console.log(selectedValues);
     };
 
     return (
