@@ -111,7 +111,7 @@ const AddClient = () => {
             id: home.id,
             date: new Date().toLocaleDateString("en-US")
         }));
-        console.log(displayedHomes);
+
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
         dispatch(addCrmUser(formData)).then(() => {

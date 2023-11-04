@@ -36,7 +36,6 @@ const EditProperties = () => {
     useEffect(() => {
         dispatch(editSinglePropertyData(id))
     }, [dispatch, id])
-    console.log(editSingleData);
 
     const currentPropertyData = editSingleData?.am
     const currentPropertyKeywords = editSingleData?.keywords
@@ -89,7 +88,6 @@ const EditProperties = () => {
             return { ...prev, ...obj }
         })
     }
-    // console.log("edit", editProperty)//
 
     const handleSubmit = (e) => {
         e.preventDefault()

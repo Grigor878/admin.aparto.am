@@ -83,8 +83,6 @@ const SingleProperty = () => {
     const adminTel = admin?.phone?.tel1
     const adminSocial = admin?.phone?.messengers
 
-    // console.log(currentPropertyData[11]?.fields[0]?.value);
-
     return (
         !loading
             ? <Loader />

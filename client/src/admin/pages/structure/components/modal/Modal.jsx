@@ -44,7 +44,7 @@ export const Modal = ({ title, active, setActive, name }) => {
             setActiveFlag('am')
 
             const addedField = { am, en, ru }
-            // console.log(addedField)//
+
             dispatch(addStructureField({ addedField }))
             setActive(true)
             success('Դաշտն ավելացվեց:')
