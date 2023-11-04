@@ -25,9 +25,7 @@ const Crm = () => {
 
     if (pathname === "/dashboard/crm" && editCrmUserData !== null) {
         dispatch(clearEditData())
-        console.log("done");
     }
-    console.log(crmUsers);
     
     return (
         <article className='crm'>

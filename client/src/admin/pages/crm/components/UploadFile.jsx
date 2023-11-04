@@ -4,7 +4,7 @@ import { remove, file } from '../../../svgs/svgs';
 import { extractFileName } from '../../../../helpers/formatters';
 // import './Styles.scss'
 
-export const UploadFile = ({ page, files, handleUploadFile, removeFile }) => {
+export const UploadFile = ({ files, handleUploadFile, removeFile }) => {
     return (
         <div className='fileUpload'>
             <label className='fileUpload__label'>
@@ -24,10 +24,7 @@ export const UploadFile = ({ page, files, handleUploadFile, removeFile }) => {
 
                     return (
                         <div key={el.name || el} style={{ display: 'flex', gap: '7px' }}>
-                            {page === "edit"
-                                ? <p>{extractFileName(el)}</p>
-                                : <p>{el.name || el}</p>
-                            }
+                            <p>{el.name || extractFileName(el)}</p>
                             <button
                                 type='button'
                                 onClick={() => removeFile(el)}

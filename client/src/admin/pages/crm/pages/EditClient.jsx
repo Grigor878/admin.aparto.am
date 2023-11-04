@@ -13,7 +13,7 @@ import { Search } from '../../../components/inputs/Search'
 import { Card } from '../../properties/components/card/Card'
 import { InputText } from '../../properties/components/inputs/InputText'
 import { InputNum } from '../../properties/components/inputs/InputNum'
-import { EditableSelect } from '../../properties/components/dropdowns/EditableSelect'
+import { EditSelect } from '../components/EditSelect'
 import { deals, proptypes, statuses } from './data'
 import { TextLarg } from '../../properties/components/inputs/TextLarg'
 import { UploadFile } from '../components/UploadFile'
@@ -32,6 +32,24 @@ const EditClient = () => {
         dispatch(getEditCrmUser(id))
         dispatch(getHomes())
     }, [dispatch, id])
+
+    useEffect(() => {
+        if (editCrmUserData) {
+            setName(editCrmUserData.name);
+            setPhone(editCrmUserData.phone);
+            setEmail(editCrmUserData.email);
+            setSource(editCrmUserData.source);
+            setDeal(editCrmUserData.deal);
+            setPropertyType(editCrmUserData.propertyType);
+            setRoom(editCrmUserData.room);
+            setBudget(editCrmUserData.budget);
+            setComment(editCrmUserData.comment);
+            setContractNumber(editCrmUserData.contractNumber);
+            setFiles(editCrmUserData.files);
+            setSpecialist(editCrmUserData.specialist);
+            setStatus(editCrmUserData.status);
+        }
+    }, [editCrmUserData]);
 
     const [name, setName] = useState(editCrmUserData?.name)
     const [phone, setPhone] = useState(editCrmUserData?.phone)
@@ -83,7 +101,6 @@ const EditClient = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Crm edit")
     }
 
     return (
@@ -137,7 +154,7 @@ const EditClient = () => {
                                         onChange={(e) => setSource(e.target.value)}
                                     />
 
-                                    <EditableSelect
+                                    <EditSelect
                                         value={editCrmUserData?.deal ? editCrmUserData?.deal : deal}
                                         title="Գործարք*"
                                         // name="Նշեք գործարք"
@@ -146,7 +163,7 @@ const EditClient = () => {
                                         required={true}
                                         onChange={(e) => setDeal(e.target.value)}
                                     />
-                                    <EditableSelect
+                                    <EditSelect
                                         value={editCrmUserData?.propertyType ? editCrmUserData?.propertyType : propertyType}
                                         title="Գույքի տիպ*"
                                         // name="Ընտրեք գույքի տիպերը"
@@ -200,7 +217,6 @@ const EditClient = () => {
                                         onChange={(e) => setContractNumber(e.target.value)}
                                     />
                                     <UploadFile
-                                        page="edit"
                                         files={editCrmUserData?.files ? editCrmUserData?.files : files}
                                         handleUploadFile={handleUploadFile}
                                         removeFile={removeFile}
@@ -214,14 +230,14 @@ const EditClient = () => {
                             child={
                                 <>
                                     <AgentSelect
-                                        value={specialist}
+                                        value={editCrmUserData?.specialist ? editCrmUserData?.specialist : specialist}
                                         title="Մասնագետ*"
                                         style="412px"
                                         required={true}
                                         onChange={(e) => setSpecialist(e.target.value)}
                                     />
                                     <SingleSelect
-                                        value={status}
+                                        value={editCrmUserData?.status ? editCrmUserData?.status : status}
                                         title="Կարգավիճակ*"
                                         data={statuses}
                                         style="412px"
