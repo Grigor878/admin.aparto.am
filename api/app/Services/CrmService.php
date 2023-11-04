@@ -126,15 +126,17 @@ class CrmService
 
             $agent = $this->getAgentName($employee, $user->employee_id);
 
+            $transactionDecode = json_decode($user->property_type);
             $transactionType = [];
-            foreach (json_decode($user->property_type) as $key => $value) {
+            foreach ($transactionDecode as $key => $value) {
                 $transaction = $this->keyToValue[$value];
                 $transactionType[] = $transaction;
                 $searchable[] = $transaction;
             }
 
+            $dealDecode = json_decode($user->deal);
             $deal = [];
-            foreach (json_decode($user->deal) as $key => $value) { 
+            foreach ($dealDecode as $key => $value) { 
                 $type = $this->keyToValue[$value];
                 $deal[] = $type;
                 $searchable[] = $type;
@@ -147,8 +149,8 @@ class CrmService
                 'id' => $user->id,
                 'name' => $user->name,
                 'phone' => $user->phone,
-                'property_type' => $transactionType,
-                'deal' => $deal,
+                'property_type' => $transactionDecode,
+                'deal' => $dealDecode,
                 'room' => $user->room,
                 'budget' => $user->budget,
                 'agent' => $agent, 
@@ -183,6 +185,12 @@ class CrmService
         $user = CrmUser::with('homes', 'files')->find($id);
 
         return new CrmUserStructureResource($user);
+    }
+
+    public function recoverEmployeeRights($homeId)
+    {
+      $authuser = auth()->user();
+      dd($authuser);
     }
 
  
