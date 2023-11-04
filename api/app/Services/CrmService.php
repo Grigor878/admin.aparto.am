@@ -154,7 +154,7 @@ class CrmService
                 'room' => $user->room,
                 'budget' => $user->budget,
                 'agent' => $agent, 
-                'status' => $this->status,
+                'status' => $user->status,
                 'searchable' => $searchable,
             ];
         }
