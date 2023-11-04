@@ -26,7 +26,7 @@ class CrmUserStructureResource extends JsonResource
             'source' => $this->source,
             'contractNumber' => $this->contract_number,
             'comment' => $this->comment,
-            'agent' => $this->employee_id, 
+            'specialist' => $this->employee_id, 
             'status' => $this->status,
             'homes' => $this->homes->pluck('id')->toArray(),
             'files' => $this->files->pluck('path')->toArray(),
