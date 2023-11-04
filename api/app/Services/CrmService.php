@@ -154,7 +154,7 @@ class CrmService
                 'room' => $user->room,
                 'budget' => $user->budget,
                 'agent' => $agent, 
-                'status' => $status,
+                'status' => $this->status,
                 'searchable' => $searchable,
             ];
         }
@@ -187,10 +187,12 @@ class CrmService
         return new CrmUserStructureResource($user);
     }
 
-    public function recoverEmployeeRights($homeId)
+    public function recoverEmployeeRights($homeId): bool
     {
-      $authuser = auth()->user();
-      dd($authuser);
+        $authId = auth()->user()->id;
+        $authCrmHomeIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
+
+        return in_array($homeId, $authCrmHomeIds);
     }
 
  
