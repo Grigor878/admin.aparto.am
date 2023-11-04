@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Services\CrmService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CrmUserStructureResource extends JsonResource
@@ -14,15 +15,19 @@ class CrmUserStructureResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $crmService = app(CrmService::class);
+        $authRights = $this->checkCrmWithAgent($this->id, $crmService);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'phone' => $this->phone,
+            'phone' => $authRights? $this->phone : "*************",
             'propertyType' => json_decode($this->property_type),
             'deal' => json_decode($this->deal),
             'room' => $this->room,
             'budget' => $this->budget,
-            'email' => $this->email,
+            'email' =>  $authRights? $this->email : "*************",
             'source' => $this->source,
             'contractNumber' => $this->contract_number,
             'comment' => $this->comment,
@@ -31,5 +36,10 @@ class CrmUserStructureResource extends JsonResource
             'homes' => $this->homes->pluck('id')->toArray(),
             'files' => $this->files->pluck('path')->toArray(),
         ];
+    }
+
+    public function checkCrmWithAgent($crmId, $crmService)
+    {
+        return $crmService->recoverEmployeeRights($crmId);
     }
 }

@@ -118,6 +118,7 @@ class CrmService
     {
 //avelacnel paymany agenti yev admini depqerum 
         $employee = Employe::all();
+        $checkUserAgent = $this->checkUserAgent();
 
         $customResource = [];
 
@@ -148,7 +149,7 @@ class CrmService
             $customResource[] = [
                 'id' => $user->id,
                 'name' => $user->name,
-                'phone' => $user->phone,
+                'phone' => $checkUserAgent? "*************" : $user->phone,
                 'property_type' => $transactionDecode,
                 'deal' => $dealDecode,
                 'room' => $user->room,
@@ -187,14 +188,24 @@ class CrmService
         return new CrmUserStructureResource($user);
     }
 
-    // public function recoverEmployeeRights($homeId): bool
-    // {
-    //     $auth = auth()->user();
-    //     // if($auth->id == $homeId){
-    //     $authCrmHomeIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
+    public function recoverEmployeeRights($crmId): bool
+    {
+        $auth = auth()->user();
 
-    //     return in_array($homeId, $authCrmHomeIds);
-    // }
+        if($auth->status == Employe::STATUS_AGENT){
+            $authId = $auth->id;
+            $authCrmIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
+
+            return in_array($crmId, $authCrmIds);
+        }
+
+        return true;
+    }
+
+    public function checkUserAgent(): bool
+    {
+        return auth()->user()->status == Employe::STATUS_AGENT;
+    }
 
  
 }

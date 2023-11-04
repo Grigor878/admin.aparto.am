@@ -102,6 +102,9 @@ class Employe extends Authenticatable implements JWTSubject
     }
 
     const 
-        STATUS_DEACTIVATE = 'deactivated';
+        STATUS_DEACTIVATE = 'deactivated',
+        STATUS_AGENT = 'agent',
+        STATUS_MODERATOR = 'moderator',
+        STATUS_ADMIN = 'admin';
 
 }
