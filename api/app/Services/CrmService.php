@@ -187,14 +187,14 @@ class CrmService
         return new CrmUserStructureResource($user);
     }
 
-    public function recoverEmployeeRights($homeId): bool
-    {
-        $auth = auth()->user();
-        // if($auth->id == $homeId){
-        $authCrmHomeIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
+    // public function recoverEmployeeRights($homeId): bool
+    // {
+    //     $auth = auth()->user();
+    //     // if($auth->id == $homeId){
+    //     $authCrmHomeIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
 
-        return in_array($homeId, $authCrmHomeIds);
-    }
+    //     return in_array($homeId, $authCrmHomeIds);
+    // }
 
  
 }
