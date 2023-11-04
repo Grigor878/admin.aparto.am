@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Http\Resources\CrmHomesResource;
 use App\Http\Resources\CrmUserResource;
+use App\Http\Resources\CrmUserStructureResource;
 use App\Models\CrmUser;
 use App\Models\CrmUserHasFile;
 use App\Models\CrmUserHasHome;
@@ -175,6 +176,13 @@ class CrmService
         }
         
 
+    }
+
+    public function getEditUser($id)
+    {
+        $user = CrmUser::with('homes', 'files')->find($id);
+
+        return new CrmUserStructureResource($user);
     }
 
  

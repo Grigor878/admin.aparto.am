@@ -33,7 +33,7 @@ class CrmUser extends Model
 
     public function files()
     {
-        return $this->hasMany(CrmUserHasHome::class);
+        return $this->hasMany(CrmUserHasFile::class, "user_id","id");
     }
 
 

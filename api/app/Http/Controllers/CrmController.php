@@ -52,4 +52,11 @@ class CrmController extends Controller
         return response()->json($users);
 
     }
+
+    public function getEditCrmUser($id)
+    {
+        $user = $this->crmService->getEditUser($id);
+        
+        return response()->json($user);
+    }
 }
