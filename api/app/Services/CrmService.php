@@ -75,7 +75,7 @@ class CrmService
             if(gettype($item) == 'object'){
                 $fileName = round(microtime(true) * 1000).'.'.$item->extension();
                 $realName = $item->getClientOriginalName();
-                $path = '/crmfiles/' . $fileName;
+                $path = 'crmfiles/' . $fileName;
                 $filesToInsert[] = [
                     'user_id' => $user->id,
                     'name' => $fileName,
@@ -189,7 +189,8 @@ class CrmService
 
     public function recoverEmployeeRights($homeId): bool
     {
-        $authId = auth()->user()->id;
+        $auth = auth()->user();
+        // if($auth->id == $homeId){
         $authCrmHomeIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
 
         return in_array($homeId, $authCrmHomeIds);
