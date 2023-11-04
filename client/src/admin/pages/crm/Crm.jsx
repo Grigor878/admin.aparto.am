@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Search } from '../../components/inputs/Search'
 import { BtnAdd } from '../../components/buttons/BtnAdd'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Table from '../../components/table/Table'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCrmUsers } from '../../../store/slices/crmSlice'
+import { clearEditData, getCrmUsers } from '../../../store/slices/crmSlice'
 import { crmUsersColumns } from './data'
 import { Loader } from '../../../components/loader/Loader'
 import './Crm.scss'
 
 const Crm = () => {
     const dispatch = useDispatch()
+    const { pathname } = useLocation()
 
-    const { userLoading, crmUsers } = useSelector((state) => state.crm)
+    const { userLoading, crmUsers, editCrmUserData } = useSelector((state) => state.crm)
 
     useEffect(() => {
         dispatch(getCrmUsers())
@@ -22,6 +23,12 @@ const Crm = () => {
 
     const navigate = useNavigate()
 
+    if (pathname === "/dashboard/crm" && editCrmUserData !== null) {
+        dispatch(clearEditData())
+        console.log("done");
+    }
+    console.log(crmUsers);
+    
     return (
         <article className='crm'>
             <div className="crm__top">

@@ -10,6 +10,7 @@ const initialState = {
   userLoading: false,
   crmUsers: [],
   addLoading: false,
+  editCrmUserData: null,
 };
 
 export const getHomes = createAsyncThunk("crm", async () => {
@@ -48,10 +49,26 @@ export const addCrmUser = createAsyncThunk("crm/addUser", async (addedUser) => {
   }
 });
 
+export const getEditCrmUser = createAsyncThunk("crm/editUsers", async (id) => {
+  try {
+    const { data } = await baseApi.get(
+      `/api/getEditCrmUser/${id}`,
+      getAxiosConfig()
+    );
+    return data;
+  } catch (err) {
+    console.log(`Get edit crm user data Error: ${err.message}`);
+  }
+});
+
 const crmSlice = createSlice({
   name: "crm",
   initialState,
-  reducers: {},
+  reducers: {
+    clearEditData: (state) => {
+      state.editCrmUserData = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getHomes.pending, (state) => {
@@ -74,8 +91,13 @@ const crmSlice = createSlice({
       })
       .addCase(addCrmUser.fulfilled, (state, action) => {
         state.addLoading = false;
+      })
+      //
+      .addCase(getEditCrmUser.fulfilled, (state, action) => {
+        state.editCrmUserData = action.payload;
       });
   },
 });
 
+export const { clearEditData } = crmSlice.actions;
 export default crmSlice.reducer;

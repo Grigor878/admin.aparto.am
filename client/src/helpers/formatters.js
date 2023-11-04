@@ -81,3 +81,8 @@ export function formatDateString(date) {
 export function sqmToFt2(sqm) {
   return (Number(sqm) * 10.7639104).toFixed(0);
 }
+
+export function extractFileName(url) {
+  const modifiedUrl = url?.replace("crmfiles/", "");
+  return modifiedUrl?.substring(modifiedUrl?.lastIndexOf("/") + 1);
+}

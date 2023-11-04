@@ -1,0 +1,102 @@
+@import "../../../../../variables";
+
+.homestatus {
+  &_approved {
+    background: $green;
+    color: $bgSub;
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &_archived {
+    background: $textSmall;
+    color: $bgSub;
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_moderation {
+    background: #dbba45;
+    color: $bgSub;
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_deactive {
+    background: #4b7cc7;
+    color: $bgSub;
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+  }
+}
+
+.crmstatus {
+  &_new {
+    color: $bgSub;
+    background: $textBtn;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_show {
+    color: $bgSub;
+    background: $textSmall;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_pay {
+    color: $bgSub;
+    background: $textSub;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_open {
+    color: $bgSub;
+    background: #dbba45;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_fail {
+    color: $bgSub;
+    background: $red;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  &_sucess {
+    color: $bgSub;
+    background: $green;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+}

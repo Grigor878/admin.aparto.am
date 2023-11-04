@@ -16,9 +16,10 @@ import { ownerAdd, remove } from '../../../svgs/svgs';
 import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
 import { Loader } from '../../../../components/loader/Loader';
-import './styles.scss'
 import { error } from '../../../../components/swal/swal';
 import { useNavigate } from 'react-router-dom';
+import { HomeStatus } from '../components/statuses/HomeStatus';
+import './styles.scss'
 
 const AddClient = () => {
     const dispatch = useDispatch()
@@ -267,7 +268,7 @@ const AddClient = () => {
                                         <p>{cutText(street, 15)}</p>
                                         <p>{community}</p>
                                         <p>{surface} ք․մ</p>
-                                        <span>{status === "approved" ? "Active" : "null"}</span>
+                                        <HomeStatus status={status} />
                                     </div>
                                     <button onClick={() => removeFromDisplayed(id)}>
                                         {remove.icon}
@@ -302,7 +303,7 @@ const AddClient = () => {
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
-                                            <span>{status === "approved" ? "Active" : "null"}</span>
+                                            <HomeStatus status={status} />
                                         </div>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>
@@ -322,7 +323,7 @@ const AddClient = () => {
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
-                                            <span>{status === "approved" ? "Active" : "null"}</span>
+                                            <HomeStatus status={status} />
                                         </div>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>

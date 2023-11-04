@@ -2,9 +2,8 @@ import React from 'react'
 import Select from 'react-select'
 
 export const EditableSelect = ({ title, id, name, data, value, style, required, onChange }) => {
-    
     const handleChange = (selectedOptions) => {
-        const selectedValues = selectedOptions.map((option) => option.value)
+        const selectedValues = selectedOptions?.map((option) => option.value)
         const e = {
             target: {
                 id,
@@ -20,7 +19,7 @@ export const EditableSelect = ({ title, id, name, data, value, style, required, 
             {title}
             <Select
                 isMulti
-                defaultValue={data?.filter((option) => value.includes(option.label))}
+                defaultValue={data?.filter((option) => value?.includes(option?.label))}
                 // defaultValue={data.filter(function (option) {
                 //     return option.label === value;
                 // })}

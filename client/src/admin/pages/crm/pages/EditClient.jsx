@@ -1,7 +1,85 @@
-import React from 'react'
+/* eslint-disable react/style-prop-object */
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+// import { useNavigate } from 'react-router-dom'
+import { getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
 import AddPart from '../../../components/addPart/AddPart'
+import { cutText } from '../../../../helpers/formatters'
+import { HomeStatus } from '../components/statuses/HomeStatus'
+import { ownerAdd, remove } from '../../../svgs/svgs'
+import { Loader } from '../../../../components/loader/Loader'
+import { Search } from '../../../components/inputs/Search'
+import { Card } from '../../properties/components/card/Card'
+import { InputText } from '../../properties/components/inputs/InputText'
+import { InputNum } from '../../properties/components/inputs/InputNum'
+import { EditableSelect } from '../../properties/components/dropdowns/EditableSelect'
+import { deals, proptypes, statuses } from './data'
+import { TextLarg } from '../../properties/components/inputs/TextLarg'
+import { UploadFile } from '../components/UploadFile'
+import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
+import { SingleSelect } from '../components/SingleSelect'
+import './styles.scss'
 
 const EditClient = () => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+    // const navigate = useNavigate()
+
+    const { editCrmUserData, loading, crmHomes } = useSelector((state) => state.crm)
+
+    useEffect(() => {
+        dispatch(getEditCrmUser(id))
+        dispatch(getHomes())
+    }, [dispatch, id])
+
+    const [name, setName] = useState(editCrmUserData?.name)
+    const [phone, setPhone] = useState(editCrmUserData?.phone)
+    const [email, setEmail] = useState(editCrmUserData?.email)
+    const [source, setSource] = useState(editCrmUserData?.source)
+    const [deal, setDeal] = useState(editCrmUserData?.deal)
+    const [propertyType, setPropertyType] = useState(editCrmUserData?.propertyType)
+    const [room, setRoom] = useState(editCrmUserData?.room)
+    const [budget, setBudget] = useState(editCrmUserData?.budget)
+    const [comment, setComment] = useState(editCrmUserData?.comment)
+    const [contractNumber, setContractNumber] = useState(editCrmUserData?.contractNumber)
+    const [files, setFiles] = useState(editCrmUserData?.files)
+    const [specialist, setSpecialist] = useState(editCrmUserData?.specialist)
+    const [status, setStatus] = useState(editCrmUserData?.status)
+
+    const [homeSearch, setHomeSearch] = useState("")
+
+    const [displayed, setDisplayed] = useState([])
+
+    const handleUploadFile = (e) => {
+        const filesArray = Array.from(e.target.files);
+
+        const uniqueFiles = filesArray.filter((file) => {
+            return !files.some((uploadedFile) => uploadedFile.name === file.name);
+        });
+
+        setFiles((prev) => [...prev, ...uniqueFiles]);
+    };
+
+    const removeFile = (file) => {
+        setFiles((prev) => prev.filter((uploadedFile) => uploadedFile !== file));
+    };
+
+    const filteredHomes = crmHomes?.filter((el) =>
+        JSON.stringify(el)
+            .toLowerCase()
+            .includes(homeSearch.toLowerCase())
+    );
+
+    const addToDisplayed = (id) => {
+        const selectedHome = crmHomes.find(home => home.id === id);
+
+        setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, selectedHome]);
+    };
+
+    const removeFromDisplayed = (id) => {
+        setDisplayed(prevDisplayedHomes => prevDisplayedHomes.filter(home => home.id !== id));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -9,15 +87,232 @@ const EditClient = () => {
     }
 
     return (
-        <article>
+        <article className="addNewClient">
             <AddPart type="editClient" />
 
-            <form
-                id="editClientForm"
-                onSubmit={handleSubmit}
-            >
+            {!editCrmUserData
+                ? <Loader />
+                : <form
+                    id="editClientForm"
+                    className='addNewClient__main'
+                    onSubmit={handleSubmit}
+                >
+                    <div className="addNewClient__center">
+                        <Card
+                            title="Հաճախորդ"
+                            width="680px"
+                            child={
+                                <>
+                                    <InputText
+                                        value={editCrmUserData?.name ? editCrmUserData?.name : name}
+                                        title="Անուն*"
+                                        placeholder="Նշեք հաճաճախորդի անունը"
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                    <InputNum
+                                        value={editCrmUserData?.phone ? editCrmUserData?.phone : phone}
+                                        title="Հեռախոս*"
+                                        placeholder="Նշեք հաճախորդի հեռախոսահամարը"
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                    />
 
-            </form>
+                                    <InputText
+                                        value={editCrmUserData?.email ? editCrmUserData?.email : email}
+                                        title="Էլ. Հասցե"
+                                        placeholder="Նշեք հաճախորդի էլ. հասցեն"
+                                        style="306px"
+                                        required={false}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <InputText
+                                        value={editCrmUserData?.source ? editCrmUserData?.source : source}
+                                        title="Աղբյուր*"
+                                        placeholder="Նշեք աղբյուրը"
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setSource(e.target.value)}
+                                    />
+
+                                    <EditableSelect
+                                        value={editCrmUserData?.deal ? editCrmUserData?.deal : deal}
+                                        title="Գործարք*"
+                                        // name="Նշեք գործարք"
+                                        data={deals}
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setDeal(e.target.value)}
+                                    />
+                                    <EditableSelect
+                                        value={editCrmUserData?.propertyType ? editCrmUserData?.propertyType : propertyType}
+                                        title="Գույքի տիպ*"
+                                        // name="Ընտրեք գույքի տիպերը"
+                                        data={proptypes}
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setPropertyType(e.target.value)}
+                                    />
+
+                                    <InputText
+                                        value={editCrmUserData?.budget ? editCrmUserData?.budget : budget}
+                                        title="Բյուջե*"
+                                        placeholder="Նշեք բյուջե"
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setBudget(e.target.value)}
+                                    />
+                                    <InputText
+                                        value={editCrmUserData?.room ? editCrmUserData?.room : room}
+                                        title="Սենյակ*"
+                                        placeholder="Նշեք սենյակների քանակ"
+                                        style="306px"
+                                        required={true}
+                                        onChange={(e) => setRoom(e.target.value)}
+                                    />
+
+                                    <TextLarg
+                                        value={editCrmUserData?.comment ? editCrmUserData?.comment : comment}
+                                        title="Մեկնաբանություն"
+                                        placeholder="Նշեք մեկնաբանություն"
+                                        required={false}
+                                        onChange={(e) => setComment(e.target.value)}
+                                    />
+                                </>
+                            }
+                        />
+                    </div>
+
+                    <div className='addNewClient__right'>
+                        <Card
+                            title="Հաճախորդ"
+                            width="460px"
+                            child={
+                                <>
+                                    <InputText
+                                        value={editCrmUserData?.contractNumber ? editCrmUserData?.contractNumber : contractNumber}
+                                        title="Պայմանագրի Համար"
+                                        placeholder="Նշեք պայմանագրի համարը"
+                                        style="306px"
+                                        required={false}
+                                        onChange={(e) => setContractNumber(e.target.value)}
+                                    />
+                                    <UploadFile
+                                        page="edit"
+                                        files={editCrmUserData?.files ? editCrmUserData?.files : files}
+                                        handleUploadFile={handleUploadFile}
+                                        removeFile={removeFile}
+                                    />
+                                </>
+                            }
+                        />
+
+                        <Card
+                            width="460px"
+                            child={
+                                <>
+                                    <AgentSelect
+                                        value={specialist}
+                                        title="Մասնագետ*"
+                                        style="412px"
+                                        required={true}
+                                        onChange={(e) => setSpecialist(e.target.value)}
+                                    />
+                                    <SingleSelect
+                                        value={status}
+                                        title="Կարգավիճակ*"
+                                        data={statuses}
+                                        style="412px"
+                                        required={true}
+                                        onChange={(e) => setStatus(e.target.value)}
+                                    />
+                                </>
+                            }
+                        />
+                    </div>
+                </form>}
+
+            {displayed?.length
+                ? <div className='addNewClient__displaylist'>
+                    <h4>Ցուցադրված գույքեր</h4>
+
+                    <ul className='addNewClient__displaylist-homes'>
+                        {displayed?.map(({ id, home_id, street, community, surface, status }) => {
+                            return (
+                                <li>
+                                    <div key={id}>
+                                        <p># {home_id}</p>
+                                        <p>{cutText(street, 15)}</p>
+                                        <p>{community}</p>
+                                        <p>{surface} ք․մ</p>
+                                        <HomeStatus status={status} />
+                                    </div>
+                                    <button onClick={() => removeFromDisplayed(id)}>
+                                        {remove.icon}
+                                    </button>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+                : null}
+            {loading
+                ? <Loader />
+                : <div className='addNewClient__homelist'>
+                    <h4>Գույքերի Ցուցակ</h4>
+
+                    <Search
+                        value={homeSearch}
+                        placeholder="Search by ID, Property Name, Phone, Owner or Agent"
+                        onChange={(e) => setHomeSearch(e.target.value.toLowerCase())}
+                    />
+
+                    <ul className='addNewClient__homelist-homes'>
+                        {homeSearch ?
+                            filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
+                                const isAdded = displayed.some(home => home.id === id);
+
+                                return (
+                                    <li>
+                                        <div key={id}>
+                                            <p># {home_id}</p>
+                                            <p>{cutText(street, 15)}</p>
+                                            <p>{community}</p>
+                                            <p>{surface} ք․մ</p>
+                                            <HomeStatus status={status} />
+                                        </div>
+                                        {!isAdded && (
+                                            <button onClick={() => addToDisplayed(id)}>
+                                                {ownerAdd.icon}
+                                            </button>
+                                        )}
+                                    </li>
+                                )
+                            })
+                            : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                                const isAdded = displayed.some(home => home.id === id);
+
+                                return (
+                                    <li>
+                                        <div key={id}>
+                                            <p># {home_id}</p>
+                                            <p>{cutText(street, 15)}</p>
+                                            <p>{community}</p>
+                                            <p>{surface} ք․մ</p>
+                                            <HomeStatus status={status} />
+                                        </div>
+                                        {!isAdded && (
+                                            <button onClick={() => addToDisplayed(id)}>
+                                                {ownerAdd.icon}
+                                            </button>
+                                        )}
+                                    </li>
+                                )
+                            })}
+                    </ul>
+                </div>}
         </article>
     )
 }

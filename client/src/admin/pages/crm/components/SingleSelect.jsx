@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SingleSelect = ({ title, onChange, data, style, required }) => {
+export const SingleSelect = ({ title, onChange, value, data, style, required }) => {
     return (
         <label className='addproperties__card-singleselect'>
             {title}
@@ -15,6 +15,7 @@ export const SingleSelect = ({ title, onChange, data, style, required }) => {
                         <option
                             key={el.id}
                             value={el.value}
+                            selected={el.value === value}//
                         >
                             {el.name}
                         </option>
