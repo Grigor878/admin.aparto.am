@@ -26,6 +26,16 @@ const Crm = () => {
     if (pathname === "/dashboard/crm" && editCrmUserData !== null) {
         dispatch(clearEditData())
     }
+
+    const filterData = (data, searchTerm) => {
+        return data.filter(item => {
+            return item.searchable.some(field =>
+                field.toLowerCase().includes(searchTerm)
+            );
+        });
+    };
+
+    const filteredCrmUsers = filterData(crmUsers, search.toLowerCase());
     
     return (
         <article className='crm'>
@@ -43,7 +53,7 @@ const Crm = () => {
 
             {userLoading
                 ? <Loader />
-                : <Table Columns={crmUsersColumns} Data={crmUsers} />}
+                : <Table Columns={crmUsersColumns} Data={filteredCrmUsers} />}
         </article>
     )
 }

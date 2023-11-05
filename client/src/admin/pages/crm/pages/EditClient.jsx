@@ -26,7 +26,7 @@ const EditClient = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { editCrmUserData, loading, crmHomes } = useSelector((state) => state.crm)
+    const { editCrmUserData, loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
 
     useEffect(() => {
         dispatch(getEditCrmUser(id))
@@ -45,9 +45,9 @@ const EditClient = () => {
             setBudget(editCrmUserData.budget);
             setComment(editCrmUserData.comment);
             setContractNumber(editCrmUserData.contractNumber);
-            setFiles(editCrmUserData.files);
             setSpecialist(editCrmUserData.specialist);
             setStatus(editCrmUserData.status);
+            // setDisplayed(editCrmUserData.homes);
         }
     }, [editCrmUserData]);
 
@@ -61,7 +61,7 @@ const EditClient = () => {
     const [budget, setBudget] = useState(editCrmUserData?.budget)
     const [comment, setComment] = useState(editCrmUserData?.comment)
     const [contractNumber, setContractNumber] = useState(editCrmUserData?.contractNumber)
-    const [files, setFiles] = useState(editCrmUserData?.files)
+
     const [specialist, setSpecialist] = useState(editCrmUserData?.specialist)
     const [status, setStatus] = useState(editCrmUserData?.status)
 
@@ -69,20 +69,6 @@ const EditClient = () => {
 
     // const [displayed, setDisplayed] = useState(editCrmUserData?.homes)
     const [displayed, setDisplayed] = useState([])
-
-    const handleUploadFile = (e) => {
-        const filesArray = Array.from(e.target.files);
-
-        const uniqueFiles = filesArray.filter((file) => {
-            return !files.some((uploadedFile) => uploadedFile.name === file.name);
-        });
-
-        setFiles((prev) => [...prev, ...uniqueFiles]);
-    };
-
-    const removeFile = (file) => {
-        setFiles((prev) => prev.filter((uploadedFile) => uploadedFile !== file));
-    };
 
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
@@ -117,7 +103,7 @@ const EditClient = () => {
         formData.append('specialist', specialist);
         formData.append('status', status);
 
-        files.forEach((file, index) => {
+        uploadFiles.forEach((file, index) => {
             formData.append(`file-${index + 1}`, file);
         });
 
@@ -128,7 +114,7 @@ const EditClient = () => {
 
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
-        dispatch(editCrmUser(formData)).then(() => {
+        dispatch(editCrmUser({ id, formData })).then(() => {
             setTimeout(() => {
                 navigate(-1)
             }, 1000)
@@ -249,9 +235,7 @@ const EditClient = () => {
                                         onChange={(e) => setContractNumber(e.target.value)}
                                     />
                                     <UploadFile
-                                        files={editCrmUserData?.files ? editCrmUserData?.files : files}
-                                        handleUploadFile={handleUploadFile}
-                                        removeFile={removeFile}
+                                        files={editCrmUserData?.files}
                                     />
                                 </>
                             }
