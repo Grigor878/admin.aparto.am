@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
-import { getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
+import { useNavigate } from 'react-router-dom'
+import { editCrmUser, getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
 import AddPart from '../../../components/addPart/AddPart'
 import { cutText } from '../../../../helpers/formatters'
 import { HomeStatus } from '../components/statuses/HomeStatus'
@@ -24,7 +24,7 @@ import './styles.scss'
 const EditClient = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const { editCrmUserData, loading, crmHomes } = useSelector((state) => state.crm)
 
@@ -67,6 +67,7 @@ const EditClient = () => {
 
     const [homeSearch, setHomeSearch] = useState("")
 
+    // const [displayed, setDisplayed] = useState(editCrmUserData?.homes)
     const [displayed, setDisplayed] = useState([])
 
     const handleUploadFile = (e) => {
@@ -101,6 +102,37 @@ const EditClient = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('email', email);
+        formData.append('source', source);
+        formData.append('deal', JSON.stringify(deal));
+        formData.append('propertyType', JSON.stringify(propertyType));
+        formData.append('room', room);
+        formData.append('budget', budget);
+        formData.append('comment', comment);
+        formData.append('contractNumber', contractNumber);
+        formData.append('specialist', specialist);
+        formData.append('status', status);
+
+        files.forEach((file, index) => {
+            formData.append(`file-${index + 1}`, file);
+        });
+
+        const displayedHomes = displayed?.map(home => ({
+            id: home.id,
+            date: new Date().toLocaleDateString("en-US")
+        }));
+
+        formData.append('displayedHomes', JSON.stringify(displayedHomes));
+
+        dispatch(editCrmUser(formData)).then(() => {
+            setTimeout(() => {
+                navigate(-1)
+            }, 1000)
+        });
     }
 
     return (

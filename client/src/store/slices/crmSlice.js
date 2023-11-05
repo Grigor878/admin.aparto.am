@@ -61,6 +61,22 @@ export const getEditCrmUser = createAsyncThunk("crm/editUsers", async (id) => {
   }
 });
 
+export const editCrmUser = createAsyncThunk(
+  "crm/editCrmUser",
+  async ({ id, formData }) => {
+    try {
+      const { data } = await baseApi.put(
+        `/api/editCrmUser/${id}`,
+        formData,
+        getAxiosConfig()
+      );
+      return data;
+    } catch (err) {
+      console.log(`Edit crm user data Error: ${err.message}`);
+    }
+  }
+);
+
 const crmSlice = createSlice({
   name: "crm",
   initialState,
