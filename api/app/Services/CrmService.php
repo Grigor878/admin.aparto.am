@@ -155,7 +155,7 @@ class CrmService
             }
 
             $status =  $this->keyToValue[$user->status];
-            array_push($searchable, $user->name, $user->phone, $agent, $status);
+            array_push($searchable, $user->name, $user->phone, $agent, $status, $user->room);
 
             $customResource[] = [
                 'id' => $user->id,
@@ -164,7 +164,6 @@ class CrmService
                 'property_type' => $transactionType,
                 'deal' => $deal,
                 'room' => $user->room,
-                'budget' => $user->budget,
                 'agent' => $agent, 
                 'status' => $user->status,
                 'searchable' => $searchable,
