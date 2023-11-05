@@ -33,7 +33,7 @@ class CrmUserStructureResource extends JsonResource
             'comment' => $this->comment,
             'specialist' => $this->employee_id, 
             'status' => $this->status,
-            'homes' => $this->homes->pluck('id')->toArray(),
+            'displayedHomes' => $this->homes->pluck('id')->toArray(),
             'files' => $this->files->pluck('path')->toArray(),
         ];
     }

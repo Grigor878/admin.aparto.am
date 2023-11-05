@@ -94,12 +94,23 @@ class CrmService
         return $user;
     }
 
-    public function editCrmUser($request)
+    public function editCrmUser($request, $idCrm)
     {
+        if($this->recoverEmployeeRights($idCrm)){
+            $crmUser = CrmUser::find($idCrm);
+            if($crmUser) {
+                 
+            }
+
+
+        }
+
+        return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
+
+
         //check status employee, if agent remove telephone and mail
         //jnjel tnery nor tazeqy avelacnel   
         //STUGEL ete ka tuny kam filen el chavelacnel
-        // $crmList = Cr
         dd($request);
     }
 
@@ -150,8 +161,8 @@ class CrmService
                 'id' => $user->id,
                 'name' => $user->name,
                 'phone' => $checkUserAgent? "*************" : $user->phone,
-                'property_type' => $transactionDecode,
-                'deal' => $dealDecode,
+                'property_type' => $transactionType,
+                'deal' => $deal,
                 'room' => $user->room,
                 'budget' => $user->budget,
                 'agent' => $agent, 
