@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { API_BASE_URL } from '../../../../apis/config'
 import { remove, file } from '../../../svgs/svgs';
 import { extractFileName } from '../../../../helpers/formatters';
+import { useDispatch } from 'react-redux';
+import { setUploadFiles } from '../../../../store/slices/crmSlice';
 // import './Styles.scss'
 
-export const UploadFile = ({ files, handleUploadFile, removeFile }) => {
+export const UploadFile = ({ files }) => {
+    const [upload, setUpload] = useState(files ? files : [])
+
+    const dispatch = useDispatch()
+
+    const handleUploadFile = (e) => {
+        const files = Array.from(e.target.files)
+
+        const uniqueFiles = files.filter((file) => {
+            return !upload.some((uploadedFile) => uploadedFile.name === file.name)
+        });
+
+        setUpload((prev) => [...prev, ...uniqueFiles])
+    };
+
+    const removeFile = (file) => {
+        setUpload((prev) => prev.filter((uploadedFile) => uploadedFile !== file))
+    }
+
+    useEffect(() => {
+        dispatch(setUploadFiles(upload))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [upload])
+
     return (
         <div className='fileUpload'>
             <label className='fileUpload__label'>
@@ -19,7 +44,7 @@ export const UploadFile = ({ files, handleUploadFile, removeFile }) => {
                 />
             </label>
             <div style={{ display: 'flex', alignItems: "flex-end", flexDirection: 'column', gap: '4px' }}>
-                {files?.map((el) => {
+                {upload?.map((el) => {
                     const isFile = el instanceof File;
 
                     return (

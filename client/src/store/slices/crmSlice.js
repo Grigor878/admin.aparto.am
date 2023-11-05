@@ -84,6 +84,9 @@ const crmSlice = createSlice({
     clearEditData: (state) => {
       state.editCrmUserData = null;
     },
+    setUploadFiles: (state, action) => {
+      state.uploadFiles = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,5 +118,5 @@ const crmSlice = createSlice({
   },
 });
 
-export const { clearEditData } = crmSlice.actions;
+export const { clearEditData, setUploadFiles } = crmSlice.actions;
 export default crmSlice.reducer;

@@ -25,7 +25,7 @@ const AddClient = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { loading, crmHomes } = useSelector((state) => state.crm)
+    const { loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
 
     useEffect(() => {
         dispatch(getHomes())
@@ -41,27 +41,12 @@ const AddClient = () => {
     const [budget, setBudget] = useState("")
     const [comment, setComment] = useState("")
     const [contractNumber, setContractNumber] = useState("")
-    const [files, setFiles] = useState([])
     const [specialist, setSpecialist] = useState("")
     const [status, setStatus] = useState("")
 
     const [homeSearch, setHomeSearch] = useState("")
 
     const [displayed, setDisplayed] = useState([])
-
-    const handleUploadFile = (e) => {
-        const filesArray = Array.from(e.target.files);
-
-        const uniqueFiles = filesArray.filter((file) => {
-            return !files.some((uploadedFile) => uploadedFile.name === file.name);
-        });
-
-        setFiles((prev) => [...prev, ...uniqueFiles]);
-    };
-
-    const removeFile = (file) => {
-        setFiles((prev) => prev.filter((uploadedFile) => uploadedFile !== file));
-    };
 
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
@@ -104,7 +89,7 @@ const AddClient = () => {
         formData.append('specialist', specialist);
         formData.append('status', status);
 
-        files.forEach((file, index) => {
+        uploadFiles.forEach((file, index) => {
             formData.append(`file-${index + 1}`, file);
         });
 
@@ -224,9 +209,9 @@ const AddClient = () => {
                                     onChange={(e) => setContractNumber(e.target.value)}
                                 />
                                 <UploadFile
-                                    files={files}
-                                    handleUploadFile={handleUploadFile}
-                                    removeFile={removeFile}
+                                    // files={files}
+                                    // handleUploadFile={handleUploadFile}
+                                    // removeFile={removeFile}
                                 />
                             </>
                         }
