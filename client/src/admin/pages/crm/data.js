@@ -23,9 +23,6 @@ export const crmUsersColumns = [
   {
     name: "Գործարք",
     cell: (row) => (
-      // <Link to={`edit/${row.id}`} className="columFontSize">
-      //   {row.deal?.map((el) => el)}
-      // </Link>
       <Link to={`edit/${row.id}`} className="columFontSize">
         {row.deal?.map((el, index) => (
           <span key={el}>
@@ -39,9 +36,6 @@ export const crmUsersColumns = [
   {
     name: "Գույքի տիպ",
     cell: (row) => (
-      // <Link to={`edit/${row.id}`} className="columFontSize">
-      //   {row.property_type?.map((el) => el)}
-      // </Link>
       <Link to={`edit/${row.id}`} className="columFontSize">
         {row.property_type?.map((el, index) => (
           <span key={el}>
@@ -67,10 +61,14 @@ export const crmUsersColumns = [
         {row.agent}
       </Link>
     ),
+    sortable: true,
+    selector: (row) => row.agent,
   },
   {
     name: "Կարգավիճակ",
     // cell: (row) => <p className="columFontSize">{row.status}</p>,
     cell: (row) => <CrmStatus status={row.status} />,
+    sortable: true,
+    selector: (row) => row.status,
   },
 ];

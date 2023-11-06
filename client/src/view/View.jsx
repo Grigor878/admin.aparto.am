@@ -12,25 +12,27 @@ const ResultById = lazy(() => pMinDelay(import('../pages/result/ResultById'), 50
 
 const NotFound = lazy(() => import('../pages/404/NotFound'))
 
-const Login = lazy(() => pMinDelay(import('../admin/pages/login/Login'), 500))
+const Login = lazy(() => import('../admin/pages/login/Login'))
 const Properties = lazy(() => import('../admin/pages/properties/Properties'))
-const Profile = lazy(() => pMinDelay(import('../admin/pages/profile/Profile'), 500))
+const Profile = lazy(() => import('../admin/pages/profile/Profile'))
 const SingleProperty = lazy(() => pMinDelay(import('../admin/pages/properties/pages/SingleProperty'), 500))
-const AddProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/AddProperties'), 500))
+const AddProperties = lazy(() => import('../admin/pages/properties/pages/AddProperties'))
 const EditProperties = lazy(() => pMinDelay(import('../admin/pages/properties/pages/EditProperties'), 500))
-const Structure = lazy(() => pMinDelay(import('../admin/pages/structure/Structure'), 500))
-const Users = lazy(() => pMinDelay(import('../admin/pages/users/Users'), 500))
-const AddUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/AddUsers'), 500))
+const Structure = lazy(() => import('../admin/pages/structure/Structure'))
+const Users = lazy(() => import('../admin/pages/users/Users'))
+const AddUsers = lazy(() => import('../admin/pages/users/pages/AddUsers'))
 const EditUsers = lazy(() => pMinDelay(import('../admin/pages/users/pages/EditUsers'), 500))
-const Configs = lazy(() => pMinDelay(import('../admin/pages/configs/Configs'), 500))
-const Crm = lazy(() => pMinDelay(import('../admin/pages/crm/Crm'), 500))
-const AddClient = lazy(() => pMinDelay(import('../admin/pages/crm/pages/AddClient'), 500))
-const EditClient = lazy(() => pMinDelay(import('../admin/pages/crm/pages/EditClient'), 500))
+const Configs = lazy(() => import('../admin/pages/configs/Configs'))
+const Crm = lazy(() => import('../admin/pages/crm/Crm'))
+const AddClient = lazy(() => import('../admin/pages/crm/pages/AddClient'))
+const EditClient = lazy(() => import('../admin/pages/crm/pages/EditClient'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
     const { role } = useSelector((state => state?.userGlobal?.userGlobal))
 
+    const authCheck = isLoggedIn && (localStorage.getItem("token") === token)
+    
     return (
         <Router>
             <Suspense fallback={null}>
@@ -44,12 +46,12 @@ const View = () => {
                     </Route>
 
                     <Route path="/login">
-                        <Route index element={isLoggedIn && token ? <Navigate to="/dashboard/properties" /> : <Login />} />
+                        <Route index element={authCheck ? <Navigate to="/dashboard/properties" /> : <Login />} />
                     </Route>
 
                     <Route
                         path="/dashboard"
-                        element={isLoggedIn && token ? <LayoutDash /> : <Navigate to="/login" />}
+                        element={authCheck ? <LayoutDash /> : <Navigate to="/login" />}
                     >
                         <Route index path="properties" element={<Properties />} />
                         <Route path="properties/:id" element={<SingleProperty />} />

@@ -26,6 +26,7 @@ const AddClient = () => {
     const navigate = useNavigate()
 
     const { loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
+    const { role, id } = useSelector((state => state.userGlobal.userGlobal))
 
     useEffect(() => {
         dispatch(getHomes())
@@ -41,7 +42,7 @@ const AddClient = () => {
     const [budget, setBudget] = useState("")
     const [comment, setComment] = useState("")
     const [contractNumber, setContractNumber] = useState("")
-    const [specialist, setSpecialist] = useState("")
+    const [specialist, setSpecialist] = useState(role === "agent" ? id : "")
     const [status, setStatus] = useState("")
 
     const [homeSearch, setHomeSearch] = useState("")
@@ -209,9 +210,9 @@ const AddClient = () => {
                                     onChange={(e) => setContractNumber(e.target.value)}
                                 />
                                 <UploadFile
-                                    // files={files}
-                                    // handleUploadFile={handleUploadFile}
-                                    // removeFile={removeFile}
+                                // files={files}
+                                // handleUploadFile={handleUploadFile}
+                                // removeFile={removeFile}
                                 />
                             </>
                         }
@@ -222,6 +223,7 @@ const AddClient = () => {
                         child={
                             <>
                                 <AgentSelect
+                                    value={specialist}
                                     title="Մասնագետ*"
                                     style="412px"
                                     required={true}

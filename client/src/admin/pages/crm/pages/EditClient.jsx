@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { editCrmUser, getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
 import AddPart from '../../../components/addPart/AddPart'
 import { cutText } from '../../../../helpers/formatters'
@@ -24,7 +24,7 @@ import './styles.scss'
 const EditClient = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const { editCrmUserData, loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
 
@@ -123,7 +123,7 @@ const EditClient = () => {
 
     return (
         <article className="addNewClient">
-            <AddPart type="editClient" />
+            <AddPart type="editClient" crmPermission={editCrmUserData?.permission} />
 
             {!editCrmUserData
                 ? <Loader />
@@ -324,7 +324,7 @@ const EditClient = () => {
                                 )
                             })
                             : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
-                                const isAdded = displayed.some(home => home.id === id);
+                                const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
                                     <li>
