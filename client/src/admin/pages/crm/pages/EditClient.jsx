@@ -68,7 +68,7 @@ const EditClient = () => {
     const [homeSearch, setHomeSearch] = useState("")
 
     const [displayed, setDisplayed] = useState(editCrmUserData?.displayedHomes)
-    console.log(displayed);
+
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
             .toLowerCase()

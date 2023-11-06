@@ -5,12 +5,15 @@ import { back } from '../../svgs/svgs'
 import { BtnDiscard } from '../buttons/BtnDiscard'
 import { BtnCustom } from '../buttons/BtnCustom'
 import './AddPart.scss'
+import { useSelector } from 'react-redux'
 
 const AddPart = ({ type, changeStatus, currentUser }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   let newPath = pathname.split('/')[2]
+
+  const { role } = useSelector((state => state.userGlobal.userGlobal))
 
   return (
     <div className='addpart'>
@@ -96,10 +99,10 @@ const AddPart = ({ type, changeStatus, currentUser }) => {
       {type === "editClient"
         ? <div className='addpart__btns'>
           <BtnDiscard text="Չեղարկել" />
-          <BtnCustom
+          {role !== "agent" && <BtnCustom
             form="editClientForm"
             text="Պահպանել"
-          />
+          />}
         </div>
         : null
       }
