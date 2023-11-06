@@ -52,6 +52,12 @@ export const dashboardRoutes = [
     path: "users",
     img: users,
   },
+  {
+    id: "3",
+    name: "CRM",
+    path: "crm",
+    img: crm,
+  },
   // {
   //   id: "4",
   //   name: "Web Configs",
