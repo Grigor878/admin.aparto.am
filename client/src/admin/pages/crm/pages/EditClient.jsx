@@ -14,8 +14,8 @@ import { Card } from '../../properties/components/card/Card'
 import { InputText } from '../../properties/components/inputs/InputText'
 import { InputNum } from '../../properties/components/inputs/InputNum'
 import { EditSelect } from '../components/EditSelect'
+import { Text } from '../components/Text'
 import { deals, proptypes, statuses } from './data'
-import { TextLarg } from '../../properties/components/inputs/TextLarg'
 import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
@@ -47,7 +47,7 @@ const EditClient = () => {
             setContractNumber(editCrmUserData.contractNumber);
             setSpecialist(editCrmUserData.specialist);
             setStatus(editCrmUserData.status);
-            // setDisplayed(editCrmUserData.homes);
+            setDisplayed(editCrmUserData.displayedHomes);
         }
     }, [editCrmUserData]);
 
@@ -67,9 +67,8 @@ const EditClient = () => {
 
     const [homeSearch, setHomeSearch] = useState("")
 
-    // const [displayed, setDisplayed] = useState(editCrmUserData?.homes)
-    const [displayed, setDisplayed] = useState([])
-
+    const [displayed, setDisplayed] = useState(editCrmUserData?.displayedHomes)
+    console.log(displayed);
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
             .toLowerCase()
@@ -114,11 +113,12 @@ const EditClient = () => {
 
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
-        dispatch(editCrmUser({ id, formData })).then(() => {
-            setTimeout(() => {
-                navigate(-1)
-            }, 1000)
-        });
+        dispatch(editCrmUser({ id, formData }))
+        // .then(() => {
+        //     setTimeout(() => {
+        //         navigate(-1)
+        //     }, 1000)
+        // });
     }
 
     return (
@@ -208,7 +208,7 @@ const EditClient = () => {
                                         onChange={(e) => setRoom(e.target.value)}
                                     />
 
-                                    <TextLarg
+                                    <Text
                                         value={editCrmUserData?.comment ? editCrmUserData?.comment : comment}
                                         title="Մեկնաբանություն"
                                         placeholder="Նշեք մեկնաբանություն"
@@ -304,7 +304,7 @@ const EditClient = () => {
                     <ul className='addNewClient__homelist-homes'>
                         {homeSearch ?
                             filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
-                                const isAdded = displayed.some(home => home.id === id);
+                                const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
                                     <li>

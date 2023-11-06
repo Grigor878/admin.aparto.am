@@ -6,7 +6,7 @@ import { Card } from '../../properties/components/card/Card';
 import { InputText } from '../../properties/components/inputs/InputText';
 import { InputNum } from '../../properties/components/inputs/InputNum';
 import { MultiSelect } from '../../properties/components/dropdowns/MultiSelect';
-import { TextLarg } from '../../properties/components/inputs/TextLarg';
+import { Text } from '../components/Text';
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect';
 import { SingleSelect } from '../components/SingleSelect';
 import { UploadFile } from '../components/UploadFile';
@@ -184,7 +184,7 @@ const AddClient = () => {
                                     onChange={(e) => setRoom(e.target.value)}
                                 />
 
-                                <TextLarg
+                                <Text
                                     title="Մեկնաբանություն"
                                     placeholder="Նշեք մեկնաբանություն"
                                     required={false}
