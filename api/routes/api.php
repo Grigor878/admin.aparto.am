@@ -99,7 +99,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
         //CRM Controller
         Route::post('/addCrmUser',  [CrmController::class, 'addCrmUser']);
-        Route::put('/editCrmUser/{id}',  [CrmController::class, 'editCrmUser']);
+        Route::post('/editCrmUser/{id}',  [CrmController::class, 'editCrmUser']);
         Route::get('/getHomesForCrm',  [CrmController::class, 'getHomesForCrm']);
         Route::get('/getEditCrmUser/{id}',  [CrmController::class, 'getEditCrmUser']);
         Route::get('/getCrmUsers',  [CrmController::class, 'getCrmUsers']);

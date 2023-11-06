@@ -39,7 +39,7 @@ class CrmController extends Controller
 
     public function editCrmUser(CrmUserRequest $request, $idCrm)
     {
-        $editUser = $this->crmService->editCrmUser($request->all());
+        $editUser = $this->crmService->editCrmUser($request->all(), $idCrm);
          
         return $editUser;
 

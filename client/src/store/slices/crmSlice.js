@@ -65,7 +65,7 @@ export const editCrmUser = createAsyncThunk(
   "crm/editCrmUser",
   async ({ id, formData }) => {
     try {
-      const { data } = await baseApi.put(
+      const { data } = await baseApi.post(
         `/api/editCrmUser/${id}`,
         formData,
         getAxiosConfig()

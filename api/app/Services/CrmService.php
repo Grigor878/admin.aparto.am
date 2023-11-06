@@ -97,9 +97,22 @@ class CrmService
     public function editCrmUser($request, $idCrm)
     {
         if($this->recoverEmployeeRights($idCrm)){
-            $crmUser = CrmUser::find($idCrm);
-            if($crmUser) {
-                 
+            $user = CrmUser::find($idCrm);
+            dd("KISAT");
+            if($user) {
+                $user->name = $request['name'];
+                $user->phone = $request['phone'];
+                $user->email = $request['email'];
+                $user->employee_id = $request['specialist'];
+                $user->contract_number = $request['contractNumber'];
+                $user->source = $request['source'];
+                $user->deal = $request['deal'];
+                $user->property_type = $request['propertyType'];
+                $user->room = $request['room'];
+                $user->budget = $request['budget'];
+                $user->comment = $request['comment'];
+                $user->status = $request['status'];
+                $user->save();
             }
 
 
@@ -202,7 +215,7 @@ class CrmService
     {
         $auth = auth()->user();
 
-        if($auth->status == Employe::STATUS_AGENT){
+        if($auth->role == Employe::STATUS_AGENT){
             $authId = $auth->id;
             $authCrmIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
 
@@ -214,7 +227,7 @@ class CrmService
 
     public function checkUserAgent(): bool
     {
-        return auth()->user()->status == Employe::STATUS_AGENT;
+        return auth()->user()->role == Employe::STATUS_AGENT;
     }
 
  

@@ -38,6 +38,7 @@ class CrmUserStructureResource extends JsonResource
             'status' => $this->status,
             'displayedHomes' => $this->getCrmHomes($this->homes),
             'files' => $this->files->pluck('path')->toArray(),
+            'permission' => $authRights? true : false,
         ];
     }
 
