@@ -208,7 +208,9 @@ class CrmService
     {
         $user = CrmUser::with('homes', 'files')->find($id);
 
-        return new CrmUserStructureResource($user);
+        $readyCustomResouce = $this->makeEditResouce($user);
+
+        return $readyCustomResouce;
     }
 
     public function recoverEmployeeRights($crmId): bool
@@ -228,6 +230,61 @@ class CrmService
     public function checkUserAgent(): bool
     {
         return auth()->user()->role == Employe::STATUS_AGENT;
+    }
+
+    public function makeEditResouce($user)
+    {
+        $authRights = $this->recoverEmployeeRights($user->id);
+
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'phone' => $authRights? $user->phone : "*************",
+            'propertyType' => json_decode($user->property_type),
+            'deal' => json_decode($user->deal),
+            'room' => $user->room,
+            'budget' => $user->budget,
+            'email' =>  $authRights? $user->email : "*************",
+            'source' => $user->source,
+            'contractNumber' => $user->contract_number,
+            'comment' => $user->comment,
+            'specialist' => $user->employee_id, 
+            'status' => $user->status,
+            'displayedHomes' => $this->getCrmHomes($user->homes),
+            'files' => $user->files->pluck('path')->toArray(),
+            'permission' => $authRights? true : false,
+        ];
+    }
+
+    public function getCrmHomes($homes)
+    {
+        $readyHomes = [];
+        $employee = Employe::all();
+        $allHomes = Home::all();
+
+        foreach ($homes as $key => $item) {
+            $home = $allHomes->where('id', $item->home_id)->first();
+            $am = json_decode($home['am']);
+            $building = $am[1]->fields[1]->value ? $am[1]->fields[1]->value . " " : "";
+            $street = $building . $am[1]->fields[0]->communityStreet->value;
+            $tmpHome = [];
+            $tmpHome['agent'] = $this->getAgentName($employee, $am[11]->fields[0]->id);
+            $tmpHome['community'] = $am[1]->fields[0]->value;
+            $tmpHome['home_id'] = $home->home_id;
+            $tmpHome['id'] = $home->id;
+            $tmpHome['owner'] = $am[9]->fields[0]->value;
+            $tmpHome['ownerTel'] = $am[9]->fields[1]->value;
+            $tmpHome['propertyName'] = $am[0]->fields[4]->value;
+            $tmpHome['status'] = $home->status;
+            $tmpHome['street'] = $street;
+            $tmpHome['surface'] = $am[3]->fields[0]->value;
+            $date = Carbon::createFromFormat('Y-m-d', $item->display_at);
+            $tmpHome['date'] = $date->format('d/m/Y');
+
+            $readyHomes[] = $tmpHome;
+            $tmpHome = [];
+        }
+        return $readyHomes;
     }
 
  
