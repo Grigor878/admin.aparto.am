@@ -131,24 +131,23 @@ class CrmService
     {
         $users = CrmUser::with('homes')->get();
         // dd($users);
-        $customResoucre = $this->makeResoucre($users);
+        $customResoucre = $this->makeCollectionResource($users);
         // return CrmUserResource::collection($users);
 
         return $customResoucre;
         
     }
 
-    public function makeResoucre($users)
+    public function makeCollectionResource($users)
     {
 //avelacnel paymany agenti yev admini depqerum 
         $employee = Employe::all();
-        $checkUserAgent = $this->checkUserAgent();
 
         $customResource = [];
 
         foreach ($users as $user) {
             $searchable = [];
-
+            $checkUserAgent = $this->recoverEmployeeRights($user->id);
             $agent = $this->getAgentName($employee, $user->employee_id);
 
             $transactionDecode = json_decode($user->property_type);
@@ -173,7 +172,7 @@ class CrmService
             $customResource[] = [
                 'id' => $user->id,
                 'name' => $user->name,
-                'phone' => $checkUserAgent? "*************" : $user->phone,
+                'phone' => $checkUserAgent? $user->phone:"*************",
                 'property_type' => $transactionType,
                 'deal' => $deal,
                 'room' => $user->room,
@@ -225,11 +224,6 @@ class CrmService
         }
 
         return true;
-    }
-
-    public function checkUserAgent(): bool
-    {
-        return auth()->user()->role == Employe::STATUS_AGENT;
     }
 
     public function makeEditResouce($user)
