@@ -98,7 +98,7 @@ class CrmService
     {
         if($this->recoverEmployeeRights($idCrm)){
             $user = CrmUser::find($idCrm);
-            dd("KISAT");
+
             if($user) {
                 $user->name = $request['name'];
                 $user->phone = $request['phone'];
@@ -115,6 +115,25 @@ class CrmService
                 $user->save();
             }
 
+            CrmUserHasHome::where('user_id', $idCrm)->delete();
+
+            $displayedHomes = json_decode($request['displayedHomes'], true);
+
+            $homeToInsert = [];
+            foreach ($displayedHomes as $key => $home) {
+                $homeToInsert[] = [
+                    'user_id' => $idCrm,
+                    'home_id' => $home['id'],
+                    'display_at' => Carbon::parse($home['date']),
+                ];
+            }
+    
+            if($homeToInsert) { 
+                CrmUserHasHome::insert($homeToInsert);
+            }
+//addd files
+            // dd($request['displayedHomes']);
+            return true;
 
         }
 
@@ -140,7 +159,7 @@ class CrmService
 
     public function makeCollectionResource($users)
     {
-//avelacnel paymany agenti yev admini depqerum 
+
         $employee = Employe::all();
 
         $customResource = [];
