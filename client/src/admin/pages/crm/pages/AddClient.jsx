@@ -49,6 +49,18 @@ const AddClient = () => {
 
     const [displayed, setDisplayed] = useState([])
 
+    const handleDateChangeInDisplayed = (value, id) => {
+        const date = new Date(value);
+        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        const updatedDisplayed = displayed.map((item) => {
+            if (item.id === id) {
+                return { ...item, date: formattedDate };
+            }
+            return item;
+        });
+        setDisplayed(updatedDisplayed);
+    };
+
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
             .toLowerCase()
@@ -96,7 +108,7 @@ const AddClient = () => {
 
         const displayedHomes = displayed?.map(home => ({
             id: home.id,
-            date: new Date().toLocaleDateString("en-US")
+            date: home.date
         }));
 
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
@@ -209,11 +221,7 @@ const AddClient = () => {
                                     required={false}
                                     onChange={(e) => setContractNumber(e.target.value)}
                                 />
-                                <UploadFile
-                                // files={files}
-                                // handleUploadFile={handleUploadFile}
-                                // removeFile={removeFile}
-                                />
+                                <UploadFile />
                             </>
                         }
                     />
@@ -249,14 +257,23 @@ const AddClient = () => {
                     <ul className='addNewClient__displaylist-homes'>
                         {displayed?.map(({ id, home_id, street, community, surface, status }) => {
                             return (
-                                <li>
-                                    <div key={id}>
+                                <li key={id}>
+                                    <div>
                                         <p># {home_id}</p>
                                         <p>{cutText(street, 15)}</p>
                                         <p>{community}</p>
                                         <p>{surface} ք․մ</p>
                                         <HomeStatus status={status} />
                                     </div>
+
+                                    {/* <label htmlFor={`date-${id}`}>Select Date: </label> */}
+                                    <input
+                                        // className='addNewClient__displaylist-homes-date'
+                                        type="date"
+                                        id={`date-${id}`}
+                                        onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}
+                                    />
+
                                     <button onClick={() => removeFromDisplayed(id)}>
                                         {remove.icon}
                                     </button>
@@ -284,8 +301,8 @@ const AddClient = () => {
                                 const isAdded = displayed.some(home => home.id === id);
 
                                 return (
-                                    <li>
-                                        <div key={id}>
+                                    <li key={id}>
+                                        <div>
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
@@ -304,8 +321,8 @@ const AddClient = () => {
                                 const isAdded = displayed.some(home => home.id === id);
 
                                 return (
-                                    <li>
-                                        <div key={id}>
+                                    <li key={id}>
+                                        <div>
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
