@@ -118,12 +118,17 @@ img {
   display: none !important;
 }
 
+// .css-hlgwow {
+//   padding: 1px 44px 1px 0px !important;
+// }
+
 @media screen and (max-width: 768px) {
-  .css-1hb7zxy-IndicatorsContainer {
+  .css-1hb7zxy-IndicatorsContainer,
+  .css-1u9des2-indicatorSeparator {
     display: none !important;
   }
 
-  .css-epapr7-control{
+  .css-epapr7-control {
     border-radius: 0px !important;
   }
 }

@@ -29,6 +29,7 @@ export const Search = () => {
     const mobile = useMediaQuery({ maxWidth: 768 })
 
     const width = mobile ? "100%" : laptopSmall ? "202px" : "262px"
+    const width2 = mobile ? "100%" : "141px"
 
     const [disable, setDisable] = useState(false)
     const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
@@ -104,7 +105,8 @@ export const Search = () => {
                 <Dropdown
                     data={language === "am" ? propertyTypeAm : language === "en" ? propertyTypeEn : propertyTypeRu}
                     onChange={(e) => setPropType(e)}
-                    width="100%"
+                    // width="100%"
+                    width={width2}
                     placeholder={t("property_type")}
                 />
                 <Dropdown

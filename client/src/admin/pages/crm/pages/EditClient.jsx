@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { useNavigate } from 'react-router-dom'
 import { editCrmUser, getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
 import AddPart from '../../../components/addPart/AddPart'
-import { cutText } from '../../../../helpers/formatters'
+import { cutText, formatDate } from '../../../../helpers/formatters'
 import { HomeStatus } from '../components/statuses/HomeStatus'
 import { ownerAdd, remove } from '../../../svgs/svgs'
 import { Loader } from '../../../../components/loader/Loader'
@@ -301,11 +301,9 @@ const EditClient = () => {
 
                     <ul className='addNewClient__displaylist-homes'>
                         {displayed?.map(({ id, home_id, street, community, surface, status, date }) => {
-                            const formattedDate = new Date(date)?.toLocaleDateString("en-CA");
-
                             return (
-                                <li>
-                                    <div key={id}>
+                                <li key={id}>
+                                    <div>
                                         <p># {home_id}</p>
                                         <p>{cutText(street, 15)}</p>
                                         <p>{community}</p>
@@ -314,11 +312,9 @@ const EditClient = () => {
                                     </div>
 
                                     <input
-                                        // pattern="\d{2}\/\d{2}\/\d{4}"
-                                        defaultValue={formattedDate}
-                                        // defaultValue={convertDateFormat(date)}
-                                        type="date"
                                         id={`date-${id}`}
+                                        type="date"
+                                        defaultValue={formatDate(date)}
                                         onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}
                                     />
 
@@ -348,8 +344,8 @@ const EditClient = () => {
                                 const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
-                                    <li>
-                                        <div key={id}>
+                                    <li key={id}>
+                                        <div >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
@@ -368,8 +364,8 @@ const EditClient = () => {
                                 const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
-                                    <li>
-                                        <div key={id}>
+                                    <li key={id}>
+                                        <div >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>

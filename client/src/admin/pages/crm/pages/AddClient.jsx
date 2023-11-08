@@ -127,7 +127,7 @@ const AddClient = () => {
             }, 1000)
         });
     }
-
+    console.log(displayed);
     return (
         <article className="addNewClient">
             <AddPart type="addNewClient" />
@@ -276,8 +276,8 @@ const AddClient = () => {
 
                                     {/* <label htmlFor={`date-${id}`}>Select Date: </label> */}
                                     <input
-                                        type="date"
                                         id={`date-${id}`}
+                                        type="date"
                                         onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}
                                     />
 

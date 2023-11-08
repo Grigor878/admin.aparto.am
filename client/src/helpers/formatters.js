@@ -86,3 +86,12 @@ export function extractFileName(url) {
   const modifiedUrl = url?.replace("crmfiles/", "");
   return modifiedUrl?.substring(modifiedUrl?.lastIndexOf("/") + 1);
 }
+
+// date formatter for crm edit
+export function formatDate(dateString) {
+  const formattedDate = new Date(dateString);
+  const year = formattedDate.getFullYear();
+  const day = formattedDate.getDate().toString().padStart(2, '0');
+  const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+  return `${year}-${day}-${month}`;
+}
