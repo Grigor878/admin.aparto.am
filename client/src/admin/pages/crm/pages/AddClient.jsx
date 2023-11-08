@@ -88,6 +88,14 @@ const AddClient = () => {
             return error("Նշեք գույքի տիպը!")
         }
 
+        if (!displayed?.length) {
+            return error('Նշեք ցուցադրված գույք!');
+        }
+
+        if (displayed?.some((home) => !home.date)) {
+            return error('Նշեք ցուցադրման ամսաթիվը!');
+        }
+
         const formData = new FormData();
         formData.append('name', name);
         formData.append('phone', phone);
@@ -268,7 +276,6 @@ const AddClient = () => {
 
                                     {/* <label htmlFor={`date-${id}`}>Select Date: </label> */}
                                     <input
-                                        // className='addNewClient__displaylist-homes-date'
                                         type="date"
                                         id={`date-${id}`}
                                         onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}

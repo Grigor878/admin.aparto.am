@@ -20,6 +20,7 @@ import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
 import './styles.scss'
+import { error } from '../../../../components/swal/swal'
 
 const EditClient = () => {
     const { id } = useParams()
@@ -69,6 +70,18 @@ const EditClient = () => {
 
     const [displayed, setDisplayed] = useState(editCrmUserData?.displayedHomes)
 
+    const handleDateChangeInDisplayed = (value, id) => {
+        const date = new Date(value);
+        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        const updatedDisplayed = displayed.map((item) => {
+            if (item.id === id) {
+                return { ...item, date: formattedDate };
+            }
+            return item;
+        });
+        setDisplayed(updatedDisplayed);
+    };
+
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
             .toLowerCase()
@@ -87,6 +100,22 @@ const EditClient = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!deal?.length) {
+            return error("Նշեք գործարքի տեսակը!")
+        }
+
+        if (!propertyType?.length) {
+            return error("Նշեք գույքի տիպը!")
+        }
+
+        if (!displayed?.length) {
+            return error('Նշեք ցուցադրված գույք!');
+        }
+
+        if (displayed?.some((home) => !home.date)) {
+            return error('Նշեք ցուցադրման ամսաթիվը!');
+        }
 
         const formData = new FormData();
         formData.append('name', name);
@@ -108,7 +137,7 @@ const EditClient = () => {
 
         const displayedHomes = displayed?.map(home => ({
             id: home.id,
-            date: new Date().toLocaleDateString("en-US")
+            date: home.date
         }));
 
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
@@ -271,7 +300,9 @@ const EditClient = () => {
                     <h4>Ցուցադրված գույքեր</h4>
 
                     <ul className='addNewClient__displaylist-homes'>
-                        {displayed?.map(({ id, home_id, street, community, surface, status }) => {
+                        {displayed?.map(({ id, home_id, street, community, surface, status, date }) => {
+                            const formattedDate = new Date(date)?.toLocaleDateString("en-CA");
+
                             return (
                                 <li>
                                     <div key={id}>
@@ -281,6 +312,16 @@ const EditClient = () => {
                                         <p>{surface} ք․մ</p>
                                         <HomeStatus status={status} />
                                     </div>
+
+                                    <input
+                                        // pattern="\d{2}\/\d{2}\/\d{4}"
+                                        defaultValue={formattedDate}
+                                        // defaultValue={convertDateFormat(date)}
+                                        type="date"
+                                        id={`date-${id}`}
+                                        onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}
+                                    />
+
                                     <button onClick={() => removeFromDisplayed(id)}>
                                         {remove.icon}
                                     </button>
