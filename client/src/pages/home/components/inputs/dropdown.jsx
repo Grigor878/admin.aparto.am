@@ -9,6 +9,7 @@ export const Dropdown = ({ data, width, placeholder, onChange }) => {
     }
 
     const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+    const isMobile = useMediaQuery({ maxWidth: 768 })
 
     return (
         <Select
@@ -26,11 +27,12 @@ export const Dropdown = ({ data, width, placeholder, onChange }) => {
                     fontSize: laptopSmall ? "13px" : "16px",
                     textTransform: "capitalize",
                     lineHeight: "20px",
-                    border:"none",
+                    border: "none",
                     borderColor: 'transparent',
                     boxShadow: 'none',
                     background: "#fffff",
                     cursor: "pointer",
+                    borderBottom: isMobile ? '1px solid #cfd1da' : 'none',
                 }),
             }}
         />

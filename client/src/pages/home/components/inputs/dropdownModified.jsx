@@ -19,6 +19,8 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
     }
 
     const laptopSmall = useMediaQuery({ maxWidth: 1122 })
+    const isMobile = useMediaQuery({ maxWidth: 768 })
+
     return (
         <Select
             isMulti
@@ -28,18 +30,19 @@ export const DropdownModified = ({ data, width, placeholder, onChange }) => {
             placeholder={placeholder}
             onChange={handleChange}
             styles={{
-                control: (baseStyles,state) => ({
+                control: (baseStyles, state) => ({
                     ...baseStyles,
                     width: width,
                     fontWeight: "400",
                     fontSize: laptopSmall ? "13px" : "16px",
                     textTransform: "capitalize",
                     lineHeight: "20px",
-                    border:"none",
+                    border: "none",
                     borderColor: 'transparent',
                     boxShadow: 'none',
                     background: "#fffff",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    borderBottom: isMobile ? '1px solid #cfd1da' : 'none',
                 }),
             }}
         />
