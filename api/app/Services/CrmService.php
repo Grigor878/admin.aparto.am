@@ -59,12 +59,15 @@ class CrmService
 
         $homeToInsert = [];
         foreach ($displayedHomes as $key => $home) {
+            $date = Carbon::createFromFormat('d/m/Y', $home['date']);
+
             $homeToInsert[] = [
                 'user_id' => $user->id,
                 'home_id' => $home['id'],
-                'display_at' => Carbon::parse($home['date']),
+                'display_at' => $date->format('Y-m-d'),
             ];
         }
+
 
         if($homeToInsert) { 
             CrmUserHasHome::insert($homeToInsert);
@@ -121,29 +124,52 @@ class CrmService
 
             $homeToInsert = [];
             foreach ($displayedHomes as $key => $home) {
+            $date = Carbon::createFromFormat('d/m/Y', $home['date']);
+
                 $homeToInsert[] = [
                     'user_id' => $idCrm,
                     'home_id' => $home['id'],
-                    'display_at' => Carbon::parse($home['date']),
+                    'display_at' => $date->format('Y-m-d'),
                 ];
             }
     
             if($homeToInsert) { 
                 CrmUserHasHome::insert($homeToInsert);
             }
-//addd files
-            // dd($request['displayedHomes']);
+
+            $filesToInsert = [];
+            $existingFile = CrmUserHasFile::where('user_id', $idCrm)->get()->pluck('path');
+            $getCrmExistFile = [];
+
+            foreach ($request as $key => $item) {
+                if(str_contains($key, 'file') && gettype($item) == 'string') {
+                   $getCrmExistFile[] = $item;
+                }
+                if(gettype($item) == 'object'){
+                    $fileName = round(microtime(true) * 1000).'.'.$item->extension();
+                    $realName = $item->getClientOriginalName();
+                    $path = 'crmfiles/' . $fileName;
+                    $filesToInsert[] = [
+                        'user_id' => $user->id,
+                        'name' => $fileName,
+                        'real_name' => $realName,
+                        'path' => $path,
+                    ];
+                    $item->move(public_path('crmfiles'), $fileName);
+                }
+            }
+            $diff = $existingFile->diff($getCrmExistFile);
+            CrmUserHasFile::whereIn('path', $diff->all())->delete();
+            
+            if($filesToInsert) { 
+                CrmUserHasFile::insert($filesToInsert);
+            }
+
             return true;
 
         }
 
         return response()->json(['message' => 'Ինչ որ բան սխալ է.'], 500);
-
-
-        //check status employee, if agent remove telephone and mail
-        //jnjel tnery nor tazeqy avelacnel   
-        //STUGEL ete ka tuny kam filen el chavelacnel
-        dd($request);
     }
 
     public function getCrmUsers()
