@@ -287,7 +287,7 @@ class CrmService
             'source' => $user->source,
             'contractNumber' => $user->contract_number,
             'comment' => $user->comment,
-            'specialist' => $user->employee_id, 
+            'specialist' => (int) $user->employee_id, 
             'status' => $user->status,
             'displayedHomes' => $this->getCrmHomes($user->homes),
             'files' => $user->files->pluck('path')->toArray(),
