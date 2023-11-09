@@ -309,6 +309,7 @@ class HomeController extends Controller
                     }
     
                 }
+                logger('EditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
                 $home->photo = json_encode($photoName);
                 $home->save();
             }

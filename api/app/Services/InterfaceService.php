@@ -331,7 +331,7 @@ class InterFaceService
 
                 if ($data['searchData'][0]['type']) {
                     if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData'][0]['type']) {
-                        $isMatched = false;
+                        return false;
                     };
                 }
 
@@ -704,7 +704,7 @@ class InterFaceService
 
             if ($data['searchData']['type']) {
                 if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData']['type']) {
-                    $isMatched = false;
+                    return false;
                 };
             }
 
@@ -741,7 +741,7 @@ class InterFaceService
                        in_array($home->am[1]->fields[0]->communityId, $data['searchData']['community'])
                     ){
                       foreach ($data['searchData']['streets'] as $key => $add) {
-                        if($home->am[1]->fields[0]->communityId == $addresses[$add]){
+                          if($home->am[1]->fields[0]->communityId == $addresses[$add]){
                           $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $data['searchData']['streets']);
                           if (!$resultStreet) {
                             $isMatched = false;
