@@ -62,12 +62,10 @@ const EditClient = () => {
     const [budget, setBudget] = useState(editCrmUserData?.budget)
     const [comment, setComment] = useState(editCrmUserData?.comment)
     const [contractNumber, setContractNumber] = useState(editCrmUserData?.contractNumber)
+    const [specialist, setSpecialist] = useState(editCrmUserData?.specialist); 
 
-    const [specialist, setSpecialist] = useState(editCrmUserData?.specialist)
     const [status, setStatus] = useState(editCrmUserData?.status)
-
     const [homeSearch, setHomeSearch] = useState("")
-
     const [displayed, setDisplayed] = useState(editCrmUserData?.displayedHomes)
 
     const handleDateChangeInDisplayed = (value, id) => {
@@ -149,7 +147,7 @@ const EditClient = () => {
             }, 1000)
         });
     }
-    console.log(displayed);
+
     return (
         <article className="addNewClient">
             <AddPart type="editClient" crmPermission={editCrmUserData?.permission} />

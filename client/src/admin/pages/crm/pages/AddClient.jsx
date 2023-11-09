@@ -43,10 +43,9 @@ const AddClient = () => {
     const [comment, setComment] = useState("")
     const [contractNumber, setContractNumber] = useState("")
     const [specialist, setSpecialist] = useState(role === "agent" ? id : "")
+
     const [status, setStatus] = useState("")
-
     const [homeSearch, setHomeSearch] = useState("")
-
     const [displayed, setDisplayed] = useState([])
 
     const handleDateChangeInDisplayed = (value, id) => {

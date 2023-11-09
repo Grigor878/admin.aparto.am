@@ -38,12 +38,10 @@ export const addCrmUser = createAsyncThunk("crm/addUser", async (addedUser) => {
       addedUser,
       getAxiosConfig()
     );
-    console.log(data);
 
     if (data?.status === "success") {
       success(data?.message);
     }
-    // return data;
   } catch (err) {
     console.log(`Crm add client Error: ${err.message}`);
   }
