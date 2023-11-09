@@ -121,7 +121,8 @@ const AddClient = () => {
 
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
-        dispatch(addCrmUser(formData)).then(() => {
+        dispatch(addCrmUser(formData))
+        .then(() => {
             setTimeout(() => {
                 navigate(-1)
             }, 1000)

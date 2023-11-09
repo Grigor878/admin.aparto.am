@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { editCrmUser, getEditCrmUser, getHomes } from '../../../../store/slices/crmSlice'
 import AddPart from '../../../components/addPart/AddPart'
 import { cutText, formatDate } from '../../../../helpers/formatters'
@@ -25,7 +25,7 @@ import { error } from '../../../../components/swal/swal'
 const EditClient = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const { editCrmUserData, loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
 
@@ -89,13 +89,13 @@ const EditClient = () => {
     );
 
     const addToDisplayed = (id) => {
-        const selectedHome = crmHomes.find(home => home.id === id);
+        const selectedHome = crmHomes?.find(home => home.id === id);
 
         setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, selectedHome]);
     };
 
     const removeFromDisplayed = (id) => {
-        setDisplayed(prevDisplayedHomes => prevDisplayedHomes.filter(home => home.id !== id));
+        setDisplayed(prevDisplayedHomes => prevDisplayedHomes?.filter(home => home.id !== id));
     };
 
     const handleSubmit = (e) => {
@@ -143,13 +143,13 @@ const EditClient = () => {
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
         dispatch(editCrmUser({ id, formData }))
-        // .then(() => {
-        //     setTimeout(() => {
-        //         navigate(-1)
-        //     }, 1000)
-        // });
+        .then(() => {
+            setTimeout(() => {
+                navigate(-1)
+            }, 1000)
+        });
     }
-
+    console.log(displayed);
     return (
         <article className="addNewClient">
             <AddPart type="editClient" crmPermission={editCrmUserData?.permission} />
@@ -314,7 +314,7 @@ const EditClient = () => {
                                     <input
                                         id={`date-${id}`}
                                         type="date"
-                                        defaultValue={formatDate(date)}
+                                        defaultValue={date ? formatDate(date) : ""}
                                         onChange={(e) => handleDateChangeInDisplayed(e.target.value, id)}
                                     />
 
@@ -387,3 +387,13 @@ const EditClient = () => {
 }
 
 export default EditClient
+
+
+// const addToDisplayed = (id) => {
+//     const selectedHome = crmHomes.find(home => home.id === id);
+//     const date = new Date();
+//     const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+//     const updatedHome = { ...selectedHome, date: formattedDate };
+
+//     setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, updatedHome]);
+// };

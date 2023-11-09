@@ -88,10 +88,15 @@ export function extractFileName(url) {
 }
 
 // date formatter for crm edit
+// export function formatDate(dateString) {
+//   const formattedDate = new Date(dateString);
+//   const year = formattedDate.getFullYear();
+//   const day = formattedDate.getDate().toString().padStart(2, '0');
+//   const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+//   return `${year}-${day}-${month}`;
+// }
+
 export function formatDate(dateString) {
-  const formattedDate = new Date(dateString);
-  const year = formattedDate.getFullYear();
-  const day = formattedDate.getDate().toString().padStart(2, '0');
-  const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
-  return `${year}-${day}-${month}`;
+  const [day, month, year] = dateString?.split("/");
+  return `${year}-${month?.padStart(2, "0")}-${day?.padStart(2, "0")}`;
 }
