@@ -19,8 +19,9 @@ import { deals, proptypes, statuses } from './data'
 import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
-import './styles.scss'
 import { error } from '../../../../components/swal/swal'
+import { APP_BASE_URL } from '../../../../apis/config'
+import './styles.scss'
 
 const EditClient = () => {
     const { id } = useParams()
@@ -62,7 +63,7 @@ const EditClient = () => {
     const [budget, setBudget] = useState(editCrmUserData?.budget)
     const [comment, setComment] = useState(editCrmUserData?.comment)
     const [contractNumber, setContractNumber] = useState(editCrmUserData?.contractNumber)
-    const [specialist, setSpecialist] = useState(editCrmUserData?.specialist); 
+    const [specialist, setSpecialist] = useState(editCrmUserData?.specialist);
 
     const [status, setStatus] = useState(editCrmUserData?.status)
     const [homeSearch, setHomeSearch] = useState("")
@@ -141,11 +142,11 @@ const EditClient = () => {
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
         dispatch(editCrmUser({ id, formData }))
-        .then(() => {
-            setTimeout(() => {
-                navigate(-1)
-            }, 1000)
-        });
+            .then(() => {
+                setTimeout(() => {
+                    navigate(-1)
+                }, 1000)
+            });
     }
 
     return (
@@ -301,13 +302,17 @@ const EditClient = () => {
                         {displayed?.map(({ id, home_id, street, community, surface, status, date }) => {
                             return (
                                 <li key={id}>
-                                    <div>
+                                    <a
+                                        href={`${APP_BASE_URL}/result/${id}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
                                         <p># {home_id}</p>
                                         <p>{cutText(street, 15)}</p>
                                         <p>{community}</p>
                                         <p>{surface} ք․մ</p>
                                         <HomeStatus status={status} />
-                                    </div>
+                                    </a>
 
                                     <input
                                         id={`date-${id}`}
@@ -343,13 +348,17 @@ const EditClient = () => {
 
                                 return (
                                     <li key={id}>
-                                        <div >
+                                        <a
+                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <HomeStatus status={status} />
-                                        </div>
+                                        </a>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>
                                                 {ownerAdd.icon}
@@ -363,13 +372,17 @@ const EditClient = () => {
 
                                 return (
                                     <li key={id}>
-                                        <div >
+                                        <a
+                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <HomeStatus status={status} />
-                                        </div>
+                                        </a>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>
                                                 {ownerAdd.icon}

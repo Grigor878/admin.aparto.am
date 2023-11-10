@@ -18,6 +18,7 @@ import { cutText } from '../../../../helpers/formatters';
 import { Loader } from '../../../../components/loader/Loader';
 import { error } from '../../../../components/swal/swal';
 import { useNavigate } from 'react-router-dom';
+import { APP_BASE_URL } from '../../../../apis/config';
 import { HomeStatus } from '../components/statuses/HomeStatus';
 import './styles.scss'
 
@@ -87,9 +88,9 @@ const AddClient = () => {
             return error("Նշեք գույքի տիպը!")
         }
 
-        if (!displayed?.length) {
-            return error('Նշեք ցուցադրված գույք!');
-        }
+        // if (!displayed?.length) {
+        //     return error('Նշեք ցուցադրված գույք!');
+        // }
 
         if (displayed?.some((home) => !home.date)) {
             return error('Նշեք ցուցադրման ամսաթիվը!');
@@ -121,13 +122,13 @@ const AddClient = () => {
         formData.append('displayedHomes', JSON.stringify(displayedHomes));
 
         dispatch(addCrmUser(formData))
-        .then(() => {
-            setTimeout(() => {
-                navigate(-1)
-            }, 1000)
-        });
+            .then(() => {
+                setTimeout(() => {
+                    navigate(-1)
+                }, 1000)
+            });
     }
-    console.log(displayed);
+
     return (
         <article className="addNewClient">
             <AddPart type="addNewClient" />
@@ -266,13 +267,17 @@ const AddClient = () => {
                         {displayed?.map(({ id, home_id, street, community, surface, status }) => {
                             return (
                                 <li key={id}>
-                                    <div>
+                                    <a
+                                        href={`${APP_BASE_URL}/result/${id}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
                                         <p># {home_id}</p>
                                         <p>{cutText(street, 15)}</p>
                                         <p>{community}</p>
                                         <p>{surface} ք․մ</p>
                                         <HomeStatus status={status} />
-                                    </div>
+                                    </a>
 
                                     {/* <label htmlFor={`date-${id}`}>Select Date: </label> */}
                                     <input
@@ -309,13 +314,17 @@ const AddClient = () => {
 
                                 return (
                                     <li key={id}>
-                                        <div>
+                                        <a
+                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <HomeStatus status={status} />
-                                        </div>
+                                        </a>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>
                                                 {ownerAdd.icon}
@@ -329,13 +338,17 @@ const AddClient = () => {
 
                                 return (
                                     <li key={id}>
-                                        <div>
+                                        <a
+                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                             <p># {home_id}</p>
                                             <p>{cutText(street, 15)}</p>
                                             <p>{community}</p>
                                             <p>{surface} ք․մ</p>
                                             <HomeStatus status={status} />
-                                        </div>
+                                        </a>
                                         {!isAdded && (
                                             <button onClick={() => addToDisplayed(id)}>
                                                 {ownerAdd.icon}

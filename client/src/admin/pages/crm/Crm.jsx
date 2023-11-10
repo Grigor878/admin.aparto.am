@@ -36,13 +36,14 @@ const Crm = () => {
     };
 
     const filteredCrmUsers = filterData(crmUsers, search.toLowerCase());
-    
+
     return (
         <article className='crm'>
             <div className="crm__top">
                 <h3>CRM</h3>
                 <div className='crm__top-sticky'>
                     <Search
+                        width="682px"
                         value={search}
                         placeholder="Որոնել՝ Հաճախորդ, Գույք, Հեռախոս, Գույքի տիպ, Մասնագետ, Կարգավիճակ"
                         onChange={(e) => setSearch(e.target.value.toLowerCase())}
