@@ -108,10 +108,6 @@ const EditClient = () => {
             return error("Նշեք գույքի տիպը!")
         }
 
-        if (!displayed?.length) {
-            return error('Նշեք ցուցադրված գույք!');
-        }
-
         if (displayed?.some((home) => !home.date)) {
             return error('Նշեք ցուցադրման ամսաթիվը!');
         }
