@@ -32,7 +32,8 @@ class CrmService
 
     public function getHomesForCrm()
     {
-        $allHome = Home::all();
+        $allHome = Home::orderBy('id', 'desc')
+                    ->get();
 
         return CrmHomesResource::collection($allHome);
 
@@ -43,15 +44,15 @@ class CrmService
         $user = new CrmUser();
         $user->name = $request['name'];
         $user->phone = $request['phone'];
-        $user->email = $request['email'];
+        $user->email = $request['email']??"";
         $user->employee_id = $request['specialist'];
-        $user->contract_number = $request['contractNumber'];
+        $user->contract_number = $request['contractNumber']??"";
         $user->source = $request['source'];
         $user->deal = $request['deal'];
         $user->property_type = $request['propertyType'];
         $user->room = $request['room'];
         $user->budget = $request['budget'];
-        $user->comment = $request['comment'];
+        $user->comment = $request['comment']??"";
         $user->status = $request['status'];
         $user->save();
 
@@ -105,15 +106,15 @@ class CrmService
             if($user) {
                 $user->name = $request['name'];
                 $user->phone = $request['phone'];
-                $user->email = $request['email'];
+                $user->email = $request['email']??"";
                 $user->employee_id = $request['specialist'];
-                $user->contract_number = $request['contractNumber'];
+                $user->contract_number = $request['contractNumber']??"";
                 $user->source = $request['source'];
                 $user->deal = $request['deal'];
                 $user->property_type = $request['propertyType'];
                 $user->room = $request['room'];
                 $user->budget = $request['budget'];
-                $user->comment = $request['comment'];
+                $user->comment = $request['comment']??"";
                 $user->status = $request['status'];
                 $user->save();
             }
@@ -187,6 +188,7 @@ class CrmService
     {
 
         $employee = Employe::all();
+        $homes = Home::all();
 
         $customResource = [];
 
@@ -194,7 +196,12 @@ class CrmService
             $searchable = [];
             $checkUserAgent = $this->recoverEmployeeRights($user->id);
             $agent = $this->getAgentName($employee, $user->employee_id);
-
+            if($user->homes){
+                $homesHomeId = $homes->whereIn('id', $user->homes->pluck('home_id')->toArray())->pluck('home_id');
+                foreach ($homesHomeId as $key => $homId) {
+                    $searchable[] = (string) $homId;
+                }
+            }
             $transactionDecode = json_decode($user->property_type);
             $transactionType = [];
             foreach ($transactionDecode as $key => $value) {
@@ -226,6 +233,7 @@ class CrmService
                 'searchable' => $searchable,
             ];
         }
+
         return $customResource;
     }
 
