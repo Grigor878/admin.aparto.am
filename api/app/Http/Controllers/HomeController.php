@@ -265,6 +265,7 @@ class HomeController extends Controller
             $home = Home::find($id);
             if($home) {
                 $photoName = array_fill(0, count($data), '');
+                logger('beforeEditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
                 $condition = true;
                 foreach ($data as $key => $photo) {
                     preg_match_all('/\d+/', $key, $matches);
