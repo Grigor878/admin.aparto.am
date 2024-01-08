@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class InterFaceService
 {
-    private function processHomeData($home)
+    public function processHomeData($home)
     {
         $am = json_decode($home->am);
         $ru = json_decode($home->ru);
@@ -681,7 +681,8 @@ class InterFaceService
     public function getResultPageData($data, $lang)
     {
         $searchHomeArray = [];
-        $addresses = ConfigAddress::get()->pluck('communityId');
+        // $addresses = ConfigAddress::get()->pluck('communityId');
+        $addresses = ConfigAddress::select('id', 'communityId')->get()->keyBy('id');
 
         $searchHomes = Home::orderBy('created_at', 'desc')
             ->where('status', Home::STATUS_APPROVED)
@@ -731,7 +732,7 @@ class InterFaceService
                             in_array($home->am[1]->fields[0]->communityId, $data['searchData']['community'])
                         ) {
                             foreach ($data['searchData']['streets'] as $key => $add) {
-                                if ($home->am[1]->fields[0]->communityId == $addresses[$add]) {
+                                if ($home->am[1]->fields[0]->communityId == $addresses[$add]->communityId) {
                                     $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $data['searchData']['streets']);
                                     if (!$resultStreet) {
                                         $isMatched = false;
