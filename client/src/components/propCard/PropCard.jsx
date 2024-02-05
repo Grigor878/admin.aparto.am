@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
-import { amdFormater, cutCommunity, cutCommunityRu, cutText, sqmToFt2, usdFormater } from "../../helpers/formatters";
+import { amdFormater, cutCommunity, cutCommunityRu, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 
 export const PropCard = ({ data }) => {
@@ -21,10 +21,6 @@ export const PropCard = ({ data }) => {
 
   const scrollableDivRef = useRef(null)
   const scrollableDiv = scrollableDivRef.current
-
-  const homeCut = language === "am" ? 30 : language === "en" ? 35 : 38
-
-  const resultCut = language === "am" ? 25 : language === "en" ? 30 : 33
 
   const scroll = laptop ? 382 : 408
 
@@ -68,12 +64,7 @@ export const PropCard = ({ data }) => {
                     </div>
 
                     <div className="propCard__card-main-center">
-                      <h5>
-                        {title?.length >= 29
-                          ? cutText(title, homeCut)
-                          // ? cutText(title, 31)
-                          : title}
-                      </h5>
+                      <h5>{title}</h5>
                       <div className="propCard__card-main-center-geo">
                         <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p>
                         <p>{community}</p>
@@ -130,11 +121,7 @@ export const PropCard = ({ data }) => {
                   </div>
 
                   <div className="propCardResult__card-main-center">
-                    <h5>
-                      {title?.length >= 25
-                        ? cutText(title, resultCut)
-                        : title}
-                    </h5>
+                    <h5>{title}</h5>
                     <div className="propCardResult__card-main-center-geo">
                       <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p>
                       <p>{community}</p>

@@ -7,7 +7,7 @@ import { Loader } from '../../../../components/loader/Loader'
 import { usdFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
-import { balcony, buildType, buildingYear, checked, file, floorIcon, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
+import { balcony, buildType, buildingYear, checked, file, floorIcon, ground, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';
 import user from '../../../../assets/imgs/user.png'
@@ -219,6 +219,11 @@ const SingleProperty = () => {
                                 <div>
                                     {orentation.icon}
                                     Կողմնորոշում -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
+                                </div>}
+                            {currentPropertyData[3]?.fields[7]?.value &&
+                                <div>
+                                    {ground.icon}
+                                    Հողի մակերես -<p>{currentPropertyData[3]?.fields[7]?.value} ք.մ</p>
                                 </div>}
                         </div>
 

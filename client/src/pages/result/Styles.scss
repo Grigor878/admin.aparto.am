@@ -445,6 +445,10 @@
       &-location {
         padding-top: 52px;
 
+        @media screen and (max-width: 768px) {
+          padding-top: 0;
+        }
+
         p {
           @include flex;
           gap: 6px;

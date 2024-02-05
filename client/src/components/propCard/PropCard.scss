@@ -152,6 +152,11 @@
           font-size: 16px;
           font-weight: 600;
           line-height: 20px;
+          //
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
 
           @media screen and (max-width: 1122px) {
             font-size: 15px;
@@ -294,6 +299,11 @@
           font-size: 16px;
           font-weight: 600;
           line-height: 20px;
+          //
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
 
           @media screen and (max-width: 1280px) {
             font-size: 15px;

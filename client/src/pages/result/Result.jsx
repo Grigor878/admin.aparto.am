@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterOpen, openMap } from "../../assets/svgs/svgs";
@@ -13,20 +13,18 @@ import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import "./Styles.scss";
 
 const Result = () => {
+  const mobile = useMediaQuery({ maxWidth: 768 })
   const { t } = useTranslation();
-
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
 
-  const { loading, resultData, siderData } = useSelector((state) => state.view);
+  const { loading, siderLoading, resultData, siderData } = useSelector((state) => state.view);
 
   const data = siderData ? siderData?.data : resultData?.data
   const paginateData = siderData ? siderData : resultData
-
-  const mobile = useMediaQuery({ maxWidth: 768 })
 
   const [sider, setSider] = useState(!mobile);
   const [map, setMap] = useState(false);
@@ -39,8 +37,6 @@ const Result = () => {
       setSider(!mobile)
     }
   }, [map, mobile]);
-
-  const { siderLoading } = useSelector((state) => state.view);
 
   const handlePageChange = (page) => {
     dispatch(setPage("result"))

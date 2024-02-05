@@ -8,6 +8,7 @@
   "main_title": "Поиск недвижимости для <span>продажи</span> или <span>аренды</span>",
 
   "search": "Поиск",
+  "search_main": "Поиск <1/> Пример.՝ Центр / Баграмян",
   "property_type": "Тип недвижимости",
   "max_price": "Максимальная цена - $",
   "search_btn": "Поиск",
@@ -91,6 +92,7 @@
   "builded": "Построен",
   "kitchen_type": "Тип кухни",
   "orentation": "Ориентация",
+  "ground": "Площадь земельного участка",
   "house_description":"Описание дома",
   "number_of_rooms": "Количество комнат",
   "number_of_bedrooms": "Количество спален",

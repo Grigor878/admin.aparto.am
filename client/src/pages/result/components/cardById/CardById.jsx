@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from '../../../../apis/config';
 import noImg from "../../../../assets/imgs/noImg.png";
-import { amdFormater, cutCommunity, cutText, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
+import { amdFormater, cutCommunity, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
 import { buildType, roomIcon, square } from '../../../../admin/svgs/svgs';
 import './CardById.scss'
 
@@ -57,11 +57,7 @@ export const CardById = ({ selectedItem, closeCard }) => {
                 </div>
 
                 <div className="cardResult-main-center">
-                    <h5>
-                        {selectedItem?.title?.length >= 25
-                            ? cutText(selectedItem?.title, 25)
-                            : selectedItem?.title}
-                    </h5>
+                    <h5>{selectedItem?.title}</h5>
                     <div className="cardResult-main-center-geo">
                         <p>{cutCommunity(selectedItem?.street)}</p>
                         <p>{selectedItem?.community}</p>

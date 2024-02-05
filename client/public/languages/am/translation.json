@@ -8,6 +8,7 @@
   "main_title": "Փնտրել <span>վաճառքի</span> կամ <span>վարձակալության</span> անշարժ գույք",
 
   "search": "Որոնում",
+  "search_main": "Որոնում <1/> Օր.՝ Կենտրոն / Բաղրամյան",
   "property_type": "Գույքի տիպ",
   "max_price": "Մաքս. գին - $",
   "search_btn": "Որոնել",
@@ -91,6 +92,7 @@
   "builded": "Կառուցված",
   "kitchen_type": "Խոհանոցի տիպ",
   "orentation": "Կողմնորոշում",
+  "ground": "Հողի մակերես",
   "house_description": "Տան Նկարագիր",
   "number_of_rooms": "Սենյակների քանակ",
   "number_of_bedrooms": "Ննջասենյակների քանակ",

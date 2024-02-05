@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { search } from '../../../../assets/svgs/svgs'
-import './Searches.scss'
 import { useSelector } from 'react-redux'
 import { usdFormater } from '../../../../helpers/formatters'
+import './Searches.scss'
 
 const Searches = () => {
     const { t } = useTranslation()

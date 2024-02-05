@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSessionState } from '../../../../hooks/useSessionState'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { DropdownModified } from '../inputs/dropdownModified'
@@ -32,11 +32,11 @@ export const Search = () => {
     const width2 = mobile ? "100%" : "141px"
 
     const [disable, setDisable] = useState(false)
-    const [active, setActive] = useSessionState("sale", "homeTransactionType")//done
-    const [community, setCommunity] = useState([])////////
-    const [propType, setPropType] = useState([])//done
-    const [rooms, setRomms] = useState([])//done
-    const [price, setPrice] = useState("")//done
+    const [active, setActive] = useSessionState("sale", "homeTransactionType")
+    const [community, setCommunity] = useState([])
+    const [propType, setPropType] = useState([])
+    const [rooms, setRomms] = useState([])
+    const [price, setPrice] = useState("")
 
     const navigate = useNavigate()
 
@@ -73,7 +73,7 @@ export const Search = () => {
         dispatch(addRooms(rooms))
         dispatch(addPrice(price))
         dispatch(clearSidertData())
-        dispatch(setPage("home"))//
+        dispatch(setPage("home"))
         dispatch(postSearchData({ searchData, language }))
             .then(() => {
                 navigate("/result")
@@ -100,7 +100,8 @@ export const Search = () => {
                     data={searchData}
                     onChange={(e) => setCommunity(e)}
                     width={width}
-                    placeholder={t("search")}
+                    // placeholder={t("search")}
+                    placeholder={<Trans i18nKey="search_main" components={{ 1: <br /> }} />}
                 />
                 <Dropdown
                     data={language === "am" ? propertyTypeAm : language === "en" ? propertyTypeEn : propertyTypeRu}

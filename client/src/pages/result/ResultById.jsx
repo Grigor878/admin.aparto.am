@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
 import { API_BASE_URL } from '../../apis/config'
-import { balcony, buildType, buildingYear, checked, floorIcon, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
+import { balcony, buildType, buildingYear, checked, floorIcon, ground, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
 import { amdFormater, sqmToFt2, usdFormater } from '../../helpers/formatters'
@@ -208,7 +208,7 @@ const ResultById = () => {
                   {currentPropertyData[4]?.fields[3]?.value &&
                     <div>
                       {buildingYear.icon}
-                      {t('builded')} -<p>{currentPropertyData[4]?.fields[3]?.value}</p>
+                      {t('builded')} <p>{currentPropertyData[4]?.fields[3]?.value}</p>
                     </div>}
 
                   <div>
@@ -220,6 +220,11 @@ const ResultById = () => {
                     <div>
                       {orentation.icon}
                       {t("orentation")} -<p>{currentPropertyData[4]?.fields[4]?.value}</p>
+                    </div>}
+                  {currentPropertyData[3]?.fields[7]?.value &&
+                    <div>
+                      {ground.icon}
+                      {t("ground")} -<p>{currentPropertyData[3]?.fields[7]?.value} ք.մ</p>
                     </div>}
                 </div>
 
@@ -316,6 +321,110 @@ const ResultById = () => {
                   : null}
 
                 <div className='singleProperty__content-left-location'>
+                  {mobile && <div className='singleProperty__content-right'>
+                    <div className='singleProperty__content-right-price'>
+                      {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
+                        ? <h4>{t("price")}։
+                          {exchange === 2
+                            ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
+                            : <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span>
+                          }
+                        </h4>
+                        : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
+                      }
+
+                      {!currentPropertyData[2]?.fields[2]?.value ? null
+                        : exchange === 2
+                          ? <p>{t("first_pay")}:<span>&#1423; {amdFormater(currentPropertyData[2]?.fields[2]?.value, exchangeValue)}</span></p>
+                          : <p>{t("first_pay")}:<span>{usdFormater(currentPropertyData[2]?.fields[2]?.value)}</span></p>
+                      }
+
+                      {(!currentPropertyData[2]?.fields[1]?.value) ? null
+                        : exchange === 2
+                          ? <p>{t("sqm_price")} :<span>&#1423; {amdFormater(currentPropertyData[2]?.fields[1]?.value, exchangeValue)}</span></p>
+                          : <p>{t("sqm_price")} :<span>{usdFormater(currentPropertyData[2]?.fields[1]?.value)}</span></p>
+                      }
+
+                      <PriceHistory data={currentPropertyPrice} />
+
+                      {currentPropertyData[2]?.fields[4]?.value &&
+                        <>
+                          <hr />
+                          <p>{t("payment_type")}։
+                            {currentPropertyData[2]?.fields[4]?.value.includes(",")
+                              ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                {currentPropertyData[2]?.fields[4]?.value.split(',').map((item, index) => (
+                                  <span key={index}>{item.trim()}</span>
+                                ))}
+                              </span>
+                              : <span>{currentPropertyData[2]?.fields[4]?.value}</span>
+                            }
+                          </p>
+                        </>
+                      }
+
+                      {currentPropertyData[2]?.fields[5]?.value &&
+                        <p>{t("preferred_bank")}։
+                          {currentPropertyData[2]?.fields[5]?.value.includes(",")
+                            ? <span style={{ display: 'flex', flexDirection: 'column' }}>
+                              {currentPropertyData[2]?.fields[5]?.value?.split(',')?.map((item, index) => (
+                                <span key={index}>{item.trim()}</span>
+                              ))}
+                            </span>
+                            : <span>{currentPropertyData[2]?.fields[5]?.value}</span>
+                          }
+                        </p>}
+                      <hr />
+                      {currentPropertyData[4]?.fields[5]?.value &&
+                        <p>{t("tax_yearly")}։<span>$ {currentPropertyData[4]?.fields[5]?.value}</span></p>}
+                      {currentPropertyData[4]?.fields[6]?.value &&
+                        <p>{t("tax_monthly")}։<span>$ {currentPropertyData[4]?.fields[6]?.value}</span></p>}
+                    </div>
+
+                    <div className='singleProperty__content-right-contact'>
+                      <h5>{t("contact_us")}</h5>
+
+                      <div className='singleProperty__content-right-contact-social'>
+                        <div className='singleProperty__content-right-contact-social-card'>
+                          <span>{mail.icon} {t("email")}</span>
+                          <p>info@aparto.am</p>
+                        </div>
+
+                        <div className='singleProperty__content-right-contact-social-bottom'>
+                          <div className='singleProperty__content-right-contact-social-card'>
+                            <span>{tel.icon} {t("tel_number")}</span>
+                            {/* {adminTel && <p>{adminTel}</p>} */}
+                            {adminTel && <a href={`tel:${adminTel}`}><p>{adminTel}</p></a>}
+                          </div>
+                          <div className='singleProperty__content-right-contact-social-card'>
+                            <div style={{ display: "flex", gap: "16px" }}>
+                              <img src={telegram} alt="telegram" />
+                              <img src={whatsapp} alt="whatsapp" />
+                              <img src={viber} alt="viber" />
+                            </div>
+                            {/* {adminSocial && <p>{adminSocial}</p>} */}
+                            {adminSocial && <a href={`tel:${adminSocial}`}><p>{adminSocial}</p></a>}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className='singleProperty__content-right-contact-info'>
+                        <img
+                          src={currentPropertyData[11]?.fields[0]?.photo
+                            ? API_BASE_URL + '/images/' + currentPropertyData[11]?.fields[0]?.photo
+                            : user}
+                          alt="img"
+                        />
+
+                        <div className='singleProperty__content-right-contact-info-name'>
+                          {/* <p>{t("name_surname")}</p> */}
+                          <p>{currentPropertyData[11]?.fields[0]?.value}</p>
+                          <span>{t("agent")}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>}
+
                   <p>
                     {location.icon}
                     {currentPropertyData[1]?.fields[0]?.communityStreet?.value}
@@ -334,7 +443,7 @@ const ResultById = () => {
               </div>
 
               {/* Right */}
-              <div className='singleProperty__content-right'>
+              {!mobile && <div className='singleProperty__content-right'>
                 <div className='singleProperty__content-right-price'>
                   {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
                     ? <h4>{t("price")}։
@@ -436,7 +545,7 @@ const ResultById = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>}
             </div >
           </div>
         </div>
