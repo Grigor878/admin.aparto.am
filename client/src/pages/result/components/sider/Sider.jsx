@@ -25,7 +25,7 @@ export const Sider = ({ open, setOpen }) => {
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
   const { page, paginatePage, perPage, searchedCommunities, searchedAddresses } = useSelector((state) => state.view);
-
+console.log(language);
   const mobile = useMediaQuery({ maxWidth: 768 })
 
   const [radio, setRadio] = useState(transactionType)//done

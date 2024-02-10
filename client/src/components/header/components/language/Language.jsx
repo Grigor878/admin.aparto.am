@@ -17,7 +17,7 @@ const Language = () => {
     const dispatch = useDispatch()
 
     const [openLng, setOpenLng] = useState(false)
-    const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "am")
+    const [selectedLng, setSelectedLng] = useState(cookies.get("lngFlag") || "gb")
 
     const handleOpenLng = () => {
         setOpenLng(!openLng)
