@@ -67,7 +67,7 @@ export const PropCard = ({ data }) => {
                       <h5>{title}</h5>
                       <div className="propCard__card-main-center-geo">
                         {/* <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p> */}
-                        <p>{language === "ru" ? street : street}</p>
+                        <p>{street}</p>
                         <p>{community}</p>
                       </div>
                     </div>
@@ -124,7 +124,7 @@ export const PropCard = ({ data }) => {
                   <div className="propCardResult__card-main-center">
                     <h5>{title}</h5>
                     <div className="propCardResult__card-main-center-geo">
-                      <p>{language === "ru" ? cutCommunityRu(street) : cutCommunity(street)}</p>
+                      <p>{street}</p>
                       <p>{community}</p>
                     </div>
                   </div>
