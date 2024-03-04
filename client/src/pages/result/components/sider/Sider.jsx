@@ -50,7 +50,9 @@ export const Sider = ({ open, setOpen }) => {
     dispatch(setPage("result"))
     dispatch(setPaginatePage("1"))
     navigate(location.pathname)
-    window.scrollTo(0, 0)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 1200)
     if (e.target.checked) {
       setState((prev) => [...prev, id])
     } else {
@@ -63,8 +65,10 @@ export const Sider = ({ open, setOpen }) => {
     dispatch(setPage("result"))
     dispatch(setPaginatePage("1"))
     navigate(location.pathname)
-    window.scrollTo(0, 0)
     setState(value)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 1200)
   };
 
   useEffect(() => {
@@ -72,7 +76,7 @@ export const Sider = ({ open, setOpen }) => {
       dispatch(clearResultData());
       dispatch(getResultPageData({ language, searchData }));
       setOpen(mobile ? false : true)
-    }, 1500);
+    }, 1000);
 
     const searchData = {
       type: radio,

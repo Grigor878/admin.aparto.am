@@ -5,6 +5,7 @@ import { getAxiosConfig } from "../../apis/config";
 const initialState = {
   loading: false,
   userGlobal: [],
+  authorized: false,
   error: "",
 };
 
@@ -26,7 +27,7 @@ const userGlobalSlice = createSlice({
   initialState,
   reducers: {
     clearUserGlobal: (state) => {
-      state.userGlobal = []
+      state.userGlobal = [];
     },
   },
   extraReducers: (builder) => {

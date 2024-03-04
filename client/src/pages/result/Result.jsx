@@ -22,10 +22,9 @@ const Result = () => {
   const searchParams = new URLSearchParams(location.search);
 
   const { loading, siderLoading, resultData, siderData } = useSelector((state) => state.view);
-// console.log(resultData);
-// console.log(siderData);
-  // const data = siderData ? siderData?.data : resultData?.data
-  const data = siderData ? siderData : resultData
+  // console.log(resultData);
+  // console.log(siderData);
+  const data = siderData ? siderData?.data : resultData?.data
   const paginateData = siderData ? siderData : resultData
 
   const [sider, setSider] = useState(!mobile);
@@ -45,7 +44,9 @@ const Result = () => {
     dispatch(setPaginatePage(page))
     page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
     navigate(`${location.pathname}?${searchParams.toString()}`);
-    window.scrollTo(0, 0)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 1200)
   };
 
   return loading ? (
@@ -66,9 +67,12 @@ const Result = () => {
                 <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
               )}
 
-              {paginateData?.total
+              {/* {paginateData?.total
                 ? <h2>{paginateData?.total} {t("result")}</h2>
-                : <h2>{data?.length} {t("result")}</h2>}
+                : <h2>{data?.length} {t("result")}</h2>} */}
+
+              {paginateData?.total && <h2>{paginateData?.total} {t("result")}</h2>}
+              {data !== undefined && !paginateData?.total && <h2>{data?.length} {t("result")}</h2>}
             </div>
 
             {!map && data?.length
