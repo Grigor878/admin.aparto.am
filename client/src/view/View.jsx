@@ -1,10 +1,11 @@
-import React, { lazy, Suspense } from "react"
+import React, { lazy, Suspense, useEffect } from "react"
 import pMinDelay from 'p-min-delay';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
+import { getUserGlobal } from "../store/slices/userGlobalSlice";
 
 const Home = lazy(() => pMinDelay(import('../pages/home/Home'), 1000))
 const Result = lazy(() => import('../pages/result/Result'))
@@ -28,10 +29,17 @@ const AddClient = lazy(() => import('../admin/pages/crm/pages/AddClient'))
 const EditClient = lazy(() => import('../admin/pages/crm/pages/EditClient'))
 
 const View = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserGlobal());
+    }, [dispatch]);
+    
     const { isLoggedIn, token } = useSelector((state) => state.auth)
     const { userGlobal } = useSelector((state => state?.userGlobal))
     console.log(userGlobal);
     const authCheck = isLoggedIn && (localStorage.getItem("token") === token)
+
 
     return (
         <Router>
