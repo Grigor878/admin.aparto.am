@@ -30,9 +30,9 @@ const EditClient = lazy(() => import('../admin/pages/crm/pages/EditClient'))
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
     const { userGlobal } = useSelector((state => state?.userGlobal))
-
+    console.log(userGlobal);
     const authCheck = isLoggedIn && (localStorage.getItem("token") === token)
-    
+
     return (
         <Router>
             <Suspense fallback={null}>
