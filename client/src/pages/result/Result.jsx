@@ -22,7 +22,8 @@ const Result = () => {
   const searchParams = new URLSearchParams(location.search);
 
   const { loading, siderLoading, resultData, siderData } = useSelector((state) => state.view);
-
+// console.log(resultData);
+console.log(siderData);
   const data = siderData ? siderData?.data : resultData?.data
   const paginateData = siderData ? siderData : resultData
 
