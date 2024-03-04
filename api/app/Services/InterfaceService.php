@@ -839,13 +839,13 @@ class InterFaceService
                 return $isMatched;
             })->values();
 
-        // if ($data['searchData']['page'] && $data['searchData']['perPage']) {
-        //     $page = $data['searchData']['page'];
-        //     $perPage = $data['searchData']['perPage'];
-        //     $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
-        //     $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
-        //     return $paginatedArray;
-        // }
+        if ($data['searchData']['page'] && $data['searchData']['perPage']) {
+            $page = $data['searchData']['page'];
+            $perPage = $data['searchData']['perPage'];
+            $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
+            $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
+            return $paginatedArray;
+        }
 
         return $searchHomeArray;
 
