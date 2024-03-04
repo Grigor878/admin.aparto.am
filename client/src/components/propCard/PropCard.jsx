@@ -12,7 +12,7 @@ import "./PropCard.scss";
 
 export const PropCard = ({ data }) => {
   const { t } = useTranslation()
-console.log(data);
+
   const { pathname } = useLocation()
 
   const { size, exchange, exchangeValue } = useSelector((state => state.home))
