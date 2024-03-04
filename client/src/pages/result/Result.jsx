@@ -23,8 +23,9 @@ const Result = () => {
 
   const { loading, siderLoading, resultData, siderData } = useSelector((state) => state.view);
 // console.log(resultData);
-console.log(siderData);
-  const data = siderData ? siderData?.data : resultData?.data
+// console.log(siderData);
+  // const data = siderData ? siderData?.data : resultData?.data
+  const data = siderData ? siderData : resultData
   const paginateData = siderData ? siderData : resultData
 
   const [sider, setSider] = useState(!mobile);

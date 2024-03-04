@@ -7,15 +7,15 @@ import { useMediaQuery } from 'react-responsive';
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
-import { amdFormater, cutCommunity, cutCommunityRu, sqmToFt2, usdFormater } from "../../helpers/formatters";
+import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 
 export const PropCard = ({ data }) => {
   const { t } = useTranslation()
-
+console.log(data);
   const { pathname } = useLocation()
 
-  const { language, size, exchange, exchangeValue } = useSelector((state => state.home))
+  const { size, exchange, exchangeValue } = useSelector((state => state.home))
 
   const laptop = useMediaQuery({ maxWidth: 1280 })
 
