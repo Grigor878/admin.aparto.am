@@ -10,7 +10,7 @@ import "./Exchange.scss";
 
 const Exchange = () => {
   const dispatch = useDispatch();
-  
+
   const exRef = useRef();
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const Exchange = () => {
   const { exchange } = useSelector((state => state.home))
 
   const [openEx, setOpenEx] = useState(false);
-  const [selectedEx, setSelectedex] = useState(
-    exchange !== 2
+  const [selectedEx, setSelectedex] = useState(() => {
+    const defaultEx = exchange !== 2
       ? {
         id: 1,
         symbol: <FaDollarSign className="exchange__flag" />,
@@ -31,7 +31,10 @@ const Exchange = () => {
         symbol: <TbCurrencyDram className="exchange__flag" />,
         value: "TbCurrencyDram",
       }
-  );
+
+    const savedExId = cookies.get("selectedEx");
+    return headerExchange.find((el) => el.id === (savedExId ? parseInt(savedExId) : defaultEx.id)) || defaultEx;
+  });
 
   const handleOpenEx = () => {
     setOpenEx(!openEx)
@@ -40,8 +43,8 @@ const Exchange = () => {
   const handleChangeEx = (id, symbol) => {
     setOpenEx(false)
     setSelectedex({ id, symbol })
-    cookies.set("exchange", id)
     dispatch(setExchange(id))
+    cookies.set("selectedEx", id)
     dispatch(setBurger("close"))
     dispatch(setOpenBurger(false))
   };

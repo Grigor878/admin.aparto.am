@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import cookies from 'js-cookie'
 import { useDispatch, useSelector } from "react-redux";
 import { setBurger, setOpenBurger, setSize } from "../../../../store/slices/homeSlice";
 import { sizeData } from "./data";
@@ -13,8 +14,8 @@ const Size = () => {
   const { size } = useSelector((state => state.home))
 
   const [openSize, setOpenSize] = useState(false)
-  const [selectedSize, setSelectedSize] = useState(
-    size === 1
+  const [selectedSize, setSelectedSize] = useState(() => {
+    const defaultSize = size === 1
       ? {
         id: 1,
         icon: (
@@ -30,14 +31,17 @@ const Size = () => {
             ft<sup>2</sup>
           </p>
         ),
-      }
-  )
+      };
+
+    const savedSizeId = cookies.get("selectedSize");
+    return sizeData.find((el) => el.id === (savedSizeId ? parseInt(savedSizeId) : defaultSize.id)) || defaultSize;
+  });
 
   const handleChangeSize = (id, icon) => {
     setOpenSize(false);
     setSelectedSize({ id: id, icon: icon });
-    // cookies.set("sizeUnit", id);
     dispatch(setSize(id))
+    cookies.set("selectedSize", id);
     dispatch(setBurger("close"))
     dispatch(setOpenBurger(false))
   };
