@@ -12,7 +12,8 @@ import { DisabledInput } from '../../../../components/inputs/DisabledInput'
 export const Personal = () => {
     const dispatch = useDispatch()
 
-    const { photo, full_name, role, phone, email } = useSelector((state => state.userGlobal.userGlobal))
+    // const { photo, full_name, role, phone, email } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
 
     const hanldeLogOut = () => {
         dispatch(clearUserGlobal())
@@ -33,32 +34,32 @@ export const Personal = () => {
             <div className='profile__data'>
                 <div className='profile__data-userImg'>
                     {/* {!photo?.length */}
-                    {photo === null
+                    {userGlobal?.photo === null
                         ? <img src={userImg} alt="User" />
-                        : <img src={API_BASE_URL + '/images/' + photo} alt="User" />
+                        : <img src={API_BASE_URL + '/images/' + userGlobal?.photo} alt="User" />
                     }
                 </div>
                 <div className='profile__data-form'>
                     <div className='profile__data-form-parts'>
                         <DisabledInput
                             name='ԱՆուն'
-                            value={full_name?.en}
+                            value={userGlobal?.full_name?.en}
                         />
                         <DisabledInput
                             name='հաստիք'
-                            value={role}
+                            value={userGlobal?.role}
                         />
                     </div>
                     <div className='profile__data-form-parts'>
-                        {phone?.tel1?.length
+                        {userGlobal?.phone?.tel1?.length
                             ? <DisabledInput
                                 name='Հեռախոսահամար'
-                                value={phone?.tel1}
+                                value={userGlobal?.phone?.tel1}
                             />
                             : null}
                         <DisabledInput
                             name='էլ. Փոստ'
-                            value={email}
+                            value={userGlobal?.email}
                         />
                     </div>
                 </div>

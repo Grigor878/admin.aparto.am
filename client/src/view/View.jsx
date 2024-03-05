@@ -3,7 +3,7 @@ import pMinDelay from 'p-min-delay';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import LayoutMain from "../components/layout/LayoutMain"
 import LayoutDash from "../admin/components/layout/LayoutDash"
-import { useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import AutoScroll from "../helpers/autoScroll"
 
 const Home = lazy(() => pMinDelay(import('../pages/home/Home'), 1000))
@@ -29,10 +29,10 @@ const EditClient = lazy(() => import('../admin/pages/crm/pages/EditClient'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
-    const { role } = useSelector((state => state?.userGlobal?.userGlobal))
-
-    const authCheck = isLoggedIn && (localStorage.getItem("token") === token)
+    const { userGlobal } = useSelector((state => state?.userGlobal))
     
+    const authCheck = isLoggedIn && (localStorage.getItem("token") === token)
+
     return (
         <Router>
             <Suspense fallback={null}>
@@ -59,12 +59,12 @@ const View = () => {
                         <Route path="properties/edit/:id" element={<EditProperties />} />
                         <Route path="profile" element={<Profile />} />
                         <Route path="users" element={<Users />} />
-                        <Route path="users/add" element={role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
-                        <Route path="users/edit/:id" element={role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
+                        <Route path="users/add" element={userGlobal?.role === "admin" ? <AddUsers /> : <Navigate to="/dashboard/users" />} />
+                        <Route path="users/edit/:id" element={userGlobal?.role === "admin" ? <EditUsers /> : <Navigate to="/dashboard/users" />} />
                         <Route path="crm" element={<Crm />} />
                         <Route path="crm/add" element={<AddClient />} />
                         <Route path="crm/edit/:id" element={<EditClient />} />
-                        {role === "admin"
+                        {userGlobal?.role === "admin"
                             ? <>
                                 <Route path="form-structure" element={<Structure />} />
                                 <Route path="web-configs" element={<Configs />} />

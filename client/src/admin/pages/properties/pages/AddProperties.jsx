@@ -37,8 +37,9 @@ const AddProperties = () => {
     const center = structure?.slice(0, 9)
     const right = structure?.slice(9, 12)
 
-    const { role, id } = useSelector((state => state.userGlobal.userGlobal))
-    const agentId = id?.toString();
+    // const { role, id } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
+    const agentId = userGlobal?.id?.toString();
     const [loading, setLoading] = useState(false)
     const [addProperty, setAddProperty] = useState('')
 
@@ -90,14 +91,14 @@ const AddProperties = () => {
             }
 
             // 15.10 - logic added for adding onChnage agent and to save meneger
-            if (role === "agent" && prev.specialists && prev.specialists.meneger) {
+            if (userGlobal?.role === "agent" && prev.specialists && prev.specialists.meneger) {
                 obj.specialists = {
                     ...obj.specialists,
                     meneger: prev.specialists.meneger,
                 };
             }
 
-            if (role === 'agent') {
+            if (userGlobal?.role === 'agent') {
                 obj.specialists = {
                     ...obj.specialists,
                     agent: agentId,
@@ -337,7 +338,7 @@ const AddProperties = () => {
                                                                             ? <AgentSelect
                                                                                 id={key}
                                                                                 title={title}
-                                                                                value={id} //
+                                                                                value={userGlobal?.id} //
                                                                                 style={style}
                                                                                 required={required}
                                                                                 onChange={(e) => addProp(e, name)}

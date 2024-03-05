@@ -16,10 +16,11 @@ export const More = ({ id, status, agentName }) => {
 
     const dispatch = useDispatch()
 
-    const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
+    // const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
 
     return (
-        role === "agent" && full_name?.am !== agentName
+        userGlobal?.role === "agent" && userGlobal?.full_name?.am !== agentName
             ? null
             : <div className='propertyList__item-right-more'>
                 <div
@@ -46,7 +47,7 @@ export const More = ({ id, status, agentName }) => {
                         >
                             Ապաակտիվացնել
                         </button>
-                        : (status === "inactive" || status === "moderation") && role !== "agent"
+                        : (status === "inactive" || status === "moderation") && userGlobal?.role !== "agent"
                             ? <button
                                 className='propertyList__item-right-more-menu-item'
                                 onClick={() => dispatch(activateHome(id))}

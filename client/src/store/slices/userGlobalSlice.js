@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { getAxiosConfig } from "../../apis/config";
+import { error } from "../../components/swal/swal";
 
 const initialState = {
   loading: false,
@@ -16,9 +17,20 @@ export const getUserGlobal = createAsyncThunk("userGlobal", async () => {
       null,
       getAxiosConfig()
     );
+
     return data;
   } catch (err) {
-    console.log(`Get Global User Error: ${err.message}`);
+    error(
+      "Ձեր գաղտնանշանի ժամանակահատվածը սպառվեց։ Խնդռում ենք կրկին մուտք եղեք։"
+    );
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("persist:aparto");
+      window.location.href = "/login";
+    }, 1000);
+
+    // localStorage.clear()
+    // sessionStorage.clear()
   }
 });
 

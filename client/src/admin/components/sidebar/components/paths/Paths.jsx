@@ -6,12 +6,12 @@ import { setPage } from '../../../../../store/slices/usersSlice'
 import "./Paths.scss"
 
 const Paths = () => {
-    const { role } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state?.userGlobal))
     const dispatch = useDispatch()
 
     return (
         <ul className='sidebar__list'>
-            {role === "admin"
+            {userGlobal?.role === "admin"
                 ? adminDashboardRoutes.map((el) => {
                     return (
                         <li key={el.id}>
