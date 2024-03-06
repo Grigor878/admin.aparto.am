@@ -9,7 +9,6 @@ import './User.scss'
 
 const User = () => {
     const { userGlobal } = useSelector((state => state.userGlobal))
-    // const { userGlobal, loading } = useSelector((state => state.userGlobal))
 
     return (
         !userGlobal

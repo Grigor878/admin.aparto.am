@@ -20,7 +20,8 @@ import './Styles.scss'
 const SingleProperty = () => {
     const { id } = useParams()
 
-    const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
+    // const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal.userGlobal))
 
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
@@ -430,7 +431,7 @@ const SingleProperty = () => {
                             </div>
                         </div>
 
-                        {role === "agent" && full_name?.am === currentPropertyData[11]?.fields[0]?.value ?
+                        {userGlobal?.role === "agent" && userGlobal?.full_name?.am === currentPropertyData[11]?.fields[0]?.value ?
                             <div className='singleProperty__content-right-specialists'>
                                 <h5>Իրավաբանական</h5>
 
@@ -495,7 +496,7 @@ const SingleProperty = () => {
                                         </> : null}
                                 </div>
                             </div>
-                            : role !== "agent" ?
+                            : userGlobal?.role !== "agent" ?
                                 <div className='singleProperty__content-right-specialists'>
                                     <h5>Իրավաբանական</h5>
 
@@ -639,16 +640,3 @@ const SingleProperty = () => {
 }
 
 export default SingleProperty
-
-
-// for scroll best performance
-// if (typeof window.scrollTo === 'function') {
-//     window.scrollTo(0, document.body.scrollHeight);
-// } else {
-//     window.scrollTo(0, document.documentElement.scrollHeight);
-// }
-
-// const modifiedData = currentPropertyImgs?.filter(el => el.visible === "true")?.map((item) => ({
-//     img: `${API_BASE_URL}/images/${item.name}`,
-//     alt : item.name
-// }))

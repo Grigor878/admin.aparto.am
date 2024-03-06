@@ -14,7 +14,7 @@ const Users = () => {
     dispatch(getUsers())
   }, [dispatch])
 
-  const { role } = useSelector((state => state.userGlobal.userGlobal))
+  const { userGlobal } = useSelector((state => state?.userGlobal))
   const { users, loading, error } = useSelector((state => state.users))
 
   const approvedUsers = users?.filter(item => item.status === 'approved')
@@ -22,7 +22,7 @@ const Users = () => {
   return (
     <article className='users'>
       <TopPart
-        data={role === "admin" ? users : approvedUsers}
+        data={userGlobal?.role === "admin" ? users : approvedUsers}
         type="users"
       />
 
@@ -31,9 +31,9 @@ const Users = () => {
         {!loading && error ? <p>Error:{error}</p> : null}
         {!loading && users?.length
           ? <Table
-            Data={role === "admin" ? users : approvedUsers}
-            Columns={role === "admin" ? userAdminColumns : userCustomColumns}
-            // type='users'
+            Data={userGlobal?.role === "admin" ? users : approvedUsers}
+            Columns={userGlobal?.role === "admin" ? userAdminColumns : userCustomColumns}
+          // type='users'
           />
           : null}
       </div>

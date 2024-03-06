@@ -27,7 +27,8 @@ const AddClient = () => {
     const navigate = useNavigate()
 
     const { loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
-    const { role, id } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
+    // const { role, id } = useSelector((state => state.userGlobal.userGlobal))
 
     useEffect(() => {
         dispatch(getHomes())
@@ -43,7 +44,7 @@ const AddClient = () => {
     const [budget, setBudget] = useState("")
     const [comment, setComment] = useState("")
     const [contractNumber, setContractNumber] = useState("")
-    const [specialist, setSpecialist] = useState(role === "agent" ? id : "")
+    const [specialist, setSpecialist] = useState(userGlobal?.role === "agent" ? userGlobal?.id : "")
 
     const [status, setStatus] = useState("")
     const [homeSearch, setHomeSearch] = useState("")

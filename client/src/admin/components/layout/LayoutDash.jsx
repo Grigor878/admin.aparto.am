@@ -8,15 +8,15 @@ import HelmetAdmin from "../../../components/helmetAsync/HelmetAdmin";
 import { Loader } from "../../../components/loader/Loader";
 
 const LayoutDash = () => {
-  let location = useLocation();
+  let {pathname} = useLocation();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserGlobal());
-  }, [dispatch]);
+  }, [dispatch, pathname]);
 
-  if (location.pathname === "/dashboard") {
+  if (pathname === "/dashboard") {
     return <Navigate replace to="/dashboard/properties" />;
   }
 

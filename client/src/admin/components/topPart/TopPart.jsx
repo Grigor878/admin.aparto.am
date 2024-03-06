@@ -5,7 +5,8 @@ import { BtnAdd } from '../buttons/BtnAdd'
 import './TopPart.scss'
 
 const TopPart = ({ data, type }) => {
-    const { role } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state?.userGlobal))
+    
     const { pathname } = useLocation()
     const navigate = useNavigate()
 
@@ -19,7 +20,7 @@ const TopPart = ({ data, type }) => {
                 {newPath === "properties" && data?.length !== undefined ? data?.length + " Գույք" : null}
             </h3>
 
-            {(role === "admin" && type === "users") || type === "properties"
+            {(userGlobal?.role === "admin" && type === "users") || type === "properties"
                 ? <BtnAdd onClick={() => navigate('add')} />
                 : null
             }

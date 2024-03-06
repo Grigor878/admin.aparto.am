@@ -22,7 +22,7 @@ export const Item = ({ data }) => {
         success("Հասցեն պատճենված է։")
     }
 
-    const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
+    const { userGlobal } = useSelector((state => state.userGlobal))
 
     return (
         data?.map(({ id, home_id, photo, selectedTransactionType, announcementType, title, community, street, building, entrance, floor, statement, apartment, price, room, bathrooms, surface, height, otherFacility, agent, owner, ownerTel, updated_at, created_at, status }) => {
@@ -101,12 +101,12 @@ export const Item = ({ data }) => {
                         </div>
 
                         <div className='propertyList__item-right-info'>
-                            {role === "agent" && full_name?.am === agent ?
+                            {userGlobal?.role === "agent" && userGlobal?.full_name?.am === agent ?
                                 <div className='propertyList__item-right-info-owner'>
                                     <p>{owner}</p>
                                     <p>{ownerTel}</p>
                                 </div>
-                                : role !== "agent" ?
+                                : userGlobal?.role !== "agent" ?
                                     <div className='propertyList__item-right-info-owner'>
                                         <p>{owner}</p>
                                         <p>{ownerTel}</p>
@@ -126,14 +126,14 @@ export const Item = ({ data }) => {
                                             status="approved"
                                             text="Ակտիվ"
                                         />
-                                        {role === "agent" && full_name.am === agent
+                                        {userGlobal?.role === "agent" && userGlobal?.full_name.am === agent
                                             ? <button
                                                 type='button'
                                                 onClick={() => dispatch(updateHome(id))}
                                             >
                                                 {top.icon}
                                             </button>
-                                            : role !== "agent" ?
+                                            : userGlobal?.role !== "agent" ?
                                                 <button
                                                     type='button'
                                                     onClick={() => dispatch(updateHome(id))}
