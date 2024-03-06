@@ -681,13 +681,29 @@ class InterFaceService
     public function getResultPageData($data, $lang)
     {
         $searchHomeArray = [];
+        $conditionType = [];
+        $buildingType = [];
+
         // $addresses = ConfigAddress::get()->pluck('communityId');
         $addresses = ConfigAddress::select('id', 'communityId')->get()->keyBy('id');
+
+        if ($data['searchData']['propertyCondition']) {
+            
+            foreach ($data['searchData']['propertyCondition'] as $key => $type) {
+                $conditionType[] = $this->multiType[$type][$lang];
+            }
+        }
+
+        if ($data['searchData']['buildingType']) {
+            foreach ($data['searchData']['buildingType'] as $key => $type) {
+                $buildingType[] = $this->multiType[$type][$lang];
+            }
+        }
 
         $searchHomes = Home::orderBy('created_at', 'desc')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
-            ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray) {
+            ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray, &$conditionType, &$buildingType) {
                 $home = $this->processHomeData($home);
                 // $home->keywords = json_decode($home->keywords);
     
@@ -707,7 +723,10 @@ class InterFaceService
                 }
 
                 if ($data['searchData']['newBuild'] !== 'on') {
+                   
                     if ($home->am[4]->fields[2]->value !== true) {
+           
+                        // return false;
                         $isMatched = false;
                     }
                 }
@@ -782,23 +801,23 @@ class InterFaceService
                     }
                 }
 
-                if ($data['searchData']['buildingType']) {
-                    $buildingType = [];
-                    foreach ($data['searchData']['buildingType'] as $key => $type) {
-                        $buildingType[] = $this->multiType[$type][$lang];
-                    }
-                    $result = array_search($home->am[4]->fields[0]->value, $buildingType);
+                if ($buildingType) {
+                    // $buildingType = [];
+                    // foreach ($data['searchData']['buildingType'] as $key => $type) {
+                    //     $buildingType[] = $this->multiType[$type][$lang];
+                    // }
+                    $result = array_search($home[$lang][4]->fields[0]->value, $buildingType);
                     if (!is_numeric($result)) {
                         $isMatched = false;
                     }
                 }
 
-                if ($data['searchData']['propertyCondition']) {
-                    $conditionType = [];
-                    foreach ($data['searchData']['propertyCondition'] as $key => $type) {
-                        $conditionType[] = $this->multiType[$type][$lang];
-                    }
-                    $result = array_search($home->am[3]->fields[9]->value, $conditionType);
+                if ($conditionType) {
+                    // $conditionType = [];
+                    // foreach ($data['searchData']['propertyCondition'] as $key => $type) {
+                    //     $conditionType[] = $this->multiType[$type][$lang];
+                    // }
+                    $result = array_search($home[$lang][3]->fields[9]->value, $conditionType);
                     if (!is_numeric($result)) {
                         $isMatched = false;
                     }
