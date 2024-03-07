@@ -320,131 +320,130 @@ class InterFaceService
 
         $allCommunities = Community::get();
         $allStreets = ConfigAddress::get();
-        $addresses = $allStreets->pluck('communityId');
+        $addresses = ConfigAddress::select('id', 'communityId')->get()->keyBy('id');
+        $getKeyWords = [];
 
-        Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
-            ->where('status', Home::STATUS_APPROVED)
-            ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray) {
-                $home = $this->processHomeData($home);
+        try {
+            Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+                ->where('status', Home::STATUS_APPROVED)
+                ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray, &$getKeyWords) {
+                    $home = $this->processHomeData($home);
 
-                $isMatched = true;
+                    $isMatched = true;
 
-                if ($data['searchData'][0]['type']) {
-                    if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData'][0]['type']) {
-                        return false;
-                    };
-                }
-
-                if ($data['searchData'][1]['community']) {
-                    $communityData = $data['searchData'][1]['community'];
-                    $allCommunities = $allCommunities->whereIn($lang, $communityData);
-                    $allStreets = $allStreets->whereIn($lang, $communityData);
-
-                    //add Merging for filter key word in communityData
-                    $mergedCommunityStreets = array_merge($allCommunities->pluck($lang)->toArray(), $allStreets->pluck($lang)->toArray());
-                    $getKeyWords = array_diff($communityData, $mergedCommunityStreets);
-
-                    if ($getKeyWords) {
-                        $homeKeyWord = json_decode($home->keywords);
-                        $intersectionKeyWord = array_intersect($homeKeyWord, $communityData);
-
-                        if (empty($intersectionKeyWord)) {
-                            $isMatched = false;
-                        }
+                    if ($data['searchData'][0]['type']) {
+                        if ($home->am[0]->fields[0]->selectedOptionName != $data['searchData'][0]['type']) {
+                            return false;
+                        };
                     }
 
-                    $communityIds = $allCommunities->pluck('id')->toArray();
+                    if ($communityData = $data['searchData'][1]['community']) {
+                        $allCommunities = $allCommunities->whereIn($lang, $communityData);
 
-                    if ($communityIds) {
-                        if ($ourCommunityId = $home->am[1]->fields[0]->communityId) {
-                            $resultCommunity = array_search($ourCommunityId, $communityIds);
-                            if (!is_numeric($resultCommunity)) {
+                        $allStreetsCommunity = $allStreets->whereIn($lang, $communityData);
+
+                        //add Merging for filter key word in communityData
+                        $mergedCommunityStreets = array_merge($allCommunities->pluck($lang)->toArray(), $allStreetsCommunity->pluck($lang)->toArray());
+                        $getKeyWords = array_diff($communityData, $mergedCommunityStreets);
+
+                        if ($getKeyWords) {
+                            $homeKeyWord = json_decode($home->keywords);
+                            $intersectionKeyWord = array_intersect($homeKeyWord, $communityData);
+
+                            if (empty ($intersectionKeyWord)) {
                                 $isMatched = false;
                             }
                         }
-                    }
 
-                    $addressesIds = $allStreets->pluck('id')->toArray();
+                        $communityIds = $allCommunities->pluck('id')->toArray();
 
-                    if ($addressesIds) {
-                        if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
-                            foreach ($addressesIds as $key => $addres) {
-                                if ($home->am[1]->fields[0]->communityId == $addresses[$addres]) {
-                                    $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
-                                    if (!$resultStreet) {
-                                        $isMatched = false;
-                                    }
+                        if ($communityIds) {
+                            if ($ourCommunityId = $home->am[1]->fields[0]->communityId) {
+                                $resultCommunity = array_search($ourCommunityId, $communityIds);
+                                if (!is_numeric($resultCommunity)) {
+                                    $isMatched = false;
                                 }
                             }
+                        }
 
+                        $addressesIds = $allStreets->pluck('id')->toArray();
+
+                        if ($addressesIds) {
+                            if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
+                                foreach ($addressesIds as $key => $addres) {
+
+                                    if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
+                                        $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+                                        if (!$resultStreet) {
+                                            $isMatched = false;
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+                                if (!$resultStreet) {
+                                    $isMatched = false;
+                                }
+                            }
+                        }
+
+                        // $ourDate = [];
+                        // if ($lang == "en") {
+                        //     array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
+                        // } elseif ($lang == "ru") {
+                        //     array_push($ourDate, strtolower($home->ru[1]->fields[0]->value), $home->ru[1]->fields[0]->communityStreet->value);
+                        // } else {
+                        //     array_push($ourDate, strtolower($home->am[1]->fields[0]->value), $home->am[1]->fields[0]->communityStreet->value);
+                        // }
+                        // $mergedArray = array_merge($ourDate, json_decode($home->keywords));
+                        // $intersection = array_intersect($mergedArray, $communityData);
+    
+                        // if (empty($intersection)) {
+                        //     $isMatched = false;
+                        // }
+                    }
+
+                    if ($data['searchData'][2]['propertyType']) {
+                        $readyType = $this->getPropertyType($data['searchData'][2]['propertyType']);
+                        if (!(in_array($home->ru[0]->fields[1]->value, $readyType))) {
+                            $isMatched = false;
+                        }
+                    }
+
+                    if ($data['searchData'][3]['rooms']) {
+                        $rooms = $data['searchData'][3]['rooms'];
+                        if ($lang == "en") {
+                            if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
+                                $isMatched = false;
+                            }
                         } else {
-                            $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
-                            if (!$resultStreet) {
+                            if (!(in_array($home->am[3]->fields[2]->value, $rooms))) {
                                 $isMatched = false;
                             }
                         }
                     }
 
+                    if ((int) $data['searchData'][4]['price'] != 0) {
+                        $maxPrice = (int) $data['searchData'][4]['price'];
+                        $totalPrice = (int) $home->am[2]->fields[0]->value;
 
-
-
-                    // dd($communityIds);
-                    // dd($allCommunities->where('am', 'Կենտրոն'));
-    
-
-                    // dd($communityData);
-    
-                    // $ourDate = [];
-                    // if ($lang == "en") {
-                    //     array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
-                    // } elseif ($lang == "ru") {
-                    //     array_push($ourDate, strtolower($home->ru[1]->fields[0]->value), $home->ru[1]->fields[0]->communityStreet->value);
-                    // } else {
-                    //     array_push($ourDate, strtolower($home->am[1]->fields[0]->value), $home->am[1]->fields[0]->communityStreet->value);
-                    // }
-                    // $mergedArray = array_merge($ourDate, json_decode($home->keywords));
-                    // $intersection = array_intersect($mergedArray, $communityData);
-    
-                    // if (empty($intersection)) {
-                    //     $isMatched = false;
-                    // }
-                }
-
-                if ($data['searchData'][2]['propertyType']) {
-                    $readyType = $this->getPropertyType($data['searchData'][2]['propertyType']);
-                    if (!(in_array($home->ru[0]->fields[1]->value, $readyType))) {
-                        $isMatched = false;
-                    }
-                }
-
-                if ($data['searchData'][3]['rooms']) {
-                    $rooms = $data['searchData'][3]['rooms'];
-                    if ($lang == "en") {
-                        if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
-                            $isMatched = false;
-                        }
-                    } else {
-                        if (!(in_array($home->am[3]->fields[2]->value, $rooms))) {
+                        if ($totalPrice > $maxPrice) {
                             $isMatched = false;
                         }
                     }
-                }
 
-                if ((int) $data['searchData'][4]['price'] != 0) {
-                    $maxPrice = (int) $data['searchData'][4]['price'];
-                    $totalPrice = (int) $home->am[2]->fields[0]->value;
-
-                    if ($totalPrice > $maxPrice) {
-                        $isMatched = false;
+                    if ($isMatched) {
+                        $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
                     }
-                }
 
-                if ($isMatched) {
-                    $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
-                }
-
-                return $isMatched;
-            })->values();
+                    return $isMatched;
+                })->values();
+        } catch (\Exception $e) {
+            info('getSearchData', [$e]);
+        } catch (\Error $e) {
+            info('getSearchData', [$e]);
+        }
 
 
         $findAddresses = [];
@@ -509,11 +508,15 @@ class InterFaceService
         }
 
         if ($data['searchData'][5]['page'] && $data['searchData'][6]['perPage']) {
+            if($getKeyWords){
+                $getKeyWords = implode(" / ", $getKeyWords);
+            }
+
             $page = $data['searchData'][5]['page'];
             $perPage = $data['searchData'][6]['perPage'];
             $paginatedArray = array_slice($searchHomeArray, ($page - 1) * $perPage, $perPage);
             $paginatedArray = new \Illuminate\Pagination\LengthAwarePaginator($paginatedArray, count($searchHomeArray), $perPage, $page);
-            $info = ['addresses' => $findAddresses, 'community' => array_values(array_unique($findCommunity)), 'data' => $paginatedArray];
+            $info = ['addresses' => $findAddresses, 'community' => array_values(array_unique($findCommunity)), 'data' => $paginatedArray, 'keywords' => $getKeyWords];
 
             return $info;
         }
@@ -723,11 +726,9 @@ class InterFaceService
                 }
 
                 if ($data['searchData']['newBuild'] !== 'on') {
-                   
                     if ($home->am[4]->fields[2]->value !== true) {
-           
-                        // return false;
-                        $isMatched = false;
+                        return false;
+                        // $isMatched = false;
                     }
                 }
 
