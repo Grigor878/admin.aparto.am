@@ -13,86 +13,93 @@ import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import "./Styles.scss";
 
 const Result = () => {
-  const mobile = useMediaQuery({ maxWidth: 768 })
+  const mobile = useMediaQuery({ maxWidth: 768 });
   const { t } = useTranslation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
 
-  const { loading, siderLoading, resultData, siderData } = useSelector((state) => state.view);
+  const { loading, siderLoading, resultData, siderData } = useSelector(
+    (state) => state.view
+  );
 
-  const data = siderData ? siderData?.data : resultData?.data
-  const paginateData = siderData ? siderData : resultData
+  const data = siderData ? siderData?.data : resultData?.data;
+  const paginateData = siderData ? siderData : resultData;
 
   const [sider, setSider] = useState(!mobile);
   const [map, setMap] = useState(false);
 
   useEffect(() => {
     if (map) {
-      setSider(false)
-    }
-    else {
-      setSider(!mobile)
+      setSider(false);
+    } else {
+      setSider(!mobile);
     }
   }, [map, mobile]);
 
   const handlePageChange = (page) => {
-    dispatch(setPage("result"))
-    dispatch(setPaginatePage(page))
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage(page));
     page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
     navigate(`${location.pathname}?${searchParams.toString()}`);
     setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 1200)
+      window.scrollTo(0, 0);
+    }, 1200);
   };
 
   return loading ? (
     <Loader />
   ) : (
     <div className="result">
-      <Sider
-        open={sider}
-        setOpen={setSider}
-      />
+      <Sider open={sider} setOpen={setSider} />
 
-      {siderLoading
-        ? <Loader />
-        : <div className="result__center">
+      {siderLoading ? (
+        <Loader />
+      ) : (
+        <div className="result__center">
           <div className="result__center-top ">
             <div className="result__center-top-right">
               {!sider && (
-                <button onClick={() => setSider(true)}>{filterOpen.icon}</button>
+                <button onClick={() => setSider(true)}>
+                  {filterOpen.icon}
+                </button>
               )}
 
-              {/* {paginateData?.total
-                ? <h2>{paginateData?.total} {t("result")}</h2>
-                : <h2>{data?.length} {t("result")}</h2>} */}
+              {paginateData?.total ? (
+                <h2>
+                  {paginateData?.total} {t("result")}
+                </h2>
+              ) : null}
 
-              {paginateData?.total && <h2>{paginateData?.total} {t("result")}</h2>}
-              {data !== undefined && !paginateData?.total && <h2>{data?.length} {t("result")}</h2>}
+              {data !== undefined && !paginateData?.total ? (
+                <h2>
+                  {data?.length} {t("result")}
+                </h2>
+              ) : null}
             </div>
 
-            {!map && data?.length
-              ? (
-                <button onClick={() => setMap(!map)}>
-                  {openMap.icon} {t("map")}
-                </button>
-              ) : null}
+            {!map && data?.length ? (
+              <button onClick={() => setMap(!map)}>
+                {openMap.icon} {t("map")}
+              </button>
+            ) : null}
           </div>
 
           <PropCard data={data} />
 
-          {(data?.length)
-            ? <Pagination
+          {data?.length ? (
+            <Pagination
               currentPage={paginateData?.current_page}
               lastPage={paginateData?.last_page}
               setPage={handlePageChange}
-            /> : null}
-        </div>}
+            />
+          ) : null}
+        </div>
+      )}
 
-      {(data?.length) ? <MapMulty map={map} setMap={setMap} data={data} /> : null}
+      {data?.length ? <MapMulty map={map} setMap={setMap} data={data} /> : null}
     </div>
   );
 };
