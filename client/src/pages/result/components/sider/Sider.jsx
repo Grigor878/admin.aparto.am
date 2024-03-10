@@ -348,11 +348,13 @@ export const Sider = ({ open, setOpen }) => {
         <div className="sider__block">
           <Checkbox
             onChange={(e) => {
-              // dispatch(setPage("result"))
+              dispatch(setPage("result"))
               dispatch(setPaginatePage("1"))
               navigate(location.pathname)
-              window.scrollTo(0, 0)
               setNewBuild(e.target.checked ? true : 'on')
+              setTimeout(() => {
+                window.scrollTo(0, 0)
+              }, 1200)
             }}
             text={t("new_build")}
             checked={newBuild === true}
