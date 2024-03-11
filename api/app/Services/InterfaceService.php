@@ -365,28 +365,63 @@ class InterFaceService
                                 }
                             }
                         }
+                        $searchDataStreetsId = $allStreetsCommunity->pluck('id')->toArray();
 
-                        $addressesIds = $allStreets->pluck('id')->toArray();
-
-                        if ($addressesIds) {
-                            if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
-                                foreach ($addressesIds as $key => $addres) {
-
-                                    if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
-                                        $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
-                                        if (!$resultStreet) {
-                                            $isMatched = false;
+                        if (
+                            $searchDataStreetsId
+                        ) {
+                            if (
+                                $communityIds
+                            ) {
+                                if (
+                                    in_array($home->am[1]->fields[0]->communityId, $communityIds)
+                                ) {
+                                    foreach ($searchDataStreetsId as $key => $add) {
+                                        if ($home->am[1]->fields[0]->communityId == $addresses[$add]->communityId) {
+                                            $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $searchDataStreetsId);
+                                            if (!$resultStreet) {
+                                                $isMatched = false;
+                                            }
                                         }
                                     }
+        
                                 }
-
+        
                             } else {
-                                $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+                                $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $searchDataStreetsId);
                                 if (!$resultStreet) {
                                     $isMatched = false;
                                 }
                             }
                         }
+
+
+
+
+
+                     
+
+//                         $addressesIds = $allStreets->pluck('id')->toArray();
+// dd($addressesIds);
+//                         if ($addressesIds) {
+//                             if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
+//                                 foreach ($addressesIds as $key => $addres) {
+
+//                                     if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
+//                                         $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+//                                         if (!$resultStreet) {
+//                                             $isMatched = false;
+//                                         }
+//                                     }
+//                                 }
+
+//                             } else {
+//                                 $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
+//                                 if (!$resultStreet) {
+//                                     $isMatched = false;
+//                                 }
+//                             }
+//                         }
 
                         // $ourDate = [];
                         // if ($lang == "en") {
