@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import HelmetAsync from '../../components/helmetAsync/HelmetAsync'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -78,6 +79,10 @@ const ResultById = () => {
       ? <Loader />
       : currentPropertyData && currentPropertyData?.length !== 0 &&
       <article >
+        <HelmetAsync
+          description={currentPropertyData[0]?.fields[2]?.value}
+          image={modifiedData[0]?.img}
+        />
         <div className="contain">
           <div className='singleProperty'>
 

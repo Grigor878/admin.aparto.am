@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -49,10 +50,11 @@ const Result = () => {
     }, 1200);
   };
 
-  return loading ? (
+  return !loading ? (
     <Loader />
   ) : (
     <div className="result">
+      <HelmetAsync description="search" />
       <Sider open={sider} setOpen={setSider} />
 
       {siderLoading ? (

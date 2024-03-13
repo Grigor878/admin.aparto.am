@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import HelmetAsync from '../../components/helmetAsync/HelmetAsync'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminData, getTopHomes } from '../../store/slices/homeSlice'
 import Main from './components/main/Main'
@@ -26,6 +27,7 @@ const Home = () => {
 
     return (
         <section>
+            <HelmetAsync description="main_title"/>
             <Main />
             <div className="contain">
                 <div className='home'>
