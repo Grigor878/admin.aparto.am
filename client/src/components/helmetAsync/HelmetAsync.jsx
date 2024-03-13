@@ -1,9 +1,8 @@
-import { HelmetProvider, Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-// import logo from "../../assets/imgs/favicon.ico";
 
-const HelmetAsync = ({ description, keywords, image }) => {
+const HelmetAsync = ({ description, image }) => {
   const { t } = useTranslation();
 
   const { pathname } = useLocation();
@@ -27,41 +26,39 @@ const HelmetAsync = ({ description, keywords, image }) => {
   const _imageHeight = 600;
 
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>{title}</title>
+    <Helmet>
+      <title>{title}</title>
 
-        <meta name="title" content={title} />
-        <meta name="description" content={t(description)} />
-        <meta name="keywords" content={keywords} />
+      <meta name="title" content={title} />
+      <meta name="description" content={t(description)} />
+      <meta name="keywords" content="Real Estate,Agency,Aparto" />
 
-        {/* Open Graph / Facebook  */}
-        <meta property="og:url" content={url + pathname} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={t(description)} />
-        <meta property="og:image" content={_image} />
-        <meta property="og:image:secure_url" content={_image} />
-        <meta property="og:image:width" content={_imageWidth} />
-        <meta property="og:image:height" content={_imageHeight} />
-        <meta property="og:image:alt" content="image" />
-        <meta property="fb:app_id" content="946682250427136" />
+      {/* Open Graph / Facebook  */}
+      <meta property="og:url" content={url + pathname} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={t(description)} />
+      <meta property="og:image" content={_image} />
+      <meta property="og:image:secure_url" content={_image} />
+      <meta property="og:image:width" content={_imageWidth} />
+      <meta property="og:image:height" content={_imageHeight} />
+      <meta property="og:image:alt" content="image" />
+      <meta property="fb:app_id" content="946682250427136" />
 
-        {/* Twitter */}
-        <meta name="twitter:creator" content={name} />
-        <meta name="twitter:card" content="website" />
-        <meta name="twitter:url" content={url + pathname} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={t(description)} />
+      {/* Twitter */}
+      <meta name="twitter:creator" content={name} />
+      <meta name="twitter:card" content="website" />
+      <meta name="twitter:url" content={url + pathname} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={t(description)} />
 
-        <link rel="canonical" href={url + pathname} />
+      <link rel="canonical" href={url + pathname} />
 
-        {/* <meta
+      {/* <meta
           name="description"
           content={pathname !== "/" ? `x ${pathname.substring(1)} page.` : "x."}
         /> */}
-      </Helmet>
-    </HelmetProvider>
+    </Helmet>
   );
 };
 
