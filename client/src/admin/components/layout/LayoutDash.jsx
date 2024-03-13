@@ -2,10 +2,10 @@ import React, { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserGlobal } from "../../../store/slices/userGlobalSlice";
 import { Navigate, useLocation } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import Sidebar from "../sidebar/Sidebar";
 import HelmetAdmin from "../../../components/helmetAsync/HelmetAdmin";
+import Sidebar from "../sidebar/Sidebar";
 import { Loader } from "../../../components/loader/Loader";
+import { Outlet } from "react-router-dom";
 
 const LayoutDash = () => {
   let {pathname} = useLocation();
@@ -22,8 +22,8 @@ const LayoutDash = () => {
 
   return (
     <div className="dashboard__layout">
-      <Sidebar />
       <HelmetAdmin />
+      <Sidebar />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
