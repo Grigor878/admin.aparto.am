@@ -1,5 +1,3 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow:
-
-Sitemap: google40a635c385de994d.html
