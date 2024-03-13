@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import logo from "../../assets/imgs/favicon.ico";
+// import logo from "../../assets/imgs/favicon.ico";
 
 const HelmetAsync = ({ description, image }) => {
   const { t } = useTranslation();
@@ -21,7 +21,8 @@ const HelmetAsync = ({ description, image }) => {
   const title = `Aparto ${newPath}`;
   const url = pathname === "/" ? "https://aparto.am" : window.location.href;
   const name = "Aparto";
-  const _image = image ? image : logo;
+  const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png";
+  const _image = image || logo;
 
   return (
     <Helmet>
