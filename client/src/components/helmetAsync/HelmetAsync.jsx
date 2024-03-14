@@ -43,7 +43,7 @@ const HelmetAsync = ({ description, image }) => {
       <meta property="og:image:width" content={_imageWidth} />
       <meta property="og:image:height" content={_imageHeight} />
       <meta property="og:image:alt" content="image" />
-      <meta property="fb:app_id" content="946682250427136" />
+      {/* <meta property="fb:app_id" content="946682250427136" /> */}
 
       {/* Twitter */}
       <meta name="twitter:creator" content={name} />
