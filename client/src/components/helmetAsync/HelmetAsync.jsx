@@ -35,10 +35,15 @@ const HelmetAsync = ({ description, image }) => {
 
       {/* Open Graph / Facebook  */}
       <meta property="og:url" content={url + pathname} />
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={t(description)} />
       {image ? <meta property="og:image" content={image} /> : null}
       {image ? <meta property="og:image:secure_url" content={image} /> : null}
+      <meta property="og:image:width" content="600" />
+      <meta property="og:image:height" content="600" />
+      <meta property="og:image:alt" content="image" />
+      <meta property="fb:app_id" content="946682250427136" />
 
       {/* Twitter */}
       <meta name="twitter:creator" content={name} />
