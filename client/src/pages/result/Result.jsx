@@ -50,7 +50,7 @@ const Result = () => {
     }, 1200);
   };
 
-  return !loading ? (
+  return loading ? (
     <Loader />
   ) : (
     <div className="result">

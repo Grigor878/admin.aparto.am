@@ -20,10 +20,10 @@ const HelmetAsync = ({ description, image }) => {
   const title = `Aparto ${newPath}`;
   const url = "https://aparto.am";
   const name = "Aparto";
-  const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png";
-  const _image = image || logo;
-  const _imageWidth = 600;
-  const _imageHeight = 600;
+  // const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png";
+  // const _image = image || logo;
+  // const _imageWidth = 600;
+  // const _imageHeight = 600;
 
   return (
     <Helmet>
@@ -35,15 +35,10 @@ const HelmetAsync = ({ description, image }) => {
 
       {/* Open Graph / Facebook  */}
       <meta property="og:url" content={url + pathname} />
-      <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={t(description)} />
-      <meta property="og:image" content={_image} />
-      <meta property="og:image:secure_url" content={_image} />
-      <meta property="og:image:width" content={_imageWidth} />
-      <meta property="og:image:height" content={_imageHeight} />
-      <meta property="og:image:alt" content="image" />
-      {/* <meta property="fb:app_id" content="946682250427136" /> */}
+      {image ? <meta property="og:image" content={image} /> : null}
+      {image ? <meta property="og:image:secure_url" content={image} /> : null}
 
       {/* Twitter */}
       <meta name="twitter:creator" content={name} />
