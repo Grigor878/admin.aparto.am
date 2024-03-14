@@ -20,10 +20,6 @@ const HelmetAsync = ({ description, image }) => {
   const title = `Aparto ${newPath}`;
   const url = "https://aparto.am";
   const name = "Aparto";
-  // const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png";
-  // const _image = image || logo;
-  // const _imageWidth = 600;
-  // const _imageHeight = 600;
 
   return (
     <Helmet>
