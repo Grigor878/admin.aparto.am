@@ -34,8 +34,22 @@ const HelmetAsync = ({ description, image }) => {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={t(description)} />
-      {image ? <meta property="og:image" content={image} /> : null}
-      {image ? <meta property="og:image:secure_url" content={image} /> : null}
+      {image ? (
+        <meta property="og:image" content={image} />
+      ) : (
+        <meta
+          property="og:image"
+          content="https://aparto.am/static/media/logo.c81fd539113588de5f95.png"
+        />
+      )}
+      {image ? (
+        <meta property="og:image:secure_url" content={image} />
+      ) : (
+        <meta
+          property="og:image"
+          content="https://aparto.am/static/media/logo.c81fd539113588de5f95.png"
+        />
+      )}
       <meta property="og:image:width" content="600" />
       <meta property="og:image:height" content="600" />
       <meta property="og:image:alt" content="image" />
