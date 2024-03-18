@@ -54,7 +54,7 @@ const Result = () => {
     <Loader />
   ) : (
     <div className="result">
-      <HelmetAsync description="search" />
+      {/* <HelmetAsync description="search" /> */}
       <Sider open={sider} setOpen={setSider} />
 
       {siderLoading ? (

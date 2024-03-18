@@ -79,10 +79,10 @@ const ResultById = () => {
       ? <Loader />
       : currentPropertyData && currentPropertyData?.length !== 0 &&
       <article >
-        <HelmetAsync
+        {/* <HelmetAsync
           description={currentPropertyData[0]?.fields[2]?.value}
           image={modifiedData[0]?.img}
-        />
+        /> */}
         <div className="contain">
           <div className='singleProperty'>
 
