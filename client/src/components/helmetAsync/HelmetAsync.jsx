@@ -14,10 +14,10 @@ const HelmetAsync = ({ description, image }) => {
   let newPath = capitalize(pathname.substring(1));
 
   if (newPath !== "") {
-    newPath = "| " + newPath;
+    newPath = " | " + newPath;
   }
 
-  const title = `Aparto ${newPath}`;
+  const title = `Aparto${newPath}`;
   const url = "https://aparto.am";
   const name = "Aparto";
 
