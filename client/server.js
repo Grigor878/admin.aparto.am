@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs')
 
-const PORT = "https://aparto.am" || 5000
+const PORT = 5000
 
 const app = express()
 
