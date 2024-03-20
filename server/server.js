@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
-const PORT = 3001;
+const PORT = 3000;
 const app = express();
 const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png"
 
