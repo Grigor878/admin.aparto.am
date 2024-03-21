@@ -9,10 +9,20 @@ import Contracts from "./components/contracts/Contracts";
 import Contact from "./components/contact/Contact";
 import PropType from "./components/propType/PropType";
 import Faq from "./components/faq/Faq";
+import { useTranslation } from "react-i18next";
 import "./Home.scss";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("");
+
+  useEffect(() => {
+    document.title = `Aparto | ${t("main_title").replace(
+      /<\/?[^>]+(>|$)/g,
+      ""
+    )}`;
+  }, [t]);
+
   const { language, sale, rent } = useSelector((state) => state.home);
 
   useEffect(() => {
@@ -25,20 +35,20 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-      <section>
-        <Main />
-        <div className="contain">
-          <div className="home">
-            <Searches />
-            <PropType type="sale" data={sale} />
-            <PropType type="rent" data={rent} />
-            <Services />
-            <Contracts />
-            <Faq />
-          </div>
+    <section>
+      <Main />
+      <div className="contain">
+        <div className="home">
+          <Searches />
+          <PropType type="sale" data={sale} />
+          <PropType type="rent" data={rent} />
+          <Services />
+          <Contracts />
+          <Faq />
         </div>
-        <Contact />
-      </section>
+      </div>
+      <Contact />
+    </section>
   );
 };
 

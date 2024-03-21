@@ -13,8 +13,17 @@ import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import "./Styles.scss";
 
 const Result = () => {
-  const mobile = useMediaQuery({ maxWidth: 768 });
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = `Aparto | ${t("main_title").replace(
+      /<\/?[^>]+(>|$)/g,
+      ""
+    )}`;
+  }, [t]);
+
+  const mobile = useMediaQuery({ maxWidth: 768 });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

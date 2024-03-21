@@ -18,6 +18,7 @@ import { Loader } from '../../components/loader/Loader'
 import { getAdminData } from '../../store/slices/homeSlice'
 import { useMediaQuery } from 'react-responsive'
 import './Styles.scss'
+import { capitalize } from 'lodash'
 
 const ResultById = () => {
   const { t } = useTranslation()
@@ -33,6 +34,12 @@ const ResultById = () => {
   }, [dispatch, id])
 
   const { data, loading } = useSelector((state => state.view))
+
+  const homeID = data?.home_id
+  
+  useEffect(() => {
+    document.title = `Aparto | ${capitalize(t("result"))} - ${homeID}`;
+  }, [homeID, t]);
 
   const [open, setOpen] = useState(false)
 
