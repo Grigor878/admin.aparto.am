@@ -1,69 +1,69 @@
 const express = require('express');
+const axios = require('axios');
 const path = require('path');
 const fs = require('fs');
 
-const PORT = 3000;
 const app = express();
-const logo = "https://aparto.am/static/media/logo.c81fd539113588de5f95.png"
+const PORT = 3001;
+
+const website = "https://aparto.am/";
+const logo = `${website}static/media/logo.c81fd539113588de5f95.png`;
+const propertyUrl = `${website}api/public/api/getInterfaceProperties/`;
+const imageUrl = `${website}api/public/images/`;
+
+const filePath = path.resolve(__dirname, "../client/build", "index.html");
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-app.get("/", (req, res) => {
-
-    const filePath = path.resolve(__dirname, "../client/build", "index.html");
+function serveHTML(req, res, title, description, image, url) {
     fs.readFile(filePath, "utf8", (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Internal Server Error');
         }
 
-        data = data.replace(/__TITLE__/g, "Aparto")
-            .replace(/__DESCRIPTION__/g, "Discover Property to Buy or Rent")
-            .replace(/__IMAGE__/g, logo);
-
-        res.send(data);
-    });
-});
-
-app.get("/result", (req, res) => {
-    const filePath = path.resolve(__dirname, "../client/build", "index.html");
-    fs.readFile(filePath, "utf8", (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Internal Server Error');
-        }
-
-        data = data.replace(/__TITLE__/g, "Aparto | Result")
-            .replace(/__DESCRIPTION__/g, "Result")
-            .replace(/__IMAGE__/g, logo)
-            .replace(/__URL__/g, "https://aparto.am/result");
-
-        res.send(data);
-    });
-});
-
-app.get("/result/:id", (req, res) => {
-    const { id } = req.params;
-    const image = "1710830295685.jpg"
-    const imageUrl = `https://aparto.am/api/public/images/${image}`;
-    const description = "4 սենյականոց բնակարան Կ․Ուլնեցու փոոցում"
-
-    const filePath = path.resolve(__dirname, "../client/build", "index.html");
-    fs.readFile(filePath, "utf8", (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Internal Server Error');
-        }
-
-        data = data.replace(/__TITLE__/g, `Aparto | Result | ${id}`)
+        data = data.replace(/__TITLE__/g, title)
             .replace(/__DESCRIPTION__/g, description)
-            .replace(/__IMAGE__/g, imageUrl)
-            .replace(/__URL__/g, `https://aparto.am/result/${id}`);
+            .replace(/__IMAGE__/g, image)
+            .replace(/__URL__/g, url);
 
         res.send(data);
     });
+}
+
+// Serve result by id page in server side
+app.get("/result/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const response = await axios.get(`${propertyUrl}${id}`);
+        const responseData = response?.data;
+
+        const homeId = responseData?.home_id;
+        const title = `Aparto | Result - ${homeId}`
+        const description = responseData?.en[0]?.fields[2]?.value;
+        const image = imageUrl + responseData?.photo[0]?.name;
+        const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+        serveHTML(req, res, title, description, image, url);
+    } catch (error) {
+        console.error("Error fetching data from the API:", error);
+        return res.status(500).send('Internal Server Error');
+    }
+});
+
+// Serve other pages as usual
+app.get("*", (req, res) => {
+    const title = "Aparto | " + req.originalUrl.replace(/^\/+/, '').toLocaleUpperCase();
+    const description = "Discover Property to Buy or Rent";
+    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+    serveHTML(req, res, title, description, logo, url);
 });
 
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
 });
+
+
+// data = data.replace(/<meta.*?>/g, '');
