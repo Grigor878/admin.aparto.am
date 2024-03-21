@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUploadPhoto, setUploadPhotoReserve, setUploadPhotoReserveTwo } from '../../../../../store/slices/propertySlice'
 import { hideImg, removeWhite, showImg, uploadImgs } from '../../../../svgs/svgs'
-import { API_BASE_URL } from '../../../../../apis/config'
+import { API_BASE_URL } from '../../../../../services/api/config'
 import { error } from '../../../../../components/swal/swal'
 import './ImgsUpload.scss'
 

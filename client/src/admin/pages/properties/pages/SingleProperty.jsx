@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdminData } from '../../../../store/slices/homeSlice';
-import baseApi from '../../../../apis/baseApi';
+import baseApi from '../../../../services/api/baseApi';
 import { Loader } from '../../../../components/loader/Loader'
 import { usdFormater } from '../../../../helpers/formatters';
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
-import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
+import { API_BASE_URL, APP_BASE_URL, getAxiosConfig } from '../../../../services/api/config'
 import { balcony, buildType, buildingYear, checked, file, floorIcon, ground, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel, url } from '../../../svgs/svgs'
 import { YMap } from '../components/yandexMap/YMap'
 import { PriceHistory } from '../components/priceHistory/PriceHistory';

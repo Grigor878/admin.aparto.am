@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import baseApi from '../../../../../apis/baseApi'
-import { getAxiosConfig } from '../../../../../apis/config'
+import baseApi from '../../../../../services/api/baseApi'
+import { getAxiosConfig } from '../../../../../services/api/config'
 import './Styles.scss'
 
 export const AgentSelect = ({ title, value, id, onChange, style, required }) => {

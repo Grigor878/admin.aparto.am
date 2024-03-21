@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Loader } from '../../../../../components/loader/Loader'
 import { Link } from 'react-router-dom'
 import { admin, userIcon, shevron, agent, } from '../../../../svgs/svgs'
-import { API_BASE_URL } from '../../../../../apis/config'
+import { API_BASE_URL } from '../../../../../services/api/config'
 import { capitalize } from '../../../../../helpers/formatters'
 import './User.scss'
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { file, remove } from '../../../../svgs/svgs'
 import { useDispatch } from 'react-redux'
-import { API_BASE_URL } from '../../../../../apis/config'
+import { API_BASE_URL } from '../../../../../services/api/config'
 import { setUploadFile } from '../../../../../store/slices/propertySlice'
 import './Styles.scss'
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { API_BASE_URL } from '../../../../apis/config';
+import { API_BASE_URL } from '../../../../services/api/config';
 import noImg from "../../../../assets/imgs/noImg.png";
 import { amdFormater, cutCommunity, sqmToFt2, usdFormater } from '../../../../helpers/formatters';
 import { buildType, roomIcon, square } from '../../../../admin/svgs/svgs';

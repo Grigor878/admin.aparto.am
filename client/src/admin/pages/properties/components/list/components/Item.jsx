@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { API_BASE_URL, APP_BASE_URL } from '../../../../../../apis/config'
+import { API_BASE_URL, APP_BASE_URL } from '../../../../../../services/api/config'
 import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
 import { usdFormater } from '../../../../../../helpers/formatters'

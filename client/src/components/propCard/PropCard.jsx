@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 import { useMediaQuery } from 'react-responsive';
-import { API_BASE_URL } from "../../apis/config";
+import { API_BASE_URL } from "../../services/api/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
 import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { API_BASE_URL } from '../../../../apis/config'
+import { API_BASE_URL } from '../../../../services/api/config'
 import { remove, file } from '../../../svgs/svgs';
 import { extractFileName } from '../../../../helpers/formatters';
 import { useDispatch } from 'react-redux';

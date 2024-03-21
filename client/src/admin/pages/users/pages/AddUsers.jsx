@@ -7,11 +7,11 @@ import { RiDeleteBin5Fill } from 'react-icons/ri'
 import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../components/SelectRole'
 import { capitalize } from '../../../../helpers/formatters'
-import baseApi from '../../../../apis/baseApi'
+import baseApi from '../../../../services/api/baseApi'
 import { error, goodJob } from '../../../../components/swal/swal'
 import { addUserInputs } from '../data'
 import './Styles.scss'
-import { getAxiosConfig } from '../../../../apis/config'
+import { getAxiosConfig } from '../../../../services/api/config'
 
 const AddUsers = () => {
     const [loading, setLoading] = useState(false)

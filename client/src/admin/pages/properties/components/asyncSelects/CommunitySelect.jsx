@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import baseApi from '../../../../../apis/baseApi'
-import { getAxiosConfig } from '../../../../../apis/config'
+import baseApi from '../../../../../services/api/baseApi'
+import { getAxiosConfig } from '../../../../../services/api/config'
 
 export const CommunitySelect = ({ title, id, required, value, defValue, valueId, streetData, onChange, onStreetChange, data, style }) => {
     const [streets, setStreets] = useState([])

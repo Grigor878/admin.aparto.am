@@ -1,8 +1,8 @@
 import React from 'react'
 import { BtnCustom } from '../../../../components/buttons/BtnCustom'
 import { AddInput } from '../../../../components/inputs/AddInput'
-import baseApi from '../../../../../apis/baseApi'
-import { getAxiosConfig } from '../../../../../apis/config'
+import baseApi from '../../../../../services/api/baseApi'
+import { getAxiosConfig } from '../../../../../services/api/config'
 import { error, success } from '../../../../../components/swal/swal'
 
 export const Password = () => {

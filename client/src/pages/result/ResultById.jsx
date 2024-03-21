@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import HelmetAsync from '../../components/helmetAsync/HelmetAsync'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getViewData } from '../../store/slices/viewSlice'
-import { API_BASE_URL } from '../../apis/config'
+import { API_BASE_URL } from '../../services/api/config'
 import { balcony, buildType, buildingYear, checked, floorIcon, ground, kitchenType, location, mail, orentation, propertyType, seeAllImgs, square, tel } from '../../admin/svgs/svgs'
 import { ReactFullscreenCarousel } from 'react-fullscreen-carousel';
 import { YMap } from '../../admin/pages/properties/components/yandexMap/YMap'
@@ -79,10 +78,6 @@ const ResultById = () => {
       ? <Loader />
       : currentPropertyData && currentPropertyData?.length !== 0 &&
       <article >
-        {/* <HelmetAsync
-          description={currentPropertyData[0]?.fields[2]?.value}
-          image={modifiedData[0]?.img}
-        /> */}
         <div className="contain">
           <div className='singleProperty'>
 

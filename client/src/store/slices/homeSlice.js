@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cookies from "js-cookie";
-import baseApi from "../../apis/baseApi";
+import baseApi from "../../services/api/baseApi";
 
 const initialState = {
   language: cookies.get("i18next") || "en",
