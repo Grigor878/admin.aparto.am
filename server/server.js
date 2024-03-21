@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path');
 const fs = require('fs');
+const cookie = require('cookie-parser')
 
 const app = express();
 const PORT = 3001;
@@ -13,7 +14,9 @@ const imageUrl = `${website}api/public/images/`;
 
 const filePath = path.resolve(__dirname, "../client/build", "index.html");
 
+
 app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(cookie())
 
 function serveHTML(req, res, title, description, image, url) {
     fs.readFile(filePath, "utf8", (err, data) => {
@@ -39,9 +42,11 @@ app.get("/result/:id", async (req, res) => {
         const response = await axios.get(`${propertyUrl}${id}`);
         const responseData = response?.data;
 
+        const language = req.cookies.i18next
         const homeId = responseData?.home_id;
-        const title = `Aparto | Result - ${homeId}`
-        const description = responseData?.en[0]?.fields[2]?.value;
+        const name = language === "en" ? "Result" : language === "am" ? "Արդյունք" : "Результат"
+        const title = `Aparto | ${name} - ${homeId}`
+        const description = responseData?.[language][0]?.fields[2]?.value;
         const image = imageUrl + responseData?.photo[0]?.name;
         const url = req.protocol + '://' + req.get('host') + req.originalUrl;
 
@@ -54,7 +59,7 @@ app.get("/result/:id", async (req, res) => {
 
 // Serve other pages as usual
 app.get("*", (req, res) => {
-    const title = "Aparto | " + req.originalUrl.replace(/^\/+/, '').toLocaleUpperCase();
+    const title = "Aparto | " + req.originalUrl.charAt(1).toUpperCase() + req.originalUrl.slice(2);
     const description = "Discover Property to Buy or Rent";
     const url = req.protocol + '://' + req.get('host') + req.originalUrl;
 
