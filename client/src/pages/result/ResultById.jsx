@@ -91,7 +91,7 @@ const ResultById = () => {
             {mobile
               ? <div className='singleProperty__content-left-title-right2'>
                 <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
-                <span>ID {data?.home_id}</span>
+                <span>ID {homeID}</span>
               </div>
               : null}
 
@@ -174,7 +174,7 @@ const ResultById = () => {
                   </div>
 
                   <div className='singleProperty__content-left-title-right'>
-                    <span>ID {data?.home_id}</span>
+                    <span>ID {homeID}</span>
                     <p>{data?.selectedTransactionType === "sale" ? t("sale") : t("rent")}</p>
                   </div>
                 </div>
