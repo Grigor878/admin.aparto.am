@@ -33,8 +33,6 @@ class HomeController extends Controller
             $homeLanguageContsructor = $this->homeService->homeLanguageContsructor($data);
             if($homeLanguageContsructor['priceHistory']){
                 if($home->price_history){
-                    \Log::info(222);
-                    \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
                     $prices = json_decode($home->price_history);
                     array_push($prices, [
                         "price" => $homeLanguageContsructor['priceHistory'],
@@ -42,8 +40,6 @@ class HomeController extends Controller
                     ]);
                     $home->price_history = json_encode($prices);
                 }else {
-                    \Log::info(111);
-                    \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
                     $priceDate =[];
                     array_push($priceDate, [
                         "price" => $homeLanguageContsructor['priceHistory'],
@@ -57,12 +53,14 @@ class HomeController extends Controller
             $home->ru =json_encode($homeLanguageContsructor['ru']);
             $home->en =json_encode($homeLanguageContsructor['en']);
             $home->save();
+            info('addHome', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
             return response()->json($home->id);
         }
     }
 
     public function editHome($id, Request $request){
         $data = $request->all();
+        info('editHome', ['user_id' => auth()->id(), 'home_id' => $id,'data'=>json_encode($data)]);
         $home = Home::findorFail($id);
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
         if($homeLanguageContsructor['editStatus']) {
@@ -75,9 +73,6 @@ class HomeController extends Controller
 
         if($homeLanguageContsructor['priceHistory']){
             if($home->price_history){
-                \Log::info(333);
-                \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
-
                 $prices = json_decode($home->price_history, true);
                 array_push($prices, [
                     "price" => $homeLanguageContsructor['priceHistory'],
@@ -85,9 +80,6 @@ class HomeController extends Controller
                 ]);
                 $home->price_history = json_encode($prices);
             }else {
-                \Log::info(444);
-                \Log::info(Carbon::now()->addHours(4)->format('d/m/Y'));
-                
 
                 $priceDate =[];
                 array_push($priceDate, [
@@ -118,17 +110,20 @@ class HomeController extends Controller
 
     public function editKeyword($id, Request $request){
         $data = $request->all();
+        info('editKeyword', ['user_id' => auth()->id(), 'home_id' => $id, 'data'=>json_encode($data)]);
         $home = Home::findorFail($id);
         $home->keywords = json_encode($data);
         $home->save();
     }
     public function editYandexLocation($id, Request $request){
         $data = $request->all();
+        info('editYandexLocation', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
         $this->homeService->addEditYandexLocation($id, $data);
         return true;
     }
 
     public function activateHomeStatus($id) {
+        info('activateHomeStatus', ['user_id' => auth()->id(),'data'=>json_encode($id)]);
         $home = Home::find($id);
         if($home) {
             $home->update(['status' => Home::STATUS_APPROVED]);
@@ -144,6 +139,7 @@ class HomeController extends Controller
     }
 
     public function archiveHomeStatus($id) {
+        info('archiveHomeStatus', ['user_id' => auth()->id(),'data'=>json_encode($id)]);
         $home = Home::find($id);
         if($home) {
             $home->update(['status' => Home::STATUS_ARCHIVED]);
@@ -160,6 +156,7 @@ class HomeController extends Controller
 
     public function addReservPhoto($id, Request $request){
         $data = $request->all();
+        info('addReservPhoto', ['user_id' => auth()->id(), 'home_id' => $id, 'data'=>json_encode($data)]);
         $home = Home::find($id);
         if($home) {
             $photoName = json_decode($home->photo);
@@ -189,6 +186,7 @@ class HomeController extends Controller
 
     public function addEditReservPhoto($id, Request $request){
         $data = $request->all();
+        info('addEditReservPhoto', ['user_id' => auth()->id(), 'home_id' => $id,'data'=>json_encode($data)]);
         if(!$data) { 
             $home = Home::find($id);
             if($home) {
@@ -256,6 +254,7 @@ class HomeController extends Controller
 
     public function editMultyPhoto($id, Request $request){
         $data = $request->all();
+        info('editMultyPhoto', ['user_id' => auth()->id(), 'home_id' => $id,'data'=>json_encode($data)]);
         if(!$data) { 
             $home = Home::find($id);
             if($home) {
@@ -265,7 +264,7 @@ class HomeController extends Controller
             $home = Home::find($id);
             if($home) {
                 $photoName = array_fill(0, count($data), '');
-                logger('beforeEditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
+                // logger('beforeEditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
                 $condition = true;
                 foreach ($data as $key => $photo) {
                     preg_match_all('/\d+/', $key, $matches);
@@ -310,7 +309,7 @@ class HomeController extends Controller
                     }
     
                 }
-                logger('EditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
+                // logger('EditPhoto', ['photoName' => json_encode($photoName), 'home_id' => $id, 'auth_user'=>auth()->user()->id]);
                 $home->photo = json_encode($photoName);
                 $home->save();
             }
@@ -320,6 +319,7 @@ class HomeController extends Controller
 
     public function editDocumentUpload($id, Request $request){
         $data = $request->all();
+        info('editDocumentUpload', ['user_id' => auth()->id(), 'home_id' => $id,'data'=>json_encode($data)]);
         if(!$data) { 
             $home = Home::find($id);
             if($home) {
@@ -348,6 +348,7 @@ class HomeController extends Controller
 
     public function getHome(Request $request) {
         $data = $request->all();
+        info('getHome', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
 
         $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
         ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
@@ -440,11 +441,11 @@ class HomeController extends Controller
 
     public function multyPhoto($id, Request $request){
         $data = $request->all();
+        info('getHome', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($data)]);
         $home = Home::findorFail($id);
         $photoName = [];
         foreach ($data as $key => $photo) {
           $fileName = round(microtime(true) * 1000).'.'.$photo->extension();
-          \Log::info($fileName);
           $photo->move(public_path('images'), $fileName);
          
           if(is_numeric(strpos($key, 'visible'))) {
@@ -462,13 +463,13 @@ class HomeController extends Controller
         }
         $home->photo = json_encode($photoName);
         $home->save();
-        \Log::info('multyPhoto'.$id, $photoName);
 
         return true;
       }
 
     public function documentUpload($id, Request $request) {
         $data = $request->all();
+        info('documentUpload', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($data)]);
         $home = Home::findorFail($id);
         $fileNameArray = [];
         foreach ($data as $key => $file) {
@@ -478,7 +479,6 @@ class HomeController extends Controller
           }
           $home->file = json_encode($fileNameArray);
           $home->save();
-        \Log::info('documentUpload'.$id, $fileNameArray);
 
         return true;
     }
@@ -486,18 +486,18 @@ class HomeController extends Controller
 
     public function addKeyword($id, Request $request) {
         $data = $request->all();
+        info('addKeyword', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($data)]);
         $home = Home::findorFail($id);
         $home->keywords = json_encode($data);
         $home->save();
-        \Log::info('addKeyword'.$id, $data);
 
         return true;
     }
 
     public function addYandexLocation($id, Request $request) {
         $data = $request->all();
+        info('addYandexLocation', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($data)]);
         $this->homeService->addEditYandexLocation($id, $data);
-        \Log::info('addYandexLocation'.$id, $data);
         
         return true;
     }
@@ -510,6 +510,14 @@ class HomeController extends Controller
             $am = json_decode($home->am);
             $agentId = (int) $am[11]->fields[0]->id;
             $managerId = (int) $am[11]->fields[1]->id;
+            if(isAgent()) {
+                $authHomeids = HomeService::getAuthHomesId();
+                if(!in_array($id, $authHomeids)) {
+                    $am[9]->fields[0]->value="**** ****";
+                    $am[9]->fields[1]->value="*********";
+                }
+            }
+
             $employee = Employe::get();
             Employe::getAgentMangerData($agentId, $managerId, $employee, $am, null, null);
             $home->selectedTransactionType = isset($am[0]->fields[0]->selectedOptionName)?$am[0]->fields[0]->selectedOptionName: '';
@@ -520,6 +528,7 @@ class HomeController extends Controller
             $home->keywords = json_decode($home->keywords);
             $home->priceHistory = json_decode($home->price_history);
             $home->am = $am;
+            info('getProperties', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($home)]);
             return response()->json($home);
 
         }
@@ -531,6 +540,7 @@ class HomeController extends Controller
 
     public function updateHomeDate($id) {
         $home = Home::find($id);
+        info('updateHomeDate', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($home)]);
         if($home) {
             $dateNow = Carbon::now()->format('Y-m-d H:i:s');
             $home->update(['update_top_at' => $dateNow]);
@@ -546,6 +556,7 @@ class HomeController extends Controller
 
     public function addInactiveHome($id, Request $request){
         $data = $request->all();
+        info('addInactiveHome', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($data)]);
         $home = Home::find($id);
         if($home) {
             $home->update(['status'=> Home::STATUS_INACTIVE, 'inactive_at' => Carbon::parse($data['date'])->format('Y-m-d')]);
@@ -561,9 +572,24 @@ class HomeController extends Controller
 
     public function getEditHome($id)
     {
+        if(isAgent()){
+            $this->haveEditPerrmission($id);
+        }
+
         $home = $this->homeService->getEditHome($id);
+        info('getEditHome', ['user_id' => auth()->id(),'home_id' => $id]);
 
         return response()->json($home);
+    }
+
+    public function haveEditPerrmission($id){
+        $authHomeids = HomeService::getAuthHomesId();
+
+        if(!in_array($id, $authHomeids)) {
+            abort(403);
+            return response()->json(['status' => 'error'], 403);
+        }
+        return true;
     }
 
     
