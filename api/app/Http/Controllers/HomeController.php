@@ -351,13 +351,16 @@ class HomeController extends Controller
         info('getHome', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
 
         $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
-        ->select('id', 'home_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+        ->select('id', 'home_id', 'employee_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
         ->get() ;
 
         if($data){
             $allHome =  $this->homeService->getFilteredHomes($allHome, $data);            
         } else {
+            $isAgent = isAgent();
+            $authid = auth()->id();
             foreach ($allHome as $key => $home) {
+            $authAgentHome = $home->employee_id == $authid;
             $am = json_decode($home->am);
             $ru = json_decode($home->ru);
             $en = json_decode($home->en);
@@ -376,28 +379,43 @@ class HomeController extends Controller
                     array_push($searchAllProperty, $en[1]->fields[0]->communityStreet->value);
             }
 
-            if(isset($am[9]->fields[1]->value)){ 
-                array_push($searchAllProperty, $am[9]->fields[1]->value);
-            }
+            // if(isAgent()) {
+            //     $authHomeids = HomeService::getAuthHomesId();
+            //     if(!in_array($id, $authHomeids)) {
+            //         // $am[9]->fields[0]->value="**** ****";
+            //         // $am[9]->fields[1]->value="*********";
+            //         unset($am[9]);
+            //     }
+            // }
 
-            if(isset( $am[9]->fields[2]->option[1]->value)){ 
-                array_push($searchAllProperty,  $am[9]->fields[2]->option[1]->value);
-            }
-            
-            if(isset( $am[9]->fields[2]->option[3]->value)){ 
-                array_push($searchAllProperty,  $am[9]->fields[2]->option[3]->value);
-            }
+            if($isAgent && !$authAgentHome){
+                $am[9]->fields[1]->value = "*************";
+                $am[9]->fields[0]->value = "**** ********";
+            } else {
+                if(isset($am[9]->fields[1]->value)){ 
+                    array_push($searchAllProperty, $am[9]->fields[1]->value);
+                }
+    
+                if(isset( $am[9]->fields[2]->option[1]->value)){ 
+                    array_push($searchAllProperty,  $am[9]->fields[2]->option[1]->value);
+                }
+                
+                if(isset( $am[9]->fields[2]->option[3]->value)){ 
+                    array_push($searchAllProperty,  $am[9]->fields[2]->option[3]->value);
+                }
+    
+                if(isset($am[9]->fields[0]->value)){ 
+                    array_push($searchAllProperty, $am[9]->fields[0]->value);
+                }
+    
+                if(isset( $am[9]->fields[2]->option[0]->value)){ 
+                    array_push($searchAllProperty,  $am[9]->fields[2]->option[0]->value);
+                }
+                
+                if(isset( $am[9]->fields[2]->option[2]->value)){ 
+                    array_push($searchAllProperty,  $am[9]->fields[2]->option[2]->value);
+                }
 
-            if(isset($am[9]->fields[0]->value)){ 
-                array_push($searchAllProperty, $am[9]->fields[0]->value);
-            }
-
-            if(isset( $am[9]->fields[2]->option[0]->value)){ 
-                array_push($searchAllProperty,  $am[9]->fields[2]->option[0]->value);
-            }
-            
-            if(isset( $am[9]->fields[2]->option[2]->value)){ 
-                array_push($searchAllProperty,  $am[9]->fields[2]->option[2]->value);
             }
 
             if(isset($am[11]->fields[0]->value)){ 
@@ -513,8 +531,9 @@ class HomeController extends Controller
             if(isAgent()) {
                 $authHomeids = HomeService::getAuthHomesId();
                 if(!in_array($id, $authHomeids)) {
-                    $am[9]->fields[0]->value="**** ****";
-                    $am[9]->fields[1]->value="*********";
+                    // $am[9]->fields[0]->value="**** ****";
+                    // $am[9]->fields[1]->value="*********";
+                    unset($am[9]);
                 }
             }
 
