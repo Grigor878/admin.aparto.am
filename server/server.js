@@ -14,7 +14,6 @@ const imageUrl = `${website}api/public/images/`;
 
 const filePath = path.resolve(__dirname, "../client/build", "index.html");
 
-
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(cookie())
 
