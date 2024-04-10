@@ -377,6 +377,10 @@ const structureSlice = createSlice({
     setFilteredData: (state, action) => {
       state.filteredData = action.payload;
     },
+    // Clear singleProperty data on edit click for edit page
+    clearEditSinglePropertyData: (state, action) => {
+      state.editSingleData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -464,6 +468,7 @@ export const {
   setUploadFile,
   setYandex,
   setKeyword,
-  setFilteredData
+  setFilteredData,
+  clearEditSinglePropertyData
 } = structureSlice.actions;
 export default structureSlice.reducer;
