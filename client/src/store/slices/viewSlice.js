@@ -6,8 +6,9 @@ const initialState = {
   data: [],
   streetData: null,
   resultData: null,
-  searchedCommunities:[],
-  searchedAddresses:[],
+  keywords: "",
+  searchedCommunities: [],
+  searchedAddresses: [],
   siderData: null,
   siderLoading: false,
   page: "result",
@@ -103,6 +104,10 @@ const viewSlice = createSlice({
     setPerPage: (state, action) => {
       state.perPage = action.payload;
     },
+    // set pagiation perPage
+    setKeywords: (state, action) => {
+      state.keywords = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getViewData.pending, (state) => {
@@ -129,11 +134,13 @@ const viewSlice = createSlice({
       sessionStorage.removeItem("siderPropCondition");
       sessionStorage.removeItem("siderFloorMin");
       sessionStorage.removeItem("siderFloorMax");
-      sessionStorage.removeItem("siderDesc");
+      // sessionStorage.removeItem("siderDesc");
       sessionStorage.removeItem("siderId");
       state.resultData = action.payload.data;
       state.searchedAddresses = action.payload.addresses;
       state.searchedCommunities = action.payload.community;
+      state.keywords = action.payload.keywords;
+
       state.loading = false;
     });
     builder.addCase(getResultPageData.pending, (state) => {
@@ -153,7 +160,7 @@ export const {
   setPage,
   setPaginatePage,
   setPerPage,
+  setKeywords,
 } = viewSlice.actions;
 
 export default viewSlice.reducer;
-

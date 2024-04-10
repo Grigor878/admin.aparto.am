@@ -32,7 +32,7 @@ const PropType = ({ type, data }) => {
         sessionStorage.removeItem("siderPropCondition");
         sessionStorage.removeItem("siderFloorMin");
         sessionStorage.removeItem("siderFloorMax");
-        sessionStorage.removeItem("siderDesc");
+        // sessionStorage.removeItem("siderDesc");
         sessionStorage.removeItem("siderId");
         navigate('/result')
     }
