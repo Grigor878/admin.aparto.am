@@ -359,11 +359,11 @@ class HomeController extends Controller
         } else {
             $isAgent = isAgent();
             $authid = auth()->id();
-            foreach ($allHome as $key => $home) {
-            $authAgentHome = $home->employee_id == $authid;
+            foreach ($allHome as $key => $home) {           
             $am = json_decode($home->am);
             $ru = json_decode($home->ru);
             $en = json_decode($home->en);
+            $authAgentHome = $am[11]->fields[0]->id == $authid;
 
             $searchAllProperty = [];
 

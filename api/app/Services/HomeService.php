@@ -1142,7 +1142,13 @@ class HomeService
 
 public static function getAuthHomesId()
 {
-  $homeIds = Home::where('employee_id', auth()->id())->get()->pluck('id')->toArray();
+  $homes = Home::all();
+
+  $homeIds = $homes->filter(function ($home)  {
+    $am = json_decode($home->am);
+    return $am[11]->fields[0]->id == auth()->id();
+  })->pluck('id')->toArray();
+
   return $homeIds;
 }
  
