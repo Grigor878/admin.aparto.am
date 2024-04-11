@@ -8,7 +8,7 @@ import { buildTypeAm, buildTypeEn, buildTypeRu, communityAm, communityEn, commun
 import { MultiSelect } from '../inputs/multiSelect';
 import { RoomSelect } from '../inputs/roomSelect';
 import { Input } from '../inputs/input';
-import { clearHomeSearchInfo, clearResultData, getResultPageData, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
+import { clearHomeSearchInfo, clearResultData, getResultPageData, setKeywords, setPage, setPaginatePage } from '../../../../store/slices/viewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { useMediaQuery } from 'react-responsive'
@@ -24,7 +24,7 @@ export const Sider = ({ open, setOpen }) => {
   const dispatch = useDispatch()
 
   const { transactionType, propertyType, room, price, language } = useSelector((state) => state.home);
-  const { page, paginatePage, perPage, searchedCommunities, searchedAddresses } = useSelector((state) => state.view);
+  const { page, paginatePage, perPage, searchedCommunities, searchedAddresses, keywords } = useSelector((state) => state.view);
 
   const mobile = useMediaQuery({ maxWidth: 768 })
 
@@ -42,7 +42,8 @@ export const Sider = ({ open, setOpen }) => {
   const [propCondition, setPropCondition] = useSessionState([], "siderPropCondition")
   const [floorMin, setFloorMin] = useSessionState("", "siderFloorMin")
   const [floorMax, setFloorMax] = useSessionState("", "siderFloorMax")
-  const [description, setDescription] = useSessionState("", "siderDesc")
+  // const [description, setDescription] = useSessionState("", "siderDesc")
+  const [description, setDescription] = useState(keywords)
   const [id, setId] = useSessionState("", "siderId")
 
   // community, propType, buildType, propCondition
@@ -121,7 +122,7 @@ export const Sider = ({ open, setOpen }) => {
     sessionStorage.removeItem("siderPropCondition");
     sessionStorage.removeItem("siderFloorMin");
     sessionStorage.removeItem("siderFloorMax");
-    sessionStorage.removeItem("siderDesc");
+    // sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
 
     dispatch(setPage("result"))
@@ -141,6 +142,7 @@ export const Sider = ({ open, setOpen }) => {
     setFloorMin("")
     setFloorMax("")
     setDescription("")
+    dispatch(setKeywords(""))
     setId("")
     if (mobile) {
       setOpen(false)
@@ -428,7 +430,7 @@ export const Sider = ({ open, setOpen }) => {
               className='inputLarg'
               type="text"
               placeholder={t("other_description")}
-              onChange={(e) => handleSetState(setDescription, e)}
+              onChange={(e) => { handleSetState(setDescription, e); dispatch(setKeywords(e)) }}
               value={description}
             />
           </div>

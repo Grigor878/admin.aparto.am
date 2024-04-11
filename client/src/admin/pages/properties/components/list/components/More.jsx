@@ -3,7 +3,7 @@ import { more } from '../../../../../svgs/svgs'
 import { Link } from 'react-router-dom'
 import { Modal } from '../../modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { activateHome, archiveHome } from '../../../../../../store/slices/propertySlice'
+import { activateHome, archiveHome, clearEditSinglePropertyData } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
 export const More = ({ id, status, agentName }) => {
@@ -35,6 +35,7 @@ export const More = ({ id, status, agentName }) => {
                         <Link
                             className='propertyList__item-right-more-menu-link'
                             to={`edit/${id}`}
+                            onClick={()=>dispatch(clearEditSinglePropertyData(null))}
                         >
                             Փոփոխել
                         </Link>
