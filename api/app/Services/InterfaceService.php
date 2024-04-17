@@ -286,7 +286,7 @@ class InterFaceService
 
     public function getSearchAttributes($lang)
     {
-        $homeKeywords = Home::where('keywords', '!=', "[]")->select('keywords')->get();
+        $homeKeywords = Home::where('status', Home::STATUS_APPROVED)->where('keywords', '!=', "[]")->select('keywords')->get();
         $readyKeywords = [];
 
         foreach ($homeKeywords as $key => $home) {
@@ -672,8 +672,15 @@ class InterFaceService
 
     public function getInterfaceProperties($id)
     {
-        $home = Home::orderBy('created_at', 'desc')->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
+        $home = Home::where('status', Home::STATUS_APPROVED)->orderBy('created_at', 'desc')->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
             ->find($id);
+
+        if(!$home){
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Home not found"
+            ], 422);
+        }
 
         $am = json_decode($home->am);
         $ru = json_decode($home->ru);
