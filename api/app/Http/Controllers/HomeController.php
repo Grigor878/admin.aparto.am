@@ -52,6 +52,8 @@ class HomeController extends Controller
             $home->am =json_encode($homeLanguageContsructor['am']);
             $home->ru =json_encode($homeLanguageContsructor['ru']);
             $home->en =json_encode($homeLanguageContsructor['en']);
+            $dateNow = Carbon::now()->addHours(4)->format('Y-m-d H:i:s');
+            $home->update_top_at = $dateNow;
             $home->save();
             info('addHome', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
             return response()->json($home->id);
@@ -93,6 +95,8 @@ class HomeController extends Controller
         $home->am =json_encode($homeLanguageContsructor['am']);
         $home->ru =json_encode($homeLanguageContsructor['ru']);
         $home->en =json_encode($homeLanguageContsructor['en']);
+        $dateNow = Carbon::now()->addHours(4)->format('Y-m-d H:i:s');
+        $home->update_top_at = $dateNow;
         $home->save();
         return response()->json($home->id);
     }
@@ -531,8 +535,6 @@ class HomeController extends Controller
             if(isAgent()) {
                 $authHomeids = HomeService::getAuthHomesId();
                 if(!in_array($id, $authHomeids)) {
-                    // $am[9]->fields[0]->value="**** ****";
-                    // $am[9]->fields[1]->value="*********";
                     unset($am[9]);
                 }
             }
@@ -561,7 +563,7 @@ class HomeController extends Controller
         $home = Home::find($id);
         info('updateHomeDate', ['user_id' => auth()->id(),'home_id' => $id,'data'=>json_encode($home)]);
         if($home) {
-            $dateNow = Carbon::now()->format('Y-m-d H:i:s');
+            $dateNow = Carbon::now()->addHours(4)->format('Y-m-d H:i:s');
             $home->update(['update_top_at' => $dateNow]);
             return response()->json([
                 'success' => "Գույքը թարմացված է"

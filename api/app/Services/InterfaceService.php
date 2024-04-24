@@ -238,7 +238,7 @@ class InterFaceService
     {
         $searchHomeArray = [];
 
-        Home::latest()->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($lang, &$searchHomeArray) {
@@ -257,8 +257,11 @@ class InterFaceService
     public function getRentHomes($lang)
     {
         $searchHomeArray = [];
+        // $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
+        // ->select('id', 'home_id', 'employee_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
+        // ->get() ;
 
-        Home::latest()->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($lang, &$searchHomeArray) {
@@ -324,7 +327,7 @@ class InterFaceService
         $getKeyWords = [];
 
         try {
-            Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+            Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
                 ->where('status', Home::STATUS_APPROVED)
                 ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray, &$getKeyWords) {
                     $home = $this->processHomeData($home);
@@ -561,7 +564,7 @@ class InterFaceService
     public function getSeeMoreHomes($data, $lang)
     {
         $searchHomeArray = [];
-        Home::orderBy('created_at', 'desc')->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($data, $lang, &$searchHomeArray) {
@@ -745,7 +748,7 @@ class InterFaceService
             }
         }
 
-        $searchHomes = Home::orderBy('created_at', 'desc')
+        $searchHomes = Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray, &$conditionType, &$buildingType) {
