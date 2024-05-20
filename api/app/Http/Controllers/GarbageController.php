@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 
 class GarbageController extends Controller
 {
-  public function changeFloor()
+  public function changeWordTranslations()
   {
 
     try {
@@ -24,19 +24,28 @@ class GarbageController extends Controller
         $ru = json_decode($home->ru, true);
         $en = json_decode($home->en, true);
 
-        if ($am[3]['fields'][8]['key'] == "floor") {
-          $am[3]['fields'][8]['title'] = "Հարկը";
-          $am[3]['fields'][8]['required'] = false;
+       
+        if ($am[3]['fields'][9]['key'] == "houseCondition") {
+          if($am[3]['fields'][9]['value'] == "Պետական վիճակ"){
+            $ru[3]['fields'][9]['value'] = "Требует ремонта";
+            $en[3]['fields'][9]['value'] = "Fixer-upper";
+          }
+          if($am[3]['fields'][9]['value'] == "Լավ"){
+            $ru[3]['fields'][9]['value'] = "Хорошое состояние";
+          }
+          if($am[3]['fields'][9]['value'] == "Զրոյական"){
+            $ru[3]['fields'][9]['value'] = "Черновая";
+            $en[3]['fields'][9]['value'] = "No renovation";
+          }
         }
 
-        if ($ru[3]['fields'][8]['key'] == "floor") {
-          $ru[3]['fields'][8]['title'] = "Этаж";
-          $ru[3]['fields'][8]['required'] = false;
+        if ($am[4]['fields'][0]['key'] == "buildingType") {
+          $en[4]['fields'][0]['value'] = "Monolith";
         }
 
-        if ($en[3]['fields'][8]['key'] == "floor") {
-          $en[3]['fields'][8]['title'] = "Floor";
-          $en[3]['fields'][8]['required'] = false;
+        if ($am[5]['name'] == "mainFacility") {
+          $am[5]['fields'][5]['title'] = 'Կենտրոնացված հովացման համակարգ';
+          $am[5]['fields'][1]['title'] = 'Էլեկտրաէներգիա';
         }
 
         $home->am = json_encode($am);
@@ -48,8 +57,8 @@ class GarbageController extends Controller
 
       \DB::commit();
     } catch (Throwable $e) {
-      \Log::info($e);
       \DB::rollBack();
+      dd($e);
     }
   }
 
@@ -1396,7 +1405,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "electricity",
-            "title" => "Էլեկտրոէներգիա",
+            "title" => "Էլեկտրաէներգիա",
             "value" => 'on',
             "type" => "checkbox",
           ],
@@ -1423,7 +1432,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "centralizedCoolingSystem",
-            "title" => "Կենտրոնացած հովացման համակարգ",
+            "title" => "Կենտրոնացված հովացման համակարգ",
             "type" => "checkbox",
             "value" => 'on',
           ],

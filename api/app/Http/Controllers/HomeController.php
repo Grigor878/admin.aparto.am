@@ -392,34 +392,33 @@ class HomeController extends Controller
             //     }
             // }
 
+            if(isset($am[9]->fields[1]->value)){ 
+                array_push($searchAllProperty, $am[9]->fields[1]->value);
+            }
+
+            if(isset( $am[9]->fields[2]->option[1]->value)){ 
+                array_push($searchAllProperty,  $am[9]->fields[2]->option[1]->value);
+            }
+            
+            if(isset( $am[9]->fields[2]->option[3]->value)){ 
+                array_push($searchAllProperty,  $am[9]->fields[2]->option[3]->value);
+            }
+
+            if(isset($am[9]->fields[0]->value)){ 
+                array_push($searchAllProperty, $am[9]->fields[0]->value);
+            }
+
+            if(isset( $am[9]->fields[2]->option[0]->value)){ 
+                array_push($searchAllProperty,  $am[9]->fields[2]->option[0]->value);
+            }
+            
+            if(isset( $am[9]->fields[2]->option[2]->value)){ 
+                array_push($searchAllProperty,  $am[9]->fields[2]->option[2]->value);
+            }
+            
             if($isAgent && !$authAgentHome){
                 $am[9]->fields[1]->value = "*************";
                 $am[9]->fields[0]->value = "**** ********";
-            } else {
-                if(isset($am[9]->fields[1]->value)){ 
-                    array_push($searchAllProperty, $am[9]->fields[1]->value);
-                }
-    
-                if(isset( $am[9]->fields[2]->option[1]->value)){ 
-                    array_push($searchAllProperty,  $am[9]->fields[2]->option[1]->value);
-                }
-                
-                if(isset( $am[9]->fields[2]->option[3]->value)){ 
-                    array_push($searchAllProperty,  $am[9]->fields[2]->option[3]->value);
-                }
-    
-                if(isset($am[9]->fields[0]->value)){ 
-                    array_push($searchAllProperty, $am[9]->fields[0]->value);
-                }
-    
-                if(isset( $am[9]->fields[2]->option[0]->value)){ 
-                    array_push($searchAllProperty,  $am[9]->fields[2]->option[0]->value);
-                }
-                
-                if(isset( $am[9]->fields[2]->option[2]->value)){ 
-                    array_push($searchAllProperty,  $am[9]->fields[2]->option[2]->value);
-                }
-
             }
 
             if(isset($am[11]->fields[0]->value)){ 

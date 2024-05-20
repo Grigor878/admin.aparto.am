@@ -80,7 +80,7 @@ class InterFaceService
         ],
         'monolith' => [
             'am' => 'Մոնոլիտ',
-            'en' => 'Monolithic',
+            'en' => 'Monolith',
             'ru' => 'Монолитный',
         ],
         'panel' => [

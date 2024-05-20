@@ -255,18 +255,18 @@ class HomeService
       ],
       'stateCondition' => [
         'am' => 'Պետական վիճակ',
-        'en' => 'State condition',
-        'ru' => 'Гос. состояние',
+        'en' => 'Fixer-upper',
+        'ru' => 'Требует ремонта',
       ],
       'good' => [
         'am' => 'Լավ',
         'en' => 'Good',
-        'ru' => 'Хороший',
+        'ru' => 'Хорошое состояние',
       ],
       'zero' => [
         'am' => 'Զրոյական',
-        'en' => 'Zero',
-        'ru' => 'Нулевое',
+        'en' => 'No renovation',
+        'ru' => 'Черновая',
       ],
       'renovated' => [
         'am' => 'Վերանորոգված',
@@ -310,7 +310,7 @@ class HomeService
       ],
       'monolith' => [
         'am' => 'Մոնոլիտ',
-        'en' => 'Monolithic',
+        'en' => 'Monolith',
         'ru' => 'Монолитный',
       ],
       'panel' => [
