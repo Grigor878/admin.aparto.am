@@ -323,7 +323,7 @@ const ResultById = () => {
                 <div className='singleProperty__content-left-location'>
                   {mobile && <div className='singleProperty__content-right'>
                     <div className='singleProperty__content-right-price'>
-                      {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
+                      {/* {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
                         ? <h4>{t("price")}։
                           {exchange === 2
                             ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
@@ -331,7 +331,15 @@ const ResultById = () => {
                           }
                         </h4>
                         : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
-                      }
+                      } */}
+
+                      {exchange === 1 && ((currentPropertyData[2]?.fields[0]?.value === "" || currentPropertyData[2]?.fields[0]?.value === "0")
+                        ? <h4>{t("price")}։<span>{t("contract")}</span></h4>
+                        : <h4>{t("price")}։ <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>)}
+
+                      {exchange === 2 && ((currentPropertyData[2]?.fields[0]?.value === "" || currentPropertyData[2]?.fields[0]?.value === "0")
+                        ? <h4>{t("price")}։<span>{t("contract")}</span></h4>
+                        : <h4>{t("price")}։ <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span></h4>)}
 
                       {!currentPropertyData[2]?.fields[2]?.value ? null
                         : exchange === 2
@@ -445,7 +453,7 @@ const ResultById = () => {
               {/* Right */}
               {!mobile && <div className='singleProperty__content-right'>
                 <div className='singleProperty__content-right-price'>
-                  {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
+                  {/* {currentPropertyData[2]?.fields[0]?.value !== "" || currentPropertyData[2]?.fields[0]?.value === "0"
                     ? <h4>{t("price")}։
                       {exchange === 2
                         ? <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span>
@@ -453,7 +461,15 @@ const ResultById = () => {
                       }
                     </h4>
                     : <h4>{t("price")}։ <span>{t("contract")}</span></h4>
-                  }
+                  } */}
+
+                  {exchange === 1 && ((currentPropertyData[2]?.fields[0]?.value === "" || currentPropertyData[2]?.fields[0]?.value === "0")
+                    ? <h4>{t("price")}։<span>{t("contract")}</span></h4>
+                    : <h4>{t("price")}։ <span>{usdFormater(currentPropertyData[2]?.fields[0]?.value)}</span></h4>)}
+
+                  {exchange === 2 && ((currentPropertyData[2]?.fields[0]?.value === "" || currentPropertyData[2]?.fields[0]?.value === "0")
+                    ? <h4>{t("price")}։<span>{t("contract")}</span></h4>
+                    : <h4>{t("price")}։ <span>&#1423; {amdFormater(currentPropertyData[2]?.fields[0]?.value, exchangeValue)}</span></h4>)}
 
                   {!currentPropertyData[2]?.fields[2]?.value ? null
                     : exchange === 2

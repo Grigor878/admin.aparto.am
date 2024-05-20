@@ -200,7 +200,8 @@ export const propConditionAm = [
 export const propConditionEn = [
   {
     id: "stateCondition",
-    value: "State condition",
+    // value: "State condition",
+    value: "Fixer-upper",
   },
   {
     id: "good",
@@ -212,18 +213,21 @@ export const propConditionEn = [
   },
   {
     id: "zero",
-    value: "Zero",
+    // value: "Zero",
+    value: "No renovation",
   },
 ];
 
 export const propConditionRu = [
   {
     id: "stateCondition",
-    value: "Гос. состояние",
+    // value: "Гос. состояние",
+    value: "Требует ремонта",
   },
   {
     id: "good",
-    value: "Хороший",
+    // value: "Хороший",
+    value: "Хорошое состояние",
   },
   {
     id: "renovated",
@@ -231,7 +235,8 @@ export const propConditionRu = [
   },
   {
     id: "zero",
-    value: "Нулевое",
+    // value: "Нулевое",
+    value: "Черновая",
   },
 ];
 
@@ -257,7 +262,7 @@ export const buildTypeAm = [
 export const buildTypeEn = [
   {
     id: "monolith",
-    value: "Monolithic",
+    value: "Monolith",
   },
   {
     id: "stone",
