@@ -51,15 +51,13 @@ export const PropCard = ({ data }) => {
 
                   <div className="propCard__card-main">
                     <div className="propCard__card-main-top">
-                      {/* {exchange === 2
-                        ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
-                        : <p>{usdFormater(price)}</p>
-                      } */}
-                      {(price !== "" || price === "0") && exchange === 2
+                      {/* {(price !== "" || price === "0") && exchange === 2
                         ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
                         : (price !== "" || price === "0") && exchange === 1 ? <p>{usdFormater(price)}</p>
                           : <p>{t("contract")}</p>
-                      }
+                      } */}
+                      {exchange === 1 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>{usdFormater(price)}</p>)}
+                      {exchange === 2 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>&#1423; {amdFormater(price, exchangeValue)}</p>)}
                       <span>ID {home_id}</span>
                     </div>
 
@@ -109,15 +107,8 @@ export const PropCard = ({ data }) => {
 
                 <div className="propCardResult__card-main">
                   <div className="propCardResult__card-main-top">
-                    {/* {exchange === 2
-                      ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
-                      : <p>{usdFormater(price)}</p>
-                    } */}
-                    {(price !== "" || price === "0") && exchange === 2
-                      ? <p>&#1423;  {amdFormater(price, exchangeValue)}</p>
-                      : (price !== "" || price === "0") && exchange === 1 ? <p>{usdFormater(price)}</p>
-                        : <p>{t("contract")}</p>
-                    }
+                    {exchange === 1 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>{usdFormater(price)}</p>)}
+                    {exchange === 2 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>&#1423; {amdFormater(price, exchangeValue)}</p>)}
                     <span>ID {home_id}</span>
                   </div>
 
