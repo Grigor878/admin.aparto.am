@@ -24,6 +24,7 @@ import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
 import './Styles.scss'
+import { error } from '../../../../components/swal/swal'
 
 const EditProperties = () => {
     const { id } = useParams()
@@ -92,7 +93,22 @@ const EditProperties = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
-        dispatch(editPropertyData({ editProperty, propertyId }))
+
+        if (!editSingleData.am[2].fields[4].value.length || !editSingleData.am[2].fields[4].value) {
+            error('Ընտրեք վճարման կարգը!')
+            setLoading(false)
+        } else if (!editSingleData.am[3].fields[2].value) {
+            error('Ընտրեք սենյակների քանակը!')
+            setLoading(false)
+        } else if (!editSingleData.am[3].fields[3].value) {
+            error('Ընտրեք ննջասենյակների քանակը!')
+            setLoading(false)
+        } else if (!editSingleData.am[3].fields[4].value) {
+            error('Ընտրեք սանհանգույցների քանակը!')
+            setLoading(false)
+        } else {
+            dispatch(editPropertyData({ editProperty, propertyId }))
+        }
     }
 
     return (
