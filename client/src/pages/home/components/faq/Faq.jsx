@@ -7,7 +7,7 @@ const Faq = () => {
     const { t } = useTranslation()
 
     return (
-        <div className='faq'>
+        <div className='faq block'>
             <div className="faq__left">
                 <h2 className='title'>{t("faq_title")}</h2>
 

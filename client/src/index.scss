@@ -112,6 +112,7 @@ img {
 .css-1hb7zxy-IndicatorsContainer {
   flex-direction: row-reverse !important;
 }
+
 .css-1xc3v61-indicatorContainer,
 .css-15lsz6c-indicatorContainer {
   // color: transparent !important;
@@ -123,6 +124,7 @@ img {
 // }
 
 @media screen and (max-width: 768px) {
+
   .css-1hb7zxy-IndicatorsContainer,
   .css-1u9des2-indicatorSeparator {
     display: none !important;
@@ -167,4 +169,16 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
+}
+
+.block {
+  padding-top: 120px;
+
+  @media screen and (max-width: 1122px) {
+    padding-top: 90px;
+  }
+
+  @media screen and (max-width: 1122px) {
+    padding-top: 48px 0;
+  }
 }

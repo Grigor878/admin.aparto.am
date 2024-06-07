@@ -15,7 +15,7 @@ const Services = () => {
     const scroll = laptop ? 382 : 408
 
     return (
-        <div className='service' id='service'>
+        <div className='service block' id='service'>
             <h2 className='title'>{t("header_service")}</h2>
 
             <div className='service__row' ref={scrollableDivRef}>

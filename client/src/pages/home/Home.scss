@@ -1,17 +1,13 @@
 @import "../../variables";
 
 .home {
-  @include flexCol;
-  gap: 120px;
   padding: 120px 0;
 
   @media screen and (max-width: 1122px) {
-    gap: 90px;
     padding: 90px 0;
   }
 
   @media screen and (max-width: 1122px) {
-    gap: 48px;
     padding: 48px 0;
   }
 }

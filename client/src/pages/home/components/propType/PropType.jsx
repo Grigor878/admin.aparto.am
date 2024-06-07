@@ -38,7 +38,7 @@ const PropType = ({ type, data }) => {
     }
 
     return (
-        <div className='propType'>
+        <div className='propType block'>
             <div className='propType__top'>
                 <h2 className='title'>{t(type)}</h2>
                 {data?.length
