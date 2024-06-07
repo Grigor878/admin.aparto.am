@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminData, getTopHomes } from "../../store/slices/homeSlice";
+import { setPaginatePage } from "../../store/slices/viewSlice";
 import Main from "./components/main/Main";
 import Searches from "./components/searches/Searches";
 import Services from "./components/services/Services";
@@ -9,7 +10,6 @@ import Contact from "./components/contact/Contact";
 import PropType from "./components/propType/PropType";
 import Faq from "./components/faq/Faq";
 import "./Home.scss";
-import { setPaginatePage } from "../../store/slices/viewSlice";
 
 const Home = () => {
   const dispatch = useDispatch();

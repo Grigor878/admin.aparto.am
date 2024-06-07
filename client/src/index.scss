@@ -171,6 +171,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+// For home page all blocks
 .block {
   padding-top: 120px;
 
@@ -178,7 +179,7 @@ input[type="number"] {
     padding-top: 90px;
   }
 
-  @media screen and (max-width: 1122px) {
-    padding-top: 48px 0;
+  @media screen and (max-width: 768px) {
+    padding-top: 48px;
   }
 }

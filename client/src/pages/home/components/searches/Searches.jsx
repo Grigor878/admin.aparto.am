@@ -12,7 +12,7 @@ const Searches = () => {
 
     return (
         propertyType?.length || transactionType || room?.length || price
-            ? <div className='searches'>
+            ? <div className='searches block'>
                 <h2 className='title'>{t("searches")}</h2>
                 <div className="searches__row">
 
