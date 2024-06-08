@@ -87,7 +87,6 @@ export const Search = () => {
         dispatch(addPropertyType(propType))
         dispatch(addRooms(rooms))
         dispatch(addPrice(price))
-
         dispatch(clearSidertData())
         dispatch(setPage("home"))
         dispatch(postSearchData({ searchData, language }))

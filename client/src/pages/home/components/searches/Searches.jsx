@@ -6,7 +6,8 @@ import { usdFormater } from '../../../../helpers/formatters'
 import cookies from "js-cookie";
 import './Searches.scss'
 import { useNavigate } from 'react-router-dom'
-import { postSearchData } from '../../../../store/slices/viewSlice'
+import { clearSidertData, postSearchData, setPage } from '../../../../store/slices/viewSlice'
+import { addPrice, addPropertyType, addRooms, addTransactionType } from '../../../../store/slices/homeSlice'
 
 const Searches = () => {
     const { t } = useTranslation()
@@ -30,7 +31,12 @@ const Searches = () => {
             { page: paginatePage },
             { perPage: perPage }
         ]
-
+        dispatch(addTransactionType(type))
+        dispatch(addPropertyType(propertyType))
+        dispatch(addRooms(rooms))
+        dispatch(addPrice(price))
+        dispatch(clearSidertData())
+        dispatch(setPage("home"))
         dispatch(postSearchData({ searchData, language }))
             .then(() => {
                 navigate("/result")
