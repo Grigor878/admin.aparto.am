@@ -44,7 +44,7 @@ const Searches = () => {
             <div className="searches__row">
                 {searchHistory?.map(({ id, type, community, propertyType, price, rooms }) => {
                     return (
-                        <button
+                        <div
                             key={id}
                             className="searches__col"
                             onClick={() => handleSearch(type, community, propertyType, rooms, price)}
@@ -75,7 +75,7 @@ const Searches = () => {
                                     {price && ` | ${usdFormater(price)}`}
                                 </span>
                             </div>
-                        </button>
+                        </div>
                     )
                 })}
             </div>

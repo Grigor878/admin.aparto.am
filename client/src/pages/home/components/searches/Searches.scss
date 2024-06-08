@@ -5,6 +5,15 @@
     @include flex;
     flex-wrap: wrap;
     gap: 20px;
+
+    // overflow-x: auto;
+    // width: 100%;
+    // @include transition;
+
+    // &::-webkit-scrollbar {
+    //   width: 0px !important;
+    //   height: 0px !important;
+    // }
   }
 
   &__col {
