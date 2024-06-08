@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSessionState } from '../../../../hooks/useSessionState'
 import { Trans, useTranslation } from 'react-i18next'
@@ -9,10 +9,13 @@ import { Dropdown } from '../inputs/dropdown'
 import { bedroomsNum, propertyTypeAm, propertyTypeEn, propertyTypeRu, roomsNum } from './data'
 import { clearSidertData, postSearchData, setPage } from '../../../../store/slices/viewSlice'
 import { addPropertyType, addTransactionType, addRooms, addPrice, getSearchData } from '../../../../store/slices/homeSlice';
+import cookies from "js-cookie";
 import './Search.scss'
 
 export const Search = () => {
     const { t } = useTranslation()
+    const searchID = useId()
+    const oldSearchHistory = JSON.parse(cookies.get("searchHistory") || "[]");
 
     const { language } = useSelector((state => state.home))
 
@@ -68,10 +71,23 @@ export const Search = () => {
             }
         ]
 
+        const newSearchHistory = {
+            id: searchID,
+            type: active,
+            community: community,
+            propertyType: propType,
+            rooms: rooms,
+            price: price
+        };
+
+        const searchHistory = [...oldSearchHistory, newSearchHistory];
+        cookies.set("searchHistory", JSON.stringify(searchHistory));
+
         dispatch(addTransactionType(active))
         dispatch(addPropertyType(propType))
         dispatch(addRooms(rooms))
         dispatch(addPrice(price))
+
         dispatch(clearSidertData())
         dispatch(setPage("home"))
         dispatch(postSearchData({ searchData, language }))
