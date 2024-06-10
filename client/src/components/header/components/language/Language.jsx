@@ -48,9 +48,9 @@ const Language = () => {
 
             <ul className={!openLng ? "language__dropdown" : "language__dropdown-active"}>
                 {languageData.filter((el) => el.country_code !== selectedLng).map(({ code, country_code }) => (
-                    <li key={code}>
+                    <li key={code} onClick={() => handleChangeLng(code)}>
                         <Flag
-                            onClick={() => handleChangeLng(code)}
+                            // onClick={() => handleChangeLng(code)}
                             code={country_code}
                             width="18"
                             height="14"

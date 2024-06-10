@@ -58,9 +58,12 @@ const Searches = () => {
                             {search.icon}
                             <div className="searches__col-context">
                                 <p>
-                                    {propertyType[0] === "house" ? t("house")
-                                        : propertyType[0] === "privateHouse" ? t("private_house")
-                                            : propertyType[0] === "commercial" ? t("commercial") : null}
+                                    {propertyType.map(type => {
+                                        return type === "house" ? t("house")
+                                            : type === "privateHouse" ? t("private_house")
+                                                : type === "commercial" ? t("commercial")
+                                                    : null;
+                                    }).join(",")}
                                     {"  "}
                                     {type === "sale" ? t("sale").toLowerCase() : t("rent").toLowerCase()}
                                 </p>
@@ -70,7 +73,7 @@ const Searches = () => {
                                     ))}
 
                                     {rooms?.length > 0 && <>
-                                        {" | "}
+                                        {community?.length > 0 && " | "}
                                         {language === "en" ? t("number_of_bedrooms") : t("number_of_rooms")}
                                         {" "}
                                         {rooms?.map((el, index) => (
@@ -78,7 +81,7 @@ const Searches = () => {
                                         ))}
                                     </>}
 
-                                    {price && ` | ${usdFormater(price)}`}
+                                    {(price && community?.length > 0) || (price && rooms?.length > 0) ? ` | ${usdFormater(price)}` : price ? ` ${usdFormater(price)}` : null}
                                 </span>
                             </div>
                         </div>
