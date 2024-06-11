@@ -90,20 +90,27 @@ const EditProperties = () => {
         })
     }
 
+    //
+    const payment = editSingleData?.am[2]?.fields[4]?.value || editProperty?.price?.paymentMethod
+    const numberOfRooms = editSingleData?.am[3]?.fields[2]?.value || editProperty?.houseDescription?.numberOfRooms
+    const numberOfBedrooms = editSingleData?.am[3]?.fields[3]?.value || editProperty?.houseDescription?.numberOfBedrooms
+    const numberOfBathrooms = editSingleData?.am[3]?.fields[4]?.value || editProperty?.houseDescription?.numberOfBathrooms
+    //
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
 
-        if (!editSingleData.am[2].fields[4].value.length || !editSingleData.am[2].fields[4].value) {
+        if (!payment || !payment?.length) {
             error('Ընտրեք վճարման կարգը!')
             setLoading(false)
-        } else if (!editSingleData.am[3].fields[2].value) {
+        } else if (!numberOfRooms) {
             error('Ընտրեք սենյակների քանակը!')
             setLoading(false)
-        } else if (!editSingleData.am[3].fields[3].value) {
+        } else if (!numberOfBedrooms) {
             error('Ընտրեք ննջասենյակների քանակը!')
             setLoading(false)
-        } else if (!editSingleData.am[3].fields[4].value) {
+        } else if (!numberOfBathrooms) {
             error('Ընտրեք սանհանգույցների քանակը!')
             setLoading(false)
         } else {
