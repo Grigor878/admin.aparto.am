@@ -25,28 +25,40 @@ class GarbageController extends Controller
         $en = json_decode($home->en, true);
 
        
-        if ($am[3]['fields'][9]['key'] == "houseCondition") {
-          if($am[3]['fields'][9]['value'] == "Պետական վիճակ"){
-            $ru[3]['fields'][9]['value'] = "Требует ремонта";
-            $en[3]['fields'][9]['value'] = "Fixer-upper";
-          }
-          if($am[3]['fields'][9]['value'] == "Լավ"){
-            $ru[3]['fields'][9]['value'] = "Хорошое состояние";
-          }
-          if($am[3]['fields'][9]['value'] == "Զրոյական"){
-            $ru[3]['fields'][9]['value'] = "Черновая";
-            $en[3]['fields'][9]['value'] = "No renovation";
-          }
-        }
+        // if ($am[3]['fields'][9]['key'] == "houseCondition") {
+        //   if($am[3]['fields'][9]['value'] == "Պետական վիճակ"){
+        //     $ru[3]['fields'][9]['value'] = "Требует ремонта";
+        //     $en[3]['fields'][9]['value'] = "Fixer-upper";
+        //   }
+        //   if($am[3]['fields'][9]['value'] == "Լավ"){
+        //     $ru[3]['fields'][9]['value'] = "Хорошое состояние";
+        //   }
+        //   if($am[3]['fields'][9]['value'] == "Զրոյական"){
+        //     $ru[3]['fields'][9]['value'] = "Черновая";
+        //     $en[3]['fields'][9]['value'] = "No renovation";
+        //   }
+        // }
 
         if ($am[4]['fields'][0]['key'] == "buildingType") {
-          $en[4]['fields'][0]['value'] = "Monolith";
+          if($am[4]['fields'][0]['value'] == "Մոնոլիտ"){
+            $en[4]['fields'][0]['value'] = "Monolith";
+          }
+          elseif ($am[4]['fields'][0]['value'] == "Քարե") {
+            $en[4]['fields'][0]['value'] = "Stone";
+          }
+          elseif ($am[4]['fields'][0]['value'] == "Պանելային") {
+            $en[4]['fields'][0]['value'] = "Panel building";
+          }
+          elseif ($am[4]['fields'][0]['value'] == "Այլ") {
+            $en[4]['fields'][0]['value'] = "Other";
+          }
+          
         }
 
-        if ($am[5]['name'] == "mainFacility") {
-          $am[5]['fields'][5]['title'] = 'Կենտրոնացված հովացման համակարգ';
-          $am[5]['fields'][1]['title'] = 'Էլեկտրաէներգիա';
-        }
+        // if ($am[5]['name'] == "mainFacility") {
+        //   $am[5]['fields'][5]['title'] = 'Կենտրոնացված հովացման համակարգ';
+        //   $am[5]['fields'][1]['title'] = 'Էլեկտրաէներգիա';
+        // }
 
         $home->am = json_encode($am);
         $home->ru = json_encode($ru);
