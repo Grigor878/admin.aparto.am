@@ -19,7 +19,8 @@ const Searches = () => {
 
     const navigate = useNavigate()
 
-    const searchHistory = JSON.parse(cookies.get("searchHistory") || "[]");
+    // const searchHistory = JSON.parse(cookies.get("searchHistory") || "[]");
+    const searchHistory = JSON.parse(cookies.get("searchHistory") || "[]")?.slice(-6);
 
     const handleSearch = (type, community, propertyType, rooms, price) => {
         const searchData = [
