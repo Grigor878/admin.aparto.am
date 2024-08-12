@@ -20,16 +20,23 @@ export const SearchBox = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (search === "") {
-            dispatch(setFilteredData(propertyData))
-        } else {
-            const filteredData = propertyData?.filter((property) =>
-                property?.searchAllProperty?.some((value) =>
-                    String(value).toLowerCase().includes(search.toLowerCase())
-                )
+        const filteredData = propertyData?.filter((property) =>
+            property?.searchAllProperty?.some((value) =>
+                String(value).toLowerCase().includes(search.toLowerCase())
             )
-            dispatch(setFilteredData(filteredData))
-        }
+        )
+        dispatch(setFilteredData(filteredData))
+
+        // if (search === "") {
+        //     dispatch(setFilteredData(propertyData))
+        // } else {
+        //     const filteredData = propertyData?.filter((property) =>
+        //         property?.searchAllProperty?.some((value) =>
+        //             String(value).toLowerCase().includes(search.toLowerCase())
+        //         )
+        //     )
+        //     dispatch(setFilteredData(filteredData))
+        // }
     }, [dispatch, propertyData, search])
 
 
@@ -44,7 +51,7 @@ export const SearchBox = () => {
     const submitSearch = (e) => {
         e.preventDefault()
         dispatch(setPage(1))
-        setSearch('')
+        // setSearch('')
         dispatch(getPropertyData({ properties }))
     }
 
