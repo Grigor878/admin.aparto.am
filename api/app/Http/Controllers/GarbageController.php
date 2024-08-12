@@ -11,6 +11,52 @@ use Illuminate\Support\Facades\File;
 
 class GarbageController extends Controller
 {
+
+  public function changeRoomRequired()
+  {
+
+    try {
+      \DB::beginTransaction();
+
+      $homes = Home::all();
+
+      foreach ($homes as $key => $home) {
+        $am = json_decode($home->am, true);
+        $ru = json_decode($home->ru, true);
+        $en = json_decode($home->en, true);
+
+        if ($am[3]['fields'][2]['key'] == "numberOfRooms") {
+          if($am[3]['fields'][2]['title'] == "Սենյակների քանակ*"){
+            $am[3]['fields'][2]['title'] = "Սենյակների քանակ";
+            $ru[3]['fields'][2]['title'] = "Кол-во комнат";
+            $en[3]['fields'][2]['title'] = "Number of rooms";
+            $am[3]['fields'][2]['required'] = false;
+          }
+        }
+
+        if ($am[3]['fields'][3]['key'] == "numberOfBedrooms") {
+          if($am[3]['fields'][3]['title'] == "Ննջասենյակի քանակ*"){
+            $am[3]['fields'][3]['title'] = "Ննջասենյակի քանակ";
+            $ru[3]['fields'][3]['title'] = "Количество спален";
+            $en[3]['fields'][3]['title'] = "Number of bedrooms";
+            $am[3]['fields'][3]['required'] = false;
+          }
+        }
+       
+       
+        $home->am = json_encode($am);
+        $home->ru = json_encode($ru);
+        $home->en = json_encode($en);
+
+        $home->save();
+      }
+
+      \DB::commit();
+    } catch (Throwable $e) {
+      \DB::rollBack();
+      dd($e);
+    }
+  }
   public function changeWordTranslations()
   {
 
@@ -947,10 +993,10 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfRooms",
-            "title" => "Սենյակների քանակ*",
+            "title" => "Սենյակների քանակ",
             "type" => "numSelect",
             "style" => "306px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "option" => [
               [
@@ -985,10 +1031,10 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfBedrooms",
-            "title" => "Ննջասենյակի քանակ*",
+            "title" => "Ննջասենյակի քանակ",
             "type" => "numSelect",
             "style" => "306px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "option" => [
               [
@@ -2074,7 +2120,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfRooms",
-            "title" => "Кол-во комнат*",
+            "title" => "Кол-во комнат",
             "type" => "numSelect",
             "style" => "306px",
             "value" => '',
@@ -2082,7 +2128,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfBedrooms",
-            "title" => "Количество спален*",
+            "title" => "Количество спален",
             "type" => "numSelect",
             "style" => "306px",
             "value" => '',
@@ -2833,7 +2879,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfRooms",
-            "title" => "Number of rooms*",
+            "title" => "Number of rooms",
             "type" => "numSelect",
             "style" => "306px",
             "value" => '',
@@ -2841,7 +2887,7 @@ class GarbageController extends Controller
           ],
           [
             "key" => "numberOfBedrooms",
-            "title" => "Number of bedrooms*",
+            "title" => "Number of bedrooms",
             "type" => "numSelect",
             "style" => "306px",
             "value" => '',
