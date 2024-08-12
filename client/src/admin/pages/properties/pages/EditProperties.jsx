@@ -92,11 +92,12 @@ const EditProperties = () => {
 
     //
     const payment = editSingleData?.am[2]?.fields[4]?.value || editProperty?.price?.paymentMethod
-    const numberOfRooms = editSingleData?.am[3]?.fields[2]?.value || editProperty?.houseDescription?.numberOfRooms
+    const numberOfRooms = editSingleData?.am[3]?.fields[2]?.value || editProperty?.houseDescription?.numberOfRooms 
     const numberOfBedrooms = editSingleData?.am[3]?.fields[3]?.value || editProperty?.houseDescription?.numberOfBedrooms
     const numberOfBathrooms = editSingleData?.am[3]?.fields[4]?.value || editProperty?.houseDescription?.numberOfBathrooms
     //
-    
+    const commercialCheck = editSingleData?.am[0].fields[1].value?.includes("Կոմերցիոն") || editProperty?.announcement?.propertyType?.includes("commercial")
+
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
@@ -104,10 +105,10 @@ const EditProperties = () => {
         if (!payment || !payment?.length) {
             error('Ընտրեք վճարման կարգը!')
             setLoading(false)
-        } else if (!numberOfRooms) {
+        } else if (!commercialCheck && !numberOfRooms) {
             error('Ընտրեք սենյակների քանակը!')
             setLoading(false)
-        } else if (!numberOfBedrooms) {
+        } else if (!commercialCheck && !numberOfBedrooms) {
             error('Ընտրեք ննջասենյակների քանակը!')
             setLoading(false)
         } else if (!numberOfBathrooms) {

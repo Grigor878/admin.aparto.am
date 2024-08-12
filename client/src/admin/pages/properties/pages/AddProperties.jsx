@@ -124,10 +124,10 @@ const AddProperties = () => {
         } else if (!addProperty?.price?.paymentMethod?.length || !addProperty?.price?.paymentMethod) {
             error('Ընտրեք վճարման կարգը!')
             setLoading(false)
-        } else if (!addProperty?.houseDescription?.numberOfRooms) {
+        } else if (!addProperty?.houseDescription?.numberOfRooms && !addProperty?.announcement?.propertyType?.includes("commercial")) {
             error('Ընտրեք սենյակների քանակը!')
             setLoading(false)
-        } else if (!addProperty?.houseDescription?.numberOfBedrooms) {
+        } else if (!addProperty?.houseDescription?.numberOfBedrooms && !addProperty?.announcement?.propertyType?.includes("commercial")) {
             error('Ընտրեք ննջասենյակների քանակը!')
             setLoading(false)
         } else if (!addProperty?.houseDescription?.numberOfBathrooms) {
