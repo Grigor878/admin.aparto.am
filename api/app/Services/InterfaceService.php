@@ -326,10 +326,27 @@ class InterFaceService
         $addresses = ConfigAddress::select('id', 'communityId')->get()->keyBy('id');
         $getKeyWords = [];
 
+        $rooms = [];
+
+        if ($data['searchData'][3]['rooms']) {
+            $rooms = $data['searchData'][3]['rooms'];
+            if ($lang == "en") {
+                foreach ($rooms as $key => $room) {
+                    if ($room === "1") {
+                        $rooms[$key] = "studio";
+                    } elseif ($room === "7+") {
+                        $rooms[$key] = "6+";
+                    } else {
+                        $rooms[$key] = (string) ((int) $room - 1);
+                    }
+                }
+            }
+        }
+
         try {
             Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
                 ->where('status', Home::STATUS_APPROVED)
-                ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray, &$getKeyWords) {
+                ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray, &$getKeyWords, $rooms) {
                     $home = $this->processHomeData($home);
 
                     $isMatched = true;
@@ -353,7 +370,7 @@ class InterFaceService
                             $homeKeyWord = json_decode($home->keywords);
                             $intersectionKeyWord = array_intersect($homeKeyWord, $communityData);
 
-                            if (empty ($intersectionKeyWord)) {
+                            if (empty($intersectionKeyWord)) {
                                 $isMatched = false;
                             }
                         }
@@ -387,9 +404,9 @@ class InterFaceService
                                             }
                                         }
                                     }
-        
+
                                 }
-        
+
                             } else {
                                 $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $searchDataStreetsId);
                                 if (!$resultStreet) {
@@ -402,30 +419,30 @@ class InterFaceService
 
 
 
-                     
 
-//                         $addressesIds = $allStreets->pluck('id')->toArray();
+
+                        //                         $addressesIds = $allStreets->pluck('id')->toArray();
 // dd($addressesIds);
 //                         if ($addressesIds) {
 //                             if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
 //                                 foreach ($addressesIds as $key => $addres) {
-
-//                                     if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
+    
+                        //                                     if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
 //                                         $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
 //                                         if (!$resultStreet) {
 //                                             $isMatched = false;
 //                                         }
 //                                     }
 //                                 }
-
-//                             } else {
+    
+                        //                             } else {
 //                                 $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
 //                                 if (!$resultStreet) {
 //                                     $isMatched = false;
 //                                 }
 //                             }
 //                         }
-
+    
                         // $ourDate = [];
                         // if ($lang == "en") {
                         //     array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
@@ -449,8 +466,8 @@ class InterFaceService
                         }
                     }
 
-                    if ($data['searchData'][3]['rooms']) {
-                        $rooms = $data['searchData'][3]['rooms'];
+                    if ($rooms) {
+                        // $rooms = $data['searchData'][3]['rooms'];
                         if ($lang == "en") {
                             if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
                                 $isMatched = false;
@@ -546,7 +563,7 @@ class InterFaceService
         }
 
         if ($data['searchData'][5]['page'] && $data['searchData'][6]['perPage']) {
-            if($getKeyWords){
+            if ($getKeyWords) {
                 $getKeyWords = implode(" / ", $getKeyWords);
             }
 
@@ -678,7 +695,7 @@ class InterFaceService
         $home = Home::where('status', Home::STATUS_APPROVED)->orderBy('created_at', 'desc')->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
             ->find($id);
 
-        if(!$home){
+        if (!$home) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Home not found"
@@ -736,7 +753,6 @@ class InterFaceService
         $addresses = ConfigAddress::select('id', 'communityId')->get()->keyBy('id');
 
         if ($data['searchData']['propertyCondition']) {
-            
             foreach ($data['searchData']['propertyCondition'] as $key => $type) {
                 $conditionType[] = $this->multiType[$type][$lang];
             }
@@ -748,10 +764,28 @@ class InterFaceService
             }
         }
 
+        $rooms = [];
+
+        if ($data['searchData']['rooms']) {
+            $rooms = $data['searchData']['rooms'];
+            if ($lang == "en") {
+                foreach ($rooms as $key => $room) {
+                    if ($room === "1") {
+                        $rooms[$key] = "studio";
+                    } elseif ($room === "7+") {
+                        $rooms[$key] = "6+";
+                    } else {
+                        $rooms[$key] = (string) ((int) $room - 1);
+                    }
+                }
+            }
+        }
+
+
         $searchHomes = Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")
             ->where('status', Home::STATUS_APPROVED)
             ->get()
-            ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray, &$conditionType, &$buildingType) {
+            ->filter(function ($home) use ($data, $lang, $addresses, &$searchHomeArray, &$conditionType, &$buildingType, $rooms) {
                 $home = $this->processHomeData($home);
                 // $home->keywords = json_decode($home->keywords);
     
@@ -815,9 +849,7 @@ class InterFaceService
                     }
                 }
 
-                if ($data['searchData']['rooms']) {
-                    $rooms = $data['searchData']['rooms'];
-
+                if ($rooms) {
                     if ($lang == "en") {
                         if (!(in_array($home->am[3]->fields[3]->value, $rooms))) {
                             $isMatched = false;
