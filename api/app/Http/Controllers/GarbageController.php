@@ -57,6 +57,30 @@ class GarbageController extends Controller
       dd($e);
     }
   }
+
+  public function changeTotalPriceRequired()
+  {
+    try {
+      \DB::beginTransaction();
+
+      $homes = Home::all();
+
+      foreach ($homes as $key => $home) {
+        $am = json_decode($home->am, true);
+
+        if ($am[2]['fields'][0]['key'] == "totalPrice") {
+            $am[2]['fields'][0]['required'] = false;
+        }
+       
+        $home->am = json_encode($am);
+        $home->save();
+      }
+      \DB::commit();
+    } catch (Throwable $e) {
+      \DB::rollBack();
+      dd($e);
+    }
+  }
   public function changeWordTranslations()
   {
 
@@ -809,7 +833,7 @@ class GarbageController extends Controller
             "type" => "inputNumberSingle",
             "style" => "198px",
             "placeholder" => "Գինը դոլարով",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
           [

@@ -352,7 +352,6 @@ class HomeController extends Controller
 
     public function getHome(Request $request) {
         $data = $request->all();
-        info('getHome', ['user_id' => auth()->id(),'data'=>json_encode($data)]);
 
         $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
         ->select('id', 'home_id', 'employee_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
