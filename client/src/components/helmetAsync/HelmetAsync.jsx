@@ -7,7 +7,7 @@ const HelmetAsync = ({ title, description, image }) => {
   const { t, i18n } = useTranslation();
 
   const name = "Aparto.am";
-  const language = i18n.language;
+  const lang = i18n.language;
 
   const _image = image || logo;
   const _title = title ? `${name} | ${t(title)}` : name;
@@ -16,7 +16,7 @@ const HelmetAsync = ({ title, description, image }) => {
 
   return (
     <HelmetProvider>
-      <Helmet htmlAttributes={{ language }}>
+      <Helmet htmlAttributes={{ lang }}>
         <title>{_title}</title>
         <meta name="title" content={_title} />
         <meta name="description" content={_description} />

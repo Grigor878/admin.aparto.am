@@ -34,7 +34,7 @@ export const PropCard = ({ data }) => {
               return (
                 <Link
                   key={id}
-                  target={"_blank"}
+                  // target={"_blank"}
                   to={`/result/${id}`}
                   className="propCard__card"
                 >
@@ -90,7 +90,7 @@ export const PropCard = ({ data }) => {
             return (
               <Link
                 key={id}
-                target={"_blank"}
+                // target={"_blank"}
                 to={`/result/${id}`}
                 className="propCardResult__card"
               >
