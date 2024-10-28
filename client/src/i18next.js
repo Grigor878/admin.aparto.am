@@ -9,7 +9,7 @@ i18next
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    lng: cookies.get("i18next") || "en",
+    lng: cookies.get("i18next") || "am",
     supportedLngs: ["en", "am", "ru"],
     debug: false,
     detection: {

@@ -23,8 +23,8 @@ import { ImgsUpload } from '../components/imgsUpload/ImgsUpload'
 import { InputNumSingle } from '../components/inputs/InputNumSingle'
 import { Checkbox } from '../../../components/checkboxes/Checkbox'
 import { NumSelector } from '../components/inputs/NumSelector'
-import './Styles.scss'
 import { error } from '../../../../components/swal/swal'
+import './Styles.scss'
 
 const EditProperties = () => {
     const { id } = useParams()

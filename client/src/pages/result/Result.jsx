@@ -11,6 +11,7 @@ import { MapMulty } from "./components/map/MapMulty";
 import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import "./Styles.scss";
+import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 
 const Result = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
@@ -53,6 +54,7 @@ const Result = () => {
     <Loader />
   ) : (
     <div className="result">
+      <HelmetAsync description="main_title_seo" />
       <Sider open={sider} setOpen={setSider} />
 
       {siderLoading ? (

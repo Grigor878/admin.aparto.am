@@ -24,15 +24,17 @@ import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
 import { YMap } from "../../admin/pages/properties/components/yandexMap/YMap";
 import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import { PriceHistory } from "../../admin/pages/properties/components/priceHistory/PriceHistory";
-import user from "../../assets/imgs/user.png";
+// import user from "../../assets/imgs/user.png";
 import telegram from "../../assets/icons/telegram.png";
 import whatsapp from "../../assets/icons/whatsapp.png";
 import viber from "../../assets/icons/viber.png";
 import { Loader } from "../../components/loader/Loader";
 // import '../../admin/pages/properties/pages/Styles.scss'
+import ReactPlayer from "react-player";
 import { getAdminData } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
 import "./Styles.scss";
+import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 
 const ResultById = () => {
   const { t } = useTranslation();
@@ -58,20 +60,20 @@ const ResultById = () => {
 
   const currentPropertyPrice = data?.priceHistory;
 
-  let embedURL = "";
+  // let embedURL = "";
 
-  if (
-    currentPropertyData &&
-    currentPropertyData?.length !== 0 &&
-    currentPropertyData[7]?.fields[1]?.value?.length &&
-    currentPropertyData[7]?.fields[1]?.value?.includes(
-      "https://www.youtube.com/"
-    )
-  ) {
-    const url = currentPropertyData[7]?.fields[1]?.value;
-    const videoID = url?.match(/(\?|&)v=([^&#]+)/)[2];
-    embedURL = "https://www.youtube.com/embed/" + videoID;
-  }
+  // if (
+  //   currentPropertyData &&
+  //   currentPropertyData?.length !== 0 &&
+  //   currentPropertyData[7]?.fields[1]?.value?.length &&
+  //   currentPropertyData[7]?.fields[1]?.value?.includes(
+  //     "https://www.youtube.com/"
+  //   )
+  // ) {
+  //   const url = currentPropertyData[7]?.fields[1]?.value;
+  //   const videoID = url?.match(/(\?|&)v=([^&#]+)/)[2];
+  //   embedURL = "https://www.youtube.com/embed/" + videoID;
+  // }
 
   const currentPropertyImgs = data?.photo;
 
@@ -99,6 +101,11 @@ const ResultById = () => {
   ) : (
     currentPropertyData && currentPropertyData?.length !== 0 && (
       <article>
+        <HelmetAsync
+          title={currentPropertyData[0]?.fields[2]?.value}
+          description={currentPropertyData[0]?.fields[3]?.value}
+          image={modifiedData[0]?.img}
+        />
         <div className="contain">
           <div className="singleProperty">
             {mobile ? (
@@ -425,17 +432,20 @@ const ResultById = () => {
                   </div>
                 ) : null}
 
-                {currentPropertyData[7]?.fields[1]?.value?.length &&
-                currentPropertyData[7]?.fields[1]?.value?.includes(
-                  "https://www.youtube.com/"
-                ) ? (
+                {currentPropertyData[7]?.fields[1]?.value?.length ? (
                   <div className="singleProperty__content-left-video">
                     <h3 className="singleProperty__subtitle">
                       {t("home_video")}
                     </h3>
 
                     <div className="singleProperty__content-left-video-card">
-                      <iframe
+                      <ReactPlayer
+                        url={currentPropertyData[7]?.fields[1]?.value}
+                        controls
+                        width="100%"
+                        height="480px"
+                      />
+                      {/* <iframe
                         width="853"
                         height="480"
                         src={embedURL}
@@ -443,7 +453,7 @@ const ResultById = () => {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         title="Embedded youtube"
-                      />
+                      /> */}
                     </div>
                   </div>
                 ) : null}
@@ -658,7 +668,7 @@ const ResultById = () => {
                           </div>
                         </div>
 
-                        <div className="singleProperty__content-right-contact-info">
+                        {/* <div className="singleProperty__content-right-contact-info">
                           <img
                             src={
                               currentPropertyData[11]?.fields[0]?.photo
@@ -671,11 +681,10 @@ const ResultById = () => {
                           />
 
                           <div className="singleProperty__content-right-contact-info-name">
-                            {/* <p>{t("name_surname")}</p> */}
                             <p>{currentPropertyData[11]?.fields[0]?.value}</p>
                             <span>{t("agent")}</span>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   )}
@@ -904,7 +913,7 @@ const ResultById = () => {
                       </div>
                     </div>
 
-                    <div className="singleProperty__content-right-contact-info">
+                    {/* <div className="singleProperty__content-right-contact-info">
                       <img
                         src={
                           currentPropertyData[11]?.fields[0]?.photo
@@ -917,11 +926,10 @@ const ResultById = () => {
                       />
 
                       <div className="singleProperty__content-right-contact-info-name">
-                        {/* <p>{t("name_surname")}</p> */}
                         <p>{currentPropertyData[11]?.fields[0]?.value}</p>
                         <span>{t("agent")}</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}
