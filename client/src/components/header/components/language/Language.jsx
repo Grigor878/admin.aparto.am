@@ -42,7 +42,15 @@ const Language = () => {
     dispatch(setOpenBurger(false));
     dispatch(setPage("result"));
     //
-    navigate(`/${code}`, { replace: true });
+    // navigate(`/${code}`, { replace: true });
+
+    const currentPath = window.location.pathname;
+
+    const pathParts = currentPath.split("/");
+    pathParts[1] = code; 
+
+    const newPath = pathParts.join("/");
+    navigate(newPath, { replace: true });
   };
 
   useOutsideClick(lngRef, openLng, setOpenLng);
