@@ -16,6 +16,7 @@ const Header = () => {
   const headerRef = useRef();
 
   const { pathname } = useLocation();
+  const { language, burger, openBurger } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
 
@@ -24,7 +25,11 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const header = headerRef?.current;
-      if (pathname === "/" && window.scrollY > 0) {
+      const pathCheck = pathname.split("/")[1] === language;
+
+      if (pathCheck && window.scrollY > 0) {
+        console.log(header);
+
         header.style.background = "#ffffff";
         header.style.borderBottom = "1px solid #e7e9f0";
       } else {
@@ -35,9 +40,7 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [mobile, pathname]);
-
-  const { language, burger, openBurger } = useSelector((state) => state.home);
+  }, [language, mobile, pathname]);
 
   const handleBurger = () => {
     dispatch(setBurger(burger === "open" ? "close" : "open"));
@@ -56,7 +59,9 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className={pathname === "/" && !mobile ? "header" : "header2"}
+      className={
+        !pathname?.includes("result") && !mobile ? "header" : "header2"
+      }
     >
       <div className="contain">
         <nav className="header__nav">

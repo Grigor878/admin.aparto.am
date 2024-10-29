@@ -41,9 +41,7 @@ const Language = () => {
     dispatch(setBurger("close"));
     dispatch(setOpenBurger(false));
     dispatch(setPage("result"));
-    //
-    // navigate(`/${code}`, { replace: true });
-
+    
     const currentPath = window.location.pathname;
 
     const pathParts = currentPath.split("/");

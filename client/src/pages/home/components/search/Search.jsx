@@ -48,7 +48,7 @@ export const Search = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
 
   const width = mobile ? "100%" : laptopSmall ? "202px" : "262px";
-  const width2 = mobile ? "100%" : "170px";
+  const width2 = mobile ? "100%" : "178px";
 
   const [disable, setDisable] = useState(false);
   const [active, setActive] = useSessionState("sale", "homeTransactionType");
@@ -78,7 +78,6 @@ export const Search = () => {
       {
         price: price,
       },
-      //
       {
         page: paginatePage,
       },

@@ -55,24 +55,7 @@ const ResultById = () => {
   const [startSlideIndex, setStartSlideIndex] = useState(0);
 
   const currentPropertyData = data[language];
-
   const currentPropertyPrice = data?.priceHistory;
-
-  // let embedURL = "";
-
-  // if (
-  //   currentPropertyData &&
-  //   currentPropertyData?.length !== 0 &&
-  //   currentPropertyData[7]?.fields[1]?.value?.length &&
-  //   currentPropertyData[7]?.fields[1]?.value?.includes(
-  //     "https://www.youtube.com/"
-  //   )
-  // ) {
-  //   const url = currentPropertyData[7]?.fields[1]?.value;
-  //   const videoID = url?.match(/(\?|&)v=([^&#]+)/)[2];
-  //   embedURL = "https://www.youtube.com/embed/" + videoID;
-  // }
-
   const currentPropertyImgs = data?.photo;
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
@@ -639,7 +622,7 @@ const ResultById = () => {
                             <span>
                               {mail.icon} {t("email")}
                             </span>
-                            <p>info@aparto.am</p>
+                            <a href="mailto:info@aparto.am">info@aparto.am</a>
                           </div>
 
                           <div className="singleProperty__content-right-contact-social-bottom">
@@ -884,7 +867,7 @@ const ResultById = () => {
                         <span>
                           {mail.icon} {t("email")}
                         </span>
-                        <p>info@aparto.am</p>
+                        <a href="mailto:info@aparto.am">info@aparto.am</a>
                       </div>
 
                       <div className="singleProperty__content-right-contact-social-bottom">

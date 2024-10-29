@@ -47,8 +47,8 @@ const View = () => {
   const { isLoggedIn, token } = useSelector((state) => state.auth);
   const { userGlobal } = useSelector((state) => state?.userGlobal);
   const { language } = useSelector((state) => state.home);
-  
-  const {pathname} = useLocation();
+
+  const { pathname } = useLocation();
 
   const authCheck = isLoggedIn && localStorage.getItem("token") === token;
 
@@ -57,19 +57,15 @@ const View = () => {
 
   useEffect(() => {
     const pathParts = pathname.split("/");
-    const langFromUrl = pathParts[1]; 
+    const langFromUrl = pathParts[1];
 
     if (langFromUrl && langFromUrl !== language) {
       dispatch(setLanguage(langFromUrl));
       cookies.set("i18next", langFromUrl);
-      langFromUrl === "en"
-        ? cookies.set("lngFlag", "gb")
-        : cookies.set("lngFlag", langFromUrl);
+      cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
     } else if (!langFromUrl) {
-      const cookieLang = cookies.get("i18next") || "am"; 
-      navigate(`/${cookieLang}${pathname.slice(2)}`, {
-        replace: true,
-      });
+      const cookieLang = cookies.get("i18next") || "am";
+      navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
     }
   }, [dispatch, pathname, language, navigate]);
 
