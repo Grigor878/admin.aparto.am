@@ -21,16 +21,14 @@ import "./Searches.scss";
 
 const Searches = () => {
   const { t } = useTranslation();
-
-  const dispatch = useDispatch();
-
   const { language } = useSelector((state) => state.home);
   const { paginatePage, perPage } = useSelector((state) => state.view);
+
+  const dispatch = useDispatch();
   const mobile = useMediaQuery({ maxWidth: 768 });
 
   const navigate = useNavigate();
 
-  // const searchHistory = JSON.parse(cookies.get("searchHistory") || "[]");
   const searchHistory = mobile
     ? JSON.parse(cookies.get("searchHistory") || "[]")
     : JSON.parse(cookies.get("searchHistory") || "[]")?.slice(-6);
@@ -52,7 +50,7 @@ const Searches = () => {
     dispatch(clearSidertData());
     dispatch(setPage("home"));
     dispatch(postSearchData({ searchData, language })).then(() => {
-      navigate("/result");
+      navigate(`/${language}/result`);
     });
   };
 

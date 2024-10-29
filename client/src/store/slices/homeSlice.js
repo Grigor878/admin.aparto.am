@@ -128,19 +128,20 @@ const homeSlice = createSlice({
     //
   },
   extraReducers: (builder) => {
-    builder.addCase(getExchange.fulfilled, (state, action) => {
-      state.exchangeValue = action.payload?.amount;
-    });
-    builder.addCase(getTopHomes.fulfilled, (state, action) => {
-      state.sale = action.payload.sale;
-      state.rent = action.payload.rent;
-    });
-    builder.addCase(getAdminData.fulfilled, (state, action) => {
-      state.admin = action.payload;
-    });
-    builder.addCase(getSearchData.fulfilled, (state, action) => {
-      state.searchData = action.payload;
-    });
+    builder
+      .addCase(getExchange.fulfilled, (state, action) => {
+        state.exchangeValue = action.payload?.amount;
+      })
+      .addCase(getTopHomes.fulfilled, (state, action) => {
+        state.sale = action.payload.sale;
+        state.rent = action.payload.rent;
+      })
+      .addCase(getAdminData.fulfilled, (state, action) => {
+        state.admin = action.payload;
+      })
+      .addCase(getSearchData.fulfilled, (state, action) => {
+        state.searchData = action.payload;
+      })
   },
 });
 

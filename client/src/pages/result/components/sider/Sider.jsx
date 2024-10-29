@@ -266,6 +266,22 @@ export const Sider = ({ open, setOpen }) => {
             </div>
           </div>
 
+          <div className="sider__block">
+            <Checkbox
+              onChange={(e) => {
+                dispatch(setPage("result"));
+                dispatch(setPaginatePage("1"));
+                navigate(location.pathname);
+                setNewBuild(e.target.checked ? true : "on");
+                setTimeout(() => {
+                  window.scrollTo(0, 0);
+                }, 1200);
+              }}
+              text={t("new_build")}
+              checked={newBuild === true}
+            />
+          </div>
+
           <div className="sider__community sider__block">
             <h5>{t("community")}</h5>
 
@@ -407,22 +423,6 @@ export const Sider = ({ open, setOpen }) => {
                     );
                   })}
             </div>
-          </div>
-
-          <div className="sider__block">
-            <Checkbox
-              onChange={(e) => {
-                dispatch(setPage("result"));
-                dispatch(setPaginatePage("1"));
-                navigate(location.pathname);
-                setNewBuild(e.target.checked ? true : "on");
-                setTimeout(() => {
-                  window.scrollTo(0, 0);
-                }, 1200);
-              }}
-              text={t("new_build")}
-              checked={newBuild === true}
-            />
           </div>
 
           <div className="sider__propCondition sider__block">

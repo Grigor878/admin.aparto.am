@@ -30,10 +30,10 @@ import "./Search.scss";
 
 export const Search = () => {
   const { t } = useTranslation();
+  const { language } = useSelector((state) => state.home);
+
   const searchID = useId();
   const oldSearchHistory = JSON.parse(cookies.get("searchHistory") || "[]");
-
-  const { language } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
 
@@ -106,7 +106,7 @@ export const Search = () => {
     dispatch(clearSidertData());
     dispatch(setPage("home"));
     dispatch(postSearchData({ searchData, language })).then(() => {
-      navigate("/result");
+      navigate(`/${language}/result`);
     });
   };
 

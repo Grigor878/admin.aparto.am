@@ -12,9 +12,10 @@ const initialState = {
   siderData: null,
   siderLoading: false,
   page: "result",
-  //
   paginatePage: "1",
   perPage: "15",
+  //
+  recomendeds: []
 };
 
 // get single property data
@@ -45,9 +46,9 @@ export const getCommunityData = createAsyncThunk(
   }
 );
 
-// home page search
+// view page search
 export const postSearchData = createAsyncThunk(
-  "home/postSearchData",
+  "view/postSearchData",
   async ({ searchData, language }) => {
     try {
       const { data } = await baseApi.post(`api/getSearchData/${language}`, {
@@ -71,6 +72,21 @@ export const getResultPageData = createAsyncThunk(
       return data;
     } catch (err) {
       console.log(`Get Result Page Data Error: ${err.message}`);
+    }
+  }
+);
+
+// get recomendeds by community
+export const getRecomendeds = createAsyncThunk(
+  "view/getRecomendeds",
+  async ({ searchData, language }) => {
+    try {
+      const { data } = await baseApi.post(`api/getSearchData/${language}`, {
+        searchData,
+      });
+      return data;
+    } catch (err) {
+      console.log(`Post Search Data Error: ${err.message}`);
     }
   }
 );
@@ -110,46 +126,48 @@ const viewSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getViewData.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getViewData.fulfilled, (state, action) => {
-      state.data = action.payload;
-      state.loading = false;
-    });
-    //
-    builder.addCase(getCommunityData.fulfilled, (state, action) => {
-      state.streetData = action.payload;
-    });
-    ////// get all datas with one resultData and load
-    builder.addCase(postSearchData.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(postSearchData.fulfilled, (state, action) => {
-      sessionStorage.removeItem("siderSqMin");
-      sessionStorage.removeItem("siderSqMax");
-      sessionStorage.removeItem("siderPriceMin");
-      sessionStorage.removeItem("siderBuildType");
-      sessionStorage.removeItem("siderNewBuild");
-      sessionStorage.removeItem("siderPropCondition");
-      sessionStorage.removeItem("siderFloorMin");
-      sessionStorage.removeItem("siderFloorMax");
-      // sessionStorage.removeItem("siderDesc");
-      sessionStorage.removeItem("siderId");
-      state.resultData = action.payload.data;
-      state.searchedAddresses = action.payload.addresses;
-      state.searchedCommunities = action.payload.community;
-      state.keywords = action.payload.keywords;
-
-      state.loading = false;
-    });
-    builder.addCase(getResultPageData.pending, (state) => {
-      state.siderLoading = true;
-    });
-    builder.addCase(getResultPageData.fulfilled, (state, action) => {
-      state.siderData = action.payload;
-      state.siderLoading = false;
-    });
+    builder
+      .addCase(getViewData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getViewData.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      })
+      .addCase(getCommunityData.fulfilled, (state, action) => {
+        state.streetData = action.payload;
+      })
+      .addCase(postSearchData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(postSearchData.fulfilled, (state, action) => {
+        sessionStorage.removeItem("siderSqMin");
+        sessionStorage.removeItem("siderSqMax");
+        sessionStorage.removeItem("siderPriceMin");
+        sessionStorage.removeItem("siderBuildType");
+        sessionStorage.removeItem("siderNewBuild");
+        sessionStorage.removeItem("siderPropCondition");
+        sessionStorage.removeItem("siderFloorMin");
+        sessionStorage.removeItem("siderFloorMax");
+        // sessionStorage.removeItem("siderDesc");
+        sessionStorage.removeItem("siderId");
+        state.resultData = action.payload.data;
+        state.searchedAddresses = action.payload.addresses;
+        state.searchedCommunities = action.payload.community;
+        state.keywords = action.payload.keywords;
+        state.loading = false;
+      })
+      .addCase(getResultPageData.pending, (state) => {
+        state.siderLoading = true;
+      })
+      .addCase(getResultPageData.fulfilled, (state, action) => {
+        state.siderData = action.payload;
+        state.siderLoading = false;
+      })
+      //
+      .addCase(getRecomendeds.fulfilled, (state, action) => {
+        state.recomendeds = action.payload?.data?.data;
+      });
   },
 });
 

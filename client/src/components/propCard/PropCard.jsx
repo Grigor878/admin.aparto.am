@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
-import { useMediaQuery } from 'react-responsive';
+import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
+import { useMediaQuery } from "react-responsive";
 import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
@@ -11,31 +11,46 @@ import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 
 export const PropCard = ({ data }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation();
 
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
-  const { size, exchange, exchangeValue } = useSelector((state => state.home))
+  const { size, exchange, exchangeValue } = useSelector((state) => state.home);
 
-  const laptop = useMediaQuery({ maxWidth: 1280 })
+  const laptop = useMediaQuery({ maxWidth: 1280 });
 
-  const scrollableDivRef = useRef(null)
-  const scrollableDiv = scrollableDivRef.current
+  const scrollableDivRef = useRef(null);
+  const scrollableDiv = scrollableDivRef.current;
 
-  const scroll = laptop ? 382 : 408
+  const scroll = laptop ? 382 : 408;
 
   return (
-    data && (
-      !pathname?.includes("result")
-        ? <div className="scrollablePropCard">
-          <AiOutlineArrowLeft className="scrollLeft" onClick={() => scrollableDiv.scrollLeft -= scroll} />
-          <div className="propCard" ref={scrollableDivRef}>
-            {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
+    data &&
+    (!pathname?.includes("result") ? (
+      <div className="scrollablePropCard">
+        <AiOutlineArrowLeft
+          className="scrollLeft"
+          onClick={() => (scrollableDiv.scrollLeft -= scroll)}
+        />
+        <div className="propCard" ref={scrollableDivRef}>
+          {data?.map(
+            ({
+              id,
+              home_id,
+              photo,
+              price,
+              title,
+              street,
+              community,
+              rooms,
+              buildingType,
+              surface,
+            }) => {
               return (
                 <Link
                   key={id}
                   // target={"_blank"}
-                  to={`/result/${id}`}
+                  to={`/${i18n.language}/result/${id}`}
                   className="propCard__card"
                 >
                   <div className="propCard__card-img">
@@ -56,8 +71,18 @@ export const PropCard = ({ data }) => {
                         : (price !== "" || price === "0") && exchange === 1 ? <p>{usdFormater(price)}</p>
                           : <p>{t("contract")}</p>
                       } */}
-                      {exchange === 1 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>{usdFormater(price)}</p>)}
-                      {exchange === 2 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>&#1423; {amdFormater(price, exchangeValue)}</p>)}
+                      {exchange === 1 &&
+                        (price === "" || price === "0" ? (
+                          <p>{t("contract")}</p>
+                        ) : (
+                          <p>{usdFormater(price)}</p>
+                        ))}
+                      {exchange === 2 &&
+                        (price === "" || price === "0" ? (
+                          <p>{t("contract")}</p>
+                        ) : (
+                          <p>&#1423; {amdFormater(price, exchangeValue)}</p>
+                        ))}
                       <span>ID {home_id}</span>
                     </div>
 
@@ -71,30 +96,56 @@ export const PropCard = ({ data }) => {
                     </div>
 
                     <div className="propCard__card-main-bottom">
-                      <span>{roomIcon.icon} {rooms} {t("room")}</span>
-                      <span>{buildType.icon} {buildingType}</span>
-                      {size === 1
-                        ? <span>{square.icon} {surface} {t("square_symbol")}</span>
-                        : <span>{square.icon} {sqmToFt2(surface)} {t("ft_symbol")}</span>
-                      }
+                      <span>
+                        {roomIcon.icon} {rooms} {t("room")}
+                      </span>
+                      <span>
+                        {buildType.icon} {buildingType}
+                      </span>
+                      {size === 1 ? (
+                        <span>
+                          {square.icon} {surface} {t("square_symbol")}
+                        </span>
+                      ) : (
+                        <span>
+                          {square.icon} {sqmToFt2(surface)} {t("ft_symbol")}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </Link>
               );
-            })}
-          </div>
-          <AiOutlineArrowRight className="scrollRight" onClick={() => scrollableDiv.scrollLeft += scroll} />
+            }
+          )}
         </div>
-        : <div className="propCardResult">
-          {data?.map(({ id, home_id, photo, price, title, street, community, rooms, buildingType, surface }) => {
+        <AiOutlineArrowRight
+          className="scrollRight"
+          onClick={() => (scrollableDiv.scrollLeft += scroll)}
+        />
+      </div>
+    ) : (
+      <div className="propCardResult">
+        {data?.map(
+          ({
+            id,
+            home_id,
+            photo,
+            price,
+            title,
+            street,
+            community,
+            rooms,
+            buildingType,
+            surface,
+          }) => {
             return (
               <Link
                 key={id}
                 // target={"_blank"}
-                to={`/result/${id}`}
+                to={`/${i18n.language}/result/${id}`}
                 className="propCardResult__card"
               >
-                <div className="propCardResult__card-img" >
+                <div className="propCardResult__card-img">
                   <img
                     src={
                       photo?.length
@@ -107,8 +158,18 @@ export const PropCard = ({ data }) => {
 
                 <div className="propCardResult__card-main">
                   <div className="propCardResult__card-main-top">
-                    {exchange === 1 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>{usdFormater(price)}</p>)}
-                    {exchange === 2 && ((price === "" || price === "0") ? <p>{t("contract")}</p> : <p>&#1423; {amdFormater(price, exchangeValue)}</p>)}
+                    {exchange === 1 &&
+                      (price === "" || price === "0" ? (
+                        <p>{t("contract")}</p>
+                      ) : (
+                        <p>{usdFormater(price)}</p>
+                      ))}
+                    {exchange === 2 &&
+                      (price === "" || price === "0" ? (
+                        <p>{t("contract")}</p>
+                      ) : (
+                        <p>&#1423; {amdFormater(price, exchangeValue)}</p>
+                      ))}
                     <span>ID {home_id}</span>
                   </div>
 
@@ -121,22 +182,31 @@ export const PropCard = ({ data }) => {
                   </div>
 
                   <div className="propCardResult__card-main-bottom">
-                    <span>{roomIcon.icon} {rooms} {t("room")}</span>
-                    <span>{buildType.icon} {buildingType}</span>
-                    {size === 1
-                      ? <span>{square.icon} {surface} {t("square_symbol")}</span>
-                      : <span>{square.icon} {sqmToFt2(surface)} {t("ft_symbol")}</span>
-                    }
+                    <span>
+                      {roomIcon.icon} {rooms} {t("room")}
+                    </span>
+                    <span>
+                      {buildType.icon} {buildingType}
+                    </span>
+                    {size === 1 ? (
+                      <span>
+                        {square.icon} {surface} {t("square_symbol")}
+                      </span>
+                    ) : (
+                      <span>
+                        {square.icon} {sqmToFt2(surface)} {t("ft_symbol")}
+                      </span>
+                    )}
                   </div>
                 </div>
               </Link>
             );
-          })}
-        </div>
-    )
+          }
+        )}
+      </div>
+    ))
   );
 };
-
 
 // const laptopSmall = useMediaQuery({ maxWidth: 1122 })
 

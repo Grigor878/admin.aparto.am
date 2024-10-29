@@ -24,17 +24,15 @@ import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
 import { YMap } from "../../admin/pages/properties/components/yandexMap/YMap";
 import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import { PriceHistory } from "../../admin/pages/properties/components/priceHistory/PriceHistory";
-// import user from "../../assets/imgs/user.png";
 import telegram from "../../assets/icons/telegram.png";
 import whatsapp from "../../assets/icons/whatsapp.png";
 import viber from "../../assets/icons/viber.png";
 import { Loader } from "../../components/loader/Loader";
-// import '../../admin/pages/properties/pages/Styles.scss'
 import ReactPlayer from "react-player";
 import { getAdminData } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
-import "./Styles.scss";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
+import "./Styles.scss";
 
 const ResultById = () => {
   const { t } = useTranslation();
@@ -81,6 +79,10 @@ const ResultById = () => {
     img: `${API_BASE_URL}/images/${item.name}`,
     alt: item.name,
   }));
+
+  // useEffect(() => {
+  //   dispatch(getRecomendeds({ community, language }));
+  // }, [dispatch, language]);
 
   useEffect(() => {
     dispatch(getAdminData());
