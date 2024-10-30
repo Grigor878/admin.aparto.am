@@ -55,19 +55,63 @@ const View = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const validLanguages = ["am", "en", "ru"];
+  //   const cookieLng = cookies.get("i18next");
+  //   const validPath = validLanguages?.includes(language);
+  //   const validPathCookie = validLanguages?.includes(cookieLng);
+
+  //   // if (pathname === "/" && validPathCookie) {
+  //   //   window.location.href = `/${cookieLng}`;
+  //   // }
+
+  //   if (!validPath) {
+  //     dispatch(setLanguage("am"));
+  //     cookies.set("i18next", "am");
+  //     cookies.set("lngFlag", "am");
+  //     window.location.href = `/am${pathname}`;
+  //   }
+  // }, [dispatch, language, navigate, pathname]);
+
   useEffect(() => {
     const pathParts = pathname.split("/");
     const langFromUrl = pathParts[1];
 
-    if (langFromUrl && langFromUrl !== language) {
+    const validLanguages = ["ru", "am", "en"];
+    const cookieLang = cookies.get("i18next") || "am";
+
+    if (langFromUrl && !validLanguages.includes(langFromUrl)) {
+      dispatch(setLanguage("am"));
+      cookies.set("i18next", "am");
+      cookies.set("lngFlag", "am");
+      window.location.href = `/am${pathname}`;
+    } else if (langFromUrl && langFromUrl !== language) {
       dispatch(setLanguage(langFromUrl));
       cookies.set("i18next", langFromUrl);
       cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
+
+      if (pathname?.includes(language)) {
+        window.location.href = `${pathname}`;
+      }
     } else if (!langFromUrl) {
-      const cookieLang = cookies.get("i18next") || "am";
-      navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
+      // navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
+      window.location.href = `/${cookieLang}${pathname.slice(2)}`;
     }
   }, [dispatch, pathname, language, navigate]);
+
+  // useEffect(() => {
+  //   const pathParts = pathname.split("/");
+  //   const langFromUrl = pathParts[1];
+
+  //   if (langFromUrl && langFromUrl !== language) {
+  //     dispatch(setLanguage(langFromUrl));
+  //     cookies.set("i18next", langFromUrl);
+  //     cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
+  //   } else if (!langFromUrl) {
+  //     const cookieLang = cookies.get("i18next") || "am";
+  //     navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
+  //   }
+  // }, [dispatch, pathname, language, navigate]);
 
   return (
     <Suspense fallback={null}>

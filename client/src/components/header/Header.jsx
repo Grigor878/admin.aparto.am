@@ -28,8 +28,6 @@ const Header = () => {
       const pathCheck = pathname.split("/")[1] === language;
 
       if (pathCheck && window.scrollY > 0) {
-        console.log(header);
-
         header.style.background = "#ffffff";
         header.style.borderBottom = "1px solid #e7e9f0";
       } else {
