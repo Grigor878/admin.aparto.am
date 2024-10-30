@@ -74,30 +74,32 @@ const View = () => {
   // }, [dispatch, language, navigate, pathname]);
 
   useEffect(() => {
-    const pathParts = pathname.split("/");
-    const langFromUrl = pathParts[1];
-
-    const validLanguages = ["ru", "am", "en"];
-    const cookieLang = cookies.get("i18next") || "am";
-
-    if (langFromUrl && !validLanguages.includes(langFromUrl)) {
-      dispatch(setLanguage("am"));
-      cookies.set("i18next", "am");
-      cookies.set("lngFlag", "am");
-      window.location.href = `/am${pathname}`;
-    } else if (langFromUrl && langFromUrl !== language) {
-      dispatch(setLanguage(langFromUrl));
-      cookies.set("i18next", langFromUrl);
-      cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
-
-      if (pathname?.includes(language)) {
-        window.location.href = `${pathname}`;
+    if (!pathname.startsWith("/login") && !pathname.startsWith("/dashboard")) {
+      const pathParts = pathname.split("/");
+      const langFromUrl = pathParts[1];
+  
+      const validLanguages = ["ru", "am", "en"];
+      const cookieLang = cookies.get("i18next") || "am";
+  
+      if (langFromUrl && !validLanguages.includes(langFromUrl)) {
+        dispatch(setLanguage("am"));
+        cookies.set("i18next", "am");
+        cookies.set("lngFlag", "am");
+        window.location.href = `/am${pathname}`;
+      } else if (langFromUrl && langFromUrl !== language) {
+        dispatch(setLanguage(langFromUrl));
+        cookies.set("i18next", langFromUrl);
+        cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
+  
+        if (pathname.includes(language)) {
+          window.location.href = `${pathname}`;
+        }
+      } else if (!langFromUrl) {
+        window.location.href = `/${cookieLang}${pathname.slice(2)}`;
       }
-    } else if (!langFromUrl) {
-      // navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
-      window.location.href = `/${cookieLang}${pathname.slice(2)}`;
     }
   }, [dispatch, pathname, language, navigate]);
+  
 
   // useEffect(() => {
   //   const pathParts = pathname.split("/");
