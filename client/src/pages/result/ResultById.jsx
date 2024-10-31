@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getViewData } from "../../store/slices/viewSlice";
-import { API_BASE_URL } from "../../apis/config";
 import {
   balcony,
   buildType,
@@ -38,6 +37,7 @@ import { getAdminData } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import "./Styles.scss";
+import { API_BASE_URL } from "../../services/api/config";
 
 const ResultById = () => {
   const navigate = useNavigate();

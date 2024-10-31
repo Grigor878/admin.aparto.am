@@ -1,3 +1,5 @@
+import { languages } from "../services/i18next/data";
+
 // Email Validator
 export function isValidEmail(mail) {
   return /\S+@\S+\.\S+/.test(mail);
@@ -21,4 +23,10 @@ export function debounce(func, delay) {
       func.apply(this, args);
     }, delay);
   };
+}
+
+//
+export function isMainPage(pathname) {
+  const languagePattern = new RegExp(`^/(${languages.join("|")})$`);
+  return languagePattern.test(pathname);
 }

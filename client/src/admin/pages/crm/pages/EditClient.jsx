@@ -20,7 +20,7 @@ import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
 import { error } from '../../../../components/swal/swal'
-import { APP_BASE_URL } from '../../../../apis/config'
+import { APP_BASE_URL } from '../../../../services/api/config'
 import './styles.scss'
 
 const EditClient = () => {

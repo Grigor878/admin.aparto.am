@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { file, remove } from '../../../../svgs/svgs'
 import { useDispatch } from 'react-redux'
-import { API_BASE_URL } from '../../../../../apis/config'
 import { setUploadFile } from '../../../../../store/slices/propertySlice'
+import { API_BASE_URL } from '../../../../../services/api/config'
 import './Styles.scss'
 
 export const FileUpload = ({ value }) => {

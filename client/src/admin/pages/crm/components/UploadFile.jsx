@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { API_BASE_URL } from '../../../../apis/config'
 import { remove, file } from '../../../svgs/svgs';
 import { extractFileName } from '../../../../helpers/formatters';
 import { useDispatch } from 'react-redux';
 import { setUploadFiles } from '../../../../store/slices/crmSlice';
-// import './Styles.scss'
+import { API_BASE_URL } from '../../../../services/api/config';
 
 export const UploadFile = ({ files }) => {
     const [upload, setUpload] = useState(files ? files : [])

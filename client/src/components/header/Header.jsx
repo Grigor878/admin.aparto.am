@@ -9,6 +9,7 @@ import Size from "./components/size/Size";
 import Exchange from "./components/exchange/Exchange";
 import Language from "./components/language/Language";
 import "./Header.scss";
+import { isMainPage } from "../../helpers/utils";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -57,9 +58,7 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className={
-        (!pathname?.includes("result")) && !mobile ? "header" : "header2"
-      }
+      className={isMainPage(pathname) && !mobile ? "header" : "header2"}
     >
       <div className="contain">
         <nav className="header__nav">

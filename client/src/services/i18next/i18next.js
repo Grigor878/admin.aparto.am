@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import cookies from "js-cookie";
+import { languages } from "./data";
 
 i18next
   .use(HttpApi)
@@ -10,7 +11,7 @@ i18next
   .use(initReactI18next)
   .init({
     lng: cookies.get("i18next") || "am",
-    supportedLngs: ["en", "am", "ru"],
+    supportedLngs: languages,
     debug: false,
     detection: {
       order: ["cookie", "path", "htmlTag"],

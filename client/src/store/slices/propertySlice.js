@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import baseApi from "../../apis/baseApi";
-import { getAxiosConfig } from "../../apis/config";
+import baseApi from "../../services/api/baseApi";
 import { success } from "../../components/swal/swal";
-import { APP_BASE_URL } from "../../apis/config";
+import { APP_BASE_URL, getAxiosConfig } from "../../services/api/config";
 
 const initialState = {
   structureLoading: false,

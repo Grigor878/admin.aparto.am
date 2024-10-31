@@ -6,8 +6,8 @@ import { logout } from '../../../../../store/slices/authSlice'
 import { clearUserGlobal } from '../../../../../store/slices/userGlobalSlice'
 import { clearUsers } from '../../../../../store/slices/usersSlice'
 import userImg from '../../../../../assets/imgs/user.png'
-import { API_BASE_URL } from '../../../../../apis/config'
 import { DisabledInput } from '../../../../components/inputs/DisabledInput'
+import { API_BASE_URL } from '../../../../../services/api/config'
 
 export const Personal = () => {
     const dispatch = useDispatch()

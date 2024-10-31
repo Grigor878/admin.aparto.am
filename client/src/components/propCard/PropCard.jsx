@@ -4,12 +4,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import { useMediaQuery } from "react-responsive";
-import { API_BASE_URL } from "../../apis/config";
 import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
 import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
 import { clearResulById } from "../../store/slices/viewSlice";
+import { API_BASE_URL } from "../../services/api/config";
 
 export const PropCard = ({ data }) => {
   const dispatch = useDispatch();

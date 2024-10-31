@@ -1,7 +1,6 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import logo from "../../assets/imgs/logo.png";
-// import { API_BASE_URL } from "../../apis/config";
 
 const HelmetAsync = ({ title, description, image }) => {
   const { t, i18n } = useTranslation();
