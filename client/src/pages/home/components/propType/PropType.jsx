@@ -43,7 +43,8 @@ const PropType = ({ type, data }) => {
     sessionStorage.removeItem("siderFloorMax");
     // sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
-    navigate(`/${i18n.language}/result`);
+    // navigate(`/${i18n.language}/result`);
+    navigate(`/${i18n.language}/result/${type}`);
   };
 
   return (

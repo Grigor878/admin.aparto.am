@@ -58,7 +58,7 @@ const Header = () => {
     <header
       ref={headerRef}
       className={
-        !pathname?.includes("result") && !mobile ? "header" : "header2"
+        (!pathname?.includes("result")) && !mobile ? "header" : "header2"
       }
     >
       <div className="contain">

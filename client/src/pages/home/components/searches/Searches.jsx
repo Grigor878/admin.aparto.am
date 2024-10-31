@@ -50,7 +50,7 @@ const Searches = () => {
     dispatch(clearSidertData());
     dispatch(setPage("home"));
     dispatch(postSearchData({ searchData, language })).then(() => {
-      navigate(`/${language}/result`);
+      navigate(`/${language}/result/${type}`);
     });
   };
 

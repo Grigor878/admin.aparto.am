@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import { useMediaQuery } from "react-responsive";
 import { API_BASE_URL } from "../../apis/config";
@@ -9,8 +9,11 @@ import noImg from "../../assets/imgs/noImg.png";
 import { roomIcon, buildType, square } from "../../assets/svgs/svgs";
 import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
 import "./PropCard.scss";
+import { clearResulById } from "../../store/slices/viewSlice";
 
 export const PropCard = ({ data }) => {
+  const dispatch = useDispatch();
+
   const { t, i18n } = useTranslation();
 
   const { pathname } = useLocation();
@@ -49,8 +52,9 @@ export const PropCard = ({ data }) => {
               return (
                 <Link
                   key={id}
-                  // target={"_blank"}
-                  to={`/${i18n.language}/result/${id}`}
+                  // to={`/${i18n.language}/result/${id}`}
+                  to={`/${i18n.language}/${id}`}
+                  onClick={() => dispatch(clearResulById())}
                   className="propCard__card"
                 >
                   <div className="propCard__card-img">
@@ -141,8 +145,9 @@ export const PropCard = ({ data }) => {
             return (
               <Link
                 key={id}
-                // target={"_blank"}
-                to={`/${i18n.language}/result/${id}`}
+                // to={`/${i18n.language}/result/${id}`}
+                to={`/${i18n.language}/${id}`}
+                onClick={()=>dispatch(clearResulById())}
                 className="propCardResult__card"
               >
                 <div className="propCardResult__card-img">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getViewData } from "../../store/slices/viewSlice";
 import { API_BASE_URL } from "../../apis/config";
@@ -22,7 +22,12 @@ import {
 } from "../../admin/svgs/svgs";
 import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
 import { YMap } from "../../admin/pages/properties/components/yandexMap/YMap";
-import { amdFormater, sqmToFt2, usdFormater } from "../../helpers/formatters";
+import {
+  amdFormater,
+  formatUrl,
+  sqmToFt2,
+  usdFormater,
+} from "../../helpers/formatters";
 import { PriceHistory } from "../../admin/pages/properties/components/priceHistory/PriceHistory";
 import telegram from "../../assets/icons/telegram.png";
 import whatsapp from "../../assets/icons/whatsapp.png";
@@ -35,10 +40,12 @@ import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import "./Styles.scss";
 
 const ResultById = () => {
+  const navigate = useNavigate();
+
   const { t } = useTranslation();
-
   const { id } = useParams();
-
+  const { admin } = useSelector((state) => state.home);
+  const { data, loading } = useSelector((state) => state.view);
   const { language, size, exchange, exchangeValue } = useSelector(
     (state) => state.home
   );
@@ -49,37 +56,40 @@ const ResultById = () => {
     dispatch(getViewData(id));
   }, [dispatch, id]);
 
-  const { data, loading } = useSelector((state) => state.view);
+  useEffect(() => {
+    if (data["en"] && data["en"][0]?.fields[2]?.value) {
+      const title = formatUrl(data["en"][0].fields[2].value);
+      const targetPath = `/${language}/${title}/${id}`;
 
-  const [open, setOpen] = useState(false);
-  const [startSlideIndex, setStartSlideIndex] = useState(0);
-
-  const currentPropertyData = data[language];
-  const currentPropertyPrice = data?.priceHistory;
-  const currentPropertyImgs = data?.photo;
-
-  const modifiedData = currentPropertyImgs?.map((item) => ({
-    img: `${API_BASE_URL}/images/${item.name}`,
-    alt: item.name,
-  }));
-
-  // useEffect(() => {
-  //   dispatch(getRecomendeds({ community, language }));
-  // }, [dispatch, language]);
+      navigate(targetPath, { replace: true });
+    }
+  }, [navigate, data, id, language]);
 
   useEffect(() => {
     dispatch(getAdminData());
   }, [dispatch]);
 
-  const { admin } = useSelector((state) => state.home);
-  const adminTel = admin?.phone?.tel1;
+  // useEffect(() => {
+  //   dispatch(getRecomendeds({ community, language }));
+  // }, [dispatch, language]);
 
-  const adminSocial = admin?.phone?.messengers;
+  const [open, setOpen] = useState(false);
+  const [startSlideIndex, setStartSlideIndex] = useState(0);
 
   const laptop = useMediaQuery({ maxWidth: 1280 });
   const mobile = useMediaQuery({ maxWidth: 768 });
 
+  const currentPropertyData = data[language];
+  const currentPropertyPrice = data?.priceHistory;
+  const currentPropertyImgs = data?.photo;
+  const adminTel = admin?.phone?.tel1;
+  const adminSocial = admin?.phone?.messengers;
   const imgsShow = laptop ? 3 : 5;
+
+  const modifiedData = currentPropertyImgs?.map((item) => ({
+    img: `${API_BASE_URL}/images/${item.name}`,
+    alt: item.name,
+  }));
 
   return loading ? (
     <Loader />

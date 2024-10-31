@@ -12,6 +12,8 @@ import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import "./Styles.scss";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
+import { Paginator } from "./components/pagination/paginator";
+import useQueryParams from "../../hooks/useQueryParams";
 
 const Result = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
@@ -40,8 +42,14 @@ const Result = () => {
     }
   }, [map, mobile]);
 
+  //
+  // const [page, setParams] = useQueryParams(["page"]);
+  // const itemsPerPage = 5;
+  //
+
   const handlePageChange = (page) => {
     dispatch(setPage("result"));
+    // setParams(page);
     dispatch(setPaginatePage(page));
     page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
     navigate(`${location.pathname}?${searchParams.toString()}`);
@@ -97,6 +105,13 @@ const Result = () => {
               lastPage={paginateData?.last_page}
               setPage={handlePageChange}
             />
+            // <Paginator
+            //   data={data}
+            //   itemsPerPage={itemsPerPage}
+            //   onPageChange={handlePageChange}
+            //   page={page}
+            //   setParams={setParams}
+            // />
           ) : null}
         </div>
       )}

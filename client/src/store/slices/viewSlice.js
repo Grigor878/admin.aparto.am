@@ -11,6 +11,7 @@ const initialState = {
   searchedAddresses: [],
   siderData: null,
   siderLoading: false,
+  //
   page: "result",
   paginatePage: "1",
   perPage: "15",
@@ -95,6 +96,10 @@ const viewSlice = createSlice({
   name: "view",
   initialState,
   reducers: {
+    // clear resultById
+    clearResulById: (state) => {
+      state.data = [];
+    },
     // clear resultData
     clearResultData: (state) => {
       state.resultData = null;
@@ -172,6 +177,7 @@ const viewSlice = createSlice({
 });
 
 export const {
+  clearResulById,
   clearResultData,
   clearSidertData,
   clearHomeSearchInfo,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { filterClose } from "../../../../assets/svgs/svgs";
 import { Radio } from "../inputs/radio";
@@ -31,14 +31,13 @@ import { useSessionState } from "../../../../hooks/useSessionState";
 import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import "./Sider.scss";
+import useQueryParams from "../../../../hooks/useQueryParams";
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
-  const location = useLocation();
-
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { transactionType, propertyType, room, price, language } = useSelector(
     (state) => state.home
@@ -52,9 +51,12 @@ export const Sider = ({ open, setOpen }) => {
     keywords,
   } = useSelector((state) => state.view);
 
-  const mobile = useMediaQuery({ maxWidth: 768 });
+  //
+  const { type } = useParams();
+  // const [pagePparam] = useQueryParams(["page"]);
+  //
 
-  const [radio, setRadio] = useState(transactionType); //done
+  const [radio, setRadio] = useState(transactionType || type); //done
   const [community, setCommunity] = useState(
     searchedCommunities?.length ? searchedCommunities : []
   ); ////////
@@ -75,9 +77,10 @@ export const Sider = ({ open, setOpen }) => {
   );
   const [floorMin, setFloorMin] = useSessionState("", "siderFloorMin");
   const [floorMax, setFloorMax] = useSessionState("", "siderFloorMax");
-  // const [description, setDescription] = useSessionState("", "siderDesc")
   const [description, setDescription] = useState(keywords);
   const [id, setId] = useSessionState("", "siderId");
+
+  const mobile = useMediaQuery({ maxWidth: 768 });
 
   // community, propType, buildType, propCondition
   const handleUpdate = (e, setState, id) => {
@@ -103,6 +106,8 @@ export const Sider = ({ open, setOpen }) => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
+    //
+    navigate(`/${language}/result/${value}`);
   };
 
   useEffect(() => {

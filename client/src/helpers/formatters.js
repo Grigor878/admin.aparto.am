@@ -100,3 +100,13 @@ export function formatDate(dateString) {
   const [day, month, year] = dateString?.split("/");
   return `${year}-${month?.padStart(2, "0")}-${day?.padStart(2, "0")}`;
 }
+
+// format url
+export function formatUrl(text) {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-()]+/g, '')
+    .replace(/-+/g, '-');
+}

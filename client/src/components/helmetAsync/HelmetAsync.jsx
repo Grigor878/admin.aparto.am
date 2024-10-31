@@ -10,7 +10,8 @@ const HelmetAsync = ({ title, description, image }) => {
   const lang = i18n.language;
 
   const _image = image || logo;
-  const _title = title ? `${name} | ${t(title)}` : name;
+  // const _title = title ? `${name} | ${t(title)}` : name;
+  const _title =  t(title || "main_title_seo");
   const _description = t(description);
   const _url = typeof window !== "undefined" ? window.location.href : "";
 
