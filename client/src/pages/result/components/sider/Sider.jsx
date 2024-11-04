@@ -214,7 +214,6 @@ export const Sider = ({ open, setOpen }) => {
       setOpen(false);
     }
   };
-  console.log(newBuild);
 
   return (
     open && (
