@@ -7,6 +7,7 @@ use App\Models\Employe;
 use App\Models\Home;
 use App\Models\RecentSearch;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class InterFaceService
 {
@@ -31,11 +32,15 @@ class InterFaceService
         $am[10] = [];
         $ru[10] = [];
         $en[10] = [];
+        $am[11] = [];
+        $ru[11] = [];
+        $en[11] = [];
 
         $home->am = $am;
         $home->ru = $ru;
         $home->en = $en;
         $home->selectedTransactionType = isset($home->am[0]->fields[0]->selectedOptionName) ? $home->am[0]->fields[0]->selectedOptionName : '';
+        $home->communityId = isset($home->am[1]->fields[0]->communityId) ? $home->am[1]->fields[0]->communityId : '';
         // $photo = json_decode($home->photo);
         // $filteredPhoto = [];
         // foreach ($photo as $key => $value) {
@@ -621,6 +626,7 @@ class InterFaceService
     public function mapSearchHomeDetail($home, $lang)
     {
         $photo = json_decode($home->photo);
+
         $filteredPhoto = [];
 
         if ($photo !== null) {
@@ -646,6 +652,7 @@ class InterFaceService
                 "locate" => $home->am[1]->fields[4]->value,
             ];
         } elseif ($lang == "ru") {
+
             $mapDetails = [
                 "id" => $home->id,
                 "home_id" => $home->home_id,
@@ -692,55 +699,44 @@ class InterFaceService
 
     public function getInterfaceProperties($id)
     {
-        $home = Home::where('status', Home::STATUS_APPROVED)->orderBy('created_at', 'desc')->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
-            ->find($id);
-
-        if (!$home) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => "Home not found"
-            ], 422);
-        }
+        $home = Home::where('status', Home::STATUS_APPROVED)
+            ->orderBy('created_at', 'desc')
+            ->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
+            ->findOrFail($id);
 
         $am = json_decode($home->am);
         $ru = json_decode($home->ru);
         $en = json_decode($home->en);
 
-        if ($home) {
-            $home = $this->processHomeData($home);
-            $photo = json_decode($home->photo);
-            $filteredPhoto = [];
-            if ($photo !== null) {
-                foreach ($photo as $key => $value) {
-                    if ($value->visible == "true") {
-                        array_push($filteredPhoto, $value);
-                    }
+        $home = $this->processHomeData($home);
+        $photo = json_decode($home->photo);
+        $filteredPhoto = [];
+        if ($photo !== null) {
+            foreach ($photo as $key => $value) {
+                if ($value->visible == "true") {
+                    array_push($filteredPhoto, $value);
                 }
             }
-            $home->photo = $filteredPhoto;
-            $home->priceHistory = json_decode($home->price_history);
-
-            $agentId = (int) $home['am'][11]->fields[0]->id;
-            $managerId = (int) $home['am'][11]->fields[1]->id;
-            if ($am[0]->fields[1]->value === "Կոմերցիոն (առանձնատուն)" || $am[0]->fields[1]->value === "Կոմերցիոն (բնակարան)") {
-                $am[0]->fields[1]->value = 'Կոմերցիոն';
-                $ru[0]->fields[1]->value = 'Коммерческая';
-                $en[0]->fields[1]->value = 'Commercial';
-            }
-
-            $employee = Employe::get();
-            Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
-
-            $home->am = $am;
-            $home->ru = $ru;
-            $home->en = $en;
-            return $home;
-
         }
-        return response()->json([
-            'status' => 'error',
-            'errors' => "Home not found"
-        ], 422);
+        $home->photo = $filteredPhoto;
+        $home->priceHistory = json_decode($home->price_history);
+
+        $agentId = (int) $home['am'][11]->fields[0]->id;
+        $managerId = (int) $home['am'][11]->fields[1]->id;
+        if ($am[0]->fields[1]->value === "Կոմերցիոն (առանձնատուն)" || $am[0]->fields[1]->value === "Կոմերցիոն (բնակարան)") {
+            $am[0]->fields[1]->value = 'Կոմերցիոն';
+            $ru[0]->fields[1]->value = 'Коммерческая';
+            $en[0]->fields[1]->value = 'Commercial';
+        }
+
+        $employee = Employe::get();
+        Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
+
+        $home->am = $am;
+        $home->ru = $ru;
+        $home->en = $en;
+
+        return $home;
     }
 
     public function getResultPageData($data, $lang)
@@ -957,5 +953,23 @@ class InterFaceService
             ->get();
         return $recentSearch;
     }
+
+    public function getRecomendeds($lang, $communityId)
+    {
+        return Home::query()
+            ->whereRaw("JSON_EXTRACT(am, '$[1].fields[0].communityId') = ?", [$communityId])
+            ->orderBy('id', 'desc')
+            ->limit(7)
+            ->get()
+            ->map(function ($home) use ($lang) {
+                $home = $this->processHomeData($home);
+                $home = $this->mapSearchHomeDetail($home, $lang);
+                $home['photo'] = $home['photo'][0];
+                return $home;
+            });
+
+    }
+
+
 
 }

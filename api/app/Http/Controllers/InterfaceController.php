@@ -89,5 +89,11 @@ class InterfaceController extends Controller
 
         return response()->json($search);
     }
-    
+
+    public function getRecomendeds(string $lang, int $communityId)
+    {
+        $search = $this->interfaceService->getRecomendeds($lang, $communityId);
+
+        return response()->json($search);
+    }
 }
