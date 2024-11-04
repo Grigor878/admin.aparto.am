@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterOpen, openMap } from "../../assets/svgs/svgs";
 import { Sider } from "./components/sider/Sider";
@@ -10,19 +9,18 @@ import { Loader } from "../../components/loader/Loader";
 import { MapMulty } from "./components/map/MapMulty";
 import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
-import "./Styles.scss";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
-import { Paginator } from "./components/pagination/paginator";
 import useQueryParams from "../../hooks/useQueryParams";
+import "./Styles.scss";
 
 const Result = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const searchParams = new URLSearchParams(location.search);
+  const [page, setParams] = useQueryParams(["page"]);
+  // const itemsPerPage = 5;
 
   const { loading, siderLoading, resultData, siderData } = useSelector(
     (state) => state.view
@@ -42,17 +40,15 @@ const Result = () => {
     }
   }, [map, mobile]);
 
-  //
-  // const [page, setParams] = useQueryParams(["page"]);
-  // const itemsPerPage = 5;
-  //
-
   const handlePageChange = (page) => {
     dispatch(setPage("result"));
     // setParams(page);
     dispatch(setPaginatePage(page));
-    page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
-    navigate(`${location.pathname}?${searchParams.toString()}`);
+
+    // page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
+    // navigate(`${location.pathname}?${searchParams.toString()}`);
+    setParams({ page: page === 1 ? null : page });
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
@@ -101,18 +97,21 @@ const Result = () => {
 
           {data?.length ? (
             <Pagination
-              currentPage={paginateData?.current_page}
+              // currentPage={paginateData?.current_page}
+              currentPage={
+                paginateData?.current_page || parseInt(page, 10) || 1
+              }
               lastPage={paginateData?.last_page}
               setPage={handlePageChange}
             />
-            // <Paginator
-            //   data={data}
-            //   itemsPerPage={itemsPerPage}
-            //   onPageChange={handlePageChange}
-            //   page={page}
-            //   setParams={setParams}
-            // />
-          ) : null}
+          ) : // <Paginator
+          //   data={data}
+          //   itemsPerPage={itemsPerPage}
+          //   onPageChange={handlePageChange}
+          //   page={page}
+          //   setParams={setParams}
+          // />
+          null}
         </div>
       )}
 
