@@ -32,6 +32,7 @@ import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
 import "./Sider.scss";
+import { getCommunityFromUrl } from "../../../../helpers/formatters";
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation();
@@ -53,8 +54,9 @@ export const Sider = ({ open, setOpen }) => {
   } = useSelector((state) => state.view);
 
   // search parametrs
-  const { type, property, newbuild } = useParams();
+  const { type, property, newbuild, commune } = useParams();
   const [pageParam] = useQueryParams(["page"]);
+  const communityIds = getCommunityFromUrl(commune, communityEn);
   //
 
   const [radio, setRadio] = useState(type ? type : transactionType); //done
@@ -62,12 +64,12 @@ export const Sider = ({ open, setOpen }) => {
     property ? property : propertyType[0]
   ); //done
   const [newBuild, setNewBuild] = useState(
-    newbuild === "newBuilding" ? true : "on"
+    newbuild === "new-building" ? true : "on"
+  ); // done
+  const [community, setCommunity] = useState(
+    searchedCommunities?.length ? searchedCommunities : communityIds
   ); // done
 
-  const [community, setCommunity] = useState(
-    searchedCommunities?.length ? searchedCommunities : []
-  );
   const [streets, setStreets] = useState(
     searchedAddresses?.length ? searchedAddresses : []
   );
@@ -162,7 +164,14 @@ export const Sider = ({ open, setOpen }) => {
       urlParts.push(propType);
     }
     if (newBuild === true) {
-      urlParts.push("newBuilding");
+      urlParts.push("new-building");
+    }
+    if (community) {
+      const matchedValues = communityEn
+        ?.filter((item) => community?.includes(item.id) && item.id !== 15)
+        ?.map((item) => item.value.toLowerCase());
+
+      urlParts.push(matchedValues);
     }
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
@@ -171,7 +180,7 @@ export const Sider = ({ open, setOpen }) => {
   useEffect(() => {
     const url = buildUrl();
     navigate(url);
-  }, [radio, propType, newBuild]);
+  }, [radio, propType, newBuild, community]);
 
   useEffect(() => {
     const debouncedSearch = debounce((searchData) => {

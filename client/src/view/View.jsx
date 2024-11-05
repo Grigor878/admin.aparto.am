@@ -121,10 +121,11 @@ const View = () => {
       <Routes>
         <Route path={`/${language}`} element={<LayoutMain />}>
           <Route index element={<Home />} />
-          <Route path="result/:type" element={<Result />} />
+          {/* <Route path="result/:type" element={<Result />} />
           <Route path="result/:type/:property" element={<Result />} />
           <Route path="result/:type/:property/:newbuild" element={<Result />} />
-          {/* <Route path="result/:type?/:property?/:newbuild" element={<Result />} /> */}
+          <Route path="result/:type/:property/:newbuild/:commune" element={<Result />} /> */}
+          <Route path="result/:type?/:property?/:newbuild?/:commune?" element={<Result />} />
           <Route path=":title?/:id" element={<ResultById />} /> 
           <Route path="*" element={<NotFound />} />
         </Route>

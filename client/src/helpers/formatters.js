@@ -110,3 +110,19 @@ export function formatUrl(text) {
     .replace(/[^\w-()]+/g, '')
     .replace(/-+/g, '-');
 }
+
+// 
+export const getCommunityFromUrl = (commune, communityEn) => {
+  const communeArray = commune ? commune?.split(",") : [];
+
+  const communityIds = communeArray
+    ?.map((communeValue) => {
+      const match = communityEn?.find(
+        (item) => item?.value?.toLowerCase() === communeValue?.toLowerCase()
+      );
+      return match ? match?.id : null;
+    })
+    ?.filter((id) => id !== null);
+
+  return communityIds;
+};
