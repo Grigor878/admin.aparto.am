@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { filterClose } from "../../../../assets/svgs/svgs";
 import { Radio } from "../inputs/radio";
@@ -57,6 +62,11 @@ export const Sider = ({ open, setOpen }) => {
   const { type, property, newbuild, commune } = useParams();
   const [pageParam] = useQueryParams(["page"]);
   const communityIds = getCommunityFromUrl(commune, communityEn);
+
+  console.log("Type:", type);
+  console.log("Property:", property);
+  console.log("New Build:", newbuild);
+  console.log("Commune:", commune);
   //
 
   const [radio, setRadio] = useState(type ? type : transactionType); //done
@@ -172,6 +182,11 @@ export const Sider = ({ open, setOpen }) => {
         ?.map((item) => item.value.toLowerCase());
 
       urlParts.push(matchedValues);
+    }
+
+    // Add the page parameter to the URL
+    if (pageParam) {
+      urlParts.push(`?page=${pageParam}`);
     }
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");

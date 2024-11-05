@@ -55,32 +55,14 @@ const View = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const validLanguages = ["am", "en", "ru"];
-  //   const cookieLng = cookies.get("i18next");
-  //   const validPath = validLanguages?.includes(language);
-  //   const validPathCookie = validLanguages?.includes(cookieLng);
-
-  //   // if (pathname === "/" && validPathCookie) {
-  //   //   window.location.href = `/${cookieLng}`;
-  //   // }
-
-  //   if (!validPath) {
-  //     dispatch(setLanguage("am"));
-  //     cookies.set("i18next", "am");
-  //     cookies.set("lngFlag", "am");
-  //     window.location.href = `/am${pathname}`;
-  //   }
-  // }, [dispatch, language, navigate, pathname]);
-
   useEffect(() => {
     if (!pathname.startsWith("/login") && !pathname.startsWith("/dashboard")) {
       const pathParts = pathname.split("/");
       const langFromUrl = pathParts[1];
-  
+
       const validLanguages = ["ru", "am", "en"];
       const cookieLang = cookies.get("i18next") || "am";
-  
+
       if (langFromUrl && !validLanguages.includes(langFromUrl)) {
         dispatch(setLanguage("am"));
         cookies.set("i18next", "am");
@@ -90,7 +72,7 @@ const View = () => {
         dispatch(setLanguage(langFromUrl));
         cookies.set("i18next", langFromUrl);
         cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
-  
+
         if (pathname.includes(language)) {
           window.location.href = `${pathname}`;
         }
@@ -99,21 +81,6 @@ const View = () => {
       }
     }
   }, [dispatch, pathname, language, navigate]);
-  
-
-  // useEffect(() => {
-  //   const pathParts = pathname.split("/");
-  //   const langFromUrl = pathParts[1];
-
-  //   if (langFromUrl && langFromUrl !== language) {
-  //     dispatch(setLanguage(langFromUrl));
-  //     cookies.set("i18next", langFromUrl);
-  //     cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
-  //   } else if (!langFromUrl) {
-  //     const cookieLang = cookies.get("i18next") || "am";
-  //     navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
-  //   }
-  // }, [dispatch, pathname, language, navigate]);
 
   return (
     <Suspense fallback={null}>
@@ -125,8 +92,13 @@ const View = () => {
           <Route path="result/:type/:property" element={<Result />} />
           <Route path="result/:type/:property/:newbuild" element={<Result />} />
           <Route path="result/:type/:property/:newbuild/:commune" element={<Result />} /> */}
-          <Route path="result/:type?/:property?/:newbuild?/:commune?" element={<Result />} />
-          <Route path=":title?/:id" element={<ResultById />} /> 
+
+          <Route
+            path="result/:type?/:property?/:newbuild?/:commune?"
+            element={<Result />}
+          />
+
+          <Route path=":title?/:id" element={<ResultById />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
@@ -186,3 +158,35 @@ const View = () => {
 };
 
 export default View;
+
+// useEffect(() => {
+//   const validLanguages = ["am", "en", "ru"];
+//   const cookieLng = cookies.get("i18next");
+//   const validPath = validLanguages?.includes(language);
+//   const validPathCookie = validLanguages?.includes(cookieLng);
+
+//   // if (pathname === "/" && validPathCookie) {
+//   //   window.location.href = `/${cookieLng}`;
+//   // }
+
+//   if (!validPath) {
+//     dispatch(setLanguage("am"));
+//     cookies.set("i18next", "am");
+//     cookies.set("lngFlag", "am");
+//     window.location.href = `/am${pathname}`;
+//   }
+// }, [dispatch, language, navigate, pathname]);
+
+// useEffect(() => {
+//   const pathParts = pathname.split("/");
+//   const langFromUrl = pathParts[1];
+
+//   if (langFromUrl && langFromUrl !== language) {
+//     dispatch(setLanguage(langFromUrl));
+//     cookies.set("i18next", langFromUrl);
+//     cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
+//   } else if (!langFromUrl) {
+//     const cookieLang = cookies.get("i18next") || "am";
+//     navigate(`/${cookieLang}${pathname.slice(2)}`, { replace: true });
+//   }
+// }, [dispatch, pathname, language, navigate]);
