@@ -37,7 +37,6 @@ const PropType = ({ type, data }) => {
     sessionStorage.removeItem("siderSqMax");
     sessionStorage.removeItem("siderPriceMin");
     sessionStorage.removeItem("siderBuildType");
-    sessionStorage.removeItem("siderNewBuild");
     sessionStorage.removeItem("siderPropCondition");
     sessionStorage.removeItem("siderFloorMin");
     sessionStorage.removeItem("siderFloorMax");

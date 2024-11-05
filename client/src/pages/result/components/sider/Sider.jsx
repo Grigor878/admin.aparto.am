@@ -52,28 +52,31 @@ export const Sider = ({ open, setOpen }) => {
     keywords,
   } = useSelector((state) => state.view);
 
-  //
+  // search parametrs
   const { type, property, newbuild } = useParams();
   const [pageParam] = useQueryParams(["page"]);
-  console.log(newbuild);
-
   //
 
-  const [radio, setRadio] = useState(transactionType || type); //done
+  const [radio, setRadio] = useState(type ? type : transactionType); //done
+  const [propType, setPropType] = useState(
+    property ? property : propertyType[0]
+  ); //done
+  const [newBuild, setNewBuild] = useState(
+    newbuild === "newBuilding" ? true : "on"
+  ); // done
+
   const [community, setCommunity] = useState(
     searchedCommunities?.length ? searchedCommunities : []
-  ); ////////
+  );
   const [streets, setStreets] = useState(
     searchedAddresses?.length ? searchedAddresses : []
-  ); ////////
-  const [propType, setPropType] = useState(propertyType[0] || property); //done
-  const [rooms, setRooms] = useState(room); //done
+  );
+  const [priceMax, setPriceMax] = useState(price);
+  const [rooms, setRooms] = useState(room);
   const [squareMin, setSquareMin] = useSessionState("", "siderSqMin");
   const [squareMax, setSquareMax] = useSessionState("", "siderSqMax");
   const [priceMin, setPriceMin] = useSessionState("", "siderPriceMin");
-  const [priceMax, setPriceMax] = useState(price); //done
   const [buildType, setBuildType] = useSessionState([], "siderBuildType");
-  const [newBuild, setNewBuild] = useSessionState("on", "siderNewBuild");
   const [propCondition, setPropCondition] = useSessionState(
     [],
     "siderPropCondition"
@@ -111,6 +114,64 @@ export const Sider = ({ open, setOpen }) => {
     //
     // navigate(`/${language}/result/${value}`)
   };
+
+  const clearSearch = () => {
+    sessionStorage.removeItem("siderSqMin");
+    sessionStorage.removeItem("siderSqMax");
+    sessionStorage.removeItem("siderPriceMax");
+    sessionStorage.removeItem("siderPriceMin");
+    sessionStorage.removeItem("siderBuildType");
+    sessionStorage.removeItem("siderPropCondition");
+    sessionStorage.removeItem("siderFloorMin");
+    sessionStorage.removeItem("siderFloorMax");
+    // sessionStorage.removeItem("siderDesc");
+    sessionStorage.removeItem("siderId");
+
+    dispatch(setPage("result"));
+    dispatch(clearHomeSearchInfo());
+
+    setCommunity([]);
+    setStreets([]);
+    setPropType([]);
+    setRooms([]);
+    setSquareMin("");
+    setSquareMax("");
+    setPriceMin("");
+    setPriceMax("");
+    setBuildType([]);
+    setNewBuild("on");
+    setPropCondition([]);
+    setFloorMin("");
+    setFloorMax("");
+    setDescription("");
+    dispatch(setKeywords(""));
+    setId("");
+
+    if (mobile) {
+      setOpen(false);
+    }
+  };
+
+  const buildUrl = () => {
+    let urlParts = [`/${language}/result`];
+
+    if (radio) {
+      urlParts.push(radio);
+    }
+    if (propType) {
+      urlParts.push(propType);
+    }
+    if (newBuild === true) {
+      urlParts.push("newBuilding");
+    }
+
+    return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
+  };
+
+  useEffect(() => {
+    const url = buildUrl();
+    navigate(url);
+  }, [radio, propType, newBuild]);
 
   useEffect(() => {
     const debouncedSearch = debounce((searchData) => {
@@ -176,45 +237,6 @@ export const Sider = ({ open, setOpen }) => {
     pageParam,
   ]);
 
-  const clearSearch = () => {
-    sessionStorage.removeItem("siderSqMin");
-    sessionStorage.removeItem("siderSqMax");
-    sessionStorage.removeItem("siderPriceMax");
-    sessionStorage.removeItem("siderPriceMin");
-    sessionStorage.removeItem("siderBuildType");
-    sessionStorage.removeItem("siderNewBuild");
-    sessionStorage.removeItem("siderPropCondition");
-    sessionStorage.removeItem("siderFloorMin");
-    sessionStorage.removeItem("siderFloorMax");
-    // sessionStorage.removeItem("siderDesc");
-    sessionStorage.removeItem("siderId");
-
-    dispatch(setPage("result"));
-    dispatch(clearHomeSearchInfo());
-
-    setCommunity([]);
-    setStreets([]);
-    setPropType([]);
-    setRooms([]);
-    setSquareMin("");
-    setSquareMax("");
-    setPriceMin("");
-    setPriceMax("");
-    setBuildType([]);
-    setNewBuild("on");
-    setPropCondition([]);
-    setFloorMin("");
-    setFloorMax("");
-    setDescription("");
-    dispatch(setKeywords(""));
-    setId("");
-    navigate(`/${language}/result/${radio}`);
-
-    if (mobile) {
-      setOpen(false);
-    }
-  };
-
   return (
     open && (
       <div className="sider">
@@ -237,29 +259,29 @@ export const Sider = ({ open, setOpen }) => {
                 id="result_radio"
                 text={t("sale")}
                 checked={radio === "sale"}
-                // onChange={() => handleSetState(setRadio, "sale")}
-                onChange={() => {
-                  handleSetState(setRadio, "sale");
-                  navigate(
-                    `/${language}/result/sale/${propType || ""}/${
-                      newBuild !== "on" ? "newBuilding" : ""
-                    }`
-                  );
-                }}
+                onChange={() => handleSetState(setRadio, "sale")}
+                // onChange={() => {
+                //   handleSetState(setRadio, "sale");
+                //   navigate(
+                //     `/${language}/result/sale/${propType || ""}/${
+                //       newBuild !== "on" ? "newBuilding" : ""
+                //     }`
+                //   );
+                // }}
               />
               <Radio
                 id="result_radio"
                 text={t("rent")}
                 checked={radio === "rent"}
-                // onChange={() => handleSetState(setRadio, "rent")}
-                onChange={() => {
-                  handleSetState(setRadio, "rent");
-                  navigate(
-                    `/${language}/result/rent/${propType || ""}/${
-                      newBuild !== "on" ? "newBuilding" : ""
-                    }`
-                  );
-                }}
+                onChange={() => handleSetState(setRadio, "rent")}
+                // onChange={() => {
+                //   handleSetState(setRadio, "rent");
+                //   navigate(
+                //     `/${language}/result/rent/${propType || ""}/${
+                //       newBuild !== "on" ? "newBuilding" : ""
+                //     }`
+                //   );
+                // }}
               />
             </div>
           </div>
@@ -270,43 +292,43 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__property-checkboxes">
               <Radio
                 id="type_radio"
-                // onChange={() => handleSetState(setPropType, "house")}
-                onChange={() => {
-                  handleSetState(setPropType, "house");
-                  navigate(
-                    `/${language}/result/${radio || ""}/house/${
-                      newBuild !== "on" ? "newBuilding" : ""
-                    }`
-                  );
-                }}
+                onChange={() => handleSetState(setPropType, "house")}
+                // onChange={() => {
+                //   handleSetState(setPropType, "house");
+                //   navigate(
+                //     `/${language}/result/${radio || ""}/house/${
+                //       newBuild !== "on" ? "newBuilding" : ""
+                //     }`
+                //   );
+                // }}
                 text={t("house")}
                 checked={propType === "house"}
               />
               <Radio
                 id="type_radio"
-                // onChange={() => handleSetState(setPropType, "privateHouse")}
-                onChange={() => {
-                  handleSetState(setPropType, "privateHouse");
-                  navigate(
-                    `/${language}/result/${radio || ""}/privateHouse/${
-                      newBuild !== "on" ? "newBuilding" : ""
-                    }`
-                  );
-                }}
+                onChange={() => handleSetState(setPropType, "privateHouse")}
+                // onChange={() => {
+                //   handleSetState(setPropType, "privateHouse");
+                //   navigate(
+                //     `/${language}/result/${radio || ""}/privateHouse/${
+                //       newBuild !== "on" ? "newBuilding" : ""
+                //     }`
+                //   );
+                // }}
                 text={t("private_house")}
                 checked={propType === "privateHouse"}
               />
               <Radio
                 id="type_radio"
-                // onChange={() => handleSetState(setPropType, "commercial")}
-                onChange={() => {
-                  handleSetState(setPropType, "commercial");
-                  navigate(
-                    `/${language}/result/${radio || ""}/commercial/${
-                      newBuild !== "on" ? "newBuilding" : ""
-                    }`
-                  );
-                }}
+                onChange={() => handleSetState(setPropType, "commercial")}
+                // onChange={() => {
+                //   handleSetState(setPropType, "commercial");
+                //   navigate(
+                //     `/${language}/result/${radio || ""}/commercial/${
+                //       newBuild !== "on" ? "newBuilding" : ""
+                //     }`
+                //   );
+                // }}
                 text={t("commercial")}
                 checked={propType === "commercial"}
               />
@@ -316,22 +338,16 @@ export const Sider = ({ open, setOpen }) => {
           <div className="sider__block">
             <Checkbox
               onChange={(e) => {
-                dispatch(setPage("result"));
-                dispatch(setPaginatePage("1"));
-                // navigate(location.pathname);
-                e.target.checked
-                  ? navigate(
-                      `/${language}/result/${radio || ""}/${
-                        propType || ""
-                      }/newBuilding`
-                    )
-                  : navigate(
-                      `/${language}/result/${radio || ""}/${propType || ""}`
-                    );
-                setNewBuild(e.target.checked ? true : "on");
-                setTimeout(() => {
-                  window.scrollTo(0, 0);
-                }, 1200);
+                handleSetState(setNewBuild, e.target.checked ? true : "on");
+                // e.target.checked
+                //   ? navigate(
+                //       `/${language}/result/${radio || ""}/${
+                //         propType || ""
+                //       }/newBuilding`
+                //     )
+                //   : navigate(
+                //       `/${language}/result/${radio || ""}/${propType || ""}`
+                //     );
               }}
               text={t("new_build")}
               checked={newBuild === true}
