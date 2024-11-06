@@ -111,7 +111,7 @@ export function formatUrl(text) {
     .replace(/-+/g, '-');
 }
 
-// 
+// sider get community from url
 export const getCommunityFromUrl = (commune, communityEn) => {
   const communeArray = commune ? commune?.split(",") : [];
 
@@ -125,4 +125,32 @@ export const getCommunityFromUrl = (commune, communityEn) => {
     ?.filter((id) => id !== null);
 
   return communityIds;
+};
+
+//
+export const parseUrlSegments = (params) => {
+  const validTypes = ["sale", "rent"];
+  const validProperties = ["house", "privateHouse", "commercial"];
+  const validNewbuild = "new-building";
+
+  let type = "";
+  let property = "";
+  let newbuild = "";
+  let commune = "";
+
+  const urlSegments = Object?.values(params);
+
+  urlSegments?.forEach((segment) => {
+    if (validTypes?.includes(segment) && !type) {
+      type = segment;
+    } else if (validProperties?.includes(segment) && !property) {
+      property = segment;
+    } else if (segment === validNewbuild && !newbuild) {
+      newbuild = segment;
+    } else if (segment && !commune) {
+      commune = segment;
+    }
+  });
+
+  return { type, property, newbuild, commune };
 };

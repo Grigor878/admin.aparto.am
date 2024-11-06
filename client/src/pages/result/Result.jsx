@@ -41,12 +41,9 @@ const Result = () => {
   }, [map, mobile]);
 
   const handlePageChange = (page) => {
+    
     dispatch(setPage("result"));
-    // setParams(page);
     dispatch(setPaginatePage(page));
-
-    // page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
-    // navigate(`${location.pathname}?${searchParams.toString()}`);
     setParams({ page: page === 1 ? null : page });
 
     setTimeout(() => {

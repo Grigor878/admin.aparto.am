@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { filterClose } from "../../../../assets/svgs/svgs";
 import { Radio } from "../inputs/radio";
@@ -19,6 +14,7 @@ import {
   propConditionAm,
   propConditionEn,
   propConditionRu,
+  urlCommunity,
 } from "./data";
 import { MultiSelect } from "../inputs/multiSelect";
 import { RoomSelect } from "../inputs/roomSelect";
@@ -36,15 +32,16 @@ import { useSessionState } from "../../../../hooks/useSessionState";
 import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
+import {
+  getCommunityFromUrl,
+  parseUrlSegments,
+} from "../../../../helpers/formatters";
 import "./Sider.scss";
-import { getCommunityFromUrl } from "../../../../helpers/formatters";
 
 export const Sider = ({ open, setOpen }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const location = useLocation();
 
   const { transactionType, propertyType, room, price, language } = useSelector(
     (state) => state.home
@@ -59,15 +56,9 @@ export const Sider = ({ open, setOpen }) => {
   } = useSelector((state) => state.view);
 
   // search parametrs
-  const { type, property, newbuild, commune } = useParams();
-  const [pageParam] = useQueryParams(["page"]);
-  const communityIds = getCommunityFromUrl(commune, communityEn);
-
-  console.log("Type:", type);
-  console.log("Property:", property);
-  console.log("New Build:", newbuild);
-  console.log("Commune:", commune);
-  //
+  const params = useParams();
+  const { type, property, newbuild, commune } = parseUrlSegments(params);
+  const [pageParam, setPageParam] = useQueryParams(["page"]);
 
   const [radio, setRadio] = useState(type ? type : transactionType); //done
   const [propType, setPropType] = useState(
@@ -77,7 +68,9 @@ export const Sider = ({ open, setOpen }) => {
     newbuild === "new-building" ? true : "on"
   ); // done
   const [community, setCommunity] = useState(
-    searchedCommunities?.length ? searchedCommunities : communityIds
+    searchedCommunities?.length && !commune
+      ? searchedCommunities
+      : getCommunityFromUrl(commune, urlCommunity)
   ); // done
 
   const [streets, setStreets] = useState(
@@ -104,10 +97,11 @@ export const Sider = ({ open, setOpen }) => {
   const handleUpdate = (e, setState, id) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
-    navigate(location.pathname);
+    // navigate(location.pathname);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
+
     if (e.target.checked) {
       setState((prev) => [...prev, id]);
     } else {
@@ -123,8 +117,6 @@ export const Sider = ({ open, setOpen }) => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
-    //
-    // navigate(`/${language}/result/${value}`)
   };
 
   const clearSearch = () => {
@@ -139,7 +131,10 @@ export const Sider = ({ open, setOpen }) => {
     // sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
 
+    setPageParam({ page: null });
+
     dispatch(setPage("result"));
+    dispatch(setPaginatePage(1));
     dispatch(clearHomeSearchInfo());
 
     setCommunity([]);
@@ -167,27 +162,16 @@ export const Sider = ({ open, setOpen }) => {
   const buildUrl = () => {
     let urlParts = [`/${language}/result`];
 
-    if (radio) {
-      urlParts.push(radio);
-    }
-    if (propType) {
-      urlParts.push(propType);
-    }
-    if (newBuild === true) {
-      urlParts.push("new-building");
-    }
-    if (community) {
-      const matchedValues = communityEn
-        ?.filter((item) => community?.includes(item.id) && item.id !== 15)
-        ?.map((item) => item.value.toLowerCase());
-
-      urlParts.push(matchedValues);
-    }
-
-    // Add the page parameter to the URL
-    if (pageParam) {
-      urlParts.push(`?page=${pageParam}`);
-    }
+    radio && urlParts.push(radio);
+    propType && urlParts.push(propType);
+    newBuild === true && urlParts.push("new-building");
+    community &&
+      urlParts.push(
+        urlCommunity
+          ?.filter((item) => community?.includes(item.id) && item.id !== 15)
+          ?.map((item) => item.value.toLowerCase())
+      );
+    pageParam && urlParts.push(`?page=${pageParam}`);
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
   };
@@ -195,6 +179,7 @@ export const Sider = ({ open, setOpen }) => {
   useEffect(() => {
     const url = buildUrl();
     navigate(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radio, propType, newBuild, community]);
 
   useEffect(() => {
@@ -221,7 +206,7 @@ export const Sider = ({ open, setOpen }) => {
       floorMax: floorMax,
       description: description,
       id: id,
-      page: pageParam || paginatePage,
+      page: Number(pageParam) || paginatePage,
       perPage: perPage,
     };
 
@@ -284,28 +269,12 @@ export const Sider = ({ open, setOpen }) => {
                 text={t("sale")}
                 checked={radio === "sale"}
                 onChange={() => handleSetState(setRadio, "sale")}
-                // onChange={() => {
-                //   handleSetState(setRadio, "sale");
-                //   navigate(
-                //     `/${language}/result/sale/${propType || ""}/${
-                //       newBuild !== "on" ? "newBuilding" : ""
-                //     }`
-                //   );
-                // }}
               />
               <Radio
                 id="result_radio"
                 text={t("rent")}
                 checked={radio === "rent"}
                 onChange={() => handleSetState(setRadio, "rent")}
-                // onChange={() => {
-                //   handleSetState(setRadio, "rent");
-                //   navigate(
-                //     `/${language}/result/rent/${propType || ""}/${
-                //       newBuild !== "on" ? "newBuilding" : ""
-                //     }`
-                //   );
-                // }}
               />
             </div>
           </div>
@@ -317,42 +286,18 @@ export const Sider = ({ open, setOpen }) => {
               <Radio
                 id="type_radio"
                 onChange={() => handleSetState(setPropType, "house")}
-                // onChange={() => {
-                //   handleSetState(setPropType, "house");
-                //   navigate(
-                //     `/${language}/result/${radio || ""}/house/${
-                //       newBuild !== "on" ? "newBuilding" : ""
-                //     }`
-                //   );
-                // }}
                 text={t("house")}
                 checked={propType === "house"}
               />
               <Radio
                 id="type_radio"
                 onChange={() => handleSetState(setPropType, "privateHouse")}
-                // onChange={() => {
-                //   handleSetState(setPropType, "privateHouse");
-                //   navigate(
-                //     `/${language}/result/${radio || ""}/privateHouse/${
-                //       newBuild !== "on" ? "newBuilding" : ""
-                //     }`
-                //   );
-                // }}
                 text={t("private_house")}
                 checked={propType === "privateHouse"}
               />
               <Radio
                 id="type_radio"
                 onChange={() => handleSetState(setPropType, "commercial")}
-                // onChange={() => {
-                //   handleSetState(setPropType, "commercial");
-                //   navigate(
-                //     `/${language}/result/${radio || ""}/commercial/${
-                //       newBuild !== "on" ? "newBuilding" : ""
-                //     }`
-                //   );
-                // }}
                 text={t("commercial")}
                 checked={propType === "commercial"}
               />
@@ -361,18 +306,9 @@ export const Sider = ({ open, setOpen }) => {
 
           <div className="sider__block">
             <Checkbox
-              onChange={(e) => {
-                handleSetState(setNewBuild, e.target.checked ? true : "on");
-                // e.target.checked
-                //   ? navigate(
-                //       `/${language}/result/${radio || ""}/${
-                //         propType || ""
-                //       }/newBuilding`
-                //     )
-                //   : navigate(
-                //       `/${language}/result/${radio || ""}/${propType || ""}`
-                //     );
-              }}
+              onChange={(e) =>
+                handleSetState(setNewBuild, e.target.checked ? true : "on")
+              }
               text={t("new_build")}
               checked={newBuild === true}
             />
@@ -620,3 +556,28 @@ export const Sider = ({ open, setOpen }) => {
     )
   );
 };
+
+// if (radio) {
+//   urlParts.push(radio);
+// }
+// if (propType) {
+//   urlParts.push(propType);
+// }
+// if (newBuild === true) {
+//   urlParts.push("new-building");
+// }
+// if (community) {
+//   const matchedValues = urlCommunity
+//     ?.filter((item) => community?.includes(item.id) && item.id !== 15)
+//     ?.map((item) => item.value.toLowerCase());
+//   urlParts.push(matchedValues);
+// }
+// if (pageParam) {
+//   urlParts.push(`?page=${pageParam}`);
+// }
+
+// searchedCommunities?.length
+
+// useEffect(() => {
+//   dispatch(setSearchedCommunities(getCommunityFromUrl(commune, communityEn)));
+// }, [commune, community, dispatch]);

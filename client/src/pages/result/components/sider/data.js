@@ -1,3 +1,7 @@
+export const validTypes = ["sale", "rent"];
+export const validProperties = ["house", "privateHouse", "commercial"];
+export const validNewbuild = "new-building";
+
 export const communityAm = [
   {
     id: 8,
@@ -111,6 +115,65 @@ export const communityEn = [
   {
     id: 11,
     value: "Nor Nork",
+  },
+  {
+    id: 13,
+    value: "Shengavit",
+  },
+];
+export const urlCommunity = [
+  {
+    id: 8,
+    value: "Kentron",
+  },
+  {
+    id: 3,
+    value: "Arabkir",
+  },
+  {
+    id: 2,
+    value: "Ajapnyak",
+  },
+  {
+    id: 10,
+    value: "Nork-Marash",
+  },
+  {
+    id: 12,
+    value: "Nubarashen",
+  },
+  {
+    id: 7,
+    value: "Kanaker-Zeytun",
+  },
+  {
+    id: 9,
+    value: "Malatia-Sebastia",
+  },
+  {
+    id: 14,
+    value: "Vahagni",
+  },
+  {
+    id: 15,
+    value: "Other",
+  },
+  {
+    id: 4,
+    value: "Avan",
+  },
+  {
+    id: 5,
+    value: "Davtashen",
+  },
+  {
+    id: 6,
+    value: "Erebuni",
+  },
+
+  {
+    id: 11,
+    value: "Nor-Nork",
   },
   {
     id: 13,

@@ -13,7 +13,7 @@ const initialState = {
   siderLoading: false,
   //
   page: "result",
-  paginatePage: "1",
+  paginatePage: 1,
   perPage: "15",
   //
   recomendeds: []
