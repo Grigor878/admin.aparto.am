@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 class GarbageController extends Controller
 {
 
-  public function changeRoomRequired()
+  public function addSeoPart()
   {
 
     try {
@@ -25,23 +25,143 @@ class GarbageController extends Controller
         $ru = json_decode($home->ru, true);
         $en = json_decode($home->en, true);
 
-        if ($am[3]['fields'][2]['key'] == "numberOfRooms") {
-          if($am[3]['fields'][2]['title'] == "Սենյակների քանակ*"){
-            $am[3]['fields'][2]['title'] = "Սենյակների քանակ";
-            $ru[3]['fields'][2]['title'] = "Кол-во комнат";
-            $en[3]['fields'][2]['title'] = "Number of rooms";
-            $am[3]['fields'][2]['required'] = false;
-          }
-        }
+        $am[] = [
+          'name' => "seo",
+          'title' => "SEO Configurations",
+          'added' => [],
+          "fields" => [
+            [
+              "key" => "urlSlug",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ*",
+              "placeholder" => "Փոփոխեք հայտարարության հղումը",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+            [
+              "key" => "title",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "description",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "altText",
+              "title" => "ALT TEXT*",
+              "placeholder" => "Գրեք նկարի alt text -ը",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+          ],
+        ];
 
-        if ($am[3]['fields'][3]['key'] == "numberOfBedrooms") {
-          if($am[3]['fields'][3]['title'] == "Ննջասենյակի քանակ*"){
-            $am[3]['fields'][3]['title'] = "Ննջասենյակի քանակ";
-            $ru[3]['fields'][3]['title'] = "Количество спален";
-            $en[3]['fields'][3]['title'] = "Number of bedrooms";
-            $am[3]['fields'][3]['required'] = false;
-          }
-        }
+        $ru[] = [
+          'name' => "seo",
+          'title' => "SEO Configurations",
+          'added' => [],
+          "fields" => [
+            [
+              "key" => "urlSlug",
+              "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ*",
+              "placeholder" => "Изменить ссылку на заявление",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+            [
+              "key" => "title",
+              "title" => "НАЗВАНИЕ ПОСТ*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "description",
+              "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "altText",
+              "title" => "ALT TEXT*",
+              "placeholder" => "Напишите альтернативный текст изображения",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+          ],
+        ];
+
+        $en[] =       [
+          'name' => "seo",
+          'title' => "SEO Configurations",
+          'added' => [],
+          "fields" => [
+            [
+              "key" => "urlSlug",
+              "title" => "ANNOUNCEMENT LINK*",
+              "placeholder" => "Change the statement link",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+            [
+              "key" => "title",
+              "title" => "POST TITLE*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "description",
+              "title" => "STATEMENT DESCRIPTION*",
+              "type" => "text",
+              "style" => "629px",
+              "required" => true,
+              "value" => '',
+              "allAnswers" => [],
+              "option" => []
+            ],
+            [
+              "key" => "altText",
+              "title" => "ALT TEXT*",
+              "placeholder" => "Write the image's alt text",
+              "type" => "inputText",
+              "style" => "412px",
+              "required" => true,
+              "value" => '',
+            ],
+          ],
+        ];
        
        
         $home->am = json_encode($am);
@@ -1949,6 +2069,51 @@ class GarbageController extends Controller
           ],
         ],
       ],
+      [
+        'name' => "seo",
+        'title' => "SEO Configurations",
+        'added' => [],
+        "fields" => [
+          [
+            "key" => "urlSlug",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ*",
+            "placeholder" => "Փոփոխեք հայտարարության հղումը",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
+          ],
+          [
+            "key" => "title",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "description",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "altText",
+            "title" => "ALT TEXT*",
+            "placeholder" => "Գրեք նկարի alt text -ը",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
+          ],
+        ],
+      ],
     ]);
     $form->ru = json_encode([
       [
@@ -2709,6 +2874,51 @@ class GarbageController extends Controller
           ],
         ],
       ],
+      [
+        'name' => "seo",
+        'title' => "SEO Configurations",
+        'added' => [],
+        "fields" => [
+          [
+            "key" => "urlSlug",
+            "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ*",
+            "placeholder" => "Изменить ссылку на заявление",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
+          ],
+          [
+            "key" => "title",
+            "title" => "НАЗВАНИЕ ПОСТ*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "description",
+            "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "altText",
+            "title" => "ALT TEXT*",
+            "placeholder" => "Напишите альтернативный текст изображения",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
+          ],
+        ],
+      ],
     ]);
     $form->en = json_encode([
       [
@@ -3465,6 +3675,51 @@ class GarbageController extends Controller
             "value" => '',
             "option" => [],
             "id" => '',
+          ],
+        ],
+      ],
+      [
+        'name' => "seo",
+        'title' => "SEO Configurations",
+        'added' => [],
+        "fields" => [
+          [
+            "key" => "urlSlug",
+            "title" => "ANNOUNCEMENT LINK*",
+            "placeholder" => "Change the statement link",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
+          ],
+          [
+            "key" => "title",
+            "title" => "POST TITLE*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "description",
+            "title" => "STATEMENT DESCRIPTION*",
+            "type" => "text",
+            "style" => "629px",
+            "required" => true,
+            "value" => '',
+            "allAnswers" => [],
+            "option" => []
+          ],
+          [
+            "key" => "altText",
+            "title" => "ALT TEXT*",
+            "placeholder" => "Write the image's alt text",
+            "type" => "inputText",
+            "style" => "412px",
+            "required" => true,
+            "value" => '',
           ],
         ],
       ],
