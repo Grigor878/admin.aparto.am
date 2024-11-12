@@ -74,9 +74,10 @@ export const Sider = ({ open, setOpen }) => {
       : getDataFromUrl(commune, urlCommunity)
   ); // done
   const [streets, setStreets] = useState(
-    searchedAddresses?.length && !street
-      ? searchedAddresses
-      : getDataFromUrl(street, urlStreets)
+    searchedAddresses?.length ? searchedAddresses : []
+    // searchedAddresses?.length && !street
+    //   ? searchedAddresses
+    //   : getDataFromUrl(street, urlStreets)
   ); // done
 
   const [priceMax, setPriceMax] = useState(price);
@@ -174,14 +175,14 @@ export const Sider = ({ open, setOpen }) => {
           ?.filter((item) => community?.includes(item.id) && item.id !== 15)
           ?.map((item) => item.value.toLowerCase())
       );
-    streets &&
-      urlParts.push(
-        urlStreets
-          ?.filter((item) => community?.includes(item.id))
-          ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
-          // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
-          // .join(",")
-      );
+    // streets &&
+    //   urlParts.push(
+    //     urlStreets
+    //       ?.filter((item) => community?.includes(item.id))
+    //       ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
+    //       // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
+    //       // .join(",")
+    //   );
 
     pageParam && urlParts.push(`?page=${pageParam}`);
 
@@ -192,7 +193,7 @@ export const Sider = ({ open, setOpen }) => {
     const url = buildUrl();
     navigate(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [radio, propType, newBuild, community, streets]);
+  }, [radio, propType, newBuild, community]);
 
   useEffect(() => {
     const debouncedSearch = debounce((searchData) => {
