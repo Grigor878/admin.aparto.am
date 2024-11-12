@@ -106,25 +106,28 @@ export function formatUrl(text) {
   return text
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-()]+/g, '')
-    .replace(/-+/g, '-');
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-()]+/g, "")
+    .replace(/-+/g, "-");
 }
 
-// sider get community from url
-export const getCommunityFromUrl = (commune, communityEn) => {
-  const communeArray = commune ? commune?.split(",") : [];
+// sider get community and streets from url
+export const getDataFromUrl = (urlData, data) => {
+  console.log(urlData);
+  console.log(data);
+  
+  const array = urlData ? urlData?.split(",") : [];
 
-  const communityIds = communeArray
-    ?.map((communeValue) => {
-      const match = communityEn?.find(
-        (item) => item?.value?.toLowerCase() === communeValue?.toLowerCase()
+  const ids = array
+    ?.map((value) => {
+      const match = data?.find(
+        (item) => item?.value?.toLowerCase() === value?.toLowerCase()
       );
       return match ? match?.id : null;
     })
     ?.filter((id) => id !== null);
 
-  return communityIds;
+  return ids;
 };
 
 //
@@ -137,6 +140,7 @@ export const parseUrlSegments = (params) => {
   let property = "";
   let newbuild = "";
   let commune = "";
+  let street = "";
 
   const urlSegments = Object?.values(params);
 
@@ -149,8 +153,10 @@ export const parseUrlSegments = (params) => {
       newbuild = segment;
     } else if (segment && !commune) {
       commune = segment;
+    } else if (segment && !street) {
+      street = segment;
     }
   });
 
-  return { type, property, newbuild, commune };
+  return { type, property, newbuild, commune, street };
 };

@@ -35,7 +35,7 @@ const AddProperties = () => {
 
     const { structure, yandex } = useSelector((state) => state.property)
     const center = structure?.slice(0, 9)
-    const right = structure?.slice(9, 12)
+    const right = structure?.slice(9, 13)
 
     // const { role, id } = useSelector((state => state.userGlobal.userGlobal))
     const { userGlobal } = useSelector((state => state.userGlobal))
@@ -308,50 +308,60 @@ const AddProperties = () => {
                                                             required={required}
                                                             onChange={(e) => addProp(e, name)}
                                                         />
-                                                        : type === "inputNumber"
-                                                            ? <InputNum
+                                                        : type === "text"
+                                                            ? <LngPart
                                                                 id={key}
                                                                 title={title}
-                                                                placeholder="Ex."
                                                                 style={style}
                                                                 required={required}
-                                                                onChange={(e) => addProp(e, name)}
+                                                                setIsCompleted={setIsCompleted}
+                                                                onChange={(e) => addProp(e, name, type)}
                                                             />
-                                                            : type === "inputText"
-                                                                ? <InputText
+                                                            : type === "inputNumber"
+                                                                ? <InputNum
                                                                     id={key}
                                                                     title={title}
-                                                                    placeholder={placeholder}
-                                                                    height={height}
-                                                                    style={style}
+                                                                    placeholder="Ex."
+                                                                    // style={style}
+                                                                    style={"412px"}
                                                                     required={required}
                                                                     onChange={(e) => addProp(e, name)}
                                                                 />
-                                                                : type === "addField"
-                                                                    ? <AddOwner
-                                                                        data={option}
+                                                                : type === "inputText"
+                                                                    ? <InputText
+                                                                        id={key}
+                                                                        title={title}
+                                                                        placeholder={placeholder}
+                                                                        height={height}
+                                                                        style={style}
+                                                                        required={required}
                                                                         onChange={(e) => addProp(e, name)}
                                                                     />
-                                                                    : type === "uploadFile"
-                                                                        ? <FileUpload />
-                                                                        : type === "agentSelect"
-                                                                            ? <AgentSelect
-                                                                                id={key}
-                                                                                title={title}
-                                                                                value={userGlobal?.id} //
-                                                                                style={style}
-                                                                                required={required}
-                                                                                onChange={(e) => addProp(e, name)}
-                                                                            />
-                                                                            : type === "managerSelect"
-                                                                                ? <ManagerSelect
+                                                                    : type === "addField"
+                                                                        ? <AddOwner
+                                                                            data={option}
+                                                                            onChange={(e) => addProp(e, name)}
+                                                                        />
+                                                                        : type === "uploadFile"
+                                                                            ? <FileUpload />
+                                                                            : type === "agentSelect"
+                                                                                ? <AgentSelect
                                                                                     id={key}
                                                                                     title={title}
+                                                                                    value={userGlobal?.id} //
                                                                                     style={style}
                                                                                     required={required}
                                                                                     onChange={(e) => addProp(e, name)}
                                                                                 />
-                                                                                : null
+                                                                                : type === "managerSelect"
+                                                                                    ? <ManagerSelect
+                                                                                        id={key}
+                                                                                        title={title}
+                                                                                        style={style}
+                                                                                        required={required}
+                                                                                        onChange={(e) => addProp(e, name)}
+                                                                                    />
+                                                                                    : null
                                                     }
                                                 </div>
                                             )

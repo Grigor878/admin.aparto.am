@@ -44,7 +44,7 @@ const EditProperties = () => {
     const currentPropertyImgs = editSingleData?.photo
 
     const center = currentPropertyData?.slice(0, 9)
-    const right = currentPropertyData?.slice(9, 12)
+    const right = currentPropertyData?.slice(9, 13)
 
     const [loading, setLoading] = useState(false)
     const [editProperty, setEditProperty] = useState('')
@@ -92,7 +92,7 @@ const EditProperties = () => {
 
     //
     const payment = editSingleData?.am[2]?.fields[4]?.value || editProperty?.price?.paymentMethod
-    const numberOfRooms = editSingleData?.am[3]?.fields[2]?.value || editProperty?.houseDescription?.numberOfRooms 
+    const numberOfRooms = editSingleData?.am[3]?.fields[2]?.value || editProperty?.houseDescription?.numberOfRooms
     const numberOfBedrooms = editSingleData?.am[3]?.fields[3]?.value || editProperty?.houseDescription?.numberOfBedrooms
     const numberOfBathrooms = editSingleData?.am[3]?.fields[4]?.value || editProperty?.houseDescription?.numberOfBathrooms
     //
@@ -291,7 +291,7 @@ const EditProperties = () => {
                                         key={name}
                                         title={title}
                                         width="460px"
-                                        child={fields.map(({ id, key, title, type, option, value, style, required, height, placeholder }) => {
+                                        child={fields.map(({ id, key, title, type, option, value, allAnswers, style, required, height, placeholder }) => {
                                             return (
                                                 <div key={key}>
                                                     {type === "select"
@@ -304,47 +304,48 @@ const EditProperties = () => {
                                                             required={required}
                                                             onChange={(e) => editProp(e, name)}
                                                         />
-                                                        : type === "inputNumber"
-                                                            ? <InputNum
+                                                        : type === "text"
+                                                            ? <LngPartEdit
                                                                 id={key}
                                                                 title={title}
-                                                                value={value}
-                                                                placeholder="Ex."
-                                                                style={style}
+                                                                value={allAnswers}
+                                                                // style={style}
+                                                                style={"412px"}
                                                                 required={required}
-                                                                onChange={(e) => editProp(e, name)}
+                                                                onChange={(e) => editProp(e, name, type)}
                                                             />
-                                                            : type === "inputText"
-                                                                ? <InputText
+                                                            : type === "inputNumber"
+                                                                ? <InputNum
                                                                     id={key}
                                                                     title={title}
                                                                     value={value}
-                                                                    placeholder={placeholder}
-                                                                    height={height}
+                                                                    placeholder="Ex."
                                                                     style={style}
                                                                     required={required}
                                                                     onChange={(e) => editProp(e, name)}
                                                                 />
-                                                                : type === "addField"
-                                                                    ? <EditOwner
-                                                                        data={option}
+                                                                : type === "inputText"
+                                                                    ? <InputText
+                                                                        id={key}
+                                                                        title={title}
+                                                                        value={value}
+                                                                        placeholder={placeholder}
+                                                                        height={height}
+                                                                        style={style}
+                                                                        required={required}
                                                                         onChange={(e) => editProp(e, name)}
                                                                     />
-                                                                    : type === "uploadFile"
-                                                                        ? <FileUpload
-                                                                            value={currentPropertyFiles}
+                                                                    : type === "addField"
+                                                                        ? <EditOwner
+                                                                            data={option}
+                                                                            onChange={(e) => editProp(e, name)}
                                                                         />
-                                                                        : type === "agentSelect"
-                                                                            ? <AgentSelect
-                                                                                id={key}
-                                                                                title={title}
-                                                                                value={id}//
-                                                                                style={style}
-                                                                                required={required}
-                                                                                onChange={(e) => editProp(e, name)}
+                                                                        : type === "uploadFile"
+                                                                            ? <FileUpload
+                                                                                value={currentPropertyFiles}
                                                                             />
-                                                                            : type === "managerSelect"
-                                                                                ? <ManagerSelect
+                                                                            : type === "agentSelect"
+                                                                                ? <AgentSelect
                                                                                     id={key}
                                                                                     title={title}
                                                                                     value={id}//
@@ -352,7 +353,16 @@ const EditProperties = () => {
                                                                                     required={required}
                                                                                     onChange={(e) => editProp(e, name)}
                                                                                 />
-                                                                                : null
+                                                                                : type === "managerSelect"
+                                                                                    ? <ManagerSelect
+                                                                                        id={key}
+                                                                                        title={title}
+                                                                                        value={id}//
+                                                                                        style={style}
+                                                                                        required={required}
+                                                                                        onChange={(e) => editProp(e, name)}
+                                                                                    />
+                                                                                    : null
                                                     }
                                                 </div>
                                             )
