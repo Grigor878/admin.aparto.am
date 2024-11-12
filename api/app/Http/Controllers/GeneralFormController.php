@@ -73,9 +73,10 @@ class GeneralFormController extends Controller
 
     public function getFormStructure() {
       $form = GlobalForm::findorFail(1);
-      $form->am = json_decode($form->am);
+      $am = json_decode($form->am, true);
+      unset($am[12]);
 
-      return response()->json($form->am);
+      return response()->json($am);
     }
 
     public function addGlobalFormField(Request $request) {
