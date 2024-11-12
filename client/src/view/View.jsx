@@ -87,6 +87,7 @@ const View = () => {
         <Route path={`/${language}`} element={<LayoutMain />}>
           <Route index element={<Home />} />
           <Route
+            // path="result/:type?/:property?/:newbuild?/:commune?/:street?"
             path="result/:type?/:property?/:newbuild?/:commune?"
             element={<Result />}
           />
