@@ -243,14 +243,18 @@ class InterFaceService
     {
         $searchHomeArray = [];
 
-        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")
+            ->take(20)
+            ->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($lang, &$searchHomeArray) {
                 $home = $this->processHomeData($home);
 
                 if ($home->am[0]->fields[0]->selectedOptionName == "sale") {
-                    $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
+                    $prepareData =$this->mapSearchHomeDetail($home, $lang);
+                    $prepareData['photo'] = Arr::get($prepareData, 'photo.0', '');
+                    $searchHomeArray[] = $prepareData;
                     return true;
                 }
                 return false;
@@ -273,7 +277,9 @@ class InterFaceService
                 $home = $this->processHomeData($home);
 
                 if ($home->am[0]->fields[0]->selectedOptionName == "rent") {
-                    $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
+                    $prepareData = $this->mapSearchHomeDetail($home, $lang);
+                    $prepareData['photo'] = Arr::get($prepareData, 'photo.0', '');
+                    $searchHomeArray[] = $prepareData;
                     return true;
                 }
 
@@ -349,11 +355,11 @@ class InterFaceService
         }
 
         try {
-            Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+            Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")
+                ->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
                 ->where('status', Home::STATUS_APPROVED)
                 ->get()->filter(function ($home) use ($addresses, $data, $allCommunities, $lang, $allStreets, &$searchHomeArray, &$getKeyWords, $rooms) {
                     $home = $this->processHomeData($home);
-
                     $isMatched = true;
 
                     if ($data['searchData'][0]['type']) {
@@ -952,7 +958,9 @@ class InterFaceService
                 }
 
                 if ($isMatched) {
-                    $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
+                    $prepareData = $this->mapSearchHomeDetail($home, $lang);
+                    $prepareData['photo'] = Arr::get($prepareData, 'photo.0', '');
+                    $searchHomeArray[] = $prepareData;
                 }
 
                 return $isMatched;
@@ -990,11 +998,18 @@ class InterFaceService
             ->map(function ($home) use ($lang) {
                 $home = $this->processHomeData($home);
                 $home = $this->mapSearchHomeDetail($home, $lang);
-                $home['photo'] = $home['photo'][0];
+                $home['photo'] = Arr::get($home['photo'], '0', '');;
                 return $home;
             });
 
     }
+
+    // public function getFirstVisiblePhoto($photos)
+    // {
+    //     return Arr::first($photos, function ( $value,  $key) {
+    //         return filter_var($value['visible'], FILTER_VALIDATE_BOOLEAN);
+    //     });
+    // }
 
 
 
