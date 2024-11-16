@@ -322,8 +322,8 @@ const AddProperties = () => {
                                                                     id={key}
                                                                     title={title}
                                                                     placeholder="Ex."
-                                                                    // style={style}
-                                                                    style={"412px"}
+                                                                    style={style}
+                                                                    // style={"412px"}
                                                                     required={required}
                                                                     onChange={(e) => addProp(e, name)}
                                                                 />

@@ -60,8 +60,8 @@ export const PropCard = ({ data }) => {
                   <div className="propCard__card-img">
                     <img
                       src={
-                        photo?.length
-                          ? `${API_BASE_URL}/images/${photo[0]} `
+                        photo
+                         ? `${API_BASE_URL}/images/${photo}`
                           : noImg
                       }
                       alt="HomeImg"
@@ -147,14 +147,14 @@ export const PropCard = ({ data }) => {
                 key={id}
                 // to={`/${i18n.language}/result/${id}`}
                 to={`/${i18n.language}/${id}`}
-                onClick={()=>dispatch(clearResulById())}
+                onClick={() => dispatch(clearResulById())}
                 className="propCardResult__card"
               >
                 <div className="propCardResult__card-img">
                   <img
                     src={
-                      photo?.length
-                        ? `${API_BASE_URL}/images/${photo[0]} `
+                      photo
+                        ? `${API_BASE_URL}/images/${photo}`
                         : noImg
                     }
                     alt="HomeImg"

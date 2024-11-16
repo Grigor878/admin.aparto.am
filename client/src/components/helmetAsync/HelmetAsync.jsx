@@ -2,17 +2,17 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import logo from "../../assets/imgs/logo.png";
 
-const HelmetAsync = ({ title, description, image }) => {
+const HelmetAsync = ({ title, description, image, alt, url }) => {
   const { t, i18n } = useTranslation();
 
   const name = "Aparto.am";
   const lang = i18n.language;
 
-  const _image = image || logo;
-  // const _title = title ? `${name} | ${t(title)}` : name;
-  const _title =  t(title || "main_title_seo");
+  const _title = t(title || "main_title_seo");
   const _description = t(description);
-  const _url = typeof window !== "undefined" ? window.location.href : "";
+  const _image = image || logo;
+  const _alt = alt || "image"
+  const _url = url || typeof window !== "undefined" ? window.location.href : "";
 
   return (
     <HelmetProvider>
@@ -26,7 +26,7 @@ const HelmetAsync = ({ title, description, image }) => {
         <meta property="og:image:secure_url" content={_image} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="image" />
+        <meta property="og:image:alt" content={_alt} />
         <meta property="og:title" content={_title} />
         <meta property="og:description" content={_description} />
         <meta property="og:url" content={_url} />

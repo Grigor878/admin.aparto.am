@@ -16,18 +16,23 @@ const initialState = {
   paginatePage: 1,
   perPage: "15",
   //
-  recomendeds: []
+  recomendeds: [],
 };
 
 // get single property data
-export const getViewData = createAsyncThunk("view", async (id) => {
-  try {
-    const { data } = await baseApi.get(`/api/getInterfaceProperties/${id}`);
-    return data;
-  } catch (err) {
-    console.log(`Get Single Property Data Error: ${err.message}`);
+export const getViewData = createAsyncThunk(
+  "view",
+  async ({ language, id }) => {
+    try {
+      const { data } = await baseApi.get(
+        `/api/getInterfaceProperties/${language}/${id}`
+      );
+      return data;
+    } catch (err) {
+      console.log(`Get Single Property Data Error: ${err.message}`);
+    }
   }
-});
+);
 
 // get streets by community
 export const getCommunityData = createAsyncThunk(
@@ -80,14 +85,16 @@ export const getResultPageData = createAsyncThunk(
 // get recomendeds by community
 export const getRecomendeds = createAsyncThunk(
   "view/getRecomendeds",
-  async ({ searchData, language }) => {
+  async ({ language, id }) => {
     try {
-      const { data } = await baseApi.post(`api/getSearchData/${language}`, {
-        searchData,
-      });
+      const { data } = await baseApi.get(
+        `api/getRecomendeds/${language}/${id}`
+      );
+      console.log(data);
+      
       return data;
     } catch (err) {
-      console.log(`Post Search Data Error: ${err.message}`);
+      console.log(`Get recomendeds Error: ${err.message}`);
     }
   }
 );
@@ -170,7 +177,7 @@ const viewSlice = createSlice({
       })
       //
       .addCase(getRecomendeds.fulfilled, (state, action) => {
-        state.recomendeds = action.payload?.data?.data;
+        state.recomendeds = action.payload;
       });
   },
 });

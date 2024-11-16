@@ -309,8 +309,8 @@ const EditProperties = () => {
                                                                 id={key}
                                                                 title={title}
                                                                 value={allAnswers}
-                                                                // style={style}
-                                                                style={"412px"}
+                                                                style={style}
+                                                                // style={"412px"}
                                                                 required={required}
                                                                 onChange={(e) => editProp(e, name, type)}
                                                             />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getViewData } from "../../store/slices/viewSlice";
+import { getRecomendeds, getViewData } from "../../store/slices/viewSlice";
 import {
   balcony,
   buildType,
@@ -36,8 +36,9 @@ import ReactPlayer from "react-player";
 import { getAdminData } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
-import "./Styles.scss";
 import { API_BASE_URL } from "../../services/api/config";
+import "./Styles.scss";
+import { PropCard } from "../../components/propCard/PropCard";
 
 const ResultById = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const ResultById = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { admin } = useSelector((state) => state.home);
-  const { data, loading } = useSelector((state) => state.view);
+  const { data, loading, recomendeds } = useSelector((state) => state.view);
   const { language, size, exchange, exchangeValue } = useSelector(
     (state) => state.home
   );
@@ -53,8 +54,8 @@ const ResultById = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getViewData(id));
-  }, [dispatch, id]);
+    dispatch(getViewData({ language, id }));
+  }, [dispatch, id, language]);
 
   useEffect(() => {
     if (data["en"] && data["en"][0]?.fields[2]?.value) {
@@ -69,10 +70,6 @@ const ResultById = () => {
     dispatch(getAdminData());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getRecomendeds({ community, language }));
-  // }, [dispatch, language]);
-
   const [open, setOpen] = useState(false);
   const [startSlideIndex, setStartSlideIndex] = useState(0);
 
@@ -85,6 +82,12 @@ const ResultById = () => {
   const adminTel = admin?.phone?.tel1;
   const adminSocial = admin?.phone?.messengers;
   const imgsShow = laptop ? 3 : 5;
+  const seo = data?.seo
+  const communityId = data?.communityId
+
+  useEffect(() => {
+    communityId && dispatch(getRecomendeds({ id: communityId, language }));
+  }, [dispatch, communityId, language]);
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,
@@ -97,9 +100,14 @@ const ResultById = () => {
     currentPropertyData && currentPropertyData?.length !== 0 && (
       <article>
         <HelmetAsync
-          title={currentPropertyData[0]?.fields[2]?.value}
-          description={currentPropertyData[0]?.fields[3]?.value}
-          image={modifiedData[0]?.img}
+          // title={currentPropertyData[0]?.fields[2]?.value}
+          // description={currentPropertyData[0]?.fields[3]?.value}
+          // image={modifiedData[0]?.img}
+          title={seo?.title}
+          description={seo?.description}
+          image={seo?.image}
+          alt={seo?.altText}
+          url={seo?.urlSlug}
         />
         <div className="contain">
           <div className="singleProperty">
@@ -191,8 +199,8 @@ const ResultById = () => {
                         ? "#2eaa50"
                         : currentPropertyData[0]?.fields[4]?.value ===
                           t("urgent")
-                        ? "#4a46f1"
-                        : "#e7e9f0",
+                          ? "#4a46f1"
+                          : "#e7e9f0",
                   }}
                 >
                   {currentPropertyData[0]?.fields[4]?.value}
@@ -211,9 +219,9 @@ const ResultById = () => {
               <div className="singleProperty__content-left">
                 <div className="singleProperty__content-left-title">
                   <div className="singleProperty__content-left-title-left">
-                    <h2 className="singleProperty__title">
+                    <h1 className="singleProperty__title">
                       {currentPropertyData[0]?.fields[2]?.value}
-                    </h2>
+                    </h1>
                     <p>
                       {location.icon}
                       {
@@ -280,15 +288,15 @@ const ResultById = () => {
                   {Number(currentPropertyData[3]?.fields[5]?.value) +
                     Number(currentPropertyData[3]?.fields[6]?.value) !==
                     0 && (
-                    <div>
-                      {balcony.icon}
-                      <p>
-                        {Number(currentPropertyData[3]?.fields[5]?.value) +
-                          Number(currentPropertyData[3]?.fields[6]?.value)}
-                      </p>{" "}
-                      {t("balcony")}
-                    </div>
-                  )}
+                      <div>
+                        {balcony.icon}
+                        <p>
+                          {Number(currentPropertyData[3]?.fields[5]?.value) +
+                            Number(currentPropertyData[3]?.fields[6]?.value)}
+                        </p>{" "}
+                        {t("balcony")}
+                      </div>
+                    )}
 
                   <div>
                     {buildType.icon}
@@ -469,7 +477,7 @@ const ResultById = () => {
 
                         {exchange === 1 &&
                           (currentPropertyData[2]?.fields[0]?.value === "" ||
-                          currentPropertyData[2]?.fields[0]?.value === "0" ? (
+                            currentPropertyData[2]?.fields[0]?.value === "0" ? (
                             <h4>
                               {t("price")}։<span>{t("contract")}</span>
                             </h4>
@@ -486,7 +494,7 @@ const ResultById = () => {
 
                         {exchange === 2 &&
                           (currentPropertyData[2]?.fields[0]?.value === "" ||
-                          currentPropertyData[2]?.fields[0]?.value === "0" ? (
+                            currentPropertyData[2]?.fields[0]?.value === "0" ? (
                             <h4>
                               {t("price")}։<span>{t("contract")}</span>
                             </h4>
@@ -505,17 +513,17 @@ const ResultById = () => {
 
                         {!currentPropertyData[2]?.fields[2]
                           ?.value ? null : exchange === 2 ? (
-                          <p>
-                            {t("first_pay")}:
-                            <span>
-                              &#1423;{" "}
-                              {amdFormater(
-                                currentPropertyData[2]?.fields[2]?.value,
-                                exchangeValue
-                              )}
-                            </span>
-                          </p>
-                        ) : (
+                            <p>
+                              {t("first_pay")}:
+                              <span>
+                                &#1423;{" "}
+                                {amdFormater(
+                                  currentPropertyData[2]?.fields[2]?.value,
+                                  exchangeValue
+                                )}
+                              </span>
+                            </p>
+                          ) : (
                           <p>
                             {t("first_pay")}:
                             <span>
@@ -528,17 +536,17 @@ const ResultById = () => {
 
                         {!currentPropertyData[2]?.fields[1]
                           ?.value ? null : exchange === 2 ? (
-                          <p>
-                            {t("sqm_price")} :
-                            <span>
-                              &#1423;{" "}
-                              {amdFormater(
-                                currentPropertyData[2]?.fields[1]?.value,
-                                exchangeValue
-                              )}
-                            </span>
-                          </p>
-                        ) : (
+                            <p>
+                              {t("sqm_price")} :
+                              <span>
+                                &#1423;{" "}
+                                {amdFormater(
+                                  currentPropertyData[2]?.fields[1]?.value,
+                                  exchangeValue
+                                )}
+                              </span>
+                            </p>
+                          ) : (
                           <p>
                             {t("sqm_price")} :
                             <span>
@@ -717,7 +725,7 @@ const ResultById = () => {
 
                     {exchange === 1 &&
                       (currentPropertyData[2]?.fields[0]?.value === "" ||
-                      currentPropertyData[2]?.fields[0]?.value === "0" ? (
+                        currentPropertyData[2]?.fields[0]?.value === "0" ? (
                         <h4>
                           {t("price")}։<span>{t("contract")}</span>
                         </h4>
@@ -734,7 +742,7 @@ const ResultById = () => {
 
                     {exchange === 2 &&
                       (currentPropertyData[2]?.fields[0]?.value === "" ||
-                      currentPropertyData[2]?.fields[0]?.value === "0" ? (
+                        currentPropertyData[2]?.fields[0]?.value === "0" ? (
                         <h4>
                           {t("price")}։<span>{t("contract")}</span>
                         </h4>
@@ -753,17 +761,17 @@ const ResultById = () => {
 
                     {!currentPropertyData[2]?.fields[2]
                       ?.value ? null : exchange === 2 ? (
-                      <p>
-                        {t("first_pay")}:
-                        <span>
-                          &#1423;{" "}
-                          {amdFormater(
-                            currentPropertyData[2]?.fields[2]?.value,
-                            exchangeValue
-                          )}
-                        </span>
-                      </p>
-                    ) : (
+                        <p>
+                          {t("first_pay")}:
+                          <span>
+                            &#1423;{" "}
+                            {amdFormater(
+                              currentPropertyData[2]?.fields[2]?.value,
+                              exchangeValue
+                            )}
+                          </span>
+                        </p>
+                      ) : (
                       <p>
                         {t("first_pay")}:
                         <span>
@@ -776,17 +784,17 @@ const ResultById = () => {
 
                     {!currentPropertyData[2]?.fields[1]
                       ?.value ? null : exchange === 2 ? (
-                      <p>
-                        {t("sqm_price")} :
-                        <span>
-                          &#1423;{" "}
-                          {amdFormater(
-                            currentPropertyData[2]?.fields[1]?.value,
-                            exchangeValue
-                          )}
-                        </span>
-                      </p>
-                    ) : (
+                        <p>
+                          {t("sqm_price")} :
+                          <span>
+                            &#1423;{" "}
+                            {amdFormater(
+                              currentPropertyData[2]?.fields[1]?.value,
+                              exchangeValue
+                            )}
+                          </span>
+                        </p>
+                      ) : (
                       <p>
                         {t("sqm_price")} :
                         <span>
@@ -929,6 +937,8 @@ const ResultById = () => {
                 </div>
               )}
             </div>
+
+            <PropCard data={recomendeds} />
           </div>
         </div>
       </article>

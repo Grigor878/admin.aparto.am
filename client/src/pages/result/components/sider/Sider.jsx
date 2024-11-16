@@ -178,10 +178,10 @@ export const Sider = ({ open, setOpen }) => {
     // streets &&
     //   urlParts.push(
     //     urlStreets
-    //       ?.filter((item) => community?.includes(item.id))
+    //       ?.filter((item) => street?.includes(item.id))
     //       ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
-    //       // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
-    //       // .join(",")
+    //     // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
+    //     // .join(",")
     //   );
 
     pageParam && urlParts.push(`?page=${pageParam}`);
