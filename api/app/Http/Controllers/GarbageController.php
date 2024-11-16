@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\GlobalForm;
 use App\Models\Home;
 use Illuminate\Support\Facades\File;
+use Str;
 
 class GarbageController extends Controller
 {
@@ -25,6 +26,14 @@ class GarbageController extends Controller
         $ru = json_decode($home->ru, true);
         $en = json_decode($home->en, true);
 
+        $enTitle = $en[0]['fields'][2]['value'];
+        $amTitle = $am[0]['fields'][2]['value'];
+        $ruTitle = $ru[0]['fields'][2]['value'];
+
+        $enDescription = $en[0]['fields'][3]['value'];
+        $amDescription = $am[0]['fields'][3]['value'];
+        $ruDescription = $ru[0]['fields'][3]['value'];
+
         $am[] = [
           'name' => "seo",
           'title' => "SEO Configurations",
@@ -32,40 +41,40 @@ class GarbageController extends Controller
           "fields" => [
             [
               "key" => "urlSlug",
-              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ*",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ",
               "placeholder" => "Փոփոխեք հայտարարության հղումը",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => Str::of($enTitle)->lower()->replace(' ', '-')->value,
             ],
             [
               "key" => "title",
-              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $amTitle ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "description",
-              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ*",
+              "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $amDescription ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "altText",
-              "title" => "ALT TEXT*",
-              "placeholder" => "Գրեք նկարի alt text -ը",
+              "title" => "ALT TEXT",
+              "placeholder" => "Գրեք գլխավոր նկարի alt text-ը",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
+              "required" => false,
               "value" => '',
             ],
           ],
@@ -78,40 +87,40 @@ class GarbageController extends Controller
           "fields" => [
             [
               "key" => "urlSlug",
-              "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ*",
+              "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ",
               "placeholder" => "Изменить ссылку на заявление",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => Str::of($enTitle)->lower()->replace(' ', '-')->value,
             ],
             [
               "key" => "title",
-              "title" => "НАЗВАНИЕ ПОСТ*",
+              "title" => "НАЗВАНИЕ ПОСТ",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $ruTitle ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "description",
-              "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ*",
+              "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $ruDescription ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "altText",
-              "title" => "ALT TEXT*",
+              "title" => "ALT TEXT",
               "placeholder" => "Напишите альтернативный текст изображения",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
+              "required" => false,
               "value" => '',
             ],
           ],
@@ -124,45 +133,49 @@ class GarbageController extends Controller
           "fields" => [
             [
               "key" => "urlSlug",
-              "title" => "ANNOUNCEMENT LINK*",
+              "title" => "ANNOUNCEMENT LINK",
               "placeholder" => "Change the statement link",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => Str::of($enTitle)->lower()->replace(' ', '-')->value,
             ],
             [
               "key" => "title",
-              "title" => "POST TITLE*",
+              "title" => "POST TITLE",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $enTitle ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "description",
-              "title" => "STATEMENT DESCRIPTION*",
+              "title" => "STATEMENT DESCRIPTION",
               "type" => "text",
               "style" => "412px",
-              "required" => true,
-              "value" => '',
+              "required" => false,
+              "value" => $enDescription ?? '',
               "allAnswers" => [],
               "option" => []
             ],
             [
               "key" => "altText",
-              "title" => "ALT TEXT*",
+              "title" => "ALT TEXT",
               "placeholder" => "Write the image's alt text",
               "type" => "inputText",
               "style" => "412px",
-              "required" => true,
+              "required" => false,
               "value" => '',
             ],
           ],
         ];
-       
+
+
+      //  unset($am[12]);
+      //  unset($ru[12]);
+      //  unset($en[12]);
        
         $home->am = json_encode($am);
         $home->ru = json_encode($ru);
@@ -2076,40 +2089,40 @@ class GarbageController extends Controller
         "fields" => [
           [
             "key" => "urlSlug",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ*",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՀՂՈՒՄ",
             "placeholder" => "Փոփոխեք հայտարարության հղումը",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
           [
             "key" => "title",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ*",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՎԵՐՆԱԳԻՐ",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "description",
-            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ*",
+            "title" => "ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ՆԿԱՐԱԳԻՐ",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "altText",
-            "title" => "ALT TEXT*",
+            "title" => "ALT TEXT",
             "placeholder" => "Գրեք նկարի alt text -ը",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
         ],
@@ -2881,40 +2894,40 @@ class GarbageController extends Controller
         "fields" => [
           [
             "key" => "urlSlug",
-            "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ*",
+            "title" => "ССЫЛКА НА ОБЪЯВЛЕНИЕ",
             "placeholder" => "Изменить ссылку на заявление",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
           [
             "key" => "title",
-            "title" => "НАЗВАНИЕ ПОСТ*",
+            "title" => "НАЗВАНИЕ ПОСТ",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "description",
-            "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ*",
+            "title" => "ОПИСАНИЕ ЗАЯВЛЕНИЯ",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "altText",
-            "title" => "ALT TEXT*",
+            "title" => "ALT TEXT",
             "placeholder" => "Напишите альтернативный текст изображения",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
         ],
@@ -3685,40 +3698,40 @@ class GarbageController extends Controller
         "fields" => [
           [
             "key" => "urlSlug",
-            "title" => "ANNOUNCEMENT LINK*",
+            "title" => "ANNOUNCEMENT LINK",
             "placeholder" => "Change the statement link",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
           [
             "key" => "title",
-            "title" => "POST TITLE*",
+            "title" => "POST TITLE",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "description",
-            "title" => "STATEMENT DESCRIPTION*",
+            "title" => "STATEMENT DESCRIPTION",
             "type" => "text",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
             "allAnswers" => [],
             "option" => []
           ],
           [
             "key" => "altText",
-            "title" => "ALT TEXT*",
+            "title" => "ALT TEXT",
             "placeholder" => "Write the image's alt text",
             "type" => "inputText",
             "style" => "412px",
-            "required" => true,
+            "required" => false,
             "value" => '',
           ],
         ],

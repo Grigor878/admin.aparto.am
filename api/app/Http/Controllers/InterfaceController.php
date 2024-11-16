@@ -68,9 +68,9 @@ class InterfaceController extends Controller
         return response()->json($getCommunitySearchData);
     }
 
-    public function getInterfaceProperties($id)
+    public function getInterfaceProperties(string $lang, int $id)
     {
-        $home = $this->interfaceService->getInterfaceProperties($id);
+        $home = $this->interfaceService->getInterfaceProperties($lang, $id);
 
         return response()->json($home);
     }

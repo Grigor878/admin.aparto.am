@@ -697,7 +697,7 @@ class InterFaceService
         return $address;
     }
 
-    public function getInterfaceProperties($id)
+    public function getInterfaceProperties($lang, $id)
     {
         $home = Home::where('status', Home::STATUS_APPROVED)
             ->orderBy('created_at', 'desc')
@@ -729,9 +729,35 @@ class InterFaceService
             $en[0]->fields[1]->value = 'Commercial';
         }
 
-        // $employee = Employe::get();
-        // Employe::getAgentMangerData($agentId, $managerId, $employee, $am, $ru, $en);
+        $firstVisiblePhotoData = Arr::first($home->photo, function ( $value,  $key) {
+            return filter_var($value->visible, FILTER_VALIDATE_BOOLEAN);
+        });
+        $seo = [];
+        switch ($lang) {
+            case 'am':
+                $seo = $am[12];
+                break;
 
+            case 'ru':
+                $seo = $ru[12];
+                break;
+
+            case 'en':
+                $seo = $en[12];
+                break;
+            default:
+                throw new \InvalidArgumentException('The lang key is invalid.');
+        }
+
+        $readySeo = [
+            'image' => env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData->name,
+            'urlSlug' => $seo->fields['0']->value,
+            'title' => $seo->fields['1']->value,
+            'description' => $seo->fields['2']->value,
+            'altText' => $seo->fields['3']->value,
+        ];
+        $home->seo = $readySeo;
+        
         $home->am = $am;
         $home->ru = $ru;
         $home->en = $en;
