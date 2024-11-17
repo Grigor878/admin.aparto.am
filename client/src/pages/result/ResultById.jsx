@@ -86,8 +86,8 @@ const ResultById = () => {
   const communityId = data?.communityId
 
   useEffect(() => {
-    communityId && dispatch(getRecomendeds({ id: communityId, language }));
-  }, [dispatch, communityId, language]);
+    communityId && dispatch(getRecomendeds({ language, id, communityId }));
+  }, [dispatch, language, id, communityId]);
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,

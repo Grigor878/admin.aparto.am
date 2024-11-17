@@ -85,13 +85,13 @@ export const getResultPageData = createAsyncThunk(
 // get recomendeds by community
 export const getRecomendeds = createAsyncThunk(
   "view/getRecomendeds",
-  async ({ language, id }) => {
+  async ({ language, id, communityId }) => {
     try {
       const { data } = await baseApi.get(
-        `api/getRecomendeds/${language}/${id}`
+        `api/getRecomendeds/${language}/${id}/${communityId}`
       );
       console.log(data);
-      
+
       return data;
     } catch (err) {
       console.log(`Get recomendeds Error: ${err.message}`);
