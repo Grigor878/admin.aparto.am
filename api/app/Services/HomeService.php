@@ -1094,7 +1094,8 @@ class HomeService
               if ($key === $globalVal->key) {
                 if ($assocCopyFormAm[$idx]->name == 'seo') {
                   if ($globalVal->key == 'urlSlug') {
-                    $existTitle = $data['announcement']['announcementTitle']['announcementTitleEn'];
+                    $existTitle = $data['announcement']['announcementTitle']['announcementTitleEn'] ??
+                    $copyGeneralFormEn[0]->fields[2]->value;
                     $urlSlug = $value
                       ? Str::slug($value)
                       : Str::slug($existTitle);
