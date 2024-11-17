@@ -40,7 +40,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/getCommunitySearch/{lang}',  [InterfaceController::class, 'getCommunitySearch']);
     Route::get('/getInterfaceProperties/{lang}/{id}',  [InterfaceController::class, 'getInterfaceProperties']);
     Route::post('/getResultPageData/{lang}',  [InterfaceController::class, 'getResultPageData']);
-    Route::get('/getRecomendeds/{lang}/{id}',  [InterfaceController::class, 'getRecomendeds']);
+    Route::get('/getRecomendeds/{lang}/{homeId}/{communityId}',  [InterfaceController::class, 'getRecomendeds']);
 
 
     

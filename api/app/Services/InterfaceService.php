@@ -988,9 +988,10 @@ class InterFaceService
         return $recentSearch;
     }
 
-    public function getRecomendeds($lang, $communityId)
+    public function getRecomendeds($lang, $homeId, $communityId)
     {
         return Home::query()
+            ->where('id', '!=', $homeId)
             ->whereRaw("JSON_EXTRACT(am, '$[1].fields[0].communityId') = ?", [$communityId])
             ->orderBy('id', 'desc')
             ->limit(7)

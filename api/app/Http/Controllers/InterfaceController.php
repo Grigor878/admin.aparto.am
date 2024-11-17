@@ -90,9 +90,9 @@ class InterfaceController extends Controller
         return response()->json($search);
     }
 
-    public function getRecomendeds(string $lang, int $communityId)
+    public function getRecomendeds(string $lang, int $homeId, int $communityId)
     {
-        $search = $this->interfaceService->getRecomendeds($lang, $communityId);
+        $search = $this->interfaceService->getRecomendeds($lang, $homeId, $communityId);
 
         return response()->json($search);
     }
