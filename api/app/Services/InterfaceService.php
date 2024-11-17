@@ -426,48 +426,6 @@ class InterFaceService
                             }
                         }
 
-
-
-
-
-
-
-                        //                         $addressesIds = $allStreets->pluck('id')->toArray();
-// dd($addressesIds);
-//                         if ($addressesIds) {
-//                             if ($communityIds && in_array($home->am[1]->fields[0]->communityId, $communityIds)) {
-//                                 foreach ($addressesIds as $key => $addres) {
-    
-                        //                                     if ($home->am[1]->fields[0]->communityId == $addresses[$addres]->communityId) {
-//                                         $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
-//                                         if (!$resultStreet) {
-//                                             $isMatched = false;
-//                                         }
-//                                     }
-//                                 }
-    
-                        //                             } else {
-//                                 $resultStreet = in_array($home->am[1]->fields[0]->communityStreet->streetId, $addressesIds);
-//                                 if (!$resultStreet) {
-//                                     $isMatched = false;
-//                                 }
-//                             }
-//                         }
-    
-                        // $ourDate = [];
-                        // if ($lang == "en") {
-                        //     array_push($ourDate, strtolower($home->en[1]->fields[0]->value), $home->en[1]->fields[0]->communityStreet->value);
-                        // } elseif ($lang == "ru") {
-                        //     array_push($ourDate, strtolower($home->ru[1]->fields[0]->value), $home->ru[1]->fields[0]->communityStreet->value);
-                        // } else {
-                        //     array_push($ourDate, strtolower($home->am[1]->fields[0]->value), $home->am[1]->fields[0]->communityStreet->value);
-                        // }
-                        // $mergedArray = array_merge($ourDate, json_decode($home->keywords));
-                        // $intersection = array_intersect($mergedArray, $communityData);
-    
-                        // if (empty($intersection)) {
-                        //     $isMatched = false;
-                        // }
                     }
 
                     if ($data['searchData'][2]['propertyType']) {
@@ -500,7 +458,9 @@ class InterFaceService
                     }
 
                     if ($isMatched) {
-                        $searchHomeArray[] = $this->mapSearchHomeDetail($home, $lang);
+                        $prepareData = $this->mapSearchHomeDetail($home, $lang);
+                        $prepareData['photo'] = Arr::get($prepareData, 'photo.0', '');
+                        $searchHomeArray[] = $prepareData;
                     }
 
                     return $isMatched;
@@ -515,20 +475,6 @@ class InterFaceService
         $findAddresses = [];
         $findCommunity = [];
 
-        // foreach ($data['searchData'][1]['community'] as $key => $value) {
-        //     $result = false;
-        //     if($lang == 'am'){
-        //         $result = array_search($value, $this->communityAm);
-        //     }elseif ($lang == 'ru') {
-        //         $result = array_search($value, $this->communityRu);
-        //     }elseif ($lang == 'en') {
-        //         $result = array_search($value, $this->communityEn);
-        //     }
-
-        //     if($result){
-        //         $findCommunity[] = $result;
-        //     }
-        // }
         $allCommunityes = Community::whereIn($lang, $data['searchData'][1]['community'])->get('id')->toArray();
         foreach ($allCommunityes as $key => $community) {
             $findCommunity[] = $community['id'];
