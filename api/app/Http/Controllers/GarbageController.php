@@ -55,7 +55,11 @@ class GarbageController extends Controller
               "style" => "412px",
               "required" => false,
               "value" => $amTitle ?? '',
-              "allAnswers" => [],
+              "allAnswers" => [
+                'titleAm' => $amTitle,
+                'titleRu' => $ruTitle,
+                'titleEn' => $enTitle,
+              ],
               "option" => []
             ],
             [
@@ -65,7 +69,11 @@ class GarbageController extends Controller
               "style" => "412px",
               "required" => false,
               "value" => $amDescription ?? '',
-              "allAnswers" => [],
+              "allAnswers" => [
+                'descriptionAm' => $amDescription,
+                'descriptionRu' => $ruDescription,
+                'descriptionEn' => $enDescription,
+              ],
               "option" => []
             ],
             [

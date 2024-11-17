@@ -20,9 +20,9 @@ return new class extends Migration
             $table->text('file')->nullabe();
             $table->text('keywords')->nullabe();
             $table->string('status')->nullabe();
-            $table->text('am')->nullabe();
-            $table->text('ru')->nullabe();
-            $table->text('en')->nullabe();
+            $table->longText('am')->nullabe();
+            $table->longText('ru')->nullabe();
+            $table->longText('en')->nullabe();
             $table->timestamps();
         });
     }
