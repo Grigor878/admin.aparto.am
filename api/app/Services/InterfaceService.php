@@ -756,7 +756,7 @@ class InterFaceService
         }
 
         $readySeo = [
-            'image' => env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData->name,
+            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData->name : '',
             'urlSlug' => $seo->fields['0']->value,
             'title' => $seo->fields['1']->value,
             'description' => $seo->fields['2']->value,
