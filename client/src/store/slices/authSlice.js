@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../services/api/baseApi";
 import { error, success } from "../../components/swal/swal";
+import { getTokenFromLocalStorage } from "../../helpers/utils";
 
 const initialState = {
-  isLoggedIn: !!localStorage.getItem("token"), // Check if token exists in local storage
+  // isLoggedIn: !!localStorage.getItem("token"),
+  isLoggedIn: !!getTokenFromLocalStorage(),
   loading: false,
-  token: localStorage.getItem("token") || null,
+  token: getTokenFromLocalStorage() || null,
+  // token: localStorage.getItem("token") || null,
 };
 
 export const login = createAsyncThunk("auth", async ({ email, password }) => {

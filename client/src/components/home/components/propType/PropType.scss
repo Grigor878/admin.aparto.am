@@ -1,0 +1,50 @@
+@import "../../../../variables";
+
+.propType {
+  @include flexCol;
+  gap: 48px;
+
+  @media screen and (max-width: 768px) {
+    gap: 16px;
+  }
+
+  &__top {
+    @include flex;
+    justify-content: space-between;
+
+    h2 {
+      padding-bottom: 0 !important;
+    }
+
+    &-seeAll {
+      background: none;
+      @include flex;
+      gap: 5px;
+      color: #0f5bed;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 21px;
+      @include hoverEffect;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    &-seeAllMobile {
+      display: none;
+
+      @media screen and (max-width: 768px) {
+        background: none;
+        @include flex;
+        justify-content: flex-end;
+        gap: 5px;
+        color: #0f5bed;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 21px;
+        @include hoverEffect;
+      }
+    }
+  }
+}

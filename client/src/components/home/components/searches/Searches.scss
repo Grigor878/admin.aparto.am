@@ -1,0 +1,80 @@
+@import "../../../../variables";
+
+.searches {
+  &__row {
+    @include flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    // overflow-x: auto;
+    // width: 100%;
+    // @include transition;
+
+    // &::-webkit-scrollbar {
+    //   width: 0px !important;
+    //   height: 0px !important;
+    // }
+
+    &-mobile {
+      width: 100%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+
+      &::-webkit-scrollbar {
+        height: 0px !important;
+      }
+    }
+  }
+
+  &__col {
+    @include flex;
+    gap: 12px;
+    padding: 14px 24px;
+    height: 70px;
+    border-radius: 8px;
+    border: 1.5px solid $inputBorder;
+    background: $bgSub;
+    @include hoverEffect;
+
+
+    @media screen and (max-width: 1122px) {
+      gap: 7px;
+      padding: 7px 17px;
+      height: 60px;
+
+    }
+
+    &-context {
+      @include flexCol;
+      align-items: flex-start;
+      gap: 5px;
+
+      p {
+        color: $text;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 15px;
+        }
+      }
+
+      span {
+        @include flex;
+        color: $textSub;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        text-wrap: nowrap;
+
+        div {
+          &:not(:last-child)::after {
+            content: ", ";
+          }
+        }
+      }
+    }
+  }
+}

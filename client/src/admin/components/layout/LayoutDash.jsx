@@ -4,7 +4,6 @@ import { getUserGlobal } from "../../../store/slices/userGlobalSlice";
 import { Navigate, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
-import HelmetAdmin from "../../../components/helmetAsync/HelmetAdmin";
 import { Loader } from "../../../components/loader/Loader";
 
 const LayoutDash = () => {
@@ -23,7 +22,6 @@ const LayoutDash = () => {
   return (
     <div className="dashboard__layout">
       <Sidebar />
-      <HelmetAdmin />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

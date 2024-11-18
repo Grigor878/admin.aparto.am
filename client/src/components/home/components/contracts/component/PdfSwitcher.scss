@@ -1,0 +1,69 @@
+@import "../../../../../variables";
+
+.pdfSwitcher {
+  @include flexCol;
+  gap: 32px;
+  height: 100%;
+  padding: 32px 40px;
+  border-radius: 12px;
+  background: $bgSub;
+  box-shadow: 0px 2px 23px 0px rgba(0, 0, 0, 0.15);
+
+  @media screen and (max-width: 1122px) {
+    padding: 24px 20px;
+  }
+
+  h4 {
+    width: 266px;
+    color: $text;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  &__main {
+    @include flexCol;
+    gap: 20px;
+
+    &-lngs {
+      border-radius: 16.5px;
+      border: 1px solid $inputBorder;
+      background: $bgSub;
+      display: flex;
+      width: fit-content;
+
+      &-btn {
+        background: transparent;
+        color: $textSub;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        border-radius: 16.5px;
+        padding: 7px 20px;
+      }
+
+      &-btnActive {
+        background: $text;
+        color: $bgSub;
+        font-weight: 700;
+        line-height: 18px;
+      }
+    }
+
+    &-pdfs {
+      @include flexCol;
+      gap: 16px;
+
+      a {
+        @include flex;
+        gap: 12px;
+        color: $text;
+        width: 270px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration-line: underline;
+      }
+    }
+  }
+}

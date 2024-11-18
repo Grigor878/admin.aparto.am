@@ -10,7 +10,6 @@ import Contact from "./components/contact/Contact";
 import PropType from "./components/propType/PropType";
 import Faq from "./components/faq/Faq";
 import "./Home.scss";
-import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,9 +26,6 @@ const Home = () => {
 
   return (
     <section>
-      <HelmetAsync
-        description="main_title_seo"
-      />
       <Main />
       <div className="contain">
         <div className="home">

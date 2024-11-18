@@ -1,0 +1,88 @@
+@import "../../../../variables";
+
+.main {
+  width: 100%;
+  background: $bg;
+  padding-top: 70px;
+
+  @media screen and (max-width: 1122px) {
+    padding-top: 40px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-top: 16px;
+  }
+
+  &__context {
+    background-image: url("../../../../assets/imgs/homeMain.png");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-bottom: 76px;
+
+    @media screen and (max-width: 768px) {
+      background-image: none;
+      padding-bottom: 26px;
+    }
+
+    h1 {
+      color: $text;
+      font-size: 60px;
+      font-weight: 800;
+      line-height: 65.5px;
+      width: 770px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 50px;
+        width: 616px;
+      }
+
+      @media screen and (max-width: 768px) {
+        font-size: 32px;
+        width: 100%;
+        line-height: normal;
+      }
+    }
+
+    span {
+      color: #0f5bed;
+    }
+
+    &-about {
+      @include flex;
+      gap: 45px;
+
+      @media screen and (max-width: 768px) {
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      p {
+        color: $textSub;
+        font-family: "Archivo";
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 36px;
+        @include flex;
+        gap: 12px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 26px;
+          gap: 7px;
+        }
+      }
+
+      span {
+        color: $textSub;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+
+        @media screen and (max-width: 1122px) {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

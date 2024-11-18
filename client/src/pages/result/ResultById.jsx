@@ -35,7 +35,6 @@ import { Loader } from "../../components/loader/Loader";
 import ReactPlayer from "react-player";
 import { getAdminData } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
-import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import { API_BASE_URL } from "../../services/api/config";
 import "./Styles.scss";
 import { PropCard } from "../../components/propCard/PropCard";
@@ -99,16 +98,6 @@ const ResultById = () => {
   ) : (
     currentPropertyData && currentPropertyData?.length !== 0 && (
       <article>
-        <HelmetAsync
-          // title={currentPropertyData[0]?.fields[2]?.value}
-          // description={currentPropertyData[0]?.fields[3]?.value}
-          // image={modifiedData[0]?.img}
-          title={seo?.title}
-          description={seo?.description}
-          image={seo?.image}
-          alt={seo?.altText}
-          url={seo?.urlSlug}
-        />
         <div className="contain">
           <div className="singleProperty">
             {mobile ? (

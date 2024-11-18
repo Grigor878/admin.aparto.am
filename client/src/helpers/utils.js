@@ -30,3 +30,11 @@ export function isMainPage(pathname) {
   const languagePattern = new RegExp(`^/(${languages.join("|")})$`);
   return languagePattern.test(pathname);
 }
+
+//
+export const getTokenFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("token");
+  }
+  return null;
+};

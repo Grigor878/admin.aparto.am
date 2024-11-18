@@ -1,0 +1,47 @@
+@import "../../../../../variables";
+
+.accordion {
+  width: 100%;
+
+  &__section {
+    border-bottom: 1px solid $text;
+    padding: 24px 0;
+    @include flexCol;
+    gap: 24px;
+    cursor: pointer;
+
+    &:first-child {
+      border-top: 1px solid $text;
+    }
+
+    @media screen and (max-width: 1122px) {
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+  }
+
+  &__title {
+    color: $text;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+  }
+
+  &__content {
+    display: none;
+
+    p {
+      color: $text;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+  }
+}
+
+.accordion__section.openedFaq {
+  .accordion__content {
+    display: block;
+  }
+}

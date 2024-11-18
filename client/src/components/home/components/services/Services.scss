@@ -1,0 +1,130 @@
+@import "../../../../variables";
+
+.service {
+  position: relative;
+
+  &__row {
+    @include flex;
+    gap: 24px;
+    justify-content: space-between;
+    //
+    overflow-x: auto;
+    width: 100%;
+    @include transition;
+
+    @media screen and (max-width: 414px) {
+      overflow-x: hidden;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0px !important;
+      height: 0px !important;
+    }
+
+    .scrollLeft {
+      z-index: 99;
+      cursor: pointer;
+      padding: 5px;
+      font-size: 35px;
+      background: $bgSub;
+      color: $text;
+      border: 1px solid $border;
+      border-radius: 100%;
+      position: absolute;
+      // left: -55px;
+      display: none; //
+
+      @media screen and (max-width: 1222px) {
+        display: block;
+        left: -35px;
+      }
+      @media screen and (max-width: 768px) {
+        left: 0;
+      }
+      @media screen and (max-width: 414px) {
+        display: none;
+      }
+    }
+    .scrollRight {
+      z-index: 99;
+      cursor: pointer;
+      padding: 5px;
+      font-size: 35px;
+      background: $bgSub;
+      color: $text;
+      border: 1px solid $border;
+      border-radius: 100%;
+      position: absolute;
+      // right: -55px;
+      display: none; //
+
+      @media screen and (max-width: 1222px) {
+        display: block;
+        right: -35px;
+      }
+      @media screen and (max-width: 768px) {
+        right: 0;
+      }
+      @media screen and (max-width: 414px) {
+        display: none;
+      }
+    }
+  }
+
+  &__col {
+    @include flexColCenter;
+    text-align: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #111624;
+    background: #fafafc;
+    padding: 20px 40px;
+    // width: 384px;
+    width: 384px; //
+    height: 286px;
+
+    @media screen and (max-width: 1280px) {
+      // width: 333px;
+      width: 0;
+      min-width: 358px;
+      // padding: 20px;
+    }
+
+    @media screen and (max-width: 414px) {
+      min-width: 100%;
+    }
+
+    // @media screen and (max-width: 1122px) {
+    //   width: 303px;
+    // }
+
+    // @media screen and (max-width: 1022px) {
+    //   width: 252px;
+    // }
+
+    h4 {
+      color: $text;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 28px;
+      padding-top: 10px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      color: $textSub;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 15px;
+      }
+    }
+  }
+}

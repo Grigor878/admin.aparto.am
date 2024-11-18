@@ -1,0 +1,106 @@
+@import "../../../../variables";
+
+.search {
+  @include flexCol;
+  gap: 20px;
+  padding: 38px 0 127px 0;
+
+  @media screen and (max-width: 1122px) {
+    padding: 28px 0 97px 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 16px;
+    padding: 24px 0 14px 0;
+  }
+
+  &__tabs {
+    background: $bgSub;
+    @include flex;
+    width: fit-content;
+    border-radius: 16.5px;
+    border: 1px solid $inputBorder;
+
+    @media screen and (max-width: 768px) {
+      margin: 0 auto;
+    }
+
+    li {
+      padding: 8px 20px;
+      font-size: 16px;
+      line-height: 18px;
+      border-radius: 16.5px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    &-link {
+      color: $text;
+      background: transparent;
+      //   font-weight: 400;
+    }
+
+    &-linkActive {
+      color: $bgSub;
+      background: $text;
+      //   font-weight: 700;
+    }
+  }
+
+  &__inputs {
+    @include flex;
+    gap: 12px;
+    background: $bgSub;
+    width: fit-content;
+    padding: 9px 24px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 54px 0px rgba(200, 200, 208, 0.4);
+
+    @media screen and (max-width: 1122px) {
+      width: 100%;
+      justify-content: space-between;
+      padding: 5px 16px;
+    }
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: inherit;
+      padding: 12px 24px;
+    }
+
+    input {
+      height: 40px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+
+      @media screen and (max-width: 1122px) {
+        font-size: 13px;
+        width: 90px;
+      }
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        padding-left: 12px;
+        border-bottom: 1px solid $inputBorder;
+        border-radius: 0;
+      }
+    }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: #0f5bed;
+      color: $bgSub;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 18px;
+      @include hoverEffect;
+
+      @media screen and (max-width: 768px) {
+        width: fit-content;
+        margin: 0 auto;
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@ import { Loader } from "../../components/loader/Loader";
 import { MapMulty } from "./components/map/MapMulty";
 import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
-import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import useQueryParams from "../../hooks/useQueryParams";
 import "./Styles.scss";
 
@@ -55,7 +54,6 @@ const Result = () => {
     <Loader />
   ) : (
     <div className="result">
-      <HelmetAsync description="main_title_seo" />
       <Sider open={sider} setOpen={setSider} />
 
       {siderLoading ? (

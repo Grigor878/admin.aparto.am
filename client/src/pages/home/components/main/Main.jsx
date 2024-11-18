@@ -1,7 +1,7 @@
 import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Search } from '../search/Search'
-import './Main.scss'
+// import './Main.scss'
 
 const Main = () => {
     const { t } = useTranslation()
