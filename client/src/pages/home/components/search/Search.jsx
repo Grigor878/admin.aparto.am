@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation'
 import { useSessionState } from "../../../../hooks/useSessionState";
 import { Trans, useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,7 @@ import {
   getSearchData,
 } from "../../../../store/slices/homeSlice";
 import cookies from "js-cookie";
-import "./Search.scss";
+// import "./Search.scss";
 
 export const Search = () => {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ export const Search = () => {
   const [rooms, setRomms] = useState([]);
   const [price, setPrice] = useState("");
 
-  const navigate = useNavigate();
+  const router = useRouter()
 
   const handleSearch = () => {
     setDisable(true);
@@ -105,7 +105,7 @@ export const Search = () => {
     dispatch(clearSidertData());
     dispatch(setPage("home"));
     dispatch(postSearchData({ searchData, language })).then(() => {
-      navigate(`/${language}/result/${active}`);
+      router.push(`/${language}/result/${active}`);
     });
   };
 

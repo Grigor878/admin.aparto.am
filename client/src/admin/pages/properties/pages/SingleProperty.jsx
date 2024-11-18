@@ -82,7 +82,7 @@ const SingleProperty = () => {
   }));
 
   const copyToClipboard = async () => {
-    let clipboard = `${APP_BASE_URL}/result/${id}`;
+    const clipboard = `${APP_BASE_URL}/am/${id}`;
     await navigator.clipboard.writeText(clipboard);
     success("Հասցեն պատճենված է։");
   };
@@ -101,10 +101,10 @@ const SingleProperty = () => {
   return !loading ? (
     <Loader />
   ) : (
-    <article className="singleProperty">
+    <article className="propertyPreview">
       {!open ? (
         <div
-          className="singleProperty__imgs"
+          className="propertyPreview__imgs"
           // ref={imgsRef}
           style={{
             display:
@@ -113,7 +113,7 @@ const SingleProperty = () => {
                 : "flex",
           }}
         >
-          <div className="singleProperty__imgs-left" style={{ height: "100%" }}>
+          <div className="propertyPreview__imgs-left" style={{ height: "100%" }}>
             {currentPropertyImgs?.length !== 0 && modifiedData && (
               <img
                 src={modifiedData[0].img}
@@ -123,7 +123,7 @@ const SingleProperty = () => {
             )}
           </div>
 
-          <div className="singleProperty__imgs-right">
+          <div className="propertyPreview__imgs-right">
             {currentPropertyImgs?.length !== 0 &&
               modifiedData?.slice(1, 5)?.map(({ img, alt }) => {
                 return <img key={alt} src={img} loading="lazy" alt={alt} />;
@@ -151,7 +151,7 @@ const SingleProperty = () => {
           </span>
 
           <button
-            className="singleProperty__imgs-url"
+            className="propertyPreview__imgs-url"
             onClick={copyToClipboard}
           >
             {url.icon}Հղում կայքին
@@ -165,12 +165,12 @@ const SingleProperty = () => {
         />
       )}
 
-      <div className="singleProperty__content">
+      <div className="propertyPreview__content">
         {/* Left */}
-        <div className="singleProperty__content-left">
-          <div className="singleProperty__content-left-title">
-            <div className="singleProperty__content-left-title-left">
-              <h2 className="singleProperty__title">
+        <div className="propertyPreview__content-left">
+          <div className="propertyPreview__content-left-title">
+            <div className="propertyPreview__content-left-title-left">
+              <h2 className="propertyPreview__title">
                 {currentPropertyData[0]?.fields[2]?.value}
               </h2>
               <p>
@@ -188,7 +188,7 @@ const SingleProperty = () => {
               </p>
             </div>
 
-            <div className="singleProperty__content-left-title-right">
+            <div className="propertyPreview__content-left-title-right">
               {/* <span>{idShevron.icon} {data?.home_id}</span> */}
               <span>ID {data?.home_id}</span>
               <p>
@@ -199,7 +199,7 @@ const SingleProperty = () => {
             </div>
           </div>
 
-          <div className="singleProperty__content-left-options">
+          <div className="propertyPreview__content-left-options">
             <div>
               {propertyType.icon}
               Գույքի տիպ -<p>{currentPropertyData[0]?.fields[1]?.value}</p>
@@ -268,10 +268,10 @@ const SingleProperty = () => {
             )}
           </div>
 
-          <div className="singleProperty__content-left-desc">
-            <h3 className="singleProperty__subtitle">Տան Նկարագիր</h3>
+          <div className="propertyPreview__content-left-desc">
+            <h3 className="propertyPreview__subtitle">Տան Նկարագիր</h3>
 
-            <div className="singleProperty__content-left-desc-info">
+            <div className="propertyPreview__content-left-desc-info">
               {currentPropertyData[3]?.fields[2]?.value && (
                 <p>
                   Սենյակների քանակ -{" "}
@@ -313,19 +313,19 @@ const SingleProperty = () => {
               </p>
             </div>
 
-            <p className="singleProperty__content-left-desc-text">
+            <p className="propertyPreview__content-left-desc-text">
               {currentPropertyData[0]?.fields[3]?.value}
             </p>
           </div>
 
           {currentPropertyData[5]?.fields?.filter((el) => el.value === true)
             ?.length > 0 ? (
-            <div className="singleProperty__content-left-facility">
-              <h3 className="singleProperty__subtitle">
+            <div className="propertyPreview__content-left-facility">
+              <h3 className="propertyPreview__subtitle">
                 Կոմունալ Հարմարություններ
               </h3>
 
-              <div className="singleProperty__content-left-facility-card">
+              <div className="propertyPreview__content-left-facility-card">
                 {currentPropertyData[5]?.fields
                   ?.filter((el) => el.value === true)
                   ?.map(({ key, title }) => {
@@ -344,10 +344,10 @@ const SingleProperty = () => {
 
           {currentPropertyData[6]?.fields?.filter((el) => el.value === true)
             ?.length > 0 ? (
-            <div className="singleProperty__content-left-otherFacility">
-              <h3 className="singleProperty__subtitle">Այլ Հարմարություններ</h3>
+            <div className="propertyPreview__content-left-otherFacility">
+              <h3 className="propertyPreview__subtitle">Այլ Հարմարություններ</h3>
 
-              <div className="singleProperty__content-left-otherFacility-card">
+              <div className="propertyPreview__content-left-otherFacility-card">
                 {currentPropertyData[6]?.fields
                   ?.filter((el) => el.value === true)
                   ?.map(({ key, title }) => {
@@ -362,10 +362,10 @@ const SingleProperty = () => {
           ) : null}
 
           {currentPropertyData[7]?.fields[1]?.value?.length ? (
-            <div className="singleProperty__content-left-video">
-              <h3 className="singleProperty__subtitle">Տան Տեսահոլովակ</h3>
+            <div className="propertyPreview__content-left-video">
+              <h3 className="propertyPreview__subtitle">Տան Տեսահոլովակ</h3>
 
-              <div className="singleProperty__content-left-video-card">
+              <div className="propertyPreview__content-left-video-card">
                 <ReactPlayer
                   url={currentPropertyData[7]?.fields[1]?.value}
                   controls
@@ -376,7 +376,7 @@ const SingleProperty = () => {
             </div>
           ) : null}
 
-          <div className="singleProperty__content-left-location">
+          <div className="propertyPreview__content-left-location">
             <p>
               {location.icon}
               {currentPropertyData[1]?.fields[0]?.communityStreet?.value}{" "}
@@ -386,7 +386,7 @@ const SingleProperty = () => {
               {currentPropertyData[1]?.fields[0]?.value}
             </p>
 
-            <div className="singleProperty__content-left-location-map">
+            <div className="propertyPreview__content-left-location-map">
               <YMap
                 width="100%"
                 height="395px"
@@ -397,8 +397,8 @@ const SingleProperty = () => {
         </div>
 
         {/* Right */}
-        <div className="singleProperty__content-right">
-          <div className="singleProperty__content-right-price">
+        <div className="propertyPreview__content-right">
+          <div className="propertyPreview__content-right-price">
             {currentPropertyData[2]?.fields[0]?.value !== "" ||
             currentPropertyData[2]?.fields[0]?.value === "0" ? (
               <h4>
@@ -483,21 +483,21 @@ const SingleProperty = () => {
             )}
           </div>
 
-          <div className="singleProperty__content-right-contact">
+          <div className="propertyPreview__content-right-contact">
             <h5>Կապ մեզ հետ</h5>
 
-            <div className="singleProperty__content-right-contact-social">
-              <div className="singleProperty__content-right-contact-social-card">
+            <div className="propertyPreview__content-right-contact-social">
+              <div className="propertyPreview__content-right-contact-social-card">
                 <span>{mail.icon} Էլ. փոստ</span>
                 <p>info@aparto.am</p>
               </div>
 
-              <div className="singleProperty__content-right-contact-social-bottom">
-                <div className="singleProperty__content-right-contact-social-card">
+              <div className="propertyPreview__content-right-contact-social-bottom">
+                <div className="propertyPreview__content-right-contact-social-card">
                   <span>{tel.icon} Բջջ. Հեռ.</span>
                   {adminTel && <p>{adminTel}</p>}
                 </div>
-                <div className="singleProperty__content-right-contact-social-card">
+                <div className="propertyPreview__content-right-contact-social-card">
                   <div style={{ display: "flex", gap: "16px" }}>
                     <img src={telegram} alt="telegram" />
                     <img src={whatsapp} alt="whatsapp" />
@@ -508,7 +508,7 @@ const SingleProperty = () => {
               </div>
             </div>
 
-            <div className="singleProperty__content-right-contact-info">
+            <div className="propertyPreview__content-right-contact-info">
               <img
                 src={
                   currentPropertyData[11]?.fields[0]?.photo
@@ -520,7 +520,7 @@ const SingleProperty = () => {
                 alt="img"
               />
 
-              <div className="singleProperty__content-right-contact-info-name">
+              <div className="propertyPreview__content-right-contact-info-name">
                 <p>{currentPropertyData[11]?.fields[0]?.value}</p>
                 <span>
                   {currentPropertyData[11]?.fields[0]?.title?.slice(0, -1)}
@@ -532,10 +532,10 @@ const SingleProperty = () => {
           {userGlobal?.role === "agent" &&
           userGlobal?.full_name?.am ===
             currentPropertyData[11]?.fields[0]?.value ? (
-            <div className="singleProperty__content-right-specialists">
+            <div className="propertyPreview__content-right-specialists">
               <h5>Իրավաբանական</h5>
 
-              <div className="singleProperty__content-right-specialists-fields">
+              <div className="propertyPreview__content-right-specialists-fields">
                 <label>
                   Սեփականատեր 1
                   <input
@@ -607,10 +607,10 @@ const SingleProperty = () => {
               </div>
             </div>
           ) : userGlobal?.role !== "agent" ? (
-            <div className="singleProperty__content-right-specialists">
+            <div className="propertyPreview__content-right-specialists">
               <h5>Իրավաբանական</h5>
 
-              <div className="singleProperty__content-right-specialists-fields">
+              <div className="propertyPreview__content-right-specialists-fields">
                 <label>
                   Սեփականատեր 1
                   <input
@@ -683,7 +683,7 @@ const SingleProperty = () => {
             </div>
           ) : null}
 
-          <div className="singleProperty__content-right-info">
+          <div className="propertyPreview__content-right-info">
             <h5>Լրացուցիչ Ինֆորմացիա</h5>
 
             <textarea
@@ -698,12 +698,12 @@ const SingleProperty = () => {
               }
             ></textarea>
 
-            <div className="singleProperty__content-right-info-uploads">
+            <div className="propertyPreview__content-right-info-uploads">
               {currentPropertyFiles?.map((el) => {
                 return (
                   <div
                     key={el}
-                    className="singleProperty__content-right-info-uploads-file"
+                    className="propertyPreview__content-right-info-uploads-file"
                   >
                     {file.icon}
                     <a
@@ -719,10 +719,10 @@ const SingleProperty = () => {
             </div>
           </div>
 
-          <div className="singleProperty__content-right-specialists">
+          <div className="propertyPreview__content-right-specialists">
             <h5>Կից Մասնագետներ</h5>
 
-            <div className="singleProperty__content-right-specialists-fields">
+            <div className="propertyPreview__content-right-specialists-fields">
               <label>
                 Գործակալ
                 <input
@@ -745,10 +745,10 @@ const SingleProperty = () => {
           </div>
 
           {currentPropertyKeywords.length ? (
-            <div className="singleProperty__content-right-keywords">
+            <div className="propertyPreview__content-right-keywords">
               <h5>Բանալի բառեր</h5>
 
-              <div className="singleProperty__content-right-keywords-list">
+              <div className="propertyPreview__content-right-keywords-list">
                 {currentPropertyKeywords?.map((el) => {
                   return <p key={el}>{el}</p>;
                 })}
@@ -756,7 +756,7 @@ const SingleProperty = () => {
             </div>
           ) : null}
 
-          <div className="singleProperty__content-right-dates">
+          <div className="propertyPreview__content-right-dates">
             <p>Ավելացված է՝ {data?.createdAt}</p>
             <p>Փոփոխված է՝ {data?.updatedAt}</p>
           </div>

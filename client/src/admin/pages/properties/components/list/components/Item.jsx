@@ -16,8 +16,7 @@ export const Item = ({ data }) => {
     const dispatch = useDispatch()
 
     const copyToClipboard = async (id) => {
-        const clipboard = `${APP_BASE_URL}/result/${id}`
-
+        const clipboard = `${APP_BASE_URL}/am/${id}`;
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
     }
