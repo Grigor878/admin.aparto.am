@@ -348,7 +348,8 @@ const AddProperties = () => {
                                                                                 ? <AgentSelect
                                                                                     id={key}
                                                                                     title={title}
-                                                                                    value={userGlobal?.id} //
+                                                                                    // value={userGlobal?.id} //
+                                                                                    value={userGlobal?.role === "agent" && userGlobal?.id} //
                                                                                     style={style}
                                                                                     required={required}
                                                                                     onChange={(e) => addProp(e, name)}

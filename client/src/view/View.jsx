@@ -79,7 +79,6 @@ const View = () => {
     }
   }, [dispatch, pathname, language]);
 
-
   return (
     <Suspense fallback={null}>
       <AutoScroll />
