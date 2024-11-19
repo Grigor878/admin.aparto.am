@@ -30,7 +30,7 @@ const HelmetAsync = ({ title, description, image, alt, url }) => {
         <meta property="og:title" content={_title} />
         <meta property="og:description" content={_description} />
         <meta property="og:url" content={_url} />
-        <meta property="og:site_name" content={name.toLocaleLowerCase()} />
+        <meta property="og:site_name" content={name} />
         <meta property="og:type" content="website" />
 
         {/* Twitter */}
