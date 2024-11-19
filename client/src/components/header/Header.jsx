@@ -8,8 +8,10 @@ import logo from "../../assets/imgs/logo.png";
 import Size from "./components/size/Size";
 import Exchange from "./components/exchange/Exchange";
 import Language from "./components/language/Language";
-import "./Header.scss";
+// import { FiPhone  } from "react-icons/fi";
+import { FaPhone } from "react-icons/fa6";
 import { isMainPage } from "../../helpers/utils";
+import "./Header.scss";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -17,7 +19,11 @@ const Header = () => {
   const headerRef = useRef();
 
   const { pathname } = useLocation();
-  const { language, burger, openBurger } = useSelector((state) => state.home);
+  const { language, burger, openBurger, admin } = useSelector(
+    (state) => state.home
+  );
+
+  const adminTel = admin?.phone?.tel1;
 
   const dispatch = useDispatch();
 
@@ -99,11 +105,25 @@ const Header = () => {
             <Exchange />
             <Language />
           </div>
-          <div className="header__burger" role="button" onClick={handleBurger}>
-            <i className={burger}></i>
-            <i className={burger}></i>
-            <i className={burger}></i>
-          </div>
+
+          {mobile &&<div className="header__mobile">
+            {/* {adminTel && mobile && <a href={`tel:${adminTel}`}>{tel.icon}</a>} */}
+            {adminTel && (
+              <a href={`tel:${adminTel}`}>
+                <FaPhone  />
+              </a>
+            )}
+
+            <div
+              className="header__burger"
+              role="button"
+              onClick={handleBurger}
+            >
+              <i className={burger}></i>
+              <i className={burger}></i>
+              <i className={burger}></i>
+            </div>
+          </div>}
         </nav>
       </div>
     </header>
