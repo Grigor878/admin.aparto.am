@@ -937,6 +937,7 @@ class InterFaceService
     public function getRecomendeds($lang, $homeId, $communityId)
     {
         return Home::query()
+            ->where('status', Home::STATUS_APPROVED)
             ->where('id', '!=', $homeId)
             ->whereRaw("JSON_EXTRACT(am, '$[1].fields[0].communityId') = ?", [$communityId])
             ->orderBy('id', 'desc')
