@@ -72,68 +72,7 @@
     <meta name="twitter:title" content="%REACT_APP_META_TITLE%" />
     <meta name="twitter:description" content="%REACT_APP_META_DESCRIPTION%" />
 
-    <meta property="fb:app_id" content="441089532596673" /> -->
-
-    <!-- <script>
-      async function fetchMeta() {
-        const params = new URLSearchParams(window.location.search);
-        const page = params.get('page') || 'home'; 
-        const lang = params.get('lang') || 'en'; 
-
-        try {
-          const response = await fetch(`/get_meta.php?page=${page}&lang=${lang}`);
-          const meta = await response.json();
-
-          document.title = meta.title || 'Default Title';
-          document.querySelector('meta[name="description"]').setAttribute('content', meta.description || '');
-          document.querySelector('meta[property="og:image"]').setAttribute('content', meta.image || '');
-          document.querySelector('meta[property="og:image:alt"]').setAttribute('content', meta.image_alt || '');
-          document.querySelector('meta[property="og:title"]').setAttribute('content', meta.title || '');
-          document.querySelector('meta[property="og:description"]').setAttribute('content', meta.description || '');
-        } catch (error) {
-          console.error('Error fetching meta data:', error);
-        }
-      }
-
-      fetchMeta();
-    </script> -->
-    <script>
-      (function setMetaTags() {
-        console.log("crawl");
-        
-        const meta = {
-          title: "Aparto Real Estate Agency",
-          description: "Find your dream property with Aparto Real Estate Agency.",
-          image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-          image_alt: "An amazing property available at Aparto.",
-        };
-    
-        document.title = meta.title;
-    
-        document
-          .querySelector('meta[name="description"]')
-          .setAttribute("content", meta.description);
-    
-        document
-          .querySelector('meta[property="og:image"]')
-          .setAttribute("content", meta.image);
-    
-        document
-          .querySelector('meta[property="og:image:alt"]')
-          .setAttribute("content", meta.image_alt);
-    
-        document
-          .querySelector('meta[property="og:title"]')
-          .setAttribute("content", meta.title);
-    
-        document
-          .querySelector('meta[property="og:description"]')
-          .setAttribute("content", meta.description);
-    
-        console.log("Meta tags set successfully!");
-      })();
-    </script>
-    
+    <meta property="fb:app_id" content="441089532596673" /> -->    
   </head>
   <body>
     <div id="root"></div>
