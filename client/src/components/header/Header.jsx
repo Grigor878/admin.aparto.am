@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setBurger, setOpenBurger } from "../../store/slices/homeSlice";
 import { useMediaQuery } from "react-responsive";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/imgs/logo.png";
 import Size from "./components/size/Size";
 import Exchange from "./components/exchange/Exchange";
@@ -12,6 +11,8 @@ import Language from "./components/language/Language";
 import { FaPhone } from "react-icons/fa6";
 import { isMainPage } from "../../helpers/utils";
 import "./Header.scss";
+import { paths } from "./data";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -83,47 +84,46 @@ const Header = () => {
               openBurger ? "header__right-active" : ""
             }`}
           >
-            {pathname === "/" && (
-              <>
-                <a
-                  onClick={hrefClick}
-                  href="#service"
-                  className="header__service"
-                >
-                  {t("header_service")}
-                </a>
-                <a
-                  onClick={hrefClick}
-                  href="#contact"
-                  className="header__contact"
-                >
-                  {t("header_contact")}
-                </a>
-              </>
-            )}
+            <ul className="header__list">
+              {paths?.map(({ id, name, to }) => {
+                return (
+                  <li key={id}>
+                    <NavLink
+                      onClick={hrefClick}
+                      to={to}
+                      className="header__link"
+                    >
+                      {t(name)}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
             <Size />
             <Exchange />
             <Language />
           </div>
 
-          {mobile &&<div className="header__mobile">
-            {/* {adminTel && mobile && <a href={`tel:${adminTel}`}>{tel.icon}</a>} */}
-            {adminTel && (
-              <a href={`tel:${adminTel}`}>
-                <FaPhone  />
-              </a>
-            )}
+          {mobile && (
+            <div className="header__mobile">
+              {/* {adminTel && mobile && <a href={`tel:${adminTel}`}>{tel.icon}</a>} */}
+              {adminTel && (
+                <a href={`tel:${adminTel}`}>
+                  <FaPhone />
+                </a>
+              )}
 
-            <div
-              className="header__burger"
-              role="button"
-              onClick={handleBurger}
-            >
-              <i className={burger}></i>
-              <i className={burger}></i>
-              <i className={burger}></i>
+              <div
+                className="header__burger"
+                role="button"
+                onClick={handleBurger}
+              >
+                <i className={burger}></i>
+                <i className={burger}></i>
+                <i className={burger}></i>
+              </div>
             </div>
-          </div>}
+          )}
         </nav>
       </div>
     </header>
