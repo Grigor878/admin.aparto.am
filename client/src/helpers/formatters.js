@@ -113,9 +113,6 @@ export function formatUrl(text) {
 
 // sider get community and streets from url
 export const getDataFromUrl = (urlData, data) => {
-  console.log(urlData);
-  console.log(data);
-  
   const array = urlData ? urlData?.split(",") : [];
 
   const ids = array

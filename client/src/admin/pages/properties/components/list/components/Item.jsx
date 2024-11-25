@@ -13,11 +13,12 @@ import { updateHome } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
+    const { language } = useSelector((state) => state.home);
+
     const dispatch = useDispatch()
 
     const copyToClipboard = async (id) => {
-        const clipboard = `${APP_BASE_URL}/result/${id}`
-
+        const clipboard = `${APP_BASE_URL}/${language}/${id}`
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
     }

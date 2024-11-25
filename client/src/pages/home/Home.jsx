@@ -6,11 +6,12 @@ import Main from "./components/main/Main";
 import Searches from "./components/searches/Searches";
 import Services from "./components/services/Services";
 import Contracts from "./components/contracts/Contracts";
-import Contact from "./components/contact/Contact";
+// import Contact from "../contact/Contact";
 import PropType from "./components/propType/PropType";
 import Faq from "./components/faq/Faq";
-import "./Home.scss";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
+import "./Home.scss";
+import Contacts from "../../components/contacts/Contacts";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Home = () => {
           <Faq />
         </div>
       </div>
-      <Contact />
+      <Contacts />
     </section>
   );
 };

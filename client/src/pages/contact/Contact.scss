@@ -1,0 +1,125 @@
+@import "../../variables";
+
+.contact {
+  &_btn {
+    margin-top: 12px;
+    width: 100%;
+    border-radius: 8px;
+    background: #0F5BED;
+    color: $bgSub;
+    padding: 15px 57px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    @include transition;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:focus {
+      border: 1px solid $bgSub;
+    }
+  }
+
+  &_main {
+    @include flexCol;
+    gap: 36px;
+    padding: 40px 0 120px 0;
+
+    ul {
+      @include flex;
+      gap: 8px;
+
+      li {
+        @include flex;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+    }
+  }
+
+  &_link {
+    color: #61636B;
+
+    &_active {
+      color: #0F5BED !important;
+    }
+  }
+
+  &_context {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+
+    form {
+      @include flexCol;
+      gap: 12px;
+      border-radius: 10px;
+      padding: 40px;
+      // min-width: 576px;
+      width: 50%;
+      border: 1px solid #E7E9F0;
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: #F3F4F8;
+        color: #0F1013;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        resize: none;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.06px;
+      }
+    }
+
+    &_all {
+      @include flexCol;
+      gap: 18px;
+      width: 50%;
+
+      h2 {
+        color: $text;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 56px;
+      }
+
+      h4 {
+        color: $text;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+      }
+
+      p {
+        color: #161C2D;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+
+    &_social {
+      @include flex;
+      gap: 40px;
+
+      a {
+        color: $text;
+        @include flex;
+        gap: 12px;
+        font-family: Noto Sans Armenian;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+  }
+}

@@ -1,3 +1,13 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow:
+Disallow: /dashboard/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /logs/
+Disallow: /*.env
+Disallow: /*.php
+Allow: /am/
+Allow: /en/
+Allow: /ru/
+Allow: /api/public/images/
+Sitemap: https://aparto.am/sitemap.xml

@@ -539,48 +539,6 @@
           }
         }
 
-        &-history {
-          width: 100%;
-          padding: 8px 12px;
-          background: $bg;
-          color: $textSmall;
-          border: 1px solid $advancedBack;
-          border-radius: 6px;
-          margin: 16px 0 12px 0;
-          cursor: pointer;
-
-          p {
-            @include flex;
-            justify-content: space-between;
-            margin: 0;
-          }
-
-          &-listActive {
-            @include flexCol;
-            @include transition;
-
-            &-view {
-              @include flex;
-              justify-content: space-between;
-              padding: 16px 0;
-
-              &:first-child {
-                margin-top: 16px;
-                border-top: 1px solid $advancedBack;
-              }
-
-              &:not(:last-child) {
-                border-bottom: 1px solid $advancedBack;
-              }
-            }
-          }
-
-          &-list {
-            display: none;
-            @include transition;
-          }
-        }
-
         hr {
           border: 0.5px solid $advancedBack;
           width: 100%;
@@ -636,7 +594,8 @@
               color: $text;
             }
 
-            p,a {
+            p,
+            a {
               font-weight: 600;
               font-size: 16px;
               line-height: 20px;
@@ -864,6 +823,7 @@
     }
   }
 }
+
 .closeButton {
   button {
     padding: 11px !important;
@@ -879,5 +839,48 @@
     &:hover {
       border: 1px solid $text;
     }
+  }
+}
+
+//
+.priceHistory {
+  width: 100%;
+  padding: 8px 12px;
+  background: $bg;
+  color: $textSmall;
+  border: 1px solid $advancedBack;
+  border-radius: 6px;
+  margin: 16px 0 12px 0;
+  cursor: pointer;
+
+  p {
+    @include flex;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  &-listActive {
+    @include flexCol;
+    @include transition;
+
+    &-view {
+      @include flex;
+      justify-content: space-between;
+      padding: 16px 0;
+
+      &:first-child {
+        margin-top: 16px;
+        border-top: 1px solid $advancedBack;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $advancedBack;
+      }
+    }
+  }
+
+  &-list {
+    display: none;
+    @include transition;
   }
 }
