@@ -12,8 +12,9 @@ import cookies from "js-cookie";
 const Home = lazy(() => pMinDelay(import("../pages/home/Home"), 500));
 const Result = lazy(() => import("../pages/result/Result"));
 const ResultById = lazy(() => import("../pages/result/ResultById"));
-const Contact = lazy(() => import("../pages/contact/Contact"));
+const Services = lazy(() => import("../pages/services/Services"));
 const About = lazy(() => import("../pages/about/About"));
+const Contact = lazy(() => import("../pages/contact/Contact"));
 
 const NotFound = lazy(() => import("../pages/404/NotFound"));
 
@@ -88,8 +89,9 @@ const View = () => {
             element={<Result />}
           />
           <Route path=":title?/:id" element={<ResultById />} />
-          <Route path="contact-us" element={<Contact />} />
+          <Route path="our-services" element={<Services />} />
           <Route path="about-us" element={<About />} />
+          <Route path="contact-us" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

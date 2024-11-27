@@ -19,6 +19,8 @@
   
   "about_ready":"Are you ready to start collaborating with us?",
   "about_title":"Our History and Mission",
+  "about_description": "Aparto.am is Armenia's leading platform for apartment rentals and sales, connecting buyers, sellers, and renters to find their perfect property.",
+
   "introduction":"Introduction",
   "introduction_text":"Aparto Real Estate Agency was incorporated on March 27, 2023 in Yerevan city,  the Republic of Armenia by  Alex Babajanian , the founding director,  who after 6 years of successful experience in the developing real estate market of Yerevan, decided to create an organization whose goal was to destroy negative stereotypes about real estate agents existing in the market and provide high-quality services, offering clients to buy, sell, rent or lease real estate in Yerevan without unnecessary problems and obstacles.",
   "story":"Our Story of Creation",
@@ -27,6 +29,7 @@
   "about_happy":"Our Team Members Ready to Help our Clients!",
   "about_choose":"Why choose us?",
   "about_choose_text": "Buying or renting a property today is a complicated process. To move from one house to another, you will need a lot of time to explore the market, choose the right property, inspect it, negotiate, verify the authenticity of documents and conclude a deal. “Aparto” carries out this mission in order to have a representative by your side all the time, who will perform all the specified steps necessary to achieve a successful transaction.<br/><br/>To save our customers' time, we have created <a href='https://web.telegram.org/a/aparto.am' target='_blank' rel='noopener noreferrer'>aparto.am</a> - a platform where you can find properties of your choice and contact us to see them.<br/><br/>The quality of our services is a priority for our Company and each member of the “Aparto” team is guided by this motto, starting work with each client.",
+  "anout_clients": "Our Clients About Us!",
 
   "search": "Search",
   "search_main": "Search <1/> Ex.՝ Center / Baghramyan",
@@ -120,7 +123,6 @@
   "preferred_bank": "Preferred Bank",
   "tax_yearly": "Annual property tax",
   "tax_monthly": "Monthly Service Fee",
-  "contact_us": "Contact Us",
   "email": "Email",
   "tel_number": "Phone Number",
   "agent": "Agent",
