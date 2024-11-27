@@ -8,7 +8,7 @@ const HelmetAsync = ({ title, description, image, alt, url }) => {
   const name = "Aparto.am";
   const lang = i18n.language;
 
-  const _title = t(title || "main_title_seo") + " - " +  name ;
+  const _title = title ? t(title) + " - " + name : name;
   const _description = t(description);
   const _image = image || logo;
   const _alt = alt || "image";

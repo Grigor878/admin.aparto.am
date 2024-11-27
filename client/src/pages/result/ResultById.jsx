@@ -633,7 +633,7 @@ const ResultById = () => {
                       </div>
 
                       <div className="singleProperty__content-right-contact">
-                        <h5>{t("contact_us")}</h5>
+                        <h5>{t("header_contact")}</h5>
 
                         <div className="singleProperty__content-right-contact-social">
                           <div className="singleProperty__content-right-contact-social-card">
@@ -878,7 +878,7 @@ const ResultById = () => {
                   </div>
 
                   <div className="singleProperty__content-right-contact">
-                    <h5>{t("contact_us")}</h5>
+                    <h5>{t("header_contact")}</h5>
 
                     <div className="singleProperty__content-right-contact-social">
                       <div className="singleProperty__content-right-contact-social-card">

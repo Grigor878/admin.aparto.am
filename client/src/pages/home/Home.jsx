@@ -10,8 +10,8 @@ import Contracts from "./components/contracts/Contracts";
 import PropType from "./components/propType/PropType";
 import Faq from "./components/faq/Faq";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
-import "./Home.scss";
 import Contacts from "../../components/contacts/Contacts";
+// import "./Home.scss";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,8 @@ const Home = () => {
       />
       <Main />
       <div className="contain">
-        <div className="home">
+        {/* <div className="home"> */}
+        <div>
           <Searches />
           <PropType type="sale" data={sale} />
           <PropType type="rent" data={rent} />
