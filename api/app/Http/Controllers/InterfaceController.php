@@ -96,4 +96,11 @@ class InterfaceController extends Controller
 
         return response()->json($search);
     }
+
+    public function getPropertiSeo(string $lang, int $homeId)
+    {
+        $homeSeo = $this->interfaceService->getPropertiSeo($lang, $homeId);
+
+        return response()->json($homeSeo);
+    }
 }

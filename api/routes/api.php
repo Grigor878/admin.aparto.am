@@ -41,6 +41,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/getInterfaceProperties/{lang}/{id}',  [InterfaceController::class, 'getInterfaceProperties']);
     Route::post('/getResultPageData/{lang}',  [InterfaceController::class, 'getResultPageData']);
     Route::get('/getRecomendeds/{lang}/{homeId}/{communityId}',  [InterfaceController::class, 'getRecomendeds']);
+    Route::get('/getPropertiesSeo/{lang}/{id}',  [InterfaceController::class, 'getPropertiSeo']);
 
 
     

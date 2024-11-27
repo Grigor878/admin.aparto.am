@@ -952,12 +952,56 @@ class InterFaceService
 
     }
 
-    // public function getFirstVisiblePhoto($photos)
-    // {
-    //     return Arr::first($photos, function ( $value,  $key) {
-    //         return filter_var($value['visible'], FILTER_VALIDATE_BOOLEAN);
-    //     });
-    // }
+    public function getPropertiSeo($lang, $homeId)
+    {
+        $home = Home::query()
+            ->where('status', Home::STATUS_APPROVED)
+            ->where('id',  $homeId)
+            ->first();
+
+            $firstVisiblePhotoData = $this->getFirstVisiblePhoto(json_decode($home->photo, true));
+
+            switch ($lang) {
+                case 'am':
+                    $homeLangJson = json_decode($home->am, true);
+                    break;
+    
+                case 'ru':
+                    $homeLangJson = json_decode($home->ru, true);
+                    break;
+    
+                case 'en':
+                    $homeLangJson = json_decode($home->en, true);
+                    break;
+                default:
+                    throw new \InvalidArgumentException('The lang key is invalid.');
+            }
+
+            $prepareSeo = $homeLangJson[12];
+
+            return ['seo' => $this->getPrepareSeo($prepareSeo, $firstVisiblePhotoData)];
+
+           
+    }
+
+    public function getPrepareSeo($seo, $firstVisiblePhotoData)
+    {
+        return [
+            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData['name'] : '',
+            'urlSlug' => $seo['fields']['0']['value'],
+            'title' => $seo['fields']['1']['value'],
+            'description' => $seo['fields']['2']['value'],
+            'altText' => $seo['fields']['3']['value'],
+        ];
+    }
+
+    public function getFirstVisiblePhoto($photos)
+    {
+        return Arr::first($photos, function ( $value,  $key) {
+            return filter_var($value['visible'], FILTER_VALIDATE_BOOLEAN);
+        });
+    }
+
 
 
 
