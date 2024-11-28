@@ -12,7 +12,9 @@ import cookies from "js-cookie";
 const Home = lazy(() => pMinDelay(import("../pages/home/Home"), 500));
 const Result = lazy(() => import("../pages/result/Result"));
 const ResultById = lazy(() => import("../pages/result/ResultById"));
-const Services = lazy(() => import("../pages/services/Services"));
+const BuyOrSell = lazy(() => import("../pages/services/BuyOrSell"));
+const Rental = lazy(() => import("../pages/services/Rental"));
+const Management = lazy(() => import("../pages/services/Management"));
 const About = lazy(() => import("../pages/about/About"));
 const Contact = lazy(() => import("../pages/contact/Contact"));
 
@@ -89,7 +91,13 @@ const View = () => {
             element={<Result />}
           />
           <Route path=":title?/:id" element={<ResultById />} />
-          <Route path="our-services" element={<Services />} />
+
+          <Route path="services">
+            <Route path="buying_selling" element={<BuyOrSell />} />
+            <Route path="rental_in_yerevan" element={<Rental />} />
+            <Route path="property_management" element={<Management />} />
+          </Route>
+          
           <Route path="about-us" element={<About />} />
           <Route path="contact-us" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

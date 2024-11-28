@@ -10,9 +10,9 @@ import Language from "./components/language/Language";
 // import { FiPhone  } from "react-icons/fi";
 import { FaPhone } from "react-icons/fa6";
 import { isMainPage } from "../../helpers/utils";
-import "./Header.scss";
 import { paths } from "./data";
 import { useTranslation } from "react-i18next";
+import "./Header.scss";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -29,6 +29,9 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const mobile = useMediaQuery({ maxWidth: 768 });
+
+  const homeCheck = pathname === `/${language}`
+  const servicesCheck = pathname?.includes("services")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +59,7 @@ const Header = () => {
   const hrefClick = () => {
     dispatch(setBurger("close"));
     dispatch(setOpenBurger(false));
-  };
+  }
 
   !openBurger
     ? (document.body.style.overflow = "auto")
@@ -80,21 +83,29 @@ const Header = () => {
           </div>
 
           <div
-            className={`header__right ${
-              openBurger ? "header__right-active" : ""
-            }`}
+            className={`header__right ${openBurger ? "header__right-active" : ""
+              }`}
           >
             <ul className="header__list">
               {paths?.map(({ id, name, to }) => {
                 return (
                   <li key={id}>
-                    <NavLink
-                      onClick={hrefClick}
-                      to={to}
-                      className="header__link"
-                    >
-                      {t(name)}
-                    </NavLink>
+                    {
+                      id === 1 ?
+                        <a
+                          href={!servicesCheck && "#services"}
+                          className={`header__link ${servicesCheck && `active`} ${(servicesCheck || !homeCheck) && `disabled`}`}
+                        >
+                          {t(name)}
+                        </a>
+                        : <NavLink
+                          onClick={hrefClick}
+                          to={to}
+                          className="header__link"
+                        >
+                          {t(name)}
+                        </NavLink>
+                    }
                   </li>
                 );
               })}
