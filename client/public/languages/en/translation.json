@@ -16,7 +16,26 @@
   "privacy": "By submitting this form, you agree to Aparto’s Privacy Policy",
   "fullname": "Name Surname",
   "subject": "Tell us briefly how can Aparto help you?",
-  
+   
+  "buy_sell_title" : "Real Estate Buying and Selling In Yerevan",
+  "buy_sell_description" : "Aparto.am offers the best platform for buying and selling real estate in Armenia. Browse top property listings, connect with buyers and sellers, and make seamless transactions.",
+  "seller" : "For Sellers",
+  "seller_text" : "We offer sellers to sell their property at the nearest time possible.The sale process begins with an agent's visit, after which, after determining the value of the property with the consent of the owner, the property is professionally photographed by photographers from the “Aparto” team, then posted on our website and advertised on a number of platforms, which are currently the most popular platforms for advertising materials. Applying this  advertising campaign will bring your property to come to the attention of potential buyers, and if they are interested, they contact us to see the property. In addition to photos, we also do video advertising, which gives a more detailed view of the real estate being sold to customers and further accelerates the sale of real estate.<br/><br/>The agent is often in contact with the  property owner to provide information about what interests exist in the property and what forecasts he has regarding the position of the property on the market. For sure,  we may proudly state that thanks to our services, you will sell your property at the best price.",
+  "buyer" : "For Buyers",
+  "buyer_text" : "For buyers, we offer experienced agents who will help you take another step forward in finding the property of your dreams that will be closest to your initial ideas. The agents of the “Aparto” team demonstrate an individual approach to each client, taking into account the needs and capabilities of the client. Our agents will support you throughout the entire purchase process, turning it into an exciting journey through the Yerevan real estate market. Moreover, our team not only provide with  the qualified agents, but  also offers legal support throughout the entire process, which will avoid a number of scams and apartments with forged documents.",
+
+  "rental_title":"Real Estate Rental In Yerevan",
+  "rental_description":"Looking to rent real estate in Yerevan? aparto.am offers the best listings of apartments and properties for rent. Find your perfect home in Armenia's capital today!",
+  "tenants":"For Tenants",
+  "tenants_text":"We offer tenants services that will help you find temporary housing, a private house or a commercial space for rent.  We can offer options that meet your requirements as soon as possible and arrange their demonstrations on the days and hours that you prefer.  We attach great importance to finding the property that is closest to the client's needs, as well as providing the right advice to the client if they are unrealistic, and offering the most suitable options.With our agents, you will definitely find the real estate available on the market and most suitable for your rental requirements.",
+  "landlords":"For Landlords",
+  "landlords_text":"---",
+
+  "management_title":"Management In Yerevan",
+  "management_description":"Aparto offers professional property management services in Armenia.",
+  "management":"Property Management",
+  "management_text":"The Real Estate Management service offers real estate management for all those people who own real estate in Yerevan and do not have enough time to manage it, or are located outside the Republic of Armenia, and their physical presence is impossible for transactions, as well as for further property management. If you want to rent out your apartment, but are worried about its further maintenance, then this service solves this problem.",
+
   "about_ready":"Are you ready to start collaborating with us?",
   "about_title":"Our History and Mission",
   "about_description": "Aparto.am is Armenia's leading platform for apartment rentals and sales, connecting buyers, sellers, and renters to find their perfect property.",

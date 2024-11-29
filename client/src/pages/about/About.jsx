@@ -18,6 +18,7 @@ import member from "../../assets/imgs/member.png";
 import member2 from "../../assets/imgs/member2.png";
 import member3 from "../../assets/imgs/member3.png";
 import "./About.scss";
+import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
 
 const About = () => {
   const { t, i18n } = useTranslation();
@@ -30,11 +31,14 @@ const About = () => {
       <ImgBlock image={image} title="about_title" />
 
       <div className="contain">
-        <div className="about_intro">
-          <img src={about1} alt="introduction_image" loading="lazy" />
-          <div className="about_intro_text">
-            <h3>{t("introduction")}</h3>
-            <p>{t("introduction_text")}</p>
+        <div className="about_top">
+          <Breadcrumb />
+          <div className="about_intro">
+            <img src={about1} alt="introduction_image" loading="lazy" />
+            <div className="about_intro_text">
+              <h3>{t("introduction")}</h3>
+              <p>{t("introduction_text")}</p>
+            </div>
           </div>
         </div>
 

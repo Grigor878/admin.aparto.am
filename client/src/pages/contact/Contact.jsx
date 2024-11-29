@@ -9,9 +9,10 @@ import { ImgBlock } from "../../components/imgBlock/ImgBlock";
 import image from "../../assets/imgs/contactMain.png";
 import "./Contact.scss";
 import { useTranslation } from "react-i18next";
+import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
 
 const Contact = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { admin } = useSelector((state) => state.home);
 
@@ -37,15 +38,7 @@ const Contact = () => {
       <ImgBlock action={handleScroll} image={image} title="contact_title" />
       <div className="contain">
         <div className="contact_main" ref={contactContextRef}>
-          <ul>
-            <li>
-              <NavLink className="contact_link" to={`/${i18n.language}`}>
-                {t("home")}
-              </NavLink>
-            </li>
-            <li>{slash.icon}</li>
-            <li className="contact_link_active">{t("header_contact")}</li>
-          </ul>
+          <Breadcrumb />
 
           <div className="contact_context">
             <form onSubmit={handleSubmit}>
