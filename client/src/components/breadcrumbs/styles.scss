@@ -1,40 +1,68 @@
-@import '../../variables';
+@import "../../variables";
 
 .breadcrumb {
+  //   @include flex;
+  display: flex;
+  gap: 8px;
+
+  li {
     @include flex;
-    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
 
-    li {
-        @include flex;
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 24px;
+    @media screen and (max-width: 1190px) {
+      font-size: 15px;
     }
+  }
 
-    .active {
-        color: #0f5bed !important;
-    }
+  .active {
+    color: #0f5bed !important;
+  }
 
-    &_link {
-        color: #61636B;
-
-    }
+  &_link {
+    @include flex;
+    color: #61636b;
+  }
 }
 
 .bottomBreadcrumb {
-    background: #F5F5F8;
+  background: #f5f5f8;
 
-    &_main {
-        @include flexCol;
-        gap: 16px;
-        padding: 32px 0;
+  &_main {
+    @include flexCol;
+    gap: 16px;
+    padding: 32px 0;
 
-        h5 {
-            color: $text;
-            font-family: Noto Sans Armenian;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 20px;
-        }
+    @media screen and (max-width: 1122px) {
+      //   gap: 11px;
+      padding: 22px 0;
     }
+
+    h5 {
+      color: $text;
+      font-family: Noto Sans Armenian;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+  }
+}
+
+.flexable {
+  @media screen and (max-width: 1190px) {
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (max-width: 541px) {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &_link {
+    @media screen and (max-width: 541px) {
+      border-bottom: 1px solid $border;
+    }
+  }
 }

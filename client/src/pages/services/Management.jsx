@@ -21,9 +21,9 @@ const Management = () => {
       <ImgBlock image={image} title="management_title" />
       <div className="contain">
         <div className="services_row">
-          <div className="services_col">
+          <div className="services_col wrap">
             <div className="services_col_context">
-              <h3>{t("management")}</h3>
+              <h2>{t("management")}</h2>
               <p>{t("management_text")}</p>
             </div>
             <img

@@ -19,17 +19,17 @@ const BuyOrSell = () => {
 
       <div className="contain">
         <div className="services_row">
-          <div className="services_col">
+          <div className="services_col wrap_reverse">
             <img src={buyers} alt="buyers" loading="lazy" />
             <div className="services_col_context">
-              <h3>{t("buyer")}</h3>
+              <h2>{t("buyer")}</h2>
               <p>{t("buyer_text")}</p>
             </div>
           </div>
           <hr />
-          <div className="services_col">
+          <div className="services_col wrap">
             <div className="services_col_context">
-              <h3>{t("seller")}</h3>
+              <h2>{t("seller")}</h2>
               <p dangerouslySetInnerHTML={{ __html: t("seller_text") }} />
             </div>
             <img src={sellers} alt="sellers" loading="lazy" />

@@ -19,17 +19,17 @@ const Rental = () => {
 
       <div className="contain">
         <div className="services_row">
-          <div className="services_col">
+          <div className="services_col wrap_reverse">
             <img src={tenants} alt="tenants" loading="lazy" />
             <div className="services_col_context">
-              <h3>{t("tenants")}</h3>
+              <h2>{t("tenants")}</h2>
               <p dangerouslySetInnerHTML={{ __html: t("tenants_text") }} />
             </div>
           </div>
           <hr />
-          <div className="services_col">
+          <div className="services_col wrap">
             <div className="services_col_context">
-              <h3>{t("landlords")}</h3>
+              <h2>{t("landlords")}</h2>
               <p>{t("landlords_text")}</p>
               <p dangerouslySetInnerHTML={{ __html: t("") }} />
             </div>

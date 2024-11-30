@@ -14,7 +14,7 @@ export const ImgBlock = ({ action, image, title }) => {
 
   return (
     <div className="imgBlock" style={{ backgroundImage: `url(${image})` }}>
-      <div className="contain">
+      <div className="imgBlock_contain">
         <div className="imgBlock_about">
           <h1>{t(title)}</h1>
 

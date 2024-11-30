@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
-import { NavLink } from "react-router-dom";
 import Contacts from "../../components/contacts/Contacts";
-import { slash } from "../../admin/svgs/svgs";
 import { useSelector } from "react-redux";
 import { mail, tel } from "../../assets/svgs/svgs";
 import { ImgBlock } from "../../components/imgBlock/ImgBlock";
