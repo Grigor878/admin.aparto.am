@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { filterClose } from "../../../../assets/svgs/svgs";
 import { Radio } from "../inputs/radio";
@@ -58,8 +58,25 @@ export const Sider = ({ open, setOpen }) => {
 
   // search parametrs
   const params = useParams();
-  const { type, property, newbuild, commune, street } = parseUrlSegments(params);
-  const [pageParam, setPageParam] = useQueryParams(["page"]);
+  const { type, property, newbuild, commune, street } =
+    parseUrlSegments(params);
+
+  const [
+    pageParam,
+    roomsParam,
+    minSquareParam,
+    maxSquareParam,
+    minPriceParam,
+    maxPriceParam,
+    setParams,
+  ] = useQueryParams([
+    "page",
+    "rooms",
+    "min_square",
+    "max_square",
+    "min_price",
+    "max_price",
+  ]);
 
   const [radio, setRadio] = useState(type ? type : transactionType); //done
   const [propType, setPropType] = useState(
@@ -81,7 +98,8 @@ export const Sider = ({ open, setOpen }) => {
   ); // done
 
   const [priceMax, setPriceMax] = useState(price);
-  const [rooms, setRooms] = useState(room);
+  // const [rooms, setRooms] = useState(room);
+  const [rooms, setRooms] = useState(roomsParam || room);
   const [squareMin, setSquareMin] = useSessionState("", "siderSqMin");
   const [squareMax, setSquareMax] = useSessionState("", "siderSqMax");
   const [priceMin, setPriceMin] = useSessionState("", "siderPriceMin");
@@ -123,6 +141,17 @@ export const Sider = ({ open, setOpen }) => {
     }, 1200);
   };
 
+  // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
+  const handleSetStateQuery = (setState, key, value) => {
+    setParams({ [key]: value });
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+    setState(value);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
+  };
+
   const clearSearch = () => {
     sessionStorage.removeItem("siderSqMin");
     sessionStorage.removeItem("siderSqMax");
@@ -135,7 +164,7 @@ export const Sider = ({ open, setOpen }) => {
     // sessionStorage.removeItem("siderDesc");
     sessionStorage.removeItem("siderId");
 
-    setPageParam({ page: null });
+    setParams({ page: null });
 
     dispatch(setPage("result"));
     dispatch(setPaginatePage(1));
@@ -180,7 +209,7 @@ export const Sider = ({ open, setOpen }) => {
     //     urlStreets
     //       ?.filter((item) => street?.includes(item.id))
     //       ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
-    //     // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
+    //     // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-')))
     //     // .join(",")
     //   );
 
@@ -188,10 +217,16 @@ export const Sider = ({ open, setOpen }) => {
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
   };
-
+  const location = useLocation();
   useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+
     const url = buildUrl();
-    navigate(url);
+    // navigate(url);
+    navigate({
+      pathname: url,
+      search: urlParams.toString(),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radio, propType, newBuild, community]);
 
@@ -333,17 +368,6 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__community-checkboxes">
               {language === "am"
                 ? communityAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setCommunity, id)}
-                      key={id}
-                      text={value}
-                      checked={community?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? communityEn.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setCommunity, id)}
@@ -353,7 +377,18 @@ export const Sider = ({ open, setOpen }) => {
                       />
                     );
                   })
-                  : communityRu.map(({ id, value }) => {
+                : language === "en"
+                ? communityEn.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) => handleUpdate(e, setCommunity, id)}
+                        key={id}
+                        text={value}
+                        checked={community?.includes(id)}
+                      />
+                    );
+                  })
+                : communityRu.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setCommunity, id)}
@@ -378,8 +413,10 @@ export const Sider = ({ open, setOpen }) => {
             <RoomSelect
               language={language}
               // data={language === "en" ? bedroomsNum : roomsNum}
-              onChange={(selectedRooms) =>
-                handleSetState(setRooms, selectedRooms)
+              onChange={
+                (selectedRooms) =>
+                  handleSetStateQuery(setRooms, "rooms", selectedRooms)
+                // setParams({room: selectedRooms});
               }
               selectedRooms={rooms}
             />
@@ -393,7 +430,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("square") + t("min")}
-                onChange={(e) => handleSetState(setSquareMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setSquareMin, "min_square", e)
+                }
                 symbol={t("square_symbol")}
                 value={squareMin}
               />
@@ -401,7 +440,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("square") + t("max")}
-                onChange={(e) => handleSetState(setSquareMax, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setSquareMax, "max_square", e)
+                }
                 symbol={t("square_symbol")}
                 value={squareMax}
               />
@@ -416,7 +457,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("price") + t("min")}
-                onChange={(e) => handleSetState(setPriceMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setPriceMin, "min_price", e)
+                }
                 symbol="$"
                 value={priceMin}
               />
@@ -424,7 +467,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("price") + t("max")}
-                onChange={(e) => handleSetState(setPriceMax, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setPriceMax, "max_price", e)
+                }
                 symbol="$"
                 value={priceMax}
               />
@@ -437,17 +482,6 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__property-checkboxes">
               {language === "am"
                 ? buildTypeAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setBuildType, id)}
-                      key={id}
-                      text={value}
-                      checked={buildType?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? buildTypeEn.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setBuildType, id)}
@@ -457,7 +491,18 @@ export const Sider = ({ open, setOpen }) => {
                       />
                     );
                   })
-                  : buildTypeRu.map(({ id, value }) => {
+                : language === "en"
+                ? buildTypeEn.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        key={id}
+                        text={value}
+                        checked={buildType?.includes(id)}
+                      />
+                    );
+                  })
+                : buildTypeRu.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setBuildType, id)}
@@ -476,17 +521,6 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__property-checkboxes">
               {language === "am"
                 ? propConditionAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setPropCondition, id)}
-                      key={id}
-                      text={value}
-                      checked={propCondition?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? propConditionEn.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setPropCondition, id)}
@@ -496,7 +530,18 @@ export const Sider = ({ open, setOpen }) => {
                       />
                     );
                   })
-                  : propConditionRu.map(({ id, value }) => {
+                : language === "en"
+                ? propConditionEn.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        key={id}
+                        text={value}
+                        checked={propCondition?.includes(id)}
+                      />
+                    );
+                  })
+                : propConditionRu.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setPropCondition, id)}
@@ -517,14 +562,16 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("floor") + t("min")}
-                onChange={(e) => handleSetState(setFloorMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setFloorMin, "condition", e)
+                }
                 value={floorMin}
               />
               <Input
                 className="inputSmall"
                 type="number"
                 placeholder={t("floor") + t("max")}
-                onChange={(e) => handleSetState(setFloorMax, e)}
+                onChange={(e) => handleSetStateQuery(setFloorMax, "floor", e)}
                 value={floorMax}
               />
             </div>
@@ -539,7 +586,7 @@ export const Sider = ({ open, setOpen }) => {
                 type="text"
                 placeholder={t("other_description")}
                 onChange={(e) => {
-                  handleSetState(setDescription, e);
+                  handleSetStateQuery(setDescription, "other", e);
                   dispatch(setKeywords(e));
                 }}
                 value={description}
@@ -559,7 +606,7 @@ export const Sider = ({ open, setOpen }) => {
                     ? t("id") + " ` 12345"
                     : t("id") + " : 12345"
                 }
-                onChange={(e) => handleSetState(setId, e)}
+                onChange={(e) => handleSetStateQuery(setId, "id_code", e)}
                 value={id}
               />
             </div>
