@@ -58,6 +58,8 @@ export const Sider = ({ open, setOpen }) => {
 
   // search parametrs
   const params = useParams();
+  const location = useLocation();
+
   const { type, property, newbuild, commune, street } =
     parseUrlSegments(params);
 
@@ -68,7 +70,12 @@ export const Sider = ({ open, setOpen }) => {
     maxSquareParam,
     minPriceParam,
     maxPriceParam,
+    minFloorParam,
+    maxFloorParam,
+    descriptionParam,
+    idParam,
     setParams,
+    removeParam,
   ] = useQueryParams([
     "page",
     "rooms",
@@ -76,6 +83,10 @@ export const Sider = ({ open, setOpen }) => {
     "max_square",
     "min_price",
     "max_price",
+    "floor_min",
+    "floor_max",
+    "description",
+    "id",
   ]);
 
   const [radio, setRadio] = useState(type ? type : transactionType); //done
@@ -97,21 +108,21 @@ export const Sider = ({ open, setOpen }) => {
     //   : getDataFromUrl(street, urlStreets)
   ); // done
 
-  const [priceMax, setPriceMax] = useState(price);
   // const [rooms, setRooms] = useState(room);
   const [rooms, setRooms] = useState(roomsParam || room);
-  const [squareMin, setSquareMin] = useSessionState("", "siderSqMin");
-  const [squareMax, setSquareMax] = useSessionState("", "siderSqMax");
-  const [priceMin, setPriceMin] = useSessionState("", "siderPriceMin");
+  const [squareMin, setSquareMin] = useState(minSquareParam || "");
+  const [squareMax, setSquareMax] = useState(maxSquareParam || "");
+  const [priceMin, setPriceMin] = useState(minPriceParam || "");
+  const [priceMax, setPriceMax] = useState(maxPriceParam || price);
   const [buildType, setBuildType] = useSessionState([], "siderBuildType");
   const [propCondition, setPropCondition] = useSessionState(
     [],
     "siderPropCondition"
   );
-  const [floorMin, setFloorMin] = useSessionState("", "siderFloorMin");
-  const [floorMax, setFloorMax] = useSessionState("", "siderFloorMax");
-  const [description, setDescription] = useState(keywords);
-  const [id, setId] = useSessionState("", "siderId");
+  const [floorMin, setFloorMin] = useState(minFloorParam || "");
+  const [floorMax, setFloorMax] = useState(maxFloorParam || "");
+  const [description, setDescription] = useState(descriptionParam || keywords);
+  const [id, setId] = useState(idParam || "");
 
   const mobile = useMediaQuery({ maxWidth: 768 });
 
@@ -119,7 +130,6 @@ export const Sider = ({ open, setOpen }) => {
   const handleUpdate = (e, setState, id) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
-    // navigate(location.pathname);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
@@ -131,7 +141,7 @@ export const Sider = ({ open, setOpen }) => {
     }
   };
 
-  // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
+  // transactionType, propertyType, newBuild, street
   const handleSetState = (setState, value) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
@@ -141,9 +151,13 @@ export const Sider = ({ open, setOpen }) => {
     }, 1200);
   };
 
-  // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
+  // rooms, square, price, floor, other_description, id
   const handleSetStateQuery = (setState, key, value) => {
-    setParams({ [key]: value });
+    if (!value || value?.length === 0) {
+      removeParam(key);
+    } else {
+      setParams({ [key]: value });
+    }
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
     setState(value);
@@ -153,16 +167,25 @@ export const Sider = ({ open, setOpen }) => {
   };
 
   const clearSearch = () => {
-    sessionStorage.removeItem("siderSqMin");
-    sessionStorage.removeItem("siderSqMax");
     sessionStorage.removeItem("siderPriceMax");
     sessionStorage.removeItem("siderPriceMin");
     sessionStorage.removeItem("siderBuildType");
     sessionStorage.removeItem("siderPropCondition");
-    sessionStorage.removeItem("siderFloorMin");
-    sessionStorage.removeItem("siderFloorMax");
-    // sessionStorage.removeItem("siderDesc");
-    sessionStorage.removeItem("siderId");
+
+    const paramsToClear = [
+      "page",
+      "rooms",
+      "min_square",
+      "max_square",
+      "min_price",
+      "max_price",
+      "floor_min",
+      "floor_max",
+      "description",
+      "id",
+    ];
+
+    paramsToClear.forEach((param) => removeParam(param));
 
     setParams({ page: null });
 
@@ -217,7 +240,6 @@ export const Sider = ({ open, setOpen }) => {
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
   };
-  const location = useLocation();
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
 
@@ -563,7 +585,7 @@ export const Sider = ({ open, setOpen }) => {
                 type="number"
                 placeholder={t("floor") + t("min")}
                 onChange={(e) =>
-                  handleSetStateQuery(setFloorMin, "condition", e)
+                  handleSetStateQuery(setFloorMin, "floor_min", e)
                 }
                 value={floorMin}
               />
@@ -571,7 +593,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("floor") + t("max")}
-                onChange={(e) => handleSetStateQuery(setFloorMax, "floor", e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setFloorMax, "floor_max", e)
+                }
                 value={floorMax}
               />
             </div>
@@ -586,7 +610,7 @@ export const Sider = ({ open, setOpen }) => {
                 type="text"
                 placeholder={t("other_description")}
                 onChange={(e) => {
-                  handleSetStateQuery(setDescription, "other", e);
+                  handleSetStateQuery(setDescription, "description", e);
                   dispatch(setKeywords(e));
                 }}
                 value={description}
@@ -606,7 +630,7 @@ export const Sider = ({ open, setOpen }) => {
                     ? t("id") + " ` 12345"
                     : t("id") + " : 12345"
                 }
-                onChange={(e) => handleSetStateQuery(setId, "id_code", e)}
+                onChange={(e) => handleSetStateQuery(setId, "id", e)}
                 value={id}
               />
             </div>
