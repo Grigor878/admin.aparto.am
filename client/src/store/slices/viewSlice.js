@@ -153,15 +153,6 @@ const viewSlice = createSlice({
         state.loading = true;
       })
       .addCase(postSearchData.fulfilled, (state, action) => {
-        sessionStorage.removeItem("siderSqMin");
-        sessionStorage.removeItem("siderSqMax");
-        sessionStorage.removeItem("siderPriceMin");
-        sessionStorage.removeItem("siderBuildType");
-        sessionStorage.removeItem("siderPropCondition");
-        sessionStorage.removeItem("siderFloorMin");
-        sessionStorage.removeItem("siderFloorMax");
-        // sessionStorage.removeItem("siderDesc");
-        sessionStorage.removeItem("siderId");
         state.resultData = action.payload.data;
         state.searchedAddresses = action.payload.addresses;
         state.searchedCommunities = action.payload.community;

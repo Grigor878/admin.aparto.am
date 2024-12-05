@@ -15,7 +15,7 @@ import {
   propConditionEn,
   propConditionRu,
   urlCommunity,
-  urlStreets,
+  // urlStreets,
 } from "./data";
 import { MultiSelect } from "../inputs/multiSelect";
 import { RoomSelect } from "../inputs/roomSelect";
@@ -29,7 +29,6 @@ import {
   setPaginatePage,
 } from "../../../../store/slices/viewSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useSessionState } from "../../../../hooks/useSessionState";
 import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
@@ -72,6 +71,8 @@ export const Sider = ({ open, setOpen }) => {
     maxPriceParam,
     minFloorParam,
     maxFloorParam,
+    buldingTypeParam,
+    conditionParam,
     descriptionParam,
     idParam,
     setParams,
@@ -85,40 +86,37 @@ export const Sider = ({ open, setOpen }) => {
     "max_price",
     "floor_min",
     "floor_max",
+    "building_type",
+    "condition",
     "description",
     "id",
   ]);
 
-  const [radio, setRadio] = useState(type ? type : transactionType); //done
-  const [propType, setPropType] = useState(
-    property ? property : propertyType[0]
-  ); //done
+  const [radio, setRadio] = useState(type || transactionType);
+  const [propType, setPropType] = useState(property || propertyType[0]);
   const [newBuild, setNewBuild] = useState(
     newbuild === "new-building" ? true : "on"
-  ); // done
+  );
   const [community, setCommunity] = useState(
     searchedCommunities?.length && !commune
       ? searchedCommunities
       : getDataFromUrl(commune, urlCommunity)
-  ); // done
+  ); 
   const [streets, setStreets] = useState(
-    searchedAddresses?.length ? searchedAddresses : []
+    searchedAddresses || []
+    // searchedAddresses?.length ? searchedAddresses : []
     // searchedAddresses?.length && !street
     //   ? searchedAddresses
     //   : getDataFromUrl(street, urlStreets)
-  ); // done
+  ); 
 
-  // const [rooms, setRooms] = useState(room);
   const [rooms, setRooms] = useState(roomsParam || room);
   const [squareMin, setSquareMin] = useState(minSquareParam || "");
   const [squareMax, setSquareMax] = useState(maxSquareParam || "");
   const [priceMin, setPriceMin] = useState(minPriceParam || "");
   const [priceMax, setPriceMax] = useState(maxPriceParam || price);
-  const [buildType, setBuildType] = useSessionState([], "siderBuildType");
-  const [propCondition, setPropCondition] = useSessionState(
-    [],
-    "siderPropCondition"
-  );
+  const [buildType, setBuildType] = useState(buldingTypeParam || []);
+  const [propCondition, setPropCondition] = useState(conditionParam || []);
   const [floorMin, setFloorMin] = useState(minFloorParam || "");
   const [floorMax, setFloorMax] = useState(maxFloorParam || "");
   const [description, setDescription] = useState(descriptionParam || keywords);
@@ -126,10 +124,11 @@ export const Sider = ({ open, setOpen }) => {
 
   const mobile = useMediaQuery({ maxWidth: 768 });
 
-  // community, propType, buildType, propCondition
+  // community, propType
   const handleUpdate = (e, setState, id) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
@@ -138,6 +137,45 @@ export const Sider = ({ open, setOpen }) => {
       setState((prev) => [...prev, id]);
     } else {
       setState((prev) => prev.filter((item) => item !== id));
+    }
+  };
+
+  // buildType, propCondition
+  const handleUpdateQuery = (e, setState, key, id) => {
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (e.target.checked) {
+      setState((prev) => [...prev, id]);
+      const existingValues = urlParams.get(key)?.split(",") || [];
+      if (!existingValues.includes(id)) {
+        existingValues.push(id);
+        urlParams.set(key, existingValues.join(","));
+      }
+    } else {
+      setState((prev) => prev.filter((item) => item !== id));
+      const existingValues = urlParams.get(key)?.split(",") || [];
+      const updatedValues = existingValues.filter((item) => item !== id);
+      if (updatedValues.length > 0) {
+        urlParams.set(key, updatedValues.join(","));
+      } else {
+        urlParams.delete(key);
+      }
+    }
+
+    let url = `?${urlParams.toString()}`;
+    url = url.replace(/%2C/g, ",");
+
+    if ([...urlParams].length > 0) {
+      window.history.replaceState({}, "", url);
+    } else {
+      window.history.replaceState({}, "", window.location.pathname);
     }
   };
 
@@ -167,11 +205,6 @@ export const Sider = ({ open, setOpen }) => {
   };
 
   const clearSearch = () => {
-    sessionStorage.removeItem("siderPriceMax");
-    sessionStorage.removeItem("siderPriceMin");
-    sessionStorage.removeItem("siderBuildType");
-    sessionStorage.removeItem("siderPropCondition");
-
     const paramsToClear = [
       "page",
       "rooms",
@@ -181,6 +214,8 @@ export const Sider = ({ open, setOpen }) => {
       "max_price",
       "floor_min",
       "floor_max",
+      "building_type",
+      "condition",
       "description",
       "id",
     ];
@@ -240,6 +275,15 @@ export const Sider = ({ open, setOpen }) => {
 
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
   };
+
+  useEffect(() => {
+    const buildTypeFromUrl = buldingTypeParam?.split(",") || [];
+    setBuildType(buildTypeFromUrl);
+
+    const propConditionFromUrl = conditionParam?.split(",") || [];
+    setPropCondition(propConditionFromUrl);
+  }, [buldingTypeParam, conditionParam]);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
 
@@ -506,7 +550,14 @@ export const Sider = ({ open, setOpen }) => {
                 ? buildTypeAm.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={buildType?.includes(id)}
@@ -517,7 +568,14 @@ export const Sider = ({ open, setOpen }) => {
                 ? buildTypeEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={buildType?.includes(id)}
@@ -527,7 +585,14 @@ export const Sider = ({ open, setOpen }) => {
                 : buildTypeRu.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={buildType?.includes(id)}
@@ -545,7 +610,14 @@ export const Sider = ({ open, setOpen }) => {
                 ? propConditionAm.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={propCondition?.includes(id)}
@@ -556,7 +628,14 @@ export const Sider = ({ open, setOpen }) => {
                 ? propConditionEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={propCondition?.includes(id)}
@@ -566,7 +645,14 @@ export const Sider = ({ open, setOpen }) => {
                 : propConditionRu.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={propCondition?.includes(id)}
@@ -640,6 +726,31 @@ export const Sider = ({ open, setOpen }) => {
     )
   );
 };
+
+// if (e.target.checked) {
+//   setState((prev) => [...prev, id]);
+
+//   const existingValues = urlParams.get(key)?.split(",") || [];
+//   if (!existingValues.includes(id)) {
+//     urlParams.set(key, [...existingValues, id].join(","));
+//   }
+// } else {
+//   setState((prev) => prev.filter((item) => item !== id));
+
+//   const existingValues = urlParams.get(key)?.split(",") || [];
+//   const updatedValues = existingValues.filter((item) => item !== id);
+//   if (updatedValues.length > 0) {
+//     urlParams.set(key, updatedValues.join(","));
+//   } else {
+//     urlParams.delete(key);
+//   }
+// }
+
+// if ([...urlParams].length > 0) {
+//   window.history.replaceState({}, "", `?${urlParams.toString()}`);
+// } else {
+//   window.history.replaceState({}, "", window.location.pathname);
+// }
 
 // if (radio) {
 //   urlParts.push(radio);

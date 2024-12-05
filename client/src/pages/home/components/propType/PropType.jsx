@@ -33,16 +33,7 @@ const PropType = ({ type, data }) => {
     dispatch(clearSidertData());
     dispatch(clearHomeSearchInfo());
     dispatch(setPage("result")); //
-    sessionStorage.removeItem("siderSqMin");
-    sessionStorage.removeItem("siderSqMax");
-    sessionStorage.removeItem("siderPriceMin");
-    sessionStorage.removeItem("siderBuildType");
-    sessionStorage.removeItem("siderPropCondition");
-    sessionStorage.removeItem("siderFloorMin");
-    sessionStorage.removeItem("siderFloorMax");
-    // sessionStorage.removeItem("siderDesc");
-    sessionStorage.removeItem("siderId");
-    // navigate(`/${i18n.language}/result`);
+
     navigate(`/${i18n.language}/result/${type}`);
   };
 
