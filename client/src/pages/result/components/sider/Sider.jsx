@@ -33,6 +33,7 @@ import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
 import {
+  formatResultUrl,
   getDataFromUrl,
   parseUrlSegments,
 } from "../../../../helpers/formatters";
@@ -71,7 +72,7 @@ export const Sider = ({ open, setOpen }) => {
     maxPriceParam,
     minFloorParam,
     maxFloorParam,
-    buldingTypeParam,
+    buildingTypeParam,
     conditionParam,
     descriptionParam,
     idParam,
@@ -101,21 +102,21 @@ export const Sider = ({ open, setOpen }) => {
     searchedCommunities?.length && !commune
       ? searchedCommunities
       : getDataFromUrl(commune, urlCommunity)
-  ); 
+  );
   const [streets, setStreets] = useState(
     searchedAddresses || []
     // searchedAddresses?.length ? searchedAddresses : []
     // searchedAddresses?.length && !street
     //   ? searchedAddresses
     //   : getDataFromUrl(street, urlStreets)
-  ); 
+  );
 
-  const [rooms, setRooms] = useState(roomsParam || room);
+  const [rooms, setRooms] = useState(roomsParam?.split(",") || room);
   const [squareMin, setSquareMin] = useState(minSquareParam || "");
   const [squareMax, setSquareMax] = useState(maxSquareParam || "");
   const [priceMin, setPriceMin] = useState(minPriceParam || "");
   const [priceMax, setPriceMax] = useState(maxPriceParam || price);
-  const [buildType, setBuildType] = useState(buldingTypeParam || []);
+  const [buildType, setBuildType] = useState(buildingTypeParam || []);
   const [propCondition, setPropCondition] = useState(conditionParam || []);
   const [floorMin, setFloorMin] = useState(minFloorParam || "");
   const [floorMax, setFloorMax] = useState(maxFloorParam || "");
@@ -124,7 +125,7 @@ export const Sider = ({ open, setOpen }) => {
 
   const mobile = useMediaQuery({ maxWidth: 768 });
 
-  // community, propType
+  // community
   const handleUpdate = (e, setState, id) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
@@ -204,6 +205,36 @@ export const Sider = ({ open, setOpen }) => {
     }, 1200);
   };
 
+  // rooms
+  // const handleRoomsQuery = (setState, key, value) => {
+  //   dispatch(setPage("result"));
+  //   dispatch(setPaginatePage("1"));
+
+  //   setTimeout(() => {
+  //     window.scrollTo(0, 0);
+  //   }, 1200);
+
+  //   const urlParams = new URLSearchParams(window.location.search);
+
+  //   if (!value || value.length === 0) {
+  //     urlParams.delete(key);
+  //   } else {
+  //     urlParams.set(key, value?.join(","));
+  //   }
+
+  //   let url = `?${urlParams.toString()}`;
+  //   url = decodeURIComponent(url);
+  //   url = url?.replace(/%2C/g, ",");
+
+  //   if ([...urlParams].length > 0) {
+  //     window.history.replaceState({}, "", url);
+  //   } else {
+  //     window.history.replaceState({}, "", window.location.pathname);
+  //   }
+
+  //   setState(value);
+  // };
+
   const clearSearch = () => {
     const paramsToClear = [
       "page",
@@ -276,22 +307,24 @@ export const Sider = ({ open, setOpen }) => {
     return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
   };
 
-  useEffect(() => {
-    const buildTypeFromUrl = buldingTypeParam?.split(",") || [];
-    setBuildType(buildTypeFromUrl);
+  // useEffect(() => {
+  //   const buildTypeFromUrl = buildingTypeParam?.split(",") || [];
+  //   setBuildType(buildTypeFromUrl);
 
-    const propConditionFromUrl = conditionParam?.split(",") || [];
-    setPropCondition(propConditionFromUrl);
-  }, [buldingTypeParam, conditionParam]);
+  //   const propConditionFromUrl = conditionParam?.split(",") || [];
+  //   setPropCondition(propConditionFromUrl);
+  // }, [buildingTypeParam, conditionParam]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
 
+    const query = urlParams.toString();
     const url = buildUrl();
-    // navigate(url);
+
     navigate({
       pathname: url,
-      search: urlParams.toString(),
+      search: query.toString(),
+      // search: query ? formatResultUrl(query) : "",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radio, propType, newBuild, community]);
