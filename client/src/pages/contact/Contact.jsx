@@ -1,22 +1,29 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import Contacts from "../../components/contacts/Contacts";
 import { useSelector } from "react-redux";
 import { mail, tel } from "../../assets/svgs/svgs";
 import { ImgBlock } from "../../components/imgBlock/ImgBlock";
 import image from "../../assets/imgs/contactMain.png";
-import "./Contact.scss";
 import { useTranslation } from "react-i18next";
 import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
+import emailjs from "@emailjs/browser";
+import { error, success } from '../../components/swal/swal'
+import "./Contact.scss";
 
 const Contact = () => {
   const { t } = useTranslation();
-
   const { admin } = useSelector((state) => state.home);
+
+  const form = useRef();
+  const contactContextRef = useRef(null);
 
   const phone = admin?.phone?.tel1;
 
-  const contactContextRef = useRef(null);
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [subject, setSubject] = useState("");
 
   const handleScroll = () => {
     const offset = -110;
@@ -26,8 +33,32 @@ const Contact = () => {
     window?.scrollTo({ top: elementPosition + offset, behavior: "smooth" });
   };
 
-  const handleSubmit = (e) => {
+  const SERVICE_ID = process.env.REACT_SERVICE_ID
+  const TEMPLATE_ID = process.env.REACT_TEMPLATE_ID
+  const PUBLIC_KEY = process.env.REACT_PUBLIC_KEY
+
+  const sendEmail = async (e) => {
     e.preventDefault();
+
+    // You got a new call request from {{ fullname }}:
+
+    // Contacts : Email - {{email}}, Phone number - {{telephone}}
+
+    // Subject : {{subject}}
+
+    try {
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
+        publicKey: PUBLIC_KEY,
+      });
+      success(t("success"));
+    } catch (err) {
+      error(`Error - ${err?.text}`);
+    } finally {
+      setFullname("");
+      setEmail("");
+      setTelephone("");
+      setSubject("");
+    }
   };
 
   return (
@@ -39,7 +70,7 @@ const Contact = () => {
           <Breadcrumb />
 
           <div className="contact_context">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={sendEmail}>
               <input type="text" placeholder={t("fullname")} />
               <input type="email" placeholder={t("email")} />
               <input type="text" placeholder={t("tel_number")} />
@@ -48,7 +79,7 @@ const Contact = () => {
                 placeholder={t("subject")}
               ></textarea>
 
-              <button className="contact_btn">{t("request")}</button>
+              <button type="submit" className="contact_btn">{t("request")}</button>
               <span>{t("privacy")}</span>
             </form>
 
