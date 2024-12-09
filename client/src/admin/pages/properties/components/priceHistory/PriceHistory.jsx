@@ -10,7 +10,6 @@ export const PriceHistory = ({ data }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const [price, setPrice] = useState(true);
-  console.log(pathname);
 
   const { exchange, exchangeValue } = useSelector((state) => state.home);
 
