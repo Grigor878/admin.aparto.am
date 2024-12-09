@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { filterClose } from "../../../../assets/svgs/svgs";
 import { Radio } from "../inputs/radio";
@@ -33,7 +33,7 @@ import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
 import {
-  formatResultUrl,
+  fixUrl,
   getDataFromUrl,
   parseUrlSegments,
 } from "../../../../helpers/formatters";
@@ -58,13 +58,12 @@ export const Sider = ({ open, setOpen }) => {
 
   // search parametrs
   const params = useParams();
-  const location = useLocation();
 
-  const { type, property, newbuild, commune, street } =
-    parseUrlSegments(params);
+  const { type, property, newbuild, commune } = parseUrlSegments(params);
 
   const [
     pageParam,
+    streetsParam,
     roomsParam,
     minSquareParam,
     maxSquareParam,
@@ -80,6 +79,7 @@ export const Sider = ({ open, setOpen }) => {
     removeParam,
   ] = useQueryParams([
     "page",
+    "streets",
     "rooms",
     "min_square",
     "max_square",
@@ -104,20 +104,19 @@ export const Sider = ({ open, setOpen }) => {
       : getDataFromUrl(commune, urlCommunity)
   );
   const [streets, setStreets] = useState(
-    searchedAddresses || []
-    // searchedAddresses?.length ? searchedAddresses : []
-    // searchedAddresses?.length && !street
-    //   ? searchedAddresses
-    //   : getDataFromUrl(street, urlStreets)
+    streetsParam?.split(",")?.map(Number) || searchedAddresses
   );
-
   const [rooms, setRooms] = useState(roomsParam?.split(",") || room);
   const [squareMin, setSquareMin] = useState(minSquareParam || "");
   const [squareMax, setSquareMax] = useState(maxSquareParam || "");
   const [priceMin, setPriceMin] = useState(minPriceParam || "");
   const [priceMax, setPriceMax] = useState(maxPriceParam || price);
-  const [buildType, setBuildType] = useState(buildingTypeParam || []);
-  const [propCondition, setPropCondition] = useState(conditionParam || []);
+  const [buildType, setBuildType] = useState(
+    buildingTypeParam?.split(",") || []
+  );
+  const [propCondition, setPropCondition] = useState(
+    conditionParam?.split(",") || []
+  );
   const [floorMin, setFloorMin] = useState(minFloorParam || "");
   const [floorMax, setFloorMax] = useState(maxFloorParam || "");
   const [description, setDescription] = useState(descriptionParam || keywords);
@@ -127,29 +126,34 @@ export const Sider = ({ open, setOpen }) => {
 
   // community
   const handleUpdate = (e, setState, id) => {
-    dispatch(setPage("result"));
-    dispatch(setPaginatePage("1"));
-
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 1200);
-
     if (e.target.checked) {
       setState((prev) => [...prev, id]);
     } else {
       setState((prev) => prev.filter((item) => item !== id));
     }
-  };
 
-  // buildType, propCondition
-  const handleUpdateQuery = (e, setState, key, id) => {
+    setParams({ page: null }); //
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
 
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
+  };
 
+  // transactionType, propertyType, newBuild, community
+  const handleSetState = (setState, value) => {
+    setParams({ page: null }); //
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+    setState(value);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
+  };
+
+  // buildType, propCondition
+  const handleUpdateQuery = (e, setState, key, id) => {
     const urlParams = new URLSearchParams(window.location.search);
 
     if (e.target.checked) {
@@ -167,77 +171,50 @@ export const Sider = ({ open, setOpen }) => {
         urlParams.set(key, updatedValues.join(","));
       } else {
         urlParams.delete(key);
+        removeParam(key);
       }
     }
 
-    let url = `?${urlParams.toString()}`;
-    url = url.replace(/%2C/g, ",");
-
     if ([...urlParams].length > 0) {
-      window.history.replaceState({}, "", url);
-    } else {
-      window.history.replaceState({}, "", window.location.pathname);
+      setParams(Object.fromEntries(urlParams)); //
+      setParams({ page: null }); //
     }
-  };
 
-  // transactionType, propertyType, newBuild, street
-  const handleSetState = (setState, value) => {
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
-    setState(value);
+    fixUrl();
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
   };
 
-  // rooms, square, price, floor, other_description, id
+  // street, rooms, square, price, floor, other_description, id
   const handleSetStateQuery = (setState, key, value) => {
-    if (!value || value?.length === 0) {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (!value || value.length === 0) {
       removeParam(key);
+      urlParams.delete(key);
     } else {
-      setParams({ [key]: value });
+      setParams({ [key]: value }); //
     }
+
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
     setState(value);
+    setParams({ page: null }); //
+    fixUrl();
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1200);
   };
-
-  // rooms
-  // const handleRoomsQuery = (setState, key, value) => {
-  //   dispatch(setPage("result"));
-  //   dispatch(setPaginatePage("1"));
-
-  //   setTimeout(() => {
-  //     window.scrollTo(0, 0);
-  //   }, 1200);
-
-  //   const urlParams = new URLSearchParams(window.location.search);
-
-  //   if (!value || value.length === 0) {
-  //     urlParams.delete(key);
-  //   } else {
-  //     urlParams.set(key, value?.join(","));
-  //   }
-
-  //   let url = `?${urlParams.toString()}`;
-  //   url = decodeURIComponent(url);
-  //   url = url?.replace(/%2C/g, ",");
-
-  //   if ([...urlParams].length > 0) {
-  //     window.history.replaceState({}, "", url);
-  //   } else {
-  //     window.history.replaceState({}, "", window.location.pathname);
-  //   }
-
-  //   setState(value);
-  // };
 
   const clearSearch = () => {
     const paramsToClear = [
       "page",
+      "streets",
       "rooms",
       "min_square",
       "max_square",
@@ -293,39 +270,36 @@ export const Sider = ({ open, setOpen }) => {
           ?.filter((item) => community?.includes(item.id) && item.id !== 15)
           ?.map((item) => item.value.toLowerCase())
       );
-    // streets &&
-    //   urlParts.push(
-    //     urlStreets
-    //       ?.filter((item) => street?.includes(item.id))
-    //       ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
-    //     // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-')))
-    //     // .join(",")
-    //   );
 
-    pageParam && urlParts.push(`?page=${pageParam}`);
+    const queryParams = new URLSearchParams();
 
-    return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
+    if (streetsParam) queryParams.append("streets", streetsParam);
+    if (roomsParam) queryParams.append("rooms", roomsParam);
+    if (minSquareParam) queryParams.append("min_square", minSquareParam);
+    if (maxSquareParam) queryParams.append("max_square", maxSquareParam);
+    if (minPriceParam) queryParams.append("min_price", minPriceParam);
+    if (maxPriceParam) queryParams.append("max_price", maxPriceParam);
+    if (minFloorParam) queryParams.append("floor_min", minFloorParam);
+    if (maxFloorParam) queryParams.append("floor_max", maxFloorParam);
+    if (buildingTypeParam)
+      queryParams.append("building_type", buildingTypeParam);
+    if (conditionParam) queryParams.append("condition", conditionParam);
+    if (descriptionParam) queryParams.append("description", descriptionParam);
+    if (idParam) queryParams.append("id", idParam);
+    if (pageParam) queryParams.append("page", pageParam);
+
+    const queryString = queryParams?.toString()?.replace(/%2C/g, ",");
+
+    if (queryString) {
+      urlParts.push(`?${queryString}`);
+    }
+
+    return urlParts.join("/").replace(/\/+/g, "/").replace(/\/$/, "");
   };
 
-  // useEffect(() => {
-  //   const buildTypeFromUrl = buildingTypeParam?.split(",") || [];
-  //   setBuildType(buildTypeFromUrl);
-
-  //   const propConditionFromUrl = conditionParam?.split(",") || [];
-  //   setPropCondition(propConditionFromUrl);
-  // }, [buildingTypeParam, conditionParam]);
-
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-
-    const query = urlParams.toString();
     const url = buildUrl();
-
-    navigate({
-      pathname: url,
-      search: query.toString(),
-      // search: query ? formatResultUrl(query) : "",
-    });
+    navigate(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radio, propType, newBuild, community]);
 
@@ -501,7 +475,8 @@ export const Sider = ({ open, setOpen }) => {
             <MultiSelect
               community={community}
               placeholder={t("street")}
-              onChange={(e) => handleSetState(setStreets, e)}
+              // onChange={(e) => handleSetState(setStreets, e)}
+              onChange={(e) => handleSetStateQuery(setStreets, "streets", e)}
               selected={streets} //
             />
           </div>
@@ -760,52 +735,60 @@ export const Sider = ({ open, setOpen }) => {
   );
 };
 
-// if (e.target.checked) {
-//   setState((prev) => [...prev, id]);
-
-//   const existingValues = urlParams.get(key)?.split(",") || [];
-//   if (!existingValues.includes(id)) {
-//     urlParams.set(key, [...existingValues, id].join(","));
-//   }
-// } else {
-//   setState((prev) => prev.filter((item) => item !== id));
-
-//   const existingValues = urlParams.get(key)?.split(",") || [];
-//   const updatedValues = existingValues.filter((item) => item !== id);
-//   if (updatedValues.length > 0) {
-//     urlParams.set(key, updatedValues.join(","));
-//   } else {
-//     urlParams.delete(key);
-//   }
-// }
-
-// if ([...urlParams].length > 0) {
-//   window.history.replaceState({}, "", `?${urlParams.toString()}`);
-// } else {
-//   window.history.replaceState({}, "", window.location.pathname);
-// }
-
-// if (radio) {
-//   urlParts.push(radio);
-// }
-// if (propType) {
-//   urlParts.push(propType);
-// }
-// if (newBuild === true) {
-//   urlParts.push("new-building");
-// }
-// if (community) {
-//   const matchedValues = urlCommunity
-//     ?.filter((item) => community?.includes(item.id) && item.id !== 15)
-//     ?.map((item) => item.value.toLowerCase());
-//   urlParts.push(matchedValues);
-// }
-// if (pageParam) {
-//   urlParts.push(`?page=${pageParam}`);
-// }
-
-// searchedCommunities?.length
-
 // useEffect(() => {
-//   dispatch(setSearchedCommunities(getCommunityFromUrl(commune, communityEn)));
-// }, [commune, community, dispatch]);
+//   const urlParams = new URLSearchParams(location.search);
+
+//   const query = urlParams.toString();
+//   const url = buildUrl();
+
+//   navigate({
+//     pathname: url,
+//     search: query,
+//     // search: query ? formatResultUrl(query) : "",
+//   });
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [radio, propType, newBuild, community]);
+
+// const handleSetStateQuery = (setState, key, value) => {
+//   if (!value || value?.length === 0) {
+//     removeParam(key);
+//   } else {
+//     setParams({ [key]: value });
+//   }
+//   dispatch(setPage("result"));
+//   dispatch(setPaginatePage("1"));
+//   setState(value);
+//   setTimeout(() => {
+//     window.scrollTo(0, 0);
+//   }, 1200);
+// };
+
+// rooms
+// const handleRoomsQuery = (setState, key, value) => {
+//   dispatch(setPage("result"));
+//   dispatch(setPaginatePage("1"));
+
+//   setTimeout(() => {
+//     window.scrollTo(0, 0);
+//   }, 1200);
+
+//   const urlParams = new URLSearchParams(window.location.search);
+
+//   if (!value || value.length === 0) {
+//     urlParams.delete(key);
+//   } else {
+//     urlParams.set(key, value?.join(","));
+//   }
+
+//   let url = `?${urlParams.toString()}`;
+//   url = decodeURIComponent(url);
+//   url = url?.replace(/%2C/g, ",");
+
+//   if ([...urlParams].length > 0) {
+//     window.history.replaceState({}, "", url);
+//   } else {
+//     window.history.replaceState({}, "", window.location.pathname);
+//   }
+
+//   setState(value);
+// };

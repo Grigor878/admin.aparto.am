@@ -12,6 +12,7 @@ import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import useQueryParams from "../../hooks/useQueryParams";
 import "./Styles.scss";
+import { fixUrl } from "../../helpers/formatters";
 
 const Result = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
@@ -41,10 +42,10 @@ const Result = () => {
   }, [map, mobile]);
 
   const handlePageChange = (page) => {
-    
     dispatch(setPage("result"));
     dispatch(setPaginatePage(page));
     setParams({ page: page === 1 ? null : page });
+    fixUrl();
 
     setTimeout(() => {
       window.scrollTo(0, 0);
