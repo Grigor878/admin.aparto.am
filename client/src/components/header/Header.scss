@@ -130,10 +130,10 @@
     color: #0f5bed !important;
   }
 
-  .disabled {
-    pointer-events: none;
-    cursor: default;
-  }
+  // .disabled {
+  //   pointer-events: none;
+  //   cursor: default;
+  // }
 
   &__mobile {
     @include flex;

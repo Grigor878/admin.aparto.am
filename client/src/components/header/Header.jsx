@@ -92,14 +92,27 @@ const Header = () => {
                 return (
                   <li key={id}>
                     {id === 1 ? (
-                      <a
-                        href={!servicesCheck && "#services"}
-                        className={`header__link ${servicesCheck && `active`} ${
-                          (servicesCheck || !homeCheck) && `disabled`
-                        }`}
-                      >
-                        {t(name)}
-                      </a>
+                      homeCheck ? (
+                        <a
+                          href={"#services"}
+                          className="header__link"
+                        >
+                          {t(name)}
+                        </a>
+                      ) : (
+                        <NavLink
+                          onClick={hrefClick}
+                          to={to}
+                          // className="header__link"
+                          className={({ isActive }) =>
+                            `header__link ${
+                              isActive || servicesCheck ? "active" : ""
+                            }`
+                          }
+                        >
+                          {t(name)}
+                        </NavLink>
+                      )
                     ) : (
                       <NavLink
                         onClick={hrefClick}
