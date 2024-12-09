@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setKeyword } from '../../../../../store/slices/propertySlice'
 import { removeKeyword } from '../../../../svgs/svgs'
-import { error } from '../../../../../components/swal/swal'
+import { error } from '../../../../../components/alerts/alerts'
 import './Keywords.scss'
 import '../inputs/Styles.scss'
 

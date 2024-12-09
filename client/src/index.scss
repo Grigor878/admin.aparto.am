@@ -125,7 +125,6 @@ img {
 // }
 
 @media screen and (max-width: 768px) {
-
   .css-1hb7zxy-IndicatorsContainer,
   .css-1u9des2-indicatorSeparator {
     display: none !important;
@@ -183,4 +182,10 @@ input[type="number"] {
   @media screen and (max-width: 768px) {
     padding-top: 48px;
   }
+}
+
+// alerts
+.custom-toast {
+  word-wrap: break-word !important;
+  min-width: fit-content !important;
 }

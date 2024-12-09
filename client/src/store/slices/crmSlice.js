@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../services/api/baseApi";
-// import { success } from "../../components/swal/swal";
-import { success } from "../../components/swal/swal";
+// import { success } from "../../components/alerts/alerts";
+import { success } from "../../components/alerts/alerts";
 import { getAxiosConfig } from "../../services/api/config";
 
 const initialState = {

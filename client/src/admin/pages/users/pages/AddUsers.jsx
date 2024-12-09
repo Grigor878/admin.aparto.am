@@ -8,7 +8,7 @@ import { AddInput } from '../../../components/inputs/AddInput'
 import { SelectRole } from '../components/SelectRole'
 import { capitalize } from '../../../../helpers/formatters'
 import baseApi from '../../../../services/api/baseApi'
-import { error, goodJob } from '../../../../components/swal/swal'
+import { error, goodJob, success } from '../../../../components/alerts/alerts'
 import { addUserInputs } from '../data'
 import './Styles.scss'
 import { getAxiosConfig } from '../../../../services/api/config'
@@ -65,7 +65,7 @@ const AddUsers = () => {
 
         baseApi.post('/api/addUser', formData, getAxiosConfig())
             .then(res => {
-                goodJob(`Password is - ${res.data.password}`)
+                success(`Password is - ${res.data.password}`)
                 navigate(-1)
             })
             .catch(err => error(err.message))

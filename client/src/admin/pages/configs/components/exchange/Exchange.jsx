@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getExchangeData, setExchangeData } from '../../../../../store/slices/configsSlice'
 import { InputSymbol } from '../../../properties/components/inputs/InputSymbol'
 import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
-import { error } from '../../../../../components/swal/swal'
+import { error } from '../../../../../components/alerts/alerts'
 import './Exchange.scss'
 
 export const Exchange = () => {

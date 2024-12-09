@@ -5,7 +5,7 @@ import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import { useDispatch } from 'react-redux'
 import { addStructureField } from '../../../../../store/slices/structureSlice'
 import { capitalize } from '../../../../../helpers/formatters'
-import { error, success } from '../../../../../components/swal/swal'
+import { error, success } from '../../../../../components/alerts/alerts'
 import './Modal.scss'
 
 export const Modal = ({ title, active, setActive, name }) => {

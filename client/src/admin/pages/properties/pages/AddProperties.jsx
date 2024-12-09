@@ -23,7 +23,7 @@ import { FileUpload } from '../components/inputs/FileUpload'
 import { AddOwner } from '../components/owner/AddOwner'
 import { AgentSelect } from '../components/asyncSelects/AgentSelect'
 import { ManagerSelect } from '../components/asyncSelects/ManagerSelect'
-import { error } from '../../../../components/swal/swal'
+import { error } from '../../../../components/alerts/alerts'
 import './Styles.scss'
 
 const AddProperties = () => {

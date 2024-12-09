@@ -5,7 +5,7 @@ import { BtnOnclick } from '../../../../components/buttons/BtnOnclick'
 import { useDispatch } from 'react-redux'
 import { addConfigsAddress } from '../../../../../store/slices/configsSlice'
 import { capitalize } from '../../../../../helpers/formatters'
-import { error, success } from '../../../../../components/swal/swal'
+import { error, success } from '../../../../../components/alerts/alerts'
 import '../../../structure/components/modal/Modal.scss'
 import './Modal.scss'
 

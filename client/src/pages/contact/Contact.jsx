@@ -8,7 +8,7 @@ import image from "../../assets/imgs/contactMain.png";
 import { useTranslation } from "react-i18next";
 import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
 import emailjs from "@emailjs/browser";
-import { error, success } from '../../components/swal/swal'
+import { error, success } from '../../components/alerts/alerts'
 import "./Contact.scss";
 
 const Contact = () => {
@@ -33,9 +33,9 @@ const Contact = () => {
     window?.scrollTo({ top: elementPosition + offset, behavior: "smooth" });
   };
 
-  const SERVICE_ID = process.env.REACT_SERVICE_ID
-  const TEMPLATE_ID = process.env.REACT_TEMPLATE_ID
-  const PUBLIC_KEY = process.env.REACT_PUBLIC_KEY
+  const SERVICE_ID = process.env.REACT_APP_SERVICE_ID
+  const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID
+  const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -70,13 +70,34 @@ const Contact = () => {
           <Breadcrumb />
 
           <div className="contact_context">
-            <form onSubmit={sendEmail}>
-              <input type="text" placeholder={t("fullname")} />
-              <input type="email" placeholder={t("email")} />
-              <input type="text" placeholder={t("tel_number")} />
+            <form onSubmit={sendEmail} ref={form}>
+              <input
+                type="text"
+                placeholder={t("fullname")}
+                name="fullname"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder={t("email")}
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder={t("tel_number")}
+                name="telephone"
+                value={telephone}
+                onChange={(e) => setTelephone(e.target.value)}
+              />
               <textarea
                 style={{ height: "120px" }}
                 placeholder={t("subject")}
+                name="subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
               ></textarea>
 
               <button type="submit" className="contact_btn">{t("request")}</button>

@@ -11,7 +11,7 @@ import { EditInput } from '../../../components/inputs/EditInput'
 import { DisabledInput } from '../../../components/inputs/DisabledInput'
 import { RiDeleteBin5Fill } from 'react-icons/ri'
 import baseApi from '../../../../services/api/baseApi'
-import { error, success } from '../../../../components/swal/swal'
+import { error, success } from '../../../../components/alerts/alerts'
 import './Styles.scss'
 import { API_BASE_URL, getAxiosConfig } from '../../../../services/api/config'
 
