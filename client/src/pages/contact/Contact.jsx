@@ -8,7 +8,7 @@ import image from "../../assets/imgs/contactMain.png";
 import { useTranslation } from "react-i18next";
 import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
 import emailjs from "@emailjs/browser";
-import { error, success } from '../../components/alerts/alerts'
+import { error, success } from "../../components/alerts/alerts";
 import "./Contact.scss";
 
 const Contact = () => {
@@ -33,18 +33,12 @@ const Contact = () => {
     window?.scrollTo({ top: elementPosition + offset, behavior: "smooth" });
   };
 
-  const SERVICE_ID = process.env.REACT_APP_SERVICE_ID
-  const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID
-  const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY
+  const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
+  const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID;
+  const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY;
 
   const sendEmail = async (e) => {
     e.preventDefault();
-
-    // You got a new call request from {{ fullname }}:
-
-    // Contacts : Email - {{email}}, Phone number - {{telephone}}
-
-    // Subject : {{subject}}
 
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
@@ -100,7 +94,9 @@ const Contact = () => {
                 onChange={(e) => setSubject(e.target.value)}
               ></textarea>
 
-              <button type="submit" className="contact_btn">{t("request")}</button>
+              <button type="submit" className="contact_btn">
+                {t("request")}
+              </button>
               <span>{t("privacy")}</span>
             </form>
 
