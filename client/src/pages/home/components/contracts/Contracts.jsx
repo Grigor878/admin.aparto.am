@@ -1,9 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./Contracts.scss";
 import { PdfSwitcher } from "./component/PdfSwitcher";
-import "./Contracts.scss";
 import { NavLink } from "react-router-dom";
+import "./Contracts.scss";
 
 const Contracts = () => {
   const { t, i18n } = useTranslation();

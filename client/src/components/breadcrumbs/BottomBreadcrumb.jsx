@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
 import { NavLink } from "react-router-dom";
-import { slash } from "../../admin/svgs/svgs";
+import { slash } from "../../assets/svgs/svgs";
 import "./styles.scss";
 
 export const BottomBreadcrumb = () => {

@@ -11,8 +11,8 @@ import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import useQueryParams from "../../hooks/useQueryParams";
-import "./Styles.scss";
 import { fixUrl } from "../../helpers/formatters";
+import "./Styles.scss";
 
 const Result = () => {
   const mobile = useMediaQuery({ maxWidth: 768 });
