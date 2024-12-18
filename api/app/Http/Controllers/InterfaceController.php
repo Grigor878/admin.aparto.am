@@ -103,4 +103,12 @@ class InterfaceController extends Controller
 
         return response()->json($homeSeo);
     }
+
+    public function getProperty(string $lang, int $id)
+    {
+        $home = $this->interfaceService->getProperty($lang, $id);
+
+        return response()->json($home);
+    }
+    
 }

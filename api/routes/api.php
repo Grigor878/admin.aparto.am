@@ -39,6 +39,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/getSeeMoreHomes/{lang}',  [InterfaceController::class, 'getSeeMoreHomes']);
     Route::post('/getCommunitySearch/{lang}',  [InterfaceController::class, 'getCommunitySearch']);
     Route::get('/getInterfaceProperties/{lang}/{id}',  [InterfaceController::class, 'getInterfaceProperties']);
+    Route::get('/properties/{lang}/{id}',  [InterfaceController::class, 'getProperty']);
     Route::post('/getResultPageData/{lang}',  [InterfaceController::class, 'getResultPageData']);
     Route::get('/getRecomendeds/{lang}/{homeId}/{communityId}',  [InterfaceController::class, 'getRecomendeds']);
     Route::get('/getPropertiesSeo/{lang}/{id}',  [InterfaceController::class, 'getPropertiSeo']);

@@ -7,6 +7,7 @@ use App\Models\Employe;
 use App\Models\Home;
 use App\Models\RecentSearch;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Support\Arr;
 
 class InterFaceService
@@ -653,7 +654,14 @@ class InterFaceService
     {
         $home = Home::where('status', Home::STATUS_APPROVED)
             ->orderBy('created_at', 'desc')
-            ->select('home_id', 'am', 'ru', 'en', 'photo', 'price_history')
+            ->select(
+                'home_id',
+                'am',
+                'ru',
+                'en',
+                'photo',
+                DB::raw('JSON_EXTRACT(price_history, "$") as priceHistory'),
+            )
             ->findOrFail($id);
 
         $am = json_decode($home->am);
@@ -671,7 +679,6 @@ class InterFaceService
             }
         }
         $home->photo = $filteredPhoto;
-        $home->priceHistory = json_decode($home->price_history);
 
         // $agentId = (int) $home['am'][11]->fields[0]->id;
         // $managerId = (int) $home['am'][11]->fields[1]->id;
@@ -681,7 +688,7 @@ class InterFaceService
             $en[0]->fields[1]->value = 'Commercial';
         }
 
-        $firstVisiblePhotoData = Arr::first($home->photo, function ( $value,  $key) {
+        $firstVisiblePhotoData = Arr::first($home->photo, function ($value, $key) {
             return filter_var($value->visible, FILTER_VALIDATE_BOOLEAN);
         });
         $seo = [];
@@ -702,17 +709,107 @@ class InterFaceService
         }
 
         $readySeo = [
-            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData->name : '',
+            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE') . "images/" . $firstVisiblePhotoData->name : '',
             'urlSlug' => $seo->fields['0']->value,
             'title' => $seo->fields['1']->value,
             'description' => $seo->fields['2']->value,
             'altText' => $seo->fields['3']->value,
         ];
         $home->seo = $readySeo;
-        
+
         $home->am = $am;
         $home->ru = $ru;
         $home->en = $en;
+
+        return $home;
+    }
+
+    public function getProperty($lang, $id)
+    {
+        $home = Home::where('status', Home::STATUS_APPROVED)
+            ->orderBy('created_at', 'desc')
+            ->select(
+                'home_id',
+                'am',
+                'ru',
+                'en',
+                'photo',
+                DB::raw('JSON_EXTRACT(price_history, "$") as priceHistory'),
+                DB::raw("JSON_EXTRACT(am, '$[1].fields[0].communityId') as communityId"),
+                DB::raw("JSON_EXTRACT(am, '$[0].fields[0].selectedOptionName') as selectedTransactionType"),
+            )
+            ->findOrFail($id);
+
+        $am = json_decode($home->am);
+        $ru = json_decode($home->ru);
+        $en = json_decode($home->en);
+
+        $home = $this->processHomeData($home);
+        $photo = json_decode($home->photo);
+        $filteredPhoto = [];
+        if ($photo !== null) {
+            foreach ($photo as $key => $value) {
+                if ($value->visible == "true") {
+                    array_push($filteredPhoto, $value);
+                }
+            }
+        }
+        $home->photo = $filteredPhoto;
+
+        if ($am[0]->fields[1]->value === "Կոմերցիոն (առանձնատուն)" || $am[0]->fields[1]->value === "Կոմերցիոն (բնակարան)") {
+            $am[0]->fields[1]->value = 'Կոմերցիոն';
+            $ru[0]->fields[1]->value = 'Коммерческая';
+            $en[0]->fields[1]->value = 'Commercial';
+        }
+
+        $firstVisiblePhotoData = Arr::first($home->photo, function ($value, $key) {
+            return filter_var($value->visible, FILTER_VALIDATE_BOOLEAN);
+        });
+        $seo = [];
+        switch ($lang) {
+            case 'am':
+                $seo = $am[12];
+                break;
+
+            case 'ru':
+                $seo = $ru[12];
+                break;
+
+            case 'en':
+                $seo = $en[12];
+                break;
+            default:
+                throw new \InvalidArgumentException('The lang key is invalid.');
+        }
+
+        $readySeo = [
+            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE') . "images/" . $firstVisiblePhotoData->name : '',
+            'urlSlug' => $seo->fields['0']->value,
+            'title' => $seo->fields['1']->value,
+            'description' => $seo->fields['2']->value,
+            'altText' => $seo->fields['3']->value,
+        ];
+        $home->seo = $readySeo;
+
+        $home->recomendeds = $this->getRecomendeds($lang, $id, $home->communityId);
+        switch ($lang) {
+            case 'am':
+                $home->am = $am;
+                unset($home->ru, $home->en);
+                break;
+            case 'ru':
+                $home->ru = $ru;
+                unset($home->am, $home->en);
+                break;
+            case 'en':
+                $home->en = $en;
+                unset($home->am, $home->ru);
+                break;
+
+            default:
+                new \InvalidArgumentException('The lang key is invalid.');
+                break;
+        }
 
         return $home;
     }
@@ -946,7 +1043,8 @@ class InterFaceService
             ->map(function ($home) use ($lang) {
                 $home = $this->processHomeData($home);
                 $home = $this->mapSearchHomeDetail($home, $lang);
-                $home['photo'] = Arr::get($home['photo'], '0', '');;
+                $home['photo'] = Arr::get($home['photo'], '0', '');
+                ;
                 return $home;
             });
 
@@ -956,38 +1054,38 @@ class InterFaceService
     {
         $home = Home::query()
             ->where('status', Home::STATUS_APPROVED)
-            ->where('id',  $homeId)
+            ->where('id', $homeId)
             ->first();
 
-            $firstVisiblePhotoData = $this->getFirstVisiblePhoto(json_decode($home->photo, true));
+        $firstVisiblePhotoData = $this->getFirstVisiblePhoto(json_decode($home->photo, true));
 
-            switch ($lang) {
-                case 'am':
-                    $homeLangJson = json_decode($home->am, true);
-                    break;
-    
-                case 'ru':
-                    $homeLangJson = json_decode($home->ru, true);
-                    break;
-    
-                case 'en':
-                    $homeLangJson = json_decode($home->en, true);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('The lang key is invalid.');
-            }
+        switch ($lang) {
+            case 'am':
+                $homeLangJson = json_decode($home->am, true);
+                break;
 
-            $prepareSeo = $homeLangJson[12];
+            case 'ru':
+                $homeLangJson = json_decode($home->ru, true);
+                break;
 
-            return ['seo' => $this->getPrepareSeo($prepareSeo, $firstVisiblePhotoData)];
+            case 'en':
+                $homeLangJson = json_decode($home->en, true);
+                break;
+            default:
+                throw new \InvalidArgumentException('The lang key is invalid.');
+        }
 
-           
+        $prepareSeo = $homeLangJson[12];
+
+        return ['seo' => $this->getPrepareSeo($prepareSeo, $firstVisiblePhotoData)];
+
+
     }
 
     public function getPrepareSeo($seo, $firstVisiblePhotoData)
     {
         return [
-            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE')."images/".$firstVisiblePhotoData['name'] : '',
+            'image' => $firstVisiblePhotoData ? env('REACT_APP_BASE_API_RELEASE') . "images/" . $firstVisiblePhotoData['name'] : '',
             'urlSlug' => $seo['fields']['0']['value'],
             'title' => $seo['fields']['1']['value'],
             'description' => $seo['fields']['2']['value'],
@@ -997,7 +1095,7 @@ class InterFaceService
 
     public function getFirstVisiblePhoto($photos)
     {
-        return Arr::first($photos, function ( $value,  $key) {
+        return Arr::first($photos, function ($value, $key) {
             return filter_var($value['visible'], FILTER_VALIDATE_BOOLEAN);
         });
     }
