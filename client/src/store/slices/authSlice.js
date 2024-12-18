@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../services/api/baseApi";
-import { error, success } from "../../components/swal/swal";
+import { error, success } from "../../components/alerts/alerts";
 
 const initialState = {
   isLoggedIn: !!localStorage.getItem("token"), // Check if token exists in local storage

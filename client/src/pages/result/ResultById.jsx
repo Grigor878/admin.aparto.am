@@ -23,7 +23,7 @@ import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
 import { YMap } from "../../admin/pages/properties/components/yandexMap/YMap";
 import {
   amdFormater,
-  formatUrl,
+  formatHomeUrl,
   sqmToFt2,
   usdFormater,
 } from "../../helpers/formatters";
@@ -59,7 +59,7 @@ const ResultById = () => {
 
   useEffect(() => {
     if (data["en"] && data["en"][0]?.fields[2]?.value) {
-      const title = formatUrl(data["en"][0].fields[2].value);
+      const title = formatHomeUrl(data["en"][0].fields[2].value);
       const targetPath = `/${language}/${title}/${id}`;
 
       navigate(targetPath, { replace: true });

@@ -16,7 +16,7 @@ import { ownerAdd, remove } from '../../../svgs/svgs';
 import { Search } from '../../../components/inputs/Search';
 import { cutText } from '../../../../helpers/formatters';
 import { Loader } from '../../../../components/loader/Loader';
-import { error } from '../../../../components/swal/swal';
+import { error } from '../../../../components/alerts/alerts';
 import { useNavigate } from 'react-router-dom';
 import { APP_BASE_URL } from '../../../../services/api/config';
 import { HomeStatus } from '../components/statuses/HomeStatus';

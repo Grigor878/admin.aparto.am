@@ -81,10 +81,10 @@ const Searches = () => {
                           return type === "house"
                             ? t("house")
                             : type === "privateHouse"
-                            ? t("private_house")
-                            : type === "commercial"
-                            ? t("commercial")
-                            : null;
+                              ? t("private_house")
+                              : type === "commercial"
+                                ? t("commercial")
+                                : null;
                         })
                         .join(",")}
                       {"  "}
@@ -110,11 +110,11 @@ const Searches = () => {
                       )}
 
                       {(price && community?.length > 0) ||
-                      (price && rooms?.length > 0)
+                        (price && rooms?.length > 0)
                         ? ` | ${usdFormater(price)}`
                         : price
-                        ? ` ${usdFormater(price)}`
-                        : null}
+                          ? ` ${usdFormater(price)}`
+                          : null}
                     </span>
                   </div>
                 </div>

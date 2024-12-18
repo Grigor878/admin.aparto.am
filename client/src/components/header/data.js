@@ -2,7 +2,7 @@ export const paths = [
     {
         id: 1,
         name: "header_service",
-        to: "our-services",
+        to: "services/buying_selling",
     },
     {
         id: 2,

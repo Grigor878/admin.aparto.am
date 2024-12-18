@@ -11,6 +11,7 @@ import { Pagination } from "./components/pagination/Pagination";
 import { setPage, setPaginatePage } from "../../store/slices/viewSlice";
 import HelmetAsync from "../../components/helmetAsync/HelmetAsync";
 import useQueryParams from "../../hooks/useQueryParams";
+import { fixUrl } from "../../helpers/formatters";
 import "./Styles.scss";
 
 const Result = () => {
@@ -41,10 +42,10 @@ const Result = () => {
   }, [map, mobile]);
 
   const handlePageChange = (page) => {
-    
     dispatch(setPage("result"));
     dispatch(setPaginatePage(page));
     setParams({ page: page === 1 ? null : page });
+    fixUrl();
 
     setTimeout(() => {
       window.scrollTo(0, 0);

@@ -130,6 +130,11 @@
     color: #0f5bed !important;
   }
 
+  // .disabled {
+  //   pointer-events: none;
+  //   cursor: default;
+  // }
+
   &__mobile {
     @include flex;
     gap: 22px;

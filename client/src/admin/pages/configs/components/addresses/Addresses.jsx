@@ -8,7 +8,7 @@ import { BtnAdd } from '../../../../components/buttons/BtnAdd'
 import { Modal } from '../modal/Modal'
 import { DeleteModal } from '../modal/DeleteModal'
 import { remove } from '../../../../svgs/svgs'
-import { success } from '../../../../../components/swal/swal'
+import { success } from '../../../../../components/alerts/alerts'
 import './Addresses.scss'
 
 export const Addresses = () => {

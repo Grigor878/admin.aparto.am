@@ -19,7 +19,7 @@ import { deals, proptypes, statuses } from './data'
 import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
-import { error } from '../../../../components/swal/swal'
+import { error } from '../../../../components/alerts/alerts'
 import { APP_BASE_URL } from '../../../../services/api/config'
 import './styles.scss'
 

@@ -101,8 +101,8 @@ export function formatDate(dateString) {
   return `${year}-${month?.padStart(2, "0")}-${day?.padStart(2, "0")}`;
 }
 
-// format url
-export function formatUrl(text) {
+// format urls
+export function formatHomeUrl(text) {
   return text
     .trim()
     .toLowerCase()
@@ -110,6 +110,20 @@ export function formatUrl(text) {
     .replace(/[^\w-()]+/g, "")
     .replace(/-+/g, "-");
 }
+
+export const formatResultUrl = (query) => {
+  const params = new URLSearchParams(query);
+
+  const formattedParams = Array.from(params.entries()).map(([key, value]) => {
+    // if (key === 'building_type') {
+    const values = decodeURIComponent(value).split(",");
+    return `${key}=${values.join(",")}`;
+    // }
+    // return `${key}=${value}`;
+  });
+
+  return formattedParams.join('&');
+};
 
 // sider get community and streets from url
 export const getDataFromUrl = (urlData, data) => {
@@ -157,3 +171,11 @@ export const parseUrlSegments = (params) => {
 
   return { type, property, newbuild, commune, street };
 };
+
+//
+export const fixUrl = () => {
+  const currentUrl = window.location.href;
+  const fixedUrl = currentUrl.replace(/%2C/g, ",");
+
+  window.history.pushState({ path: fixedUrl }, "", fixedUrl);
+}; 

@@ -18,6 +18,7 @@ import member from "../../assets/imgs/member.png";
 import member2 from "../../assets/imgs/member2.png";
 import member3 from "../../assets/imgs/member3.png";
 import "./About.scss";
+import { Breadcrumb } from "../../components/breadcrumbs/Breadcrumb";
 
 const About = () => {
   const { t, i18n } = useTranslation();
@@ -30,16 +31,19 @@ const About = () => {
       <ImgBlock image={image} title="about_title" />
 
       <div className="contain">
-        <div className="about_intro">
-          <img src={about1} alt="introduction_image" loading="lazy" />
-          <div className="about_intro_text">
-            <h3>{t("introduction")}</h3>
-            <p>{t("introduction_text")}</p>
+        <div className="about_top">
+          <Breadcrumb />
+          <div className="about_intro">
+            <img src={about1} alt="introduction_image" loading="lazy" />
+            <div className="about_intro_text">
+              <h2>{t("introduction")}</h2>
+              <p>{t("introduction_text")}</p>
+            </div>
           </div>
         </div>
 
         <div className="about_story">
-          <h3>{t("story")}</h3>
+          <h2>{t("story")}</h2>
           <p>{t("story_text")}</p>
           <p>{t("story_text2")}</p>
         </div>
@@ -50,7 +54,7 @@ const About = () => {
         </div>
 
         <div className="about_members">
-          <h3>{t("about_happy")}</h3>
+          <h2>{t("about_happy")}</h2>
 
           <div className="about_members_row">
             <div className="about_members_col">
@@ -78,7 +82,7 @@ const About = () => {
         </div>
 
         <div className="about_choose">
-          <h3>{t("about_choose")}</h3>
+          <h2>{t("about_choose")}</h2>
           <p dangerouslySetInnerHTML={{ __html: t("about_choose_text") }} />
 
           <div className="about_choose_imgs">

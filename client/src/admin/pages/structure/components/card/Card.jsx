@@ -4,7 +4,7 @@ import { Modal } from '../modal/Modal'
 import { remove } from '../../../../svgs/svgs'
 import { useDispatch } from 'react-redux'
 import { removeStructureField } from '../../../../../store/slices/structureSlice'
-import { success } from '../../../../../components/swal/swal'
+import { success } from '../../../../../components/alerts/alerts'
 
 export const Card = ({ title, name, fields, added, search }) => {
     const [active, setActive] = useState(true)

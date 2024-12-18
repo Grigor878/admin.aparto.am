@@ -15,7 +15,7 @@ import {
   propConditionEn,
   propConditionRu,
   urlCommunity,
-  urlStreets,
+  // urlStreets,
 } from "./data";
 import { MultiSelect } from "../inputs/multiSelect";
 import { RoomSelect } from "../inputs/roomSelect";
@@ -29,11 +29,11 @@ import {
   setPaginatePage,
 } from "../../../../store/slices/viewSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useSessionState } from "../../../../hooks/useSessionState";
 import { useMediaQuery } from "react-responsive";
 import debounce from "lodash/debounce";
 import useQueryParams from "../../../../hooks/useQueryParams";
 import {
+  fixUrl,
   getDataFromUrl,
   parseUrlSegments,
 } from "../../../../helpers/formatters";
@@ -58,63 +58,92 @@ export const Sider = ({ open, setOpen }) => {
 
   // search parametrs
   const params = useParams();
-  const { type, property, newbuild, commune, street } = parseUrlSegments(params);
-  const [pageParam, setPageParam] = useQueryParams(["page"]);
 
-  const [radio, setRadio] = useState(type ? type : transactionType); //done
-  const [propType, setPropType] = useState(
-    property ? property : propertyType[0]
-  ); //done
+  const { type, property, newbuild, commune } = parseUrlSegments(params);
+
+  const [
+    pageParam,
+    streetsParam,
+    roomsParam,
+    minSquareParam,
+    maxSquareParam,
+    minPriceParam,
+    maxPriceParam,
+    minFloorParam,
+    maxFloorParam,
+    buildingTypeParam,
+    conditionParam,
+    descriptionParam,
+    idParam,
+    setParams,
+    removeParam,
+  ] = useQueryParams([
+    "page",
+    "streets",
+    "rooms",
+    "min_square",
+    "max_square",
+    "min_price",
+    "max_price",
+    "floor_min",
+    "floor_max",
+    "building_type",
+    "condition",
+    "description",
+    "id",
+  ]);
+
+  const [radio, setRadio] = useState(type || transactionType);
+  const [propType, setPropType] = useState(property || propertyType[0]);
   const [newBuild, setNewBuild] = useState(
     newbuild === "new-building" ? true : "on"
-  ); // done
+  );
   const [community, setCommunity] = useState(
     searchedCommunities?.length && !commune
       ? searchedCommunities
       : getDataFromUrl(commune, urlCommunity)
-  ); // done
-  const [streets, setStreets] = useState(
-    searchedAddresses?.length ? searchedAddresses : []
-    // searchedAddresses?.length && !street
-    //   ? searchedAddresses
-    //   : getDataFromUrl(street, urlStreets)
-  ); // done
-
-  const [priceMax, setPriceMax] = useState(price);
-  const [rooms, setRooms] = useState(room);
-  const [squareMin, setSquareMin] = useSessionState("", "siderSqMin");
-  const [squareMax, setSquareMax] = useSessionState("", "siderSqMax");
-  const [priceMin, setPriceMin] = useSessionState("", "siderPriceMin");
-  const [buildType, setBuildType] = useSessionState([], "siderBuildType");
-  const [propCondition, setPropCondition] = useSessionState(
-    [],
-    "siderPropCondition"
   );
-  const [floorMin, setFloorMin] = useSessionState("", "siderFloorMin");
-  const [floorMax, setFloorMax] = useSessionState("", "siderFloorMax");
-  const [description, setDescription] = useState(keywords);
-  const [id, setId] = useSessionState("", "siderId");
+  const [streets, setStreets] = useState(
+    streetsParam?.split(",")?.map(Number) || searchedAddresses
+  );
+  const [rooms, setRooms] = useState(roomsParam?.split(",") || room);
+  const [squareMin, setSquareMin] = useState(minSquareParam || "");
+  const [squareMax, setSquareMax] = useState(maxSquareParam || "");
+  const [priceMin, setPriceMin] = useState(minPriceParam || "");
+  const [priceMax, setPriceMax] = useState(maxPriceParam || price);
+  const [buildType, setBuildType] = useState(
+    buildingTypeParam?.split(",") || []
+  );
+  const [propCondition, setPropCondition] = useState(
+    conditionParam?.split(",") || []
+  );
+  const [floorMin, setFloorMin] = useState(minFloorParam || "");
+  const [floorMax, setFloorMax] = useState(maxFloorParam || "");
+  const [description, setDescription] = useState(descriptionParam || keywords);
+  const [id, setId] = useState(idParam || "");
 
   const mobile = useMediaQuery({ maxWidth: 768 });
 
-  // community, propType, buildType, propCondition
+  // community
   const handleUpdate = (e, setState, id) => {
-    dispatch(setPage("result"));
-    dispatch(setPaginatePage("1"));
-    // navigate(location.pathname);
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 1200);
-
     if (e.target.checked) {
       setState((prev) => [...prev, id]);
     } else {
       setState((prev) => prev.filter((item) => item !== id));
     }
+
+    setParams({ page: null }); //
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
   };
 
-  // radio, streets, rooms, squareMin, squareMax, floorMin, floorMax, priceMin, priceMax, description, id
+  // transactionType, propertyType, newBuild, community
   const handleSetState = (setState, value) => {
+    setParams({ page: null }); //
     dispatch(setPage("result"));
     dispatch(setPaginatePage("1"));
     setState(value);
@@ -123,19 +152,85 @@ export const Sider = ({ open, setOpen }) => {
     }, 1200);
   };
 
-  const clearSearch = () => {
-    sessionStorage.removeItem("siderSqMin");
-    sessionStorage.removeItem("siderSqMax");
-    sessionStorage.removeItem("siderPriceMax");
-    sessionStorage.removeItem("siderPriceMin");
-    sessionStorage.removeItem("siderBuildType");
-    sessionStorage.removeItem("siderPropCondition");
-    sessionStorage.removeItem("siderFloorMin");
-    sessionStorage.removeItem("siderFloorMax");
-    // sessionStorage.removeItem("siderDesc");
-    sessionStorage.removeItem("siderId");
+  // buildType, propCondition
+  const handleUpdateQuery = (e, setState, key, id) => {
+    const urlParams = new URLSearchParams(window.location.search);
 
-    setPageParam({ page: null });
+    if (e.target.checked) {
+      setState((prev) => [...prev, id]);
+      const existingValues = urlParams.get(key)?.split(",") || [];
+      if (!existingValues.includes(id)) {
+        existingValues.push(id);
+        urlParams.set(key, existingValues.join(","));
+      }
+    } else {
+      setState((prev) => prev.filter((item) => item !== id));
+      const existingValues = urlParams.get(key)?.split(",") || [];
+      const updatedValues = existingValues.filter((item) => item !== id);
+      if (updatedValues.length > 0) {
+        urlParams.set(key, updatedValues.join(","));
+      } else {
+        urlParams.delete(key);
+        removeParam(key);
+      }
+    }
+
+    if ([...urlParams].length > 0) {
+      setParams(Object.fromEntries(urlParams)); //
+      setParams({ page: null }); //
+    }
+
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+    fixUrl();
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
+  };
+
+  // street, rooms, square, price, floor, other_description, id
+  const handleSetStateQuery = (setState, key, value) => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (!value || value.length === 0) {
+      removeParam(key);
+      urlParams.delete(key);
+    } else {
+      setParams({ [key]: value }); //
+    }
+
+    dispatch(setPage("result"));
+    dispatch(setPaginatePage("1"));
+    setState(value);
+    setParams({ page: null }); //
+    fixUrl();
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1200);
+  };
+
+  const clearSearch = () => {
+    const paramsToClear = [
+      "page",
+      "streets",
+      "rooms",
+      "min_square",
+      "max_square",
+      "min_price",
+      "max_price",
+      "floor_min",
+      "floor_max",
+      "building_type",
+      "condition",
+      "description",
+      "id",
+    ];
+
+    paramsToClear.forEach((param) => removeParam(param));
+
+    setParams({ page: null });
 
     dispatch(setPage("result"));
     dispatch(setPaginatePage(1));
@@ -175,18 +270,31 @@ export const Sider = ({ open, setOpen }) => {
           ?.filter((item) => community?.includes(item.id) && item.id !== 15)
           ?.map((item) => item.value.toLowerCase())
       );
-    // streets &&
-    //   urlParts.push(
-    //     urlStreets
-    //       ?.filter((item) => street?.includes(item.id))
-    //       ?.map((item) => item.value.toLowerCase().replace(/ /g, '-'))
-    //     // ?.map((item) => encodeURIComponent(item.name.toLowerCase().replace(/ /g, '-'))) 
-    //     // .join(",")
-    //   );
 
-    pageParam && urlParts.push(`?page=${pageParam}`);
+    const queryParams = new URLSearchParams();
 
-    return urlParts?.join("/")?.replace(/\/+/g, "/")?.replace(/\/$/, "");
+    if (streetsParam) queryParams.append("streets", streetsParam);
+    if (roomsParam) queryParams.append("rooms", roomsParam);
+    if (minSquareParam) queryParams.append("min_square", minSquareParam);
+    if (maxSquareParam) queryParams.append("max_square", maxSquareParam);
+    if (minPriceParam) queryParams.append("min_price", minPriceParam);
+    if (maxPriceParam) queryParams.append("max_price", maxPriceParam);
+    if (minFloorParam) queryParams.append("floor_min", minFloorParam);
+    if (maxFloorParam) queryParams.append("floor_max", maxFloorParam);
+    if (buildingTypeParam)
+      queryParams.append("building_type", buildingTypeParam);
+    if (conditionParam) queryParams.append("condition", conditionParam);
+    if (descriptionParam) queryParams.append("description", descriptionParam);
+    if (idParam) queryParams.append("id", idParam);
+    if (pageParam) queryParams.append("page", pageParam);
+
+    const queryString = queryParams?.toString()?.replace(/%2C/g, ",");
+
+    if (queryString) {
+      urlParts.push(`?${queryString}`);
+    }
+
+    return urlParts.join("/").replace(/\/+/g, "/").replace(/\/$/, "");
   };
 
   useEffect(() => {
@@ -333,17 +441,6 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__community-checkboxes">
               {language === "am"
                 ? communityAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setCommunity, id)}
-                      key={id}
-                      text={value}
-                      checked={community?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? communityEn.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setCommunity, id)}
@@ -353,7 +450,18 @@ export const Sider = ({ open, setOpen }) => {
                       />
                     );
                   })
-                  : communityRu.map(({ id, value }) => {
+                : language === "en"
+                ? communityEn.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) => handleUpdate(e, setCommunity, id)}
+                        key={id}
+                        text={value}
+                        checked={community?.includes(id)}
+                      />
+                    );
+                  })
+                : communityRu.map(({ id, value }) => {
                     return (
                       <Checkbox
                         onChange={(e) => handleUpdate(e, setCommunity, id)}
@@ -367,7 +475,8 @@ export const Sider = ({ open, setOpen }) => {
             <MultiSelect
               community={community}
               placeholder={t("street")}
-              onChange={(e) => handleSetState(setStreets, e)}
+              // onChange={(e) => handleSetState(setStreets, e)}
+              onChange={(e) => handleSetStateQuery(setStreets, "streets", e)}
               selected={streets} //
             />
           </div>
@@ -378,8 +487,10 @@ export const Sider = ({ open, setOpen }) => {
             <RoomSelect
               language={language}
               // data={language === "en" ? bedroomsNum : roomsNum}
-              onChange={(selectedRooms) =>
-                handleSetState(setRooms, selectedRooms)
+              onChange={
+                (selectedRooms) =>
+                  handleSetStateQuery(setRooms, "rooms", selectedRooms)
+                // setParams({room: selectedRooms});
               }
               selectedRooms={rooms}
             />
@@ -393,7 +504,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("square") + t("min")}
-                onChange={(e) => handleSetState(setSquareMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setSquareMin, "min_square", e)
+                }
                 symbol={t("square_symbol")}
                 value={squareMin}
               />
@@ -401,7 +514,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("square") + t("max")}
-                onChange={(e) => handleSetState(setSquareMax, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setSquareMax, "max_square", e)
+                }
                 symbol={t("square_symbol")}
                 value={squareMax}
               />
@@ -416,7 +531,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("price") + t("min")}
-                onChange={(e) => handleSetState(setPriceMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setPriceMin, "min_price", e)
+                }
                 symbol="$"
                 value={priceMin}
               />
@@ -424,7 +541,9 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("price") + t("max")}
-                onChange={(e) => handleSetState(setPriceMax, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setPriceMax, "max_price", e)
+                }
                 symbol="$"
                 value={priceMax}
               />
@@ -437,30 +556,51 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__property-checkboxes">
               {language === "am"
                 ? buildTypeAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setBuildType, id)}
-                      key={id}
-                      text={value}
-                      checked={buildType?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? buildTypeEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={buildType?.includes(id)}
                       />
                     );
                   })
-                  : buildTypeRu.map(({ id, value }) => {
+                : language === "en"
+                ? buildTypeEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setBuildType, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
+                        key={id}
+                        text={value}
+                        checked={buildType?.includes(id)}
+                      />
+                    );
+                  })
+                : buildTypeRu.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setBuildType,
+                            "building_type",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={buildType?.includes(id)}
@@ -476,30 +616,51 @@ export const Sider = ({ open, setOpen }) => {
             <div className="sider__property-checkboxes">
               {language === "am"
                 ? propConditionAm.map(({ id, value }) => {
-                  return (
-                    <Checkbox
-                      onChange={(e) => handleUpdate(e, setPropCondition, id)}
-                      key={id}
-                      text={value}
-                      checked={propCondition?.includes(id)}
-                    />
-                  );
-                })
-                : language === "en"
-                  ? propConditionEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={propCondition?.includes(id)}
                       />
                     );
                   })
-                  : propConditionRu.map(({ id, value }) => {
+                : language === "en"
+                ? propConditionEn.map(({ id, value }) => {
                     return (
                       <Checkbox
-                        onChange={(e) => handleUpdate(e, setPropCondition, id)}
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
+                        key={id}
+                        text={value}
+                        checked={propCondition?.includes(id)}
+                      />
+                    );
+                  })
+                : propConditionRu.map(({ id, value }) => {
+                    return (
+                      <Checkbox
+                        onChange={(e) =>
+                          handleUpdateQuery(
+                            e,
+                            setPropCondition,
+                            "condition",
+                            id
+                          )
+                        }
                         key={id}
                         text={value}
                         checked={propCondition?.includes(id)}
@@ -517,14 +678,18 @@ export const Sider = ({ open, setOpen }) => {
                 className="inputSmall"
                 type="number"
                 placeholder={t("floor") + t("min")}
-                onChange={(e) => handleSetState(setFloorMin, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setFloorMin, "floor_min", e)
+                }
                 value={floorMin}
               />
               <Input
                 className="inputSmall"
                 type="number"
                 placeholder={t("floor") + t("max")}
-                onChange={(e) => handleSetState(setFloorMax, e)}
+                onChange={(e) =>
+                  handleSetStateQuery(setFloorMax, "floor_max", e)
+                }
                 value={floorMax}
               />
             </div>
@@ -539,7 +704,7 @@ export const Sider = ({ open, setOpen }) => {
                 type="text"
                 placeholder={t("other_description")}
                 onChange={(e) => {
-                  handleSetState(setDescription, e);
+                  handleSetStateQuery(setDescription, "description", e);
                   dispatch(setKeywords(e));
                 }}
                 value={description}
@@ -559,7 +724,7 @@ export const Sider = ({ open, setOpen }) => {
                     ? t("id") + " ` 12345"
                     : t("id") + " : 12345"
                 }
-                onChange={(e) => handleSetState(setId, e)}
+                onChange={(e) => handleSetStateQuery(setId, "id", e)}
                 value={id}
               />
             </div>
@@ -570,27 +735,60 @@ export const Sider = ({ open, setOpen }) => {
   );
 };
 
-// if (radio) {
-//   urlParts.push(radio);
-// }
-// if (propType) {
-//   urlParts.push(propType);
-// }
-// if (newBuild === true) {
-//   urlParts.push("new-building");
-// }
-// if (community) {
-//   const matchedValues = urlCommunity
-//     ?.filter((item) => community?.includes(item.id) && item.id !== 15)
-//     ?.map((item) => item.value.toLowerCase());
-//   urlParts.push(matchedValues);
-// }
-// if (pageParam) {
-//   urlParts.push(`?page=${pageParam}`);
-// }
-
-// searchedCommunities?.length
-
 // useEffect(() => {
-//   dispatch(setSearchedCommunities(getCommunityFromUrl(commune, communityEn)));
-// }, [commune, community, dispatch]);
+//   const urlParams = new URLSearchParams(location.search);
+
+//   const query = urlParams.toString();
+//   const url = buildUrl();
+
+//   navigate({
+//     pathname: url,
+//     search: query,
+//     // search: query ? formatResultUrl(query) : "",
+//   });
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [radio, propType, newBuild, community]);
+
+// const handleSetStateQuery = (setState, key, value) => {
+//   if (!value || value?.length === 0) {
+//     removeParam(key);
+//   } else {
+//     setParams({ [key]: value });
+//   }
+//   dispatch(setPage("result"));
+//   dispatch(setPaginatePage("1"));
+//   setState(value);
+//   setTimeout(() => {
+//     window.scrollTo(0, 0);
+//   }, 1200);
+// };
+
+// rooms
+// const handleRoomsQuery = (setState, key, value) => {
+//   dispatch(setPage("result"));
+//   dispatch(setPaginatePage("1"));
+
+//   setTimeout(() => {
+//     window.scrollTo(0, 0);
+//   }, 1200);
+
+//   const urlParams = new URLSearchParams(window.location.search);
+
+//   if (!value || value.length === 0) {
+//     urlParams.delete(key);
+//   } else {
+//     urlParams.set(key, value?.join(","));
+//   }
+
+//   let url = `?${urlParams.toString()}`;
+//   url = decodeURIComponent(url);
+//   url = url?.replace(/%2C/g, ",");
+
+//   if ([...urlParams].length > 0) {
+//     window.history.replaceState({}, "", url);
+//   } else {
+//     window.history.replaceState({}, "", window.location.pathname);
+//   }
+
+//   setState(value);
+// };

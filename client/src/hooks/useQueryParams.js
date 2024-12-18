@@ -16,7 +16,13 @@ const useQueryParams = (keys) => {
         setSearchParams(searchParams);
     };
 
-    return [...getParams, setParams]
+    const removeParam = (key) => {
+        searchParams.delete(key);
+        setSearchParams(searchParams);
+    };
+
+    // return [...getParams, setParams]
+    return [...getParams, setParams, removeParam];
 };
 
 export default useQueryParams;

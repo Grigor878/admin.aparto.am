@@ -26,6 +26,7 @@ body {
   height: 100%;
   font-family: "Noto Sans Armenian";
   font-style: normal;
+  scroll-behavior: smooth;
 
   ::-webkit-scrollbar {
     width: 6px;
@@ -124,7 +125,6 @@ img {
 // }
 
 @media screen and (max-width: 768px) {
-
   .css-1hb7zxy-IndicatorsContainer,
   .css-1u9des2-indicatorSeparator {
     display: none !important;
@@ -182,4 +182,10 @@ input[type="number"] {
   @media screen and (max-width: 768px) {
     padding-top: 48px;
   }
+}
+
+// alerts
+.custom-toast {
+  word-wrap: break-word !important;
+  min-width: fit-content !important;
 }

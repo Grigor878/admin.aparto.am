@@ -35,7 +35,7 @@ import user from "../../../../assets/imgs/user.png";
 import telegram from "../../../../assets/icons/telegram.png";
 import whatsapp from "../../../../assets/icons/whatsapp.png";
 import viber from "../../../../assets/icons/viber.png";
-import { success } from "../../../../components/swal/swal";
+import { success } from "../../../../components/alerts/alerts";
 import ReactPlayer from "react-player";
 import "./Styles.scss";
 

@@ -85,6 +85,10 @@
     width: 384px; //
     height: 286px;
 
+    &:hover svg {
+      transform: scale(1.1);
+    }
+
     @media screen and (max-width: 1280px) {
       // width: 333px;
       width: 0;
