@@ -603,6 +603,7 @@ class InterFaceService
                 "buildingType" => $home->am[4]->fields[0]->value,
                 "surface" => $home->am[3]->fields[0]->value,
                 "locate" => $home->am[1]->fields[4]->value,
+                "urlSlug" => $home->am[12]->fields['0']->value.'/'.$home->id,
             ];
         } elseif ($lang == "ru") {
 
@@ -618,6 +619,7 @@ class InterFaceService
                 "buildingType" => $home->ru[4]->fields[0]->value,
                 "surface" => $home->ru[3]->fields[0]->value,
                 "locate" => $home->ru[1]->fields[4]->value,
+                "urlSlug" => $home->ru[12]->fields['0']->value.'/'.$home->id,
             ];
         } elseif ($lang == "en") {
             $mapDetails = [
@@ -632,6 +634,7 @@ class InterFaceService
                 "buildingType" => $home->en[4]->fields[0]->value,
                 "surface" => $home->en[3]->fields[0]->value,
                 "locate" => $home->en[1]->fields[4]->value,
+                "urlSlug" => $home->en[12]->fields['0']->value.'/'.$home->id,
             ];
         }
 
@@ -660,7 +663,7 @@ class InterFaceService
                 'ru',
                 'en',
                 'photo',
-                DB::raw('JSON_EXTRACT(price_history, "$") as priceHistory'),
+                DB::raw('price_history as priceHistory'),
             )
             ->findOrFail($id);
 
@@ -679,9 +682,8 @@ class InterFaceService
             }
         }
         $home->photo = $filteredPhoto;
+        $home->priceHistory = json_decode($home->priceHistory);
 
-        // $agentId = (int) $home['am'][11]->fields[0]->id;
-        // $managerId = (int) $home['am'][11]->fields[1]->id;
         if ($am[0]->fields[1]->value === "Կոմերցիոն (առանձնատուն)" || $am[0]->fields[1]->value === "Կոմերցիոն (բնակարան)") {
             $am[0]->fields[1]->value = 'Կոմերցիոն';
             $ru[0]->fields[1]->value = 'Коммерческая';
@@ -734,7 +736,7 @@ class InterFaceService
                 'ru',
                 'en',
                 'photo',
-                DB::raw('JSON_EXTRACT(price_history, "$") as priceHistory'),
+                DB::raw('price_history as priceHistory'),
                 DB::raw("JSON_EXTRACT(am, '$[1].fields[0].communityId') as communityId"),
                 DB::raw("JSON_EXTRACT(am, '$[0].fields[0].selectedOptionName') as selectedTransactionType"),
             )
