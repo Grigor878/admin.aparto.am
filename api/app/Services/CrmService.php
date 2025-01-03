@@ -317,6 +317,7 @@ class CrmService
         foreach ($homes as $key => $item) {
             $home = $allHomes->where('id', $item->home_id)->first();
             $am = json_decode($home['am']);
+            $en = json_decode($home['en']);
             $building = $am[1]->fields[1]->value ? $am[1]->fields[1]->value . " " : "";
             $street = $building . $am[1]->fields[0]->communityStreet->value;
             $tmpHome = [];
@@ -329,6 +330,7 @@ class CrmService
             $tmpHome['propertyName'] = $am[0]->fields[4]->value;
             $tmpHome['status'] = $home->status;
             $tmpHome['street'] = $street;
+            $tmpHome['urlSlug'] = $en[12]->fields['0']->value . '/' . $home->id;
             $tmpHome['surface'] = $am[3]->fields[0]->value;
             $date = Carbon::createFromFormat('Y-m-d', $item->display_at);
             $tmpHome['date'] = $date->format('d/m/Y');
