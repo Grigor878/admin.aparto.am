@@ -1,6 +1,6 @@
 {
-  "short_name": "Aparto",
-  "name": "Aparto Real Estate Agency",
-  "start_url": "https://aparto.am",
+  "short_name": "Aparto Dashboard",
+  "name": "Aparto Real Estate Agency Dashboard",
+  "start_url": "https://admin.aparto.am",
   "display": "standalone"
 }

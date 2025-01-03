@@ -28,7 +28,6 @@ const AddClient = () => {
 
     const { loading, crmHomes, uploadFiles } = useSelector((state) => state.crm)
     const { userGlobal } = useSelector((state => state.userGlobal))
-    // const { role, id } = useSelector((state => state.userGlobal.userGlobal))
 
     useEffect(() => {
         dispatch(getHomes())
@@ -45,7 +44,6 @@ const AddClient = () => {
     const [comment, setComment] = useState("")
     const [contractNumber, setContractNumber] = useState("")
     const [specialist, setSpecialist] = useState(userGlobal?.role === "agent" ? userGlobal?.id : "")
-
     const [status, setStatus] = useState("")
     const [homeSearch, setHomeSearch] = useState("")
     const [displayed, setDisplayed] = useState([])
@@ -64,18 +62,18 @@ const AddClient = () => {
 
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
-            .toLowerCase()
-            .includes(homeSearch.toLowerCase())
+            ?.toLowerCase()
+            ?.includes(homeSearch?.toLowerCase())
     );
 
     const addToDisplayed = (id) => {
-        const selectedHome = crmHomes.find(home => home.id === id);
+        const selectedHome = crmHomes?.find(home => home.id === id);
 
         setDisplayed(prevDisplayedHomes => [...prevDisplayedHomes, selectedHome]);
     };
 
     const removeFromDisplayed = (id) => {
-        setDisplayed(prevDisplayedHomes => prevDisplayedHomes.filter(home => home.id !== id));
+        setDisplayed(prevDisplayedHomes => prevDisplayedHomes?.filter(home => home.id !== id));
     };
 
     const handleSubmit = (e) => {
@@ -261,11 +259,11 @@ const AddClient = () => {
                     <h4>Ցուցադրված գույքեր</h4>
 
                     <ul className='addNewClient__displaylist-homes'>
-                        {displayed?.map(({ id, home_id, street, community, surface, status }) => {
+                        {displayed?.map(({ id, urlSlug, home_id, street, community, surface, status }) => {
                             return (
                                 <li key={id}>
                                     <a
-                                        href={`${APP_BASE_URL}/result/${id}`}
+                                        href={`${APP_BASE_URL}/am/${urlSlug}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -306,13 +304,13 @@ const AddClient = () => {
 
                     <ul className='addNewClient__homelist-homes'>
                         {homeSearch ?
-                            filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
+                            filteredHomes?.map(({ id, urlSlug, home_id, street, community, surface, status }) => {
                                 const isAdded = displayed.some(home => home.id === id);
 
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >
@@ -330,13 +328,13 @@ const AddClient = () => {
                                     </li>
                                 )
                             })
-                            : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                            : crmHomes?.slice(0, 15)?.map(({ id, urlSlug, home_id, street, community, surface, status }) => {
                                 const isAdded = displayed.some(home => home.id === id);
 
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >

@@ -13,12 +13,11 @@ import { updateHome } from '../../../../../../store/slices/propertySlice'
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
-    const { language } = useSelector((state) => state.home);
-
     const dispatch = useDispatch()
 
-    const copyToClipboard = async (id) => {
-        const clipboard = `${APP_BASE_URL}/${language}/${id}`
+    const copyToClipboard = async (urlSlug) => {
+        // const clipboard = `${APP_BASE_URL}/${language}/${urlSlug}`
+        const clipboard = `${APP_BASE_URL}/am/${urlSlug}`
         await navigator.clipboard.writeText(clipboard)
         success("Հասցեն պատճենված է։")
     }
@@ -26,7 +25,7 @@ export const Item = ({ data }) => {
     const { userGlobal } = useSelector((state => state.userGlobal))
 
     return (
-        data?.map(({ id, home_id, photo, selectedTransactionType, announcementType, title, community, street, building, entrance, floor, statement, apartment, price, room, bathrooms, surface, height, otherFacility, agent, owner, ownerTel, updated_at, created_at, status }) => {
+        data?.map(({ id, urlSlug, home_id, photo, selectedTransactionType, announcementType, title, community, street, building, entrance, floor, statement, apartment, price, room, bathrooms, surface, height, otherFacility, agent, owner, ownerTel, updated_at, created_at, status }) => {
             return (
                 <div
                     key={id}
@@ -145,7 +144,7 @@ export const Item = ({ data }) => {
                                         }
                                         <button
                                             type='button'
-                                            onClick={() => copyToClipboard(id)}
+                                            onClick={() => copyToClipboard(urlSlug)}
                                         >
                                             {url.icon}
                                         </button>

@@ -74,8 +74,8 @@ const SingleProperty = () => {
   const currentPropertyPrice = data?.priceHistory;
   const currentPropertyKeywords = data?.keywords;
   const currentPropertyFiles = data?.file;
-
   const currentPropertyImgs = data?.photo;
+  const urlSlug = data?.urlSlug;//
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,
@@ -83,7 +83,8 @@ const SingleProperty = () => {
   }));
 
   const copyToClipboard = async () => {
-    const clipboard = `${APP_BASE_URL}/${language}/${id}`;
+    // const clipboard = `${APP_BASE_URL}/${language}/${urlSlug}`;
+    const clipboard = `${APP_BASE_URL}/am/${urlSlug}`;
     await navigator.clipboard.writeText(clipboard);
     success("Հասցեն պատճենված է։");
   };
@@ -147,8 +148,8 @@ const SingleProperty = () => {
                 currentPropertyData[0]?.fields[4].value === "Տոպ"
                   ? "#2eaa50"
                   : currentPropertyData[0]?.fields[4].value === "Շտապ"
-                  ? "#4a46f1"
-                  : "#e7e9f0",
+                    ? "#4a46f1"
+                    : "#e7e9f0",
             }}
           >
             {currentPropertyData[0]?.fields[4].value}
@@ -232,15 +233,15 @@ const SingleProperty = () => {
             {Number(currentPropertyData[3]?.fields[5]?.value) +
               Number(currentPropertyData[3]?.fields[6]?.value) !==
               0 && (
-              <div>
-                {balcony.icon}
-                <p>
-                  {Number(currentPropertyData[3]?.fields[5]?.value) +
-                    Number(currentPropertyData[3]?.fields[6]?.value)}
-                </p>{" "}
-                պատշգամբ
-              </div>
-            )}
+                <div>
+                  {balcony.icon}
+                  <p>
+                    {Number(currentPropertyData[3]?.fields[5]?.value) +
+                      Number(currentPropertyData[3]?.fields[6]?.value)}
+                  </p>{" "}
+                  պատշգամբ
+                </div>
+              )}
 
             <div>
               {buildType.icon}
@@ -408,7 +409,7 @@ const SingleProperty = () => {
         <div className="propertyPreview__content-right">
           <div className="propertyPreview__content-right-price">
             {currentPropertyData[2]?.fields[0]?.value !== "" ||
-            currentPropertyData[2]?.fields[0]?.value === "0" ? (
+              currentPropertyData[2]?.fields[0]?.value === "0" ? (
               <h4>
                 Գին։
                 <span>
@@ -521,8 +522,8 @@ const SingleProperty = () => {
                 src={
                   currentPropertyData[11]?.fields[0]?.photo
                     ? API_BASE_URL +
-                      "/images/" +
-                      currentPropertyData[11]?.fields[0]?.photo
+                    "/images/" +
+                    currentPropertyData[11]?.fields[0]?.photo
                     : user
                 }
                 alt="img"
@@ -538,7 +539,7 @@ const SingleProperty = () => {
           </div>
 
           {userGlobal?.role === "agent" &&
-          userGlobal?.full_name?.am ===
+            userGlobal?.full_name?.am ===
             currentPropertyData[11]?.fields[0]?.value ? (
             <div className="propertyPreview__content-right-specialists">
               <h5>Իրավաբանական</h5>
@@ -562,7 +563,7 @@ const SingleProperty = () => {
                 </label>
 
                 {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
+                  currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 2
@@ -588,7 +589,7 @@ const SingleProperty = () => {
                 ) : null}
 
                 {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
+                  currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 3
@@ -637,7 +638,7 @@ const SingleProperty = () => {
                 </label>
 
                 {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
+                  currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 2
@@ -663,7 +664,7 @@ const SingleProperty = () => {
                 ) : null}
 
                 {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
+                  currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 3

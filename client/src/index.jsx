@@ -11,7 +11,6 @@ import { Toaster } from "react-hot-toast";
 import View from "./view/View";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-// const root = ReactDOM.hydrateRoot(document.getElementById("root"));
 root.render(
   <HelmetProvider>
     <Provider store={store}>

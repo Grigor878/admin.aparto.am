@@ -64,7 +64,6 @@ const EditClient = () => {
     const [comment, setComment] = useState(editCrmUserData?.comment)
     const [contractNumber, setContractNumber] = useState(editCrmUserData?.contractNumber)
     const [specialist, setSpecialist] = useState(editCrmUserData?.specialist);
-
     const [status, setStatus] = useState(editCrmUserData?.status)
     const [homeSearch, setHomeSearch] = useState("")
     const [displayed, setDisplayed] = useState(editCrmUserData?.displayedHomes)
@@ -83,8 +82,8 @@ const EditClient = () => {
 
     const filteredHomes = crmHomes?.filter((el) =>
         JSON.stringify(el)
-            .toLowerCase()
-            .includes(homeSearch.toLowerCase())
+            ?.toLowerCase()
+            ?.includes(homeSearch.toLowerCase())
     );
 
     const addToDisplayed = (id) => {
@@ -295,11 +294,11 @@ const EditClient = () => {
                     <h4>Ցուցադրված գույքեր</h4>
 
                     <ul className='addNewClient__displaylist-homes'>
-                        {displayed?.map(({ id, home_id, street, community, surface, status, date }) => {
+                        {displayed?.map(({ id, urlSlug, home_id, street, community, surface, status, date }) => {
                             return (
                                 <li key={id}>
                                     <a
-                                        href={`${APP_BASE_URL}/result/${id}`}
+                                        href={`${APP_BASE_URL}/am/${urlSlug}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -339,13 +338,13 @@ const EditClient = () => {
 
                     <ul className='addNewClient__homelist-homes'>
                         {homeSearch ?
-                            filteredHomes?.map(({ id, home_id, street, community, surface, status }) => {
+                            filteredHomes?.map(({ id, urlSlug, home_id, street, community, surface, status }) => {
                                 const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >
@@ -363,13 +362,13 @@ const EditClient = () => {
                                     </li>
                                 )
                             })
-                            : crmHomes?.slice(0, 15)?.map(({ id, home_id, street, community, surface, status }) => {
+                            : crmHomes?.slice(0, 15)?.map(({ id, urlSlug, home_id, street, community, surface, status }) => {
                                 const isAdded = displayed?.some(home => home.id === id);
 
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/result/${id}`}
+                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >

@@ -1,8 +1,8 @@
 import React from 'react'
-import './Login.scss'
 import { LoginForm } from './components/form/LoginForm'
 import { useSelector } from 'react-redux'
 import { Loader } from '../../../components/loader/Loader'
+import './Login.scss'
 
 const Login = () => {
     const { loading } = useSelector(state => state.auth)
