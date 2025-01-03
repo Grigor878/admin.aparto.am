@@ -1,22 +1,9 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import pMinDelay from "p-min-delay";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import i18next from "i18next";
-import LayoutMain from "../components/layout/LayoutMain";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import LayoutDash from "../admin/components/layout/LayoutDash";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AutoScroll from "../helpers/autoScroll";
-import { setLanguage } from "../store/slices/homeSlice";
-import cookies from "js-cookie";
-
-const Home = lazy(() => pMinDelay(import("../pages/home/Home"), 500));
-const Result = lazy(() => import("../pages/result/Result"));
-const ResultById = lazy(() => import("../pages/result/ResultById"));
-const BuyOrSell = lazy(() => import("../pages/services/BuyOrSell"));
-const Rental = lazy(() => import("../pages/services/Rental"));
-const Management = lazy(() => import("../pages/services/Management"));
-const About = lazy(() => import("../pages/about/About"));
-const Contact = lazy(() => import("../pages/contact/Contact"));
 
 const NotFound = lazy(() => import("../pages/404/NotFound"));
 
@@ -46,63 +33,21 @@ const EditClient = lazy(() => import("../admin/pages/crm/pages/EditClient"));
 const View = () => {
   const { isLoggedIn, token } = useSelector((state) => state.auth);
   const { userGlobal } = useSelector((state) => state?.userGlobal);
-  const { language } = useSelector((state) => state.home);
-
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   const authCheck = isLoggedIn && localStorage.getItem("token") === token;
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (!pathname.startsWith("/login") && !pathname.startsWith("/dashboard")) {
-      const pathParts = pathname.split("/");
-      const langFromUrl = pathParts[1];
-
-      const validLanguages = ["ru", "am", "en"];
-      const cookieLang = cookies.get("i18next") || "am";
-
-      if (langFromUrl && !validLanguages.includes(langFromUrl)) {
-        i18next.changeLanguage("am");
-        dispatch(setLanguage("am"));
-        window.location.href = `/am${pathname}`;
-      } else if (langFromUrl && langFromUrl !== language) {
-        i18next.changeLanguage(langFromUrl);
-        dispatch(setLanguage(langFromUrl));
-        cookies.set("lngFlag", langFromUrl === "en" ? "gb" : langFromUrl);
-      } else if (!langFromUrl || langFromUrl !== cookieLang) {
-        i18next.changeLanguage(cookieLang);
-        dispatch(setLanguage(cookieLang));
-        cookies.set("lngFlag", cookieLang === "en" ? "gb" : cookieLang);
-        window.location.href = `/${cookieLang}${pathname}`;
-      }
-    }
-  }, [dispatch, pathname, language]);
+    pathname?.includes("/login") && navigate('/')
+  }, [pathname, navigate])
 
   return (
     <Suspense fallback={null}>
       <AutoScroll />
       <Routes>
-        <Route path={`/${language}`} element={<LayoutMain />}>
-          <Route index element={<Home />} />
-          <Route
-            path="result/:type?/:property?/:newbuild?/:commune?"
-            element={<Result />}
-          />
-          <Route path=":title?/:id" element={<ResultById />} />
-
-          <Route path="services">
-            <Route path="buying_selling" element={<BuyOrSell />} />
-            <Route path="rental_in_yerevan" element={<Rental />} />
-            <Route path="property_management" element={<Management />} />
-          </Route>
-          
-          <Route path="about-us" element={<About />} />
-          <Route path="contact-us" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        <Route path="/login">
+        <Route path="/">
           <Route
             index
             element={
@@ -113,9 +58,9 @@ const View = () => {
 
         <Route
           path="/dashboard"
-          element={authCheck ? <LayoutDash /> : <Navigate to="/login" />}
+          element={authCheck ? <LayoutDash /> : <Navigate to="/" />}
         >
-          <Route index path="properties" element={<Properties />} />
+          <Route path="properties" element={<Properties />} />
           <Route path="properties/:id" element={<SingleProperty />} />
           <Route path="properties/add" element={<AddProperties />} />
           <Route path="properties/edit/:id" element={<EditProperties />} />
