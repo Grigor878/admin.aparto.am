@@ -90,8 +90,6 @@ export const getRecomendeds = createAsyncThunk(
       const { data } = await baseApi.get(
         `api/getRecomendeds/${language}/${id}/${communityId}`
       );
-      console.log(data);
-
       return data;
     } catch (err) {
       console.log(`Get recomendeds Error: ${err.message}`);

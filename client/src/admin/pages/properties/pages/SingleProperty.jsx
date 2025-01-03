@@ -37,6 +37,7 @@ import whatsapp from "../../../../assets/icons/whatsapp.png";
 import viber from "../../../../assets/icons/viber.png";
 import { success } from "../../../../components/alerts/alerts";
 import ReactPlayer from "react-player";
+import { CopyToClipboard } from 'react-copy-to-clipboard';//
 import "./Styles.scss";
 
 const SingleProperty = () => {
@@ -67,24 +68,20 @@ const SingleProperty = () => {
   }, [id]);
 
   const currentPropertyData = data?.am;
-  // const selectedTransactionType = data?.selectedTransactionType
   const currentPropertyPrice = data?.priceHistory;
   const currentPropertyKeywords = data?.keywords;
   const currentPropertyFiles = data?.file;
   const currentPropertyImgs = data?.photo;
-  const urlSlug = data?.urlSlug;//
+  const clipboardText = `${APP_BASE_URL}/am/${data?.urlSlug}`
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,
     alt: item.name,
   }));
 
-  const copyToClipboard = async () => {
-    // const clipboard = `${APP_BASE_URL}/${language}/${urlSlug}`;
-    const clipboard = `${APP_BASE_URL}/am/${urlSlug}`;
-    await navigator.clipboard.writeText(clipboard);
-    success("Հասցեն պատճենված է։");
-  };
+  const copyToClipboard = () => {
+    success("Հասցեն պատճենված է։")
+  }
 
   const dispatch = useDispatch();
 
@@ -153,12 +150,16 @@ const SingleProperty = () => {
           </span>
 
           {data?.status === "approved" && (
-            <button
-              className="propertyPreview__imgs-url"
-              onClick={copyToClipboard}
+            <CopyToClipboard
+              text={clipboardText}
+              onCopy={copyToClipboard}
             >
-              {url.icon}Հղում կայքին
-            </button>
+              <button
+                className="propertyPreview__imgs-url"
+              >
+                {url.icon}Հղում կայքին
+              </button>
+            </CopyToClipboard>
           )}
         </div>
       ) : (

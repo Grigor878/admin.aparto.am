@@ -16,7 +16,7 @@ const initialState = {
 export const getHomes = createAsyncThunk("crm", async () => {
   try {
     const { data } = await baseApi.get("/api/getHomesForCrm", getAxiosConfig());
-    return data;
+    return data?.data;
   } catch (err) {
     console.log(`Get crm homes Error: ${err.message}`);
   }

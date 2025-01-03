@@ -10,22 +10,23 @@ import { More } from './More'
 import { success } from '../../../../../../components/alerts/alerts'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateHome } from '../../../../../../store/slices/propertySlice'
+import { CopyToClipboard } from 'react-copy-to-clipboard';//
 import '../Styles.scss'
 
 export const Item = ({ data }) => {
     const dispatch = useDispatch()
 
-    const copyToClipboard = async (urlSlug) => {
-        // const clipboard = `${APP_BASE_URL}/${language}/${urlSlug}`
-        const clipboard = `${APP_BASE_URL}/am/${urlSlug}`
-        await navigator.clipboard.writeText(clipboard)
-        success("Հասցեն պատճենված է։")
-    }
-
     const { userGlobal } = useSelector((state => state.userGlobal))
 
     return (
         data?.map(({ id, urlSlug, home_id, photo, selectedTransactionType, announcementType, title, community, street, building, entrance, floor, statement, apartment, price, room, bathrooms, surface, height, otherFacility, agent, owner, ownerTel, updated_at, created_at, status }) => {
+            
+            const clipboardText = `${APP_BASE_URL}/am/${urlSlug}`
+           
+            const copyToClipboard = () => {
+                success("Հասցեն պատճենված է։")
+            }
+
             return (
                 <div
                     key={id}
@@ -142,12 +143,16 @@ export const Item = ({ data }) => {
                                                 </button>
                                                 : null
                                         }
-                                        <button
-                                            type='button'
-                                            onClick={() => copyToClipboard(urlSlug)}
+                                        <CopyToClipboard
+                                            text={clipboardText}
+                                            onCopy={copyToClipboard}
                                         >
-                                            {url.icon}
-                                        </button>
+                                            <button
+                                                type='button'
+                                            >
+                                                {url.icon}
+                                            </button>
+                                        </CopyToClipboard>
                                     </div>
                                     : status === "moderation"
                                         ? <Btn
