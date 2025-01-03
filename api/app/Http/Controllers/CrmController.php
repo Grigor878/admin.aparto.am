@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CrmUserRequest;
-use App\Models\CrmUser;
+use App\Http\Resources\CrmHomesResource;
 use App\Services\CrmService;
-use Illuminate\Http\Request;
 
 class CrmController extends Controller
 {   
@@ -32,9 +31,7 @@ class CrmController extends Controller
     public function getHomesForCrm()
     {
         $homes = $this->crmService->getHomesForCrm();
-
-        return response()->json($homes);
-        
+        return CrmHomesResource::collection($homes);
     }
 
     public function editCrmUser(CrmUserRequest $request, $idCrm)

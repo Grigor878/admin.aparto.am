@@ -1,27 +1,25 @@
 <?php
 namespace App\Services;
 
-use App\Http\Resources\CrmHomesResource;
-use App\Http\Resources\CrmUserResource;
-use App\Http\Resources\CrmUserStructureResource;
 use App\Models\CrmUser;
 use App\Models\CrmUserHasFile;
 use App\Models\CrmUserHasHome;
 use App\Models\Employe;
 use App\Models\Home;
 use Carbon\Carbon;
+use DB;
 
 
 class CrmService
 {
     public $keyToValue = [
-        "new-client"=> "Նոր հաճախորդ",
-        "contract-show"=> "Պայմանագիր-ցուցադրություն",
-        "pay"=> "Նախավճար",
-        "apartment"=> "Բնակարան",
-        "open"=> "Գործարքի բացում",
-        "fail"=> "Ձախողում",
-        "sucess"=> "Հաջողված գործարք",
+        "new-client" => "Նոր հաճախորդ",
+        "contract-show" => "Պայմանագիր-ցուցադրություն",
+        "pay" => "Նախավճար",
+        "apartment" => "Բնակարան",
+        "open" => "Գործարքի բացում",
+        "fail" => "Ձախողում",
+        "sucess" => "Հաջողված գործարք",
         'privateHouse' => "Առանձնատուն",
         'commercial' => "Կոմերցիոն",
         'sale' => "Վաճառք",
@@ -32,10 +30,19 @@ class CrmService
 
     public function getHomesForCrm()
     {
-        $allHome = Home::orderBy('id', 'desc')
-                    ->get();
+        return Home::query()
+            ->select([
+                '*',
+                DB::raw("
+                CONCAT(
+                    JSON_UNQUOTE(JSON_EXTRACT(en, '$[12].fields[0].value')),
+                    '/',
+                    id
+                ) AS urlSlug
+                "),
+            ])->orderBy('id', 'desc')
+            ->get();
 
-        return CrmHomesResource::collection($allHome);
 
     }
 
@@ -44,15 +51,15 @@ class CrmService
         $user = new CrmUser();
         $user->name = $request['name'];
         $user->phone = $request['phone'];
-        $user->email = $request['email']??"";
+        $user->email = $request['email'] ?? "";
         $user->employee_id = $request['specialist'];
-        $user->contract_number = $request['contractNumber']??"";
+        $user->contract_number = $request['contractNumber'] ?? "";
         $user->source = $request['source'];
         $user->deal = $request['deal'];
         $user->property_type = $request['propertyType'];
         $user->room = $request['room'];
         $user->budget = $request['budget'];
-        $user->comment = $request['comment']??"";
+        $user->comment = $request['comment'] ?? "";
         $user->status = $request['status'];
         $user->save();
 
@@ -70,14 +77,14 @@ class CrmService
         }
 
 
-        if($homeToInsert) { 
+        if ($homeToInsert) {
             CrmUserHasHome::insert($homeToInsert);
         }
 
         $filesToInsert = [];
         foreach ($request as $key => $item) {
-            if(gettype($item) == 'object'){
-                $fileName = round(microtime(true) * 1000).'.'.$item->extension();
+            if (gettype($item) == 'object') {
+                $fileName = round(microtime(true) * 1000) . '.' . $item->extension();
                 $realName = $item->getClientOriginalName();
                 $path = 'crmfiles/' . $fileName;
                 $filesToInsert[] = [
@@ -91,7 +98,7 @@ class CrmService
             }
         }
 
-        if($filesToInsert) { 
+        if ($filesToInsert) {
             CrmUserHasFile::insert($filesToInsert);
         }
 
@@ -100,21 +107,21 @@ class CrmService
 
     public function editCrmUser($request, $idCrm)
     {
-        if($this->recoverEmployeeRights($idCrm)){
+        if ($this->recoverEmployeeRights($idCrm)) {
             $user = CrmUser::find($idCrm);
 
-            if($user) {
+            if ($user) {
                 $user->name = $request['name'];
                 $user->phone = $request['phone'];
-                $user->email = $request['email']??"";
+                $user->email = $request['email'] ?? "";
                 $user->employee_id = $request['specialist'];
-                $user->contract_number = $request['contractNumber']??"";
+                $user->contract_number = $request['contractNumber'] ?? "";
                 $user->source = $request['source'];
                 $user->deal = $request['deal'];
                 $user->property_type = $request['propertyType'];
                 $user->room = $request['room'];
                 $user->budget = $request['budget'];
-                $user->comment = $request['comment']??"";
+                $user->comment = $request['comment'] ?? "";
                 $user->status = $request['status'];
                 $user->save();
             }
@@ -125,7 +132,7 @@ class CrmService
 
             $homeToInsert = [];
             foreach ($displayedHomes as $key => $home) {
-            $date = Carbon::createFromFormat('d/m/Y', $home['date']);
+                $date = Carbon::createFromFormat('d/m/Y', $home['date']);
 
                 $homeToInsert[] = [
                     'user_id' => $idCrm,
@@ -133,8 +140,8 @@ class CrmService
                     'display_at' => $date->format('Y-m-d'),
                 ];
             }
-    
-            if($homeToInsert) { 
+
+            if ($homeToInsert) {
                 CrmUserHasHome::insert($homeToInsert);
             }
 
@@ -143,11 +150,11 @@ class CrmService
             $getCrmExistFile = [];
 
             foreach ($request as $key => $item) {
-                if(str_contains($key, 'file') && gettype($item) == 'string') {
-                   $getCrmExistFile[] = $item;
+                if (str_contains($key, 'file') && gettype($item) == 'string') {
+                    $getCrmExistFile[] = $item;
                 }
-                if(gettype($item) == 'object'){
-                    $fileName = round(microtime(true) * 1000).'.'.$item->extension();
+                if (gettype($item) == 'object') {
+                    $fileName = round(microtime(true) * 1000) . '.' . $item->extension();
                     $realName = $item->getClientOriginalName();
                     $path = 'crmfiles/' . $fileName;
                     $filesToInsert[] = [
@@ -161,8 +168,8 @@ class CrmService
             }
             $diff = $existingFile->diff($getCrmExistFile);
             CrmUserHasFile::whereIn('path', $diff->all())->delete();
-            
-            if($filesToInsert) { 
+
+            if ($filesToInsert) {
                 CrmUserHasFile::insert($filesToInsert);
             }
 
@@ -176,12 +183,10 @@ class CrmService
     public function getCrmUsers()
     {
         $users = CrmUser::with('homes')->get();
-        // dd($users);
         $customResoucre = $this->makeCollectionResource($users);
-        // return CrmUserResource::collection($users);
 
         return $customResoucre;
-        
+
     }
 
     public function makeCollectionResource($users)
@@ -196,7 +201,7 @@ class CrmService
             $searchable = [];
             $checkUserAgent = $this->recoverEmployeeRights($user->id);
             $agent = $this->getAgentName($employee, $user->employee_id);
-            if($user->homes){
+            if ($user->homes) {
                 $homesHomeId = $homes->whereIn('id', $user->homes->pluck('home_id')->toArray())->pluck('home_id');
                 foreach ($homesHomeId as $key => $homId) {
                     $searchable[] = (string) $homId;
@@ -212,23 +217,23 @@ class CrmService
 
             $dealDecode = json_decode($user->deal);
             $deal = [];
-            foreach ($dealDecode as $key => $value) { 
+            foreach ($dealDecode as $key => $value) {
                 $type = $this->keyToValue[$value];
                 $deal[] = $type;
                 $searchable[] = $type;
             }
 
-            $status =  $this->keyToValue[$user->status];
+            $status = $this->keyToValue[$user->status];
             array_push($searchable, $user->name, $user->phone, $agent, $status, $user->room);
 
             $customResource[] = [
                 'id' => $user->id,
                 'name' => $user->name,
-                'phone' => $checkUserAgent? $user->phone:"*************",
+                'phone' => $checkUserAgent ? $user->phone : "*************",
                 'property_type' => $transactionType,
                 'deal' => $deal,
                 'room' => $user->room,
-                'agent' => $agent, 
+                'agent' => $agent,
                 'status' => $user->status,
                 'searchable' => $searchable,
             ];
@@ -241,18 +246,18 @@ class CrmService
     public function getAgentName($employee, $agentId)
     {
         try {
-            if($agentId){
+            if ($agentId) {
                 $name = $employee->where('id', $agentId)->first();
-                if($name->full_name){
+                if ($name->full_name) {
                     $agentName = json_decode($name->full_name, true);
-        
+
                     return $agentName['am'];
                 }
             }
         } catch (\Throwable $th) {
-            dd($agentId,  $th->getMessage());
+            dd($agentId, $th->getMessage());
         }
-        
+
 
     }
 
@@ -269,7 +274,7 @@ class CrmService
     {
         $auth = auth()->user();
 
-        if($auth->role == Employe::STATUS_AGENT){
+        if ($auth->role == Employe::STATUS_AGENT) {
             $authId = $auth->id;
             $authCrmIds = CrmUser::where('employee_id', $authId)->get()->pluck('id')->toArray();
 
@@ -286,20 +291,20 @@ class CrmService
         return [
             'id' => $user->id,
             'name' => $user->name,
-            'phone' => $authRights? $user->phone : "*************",
+            'phone' => $authRights ? $user->phone : "*************",
             'propertyType' => json_decode($user->property_type),
             'deal' => json_decode($user->deal),
             'room' => $user->room,
             'budget' => $user->budget,
-            'email' =>  $authRights? $user->email : "*************",
+            'email' => $authRights ? $user->email : "*************",
             'source' => $user->source,
             'contractNumber' => $user->contract_number,
             'comment' => $user->comment,
-            'specialist' => (int) $user->employee_id, 
+            'specialist' => (int) $user->employee_id,
             'status' => $user->status,
             'displayedHomes' => $this->getCrmHomes($user->homes),
             'files' => $user->files->pluck('path')->toArray(),
-            'permission' => $authRights? true : false,
+            'permission' => $authRights ? true : false,
         ];
     }
 
@@ -334,5 +339,5 @@ class CrmService
         return $readyHomes;
     }
 
- 
+
 }

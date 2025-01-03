@@ -27,17 +27,6 @@ class AdminHomeResource extends JsonResource
            }
         }
 
-        // if(!$otherFaciliti){
-        //     foreach ($this->am[6] as $key => $other) {
-        //         if($other->value === true){
-        //              $otherFaciliti[] = $other->value;
-        //              if(count($otherFaciliti) == 5 ){
-        //                  break;
-        //              }
-        //         }
-        //      }
-        // }
-
         return [
             'id' => $this->id,
             'home_id' => $this->home_id,
@@ -63,6 +52,7 @@ class AdminHomeResource extends JsonResource
             'searchAllProperty' => $this->searchAllProperty,
             'owner' => $this->am[9]->fields[0]->value,
             'ownerTel' => $this->am[9]->fields[1]->value,
+            'urlSlug' => $this->en[12]->fields['0']->value . '/' . $this->id,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
         ];

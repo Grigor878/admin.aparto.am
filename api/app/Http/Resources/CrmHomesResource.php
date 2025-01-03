@@ -29,6 +29,7 @@ class CrmHomesResource extends JsonResource
             'surface' => $am[3]->fields[0]->value,
             'status' => $this->status,
             'propertyName' => $am[0]->fields[1]->value,
+            'urlSlug' => $this->whenHas('urlSlug'),
             'agent' => $this->getAgentName($employee, $am[11]->fields[0]->id),
             'owner' => $am[9]->fields[0]->value,
             'ownerTel' => $am[9]->fields[1]->value,
