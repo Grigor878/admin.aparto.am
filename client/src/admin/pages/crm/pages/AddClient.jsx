@@ -18,7 +18,7 @@ import { cutText } from '../../../../helpers/formatters';
 import { Loader } from '../../../../components/loader/Loader';
 import { error } from '../../../../components/alerts/alerts';
 import { useNavigate } from 'react-router-dom';
-import { APP_BASE_URL } from '../../../../services/api/config';
+import { APP_BASE_URL, APP_WEB_URL } from '../../../../services/api/config';
 import { HomeStatus } from '../components/statuses/HomeStatus';
 import './styles.scss'
 
@@ -263,7 +263,7 @@ const AddClient = () => {
                             return (
                                 <li key={id}>
                                     <a
-                                        href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                        href={`${APP_WEB_URL}/${urlSlug}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -310,7 +310,7 @@ const AddClient = () => {
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                            href={`${APP_WEB_URL}/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >
@@ -334,7 +334,7 @@ const AddClient = () => {
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                            href={`${APP_WEB_URL}/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >

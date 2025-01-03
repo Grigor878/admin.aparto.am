@@ -8,6 +8,11 @@ export const APP_BASE_URL =
     ? process.env.REACT_APP_BASE_URL_DEV
     : process.env.REACT_APP_BASE_URL_RELEASE;
 
+export const APP_WEB_URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_WEB_URL_DEV
+    : process.env.REACT_APP_WEB_URL_RELEASE;
+
 export const getAxiosConfig = () => {
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")

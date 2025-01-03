@@ -9,6 +9,7 @@ import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
 import {
   API_BASE_URL,
   APP_BASE_URL,
+  APP_WEB_URL,
   getAxiosConfig,
 } from "../../../../../src/services/api/config";
 import {
@@ -72,7 +73,7 @@ const SingleProperty = () => {
   const currentPropertyKeywords = data?.keywords;
   const currentPropertyFiles = data?.file;
   const currentPropertyImgs = data?.photo;
-  const clipboardText = `${APP_BASE_URL}/am/${data?.urlSlug}`
+  const clipboardText = `${APP_WEB_URL}/${data?.urlSlug}`
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,

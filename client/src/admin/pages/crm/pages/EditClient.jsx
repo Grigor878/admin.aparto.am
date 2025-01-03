@@ -20,7 +20,7 @@ import { UploadFile } from '../components/UploadFile'
 import { AgentSelect } from '../../properties/components/asyncSelects/AgentSelect'
 import { SingleSelect } from '../components/SingleSelect'
 import { error } from '../../../../components/alerts/alerts'
-import { APP_BASE_URL } from '../../../../services/api/config'
+import { APP_WEB_URL } from '../../../../services/api/config'
 import './styles.scss'
 
 const EditClient = () => {
@@ -298,7 +298,7 @@ const EditClient = () => {
                             return (
                                 <li key={id}>
                                     <a
-                                        href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                        href={`${APP_WEB_URL}/${urlSlug}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -344,7 +344,7 @@ const EditClient = () => {
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                            href={`${APP_WEB_URL}/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >
@@ -368,7 +368,7 @@ const EditClient = () => {
                                 return (
                                     <li key={id}>
                                         <a
-                                            href={`${APP_BASE_URL}/am/${urlSlug}`}
+                                            href={`${APP_WEB_URL}/${urlSlug}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >

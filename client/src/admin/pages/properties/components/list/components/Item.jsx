@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { API_BASE_URL, APP_BASE_URL } from '../../../../../../services/api/config'
+import { API_BASE_URL, APP_BASE_URL, APP_WEB_URL } from '../../../../../../services/api/config'
 import noImg from '../../../../../../assets/imgs/noImg.png'
 import { Type } from './Type'
 import { usdFormater } from '../../../../../../helpers/formatters'
@@ -21,7 +21,7 @@ export const Item = ({ data }) => {
     return (
         data?.map(({ id, urlSlug, home_id, photo, selectedTransactionType, announcementType, title, community, street, building, entrance, floor, statement, apartment, price, room, bathrooms, surface, height, otherFacility, agent, owner, ownerTel, updated_at, created_at, status }) => {
             
-            const clipboardText = `${APP_BASE_URL}/am/${urlSlug}`
+            const clipboardText = `${APP_WEB_URL}/${urlSlug}`
            
             const copyToClipboard = () => {
                 success("Հասցեն պատճենված է։")
