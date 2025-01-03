@@ -41,9 +41,6 @@ import "./Styles.scss";
 
 const SingleProperty = () => {
   const { id } = useParams();
-
-  // const { full_name, role } = useSelector((state => state.userGlobal.userGlobal))
-  const { language } = useSelector((state) => state.home);
   const { userGlobal } = useSelector((state) => state.userGlobal.userGlobal);
 
   const [loading, setLoading] = useState(false);
