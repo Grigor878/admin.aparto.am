@@ -135,18 +135,14 @@ class HomeController extends Controller
     public function activateHomeStatus($id)
     {
         info('activateHomeStatus', ['user_id' => auth()->id(), 'data' => json_encode($id)]);
-        $home = Home::find($id);
-        if ($home) {
-            $home->update(['status' => Home::STATUS_APPROVED]);
-            return response()->json([
-                'success' => "Գույքը Ակտիվացված է:"
-            ], 200);
-        }
-
+        $home = Home::findOrFail($id);
+        $home->update([
+            'status' => Home::STATUS_APPROVED,
+            'update_top_at' => Carbon::now()->addHours(4)->format('Y-m-d H:i:s')
+        ]);
         return response()->json([
-            'status' => 'error',
-            'errors' => "Գույքը չի գտնվել"
-        ], 404);
+            'success' => "Գույքը Ակտիվացված է:"
+        ], 200);
     }
 
     public function archiveHomeStatus($id)

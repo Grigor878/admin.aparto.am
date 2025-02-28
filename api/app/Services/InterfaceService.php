@@ -244,8 +244,8 @@ class InterFaceService
     {
         $searchHomeArray = [];
 
-        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")
-            ->take(20)
+        Home::query()
+            ->orderByRaw("COALESCE(update_top_at, updated_at) DESC")
             ->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
@@ -261,17 +261,16 @@ class InterFaceService
                 return false;
             })->values();
 
-        return $searchHomeArray;
+            return collect($searchHomeArray)->take(20);
     }
 
     public function getRentHomes($lang)
     {
         $searchHomeArray = [];
-        // $allHome = Home::orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
-        // ->select('id', 'home_id', 'employee_id', 'am', 'ru', 'en', 'photo', 'file', 'keywords', 'status', 'created_at', 'updated_at')
-        // ->get() ;
 
-        Home::orderByRaw("COALESCE(update_top_at, updated_at) DESC")->take(20)->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
+        Home::query()
+            ->orderByRaw("COALESCE(update_top_at, updated_at) DESC")
+            ->select('id', 'home_id', 'employee_id', 'photo', 'keywords', 'status', 'am', 'ru', 'en', 'price_history', 'created_at', 'updated_at')
             ->where('status', Home::STATUS_APPROVED)
             ->get()
             ->filter(function ($home) use ($lang, &$searchHomeArray) {
@@ -287,7 +286,7 @@ class InterFaceService
                 return false;
             })->values();
 
-        return $searchHomeArray;
+            return collect($searchHomeArray)->take(20);
     }
 
     public function getGeneralAdmin()
