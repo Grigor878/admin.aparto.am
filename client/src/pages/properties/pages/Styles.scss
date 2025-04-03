@@ -126,6 +126,7 @@
     // top: 0;
     z-index: 2;
     position: relative;
+    cursor: zoom-in;
 
     &-left {
       height: 100%;
@@ -680,18 +681,6 @@
         }
       }
     }
-  }
-}
-
-.react-fullscreen-carousel {
-  width: 100%;
-  // background: none !important;
-
-  .slide {
-    width: 100vw;
-    @include flexCenter;
-    flex-shrink: 0;
-    background: none;
   }
 }
 

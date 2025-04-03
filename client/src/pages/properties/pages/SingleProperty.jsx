@@ -5,7 +5,7 @@ import { getAdminData } from "../../../store/slices/homeSlice";
 import baseApi from "../../../services/api/baseApi";
 import { Loader } from "../../../components/loader/Loader";
 import { usdFormater } from "../../../helpers/formatters";
-import { ReactFullscreenCarousel } from "react-fullscreen-carousel";
+import { FullScreenSlider } from "../components/fullScreenSlider/fullScreenSlider";
 import {
   API_BASE_URL,
   APP_WEB_URL,
@@ -37,7 +37,7 @@ import whatsapp from "../../../assets/icons/whatsapp.png";
 import viber from "../../../assets/icons/viber.png";
 import { success } from "../../../components/alerts/alerts";
 import ReactPlayer from "react-player";
-import { CopyToClipboard } from 'react-copy-to-clipboard';//
+import { CopyToClipboard } from "react-copy-to-clipboard"; //
 import "./Styles.scss";
 
 const SingleProperty = () => {
@@ -46,6 +46,7 @@ const SingleProperty = () => {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [startSlideIndex, setStartSlideIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
   const fetchSinglePropertyData = async () => {
@@ -72,7 +73,7 @@ const SingleProperty = () => {
   const currentPropertyKeywords = data?.keywords;
   const currentPropertyFiles = data?.file;
   const currentPropertyImgs = data?.photo;
-  const clipboardText = `${APP_WEB_URL}/${data?.urlSlug}`
+  const clipboardText = `${APP_WEB_URL}/${data?.urlSlug}`;
 
   const modifiedData = currentPropertyImgs?.map((item) => ({
     img: `${API_BASE_URL}/images/${item.name}`,
@@ -80,8 +81,8 @@ const SingleProperty = () => {
   }));
 
   const copyToClipboard = () => {
-    success("Հասցեն պատճենված է։")
-  }
+    success("Հասցեն պատճենված է։");
+  };
 
   const dispatch = useDispatch();
 
@@ -118,16 +119,37 @@ const SingleProperty = () => {
                 src={modifiedData[0].img}
                 loading="lazy"
                 alt={modifiedData[0].alt}
+                onClick={() => {
+                  setOpen(true);
+                  setStartSlideIndex(0);
+                }}
               />
             )}
           </div>
 
           <div className="propertyPreview__imgs-right">
             {currentPropertyImgs?.length !== 0 &&
-              modifiedData?.slice(1, 5)?.map(({ img, alt }) => {
-                return <img key={alt} src={img} loading="lazy" alt={alt} />;
+              modifiedData?.slice(1, 5)?.map(({ img, alt }, index) => {
+                return (
+                  <img
+                    key={alt}
+                    src={img}
+                    loading="lazy"
+                    alt={alt}
+                    onClick={() => {
+                      setOpen(true);
+                      setStartSlideIndex(index + 1);
+                    }}
+                  />
+                );
               })}
-            <button onClick={() => setOpen(true)}>
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(true);
+                setStartSlideIndex(0);
+              }}
+            >
               {seeAllImgs.icon} Տեսնել բոլոր նկարները
             </button>
           </div>
@@ -142,31 +164,32 @@ const SingleProperty = () => {
                 currentPropertyData[0]?.fields[4].value === "Տոպ"
                   ? "#2eaa50"
                   : currentPropertyData[0]?.fields[4].value === "Շտապ"
-                    ? "#4a46f1"
-                    : "#e7e9f0",
+                  ? "#4a46f1"
+                  : "#e7e9f0",
             }}
           >
             {currentPropertyData[0]?.fields[4].value}
           </span>
 
           {data?.status === "approved" && (
-            <CopyToClipboard
-              text={clipboardText}
-              onCopy={copyToClipboard}
-            >
-              <button
-                className="propertyPreview__imgs-url"
-              >
+            <CopyToClipboard text={clipboardText} onCopy={copyToClipboard}>
+              <button className="propertyPreview__imgs-url">
                 {url.icon}Հղում կայքին
               </button>
             </CopyToClipboard>
           )}
         </div>
       ) : (
-        <ReactFullscreenCarousel
-          slides={modifiedData}
-          handleClose={() => setOpen(false)}
-          startSlideIndex={0}
+        // <ReactFullscreenCarousel
+        //   slides={modifiedData}
+        //   handleClose={() => setOpen(false)}
+        //   startSlideIndex={0}
+        // />
+        <FullScreenSlider
+          images={currentPropertyImgs}
+          startIndex={startSlideIndex}
+          setStartIndex={setStartSlideIndex}
+          onClose={() => setOpen(false)}
         />
       )}
 
@@ -231,15 +254,15 @@ const SingleProperty = () => {
             {Number(currentPropertyData[3]?.fields[5]?.value) +
               Number(currentPropertyData[3]?.fields[6]?.value) !==
               0 && (
-                <div>
-                  {balcony.icon}
-                  <p>
-                    {Number(currentPropertyData[3]?.fields[5]?.value) +
-                      Number(currentPropertyData[3]?.fields[6]?.value)}
-                  </p>{" "}
-                  պատշգամբ
-                </div>
-              )}
+              <div>
+                {balcony.icon}
+                <p>
+                  {Number(currentPropertyData[3]?.fields[5]?.value) +
+                    Number(currentPropertyData[3]?.fields[6]?.value)}
+                </p>{" "}
+                պատշգամբ
+              </div>
+            )}
 
             <div>
               {buildType.icon}
@@ -407,7 +430,7 @@ const SingleProperty = () => {
         <div className="propertyPreview__content-right">
           <div className="propertyPreview__content-right-price">
             {currentPropertyData[2]?.fields[0]?.value !== "" ||
-              currentPropertyData[2]?.fields[0]?.value === "0" ? (
+            currentPropertyData[2]?.fields[0]?.value === "0" ? (
               <h4>
                 Գին։
                 <span>
@@ -520,8 +543,8 @@ const SingleProperty = () => {
                 src={
                   currentPropertyData[11]?.fields[0]?.photo
                     ? API_BASE_URL +
-                    "/images/" +
-                    currentPropertyData[11]?.fields[0]?.photo
+                      "/images/" +
+                      currentPropertyData[11]?.fields[0]?.photo
                     : user
                 }
                 alt="img"
@@ -537,7 +560,7 @@ const SingleProperty = () => {
           </div>
 
           {userGlobal?.role === "agent" &&
-            userGlobal?.full_name?.am ===
+          userGlobal?.full_name?.am ===
             currentPropertyData[11]?.fields[0]?.value ? (
             <div className="propertyPreview__content-right-specialists">
               <h5>Իրավաբանական</h5>
@@ -561,7 +584,7 @@ const SingleProperty = () => {
                 </label>
 
                 {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                  currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
+                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 2
@@ -587,7 +610,7 @@ const SingleProperty = () => {
                 ) : null}
 
                 {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                  currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
+                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 3
@@ -636,7 +659,7 @@ const SingleProperty = () => {
                 </label>
 
                 {currentPropertyData[9]?.fields[2]?.option[0]?.value?.length &&
-                  currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
+                currentPropertyData[9]?.fields[2]?.option[1]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 2
@@ -662,7 +685,7 @@ const SingleProperty = () => {
                 ) : null}
 
                 {currentPropertyData[9]?.fields[2]?.option[2]?.value?.length &&
-                  currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
+                currentPropertyData[9]?.fields[2]?.option[3]?.value?.length ? (
                   <>
                     <label>
                       Սեփականատեր 3

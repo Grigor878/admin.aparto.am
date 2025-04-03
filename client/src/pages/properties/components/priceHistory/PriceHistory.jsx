@@ -12,14 +12,14 @@ export const PriceHistory = ({ data }) => {
   return (
     <div className="priceHistory" onClick={() => setPrice(!price)}>
       <p>
-        "Գնի պատմություն ։"
+        Գնի պատմություն
         {price ? down.icon : up.icon}
       </p>
 
       <div className={price ? "priceHistory-list" : "priceHistory-listActive"}>
         {!data || data?.length === 0 ? (
           <div className="priceHistory-listActive-view">
-            <p>Փոփոխություններ առկա չեն։</p>
+            <p>Փոփոխություններ չեն կատարվել։</p>
           </div>
         ) : (
           data?.map(({ price, date }) => {
