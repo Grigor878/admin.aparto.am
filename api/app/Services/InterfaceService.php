@@ -106,53 +106,6 @@ class InterFaceService
         ],
     ];
 
-    public $communityAm = [
-        "Աջափնյակ",
-        "Արաբկիր",
-        "Ավան",
-        "Դավթաշեն",
-        "Էրեբունի",
-        "Քանաքեռ-Զեյթուն",
-        "Կենտրոն",
-        "Մալաթիա-Սեբաստիա",
-        "Նորք-Մարաշ",
-        "Նոր Նորք",
-        "Նուբարաշեն",
-        "Շենգավիթ",
-        "Վահագնի թաղամաս",
-    ];
-
-    public $communityRu = [
-        'Аджапняк',
-        'Арабкир',
-        'Аван',
-        'Давташен',
-        'Эребуни',
-        'Канакер-Зейтун',
-        'Кентрон',
-        'Малатия-Себастия',
-        'Норк-Мараш',
-        'Нор Норк',
-        'Нубарашен',
-        'Шенгавит',
-        'Ваагни',
-    ];
-    public $communityEn = [
-        'Ajapnyak',
-        'Arabkir',
-        'Avan',
-        'Davtashen',
-        'Erebuni',
-        'Kanaker-Zeytun',
-        'Kentron',
-        'Malatia-Sebastia',
-        'Nork-Marash',
-        'Nor Nork',
-        'Nubarashen',
-        'Shengavit',
-        'Vahagni',
-    ];
-
     public function coillectSearchDataConst($lang, $key)
     {
         $collects = [
@@ -298,34 +251,17 @@ class InterFaceService
         return $admin;
     }
 
-    public function getSearchAttributes($lang)
+    public function getSearchAttributes($lang='en'): array
     {
-        $homeKeywords = Home::where('status', Home::STATUS_APPROVED)->where('keywords', '!=', "[]")->select('keywords')->get();
-        $readyKeywords = [];
-
-        foreach ($homeKeywords as $key => $home) {
-            if (json_decode($home['keywords'])) {
-                $readyKeywords = array_unique(array_merge($readyKeywords, json_decode($home['keywords'], true)));
-            }
-        }
-
-        if ($lang == "am") {
-            $address = ConfigAddress::pluck('am')->toArray();
-            $readyResult = array_merge($address, $this->communityAm);
-        }
-
-        if ($lang == "ru") {
-            $address = ConfigAddress::pluck('ru')->toArray();
-            $readyResult = array_merge($address, $this->communityRu);
-        }
-
-        if ($lang == "en") {
-            $address = ConfigAddress::pluck('en')->toArray();
-            $readyResult = array_merge($address, $this->communityEn);
-        }
-
-        return array_unique(array_merge($readyResult, $readyKeywords));
+        return Community::query()
+            ->whereNot('en', 'other')
+            ->select('id', $lang)
+            ->get()
+            ->pluck($lang)
+            ->filter()
+            ->toArray();
     }
+
 
     public function getSearchData($data, $lang)
     {
