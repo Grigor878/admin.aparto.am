@@ -1,31 +1,33 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { BtnAdd } from '../buttons/BtnAdd'
-import './TopPart.scss'
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { BtnAdd } from "../buttons/BtnAdd";
+import "./TopPart.scss";
 
 const TopPart = ({ data, type }) => {
-    const { userGlobal } = useSelector((state => state?.userGlobal))
-    
-    const { pathname } = useLocation()
-    const navigate = useNavigate()
+  const { userGlobal } = useSelector((state) => state?.userGlobal);
+  const { pathname } = useLocation();
 
-    let newPath = pathname.split('/')[2]
+  const navigate = useNavigate();
 
-    return (
-        <div className='topPart'>
-            <h3>
-                {/* {data?.length === 1 ? data?.length + ' ' + capitalize(newPath.slice(0, -1)) : data?.length === 0 ? 'No Data' : data?.length + ' ' + capitalize(newPath)} */}
-                {newPath === "users" ? data?.length + " Օգտատեր" : null}
-                {newPath === "properties" && data?.length !== undefined ? data?.length + " Գույք" : null}
-            </h3>
+  let newPath = pathname.split("/")[2];
 
-            {(userGlobal?.role === "admin" && type === "users") || type === "properties"
-                ? <BtnAdd onClick={() => navigate('add')} />
-                : null
-            }
-        </div>
-    )
-}
+  return (
+    <div className="topPart">
+      <h3>
+        {newPath === "users" ? data?.length + " Օգտատեր" : null}
+        {/* {newPath === "properties" && data?.length !== undefined ? data?.length + " Գույք" : null} */}
+        {newPath === "properties" && data?.total !== undefined
+          ? data?.total + " Գույք"
+          : null}
+      </h3>
 
-export default TopPart
+      {(userGlobal?.role === "admin" && type === "users") ||
+      type === "properties" ? (
+        <BtnAdd onClick={() => navigate("add")} />
+      ) : null}
+    </div>
+  );
+};
+
+export default TopPart;

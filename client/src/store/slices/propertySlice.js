@@ -6,11 +6,10 @@ import { APP_BASE_URL, getAxiosConfig } from "../../services/api/config";
 const initialState = {
   structureLoading: false,
   structure: null,
-  filteredProperty: null, // for geting properties
   propertyLoading: false,
   propertyData: null,
-  filteredData: null,
-  editSingleData: null, // single property data for editing
+  pagination: {},
+  editSingleData: null,
   postAddLoading: false,
   uploadPhoto: {},
   uploadPhotoReserve: {},
@@ -37,10 +36,10 @@ export const getPropertyStructure = createAsyncThunk("property", async () => {
 // get property data
 export const getPropertyData = createAsyncThunk(
   "property/getPropertyData",
-  async ({ properties }) => {
+  async ({ properties, page }) => {
     try {
       const { data } = await baseApi.post(
-        "/api/getHome",
+        `/api/getHome?page=${page || 1}`,
         properties,
         getAxiosConfig()
       );
@@ -372,9 +371,11 @@ const structureSlice = createSlice({
     setKeyword: (state, action) => {
       state.keyword = action.payload;
     },
-    // Filter propertyData by text search
-    setFilteredData: (state, action) => {
-      state.filteredData = action.payload;
+    setPropertyData: (state, action) => {
+      state.propertyData = action.payload;
+    },
+    setPagination: (state, action) => {
+      state.pagination = action.payload;
     },
     // Clear singleProperty data on edit click for edit page
     clearEditSinglePropertyData: (state, action) => {
@@ -396,16 +397,11 @@ const structureSlice = createSlice({
       .addCase(getPropertyData.fulfilled, (state, action) => {
         state.propertyLoading = false;
         state.propertyData = action.payload?.data;
+        state.pagination = action.payload?.meta;
       })
-
-      // .addCase(editSinglePropertyData.pending, (state) => {
-      //   state.propertyLoading = false;
-      // })
       .addCase(editSinglePropertyData.fulfilled, (state, action) => {
-        // state.propertyLoading = false;
         state.editSingleData = action.payload;
       })
-
       // add property
       .addCase(addPropertyData.pending, (state) => {
         state.postAddLoading = true;
@@ -416,7 +412,6 @@ const structureSlice = createSlice({
         setTimeout(() => {
           window.location = `${APP_BASE_URL}/dashboard/properties`;
         }, 1000);
-        // window.location.replace(`${APP_BASE_URL}/dashboard/properties`);
       })
       // edit property
       .addCase(editPropertyData.pending, (state) => {
@@ -467,7 +462,8 @@ export const {
   setUploadFile,
   setYandex,
   setKeyword,
-  setFilteredData,
+  setPropertyData,
+  setPagination,
   clearEditSinglePropertyData
 } = structureSlice.actions;
 export default structureSlice.reducer;
