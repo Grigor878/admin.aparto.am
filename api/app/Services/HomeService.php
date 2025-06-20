@@ -942,14 +942,10 @@ class HomeService
 
   public function getAllHomes($data)
   {
-    $query = Home::query();
-
-    $globalSearchIds = [];
-    if($search = Arr::get($data, 'prop_globalSearch')){
-      $globalSearchIds = Home::search($search)->get()->pluck('id')->toArray();
-      $query->whereIn('id', $globalSearchIds);
-    }
-    $query
+    $query = Home::query()
+      ->when(Arr::get($data, 'prop_globalSearch'), function ($query, $search) {
+        $query->where('searchable', 'like', '%' . $search . '%');
+      })
       ->orderByRaw("FIELD(status, 'moderation', 'approved', 'inactive', 'archived'), update_top_at DESC")
       ->select(
         'id',
