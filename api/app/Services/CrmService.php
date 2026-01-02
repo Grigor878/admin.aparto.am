@@ -8,6 +8,7 @@ use App\Models\Employe;
 use App\Models\Home;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Str;
 
 
 class CrmService
@@ -84,7 +85,7 @@ class CrmService
         $filesToInsert = [];
         foreach ($request as $key => $item) {
             if (gettype($item) == 'object') {
-                $fileName = round(microtime(true) * 1000) . '.' . $item->extension();
+                $fileName = Str::uuid()->toString() . '.' . $item->extension();
                 $realName = $item->getClientOriginalName();
                 $path = 'crmfiles/' . $fileName;
                 $filesToInsert[] = [
@@ -154,7 +155,7 @@ class CrmService
                     $getCrmExistFile[] = $item;
                 }
                 if (gettype($item) == 'object') {
-                    $fileName = round(microtime(true) * 1000) . '.' . $item->extension();
+                    $fileName = Str::uuid()->toString() . '.' . $item->extension();
                     $realName = $item->getClientOriginalName();
                     $path = 'crmfiles/' . $fileName;
                     $filesToInsert[] = [

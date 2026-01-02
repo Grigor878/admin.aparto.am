@@ -11,7 +11,6 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "teamtnt/laravel-scout-tntsearch-driver": "^15.0",
         "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {

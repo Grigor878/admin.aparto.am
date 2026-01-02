@@ -9,7 +9,8 @@ use App\Models\Home;
 use App\Services\HomeService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class HomeController extends Controller
@@ -57,15 +58,53 @@ class HomeController extends Controller
             $dateNow = Carbon::now()->addHours(4)->format('Y-m-d H:i:s');
             $home->update_top_at = $dateNow;
             $home->save();
-            info('addHome', ['user_id' => auth()->id(), 'data' => json_encode($data)]);
-            return response()->json($home->id);
+            $homeId = $home->id;
+
+            DB::table('homes')
+                ->where('id', $homeId)
+                ->update([
+                    'searchable' => $this->getSearchable(
+                        $homeLanguageContsructor['am'],
+                        $homeLanguageContsructor['ru'],
+                        $homeLanguageContsructor['en'],
+                        $homeId,
+                        $home->home_id
+                    )
+                ]);
+            
+            return response()->json($homeId);
         }
+    }
+
+    public function getSearchable($am, $ru, $en, $id, $homeId): string
+    {
+        return implode(' ', [
+            data_get($am, '0.fields.2.value', ''),
+            data_get($ru, '0.fields.2.value', ''),
+            data_get($en, '0.fields.2.value', ''),
+            data_get($am, '1.fields.0.communityStreet.value', ''),
+            data_get($ru, '1.fields.0.communityStreet.value', ''),
+            data_get($en, '1.fields.0.communityStreet.value', ''),
+            data_get($am, '9.fields.1.value', ''),
+            data_get($am, '9.fields.2.option.0.value', ''),
+            data_get($am, '9.fields.2.option.1.value', ''),
+            data_get($am, '9.fields.2.option.2.value', ''),
+            data_get($am, '9.fields.2.option.3.value', ''),
+            data_get($am, '9.fields.0.value', ''),
+            data_get($am, '11.fields.0.value', ''),
+            data_get($ru, '11.fields.0.value', ''),
+            data_get($en, '11.fields.0.value', ''),
+            data_get($am, '11.fields.1.value', ''),
+            data_get($ru, '11.fields.1.value', ''),
+            data_get($en, '11.fields.1.value', ''),
+            $id,
+            $homeId,
+        ]);
     }
 
     public function editHome($id, Request $request)
     {
         $data = $request->all();
-        info('editHome', ['user_id' => auth()->id(), 'home_id' => $id, 'data' => json_encode($data)]);
         $home = Home::findorFail($id);
         $homeLanguageContsructor = $this->homeService->homeLanguageContsructorEdit($id, $data);
         if ($homeLanguageContsructor['editStatus']) {
@@ -101,7 +140,20 @@ class HomeController extends Controller
         $dateNow = Carbon::now()->addHours(4)->format('Y-m-d H:i:s');
         $home->update_top_at = $dateNow;
         $home->save();
-        return response()->json($home->id);
+        $homeId = $home->id;
+
+        DB::table('homes')
+            ->where('id', $homeId)
+            ->update([
+                'searchable' => $this->getSearchable(
+                    $homeLanguageContsructor['am'],
+                    $homeLanguageContsructor['ru'],
+                    $homeLanguageContsructor['en'],
+                    $homeId,
+                    $home->home_id
+                )
+            ]);
+        return response()->json($homeId);
     }
 
     public function removeUselessImages()
@@ -171,7 +223,7 @@ class HomeController extends Controller
             $photoName = json_decode($home->photo);
             foreach ($data as $key => $photo) {
                 preg_match_all('/\d+/', $key, $matches);
-                $fileName = round(microtime(true) * 1000) . '.' . $photo->extension();
+                $fileName = Str::uuid()->toString() . '.' . $photo->extension();
                 $photo->move(public_path('images'), $fileName);
 
                 if (is_numeric(strpos($key, 'visible'))) {
@@ -232,7 +284,7 @@ class HomeController extends Controller
                             $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED : Home::STATUS_MODERATION;
                             $condition = false;
                         }
-                        $fileName = round(microtime(true) * 1000) . '.' . $photo->extension();
+                        $fileName = Str::uuid()->toString() . '.' . $photo->extension();
                         $photo->move(public_path('images'), $fileName);
 
                         if (is_numeric(strpos($key, 'visible'))) {
@@ -296,7 +348,7 @@ class HomeController extends Controller
                             $home->status = auth()->user()->role == "admin" || auth()->user()->role == "moderator" ? Home::STATUS_APPROVED : Home::STATUS_MODERATION;
                             $condition = false;
                         }
-                        $fileName = round(microtime(true) * 1000) . '.' . $photo->extension();
+                        $fileName = Str::uuid()->toString() . '.' . $photo->extension();
                         $photo->move(public_path('images'), $fileName);
 
                         if (is_numeric(strpos($key, 'visible'))) {
@@ -340,7 +392,7 @@ class HomeController extends Controller
                     $fileNameArray[] = $file;
                 }
                 if (gettype($file) == 'object') {
-                    $fileName = round(microtime(true) * 1000) . '.' . $file->extension();
+                    $fileName = Str::uuid()->toString() . '.' . $file->extension();
                     $file->move(public_path('files'), $fileName);
                     $fileNameArray[] = $fileName;
                 }
@@ -364,11 +416,9 @@ class HomeController extends Controller
     public function multyPhoto($id, Request $request)
     {
         $data = $request->all();
-        info('getHome', ['user_id' => auth()->id(), 'home_id' => $id, 'data' => json_encode($data)]);
-        $home = Home::findorFail($id);
         $photoName = [];
         foreach ($data as $key => $photo) {
-            $fileName = round(microtime(true) * 1000) . '.' . $photo->extension();
+            $fileName = Str::uuid()->toString() . '.' . $photo->extension();
             $photo->move(public_path('images'), $fileName);
 
             if (is_numeric(strpos($key, 'visible'))) {
@@ -384,8 +434,9 @@ class HomeController extends Controller
             }
             $photoName[] = $info;
         }
-        $home->photo = json_encode($photoName);
-        $home->save();
+        Home::query()->findorFail($id)->update([
+            'photo' => json_encode($photoName)
+        ]);
 
         return true;
     }
@@ -397,7 +448,7 @@ class HomeController extends Controller
         $home = Home::findorFail($id);
         $fileNameArray = [];
         foreach ($data as $key => $file) {
-            $fileName = round(microtime(true) * 1000) . '.' . $file->extension();
+            $fileName = Str::uuid()->toString() . '.' . $file->extension();
             $file->move(public_path('files'), $fileName);
             $fileNameArray[] = $fileName;
         }
